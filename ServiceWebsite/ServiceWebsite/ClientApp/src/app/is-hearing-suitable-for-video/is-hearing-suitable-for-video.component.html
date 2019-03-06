@@ -1,0 +1,70 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <app-back-navigation></app-back-navigation>
+  </div>
+  <div class="govuk-grid-column-one-half">
+    <app-checklist-steps></app-checklist-steps>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l"> {{localeResources.HearingSuitability}}</h1>
+
+    <form [formGroup]="isSuitableForm" class="govuk-form-group" (ngSubmit)="continue()">
+
+      <div [ngClass]="isSuitableForm.invalid && suitabilityCheck ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <fieldset class="govuk-fieldset" aria-describedby="ability-hint ability-error">
+          <div *ngIf="isSuitableForm.invalid && suitabilityCheck">
+            <span id="suitability-error" class="govuk-error-message">
+              {{localeResources.PleaseAnswerThisQuestion }}
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-6">
+            {{localeResources.Basedonyourknowledge}}
+          </p>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="suitability_yes" name="suitability" type="radio" value="Yes"
+                    formControlName="suitability">
+                  <label class="govuk-label govuk-radios__label" for="suitability_yes">
+                    <strong>{{localeResources.Yes}}</strong>
+                  </label>
+
+                </div>
+                <div class="govuk-radios__item govuk-grid-column-two-thirds">
+                  <input class="govuk-radios__input" id="suitability_no" name="suitability" type="radio" value="No"
+                    formControlName="suitability">
+                  <label class="govuk-label govuk-radios__label" for="suitability_no">
+                    <strong>{{localeResources.No}}</strong>
+                  </label>
+                  <div class="form-group textarea-top-margin" *ngIf="selectedAnswer === 'No'" [ngClass]="isSuitableForm.invalid && suitabilityCheck && !ProvideMoreInfo ? 'govuk-form-group--error' : 'govuk-form-group'">
+                    <div>
+                      <span id="suitability-error" class="govuk-error-message" [ngClass]="isSuitableForm.invalid && suitabilityCheck && !ProvideMoreInfo ? 'govuk-error-message' : 'govuk-hint'">
+                        {{localeResources.PleaseExplainWhy}}
+                      </span>
+                    </div>
+                    <textarea class="txtMore vh-text-width" id="moreDetails" name="moreDetails" rows="5" cols="80" formControlName="moreDetails"
+                      aria-describedby="more-detail-hint" [ngClass]="isSuitableForm.invalid && suitabilityCheck && !ProvideMoreInfo ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+      <div class="mt-20">
+        <button type="button" class="govuk-button" (click)="continue()">
+          {{buttonAction}}
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<app-checklist-footer></app-checklist-footer>

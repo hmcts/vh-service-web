@@ -1,0 +1,71 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <app-back-navigation></app-back-navigation>
+  </div>
+
+  <div class="govuk-grid-column-one-half steps-right">
+    <app-checklist-steps></app-checklist-steps>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">{{localeResources.AboutYouAndYourClient}}</h1>
+
+  </div>
+</div>
+
+<form #userForm="ngForm" (ngSubmit)="submitDetails()" novalidate>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div [ngClass]="{'govuk-form-group--error fieldset-margin': userForm.form.invalid && submitted}">
+
+        <div *ngIf="aboutClient.invalid && submitted">
+          <span id="about-your-client-error" class="govuk-error-message">
+            {{localeResources.PleaseAnswerThisQuestion}}
+          </span>
+        </div>
+        <div class="form-group column-half">
+          <fieldset class="govuk-fieldset" aria-describedby="videohearing-about-client-hint">
+            <p class="govuk-body govuk-!-margin-bottom-5">
+              {{localeResources.WillYourClient}}
+            </p>
+
+            <div class="govuk-form-group">
+              <fieldset class="govuk-fieldset">
+                <div class="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input id="videoHearingAboutClient-1" class="govuk-radios__input" name="videoHearingAboutClient"
+                           type="radio" value="yes" #aboutClient="ngModel" [(ngModel)]="model.aboutClient"
+                           required>
+
+                    <label class="govuk-label govuk-radios__label" for="videoHearingAboutClient-1">
+                      <strong> {{localeResources.AboutClientQuestionYes}}</strong>
+                    </label>
+
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input id="videoHearingAboutClient-2" class="govuk-radios__input" name="videoHearingAboutClient"
+                           type="radio" value="no" #aboutClient="ngModel" [(ngModel)]="model.aboutClient"
+                           required>
+                    <label class="govuk-label govuk-radios__label" for="videoHearingAboutClient-2">
+                      <strong>{{localeResources.No}}</strong>
+                    </label>
+                  </div>
+
+                </div>
+              </fieldset>
+            </div>
+          </fieldset>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <input class="govuk-button" type="submit" value="{{buttonAction}}">
+</form>
+
+<app-checklist-footer></app-checklist-footer>
+<app-beforeunload></app-beforeunload>

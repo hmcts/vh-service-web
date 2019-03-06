@@ -1,0 +1,45 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <app-back-navigation></app-back-navigation>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{ localeResources.CheckYourAnswers }}</h1>
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">{{ localeResources.YourQuestions }}</th>
+          <th class="govuk-table__header" scope="col" colspan="2">{{ localeResources.YourAnswers }}</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row" *ngFor="let checkItem of summaryModelList">
+          <td class="govuk-table__cell govuk-!-width-three-quarters" scope="row">
+              {{ checkItem.Question }}
+            <span id="with-hint-hint" class="govuk-hint" *ngIf="checkItem.ShowTextAnswer">
+              {{ checkItem.Answer }}
+            </span>
+          </td>
+          <td class="govuk-table__cell" *ngIf="!checkItem.ShowTextAnswer">{{ checkItem.Answer }}</td>
+          <td class="govuk-table__cell" *ngIf="checkItem.ShowTextAnswer"></td>
+          <td class="govuk-table__cell">
+            <a [routerLink]="[checkItem.RouterLink]" (click)="changeAnswer()" class="govuk-link govuk-link--no-visited-state">
+              {{ localeResources.Change }}
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <input [disabled]="!canSubmit" type="button" class="govuk-button" (click)="submit()" value="{{ localeResources.SubmitMyAnswers }}" />
+
+  </div>
+</div>
+
+<div>
+  <app-checklist-footer [isUserProfessional]="isProfessional"></app-checklist-footer>
+</div>
+<app-beforeunload></app-beforeunload>

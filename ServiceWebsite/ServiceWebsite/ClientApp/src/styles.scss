@@ -1,0 +1,28 @@
+@import "node_modules/bootstrap/dist/css/bootstrap.css";
+@import "node_modules/govuk-frontend/all";
+@import "node_modules/@hmcts/frontend/all";
+
+/* Extend default tags with govuk-typography classes */
+h1 {
+    @extend .govuk-heading-xl
+}
+
+h2 { 
+    @extend .govuk-heading-l
+}
+
+h3 {
+    @extend .govuk-heading-m
+}
+
+h4 {
+    @extend .govuk-heading-s
+}
+
+p {
+    @extend .govuk-body
+}
+
+a {
+  text-decoration:underline;
+}

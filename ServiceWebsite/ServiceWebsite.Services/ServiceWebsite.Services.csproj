@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HearingsAPI.Client" Version="1.1.5127" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
+    <ProjectReference Include="..\ServiceWebsite.Domain\ServiceWebsite.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

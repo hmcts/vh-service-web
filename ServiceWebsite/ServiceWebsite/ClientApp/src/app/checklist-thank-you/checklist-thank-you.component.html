@@ -1,0 +1,50 @@
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag ">
+      Feedback
+    </strong>
+    <span class="govuk-phase-banner__text">
+      {{localeResources.FeedbackString1}}<a class="govuk-link" target="_blank" href="http://www.smartsurvey.co.uk/s/VHDSES/">{{localeResources.FeedbackString2}}</a>{{localeResources.FeedbackString3}}
+    </span>
+  </p>
+</div>
+
+<div *ngIf="isProfessional">
+  <div class="govuk-grid-row mb-20 mt-20">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">{{localeResources.Thankyou}}</h1>
+
+      <p class="govuk-body govuk-!-margin-bottom-3">
+        {{localeResources.Receivedyouranswers}}.
+      </p>
+
+      <p class="govuk-body govuk-!-margin-bottom-9">
+        {{localeResources.Whathappensnext}}
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isProfessional">
+  <div class="govuk-grid-row mb-20 mt-20">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">{{localeResources.Thankyou}}</h1>
+
+      <p class="govuk-body govuk-!-margin-bottom-3">
+        {{localeResources.CitizenThankYou.ParagraphOne}}
+      </p>
+
+      <p class="govuk-body govuk-!-margin-bottom-9">
+        {{localeResources.CitizenThankYou.ParagraphTwo}}
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<div class="mt-20 govuk-!-margin-bottom-9">
+  <app-checklist-footer [isUserProfessional]="isProfessional"></app-checklist-footer>
+</div>

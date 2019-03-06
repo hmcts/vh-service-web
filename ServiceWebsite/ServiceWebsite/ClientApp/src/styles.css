@@ -1,0 +1,69 @@
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.textarea-top-margin {
+    margin-top: 10px;
+}
+
+/* Ensures space below footer on small pages has same colour */
+.govuk-template {
+    background-color: #dee0e2;
+}
+
+/* Margin classes */
+.mt-20 {
+    margin-top: 20px;
+}
+
+.steps-style {
+    text-align: right;
+    padding-top: 10px;
+}
+
+.right-align {
+    float: right;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.panel-blue {
+    background-color: #005ea5;
+    padding: 30px;
+}
+
+.text-white {
+    color: white;
+}
+
+.image {
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.title {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.imageCourt {
+    margin-top: 45px;
+    margin-left: 50px;
+}
+.imageTelephone {
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.imageVideo {
+    margin-top: 55px;
+    margin-left: 50px;
+}
+.vh-page-min-height {
+    min-height: 580px;
+}
+
+.vh-text-width {
+    width: 100%;
+}

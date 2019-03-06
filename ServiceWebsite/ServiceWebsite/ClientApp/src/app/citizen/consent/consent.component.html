@@ -1,0 +1,75 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <app-back-navigation></app-back-navigation>
+  </div>
+  <div class="govuk-grid-column-one-half">
+    <app-checklist-steps></app-checklist-steps>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l"> {{localeResources.CitizenConsent.Title}}</h1>
+
+    <form [formGroup]="consentForm" class="govuk-form-group" (ngSubmit)="continue()">
+
+      <div [ngClass]="consentForm.invalid && consentCheck ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <fieldset class="govuk-fieldset" aria-describedby="consent-hint ability-error">
+          <div *ngIf="consentForm.invalid && consentCheck">
+            <span id="consent-error" class="govuk-error-message">
+              {{localeResources.PleaseAnswerThisQuestion }}
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-3">
+            {{localeResources.CitizenConsent.Paragraph1}}
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-4">
+            {{localeResources.CitizenConsent.Paragraph2}}
+          </p>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="consent_yes" name="consent" type="radio" value="Yes"
+                         formControlName="consent">
+                  <label class="govuk-label govuk-radios__label" for="consent_yes">
+                    <strong>{{localeResources.Yes}}</strong>
+                  </label>
+                </div>
+                <div class="govuk-radios__item govuk-grid-column-two-thirds">
+                  <input class="govuk-radios__input" id="consent_no" name="consent" type="radio" value="No"
+                         formControlName="consent">
+                  <label class="govuk-label govuk-radios__label" for="consent_no">
+                    <strong>{{localeResources.No}}</strong>
+                  </label>
+                  <div class="form-group textarea-top-margin" *ngIf="selectedAnswer === 'No'"
+                       [ngClass]="consentForm.invalid && consentCheck && !provideMoreInfo ? 'govuk-form-group--error' : 'govuk-form-group'">
+                    <div>
+                      <span id="consent-error" [ngClass]="consentForm.invalid && consentCheck && !provideMoreInfo ? 'govuk-error-message' : 'govuk-hint'">
+                        {{localeResources.PleaseExplainWhy}}
+                      </span>
+                    </div>
+                    <textarea class="txtMore vh-text-width" id="moreDetails" name="moreDetails" rows="5" cols="80" formControlName="moreDetails"
+                              aria-describedby="more-detail-hint" [ngClass]="consentForm.invalid && consentCheck && !provideMoreInfo ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+      <div class="mt-20">
+        <button type="button" class="govuk-button" (click)="continue()">
+          {{buttonAction}}
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<app-checklist-footer [isUserProfessional]="false"></app-checklist-footer>
+
+<app-beforeunload></app-beforeunload>

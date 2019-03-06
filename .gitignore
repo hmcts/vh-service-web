@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ServiceWebsite/ServiceWebsite.Services/obj/Debug/netcoreapp2.2
+/ServiceWebsite/ServiceWebsite.Services/obj
+/ServiceWebsite/ServiceWebsite.Services/bin/Debug/netcoreapp2.2
+/ServiceWebsite/ServiceWebsite.Domain/obj
+/ServiceWebsite/ServiceWebsite.Domain/bin/Debug/netcoreapp2.2
+/ServiceWebsite/ServiceWebsite.Common/obj
+/ServiceWebsite/ServiceWebsite.Common/bin/Debug/netcoreapp2.2
+/ServiceWebsite/ServiceWebsite/wwwroot
+/ServiceWebsite/.vs/ServiceWebsite/v15/.suo
+/ServiceWebsite/.vs

@@ -1,0 +1,43 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <app-back-navigation></app-back-navigation>
+  </div>
+  <div class="govuk-grid-column-one-half">
+    <app-checklist-steps></app-checklist-steps>
+  </div>
+</div>
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{localeResources.AboutYourEquipment}}</h1>
+
+    <p class="govuk-body govuk-!-margin-bottom-3">
+      {{localeResources.WeareNowGoingToDetect.Heading}}
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{localeResources.WeareNowGoingToDetect.Detect1}}</li>
+      <li>{{localeResources.WeareNowGoingToDetect.Detect2}}</li>
+      <li>{{localeResources.WeareNowGoingToDetect.Detect3}}</li>
+      <li>{{localeResources.WeareNowGoingToDetect.Detect4}}</li>
+    </ul>
+
+    <p class="govuk-body govuk-!-margin-bottom-5">
+      {{localeResources.WeCanDetectAutomatically}}
+    </p>
+
+    <app-show-details [detailsTitle]="localeResources.WhyDoYouNeedToFindout"
+                      [textArray]="[localeResources.CheckCompatability, localeResources.CheckCameraAndMicrophone]">
+    </app-show-details>
+
+  </div>
+</div>
+
+<button type="submit" class="govuk-button" (click)="start()" id="start">
+  {{localeResources.StartCompatibilityChecks}}
+</button>
+
+<app-checklist-footer></app-checklist-footer>
+<app-beforeunload></app-beforeunload>

@@ -1,0 +1,32 @@
+<div *ngIf="isUserProfessional" >
+  <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1" id="professional-contact-details">
+    If you need to speak
+    to us:
+  </p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>Call 0300 303 0655 and quote your hearing reference number {{this.caseNumber}}</li>
+  </ul>
+</div>
+
+<div *ngIf="!isUserProfessional">
+  <details class="govuk-details">
+    <summary class="govuk-details__summary" (click)="showDetails()">
+      <span class="govuk-details__summary-text"   id="citizen-contact-details">
+        {{localeResources.CitizenFooter.FooterTitle}}
+      </span>
+    </summary>
+    <div class="govuk-details__text" *ngIf="showTextDetails">
+      <p class="govuk-body govuk-!-margin-bottom-0"><strong>{{localeResources.CitizenFooter.TitleOne}}</strong></p>
+      <p class="govuk-body govuk-!-margin-bottom-0">{{localeResources.CitizenFooter.FooterParagraphOne}} {{caseNumber}}</p>
+      <span id="telephone-hint" class="govuk-hint">
+        {{localeResources.CitizenFooter.HintOne}}
+      </span>
+
+      <p class="govuk-body govuk-!-margin-bottom-0"><strong>{{localeResources.CitizenFooter.TitleTwo}} </strong></p>
+      <p class="govuk-body govuk-!-margin-bottom-0">
+        {{localeResources.CitizenFooter.FooterEmailUs}} <a class="govuk-link" target="_blank" href="mailto:{{contactUsEmail}}" data-hsupport="email">{{contactUsEmail}}</a>
+        {{localeResources.CitizenFooter.FooterParagraphTwo}} {{caseNumber}}
+      </p>
+    </div>
+  </details>
+</div>

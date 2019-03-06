@@ -1,0 +1,13 @@
+<div id="cancelPopup" class="popup-overlay">
+  <div class="popup popup-small" style="text-align: center;">
+    <div class="content vh-centre">
+      <h1 class="govuk-heading-m"> {{localeResources.SignOutConfirmation}}</h1>
+      <div class="govuk-grid-row">
+        <div class="vh-top">
+          <input id="btnsubmit" class="govuk-button vh-mr" type="submit" value="{{localeResources.ConfirmSignOut}}" (click)="cancel()">
+          <input id="btncancel" class="govuk-button vh-btncancel" type="submit" value="{{localeResources.CancelSignOut}}" (click)="continue()">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

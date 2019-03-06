@@ -1,0 +1,65 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <app-back-navigation></app-back-navigation>
+  </div>
+  <div class="govuk-grid-column-one-half">
+    <app-checklist-steps></app-checklist-steps>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{ localeResources.AboutYourEquipment }}</h1>
+
+    <form [formGroup]="sameComputerForm" class="govuk-form-group" (ngSubmit)="continue()">
+
+      <div [ngClass]="sameComputerForm.invalid && submitted ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <fieldset class="govuk-fieldset" aria-describedby="sameComputers-hint sameComputers-error">
+          <div *ngIf="sameComputerForm.invalid && submitted">
+            <span id="sameComputer-error" class="govuk-error-message">
+              {{ localeResources.PleaseAnswerThisQuestion }}
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-3">
+            {{ localeResources.SameComputerConfirmationText}}
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-3">
+            {{ localeResources.SameComputerQuestion }}
+          </p>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="same-computer-1" name="sameComputer" type="radio" value="Yes"
+                    formControlName="sameComputer">
+                  <label class="govuk-label govuk-radios__label" for="same-computer-1">
+                    <strong>{{ localeResources.SameComputerYesText }}</strong>
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="same-computer-2" name="sameComputer" type="radio" value="No"
+                    formControlName="sameComputer">
+                  <label class="govuk-label govuk-radios__label" for="same-computer-2">
+                    <strong>{{ localeResources.SameComputerNoText }}</strong>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="mt-20">
+        <input type="button" class="govuk-button" value="{{localeResources.Continue}}" (click)="continue()" />
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<app-checklist-footer></app-checklist-footer>

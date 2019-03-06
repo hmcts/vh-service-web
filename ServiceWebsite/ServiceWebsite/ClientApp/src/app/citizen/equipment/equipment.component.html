@@ -1,0 +1,134 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <app-back-navigation></app-back-navigation>
+  </div>
+  <div class="govuk-grid-column-one-half">
+    <app-checklist-steps></app-checklist-steps>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">{{localeResources.AboutYourEquipment}}</h1>
+
+    <form [formGroup]="equipmentForm" class="govuk-form-group" (ngSubmit)="continue()">
+      <div [ngClass]="!optionDeviceValid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <fieldset class="govuk-fieldset" aria-describedby="equipment-hint equipment-error">
+          <div *ngIf="!optionDeviceValid">
+            <span id="equipment-error" class="govuk-error-message">
+              {{localeResources.PleaseAnswerThisQuestion}}
+            </span>
+          </div>
+          <p class="govuk-body govuk-!-margin-bottom-6" id="equipment-select">
+              {{ isProfessional ? localeResources.ProfessionalAboutEquipment.Paragraph1 : localeResources.CitizenAboutEquipment.Paragraph1 }}
+          </p>
+          <span class="govuk-hint" id="equipment-hint">
+            {{localeResources.CitizenAboutEquipment.AnswerHint}}
+          </span>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset fieldset-margin">
+              <div class="govuk-checkboxes">
+                <div class="govuk-checkboxes__item" *ngIf="!isProfessional">
+                  <input class="govuk-checkboxes__input" id="phone-1" name="device" type="checkbox" value="phone"
+                    formControlName="phone">
+                  <label class="govuk-label govuk-checkboxes__label" for="phone-1">
+                    {{localeResources.CitizenAboutEquipment.Device1}}
+                  </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="internet-2" name="device" type="checkbox" value="internet"
+                    formControlName="internetConnection">
+                  <label class="govuk-label govuk-checkboxes__label" for="internet-2">
+                    {{localeResources.CitizenAboutEquipment.Device2}}
+                  </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="laptop-3" name="device" type="checkbox" value="laptop"
+                    formControlName="laptop">
+                  <label class="govuk-label govuk-checkboxes__label" for="laptop-3">
+                    {{localeResources.CitizenAboutEquipment.Device3}}
+                  </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="desktop-4" name="device" type="checkbox" value="desktop"
+                    formControlName="desktop">
+                  <label class="govuk-label govuk-checkboxes__label" for="desktop-4">
+                    {{localeResources.CitizenAboutEquipment.Device4}}
+                  </label>
+                </div>
+
+                <div *ngIf="desktopSelected" class="vh-mt">
+                  <div [ngClass]="needCameraCheck ? 'govuk-form-group--error' : 'govuk-form-group govuk-details__text'">
+                    <fieldset class="govuk-fieldset" aria-describedby="equipment-hint equipment-error">
+                      <div *ngIf="needCameraCheck ">
+                        <span id="equipment-error" class="govuk-error-message">
+                          {{localeResources.PleaseAnswerThisQuestion}}
+                        </span>
+                      </div>
+
+                      <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            <span class="govuk-body">
+                              {{localeResources.CitizenAboutEquipment.CameraQuestion}}
+                            </span>
+                          </legend>
+                          <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                              <input class="govuk-radios__input" id="notsure-1" name="hasCamera" type="radio" value="notSure"
+                                formControlName="hasCamera">
+                              <label class="govuk-label govuk-radios__label" for="notsure-1">
+                                <strong>{{localeResources.CitizenAboutEquipment.CameraAnswer}}</strong>
+                              </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                              <input class="govuk-radios__input" id="yes-2" name="hasCamera" type="radio" value="yes"
+                                formControlName="hasCamera">
+                              <label class="govuk-label govuk-radios__label" for="yes-2">
+                                <strong>{{localeResources.Yes}}</strong>
+                              </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                              <input class="govuk-radios__input" id="no-3" name="hasCamera" type="radio" value="no"
+                                formControlName="hasCamera">
+                              <label class="govuk-label govuk-radios__label" for="no-3">
+                                <strong>{{localeResources.No}}</strong>
+                              </label>
+                            </div>
+
+                          </div>
+                        </fieldset>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="govuk-checkboxes__item vh-mt30">
+                  <input class="govuk-checkboxes__input" id="none-5" name="device" type="checkbox" value="noneOfAbove"
+                    formControlName="noneOfAbove">
+                  <label class="govuk-label govuk-checkboxes__label" for="none-5">
+                    {{localeResources.CitizenAboutEquipment.NoDevice}}
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+
+    <app-show-details [detailsTitle]="localeResources.CitizenAboutEquipment.EquipmentQuestion"
+                      [textArray]="[localeResources.CitizenAboutEquipment.EquipmentAnswer]">
+    </app-show-details>
+
+    <div class="mt-20">
+      <input class="govuk-button" type="button" value="{{buttonAction}}" (click)="continue()">
+    </div>
+
+  </div>
+</div>
+
+<app-checklist-footer [isUserProfessional]="false"></app-checklist-footer>
+
+<app-beforeunload></app-beforeunload>

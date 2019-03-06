@@ -1,0 +1,28 @@
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+
+                <h1 class="govuk-heading-l">{{ localeResources.HearingSuitabilityCheck }}</h1>
+
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                    {{ localeResources.HearingSuitabilityParagraphOne }}
+                </p>
+                <p class="govuk-body govuk-!-margin-bottom-5">
+                    {{ localeResources.HearingSuitabilityParagraphTwo }}
+                </p>
+
+                <ul class="govuk-list govuk-list--bullet padding-bullets-left">
+                    <li>{{ localeResources.SuitabilityTestPoints.AnsweringQuestions }}</li>
+                    <li>{{ localeResources.SuitabilityTestPoints.AllowUsToRunTests }}</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <button type="button" class="govuk-button govuk-button--start" (click)="startChecklist()">
+        {{ localeResources.StartNow }}
+    </button>
+
+    <app-checklist-footer></app-checklist-footer>
+</div>

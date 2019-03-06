@@ -1,0 +1,157 @@
+﻿using System;
+using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using ServiceWebsite.Controllers;
+using ServiceWebsite.Helpers;
+using ServiceWebsite.Security;
+
+namespace Website
+{
+    public class Startup
+    {
+        public Startup()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", false, true)
+                .AddEnvironmentVariables();
+            builder.AddUserSecrets<Startup>();
+
+            Configuration = builder.Build();
+        }
+
+        public IConfiguration Configuration { get; }
+
+        /// <summary>
+        ///     This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddCors();
+
+            services.AddJsonOptions();
+
+            RegisterSettings(services);
+
+            services.AddCustomTypes();
+
+            var settings = Configuration.Get<EnvironmentSettings>();
+            services.AddApplicationInsightsTelemetry(settings.AppInsightsKey);
+
+            RegisterAuth(services);
+            services.AddMvc();
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+        }
+
+        private void RegisterSettings(IServiceCollection services)
+        {
+            services.Configure<EnvironmentSettings>(options => Configuration.Bind(options));
+            services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
+        }
+
+        private void RegisterAuth(IServiceCollection services)
+        {
+            var settings = Configuration.Get<EnvironmentSettings>();
+
+            var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+
+            services.AddMvc(options => { options.Filters.Add(new AuthorizeFilter(policy)); });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = settings.Authority + settings.TenantId;
+                options.TokenValidationParameters.ValidateLifetime = true;
+                options.Audience = settings.ClientId;
+                options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+            });
+
+            services.AddAuthorization();
+        }
+
+        /// <summary>
+        ///     This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                const string url = "/swagger/v1/swagger.json";
+                c.SwaggerEndpoint(url, "Video Hearings Website backend");
+            });
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                // this will route any unhandled exceptions to the angular error page
+                app.UseExceptionHandler(Urls.Error);
+
+                app.UseHsts();
+                app.UseHttpsRedirection();
+            }
+
+            app.UseAuthentication();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .AllowAnyHeader());
+
+            app.UseMiddleware<ExceptionMiddleware>();
+            
+            
+
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+            
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opts => opts.NoReferrer());
+            app.UseXXssProtection(options => options.EnabledWithBlockMode());
+            app.UseNoCacheHttpHeaders();
+            
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
+            
+            app.UseSpa(spa =>
+            {
+                // Make the source folder relative to content to allow integration test project to run as well
+                var sourcePath = Path.Combine(env.ContentRootPath, "ClientApp");
+                spa.Options.SourcePath = sourcePath;
+
+                if (env.IsDevelopment())
+                {
+                    // this magically uses the ng serve to host the web app under the same port as the api
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+        }
+    }
+}

@@ -1,0 +1,14 @@
+<details class="govuk-details">
+  <summary class="govuk-details__summary" (click)="showDetails()">
+    <span class="govuk-details__summary-text">
+      {{detailsTitle}}
+    </span>
+  </summary>
+  <div class="govuk-details__text" *ngIf="showTextDetails">
+    <div *ngFor="let textItem of textArray">
+      <p class="govuk-body govuk-!-margin-bottom-4">
+        {{textItem}}
+      </p>
+    </div>
+  </div>
+</details>

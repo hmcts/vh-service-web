@@ -1,0 +1,16 @@
+.vh-red{
+    color: #b10c1e;
+}
+.vh-bold{
+    font-weight: bold;
+}
+.vh-mt20{
+  margin-top:20px;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+
+.vh-top{
+ margin-top:5px;
+}
+
