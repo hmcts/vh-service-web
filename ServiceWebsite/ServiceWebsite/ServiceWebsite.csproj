@@ -10,7 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-	<UserSecretsId>34ab92f6-b134-4a3c-b4d5-d507574aaa03</UserSecretsId>
+	<UserSecretsId>CF5CDD5E-FD74-4EDE-8765-2F899C252122</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

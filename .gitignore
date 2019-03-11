@@ -12,3 +12,7 @@
 /ServiceWebsite/ServiceWebsite/wwwroot
 /ServiceWebsite/.vs/ServiceWebsite/v15/.suo
 /ServiceWebsite/.vs
+/ServiceWebsite/ServiceWebsite.IntegrationTests/bin/Debug/netcoreapp2.2
+/ServiceWebsite/ServiceWebsite.IntegrationTests/obj
+/ServiceWebsite/ServiceWebsite.UnitTests/bin/Debug/netcoreapp2.2
+/ServiceWebsite/ServiceWebsite.UnitTests/obj

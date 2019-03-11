@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Website
+namespace ServiceWebsite
 {
     public static class Program
     {

@@ -13,7 +13,7 @@ using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
 
-namespace Website
+namespace ServiceWebsite
 {
     public static class ConfigureServicesExtensions
     {
