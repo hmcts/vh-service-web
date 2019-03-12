@@ -13,6 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWebsite.Services", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWebsite.UserAPI.Client", "ServiceWebsite.UserAPI.Client\ServiceWebsite.UserAPI.Client.csproj", "{5605D587-9071-4321-8440-737DAD43F0FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWebsite.IntegrationTests", "ServiceWebsite.IntegrationTests\ServiceWebsite.IntegrationTests.csproj", "{9A885A59-EF12-4429-A749-51AE897462C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWebsite.UnitTests", "ServiceWebsite.UnitTests\ServiceWebsite.UnitTests.csproj", "{838F3A68-1C32-4A13-86B9-C00B808FF0A5}"
 EndProject
