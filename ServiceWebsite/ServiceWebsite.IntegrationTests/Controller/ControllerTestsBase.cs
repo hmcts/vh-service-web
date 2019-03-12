@@ -27,7 +27,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
         public void OneTimeSetup()
         {
             var integrationTestsPath = PlatformServices.Default.Application.ApplicationBasePath;
-            var applicationPath = Path.GetFullPath(Path.Combine(integrationTestsPath, "../../../../Website"));
+            var applicationPath = Path.GetFullPath(Path.Combine(integrationTestsPath, "../../../../ServiceWebsite"));
             TestContext.WriteLine($"Using content root: {applicationPath}");
 
             var webHostBuilder =
