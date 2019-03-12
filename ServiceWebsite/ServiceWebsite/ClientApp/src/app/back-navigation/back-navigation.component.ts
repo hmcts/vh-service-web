@@ -5,14 +5,13 @@ import { Location } from '@angular/common';
   selector: 'app-back-navigation',
   templateUrl: './back-navigation.component.html',
 })
-export class BackNavigationComponent{
+export class BackNavigationComponent {
 
   redirectUrl: string;
 
   constructor(private location: Location) {
   }
-  navigateBack()
-  {
+  navigateBack() {
      this.location.back();
   }
 }

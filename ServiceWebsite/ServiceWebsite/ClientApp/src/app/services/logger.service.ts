@@ -4,7 +4,7 @@ import { AppInsightsLogger } from './app-insights-logger.service';
 
 @Injectable()
 export class LoggerService {
-  
+
   private loggers: Logger[];
 
   constructor(appInsightsLogger: AppInsightsLogger) {
@@ -22,10 +22,10 @@ export class LoggerService {
 
 class ConsoleLogger implements Logger {
   trackEvent(eventName: string, properties: any = null) {
-    var propertiesFormatted = properties ? JSON.stringify(properties) : '';
+    const propertiesFormatted = properties ? JSON.stringify(properties) : '';
     console.log(`[EVENT:${eventName}] ${propertiesFormatted}`.trim());
-  }  
-  
+  }
+
   trackException(message: string, err: Error, properties: any = null) {
     console.error(`[ERROR] ${message}`, err);
     if (properties) {

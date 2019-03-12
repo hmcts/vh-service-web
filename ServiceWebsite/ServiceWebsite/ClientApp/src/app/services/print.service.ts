@@ -7,14 +7,13 @@ export class PrintService {
   }
 
   printPage(elementId: string) {
-    let originalContent = document.body.innerHTML;
-    let printContent = elementId ? document.getElementById(elementId).innerHTML : originalContent;
+    const originalContent = document.body.innerHTML;
+    const printContent = elementId ? document.getElementById(elementId).innerHTML : originalContent;
     document.body.innerHTML = printContent;
 
     try {
       document.execCommand('print', false, null);
-    }
-    catch (e) {
+    } catch (e) {
       window.print();
     }
 

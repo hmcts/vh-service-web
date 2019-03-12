@@ -27,7 +27,7 @@ const config = {};
 export class ConfirmationSignoutPopupStubComponent {
   @Output() continueAnswers: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancelAnswers: EventEmitter<any> = new EventEmitter<any>();
-};
+}
 
 let component: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -36,7 +36,7 @@ let window: jasmine.SpyObj<WindowRef>;
 let pageTracker: jasmine.SpyObj<PageTrackerService>;
 const checklistSessionServiceSpy = {
   setItem: jasmine.createSpy('isChecklistInStorage'),
-}
+};
 describe('AppComponent', () => {
 
   beforeEach(async(() => {
@@ -68,7 +68,7 @@ describe('AppComponent', () => {
           { provide: ChecklistSessionService, useValue: checklistSessionServiceSpy },
 
         ],
-    }).compileComponents()
+    }).compileComponents();
 
   }));
   beforeEach(() => {
@@ -103,8 +103,8 @@ describe('AppComponent', () => {
 
     component.ngOnInit();
 
-    let lastRouterCall = router.navigate.calls.mostRecent();
-    let lastRoutingArgs = {
+    const lastRouterCall = router.navigate.calls.mostRecent();
+    const lastRoutingArgs = {
       url: lastRouterCall.args[0][0],
       queryParams: lastRouterCall.args[1].queryParams
     };

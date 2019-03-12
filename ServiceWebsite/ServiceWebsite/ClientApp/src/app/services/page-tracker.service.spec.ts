@@ -19,7 +19,7 @@ describe('PageTrackerService', () => {
   let pageTrackerService: PageTrackerService;
   let appInsightsLogger: jasmine.SpyObj<AppInsightsLogger>;
   let router: Router;
-  class sessionStorageStub {
+  class SessionStorageStub {
     setItem(keyWord) { }
   }
 
@@ -29,7 +29,7 @@ describe('PageTrackerService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([
-            { path: 'component-path', 
+            { path: 'component-path',
             component: MockComponent,
             children: [
                 { path: 'sub-component', component: MockComponent }
@@ -42,7 +42,7 @@ describe('PageTrackerService', () => {
       providers: [
         PageTrackerService,
         { provide: AppInsightsLogger, useValue: appInsightsLogger },
-        { provide: SessionStorage, useClass: sessionStorageStub },
+        { provide: SessionStorage, useClass: SessionStorageStub },
       ]
     });
 
@@ -53,15 +53,16 @@ describe('PageTrackerService', () => {
 
   it('should log page on routing', fakeAsync(() => {
     router.initialNavigation();
-    router.navigate(['component-path']);    
+    router.navigate(['component-path']);
     tick();
     expect(appInsightsLogger.trackPage).toHaveBeenCalledWith('MockComponent /component-path', '/component-path');
   }));
 
   it('should log page with child on routing', fakeAsync(() => {
     router.initialNavigation();
-    router.navigate(['component-path/sub-component']);    
+    router.navigate(['component-path/sub-component']);
     tick();
-    expect(appInsightsLogger.trackPage).toHaveBeenCalledWith('MockComponent /component-path/sub-component', '/component-path/sub-component');
+    expect(appInsightsLogger.trackPage).toHaveBeenCalledWith('MockComponent /component-path/sub-component',
+              '/component-path/sub-component');
   }));
 });

@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AboutHearingsComponent } from '../citizen/about-hearings/about-hearings.component';
 import { DifferentHearingTypesComponent } from '../citizen/different-hearing-types/different-hearing-types.component';
-import { InterpreterComponent } from "../citizen/interpreter/interpreter.component";
+import { InterpreterComponent } from '../citizen/interpreter/interpreter.component';
 import { ContinueToQuestionsComponent } from '../citizen/continue-to-questions/continue-to-questions.component';
 import { MakeTheCourtAwareComponent } from '../citizen/make-the-court-aware/make-the-court-aware.component';
 import { EquipmentComponent } from '../citizen/equipment/equipment.component';

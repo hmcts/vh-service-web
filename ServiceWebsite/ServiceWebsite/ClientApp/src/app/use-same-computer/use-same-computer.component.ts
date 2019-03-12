@@ -18,7 +18,7 @@ import { CONFIG } from 'src/app/shared/config';
 })
 export class UseSameComputerComponent implements OnInit {
   sameComputerForm: FormGroup;
-  submitted: boolean = false;
+  submitted = false;
   selectedAnswer: string;
   checklist: ChecklistModel;
   userProfile: UserProfile;

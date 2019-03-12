@@ -11,7 +11,7 @@ export class ShowDetailsComponent {
   @Input()
   textArray: Array<string> = [];
 
-  showTextDetails: boolean = false;
+  showTextDetails = false;
 
   showDetails() {
     this.showTextDetails = !this.showTextDetails;

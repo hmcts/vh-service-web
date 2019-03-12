@@ -10,7 +10,7 @@ import { Constants } from '../shared/constants';
 export class ErrorComponent {
 
   localeResources: any;
-  showTextDetails: boolean = false;
+  showTextDetails = false;
   contactUsEmail: string;
 
   constructor() {

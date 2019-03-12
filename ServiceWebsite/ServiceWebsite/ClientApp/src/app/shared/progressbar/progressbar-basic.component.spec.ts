@@ -36,8 +36,8 @@ describe('ProgressbarBasicComponent', () => {
   });
 
   it('should display result', async(() => {
-    componentUnderTest.checkTitle = "Internet";
-    componentUnderTest.checkResult = "25Mbs";
+    componentUnderTest.checkTitle = 'Internet';
+    componentUnderTest.checkResult = '25Mbs';
 
     fixture.whenStable().then(
       () => {
@@ -50,9 +50,9 @@ describe('ProgressbarBasicComponent', () => {
   }));
 
   it('should display error', async(() => {
-    componentUnderTest.checkTitle = "Device";
-    componentUnderTest.checkResult = "Mobile";
-    componentUnderTest.checkError = "error device";
+    componentUnderTest.checkTitle = 'Device';
+    componentUnderTest.checkResult = 'Mobile';
+    componentUnderTest.checkError = 'error device';
 
     fixture.whenStable().then(
       () => {

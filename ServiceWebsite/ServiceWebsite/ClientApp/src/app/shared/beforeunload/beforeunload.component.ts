@@ -5,15 +5,15 @@ import { ChecklistSessionService } from '../../services/checklist-session.servic
   template: ''
 })
 export class BeforeunloadComponent {
-  
+
   constructor(private checklistSessionService: ChecklistSessionService) { }
-  
+
     @HostListener('window:beforeunload', ['$event'])
     beforeUnloadHander($event: any) {
       if (this.checklistSessionService.isChecklistInStorage()) {
         // show default confirmation popup of browser to leave page.
         $event.preventDefault();
-        $event.returnValue = "save"; // return value should not be empty to show browser leave popup
+        $event.returnValue = 'save'; // return value should not be empty to show browser leave popup
       }
     }
 }

@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable()
-export class WindowRef {  
-  getLocation() : WindowLocation {
+export class WindowRef {
+  getLocation(): WindowLocation {
     // return the global native browser window location object
     // had to implement this as a method rather than a getter because the latter couldn't be mocked
     return new WindowLocation(

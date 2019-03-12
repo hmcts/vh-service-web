@@ -79,22 +79,22 @@ describe('UseSameComputerComponent', () => {
   }));
 
   it('should set answer as no when no radio button clicked', () => {
-    let sameCompNo = fixture.debugElement.query(By.css('#same-computer-2')).nativeElement;
+    const sameCompNo = fixture.debugElement.query(By.css('#same-computer-2')).nativeElement;
     sameCompNo.click();
     sameCompNo.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.sameComputerForm.get('sameComputer');
+    const tempControl = component.sameComputerForm.get('sameComputer');
     expect(tempControl.value).toBe('No');
     expect(component.selectedAnswer.toLowerCase()).toBe('no');
     expect(component.sameComputerForm.valid).toBeTruthy();
   });
 
   it('should set answer as yes when yes radio button clicked', () => {
-    let sameCompYes = fixture.debugElement.query(By.css('#same-computer-1')).nativeElement;
+    const sameCompYes = fixture.debugElement.query(By.css('#same-computer-1')).nativeElement;
     sameCompYes.click();
     sameCompYes.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.sameComputerForm.get('sameComputer');
+    const tempControl = component.sameComputerForm.get('sameComputer');
     expect(tempControl.value).toBe('Yes');
     expect(component.selectedAnswer.toLowerCase()).toBe('yes');
     expect(component.sameComputerForm.valid).toBeTruthy();

@@ -1,7 +1,7 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { RouterModule} from "@angular/router";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule} from '@angular/router';
 
 import { ChecklistThankYouComponent } from './checklist-thank-you/checklist-thank-you.component';
 import { AccessToARoomComponent } from './access-to-a-room/access-to-a-room.component';

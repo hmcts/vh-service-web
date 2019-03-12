@@ -13,14 +13,14 @@ import { PageUrls } from '../shared/page-url.constants';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  
+
   let routerSpy: jasmine.SpyObj<Router>;
   let checklistService: jasmine.SpyObj<ChecklistService>;
   let documentRedirectService: jasmine.SpyObj<DocumentRedirectService>;
 
-  let profileService: MockProfileService = new MockProfileService();
+  const profileService: MockProfileService = new MockProfileService();
 
-  let config = new Config('videoappurl', 'appInsightsKey');
+  const config = new Config('videoappurl', 'appInsightsKey');
 
   beforeEach(async(() => {
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
@@ -75,7 +75,7 @@ describe('HomeComponent', () => {
     component.ngOnInit();
     tick();
     expect(routerSpy.navigate).toHaveBeenCalledWith([PageUrls.AboutHearings]);
-    expect(documentRedirectService.to).not.toHaveBeenCalled()
+    expect(documentRedirectService.to).not.toHaveBeenCalled();
   }));
 
   it('should redirect professional user to checklist suitability when checklist has not been answered', fakeAsync(() => {
@@ -84,6 +84,6 @@ describe('HomeComponent', () => {
     component.ngOnInit();
     tick();
     expect(routerSpy.navigate).toHaveBeenCalledWith([PageUrls.ChecklistStart]);
-    expect(documentRedirectService.to).not.toHaveBeenCalled()
+    expect(documentRedirectService.to).not.toHaveBeenCalled();
   }));
 });

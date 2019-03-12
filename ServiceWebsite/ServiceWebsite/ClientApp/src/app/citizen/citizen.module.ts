@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AboutHearingsComponent } from './about-hearings/about-hearings.component';
 import { DifferentHearingTypesComponent } from './different-hearing-types/different-hearing-types.component';

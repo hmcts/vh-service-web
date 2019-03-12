@@ -75,11 +75,11 @@ describe('ConsentComponent', () => {
   }));
 
   it('should set consent as Yes on clicking yes radio button', () => {
-    var consentRadioYes = fixture.debugElement.query(By.css('#consent_yes')).nativeElement;
+    const consentRadioYes = fixture.debugElement.query(By.css('#consent_yes')).nativeElement;
     consentRadioYes.click();
     consentRadioYes.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.consentForm.get('consent');
+    const tempControl = component.consentForm.get('consent');
     expect(tempControl.value).toBe('Yes');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeFalsy();
     expect(component.selectedAnswer.toLowerCase()).toBe('yes');
@@ -89,11 +89,11 @@ describe('ConsentComponent', () => {
   });
 
   it('should set consent as No on clicking no radio button', () => {
-    var consentRadioNo = fixture.debugElement.query(By.css('#consent_no')).nativeElement;
+    const consentRadioNo = fixture.debugElement.query(By.css('#consent_no')).nativeElement;
     consentRadioNo.click();
     consentRadioNo.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.consentForm.get('consent');
+    const tempControl = component.consentForm.get('consent');
     expect(tempControl.value).toBe('No');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeTruthy();
     expect(component.selectedAnswer.toLowerCase()).toBe('no');

@@ -12,7 +12,7 @@ export class NavigatorService {
   localeResources: any;
 
   constructor() {
-    this.localeResources = LocaleResources[CONFIG.Locale]; 
+    this.localeResources = LocaleResources[CONFIG.Locale];
     this.mediaDevices$ = this.mediaDevicesSubject.asObservable();
     this.browser.getUserMedia = (this.browser.getUserMedia ||
       this.browser.webkitGetUserMedia ||
@@ -21,7 +21,7 @@ export class NavigatorService {
   }
 
   navigatorDeviceInfo() {
-    let typeOfDevice: string = "";
+    let typeOfDevice = '';
     if (this.browser.userAgent.match(/iPad|Android|Touch/i) ) {
       typeOfDevice = this.localeResources.Devices.Tablet;
     } else if (this.browser.userAgent.match(/mobile/i) ) {
@@ -31,23 +31,19 @@ export class NavigatorService {
     }
     return typeOfDevice;
   }
- 
+
   agentInfo() {
     let typeBrowser: string;
-    let browserType = this.browser.userAgent;
-    if (browserType.indexOf("Edge") != -1) {
+    const browserType = this.browser.userAgent;
+    if (browserType.indexOf('Edge') !== -1) {
       typeBrowser = 'Edge';
-    }
-    else if (browserType.indexOf("Firefox") != -1) {
+    } else if (browserType.indexOf('Firefox') !== -1) {
       typeBrowser = 'Firefox';
-    }
-    else if (browserType.indexOf("Chrome") != -1) {
+    } else if (browserType.indexOf('Chrome') !== -1) {
       typeBrowser = 'Chrome';
-    }
-    else if (browserType.indexOf("Safari") != -1) {
+    } else if (browserType.indexOf('Safari') !== -1) {
       typeBrowser = 'Safari';
-    }
-    else if (this.isIE11(browserType)) {
+    } else if (this.isIE11(browserType)) {
       typeBrowser = 'IE';
     }
 

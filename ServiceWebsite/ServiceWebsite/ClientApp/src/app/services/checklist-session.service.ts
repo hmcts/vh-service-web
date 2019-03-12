@@ -16,7 +16,7 @@ export class ChecklistSessionService {
 
     // Get, if existing, a checklist from local storage. If none exists, an empty one is created
     getChecklist(hearingId: number, userId: string): ChecklistModel {
-        var model = this.sessionStorage.getObject<ChecklistModel>(checklistModelKey);
+        const model = this.sessionStorage.getObject<ChecklistModel>(checklistModelKey);
         if (model) {
             // TODO: Rethink this, do we set this here or at time of posting?
             model.HearingId = hearingId;
@@ -28,7 +28,7 @@ export class ChecklistSessionService {
   }
 
   isChecklistInStorage(): boolean {
-    let checkList = this.sessionStorage.tryGetObject<ChecklistModel>(checklistModelKey);
+    const checkList = this.sessionStorage.tryGetObject<ChecklistModel>(checklistModelKey);
     return checkList !== null;
   }
 

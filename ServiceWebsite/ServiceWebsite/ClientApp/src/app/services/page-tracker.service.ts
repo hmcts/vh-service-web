@@ -1,13 +1,13 @@
-import { Router, ResolveEnd, ActivatedRouteSnapshot, NavigationEnd } from "@angular/router";
-import { AppInsightsLogger } from "./app-insights-logger.service";
-import { Injectable } from "@angular/core";
+import { Router, ResolveEnd, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
+import { AppInsightsLogger } from './app-insights-logger.service';
+import { Injectable } from '@angular/core';
 import { SessionStorage } from './session-storage';
 import 'rxjs/add/operator/pairwise';
 
 @Injectable()
 export class PageTrackerService {
 
-  PREVIOUS_ROUTE:string = 'PREVIOUS_ROUTE';
+  PREVIOUS_ROUTE = 'PREVIOUS_ROUTE';
 
   constructor(private logger: AppInsightsLogger, private sessionStorage: SessionStorage) {}
 
@@ -35,7 +35,7 @@ export class PageTrackerService {
       this.logger.trackPage(`${activatedComponent.name} ${this.getRouteTemplate(event.state.root)}`, event.urlAfterRedirects);
     }
   }
-  
+
   private getActivatedComponent(snapshot: ActivatedRouteSnapshot): any {
     if (snapshot.firstChild) {
       return this.getActivatedComponent(snapshot.firstChild);
@@ -43,9 +43,9 @@ export class PageTrackerService {
 
     return snapshot.component;
   }
-  
+
   private getRouteTemplate(snapshot: ActivatedRouteSnapshot): string {
-    let path = snapshot.routeConfig ? snapshot.routeConfig.path : '';
+    const path = snapshot.routeConfig ? snapshot.routeConfig.path : '';
 
     if (snapshot.firstChild) {
       return path + '/' + this.getRouteTemplate(snapshot.firstChild);

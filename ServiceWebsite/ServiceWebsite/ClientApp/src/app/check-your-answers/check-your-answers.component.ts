@@ -27,7 +27,7 @@ export class CheckYourAnswersComponent implements OnInit {
   saveFailed: boolean;
   errors: any;
   isProfessional: boolean;
-  checklistSubmitted: boolean = false;
+  checklistSubmitted = false;
  // questionAnswer: TextQuestionModel;
 
   suitableRoom: string;
@@ -36,7 +36,7 @@ export class CheckYourAnswersComponent implements OnInit {
   needInterpreter: string;
   suitableForVH: string;
   otherInfo: string;
-  canSubmit: boolean = false;
+  canSubmit = false;
 
   equipmentComputerCamera: string;
   summaryModelList: Array<ChecklistSummaryModel> = [];
@@ -152,7 +152,7 @@ export class CheckYourAnswersComponent implements OnInit {
   }
 
   parseEquipmentComputerCameraAnswer(equipmentComputerCamera: CheckListEquipmentModel): string {
-    var answer;
+    let answer;
     if (equipmentComputerCamera === undefined || equipmentComputerCamera == null) {
       answer = 'No';
     } else {

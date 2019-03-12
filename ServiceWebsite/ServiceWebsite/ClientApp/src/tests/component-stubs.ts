@@ -19,7 +19,7 @@ export class RouterOutletStubComponent { }
 @Component({ selector: 'app-checklist-footer', template: '' })
 export class ChecklistFooterStubComponent {
   @Input()
-  isUserProfessional: boolean = true;
+  isUserProfessional = true;
 }
 
 @Component({ selector: 'app-checklist-steps', template: '' })
@@ -32,7 +32,7 @@ export class BeforeunloadStubComponent { }
 @Component({ selector: 'app-show-details', template: '' })
 export class ShowDetailsStubComponent {
   @Input()
-  detailsTitle: string = "Title";
+  detailsTitle = 'Title';
 
   @Input()
   textArray: Array<string> = [];

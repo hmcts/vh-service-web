@@ -9,7 +9,7 @@ describe('LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
 
-  let adalSpy = jasmine.createSpyObj('AdalService', ['userInfo'])
+  const adalSpy = jasmine.createSpyObj('AdalService', ['userInfo']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

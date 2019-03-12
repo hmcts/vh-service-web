@@ -15,7 +15,9 @@ import { MockChecklistSessionService } from 'src/tests/mock-checklist-session.se
 import { HearingService } from 'src/app/services/hearing.service';
 import { MockHearingService } from 'src/tests/mock-hearing.service';
 import { By } from '@angular/platform-browser';
-import { BackNavigationStubComponent, ChecklistFooterStubComponent, ChecklistStepsStubComponent, BeforeunloadStubComponent } from '../../tests/component-stubs';
+import {
+  BackNavigationStubComponent, ChecklistFooterStubComponent,
+  ChecklistStepsStubComponent, BeforeunloadStubComponent } from '../../tests/component-stubs';
 import { MockSessionStorage } from 'src/tests/mock-session-storage';
 import { SessionStorage } from '../services/session-storage';
 
@@ -76,29 +78,29 @@ describe('AbilityToTakePartComponent', () => {
   }));
 
   it('should click on ability_yes ability value is Yes', () => {
-    var abilityYesRadio = fixture.debugElement.query(By.css('#ability_yes')).nativeElement;
+    const abilityYesRadio = fixture.debugElement.query(By.css('#ability_yes')).nativeElement;
     abilityYesRadio.click();
     abilityYesRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.abilityForm.get('ability');
+    const tempControl = component.abilityForm.get('ability');
     expect(tempControl.value).toBe('Yes');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeTruthy();
     expect(component.selectedAnswer.toLowerCase()).toBe('yes');
     component.abilityForm.get('moreDetails').setValue('Test details');
-    component.abilityForm.get('moreDetails').setValue("Test details");
+    component.abilityForm.get('moreDetails').setValue('Test details');
     expect(component.abilityForm.valid).toBeTruthy();
     component.abilityForm.get('moreDetails').setValue('');
-    component.abilityForm.get('moreDetails').setValue("");
+    component.abilityForm.get('moreDetails').setValue('');
     const el = fixture.debugElement.nativeElement;
     expect(el.querySelector('input').value).toBe('Yes');
   });
 
   it('should click on ability_no ability value is No', () => {
-    var abilityNoRadio = fixture.debugElement.query(By.css('#ability_no')).nativeElement;
+    const abilityNoRadio = fixture.debugElement.query(By.css('#ability_no')).nativeElement;
     abilityNoRadio.click();
     abilityNoRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.abilityForm.get('ability');
+    const tempControl = component.abilityForm.get('ability');
     expect(tempControl.value).toBe('No');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeFalsy();
     expect(component.selectedAnswer.toLowerCase()).toBe('no');

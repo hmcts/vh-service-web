@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { PageUrls } from '../shared/page-url.constants';
 
 import { Observable, Subscription } from 'rxjs';
-import "rxjs/add/observable/interval";
-import "rxjs/add/observable/timer";
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/timer';
 
 import { SpeedTestService } from '../services/speedtest.service';
 import { NavigatorService } from './navigator.service';
-import { PageTrackerService } from "../services/page-tracker.service";
+import { PageTrackerService } from '../services/page-tracker.service';
 
 // Model
 import { UserProfile } from '../models/user-profile.model';
@@ -47,10 +47,10 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
   checkValue: number;
   deviceType$: Observable<any>;
   browserType$: Observable<any>;
-  showContinueButton: boolean = false;
-  errorMessageDeviceType: boolean = false;
-  isRunTest: boolean = true;
-  isIE: boolean = false;
+  showContinueButton = false;
+  errorMessageDeviceType = false;
+  isRunTest = true;
+  isIE = false;
   EQUIPMENT_DEVICE_TYPE = 'EQUIPMENT_DEVICE_TYPE';
   EQUIPMENT_BANDWIDTH = 'EQUIPMENT_BANDWIDTH';
   EQUIPMENT_BROWSER = 'EQUIPMENT_BROWSER';
@@ -68,12 +68,12 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
 
     this.createChecksList();
     this.deviceType$ = new Observable(subscriber => {
-      let info = this.navigatorService.navigatorDeviceInfo();
+      const info = this.navigatorService.navigatorDeviceInfo();
       subscriber.next(info);
     });
 
     this.browserType$ = new Observable(subcriber => {
-      let typeOfBrowser = this.navigatorService.agentInfo();
+      const typeOfBrowser = this.navigatorService.agentInfo();
       subcriber.next(typeOfBrowser);
     });
   }
@@ -85,7 +85,7 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
   }
 
   checkInternetSpeed() {
-    let previousUrl = this.pageTrackerService.getPreviousUrl();
+    const previousUrl = this.pageTrackerService.getPreviousUrl();
     if (previousUrl === PageUrls.AboutYourEquipment) {
       this.isRunTest = true;
     } else {
@@ -114,10 +114,11 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
 
   initialize() {
     if (!this.isRunTest && this.checklist && this.checklist.CheckEquipment && this.checklist.CheckEquipment.length > 0) {
-      let error = false
-      for (let check of this.checks) {
-        let checkFromStorage = this.checklist.CheckEquipment.find(key => key.KeyName === check.checkKey);
-        check.checkError = checkFromStorage.KeyName === this.EQUIPMENT_DEVICE_TYPE && checkFromStorage.Answer !== this.localeResources.Devices.Computer ? this.localeResources.ErrorMessageDeviceType : "";
+      let error = false;
+      for (const check of this.checks) {
+        const checkFromStorage = this.checklist.CheckEquipment.find(key => key.KeyName === check.checkKey);
+        check.checkError = checkFromStorage.KeyName === this.EQUIPMENT_DEVICE_TYPE &&
+                      checkFromStorage.Answer !== this.localeResources.Devices.Computer ? this.localeResources.ErrorMessageDeviceType : '';
         check.checkResult = checkFromStorage.Answer;
         check.checkValue = 100;
         if (check.checkError.length > 0) {
@@ -131,7 +132,7 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
   runInterval(actionName: string) {
     const self = this;
     this.timerSubcription = this.timer$.subscribe(() => {
-      let check = self.checks.find(c => c.checkTitle === actionName);
+      const check = self.checks.find(c => c.checkTitle === actionName);
       check.checkValue++;
     });
   }
@@ -141,7 +142,7 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
     this.runInterval(this.DEVICE);
     setTimeout(() => {
       self.deviceType$.subscribe(type => {
-        let check = self.checks.find(c => c.checkTitle === self.DEVICE);
+        const check = self.checks.find(c => c.checkTitle === self.DEVICE);
         check.checkResult = type;
         this.errorMessageDeviceType = type === this.localeResources.Devices.Mobile ||
           type === this.localeResources.Devices.Tablet;
@@ -161,7 +162,7 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
     self.runInterval(self.BROWSER);
     setTimeout(() => {
       self.browserType$.subscribe(type => {
-        let check = self.checks.find(c => c.checkTitle === self.BROWSER);
+        const check = self.checks.find(c => c.checkTitle === self.BROWSER);
         check.checkResult = type;
         check.checkValue = 100;
         self.timerSubcription.unsubscribe();
@@ -182,11 +183,11 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
     setTimeout(() => {
       self.navigatorService.mediaDeviceInfo();
       self.navigatorService.mediaDevices$.subscribe(deviceInfo => {
-        let check = self.checks.find(c => c.checkTitle === self.MEDIA);
+        const check = self.checks.find(c => c.checkTitle === self.MEDIA);
         let cameraPresent = false;
         let microphonePresent = false;
         if (deviceInfo) {
-          for (let device of deviceInfo) {
+          for (const device of deviceInfo) {
             if (device.kind === self.AUDIOINPUT) {
               microphonePresent = true;
             } else if (device.kind === self.VIDEOINPUT) {
@@ -194,8 +195,8 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
             }
           }
         }
-        let cameraMsg = cameraPresent ? this.localeResources.CameraPresent : this.localeResources.CameraNotPresent;
-        let microphoneMsg = microphonePresent ? this.localeResources.MicrophonePresent : this.localeResources.MicrophoneNotPresent;
+        const cameraMsg = cameraPresent ? this.localeResources.CameraPresent : this.localeResources.CameraNotPresent;
+        const microphoneMsg = microphonePresent ? this.localeResources.MicrophonePresent : this.localeResources.MicrophoneNotPresent;
 
         check.checkResult = `${cameraMsg}, ${microphoneMsg.toLowerCase()}`;
         check.checkValue = 100;
@@ -210,7 +211,7 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
 
   getMediaDevicesIE() {
     this.runInterval(this.MEDIA);
-    let check = this.checks.find(c => c.checkTitle === this.MEDIA);
+    const check = this.checks.find(c => c.checkTitle === this.MEDIA);
     check.checkResult = 'Cannot be detected in this browser.';
     check.checkValue = 100;
     this.showContinueButton = !this.errorMessageDeviceType;
@@ -223,8 +224,9 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
     this.speedTestService.speedTestState$
       .subscribe((state: SpeedTestModel) => {
         self.testCompleted = true;
-        let check = self.checks.find(c => c.checkTitle === self.SPEED);
-        check.checkResult = `${Math.ceil(state.DownloadSpeed)}MBs ${this.localeResources.Download}, ${Math.ceil(state.UploadSpeed)}MBs ${this.localeResources.Upload}`;
+        const check = self.checks.find(c => c.checkTitle === self.SPEED);
+        check.checkResult = `${Math.ceil(state.DownloadSpeed)}MBs ${this.localeResources.Download},' +
+                            '${Math.ceil(state.UploadSpeed)}MBs ${this.localeResources.Upload}`;
         check.checkValue = 100;
         self.timerSubcription.unsubscribe();
         this.checkDeviceType();
@@ -234,8 +236,8 @@ export class CheckEquipmentComponent extends ChecklistBaseComponent implements O
   continue() {
     if (this.checklist) {
       this.checklist.CheckEquipment = [];
-      for (let check of this.checks) {
-        let newItem = new CheckListEquipmentModel(check.checkKey, check.checkResult);
+      for (const check of this.checks) {
+        const newItem = new CheckListEquipmentModel(check.checkKey, check.checkResult);
         this.checklist.CheckEquipment.push(newItem);
       }
       this.checklistSessionService.saveChecklist(this.checklist);

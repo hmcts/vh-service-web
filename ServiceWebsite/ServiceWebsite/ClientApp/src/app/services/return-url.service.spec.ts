@@ -24,14 +24,14 @@ describe('ReturnUrlService', () => {
   });
 
   it('should delete the stored url after popping', () => {
-    returnUrlService.setUrl('first url')
+    returnUrlService.setUrl('first url');
     expect(returnUrlService.popUrl()).toBe('first url');
     expect(returnUrlService.popUrl()).toBeNull();
   });
 
   it('should use the last stored url', () => {
-    returnUrlService.setUrl('first url')
-    returnUrlService.setUrl('second url')
+    returnUrlService.setUrl('first url');
+    returnUrlService.setUrl('second url');
     expect(returnUrlService.popUrl()).toBe('second url');
   });
 });

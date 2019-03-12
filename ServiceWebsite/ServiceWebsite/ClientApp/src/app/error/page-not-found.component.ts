@@ -9,7 +9,7 @@ import { CONFIG } from '../shared/config';
 export class PageNotFoundComponent implements OnInit {
 
   localeResources: any;
-  showTextDetails: boolean = false;
+  showTextDetails = false;
 
   constructor() {
     this.localeResources = LocaleResources[CONFIG.Locale];

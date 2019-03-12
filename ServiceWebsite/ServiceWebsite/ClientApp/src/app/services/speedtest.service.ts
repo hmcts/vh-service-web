@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { SpeedTestModel } from '../models/speedtest.model';
@@ -193,7 +193,7 @@ export class SpeedTestService {
                 } catch (e) {
                     throw e;
                 }
-            }
+            };
 
             this.pingClient.open('GET', this.downloadUrl + 'latency.txt?num=' + num + '&dt=' + Math.random() * 10000000000000000, true);
             this.pingClient.responseType = 'blob';
@@ -249,7 +249,7 @@ export class SpeedTestService {
                 } catch (e) {
                     throw e;
                 }
-            }
+            };
             this.downloadClient.onreadystatechange = function () {
                 try {
                     if (this.readyState === 2) {
@@ -263,7 +263,7 @@ export class SpeedTestService {
                 } catch (e) {
                     throw e;
                 }
-            }
+            };
 
             this.downloadClient.open('GET', this.downloadUrl + 'extraextralarge.txt?dt=' + Math.random() * 10000000000000000, true);
             this.downloadClient.responseType = 'blob';
@@ -329,7 +329,7 @@ export class SpeedTestService {
                 } catch (e) {
                     throw e;
                 }
-            }
+            };
 
             downloadClientDummy.open('GET', this.downloadUrl + 'extraextralarge.txt?dt=' + Math.random() * 10000000000000000, true);
             downloadClientDummy.responseType = 'blob';
@@ -346,7 +346,7 @@ export class SpeedTestService {
      */
     private delay(time: number) {
         try {
-            setTimeout(() => { this.showSpeedResult(TestType.Download) }, time);
+            setTimeout(() => { this.showSpeedResult(TestType.Download); }, time);
         } catch (e) {
             throw e;
         }
@@ -396,7 +396,7 @@ export class SpeedTestService {
                 } catch (e) {
                     throw e;
                 }
-            }
+            };
 
             this.uploadClient.open('POST', this.uploadUrl + '?dt=' + Math.random() * 10000000000000000, true);
             this.uploadClient.send(this.uploadContent);
@@ -435,7 +435,7 @@ export class SpeedTestService {
                 } catch (e) {
                     throw e;
                 }
-            }
+            };
             uploadClientDummy.onreadystatechange = function () {
                 try {
 
@@ -451,7 +451,7 @@ export class SpeedTestService {
                 } catch (e) {
                     throw e;
                 }
-            }
+            };
 
             uploadClientDummy.open('POST', this.uploadUrl + '?dt=' + Math.random() * 10000000000000000, true);
             uploadClientDummy.send(this.uploadContent);

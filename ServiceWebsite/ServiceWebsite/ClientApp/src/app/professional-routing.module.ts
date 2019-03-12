@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { CheckSuitabilityForVideoComponent } from './check-suitability-for-video/check-suitability-for-video.component';
 import { AbilityToTakePartComponent } from './ability-to-take-part-component/ability-to-take-part.component';

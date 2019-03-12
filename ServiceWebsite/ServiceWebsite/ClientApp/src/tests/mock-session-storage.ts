@@ -1,6 +1,6 @@
 export class MockSessionStorage {
     private data: any = {};
-    
+
     removeItem(key: string) {
         this.data[key] = null;
     }

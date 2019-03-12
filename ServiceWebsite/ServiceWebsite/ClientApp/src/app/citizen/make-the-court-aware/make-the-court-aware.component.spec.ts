@@ -90,11 +90,11 @@ describe('MakeTheCourtAwareComponent', () => {
   }));
 
   it('should click on makeTheCourtAware_yes makeTheCourtAware value is Yes', () => {
-    var abilityYesRadio = fixture.debugElement.query(By.css('#courtAware_yes')).nativeElement;
+    const abilityYesRadio = fixture.debugElement.query(By.css('#courtAware_yes')).nativeElement;
     abilityYesRadio.click();
     abilityYesRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.makeTheCourtAwareForm.get('courtAware');
+    const tempControl = component.makeTheCourtAwareForm.get('courtAware');
     expect(tempControl.value).toBe('Yes');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeTruthy();
     expect(component.selectedAnswer.toLowerCase()).toBe('yes');
@@ -106,11 +106,11 @@ describe('MakeTheCourtAwareComponent', () => {
   });
 
   it('should click on makeTheCourtAware_no makeTheCourtAware value is No', () => {
-    var abilityNoRadio = fixture.debugElement.query(By.css('#courtAware_no')).nativeElement;
+    const abilityNoRadio = fixture.debugElement.query(By.css('#courtAware_no')).nativeElement;
     abilityNoRadio.click();
     abilityNoRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.makeTheCourtAwareForm.get('courtAware');
+    const tempControl = component.makeTheCourtAwareForm.get('courtAware');
     expect(tempControl.value).toBe('No');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeFalsy();
     expect(component.selectedAnswer.toLowerCase()).toBe('no');

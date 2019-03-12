@@ -1,11 +1,11 @@
 import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // components
-import { FooterComponent } from "../shared/footer/footer.component";
-import { HeaderComponent } from "../shared/header/header.component";
-import { ChecklistFooterComponent } from "../shared/checklist-footer/checklist-footer.component";
+import { FooterComponent } from '../shared/footer/footer.component';
+import { HeaderComponent } from '../shared/header/header.component';
+import { ChecklistFooterComponent } from '../shared/checklist-footer/checklist-footer.component';
 import { BackNavigationComponent } from '../back-navigation/back-navigation.component';
 import { ChecklistStepsComponent } from '../checklist-steps/checklist-steps.component';
 import { BeforeunloadComponent } from '../shared/beforeunload/beforeunload.component';
@@ -14,13 +14,13 @@ import { ShowDetailsComponent } from '../shared/show-details/show-details.compon
 import { ErrorFooterComponent } from '../shared/error-footer/error-footer.component';
 
 // services
-import { ProfileService } from "../services/profile.service";
-import { SessionStorage } from "../services/session-storage";
-import { HearingService } from "../services/hearing.service";
-import { ChecklistService } from "../services/checklist.service";
-import { ChecklistSessionService } from "../services/checklist-session.service";
+import { ProfileService } from '../services/profile.service';
+import { SessionStorage } from '../services/session-storage';
+import { HearingService } from '../services/hearing.service';
+import { ChecklistService } from '../services/checklist.service';
+import { ChecklistSessionService } from '../services/checklist-session.service';
 import { NavigatorService } from '../check-equipment/navigator.service';
-import { PageTrackerService } from "../services/page-tracker.service";
+import { PageTrackerService } from '../services/page-tracker.service';
 import { SpeedTestService } from '../services/speedtest.service';
 
 @NgModule({

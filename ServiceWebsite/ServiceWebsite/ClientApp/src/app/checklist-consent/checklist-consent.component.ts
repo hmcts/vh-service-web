@@ -19,8 +19,8 @@ export class ChecklistConsentComponent extends ChecklistBaseComponent implements
   @ViewChild('userForm')
   form: any;
 
-  isReasonInvalid: boolean = false;
-  submitted: boolean = false;
+  isReasonInvalid = false;
+  submitted = false;
 
   constructor(
     protected profileService: ProfileService,
@@ -38,7 +38,9 @@ export class ChecklistConsentComponent extends ChecklistBaseComponent implements
   async submitConsent() {
     if (this.form.invalid) {
       this.submitted = true;
-      this.isReasonInvalid = this.model.videoHearingConsent === 'no' && (this.model.videoHearingReason === undefined || (this.model.videoHearingReason && this.model.videoHearingReason.invalid));
+      this.isReasonInvalid = this.model.videoHearingConsent === 'no'
+        && (this.model.videoHearingReason === undefined
+          || (this.model.videoHearingReason && this.model.videoHearingReason.invalid));
       return;
     }
 

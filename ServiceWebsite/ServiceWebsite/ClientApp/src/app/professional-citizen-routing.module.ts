@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ChecklistThankYouComponent } from './checklist-thank-you/checklist-thank-you.component';
 import { AccessToARoomComponent } from './access-to-a-room/access-to-a-room.component';

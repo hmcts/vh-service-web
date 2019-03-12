@@ -5,7 +5,8 @@ import { BeforeunloadComponent } from './beforeunload.component';
 describe('BeforeunloadComponent', () => {
   let component: BeforeunloadComponent;
   let fixture: ComponentFixture<BeforeunloadComponent>;
-  const spychecklistSessionService: jasmine.SpyObj<ChecklistSessionService> = jasmine.createSpyObj<ChecklistSessionService>('ChecklistSessionService', ['isChecklistInStorage']);
+  const spychecklistSessionService: jasmine.SpyObj<ChecklistSessionService> = jasmine.createSpyObj<ChecklistSessionService>
+                                            ('ChecklistSessionService', ['isChecklistInStorage']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

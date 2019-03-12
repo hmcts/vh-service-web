@@ -20,7 +20,7 @@ describe('GuidanceService', () => {
   }));
 
   it('gets the guidance contents', () => {
-    let contents = guidanceService.getGuidanceContents();
+    const contents = guidanceService.getGuidanceContents();
     expect(contents).toBeTruthy();
     expect(contents[0].Index).toEqual(1);
     expect(contents[0].Name.length).toBeGreaterThan(1);

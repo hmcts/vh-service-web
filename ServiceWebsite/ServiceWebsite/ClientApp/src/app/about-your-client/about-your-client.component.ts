@@ -21,7 +21,7 @@ export class AboutYourClientComponent extends ChecklistEditBaseComponent impleme
   @ViewChild('userForm')
   form: any;
 
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(
     protected profileService: ProfileService,
@@ -50,40 +50,34 @@ export class AboutYourClientComponent extends ChecklistEditBaseComponent impleme
     if (this.form.invalid) {
       return;
     }
-    var previousAnswer = this.checklist.AboutClient.Value;
+    const previousAnswer = this.checklist.AboutClient.Value;
     this.checklist.AboutClient.Value = this.model.aboutClient === 'yes';
-    if(!this.checklist.AboutClient.Value)
-    {
+    if (!this.checklist.AboutClient.Value) {
       this.checklist.ClientNeedInterpreter.Value = undefined;
       this.checklist.ClientNeedInterpreter.IsValueSet = false;
     }
     this.checklist.AboutClient.IsValueSet = true;
 
     this.checklistSessionService.saveChecklist(this.checklist);
-    var navigateUrl = this.getNavigateUrl(previousAnswer);
+    const navigateUrl = this.getNavigateUrl(previousAnswer);
     if (this.editMode && !this.checklist.AboutClient.Value) {
-      this.resetEditMode()
+      this.resetEditMode();
     }
 
     this.router.navigate([navigateUrl]);
   }
 
-  getNavigateUrl(previousAnswer: boolean): string
-  {
-    var navigateUrl = "";
+  getNavigateUrl(previousAnswer: boolean): string {
+    let navigateUrl = '';
 
-    if (this.editMode)
-    {
+    if (this.editMode) {
       if (!this.checklist.AboutClient.Value || (previousAnswer === this.checklist.AboutClient.Value)) {
-        navigateUrl =PageUrls.CheckYourAnswer;
-      }
-      else {
+        navigateUrl = PageUrls.CheckYourAnswer;
+      } else {
         navigateUrl = PageUrls.ClientNeedInterpreter;
       }
 
-    }
-    else
-    {
+    } else {
       navigateUrl = this.checklist.AboutClient.Value ? PageUrls.ClientNeedInterpreter : PageUrls.SuitableRoom;
 
     }
