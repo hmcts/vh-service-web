@@ -11,11 +11,11 @@ import { Constants } from '../../shared/constants';
 export class ChecklistFooterComponent implements OnInit {
 
   @Input()
-  isUserProfessional: boolean = true;
+  isUserProfessional = true;
 
   caseNumber: string;
   localeResources: any;
-  showTextDetails: boolean = false;
+  showTextDetails = false;
   contactUsEmail: string;
 
   constructor(private hearingDetails: HearingService) {

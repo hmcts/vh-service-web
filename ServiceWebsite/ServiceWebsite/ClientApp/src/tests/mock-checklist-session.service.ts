@@ -1,8 +1,8 @@
-import { ChecklistModel, TextQuestionModel } from "src/app/models/checklist.model";
+import { ChecklistModel, TextQuestionModel } from 'src/app/models/checklist.model';
 
 export class MockChecklistSessionService {
     getChecklist(hearingId: number, userId: string): ChecklistModel {
-        let checklist = new ChecklistModel(hearingId, userId);
+        const checklist = new ChecklistModel(hearingId, userId);
         checklist.OtherInformation = new TextQuestionModel('question', 'answer');
         return checklist;
     }

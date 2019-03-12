@@ -1,7 +1,7 @@
 export const TopMenuItems = [
   {
-    url: "/dashboard",
-    name: "Dashboard",
+    url: '/dashboard',
+    name: 'Dashboard',
     active: false
   },
-]
+];

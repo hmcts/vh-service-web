@@ -11,7 +11,7 @@ import { ProfileService } from '../services/profile.service';
 export class ChecklistAlreadySubmittedComponent implements OnInit {
 
   localeResources: any;
-  showTextDetails: boolean = false;
+  showTextDetails = false;
   userProfile: UserProfile;
   isProfessional: boolean;
 

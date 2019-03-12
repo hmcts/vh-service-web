@@ -57,7 +57,6 @@ export class AbilityToTakePartComponent extends ChecklistEditBaseComponent imple
     }
     if (this.selectedAnswer.toLocaleLowerCase() === 'yes') {
       this.checklist.AbilityToTakePart.Value = true;
-      const moredetailsControl = this.abilityForm.get('moreDetails');
       this.checklist.AbilityToTakePart.Details = moredetailsControl.value.length > 0 ? moredetailsControl.value : null;
     } else {
       this.checklist.AbilityToTakePart.Value = false;

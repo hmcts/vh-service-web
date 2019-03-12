@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
-import "rxjs/add/operator/filter";
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 @Component({
-  selector: "app-footer",
-  templateUrl: "./footer.component.html",
-  styleUrls:["./footer.component.css"]
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  hideContactUsLink: boolean = false;
+  hideContactUsLink = false;
 
   constructor(private router: Router) {
     this.router.events
@@ -23,6 +23,6 @@ export class FooterComponent implements OnInit {
   }
 
   hideContactUs() {
-    this.hideContactUsLink = this.router.url === "/contact-us";
+    this.hideContactUsLink = this.router.url === '/contact-us';
   }
 }

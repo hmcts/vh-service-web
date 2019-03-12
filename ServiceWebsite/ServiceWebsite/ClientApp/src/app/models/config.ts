@@ -1,5 +1,5 @@
 export class Config {
-    
+
   readonly videoAppUrl: string;
   readonly appInsightsInstrumentationKey: string;
   tenantId: string;

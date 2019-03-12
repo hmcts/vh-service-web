@@ -62,8 +62,7 @@ export class AccessToARoomComponent extends ChecklistEditBaseComponent implement
     if (this.editMode) {
       this.resetEditMode();
       this.router.navigate([PageUrls.CheckYourAnswer]);
-    }
-    else {
+    } else {
       if (this.isProfessional) {
         this.router.navigate([PageUrls.AbilityToTakePart]);
       } else {

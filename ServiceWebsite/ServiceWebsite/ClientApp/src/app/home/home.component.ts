@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
         return;
       }
     }
-    
+
     this.documentRedirect.to(this.config.videoAppUrl);
   }
 }

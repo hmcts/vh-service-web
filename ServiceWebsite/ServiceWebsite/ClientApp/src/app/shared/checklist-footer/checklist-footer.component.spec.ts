@@ -11,7 +11,8 @@ import { CONFIG } from '../../shared/config';
 describe('ChecklistFooterComponent', () => {
   let component: ChecklistFooterComponent;
   let fixture: ComponentFixture<ChecklistFooterComponent>;
-  const hearingServiceSpy: jasmine.SpyObj<HearingService> = jasmine.createSpyObj<HearingService>('HearingService', ['getNextHearingDetails']);
+  const hearingServiceSpy: jasmine.SpyObj<HearingService> = jasmine.createSpyObj<HearingService>('HearingService',
+                                                              ['getNextHearingDetails']);
 
   beforeEach(async(() => {
     hearingServiceSpy.getNextHearingDetails.and.returnValue(new Promise<Hearing>((resolve, reject) => { resolve(new Hearing()); }));

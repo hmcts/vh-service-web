@@ -18,27 +18,29 @@ import { UserProfile } from '../models/user-profile.model';
 import { Hearing } from '../models/hearing.model';
 import { MockSessionStorage } from 'src/tests/mock-session-storage';
 import { SessionStorage } from '../services/session-storage';
-import { BackNavigationStubComponent, ChecklistFooterStubComponent, ChecklistStepsStubComponent, BeforeunloadStubComponent } from '../../tests/component-stubs';
+import {
+  BackNavigationStubComponent, ChecklistFooterStubComponent,
+  ChecklistStepsStubComponent, BeforeunloadStubComponent} from '../../tests/component-stubs';
 
 describe('AboutYourClientComponent', () => {
 
-  let routerSpy = {
+  const routerSpy = {
     navigate: jasmine.createSpy('navigate'),
-  }
+  };
 
   let profileServiceSpy: jasmine.SpyObj<ProfileService>;
-  let profile = new UserProfile();
-  profile.email = "aa@aa.aa";
+  const profile = new UserProfile();
+  profile.email = 'aa@aa.aa';
   profileServiceSpy = jasmine.createSpyObj<ProfileService>('ProfileService', ['getUserProfile']);
   profileServiceSpy.getUserProfile.and.returnValue(Promise.resolve(profile));
 
   let checklistSessionServiceSpy: jasmine.SpyObj<ChecklistSessionService>;
-  let checklistModel = new ChecklistModel(1, "aa@aa.aa");
+  const checklistModel = new ChecklistModel(1, 'aa@aa.aa');
   checklistSessionServiceSpy = jasmine.createSpyObj<ChecklistSessionService>('ChecklistSessionService', ['getChecklist', 'saveChecklist']);
   checklistSessionServiceSpy.getChecklist.and.returnValue(checklistModel);
 
   let hearingServiceSpy: jasmine.SpyObj<HearingService>;
-  let hearing = new Hearing();
+  const hearing = new Hearing();
   hearing.id = 1;
   hearingServiceSpy = jasmine.createSpyObj<HearingService>('HearingService', ['getNextHearingDetails']);
   hearingServiceSpy.getNextHearingDetails.and.returnValue(Promise.resolve(hearing));
@@ -94,7 +96,7 @@ describe('AboutYourClientComponent', () => {
     tick();
     component.submitDetails();
     fixture.detectChanges();
-    tick()
+    tick();
     expect(component.submitted).toBeTruthy();
     expect(component.form.invalid).toBeTruthy();
     const element = debugElement.query(By.css('#about-your-client-error'));
@@ -104,11 +106,11 @@ describe('AboutYourClientComponent', () => {
     fixture.detectChanges();
     component.ngOnInit();
     tick();
-    component.checklist = new ChecklistModel(1, "aa@aa.aa");
-    component.model.aboutClient = "yes";
+    component.checklist = new ChecklistModel(1, 'aa@aa.aa');
+    component.model.aboutClient = 'yes';
     component.submitDetails();
     fixture.detectChanges();
-    tick()
+    tick();
     expect(component.submitted).toBeTruthy();
     expect(component.form.invalid).toBeFalsy();
     expect(component.checklist.AboutClient).toBeTruthy();
@@ -118,11 +120,11 @@ describe('AboutYourClientComponent', () => {
     fixture.detectChanges();
     component.ngOnInit();
     tick();
-    component.checklist = new ChecklistModel(1, "aa@aa.aa");
-    component.model.aboutClient = "no";
+    component.checklist = new ChecklistModel(1, 'aa@aa.aa');
+    component.model.aboutClient = 'no';
     component.submitDetails();
     fixture.detectChanges();
-    tick()
+    tick();
     expect(component.submitted).toBeTruthy();
     expect(component.form.invalid).toBeFalsy();
     expect(component.checklist.AboutClient).toBeTruthy();

@@ -3,14 +3,14 @@ import { Component, Input } from '@angular/core';
 import { Router} from '@angular/router';
 import { DebugElement } from '@angular/core';
 import { Observable} from 'rxjs';
-import "rxjs/add/observable/interval";
-import "rxjs/add/observable/timer";
-import "rxjs/add/observable/of";
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/of';
 
 
 import { CheckEquipmentComponent } from './check-equipment.component';
 import { SessionStorage } from '../services/session-storage';
-import { PageTrackerService } from "../services/page-tracker.service";
+import { PageTrackerService } from '../services/page-tracker.service';
 
 import { SpeedTestService } from '../services/speedtest.service';
 import { NavigatorService } from './navigator.service';
@@ -51,49 +51,49 @@ describe('CheckEquipmentComponent', () => {
   class FooterStubComponent {
   }
 
-  let routerSpy = {
+  const routerSpy = {
     navigate: jasmine.createSpy('navigate'),
-  }
+  };
 
-  let userProfile = new UserProfile();
+  const userProfile = new UserProfile();
 
-  let storageSpy = {
+  const storageSpy = {
     getObject: jasmine.createSpy('getObject').and.returnValues(userProfile, userProfile, userProfile, null),
     setObject: jasmine.createSpy('setObject'),
     getItem: jasmine.createSpy('getItem').and.returnValues(PageUrls.CompatibilityCheck, PageUrls.AboutYourEquipment),
-  }
+  };
 
-  let pageTrackerServiceSpy = {
+  const pageTrackerServiceSpy = {
     getPreviousUrl: jasmine.createSpy('getPreviousUrl').and.returnValues(PageUrls.CompatibilityCheck, PageUrls.AboutYourEquipment),
 
 
 
-  }
+  };
 
-  let info = new SpeedTestModel();
+  const info = new SpeedTestModel();
   info.DownloadSpeed = 58.89;
   info.UploadSpeed = 17.876;
-  class speedTestServiceStub {
+  class SpeedTestServiceStub {
     click() { }
     speedTestState$ = new Observable<SpeedTestModel>(s => {
       s.next(info);
-    })
+    });
   }
 
-  class navigatorServiceStub {
-    navigatorDeviceInfo() { return "Desktop"; }
-    agentInfo() { return "Safari" }
+  class NavigatorServiceStub {
+    navigatorDeviceInfo() { return 'Desktop'; }
+    agentInfo() { return 'Safari'; }
     mediaDeviceInfo() { }
     mediaDevices$ = new Observable<any>();
   }
 
   let profileServiceSpy: jasmine.SpyObj<ProfileService>;
-  let profile = new UserProfile();
-  profile.email = "aa@aa.aa";
+  const profile = new UserProfile();
+  profile.email = 'aa@aa.aa';
   profileServiceSpy = jasmine.createSpyObj<ProfileService>('ProfileService', ['getUserProfile']);
   profileServiceSpy.getUserProfile.and.returnValue(Promise.resolve(profile));
 
-  class checklistSessionServiceSpy {
+  class ChecklistSessionServiceSpy {
     getChecklist(hearingId: number, userId: string): ChecklistModel {
       return new ChecklistModel(hearingId, userId);
     }
@@ -101,7 +101,7 @@ describe('CheckEquipmentComponent', () => {
   }
 
   let hearingServiceSpy: jasmine.SpyObj<HearingService>;
-  let hearing = new Hearing();
+  const hearing = new Hearing();
   hearing.id = 1;
   hearingServiceSpy = jasmine.createSpyObj<HearingService>('HearingService', ['getNextHearingDetails']);
   hearingServiceSpy.getNextHearingDetails.and.returnValue(Promise.resolve(hearing));
@@ -124,10 +124,10 @@ describe('CheckEquipmentComponent', () => {
         [
           { provide: SessionStorage, useValue: storageSpy },
           { provide: Router, useValue: routerSpy },
-          { provide: SpeedTestService, useClass: speedTestServiceStub },
-          { provide: NavigatorService, useClass: navigatorServiceStub },
+          { provide: SpeedTestService, useClass: SpeedTestServiceStub },
+          { provide: NavigatorService, useClass: NavigatorServiceStub },
           { provide: ProfileService, useValue: profileServiceSpy },
-          { provide: ChecklistSessionService, useClass: checklistSessionServiceSpy },
+          { provide: ChecklistSessionService, useClass: ChecklistSessionServiceSpy },
           { provide: HearingService, useValue: hearingServiceSpy },
           { provide: PageTrackerService, useValue: pageTrackerServiceSpy },
         ],
@@ -143,7 +143,7 @@ describe('CheckEquipmentComponent', () => {
 
   afterEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-  })
+  });
 
   it('should create the Check Equipment component', fakeAsync(() => {
     fixture.detectChanges();
@@ -156,7 +156,7 @@ describe('CheckEquipmentComponent', () => {
       tick(20000);
       fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expect(checkEquipment.userProfile).toBeTruthy
+      expect(checkEquipment.userProfile).toBeTruthy;
     });
     fixture.detectChanges();
   }));

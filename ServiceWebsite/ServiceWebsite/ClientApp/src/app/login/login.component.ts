@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
       const returnUrl = this.returnUrlService.popUrl() || '/';
       try {
         this.router.navigateByUrl(returnUrl);
-      } catch(e) {
+      } catch (e) {
         this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
-        this.router.navigate(['/'])
+        this.router.navigate(['/']);
       }
     } else {
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

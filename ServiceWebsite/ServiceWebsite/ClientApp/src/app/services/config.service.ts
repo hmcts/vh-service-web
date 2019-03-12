@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Config } from './../models/config';
 
-export let ENVIRONMENT_CONFIG : Config = new Config();
+export let ENVIRONMENT_CONFIG: Config = new Config();
 
 @Injectable()
 export class ConfigService {
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpClient: HttpClient) {
   }
 
   load(): Promise<Config> {
-    return this.httpClient.get("/api/config")
+    return this.httpClient.get('/api/config')
       .toPromise()
       .then(result => this.parse(result))
       .catch(err => {

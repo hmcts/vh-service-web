@@ -5,10 +5,10 @@ import { ProfileService } from '../../services/profile.service';
 import { ChecklistSessionService } from '../../services/checklist-session.service';
 import { ChecklistBaseComponent } from '../checklist-base-component/checklist-base.component';
 
-export abstract class ChecklistEditBaseComponent extends ChecklistBaseComponent{
+export abstract class ChecklistEditBaseComponent extends ChecklistBaseComponent {
 
   buttonAction: string;
-  editMode: boolean = false;
+  editMode = false;
 
   constructor(protected sessionStorage: SessionStorage,
     protected hearingService: HearingService,
@@ -18,9 +18,9 @@ export abstract class ChecklistEditBaseComponent extends ChecklistBaseComponent{
   }
 
   ngOnInit() {
-    let editModeParameter = this.sessionStorage.getItem(Constants.LocalStorageKeys.EditModeChecklist);
+    const editModeParameter = this.sessionStorage.getItem(Constants.LocalStorageKeys.EditModeChecklist);
     this.editMode = editModeParameter === 'true';
-    this.buttonAction = this.editMode ? this.localeResources.Save : this.localeResources.Continue
+    this.buttonAction = this.editMode ? this.localeResources.Save : this.localeResources.Continue;
   }
 
   resetEditMode() {

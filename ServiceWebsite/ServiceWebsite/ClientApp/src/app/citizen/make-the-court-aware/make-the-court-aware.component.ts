@@ -38,7 +38,7 @@ export class MakeTheCourtAwareComponent extends ChecklistEditBaseComponent imple
     this.loadHearingDetails().then(() => {
       this.setData();
     });
-   
+
     this.makeTheCourtAwareForm = this.fb.group({
       courtAware: ['', [Validators.required]],
       moreDetails: ['', '']
@@ -61,7 +61,6 @@ export class MakeTheCourtAwareComponent extends ChecklistEditBaseComponent imple
     }
     if (this.selectedAnswer.toLocaleLowerCase() === 'yes') {
       this.checklist.AbilityToTakePart.Value = true;
-      let moredetailsControl = this.makeTheCourtAwareForm.get('moreDetails');
       this.checklist.AbilityToTakePart.Details = moredetailsControl.value.length > 0 ? moredetailsControl.value : null;
     } else {
       this.checklist.AbilityToTakePart.Value = false;

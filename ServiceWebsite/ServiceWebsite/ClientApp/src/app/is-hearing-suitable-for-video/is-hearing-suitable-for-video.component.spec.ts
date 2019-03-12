@@ -72,16 +72,16 @@ describe('IsHearingSuitableForVideoComponent', () => {
   });
   it('should fail validation when form empty', () => {
     expect(component.isSuitableForm.invalid).toBeTruthy();
-    let tempControl = component.isSuitableForm.get('suitability');
-    let temp = tempControl.value;
+    const tempControl = component.isSuitableForm.get('suitability');
+    const temp = tempControl.value;
     expect(temp).toBeNull;
   });
   it('should click on suitability_yes suitability value is Yes', () => {
-    var suitabilityYesRadio = fixture.debugElement.query(By.css('#suitability_yes')).nativeElement;
+    const suitabilityYesRadio = fixture.debugElement.query(By.css('#suitability_yes')).nativeElement;
     suitabilityYesRadio.click();
     suitabilityYesRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.isSuitableForm.get('suitability');
+    const tempControl = component.isSuitableForm.get('suitability');
     expect(tempControl.value).toBe('Yes');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeFalsy();
     expect(component.selectedAnswer.toLowerCase()).toBe('yes');
@@ -90,17 +90,17 @@ describe('IsHearingSuitableForVideoComponent', () => {
     expect(el.querySelector('input').value).toBe('Yes');
   });
   it('should click on suitability_no suitability value is No', () => {
-    var suitabilityNoRadio = fixture.debugElement.query(By.css('#suitability_no')).nativeElement;
+    const suitabilityNoRadio = fixture.debugElement.query(By.css('#suitability_no')).nativeElement;
     suitabilityNoRadio.click();
     suitabilityNoRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.isSuitableForm.get('suitability');
+    const tempControl = component.isSuitableForm.get('suitability');
     expect(tempControl.value).toBe('No');
     expect(fixture.debugElement.query(By.css('#moreDetails'))).toBeTruthy();
     expect(component.selectedAnswer.toLowerCase()).toBe('no');
-    component.isSuitableForm.get('moreDetails').setValue("Test details");
+    component.isSuitableForm.get('moreDetails').setValue('Test details');
 
     expect(component.isSuitableForm.valid).toBeTruthy();
-    component.isSuitableForm.get('moreDetails').setValue("");
+    component.isSuitableForm.get('moreDetails').setValue('');
   });
 });

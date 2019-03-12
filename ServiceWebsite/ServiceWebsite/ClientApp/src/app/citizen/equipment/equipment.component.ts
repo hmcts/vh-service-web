@@ -26,11 +26,11 @@ export class EquipmentComponent extends ChecklistEditBaseComponent implements On
   noneOfAbove: FormControl;
   hasCamera: FormControl;
 
-  phoneSelected: boolean = false;
-  internetSelected: boolean = false;
-  laptopSelected: boolean = false;
-  desktopSelected: boolean = false;
-  noneSelected: boolean = false;
+  phoneSelected = false;
+  internetSelected = false;
+  laptopSelected = false;
+  desktopSelected = false;
+  noneSelected = false;
   isProfessional: boolean;
 
   needCameraCheck = false;
@@ -49,7 +49,7 @@ export class EquipmentComponent extends ChecklistEditBaseComponent implements On
   ngOnInit() {
     super.ngOnInit();
     this.setupEquipmentForm();
-   
+
     this.loadHearingDetails().then(() => {
       this.populatePreviousAnswers();
     });
@@ -158,7 +158,7 @@ export class EquipmentComponent extends ChecklistEditBaseComponent implements On
   }
 
   continue() {
-    this.needCameraCheck = this.desktopSelected && (this.hasCamera.value == null || this.hasCamera.value.length == 0);
+    this.needCameraCheck = this.desktopSelected && (this.hasCamera.value === null || this.hasCamera.value.length === 0);
     this.optionDeviceValid = this.deviceOptionSelected();
     if (this.needCameraCheck || !this.optionDeviceValid) {
       return;

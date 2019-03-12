@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ChecklistConsentComponent } from './checklist-consent.component';
 import { FormsModule } from '@angular/forms';
 import { ProfileService } from '../services/profile.service';
-import { Location } from "@angular/common";
+import { Location } from '@angular/common';
 import { MockProfileService } from 'src/tests/mock-profile.service';
 import { HearingService } from '../services/hearing.service';
 import { MockHearingService } from 'src/tests/mock-hearing.service';
@@ -18,7 +18,7 @@ import { SessionStorage } from '../services/session-storage';
 describe('ChecklistConsentComponent', () => {
   let component: ChecklistConsentComponent;
   let fixture: ComponentFixture<ChecklistConsentComponent>;
-  
+
   let routerSpy: jasmine.SpyObj<Router>;
   let locationSpy: jasmine.SpyObj<Location>;
 

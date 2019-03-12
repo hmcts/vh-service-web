@@ -14,15 +14,15 @@ export class GuidanceService {
   }
 
   getGuidanceContents(): Array<GuidanceModel> {
-    let contents = this.localeResources.Guidance.ContentIndex.map(s => this.mapToModel(s));
+    const contents = this.localeResources.Guidance.ContentIndex.map(s => this.mapToModel(s));
     contents.forEach(s => this.contentIndex.push(s));
     return this.contentIndex;
   }
 
   mapToModel(content: any) {
-    let model = new GuidanceModel(content.Content, content.Text);
+    const model = new GuidanceModel(content.Content, content.Text);
     model.Index = content.Index;
-    model.IsActive = model.Index == 1;
+    model.IsActive = model.Index === 1;
     if (content.ListTitle) {
       model.ListTitle = content.ListTitle;
       model.ListItems = content.List;

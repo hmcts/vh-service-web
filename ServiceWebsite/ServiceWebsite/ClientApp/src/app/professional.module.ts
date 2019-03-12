@@ -1,6 +1,6 @@
-import { CommonModule } from "@angular/common";
-import { NgModule} from "@angular/core";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';
+import { NgModule} from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CheckSuitabilityForVideoComponent } from './check-suitability-for-video/check-suitability-for-video.component';
 import { ChecklistConsentComponent } from './checklist-consent/checklist-consent.component';
@@ -36,7 +36,7 @@ import { ProfessionalRoutingModule } from './professional-routing.module';
     ReactiveFormsModule,
     ProfessionalRoutingModule,
   ],
-  
+
 })
 export class ProfessionalModule {
 }

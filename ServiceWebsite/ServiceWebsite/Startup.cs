@@ -13,7 +13,7 @@ using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
 using ServiceWebsite.Security;
 
-namespace Website
+namespace ServiceWebsite
 {
     public class Startup
     {

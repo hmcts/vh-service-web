@@ -81,22 +81,22 @@ describe('AccessToARoomComponent', () => {
   }));
 
   it('should set answer as no when no radio button clicked', () => {
-    let roomAccessNo = fixture.debugElement.query(By.css('#room-access-2')).nativeElement;
+    const roomAccessNo = fixture.debugElement.query(By.css('#room-access-2')).nativeElement;
     roomAccessNo.click();
     roomAccessNo.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.roomAccessForm.get('roomAccess');
+    const tempControl = component.roomAccessForm.get('roomAccess');
     expect(tempControl.value).toBe('No');
     expect(component.selectedAnswer.toLowerCase()).toBe('no');
     expect(component.roomAccessForm.valid).toBeTruthy();
   });
 
   it('should set answer as yes when yes radio button clicked', () => {
-    let roomAccessYes = fixture.debugElement.query(By.css('#room-access-1')).nativeElement;
+    const roomAccessYes = fixture.debugElement.query(By.css('#room-access-1')).nativeElement;
     roomAccessYes.click();
     roomAccessYes.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.roomAccessForm.get('roomAccess');
+    const tempControl = component.roomAccessForm.get('roomAccess');
     expect(tempControl.value).toBe('Yes');
     expect(component.selectedAnswer.toLowerCase()).toBe('yes');
     expect(component.roomAccessForm.valid).toBeTruthy();

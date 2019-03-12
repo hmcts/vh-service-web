@@ -33,7 +33,7 @@ export class InterpreterComponent extends ChecklistEditBaseComponent implements 
 
   ngOnInit() {
     super.ngOnInit();
-    
+
     this.loadHearingDetails().then(() => {
       this.resetAnswer();
     });
@@ -47,7 +47,7 @@ export class InterpreterComponent extends ChecklistEditBaseComponent implements 
 
   resetAnswer() {
     if (this.checklist.ClientNeedInterpreter.IsValueSet) {
-      let valueToset = this.checklist.ClientNeedInterpreter.Value ? 'Yes' : 'No';
+      const valueToset = this.checklist.ClientNeedInterpreter.Value ? 'Yes' : 'No';
       this.needInterpreterForm.patchValue({ needInterpreter: valueToset });
     }
   }

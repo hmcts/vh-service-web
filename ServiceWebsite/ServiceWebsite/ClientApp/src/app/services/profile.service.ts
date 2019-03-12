@@ -6,7 +6,7 @@ import { ErrorService } from './error.service';
 @Injectable()
 export class ProfileService {
 
-  apiBaseUrl = "/api/profile/";
+  apiBaseUrl = '/api/profile/';
 
   profile: UserProfile;
 
@@ -22,7 +22,7 @@ export class ProfileService {
       return this.profile;
     }
 
-    let response: any = await this.httpClient.get(this.apiBaseUrl).toPromise();
+    const response: any = await this.httpClient.get(this.apiBaseUrl).toPromise();
     this.profile = new UserProfile();
     this.profile.email = response.email;
     this.profile.role = response.role;

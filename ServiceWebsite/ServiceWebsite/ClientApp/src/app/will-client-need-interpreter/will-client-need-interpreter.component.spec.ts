@@ -81,11 +81,11 @@ describe('WillClientNeedIntepreterComponent', () => {
   }));
 
   it('should click on needInterpreter_yes needInterpreter value is Yes', () => {
-    var needInterpreterYesRadio = fixture.debugElement.query(By.css('#needInterpreter_yes')).nativeElement;
+    const needInterpreterYesRadio = fixture.debugElement.query(By.css('#needInterpreter_yes')).nativeElement;
     needInterpreterYesRadio.click();
     needInterpreterYesRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.needInterpreterForm.get('needInterpreter');
+    const tempControl = component.needInterpreterForm.get('needInterpreter');
     expect(tempControl.value).toBe('Yes');
     expect(component.selectedAnswer.toLowerCase()).toBe('yes');
     expect(component.needInterpreterForm.valid).toBeTruthy();
@@ -96,11 +96,11 @@ describe('WillClientNeedIntepreterComponent', () => {
 
   it('should click on needInterpreter_no needInterpreter value is No', () => {
 
-    var needInterpreterNoRadio = fixture.debugElement.query(By.css('#needInterpreter_no')).nativeElement;
+    const needInterpreterNoRadio = fixture.debugElement.query(By.css('#needInterpreter_no')).nativeElement;
     needInterpreterNoRadio.click();
     needInterpreterNoRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let tempControl = component.needInterpreterForm.get('needInterpreter');
+    const tempControl = component.needInterpreterForm.get('needInterpreter');
     expect(tempControl.value).toBe('No');
     expect(component.selectedAnswer.toLowerCase()).toBe('no');
     expect(component.needInterpreterForm.valid).toBeTruthy();

@@ -33,8 +33,8 @@ export class HearingService {
   }
 
   private async getUpcomingHearing(): Promise<Hearing> {
-    var response = await this.httpClient.get<HearingResponse>(this.apiUrl).toPromise();
-    var hearing = new Hearing();
+    const response = await this.httpClient.get<HearingResponse>(this.apiUrl).toPromise();
+    const hearing = new Hearing();
     hearing.id = response.id;
     hearing.case = response.caseName;
     hearing.caseNumber = response.caseNumber;

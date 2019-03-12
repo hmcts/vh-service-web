@@ -4,11 +4,11 @@ export class UserProfile {
   public email;
   public role;
 
-  get isProfessional() : boolean {
+  get isProfessional(): boolean {
     return this.role === Constants.UserType.ProfessionalUser;
   }
 
-  get isCitizen() : boolean {
+  get isCitizen(): boolean {
     return this.role === Constants.UserType.Citizen;
   }
 }

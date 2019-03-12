@@ -5,9 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { ErrorService } from './error.service';
 
 describe('ConfigService', () => {
-  
-  let httpClient: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
-  let errorService: jasmine.SpyObj<ErrorService> = jasmine.createSpyObj('ErrorService', ['handleError']);
+
+  const httpClient: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
+  const errorService: jasmine.SpyObj<ErrorService> = jasmine.createSpyObj('ErrorService', ['handleError']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({

@@ -1,13 +1,13 @@
-import { Component, OnInit, Input,EventEmitter } from "@angular/core";
-import { TopMenuItems } from "../refData/topMenuItems";
-import { Router } from "@angular/router";
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { TopMenuItems } from '../refData/topMenuItems';
+import { Router } from '@angular/router';
 import { ChecklistSessionService } from '../../services/checklist-session.service';
 
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.css"]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
   topMenuItems = [];
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   }
 
   selectMenuItem(indexOfItem: number) {
-    for (let item of this.topMenuItems) {
+    for (const item of this.topMenuItems) {
       item.active = false;
     }
     this.topMenuItems[indexOfItem].active = true;

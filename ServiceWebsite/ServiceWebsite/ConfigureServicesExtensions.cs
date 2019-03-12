@@ -15,7 +15,7 @@ using ServiceWebsite.Swagger;
 using ServiceWebsite.UserAPI.Client;
 using ServiceWebsite.Configuration;
 
-namespace Website
+namespace ServiceWebsite
 {
     public static class ConfigureServicesExtensions
     {

@@ -78,7 +78,8 @@ export let LocaleResources = {
       'without having to travel. All parties, including the judge, sign in from a computer and can see each other on ' +
       'the screen throughout the hearing.',
     HearingSuitabilityParagraphTwo: 'Help us check if video is suitable for this hearing by:',
-    HelpUsCheckSuitabilityForYouAndClient: 'Video hearings are a new service. Help us check if a video hearing is suitable for you and your client by:',
+    HelpUsCheckSuitabilityForYouAndClient: 'Video hearings are a new service. Help us check if a video hearing is suitable' +
+      'for you and your client by: ',
     SuitabilityTestPoints: {
       AnsweringQuestions: 'answering some questions about yourself and your client',
       AllowUsToRunTests: 'allowing us to run a compatibility check on your computer'
@@ -221,7 +222,8 @@ export let LocaleResources = {
       Example3: 'do you have a learning disability or sometimes struggle to understand everyday things?',
       Example4: 'something else?'
     },
-    IsThereAnythingCitizen: 'Is there anything that the court should be aware of when it decides which type of hearing will be most suitable?',
+    IsThereAnythingCitizen: 'Is there anything that the court should be aware of when it decides which type of hearing' +
+      'will be most suitable?',
     Errors: {
       PageNotFound: {
         Title: 'Page not found',
@@ -276,7 +278,8 @@ export let LocaleResources = {
           Content: 'Choosing a room',
           Text: ['It’s important that you can concentrate during your video hearing. '
             + 'You’ll need to choose a quiet, private room where it’s bright enough for you to be seen clearly. ',
-            'You can join from your own home or from someone else’s home. An open office or public library is not suitable because you may be distracted.'
+            'You can join from your own home or from someone else’s home. An open office or public library' +
+            'is not suitable because you may be distracted.'
           ]
         },
         {
@@ -290,7 +293,8 @@ export let LocaleResources = {
         {
           Index: 6,
           Content: 'Rules you must follow',
-          Text: ['Video hearings are just as serious as hearings that take place in a courtroom, so you’ll need to follow the same rules. '],
+          Text: ['Video hearings are just as serious as hearings that take place in a courtroom,' +
+                'so you’ll need to follow the same rules.'],
           ListTitle: ' This means you:',
           List: [
             'can only drink water',
@@ -307,7 +311,8 @@ export let LocaleResources = {
           Content: 'What happens on the day of your hearing',
           Text: ['Please sign into our website 20 minutes before your hearing is due to begin. '
             + 'You’ll go through some basic computer checks to be sure you’ll be seen and heard during your hearing. ',
-          'When all participants are ready, the judge will start the hearing.You’ll see a countdown timer that gives you 60 seconds to prepare yourself. '
+            'When all participants are ready, the judge will start the hearing.You’ll see a countdown timer ' +
+            'that gives you 60 seconds to prepare yourself. '
           + 'When the judge starts the hearing, everyone will appear on the screen at the same time. ',
           'You’ll be able to see and hear everyone who is there. '
           + 'They’ll also be able to see and hear you.']

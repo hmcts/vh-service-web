@@ -8,7 +8,7 @@ import { Constants } from 'src/app/shared/constants';
 @Injectable()
 export class ChecklistService {
 
-  private ApiUrl: string = '/api/checklist/';
+  private ApiUrl = '/api/checklist/';
   private isProfessional: boolean;
 
   constructor(
@@ -19,15 +19,15 @@ export class ChecklistService {
 
     const userProfile = await this.profileService.getUserProfile();
     this.isProfessional = userProfile.isProfessional;
-    var request = this.mapToRequest(checklist);
-    var body = JSON.stringify(request);
+    const request = this.mapToRequest(checklist);
+    const body = JSON.stringify(request);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.ApiUrl, body, { headers: headers }).toPromise();
   }
 
   private mapToRequest(model: ChecklistModel): SubmitChecklistRequestModel {
 
-    var request = new SubmitChecklistRequestModel();
+    const request = new SubmitChecklistRequestModel();
     request.hearing_id = model.HearingId;
     request.user_id = model.UserId;
 
@@ -61,7 +61,7 @@ export class ChecklistService {
           model.CheckEquipment.find(q => q.KeyName === questionKeys.Equipment.Device).Answer, null);
       } else {
         // professional selected 'no' on the 'use same computer' page, add the fields for the equipment check.
-        let equipmentComputerCamera = this.getEquipmentComputerCameraInformation(model);
+        const equipmentComputerCamera = this.getEquipmentComputerCameraInformation(model);
 
         request.addAnswer(questionKeys.EquipmentInternet, (model.EquipmentInternet.Value ? 'yes' : 'no'), null);
         request.addAnswer(questionKeys.EquipmentLaptop, (model.EquipmentLaptop.Value ? 'yes' : 'no'), null);
@@ -69,7 +69,7 @@ export class ChecklistService {
       }
     } else {
       // var equipmentComputerCamera;
-      let equipmentComputerCamera = this.getEquipmentComputerCameraInformation(model);
+      const equipmentComputerCamera = this.getEquipmentComputerCameraInformation(model);
 
       request.addAnswer(questionKeys.SuitableRoom, (model.SuitableRoom.Value ? 'yes' : 'no'), model.SuitableRoom.Details);
       request.addAnswer(questionKeys.NeedsInterpreter,

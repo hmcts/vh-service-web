@@ -39,8 +39,8 @@ export class GuidanceComponent implements OnInit {
   }
 
   showSection(index) {
-    for (let cindex of this.contentIndex) {
-      cindex.IsActive = cindex.Index == index;
+    for (const cindex of this.contentIndex) {
+      cindex.IsActive = cindex.Index === index;
     }
     this.contentPoint.nativeElement.scrollIntoView(false);
   }

@@ -17,7 +17,7 @@ describe('GuidanceComponent', () => {
       providers: [
         GuidanceService,
         { provide: PrintService, useValue: printServiceSpy },
-        { provide: ActivatedRoute, useValue: { params: { subscribe: (fh: (value: Params) => void) => fh({ print:false})  } } }
+        { provide: ActivatedRoute, useValue: { params: { subscribe: (fh: (value: Params) => void) => fh({ print: false})  } } }
       ]
     })
       .compileComponents();

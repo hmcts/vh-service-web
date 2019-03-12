@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
-import { Router } from "@angular/router";
-import { Component } from "@angular/core";
-import { FooterComponent } from "./footer.component";
-import "rxjs/add/operator/filter";
-import { Location } from "@angular/common";
-import { RouterTestingModule } from "@angular/router/testing";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { FooterComponent } from './footer.component';
+import 'rxjs/add/operator/filter';
+import { Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 
-describe("FooterComponent",
+describe('FooterComponent',
   () => {
     let component: FooterComponent;
     let fixture: ComponentFixture<FooterComponent>;
     let location: Location;
     let router: Router;
 
-    @Component({ selector: "app-contact-us", template: "" })
+    @Component({ selector: 'app-contact-us', template: '' })
     class ContactUsStubComponent {
     }
 
-    @Component({ selector: "app-dashboard", template: "" })
+    @Component({ selector: 'app-dashboard', template: '' })
     class DashboardStubComponent {
     }
 
@@ -31,8 +31,8 @@ describe("FooterComponent",
           ],
           imports: [
             RouterTestingModule.withRoutes([
-              { path: "dashboard", component: DashboardStubComponent },
-              { path: "contact-us", component: ContactUsStubComponent }
+              { path: 'dashboard', component: DashboardStubComponent },
+              { path: 'contact-us', component: ContactUsStubComponent }
             ])
           ],
           schemas: [NO_ERRORS_SCHEMA]
@@ -49,27 +49,27 @@ describe("FooterComponent",
       fixture.detectChanges();
     });
 
-    it("should create",
+    it('should create',
       () => {
         expect(component).toBeTruthy();
       });
 
-    it("navigate to dashboard you should see contact us link in the footer",
+    it('navigate to dashboard you should see contact us link in the footer',
       fakeAsync(() => {
         fixture.ngZone.run(() => {
-          router.navigate(["dashboard"]);
+          router.navigate(['dashboard']);
           tick();
-          expect(location.path()).toBe("/dashboard");
+          expect(location.path()).toBe('/dashboard');
           expect(component.hideContactUsLink).toBeFalsy();
-        })
+        });
       }));
-    it("navigate to contact-us you should not see contact us link in the footer",
+    it('navigate to contact-us you should not see contact us link in the footer',
       fakeAsync(() => {
         fixture.ngZone.run(() => {
-          router.navigate(["contact-us"]);
+          router.navigate(['contact-us']);
           tick();
-          expect(location.path()).toBe("/contact-us");
+          expect(location.path()).toBe('/contact-us');
           expect(component.hideContactUsLink).toBeTruthy();
-        })
+        });
       }));
   });

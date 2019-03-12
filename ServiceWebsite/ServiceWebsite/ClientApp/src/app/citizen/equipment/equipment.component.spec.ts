@@ -89,56 +89,56 @@ describe('EquipmentComponent', () => {
     expect(component.checklist.EquipmentNone.IsValueSet).toBeFalsy();
   }));
   it('should click on phone checkBox and checked', () => {
-    var phoneCheckbox = fixture.debugElement.query(By.css('#phone-1')).nativeElement;
+    const phoneCheckbox = fixture.debugElement.query(By.css('#phone-1')).nativeElement;
     phoneCheckbox.click();
     phoneCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let phoneControl = component.equipmentForm.get('phone');
+    const phoneControl = component.equipmentForm.get('phone');
     expect(phoneControl.value).toBeTruthy();
     expect(component.phoneSelected).toBeTruthy();
     expect(component.noneSelected).toBeFalsy();
   });
   it('should click on internet connection checkBox and checked', () => {
-    var internetCheckbox = fixture.debugElement.query(By.css('#internet-2')).nativeElement;
+    const internetCheckbox = fixture.debugElement.query(By.css('#internet-2')).nativeElement;
     internetCheckbox.click();
     internetCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let internetControl = component.equipmentForm.get('internetConnection');
+    const internetControl = component.equipmentForm.get('internetConnection');
     expect(internetControl.value).toBeTruthy();
     expect(component.internetSelected).toBeTruthy();
     expect(component.noneSelected).toBeFalsy();
   });
   it('should click on laptop checkBox and checked', () => {
-    var laptopCheckbox = fixture.debugElement.query(By.css('#laptop-3')).nativeElement;
+    const laptopCheckbox = fixture.debugElement.query(By.css('#laptop-3')).nativeElement;
     laptopCheckbox.click();
     laptopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let laptopControl = component.equipmentForm.get('laptop');
+    const laptopControl = component.equipmentForm.get('laptop');
     expect(laptopControl.value).toBeTruthy();
     expect(component.laptopSelected).toBeTruthy();
     expect(component.noneSelected).toBeFalsy();
   });
   it('should click on desktop checkBox and checked', () => {
-    var desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
+    const desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
     desktopCheckbox.click();
     desktopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let desktopControl = component.equipmentForm.get('desktop');
+    const desktopControl = component.equipmentForm.get('desktop');
     expect(desktopControl.value).toBeTruthy();
     expect(component.desktopSelected).toBeTruthy();
     expect(component.noneSelected).toBeFalsy();
   });
   it('should click on none checkBox and checked', () => {
-    var laptopCheckbox = fixture.debugElement.query(By.css('#laptop-3')).nativeElement;
+    const laptopCheckbox = fixture.debugElement.query(By.css('#laptop-3')).nativeElement;
     laptopCheckbox.click();
     laptopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
 
-    var noneCheckbox = fixture.debugElement.query(By.css('#none-5')).nativeElement;
+    const noneCheckbox = fixture.debugElement.query(By.css('#none-5')).nativeElement;
     noneCheckbox.click();
     noneCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let noneControl = component.equipmentForm.get('noneOfAbove');
+    const noneControl = component.equipmentForm.get('noneOfAbove');
     expect(noneControl.value).toBeTruthy();
     expect(component.noneSelected).toBeTruthy();
     expect(component.phoneSelected).toBeFalsy();
@@ -147,65 +147,65 @@ describe('EquipmentComponent', () => {
     expect(component.desktopSelected).toBeFalsy();
   });
   it('should click on phone checkBox and checked, the "none of above" option should be false', () => {
-    //checked none of above option
-    var noneCheckbox = fixture.debugElement.query(By.css('#none-5')).nativeElement;
+    // checked none of above option
+    const noneCheckbox = fixture.debugElement.query(By.css('#none-5')).nativeElement;
     noneCheckbox.click();
     noneCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let noneControl = component.equipmentForm.get('noneOfAbove');
+    const noneControl = component.equipmentForm.get('noneOfAbove');
     expect(noneControl.value).toBeTruthy();
-    //check phone option
-    var phoneCheckbox = fixture.debugElement.query(By.css('#phone-1')).nativeElement;
+    // check phone option
+    const phoneCheckbox = fixture.debugElement.query(By.css('#phone-1')).nativeElement;
     phoneCheckbox.click();
     phoneCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let phoneControl = component.equipmentForm.get('phone');
+    const phoneControl = component.equipmentForm.get('phone');
     expect(phoneControl.value).toBeTruthy();
     expect(component.phoneSelected).toBeTruthy();
     expect(component.noneSelected).toBeFalsy();
   });
   it('should click on radio button camera options and set value to notSure', () => {
-    //make visible radio buttons by clicking the desktop check box
-    var desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
+    // make visible radio buttons by clicking the desktop check box
+    const desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
     desktopCheckbox.click();
     desktopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
 
-    var cameraRadio = fixture.debugElement.query(By.css('#notsure-1')).nativeElement;
+    const cameraRadio = fixture.debugElement.query(By.css('#notsure-1')).nativeElement;
     cameraRadio.click();
     cameraRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let cameraControl = component.equipmentForm.get('hasCamera');
+    const cameraControl = component.equipmentForm.get('hasCamera');
     expect(cameraControl.value).toBe('notSure');
     expect(component.selectedAnswerCamera).toBe('notSure');
   });
   it('should click on radio button camera options and set value to yes', () => {
-    //make visible radio buttons by clicking the desktop check box
-    var desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
+    // make visible radio buttons by clicking the desktop check box
+    const desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
     desktopCheckbox.click();
     desktopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
 
-    var cameraRadio = fixture.debugElement.query(By.css('#yes-2')).nativeElement;
+    const cameraRadio = fixture.debugElement.query(By.css('#yes-2')).nativeElement;
     cameraRadio.click();
     cameraRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let cameraControl = component.equipmentForm.get('hasCamera');
+    const cameraControl = component.equipmentForm.get('hasCamera');
     expect(cameraControl.value).toBe('yes');
     expect(component.selectedAnswerCamera).toBe('yes');
   });
   it('should click on radio button camera options and set value to no', () => {
-    //make visible radio buttons by clicking the desktop check box
-    var desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
+    // make visible radio buttons by clicking the desktop check box
+    const desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
     desktopCheckbox.click();
     desktopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
 
-    var cameraRadio = fixture.debugElement.query(By.css('#no-3')).nativeElement;
+    const cameraRadio = fixture.debugElement.query(By.css('#no-3')).nativeElement;
     cameraRadio.click();
     cameraRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    let cameraControl = component.equipmentForm.get('hasCamera');
+    const cameraControl = component.equipmentForm.get('hasCamera');
     expect(cameraControl.value).toBe('no');
     expect(component.selectedAnswerCamera).toBe('no');
   });
@@ -216,7 +216,7 @@ describe('EquipmentComponent', () => {
     expect(component.optionDeviceValid).toBeFalsy();
   });
   it('should show error message to select camera option if desktop option selected', () => {
-    var desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
+    const desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
     desktopCheckbox.click();
     desktopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
@@ -231,28 +231,28 @@ describe('EquipmentComponent', () => {
     component.ngOnInit();
     tick();
 
-    //select has phone
-    var phoneCheckbox = fixture.debugElement.query(By.css('#phone-1')).nativeElement;
+    // select has phone
+    const phoneCheckbox = fixture.debugElement.query(By.css('#phone-1')).nativeElement;
     phoneCheckbox.click();
     phoneCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    //select has internet connection
-    var internetCheckbox = fixture.debugElement.query(By.css('#internet-2')).nativeElement;
+    // select has internet connection
+    const internetCheckbox = fixture.debugElement.query(By.css('#internet-2')).nativeElement;
     internetCheckbox.click();
     internetCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    //select has laptop
-    var laptopCheckbox = fixture.debugElement.query(By.css('#laptop-3')).nativeElement;
+    // select has laptop
+    const laptopCheckbox = fixture.debugElement.query(By.css('#laptop-3')).nativeElement;
     laptopCheckbox.click();
     laptopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     // select has desktop
-    var desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
+    const desktopCheckbox = fixture.debugElement.query(By.css('#desktop-4')).nativeElement;
     desktopCheckbox.click();
     desktopCheckbox.dispatchEvent(new Event('click'));
     fixture.detectChanges();
     // select has camera
-    var cameraRadio = fixture.debugElement.query(By.css('#yes-2')).nativeElement;
+    const cameraRadio = fixture.debugElement.query(By.css('#yes-2')).nativeElement;
     cameraRadio.click();
     cameraRadio.dispatchEvent(new Event('click'));
     fixture.detectChanges();

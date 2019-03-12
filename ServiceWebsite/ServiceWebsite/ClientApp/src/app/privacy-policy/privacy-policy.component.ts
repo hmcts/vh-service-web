@@ -14,8 +14,7 @@ export class PrivacyPolicyComponent implements OnInit {
   printPage() {
     try {
         document.execCommand('print', false, null);
-    }
-    catch (e) {
+    } catch (e) {
         window.print();
     }
 }

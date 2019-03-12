@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProgressbarBasicComponent implements OnInit {
   @Input()
-  checkValue: number = 0;
+  checkValue = 0;
 
   @Input()
   checkTitle: string;
