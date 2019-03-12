@@ -12,6 +12,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
+using ServiceWebsite.UserAPI.Client;
+using ServiceWebsite.Configuration;
 
 namespace Website
 {
@@ -24,14 +26,22 @@ namespace Website
             serviceCollection.AddScoped<EnvironmentSettings>();
 
             serviceCollection.AddTransient<AddBearerTokenHeaderHandler>();
+            serviceCollection.AddTransient<UserApiTokenHandler>();
             serviceCollection.AddScoped<ITokenProvider, TokenProvider>();
+            serviceCollection.AddScoped<SecuritySettings>();
+            
 
             // Build the hearings api client using a reusable HttpClient factory and predefined base url
             var container = serviceCollection.BuildServiceProvider();
             var settings = container.GetService<IOptions<EnvironmentSettings>>().Value;
+            var serviceSettings = container.GetService<IOptions<ServiceSettings>>().Value;
             serviceCollection.AddHttpClient<IVhApiClient, VhApiClient>()
                 .AddTypedClient(httpClient => BuildHearingsApiClient(httpClient, settings))
                 .AddHttpMessageHandler(() => container.GetService<AddBearerTokenHeaderHandler>());
+
+            serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
+                .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
+                .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IChecklistService, ChecklistService>();
@@ -44,6 +54,11 @@ namespace Website
         private static IVhApiClient BuildHearingsApiClient(HttpClient httpClient, EnvironmentSettings settings)
         {
             return new VhApiClient(httpClient) {BaseUrl = settings.HearingsApiUrl};
+        }
+
+        private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
+        {
+            return new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
         }
 
         private static void AddSwaggerToApi(this IServiceCollection serviceCollection)

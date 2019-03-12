@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
 using ServiceWebsite.Services;
+using ServiceWebsite.UserAPI.Client;
 
 namespace ServiceWebsite.Controllers
 {
@@ -13,11 +14,12 @@ namespace ServiceWebsite.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        private readonly IParticipantService _participantService;
+        // private readonly IParticipantService _participantService;
+        private readonly IUserApiClient _userApiClient;
 
-        public ProfileController(IParticipantService participantService)
+        public ProfileController(IUserApiClient userApiClient)
         {
-            _participantService = participantService;
+            _userApiClient = userApiClient;
         }
         
         [HttpGet]
@@ -25,11 +27,12 @@ namespace ServiceWebsite.Controllers
         {
             try
             {
-                var participant = await _participantService.FindParticipant(User.Identity.Name);
+                var participant = await _userApiClient.GetUserByAdUserNameAsync(User.Identity.Name);
+                
                 var profile = new
                 {
                     participant.Email,
-                    participant.Role
+                    participant.User_role
                 };
 
                 return Json(profile);
