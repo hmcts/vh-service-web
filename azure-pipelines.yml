@@ -11,7 +11,7 @@ variables:
   integrationTestsAppSettingsTransform: '
   "AzureAd/Authority":"https://login.microsoftonline.com/$(TenantId)",
   "AzureAd/ClientId":"$(vh-service-web-appid)",
-  "AzureAd/ClientSecret":"$(vh-service-web-secret)",
+  "AzureAd/ClientSecret":"$(vh-service-web-key)",
   "AzureAd:TenantId":"$(TenantId)",
   "VhServices/BookingsApiResourceId":"$(vh-bookings-api-identifieruris)"
     '
