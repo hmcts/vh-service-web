@@ -15,12 +15,13 @@ namespace ServiceWebsite.Services
         }
 
         public async Task<bool> IsRequiredForUser(string username) {
-            var response = await _client.GetHearingParticipantChecklistByUsernameAsync(username);
-            if (!response.Is_required.Value) {
-                Console.WriteLine($"Participant [{username}] is according to api not required to answer checklist.");
-            }
-            
-            return response.Is_required.Value;
+            //var response = await _client.GetHearingParticipantChecklistByUsernameAsync(username);
+            //if (!response.Is_required.Value) {
+            //    Console.WriteLine($"Participant [{username}] is according to api not required to answer checklist.");
+            //}
+
+            //return response.Is_required.Value;
+            return true;
         }
 
         public async Task Submit(Checklist checklist)

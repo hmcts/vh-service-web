@@ -1,7 +1,7 @@
 export let Constants = {
   UserType: {
-    ProfessionalUser: 'Professional',
-    Citizen: 'Citizen',
+    ProfessionalUser: 'Representative',
+    Citizen: 'Individual',
   },
   LocalStorageKeys: {
     CheckEquipmentMedia: 'EQUIPMENT_CAM_AND_MIC_PRESENT',

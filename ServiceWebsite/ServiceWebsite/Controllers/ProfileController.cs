@@ -31,8 +31,8 @@ namespace ServiceWebsite.Controllers
                 
                 var profile = new
                 {
-                    participant.Email,
-                    participant.User_role
+                    Email=participant.Email,
+                    Role = participant.User_role
                 };
 
                 return Json(profile);
