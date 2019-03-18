@@ -11,7 +11,7 @@ describe('DifferentHearingTypesComponent', () => {
   let component: DifferentHearingTypesComponent;
   let fixture: ComponentFixture<DifferentHearingTypesComponent>;
   const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
-  let locationSpy: jasmine.SpyObj<Location>;
+  const locationSpy: jasmine.SpyObj<Location> = jasmine.createSpyObj<Location>('Location', ['handle']);
   const errorServiceSpy: jasmine.SpyObj<ErrorService> = jasmine.createSpyObj<ErrorService>('ErrorService', ['handle']);
 
   beforeEach(async(() => {

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using HearingsAPI.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
@@ -12,6 +11,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
+using ServiceWebsite.UserAPI.Client;
+using ServiceWebsite.Configuration;
 
 namespace ServiceWebsite
 {
@@ -24,14 +25,18 @@ namespace ServiceWebsite
             serviceCollection.AddScoped<EnvironmentSettings>();
 
             serviceCollection.AddTransient<AddBearerTokenHeaderHandler>();
+            serviceCollection.AddTransient<UserApiTokenHandler>();
             serviceCollection.AddScoped<ITokenProvider, TokenProvider>();
+            serviceCollection.AddScoped<SecuritySettings>();
+            
 
             // Build the hearings api client using a reusable HttpClient factory and predefined base url
             var container = serviceCollection.BuildServiceProvider();
             var settings = container.GetService<IOptions<EnvironmentSettings>>().Value;
-            serviceCollection.AddHttpClient<IVhApiClient, VhApiClient>()
-                .AddTypedClient(httpClient => BuildHearingsApiClient(httpClient, settings))
-                .AddHttpMessageHandler(() => container.GetService<AddBearerTokenHeaderHandler>());
+            var serviceSettings = container.GetService<IOptions<ServiceSettings>>().Value;
+            serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
+                .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
+                .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IChecklistService, ChecklistService>();
@@ -41,9 +46,9 @@ namespace ServiceWebsite
             return serviceCollection;
         }
 
-        private static IVhApiClient BuildHearingsApiClient(HttpClient httpClient, EnvironmentSettings settings)
+        private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
-            return new VhApiClient(httpClient) {BaseUrl = settings.HearingsApiUrl};
+            return new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
         }
 
         private static void AddSwaggerToApi(this IServiceCollection serviceCollection)

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using ServiceWebsite.Configuration;
 
 namespace ServiceWebsite.Security
 {
@@ -12,11 +13,11 @@ namespace ServiceWebsite.Security
 
     public class TokenProvider : ITokenProvider
     {
-        private readonly EnvironmentSettings _environmentSettings;
+        private readonly SecuritySettings _securitySettings;
 
-        public TokenProvider(IOptions<EnvironmentSettings> securitySettings)
+        public TokenProvider(IOptions<SecuritySettings> securitySettings)
         {
-            _environmentSettings = securitySettings.Value;
+            _securitySettings = securitySettings.Value;
         }
 
         public string GetClientAccessToken(string clientId, string clientSecret, string clientResource)
@@ -29,7 +30,7 @@ namespace ServiceWebsite.Security
         {
             AuthenticationResult result;
             var credential = new ClientCredential(clientId, clientSecret);
-            var authContext = new AuthenticationContext($"{_environmentSettings.Authority}{_environmentSettings.TenantId}");
+            var authContext = new AuthenticationContext($"{_securitySettings.Authority}");
 
             try
             {

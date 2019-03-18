@@ -12,7 +12,7 @@ describe('CheckSuitabilityForVideoComponent', () => {
   let component: CheckSuitabilityForVideoComponent;
   let fixture: ComponentFixture<CheckSuitabilityForVideoComponent>;
 
-  let routerSpy: jasmine.SpyObj<Router>;
+  const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

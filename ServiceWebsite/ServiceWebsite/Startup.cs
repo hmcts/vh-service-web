@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
 using ServiceWebsite.Security;
@@ -57,6 +58,10 @@ namespace ServiceWebsite
 
         private void RegisterSettings(IServiceCollection services)
         {
+            services.Configure<SecuritySettings>(options => Configuration.Bind("AzureAd", options));
+            services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
+            services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
+            services.Configure<SecuritySettings>(options => Configuration.Bind("ApplicationInsights", options));
             services.Configure<EnvironmentSettings>(options => Configuration.Bind(options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
         }

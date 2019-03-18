@@ -11,6 +11,6 @@
             Role = role;
         }
 
-        public bool ChecklistRequired => Role == Role.Citizen || Role == Role.Professional;
+        public bool ChecklistRequired => Role == Role.Individual || Role == Role.Representative;
     }
 }

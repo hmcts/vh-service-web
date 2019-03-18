@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HearingsAPI.Client;
 using ServiceWebsite.Common;
 using ServiceWebsite.Domain;
 
@@ -10,28 +9,17 @@ namespace ServiceWebsite.Services
 {
     public class HearingsService : IHearingsService
     {
-        private readonly IVhApiClient _client;
-
-        public HearingsService(IVhApiClient client)
-        {
-            _client = client;
-        }
-
         public async Task<Hearing[]> GetHearingsFor(string userEmail)
         {
-            var hearings = await _client.GetHearingsBetweenDatesAsync(Today, NextYear);
-            return hearings.Where(hearing => ContainsParticipant(hearing.Participants, userEmail))
-                .Select(ToHearingModel).ToArray();
-        }
+           
+            List<Hearing> hearings = new List<Hearing>();
+            for(int i=1;i<=5;i++)
+            {
 
-        private bool ContainsParticipant(IEnumerable<ParticipantResponse> participants, string userEmail)
-        {
-            return participants.Any(participant => participant.Username.Equals(userEmail, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        private Hearing ToHearingModel(HearingResponse hearing) {
-            var hearingCase = hearing.Cases.FirstOrDefault();
-            return new Hearing(hearing.Id.Value, hearingCase.Name, hearingCase.Number);
+                hearings.Add(new Hearing(1,"Case "+i,"Case "+i));
+            }
+            return await Task.FromResult(hearings.ToArray());
+           
         }
 
         private DateTime Today => DateTime.UtcNow.Date;

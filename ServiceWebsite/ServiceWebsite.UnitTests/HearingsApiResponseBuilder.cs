@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HearingsAPI.Client;
+
 using Moq;
 using ServiceWebsite.UnitTests;
 
@@ -14,13 +14,11 @@ namespace ServiceWebsite.UnitTests
     internal class HearingsApiResponseBuilder
     {
         private readonly List<HearingResponseBuilder> _hearings = new List<HearingResponseBuilder>();
-        private readonly Mock<IVhApiClient> _apiMock;
-        private readonly HearingsApiAction _mockAction;
+         private readonly HearingsApiAction _mockAction;
 
-        private HearingsApiResponseBuilder(Mock<IVhApiClient> apiMock, HearingsApiAction mockAction)
+        private HearingsApiResponseBuilder(HearingsApiAction mockAction)
         {
-            _apiMock = apiMock;
-            _mockAction = mockAction;
+          _mockAction = mockAction;
         }
 
         private enum HearingsApiAction
@@ -38,9 +36,9 @@ namespace ServiceWebsite.UnitTests
             }
         }
 
-        public static HearingsApiResponseBuilder ForHearingsToday(Mock<IVhApiClient> apiMock)
+        public static HearingsApiResponseBuilder ForHearingsToday()
         {
-            return new HearingsApiResponseBuilder(apiMock, HearingsApiAction.HearingsToday);
+            return new HearingsApiResponseBuilder(HearingsApiAction.HearingsToday);
         }
 
         public HearingsApiResponseBuilder ResponseContains(Action<HearingsApiResponseBuilder> builder)
@@ -56,8 +54,6 @@ namespace ServiceWebsite.UnitTests
                 case HearingsApiAction.HearingsToday:
                     var today = DateTime.UtcNow.Date;
                     var hearings = _hearings.Select(x => x.Build()).ToList();
-                    _apiMock.Setup(a => a.GetHearingsBetweenDatesAsync(today, It.IsAny<DateTime>()))
-                        .Returns(Task.FromResult(hearings));
                     break;
                 default:
                     throw new NotImplementedException(

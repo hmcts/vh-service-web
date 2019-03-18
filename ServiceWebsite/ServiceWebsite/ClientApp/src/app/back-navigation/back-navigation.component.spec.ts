@@ -9,8 +9,8 @@ describe('BackNavigationComponent', () => {
   let component: BackNavigationComponent;
   let fixture: ComponentFixture<BackNavigationComponent>;
 
-  let routerSpy: jasmine.SpyObj<Router>;
-  let locationSpy: jasmine.SpyObj<Location>;
+  const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
+  const locationSpy: jasmine.SpyObj<Location> = jasmine.createSpyObj<Location>('Location', ['handle']);
   let errorServiceStub: jasmine.SpyObj<ErrorService>;
 
   beforeEach(async(() => {

@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <PackageReference Include="Hearings.Common" Version="1.1.6088" />
-    <PackageReference Include="HearingsAPI.Client" Version="1.1.5127" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.6.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.2" />
@@ -53,6 +52,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
     <ProjectReference Include="..\ServiceWebsite.Services\ServiceWebsite.Services.csproj" />
+    <ProjectReference Include="..\ServiceWebsite.UserAPI.Client\ServiceWebsite.UserAPI.Client.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
