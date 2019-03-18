@@ -74,7 +74,7 @@ describe('IsHearingSuitableForVideoComponent', () => {
     expect(component.isSuitableForm.invalid).toBeTruthy();
     const tempControl = component.isSuitableForm.get('suitability');
     const temp = tempControl.value;
-    expect(temp).toEqual(null);
+    expect(temp).toBeNull;
   });
   it('should click on suitability_yes suitability value is Yes', () => {
     const suitabilityYesRadio = fixture.debugElement.query(By.css('#suitability_yes')).nativeElement;
