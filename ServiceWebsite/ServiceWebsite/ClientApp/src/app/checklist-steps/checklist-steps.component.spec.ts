@@ -12,7 +12,7 @@ describe('ChecklistStepsComponent', () => {
   let fixture: ComponentFixture<ChecklistStepsComponent>;
 
   const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
-  let locationSpy: jasmine.SpyObj<Location>;
+  const locationSpy: jasmine.SpyObj<Location> = jasmine.createSpyObj<Location>('Location', ['handle']);
   let errorServiceStub: jasmine.SpyObj<ErrorService>;
 
   beforeEach(async(() => {

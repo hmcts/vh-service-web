@@ -25,7 +25,7 @@ describe('AccessToARoomComponent', () => {
   let fixture: ComponentFixture<AccessToARoomComponent>;
   const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
   const errorServiceSpy: jasmine.SpyObj<ErrorService> = jasmine.createSpyObj<ErrorService>('ErrorService', ['handle']);
-  let locationSpy: jasmine.SpyObj<Location>;
+  const locationSpy: jasmine.SpyObj<Location> = jasmine.createSpyObj<Location>('Location', ['handle']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

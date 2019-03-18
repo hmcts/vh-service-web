@@ -14,7 +14,7 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  let routerSpy: jasmine.SpyObj<Router>;
+  const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
   let checklistService: jasmine.SpyObj<ChecklistService>;
   let documentRedirectService: jasmine.SpyObj<DocumentRedirectService>;
 
