@@ -7,6 +7,7 @@ import { ChecklistService } from '../services/checklist.service';
 import { DocumentRedirectService } from '../services/document-redirect.service';
 import { Config } from '../models/config';
 
+/* tslint:disable:component-selector */
 @Component({
   selector: 'home',
   template: ''

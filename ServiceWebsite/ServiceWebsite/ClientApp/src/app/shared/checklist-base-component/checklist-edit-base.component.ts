@@ -1,3 +1,4 @@
+import { Component, OnInit } from '@angular/core';
 import { SessionStorage } from '../../services/session-storage';
 import { Constants } from '../constants';
 import { HearingService } from '../../services/hearing.service';
@@ -5,7 +6,7 @@ import { ProfileService } from '../../services/profile.service';
 import { ChecklistSessionService } from '../../services/checklist-session.service';
 import { ChecklistBaseComponent } from '../checklist-base-component/checklist-base.component';
 
-export abstract class ChecklistEditBaseComponent extends ChecklistBaseComponent {
+export abstract class ChecklistEditBaseComponent extends ChecklistBaseComponent implements OnInit {
 
   buttonAction: string;
   editMode = false;
