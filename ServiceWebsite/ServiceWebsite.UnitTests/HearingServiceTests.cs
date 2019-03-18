@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using HearingsAPI.Client;
 using Moq;
 using NUnit.Framework;
 using ServiceWebsite.Services;
@@ -10,14 +9,12 @@ namespace ServiceWebsite.UnitTests
 {
     public class HearingServiceTests
     {
-        private Mock<IVhApiClient> _api;
         private HearingsService _hearingService;
 
         [SetUp]
         public void Setup()
         {
-            _api = new Mock<IVhApiClient>();
-            _hearingService = new HearingsService(_api.Object);
+           _hearingService = new HearingsService();
         }
 
         [Test]
@@ -39,7 +36,7 @@ namespace ServiceWebsite.UnitTests
         }
 
         private HearingsApiResponseBuilder WhenGettingHearingsToday() {
-            return HearingsApiResponseBuilder.ForHearingsToday(_api);
+            return HearingsApiResponseBuilder.ForHearingsToday();
         }
     }
 }

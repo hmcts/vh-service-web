@@ -16,3 +16,4 @@
 /ServiceWebsite/ServiceWebsite.IntegrationTests/obj
 /ServiceWebsite/ServiceWebsite.UnitTests/bin/Debug/netcoreapp2.2
 /ServiceWebsite/ServiceWebsite.UnitTests/obj
+ServiceWebsite/ServiceWebsite.UserAPI.Client/ServiceWebsite.UserAPI.Client.csproj.user

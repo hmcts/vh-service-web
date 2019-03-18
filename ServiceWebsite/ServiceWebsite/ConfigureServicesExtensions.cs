@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using HearingsAPI.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
@@ -35,10 +34,6 @@ namespace ServiceWebsite
             var container = serviceCollection.BuildServiceProvider();
             var settings = container.GetService<IOptions<EnvironmentSettings>>().Value;
             var serviceSettings = container.GetService<IOptions<ServiceSettings>>().Value;
-            serviceCollection.AddHttpClient<IVhApiClient, VhApiClient>()
-                .AddTypedClient(httpClient => BuildHearingsApiClient(httpClient, settings))
-                .AddHttpMessageHandler(() => container.GetService<AddBearerTokenHeaderHandler>());
-
             serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
                 .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
                 .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
@@ -49,11 +44,6 @@ namespace ServiceWebsite
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;
-        }
-
-        private static IVhApiClient BuildHearingsApiClient(HttpClient httpClient, EnvironmentSettings settings)
-        {
-            return new VhApiClient(httpClient) {BaseUrl = settings.HearingsApiUrl};
         }
 
         private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
