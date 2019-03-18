@@ -20,7 +20,7 @@ import {
   ChecklistStepsStubComponent,
   BeforeunloadStubComponent,
 } from '../../tests/component-stubs';
-import { Observable } from 'rxjs/Rx';
+import { Observable, from } from 'rxjs';
 import { MockSessionStorage } from 'src/tests/mock-session-storage';
 import { SessionStorage } from '../services/session-storage';
 
@@ -51,7 +51,7 @@ describe('OtherInformationComponent', () => {
         { provide: HearingService, useClass: MockHearingService },
         { provide: SessionStorage, useClass: MockSessionStorage },
         {
-          provide: ActivatedRoute, useValue: { params: Observable.from([{ edit: true }]) }
+          provide: ActivatedRoute, useValue: { params: from([{ edit: true }]) }
         },
       ]
     })
