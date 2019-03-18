@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
 import {  ActivatedRoute } from '@angular/router';
 import { LocaleResources } from '../shared/resources/locale-resources';
 import { CONFIG } from '../shared/config';
@@ -11,7 +11,7 @@ import { PrintService } from '../services/print.service';
   templateUrl: './guidance.component.html',
   styleUrls: ['./guidance.component.css']
 })
-export class GuidanceComponent implements OnInit {
+export class GuidanceComponent implements OnInit, AfterViewChecked {
   localeResources: any;
   contentIndex: Array<GuidanceModel> = [];
   toPrint = false;

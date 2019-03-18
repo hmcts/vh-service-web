@@ -22,7 +22,7 @@ describe('ChecklistConsentComponent', () => {
   const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
   const locationSpy: jasmine.SpyObj<Location> = jasmine.createSpyObj<Location>('Location', ['handle']);
 
-  let storageSpy: jasmine.SpyObj<SessionStorage>;
+  const storageSpy: jasmine.SpyObj<SessionStorage> = jasmine.createSpyObj<SessionStorage>('SessionStorage', ['handle']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
