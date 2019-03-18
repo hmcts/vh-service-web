@@ -20,7 +20,6 @@ import {
   ChecklistStepsStubComponent,
   BeforeunloadStubComponent
 } from '../../../tests/component-stubs';
-import { Observable } from 'rxjs/Rx';
 import { MockSessionStorage } from 'src/tests/mock-session-storage';
 import { SessionStorage } from '../../services/session-storage';
 

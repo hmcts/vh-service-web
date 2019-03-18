@@ -28,18 +28,15 @@ export class ChecklistModel {
 }
 
 export class ChecklistYesNoQuestionModel {
-
+  Details: string;
+  Value: boolean;
+  IsValueSet: boolean;
   public getAnswerAsString(): string { return this.Value ? 'yes' : 'no'; }
 
   constructor(defaultValue: boolean) {
     this.Value = defaultValue;
     this.IsValueSet = false;
   }
-
-  Details: string;
-
-  Value: boolean;
-
   yes() {
     this.Value = true;
   }
@@ -47,8 +44,6 @@ export class ChecklistYesNoQuestionModel {
   no() {
     this.Value = false;
   }
-
-  IsValueSet: boolean;
 }
 
 export class CheckListEquipmentModel {
