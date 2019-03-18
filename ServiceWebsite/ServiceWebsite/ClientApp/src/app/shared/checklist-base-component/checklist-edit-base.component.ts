@@ -1,3 +1,4 @@
+import { Component, OnInit } from '@angular/core';
 import { SessionStorage } from '../../services/session-storage';
 import { Constants } from '../constants';
 import { HearingService } from '../../services/hearing.service';

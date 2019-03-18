@@ -6,8 +6,9 @@ import { By } from '@angular/platform-browser';
 import { ProgressbarBasicComponent } from './progressbar-basic.component';
 
 describe('ProgressbarBasicComponent', () => {
+  /* tslint:disable:component-selector */
   @Component({ selector: 'ngb-progressbar', template: '' })
-  class ProgressBarStub {
+  class ProgressBarStubComponent {
     @Input()
     value: number;
   }
@@ -18,7 +19,7 @@ describe('ProgressbarBasicComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProgressbarBasicComponent, ProgressBarStub],
+      declarations: [ProgressbarBasicComponent, ProgressBarStubComponent],
       providers: [
       ]
     })
