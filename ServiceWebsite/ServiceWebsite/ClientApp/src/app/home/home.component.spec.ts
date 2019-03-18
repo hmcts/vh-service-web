@@ -23,7 +23,6 @@ describe('HomeComponent', () => {
   const config = new Config('videoappurl', 'appInsightsKey');
 
   beforeEach(async(() => {
-    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     documentRedirectService = jasmine.createSpyObj('DocumentRedirectService', ['to']);
     checklistService = jasmine.createSpyObj('ChecklistService', ['isUserRequiredToSubmitChecklist']);
 
