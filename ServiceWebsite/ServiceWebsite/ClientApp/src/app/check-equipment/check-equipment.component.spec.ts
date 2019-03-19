@@ -73,25 +73,28 @@ describe('CheckEquipmentComponent', () => {
   const info = new SpeedTestModel();
   info.DownloadSpeed = 58.89;
   info.UploadSpeed = 17.876;
-  class SpeedTestServiceStub {
-    click() { }
-    speedTestState$ = new Observable<SpeedTestModel>(s => {
-      s.next(info);
-    });
-  }
-
-  class NavigatorServiceStub {
-    navigatorDeviceInfo() { return 'Desktop'; }
-    agentInfo() { return 'Safari'; }
-    mediaDeviceInfo() { }
-    mediaDevices$ = new Observable<any>();
-  }
 
   let profileServiceSpy: jasmine.SpyObj<ProfileService>;
   const profile = new UserProfile();
   profile.email = 'aa@aa.aa';
   profileServiceSpy = jasmine.createSpyObj<ProfileService>('ProfileService', ['getUserProfile']);
   profileServiceSpy.getUserProfile.and.returnValue(Promise.resolve(profile));
+
+  class SpeedTestServiceStub {
+    speedTestState$ = new Observable<SpeedTestModel>(s => {
+      s.next(info);
+    });
+    click() { }
+  }
+
+  class NavigatorServiceStub {
+    mediaDevices$ = new Observable<any>();
+    navigatorDeviceInfo() { return 'Desktop'; }
+    agentInfo() { return 'Safari'; }
+    mediaDeviceInfo() { }
+   }
+
+
 
   class ChecklistSessionServiceSpy {
     getChecklist(hearingId: number, userId: string): ChecklistModel {
