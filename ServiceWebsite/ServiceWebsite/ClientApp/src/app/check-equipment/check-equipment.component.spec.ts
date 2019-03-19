@@ -159,6 +159,7 @@ describe('CheckEquipmentComponent', () => {
       tick(20000);
       fixture.detectChanges();
     fixture.whenStable().then(() => {
+      /* tslint:disable:no-unused-expression */
       expect(checkEquipment.userProfile).toBeTruthy;
     });
     fixture.detectChanges();

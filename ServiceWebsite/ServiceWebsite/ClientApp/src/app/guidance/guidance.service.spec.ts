@@ -24,6 +24,7 @@ describe('GuidanceService', () => {
     expect(contents).toBeTruthy();
     expect(contents[0].Index).toEqual(1);
     expect(contents[0].Name.length).toBeGreaterThan(1);
+    /* tslint:disable:no-unused-expression */
     expect(contents[0].IsActive).toBeFalsy;
   });
 });

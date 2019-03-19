@@ -74,6 +74,7 @@ describe('IsHearingSuitableForVideoComponent', () => {
     expect(component.isSuitableForm.invalid).toBeTruthy();
     const tempControl = component.isSuitableForm.get('suitability');
     const temp = tempControl.value;
+    /* tslint:disable:no-unused-expression */
     expect(temp).toBeNull;
   });
   it('should click on suitability_yes suitability value is Yes', () => {
