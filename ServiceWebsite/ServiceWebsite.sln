@@ -17,6 +17,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWebsite.IntegrationT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWebsite.UnitTests", "ServiceWebsite.UnitTests\ServiceWebsite.UnitTests.csproj", "{838F3A68-1C32-4A13-86B9-C00B808FF0A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{6A121C33-49FA-4B01-AC57-42425807C50D}"
+ProjectSection(SolutionItems) = preProject
+	..\azure-pipelines.yml = ..\azure-pipelines.yml
+	..\README.md = ..\README.md
+	..\.gitignore = ..\.gitignore
+	run_coverage.sh = run_coverage.sh
+	run_coverage.bat = run_coverage.bat
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9B20FDBB-5B9B-4308-8D26-1C83C287D48C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +71,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF0D81B-36CE-426F-A117-7065BF5C0ECD}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{838F3A68-1C32-4A13-86B9-C00B808FF0A5} = {9B20FDBB-5B9B-4308-8D26-1C83C287D48C}
+		{9A885A59-EF12-4429-A749-51AE897462C5} = {9B20FDBB-5B9B-4308-8D26-1C83C287D48C}
 	EndGlobalSection
 EndGlobal
