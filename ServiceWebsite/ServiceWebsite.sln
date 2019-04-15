@@ -24,6 +24,7 @@ ProjectSection(SolutionItems) = preProject
 	..\.gitignore = ..\.gitignore
 	run_coverage.sh = run_coverage.sh
 	run_coverage.bat = run_coverage.bat
+	..\CODEOWNERS = ..\CODEOWNERS
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9B20FDBB-5B9B-4308-8D26-1C83C287D48C}"
