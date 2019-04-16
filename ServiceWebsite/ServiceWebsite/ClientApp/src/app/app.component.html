@@ -9,11 +9,6 @@
       <router-outlet (activate)="padUnactivatedRouter = false"></router-outlet>
     </main>
   </div>
-
-
-  <div *ngIf="showSignOutConfirmation">
-    <app-confirmation-signout-popup (continueAnswers)="handleContinue()" (cancelAnswers)="handleCancel()"></app-confirmation-signout-popup>
-  </div>
 </div>
 <div>
   <app-footer></app-footer>

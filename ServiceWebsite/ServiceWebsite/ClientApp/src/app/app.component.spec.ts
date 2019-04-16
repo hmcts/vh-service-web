@@ -18,15 +18,6 @@ const adalService = {
 
 const config = {};
 
-@Component({
-  selector: 'app-confirmation-signout-popup',
-  template: ''
-})
-export class ConfirmationSignoutPopupStubComponent {
-  @Output() continueAnswers: EventEmitter<any> = new EventEmitter<any>();
-  @Output() cancelAnswers: EventEmitter<any> = new EventEmitter<any>();
-}
-
 let component: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 let router: any;
@@ -53,7 +44,6 @@ describe('AppComponent', () => {
         AppComponent,
         FooterStubComponent,
         RouterOutletStubComponent,
-        ConfirmationSignoutPopupStubComponent,
         HeaderComponent,
       ],
       providers:
