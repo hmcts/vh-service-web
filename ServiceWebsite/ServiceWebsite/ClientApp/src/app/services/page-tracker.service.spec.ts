@@ -4,45 +4,37 @@ import { AppInsightsLogger } from './app-insights-logger.service';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, NgModule } from '@angular/core';
-import { SessionStorage } from './session-storage';
-import { Constants } from '../shared/constants';
 
 @Component({selector: 'app-mock-component', template: ''})
 class MockComponent {
 }
 
-@NgModule({declarations: [MockComponent]})
-export class StubModule {
-}
+const routes = [
+  {
+    path: 'component-path',
+    component: MockComponent,
+    children: [
+        { path: 'sub-component', component: MockComponent }
+    ],
+  }
+];
 
 describe('PageTrackerService', () => {
   let pageTrackerService: PageTrackerService;
   let appInsightsLogger: jasmine.SpyObj<AppInsightsLogger>;
   let router: Router;
-  class SessionStorageStub {
-    setItem(keyWord) { }
-  }
 
   beforeEach(() => {
     appInsightsLogger = jasmine.createSpyObj('AppInsightsLogger', ['trackPage']);
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([
-            { path: 'component-path',
-            component: MockComponent,
-            children: [
-                { path: 'sub-component', component: MockComponent }
-            ],
-         },
-        ]
-        ),
-        StubModule
+        RouterTestingModule.withRoutes(routes)
       ],
+      declarations: [ MockComponent ],
       providers: [
         PageTrackerService,
-        { provide: AppInsightsLogger, useValue: appInsightsLogger },
-        { provide: SessionStorage, useClass: SessionStorageStub },
+        { provide: AppInsightsLogger, useValue: appInsightsLogger }
       ]
     });
 

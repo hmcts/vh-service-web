@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TopMenuItems } from '../refData/topMenuItems';
 import { Router } from '@angular/router';
 
@@ -9,11 +9,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   topMenuItems = [];
-  $needSaveData: EventEmitter<any>;
+
   @Input() loggedIn: boolean;
 
   constructor(private router: Router) {
-    this.$needSaveData = new EventEmitter<any>();
   }
 
   selectMenuItem(indexOfItem: number) {
@@ -30,9 +29,5 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.router.navigate(['/logout']);
-  }
-
-  get needSaveData() {
-    return this.$needSaveData;
   }
 }

@@ -12,9 +12,7 @@ import { ErrorFooterComponent } from '../shared/error-footer/error-footer.compon
 
 // services
 import { ProfileService } from '../services/profile.service';
-import { SessionStorage } from '../services/session-storage';
 import { PageTrackerService } from '../services/page-tracker.service';
-import { SpeedTestService } from '../services/speedtest.service';
 
 @NgModule({
   imports: [
@@ -32,9 +30,7 @@ import { SpeedTestService } from '../services/speedtest.service';
   ],
   providers: [
     ProfileService,
-    SessionStorage,
-    PageTrackerService,
-    SpeedTestService,
+    PageTrackerService
   ],
   exports: [
     FooterComponent,
@@ -42,6 +38,6 @@ import { SpeedTestService } from '../services/speedtest.service';
     BackNavigationComponent,
     ShowDetailsComponent,
     ErrorFooterComponent,
-    ]
+  ]
 })
 export class SharedModule { }
