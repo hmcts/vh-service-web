@@ -6,7 +6,6 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './error/page-not-found.component';
 import { GuidanceComponent } from './guidance/guidance.component';
-import { OtherInformationComponent } from './other-information/other-information.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,7 +15,6 @@ export const routes: Routes = [
   { path: 'page-not-found', component: PageNotFoundComponent },
   { path: 'guidance', component: GuidanceComponent },
   { path: 'guidance/:print', component: GuidanceComponent },
-  { path: 'other-information', component: OtherInformationComponent },
   { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
 ];
 

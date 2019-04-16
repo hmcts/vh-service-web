@@ -1,11 +1,11 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, async  } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, async  } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { FooterStubComponent, RouterOutletStubComponent } from 'src/tests/component-stubs';
 import { AdalService } from 'adal-angular4';
 import { Config } from './models/config';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { of } from 'rxjs';
 import { WindowRef, WindowLocation } from './shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
 import { HeaderComponent } from './shared/header/header.component';
@@ -42,7 +42,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     router = {
       navigate: jasmine.createSpy('navigate'),
-      events: Observable.of(new NavigationEnd(1, '/someurl', '/urlafter'))
+      events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
     };
 
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);

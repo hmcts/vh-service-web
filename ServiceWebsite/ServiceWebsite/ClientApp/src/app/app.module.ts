@@ -24,7 +24,6 @@ import { DocumentRedirectService } from './services/document-redirect.service';
 import { ReturnUrlService } from './services/return-url.service';
 import { WindowRef } from './shared/window-ref';
 import { AppInsightsLogger } from './services/app-insights-logger.service';
-import { OtherInformationComponent } from './other-information/other-information.component';
 
 import { CitizenModule } from './citizen/citizen.module';
 import { ProfessionalModule } from './professional.module';
@@ -44,8 +43,7 @@ export function initConfiguration(configService: ConfigService) {
     HomeComponent,
     PageNotFoundComponent,
     ConfirmationSignoutPopupComponent,
-    GuidanceComponent,
-    OtherInformationComponent,
+    GuidanceComponent
   ],
   imports: [
     BrowserModule,

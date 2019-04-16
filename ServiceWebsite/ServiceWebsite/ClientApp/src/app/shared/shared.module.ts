@@ -7,7 +7,6 @@ import { FooterComponent } from '../shared/footer/footer.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { ChecklistFooterComponent } from '../shared/checklist-footer/checklist-footer.component';
 import { BackNavigationComponent } from '../back-navigation/back-navigation.component';
-import { ChecklistStepsComponent } from '../checklist-steps/checklist-steps.component';
 import { BeforeunloadComponent } from '../shared/beforeunload/beforeunload.component';
 import { ProgressbarBasicComponent } from '../shared/progressbar/progressbar-basic.component';
 import { ShowDetailsComponent } from '../shared/show-details/show-details.component';
@@ -19,7 +18,6 @@ import { SessionStorage } from '../services/session-storage';
 import { HearingService } from '../services/hearing.service';
 import { ChecklistService } from '../services/checklist.service';
 import { ChecklistSessionService } from '../services/checklist-session.service';
-import { NavigatorService } from '../check-equipment/navigator.service';
 import { PageTrackerService } from '../services/page-tracker.service';
 import { SpeedTestService } from '../services/speedtest.service';
 
@@ -35,7 +33,6 @@ import { SpeedTestService } from '../services/speedtest.service';
     HeaderComponent,
     ChecklistFooterComponent,
     BackNavigationComponent,
-    ChecklistStepsComponent,
     BeforeunloadComponent,
     ProgressbarBasicComponent,
     ShowDetailsComponent,
@@ -48,7 +45,6 @@ import { SpeedTestService } from '../services/speedtest.service';
     ChecklistService,
     ChecklistSessionService,
     PageTrackerService,
-    NavigatorService,
     SpeedTestService,
   ],
   exports: [
@@ -56,7 +52,6 @@ import { SpeedTestService } from '../services/speedtest.service';
     HeaderComponent,
     ChecklistFooterComponent,
     BackNavigationComponent,
-    ChecklistStepsComponent,
     BeforeunloadComponent,
     ProgressbarBasicComponent,
     ShowDetailsComponent,

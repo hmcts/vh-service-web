@@ -22,9 +22,6 @@ export class ChecklistFooterStubComponent {
   isUserProfessional = true;
 }
 
-@Component({ selector: 'app-checklist-steps', template: '' })
-export class ChecklistStepsStubComponent { }
-
 @Component({ selector: 'app-beforeunload', template: '' })
 export class BeforeunloadStubComponent { }
 
@@ -46,7 +43,6 @@ export class ShowDetailsStubComponent {
     FooterStubComponent,
     RouterOutletStubComponent,
     ChecklistFooterStubComponent,
-    ChecklistStepsStubComponent,
     BeforeunloadStubComponent,
     ShowDetailsStubComponent,
   ]
