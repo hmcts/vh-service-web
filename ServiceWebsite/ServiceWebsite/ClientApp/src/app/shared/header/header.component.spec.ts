@@ -3,7 +3,29 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
-import { MockProfileService } from 'src/tests/mock-profile.service';
+import { UserProfile } from 'src/app/models/user-profile.model';
+import { Constants } from '../constants';
+
+
+export class MockProfileService {
+  private role: string = Constants.UserType.ProfessionalUser;
+
+  currentProfileIs(role: string) {
+    this.role = role;
+  }
+
+  getUserProfile(): Promise<UserProfile> {
+      const profile = new UserProfile();
+      profile.role = this.role;
+      profile.email = 'professional@hearings.hmcts.net';
+      return Promise.resolve(profile);
+  }
+
+  public get isLoggedIn(): boolean {
+      return true;
+  }
+}
+
 
 
 describe('HeaderComponent',

@@ -5,8 +5,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AdalService } from 'adal-angular4';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoggerService } from '../services/logger.service';
-import { MockAdalService } from 'src/tests/mock-adal.service';
 import { ReturnUrlService } from '../services/return-url.service';
+
+export class MockAdalService {
+  userInfo = {
+      authenticated: false
+  };
+
+  setAuthenticated(authenticated: boolean) {
+      this.userInfo = {
+          authenticated: authenticated
+      };
+  }
+
+  login() {}
+}
+
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
