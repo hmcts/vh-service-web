@@ -16,16 +16,6 @@ export class FooterStubComponent { }
 @Component({ selector: 'router-outlet', template: '' })
 export class RouterOutletStubComponent { }
 
-@Component({ selector: 'app-checklist-footer', template: '' })
-export class ChecklistFooterStubComponent {
-  @Input()
-  isUserProfessional = true;
-}
-
-@Component({ selector: 'app-beforeunload', template: '' })
-export class BeforeunloadStubComponent { }
-
-
 @Component({ selector: 'app-show-details', template: '' })
 export class ShowDetailsStubComponent {
   @Input()
@@ -42,8 +32,6 @@ export class ShowDetailsStubComponent {
     HeaderStubComponent,
     FooterStubComponent,
     RouterOutletStubComponent,
-    ChecklistFooterStubComponent,
-    BeforeunloadStubComponent,
     ShowDetailsStubComponent,
   ]
 })

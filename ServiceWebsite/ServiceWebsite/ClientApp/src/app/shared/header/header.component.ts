@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { TopMenuItems } from '../refData/topMenuItems';
 import { Router } from '@angular/router';
-import { ChecklistSessionService } from '../../services/checklist-session.service';
-
 
 @Component({
   selector: 'app-header',
@@ -14,7 +12,7 @@ export class HeaderComponent implements OnInit {
   $needSaveData: EventEmitter<any>;
   @Input() loggedIn: boolean;
 
-  constructor(private router: Router, private checklistSessionService: ChecklistSessionService) {
+  constructor(private router: Router) {
     this.$needSaveData = new EventEmitter<any>();
   }
 
@@ -31,11 +29,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    if (this.checklistSessionService.isChecklistInStorage()) {
-       this.$needSaveData.emit();
-    } else {
-      this.router.navigate(['/logout']);
-    }
+    this.router.navigate(['/logout']);
   }
 
   get needSaveData() {

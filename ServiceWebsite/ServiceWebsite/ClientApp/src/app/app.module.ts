@@ -15,7 +15,6 @@ import { Config } from './models/config';
 import { CustomAdalInterceptor } from './custom-adal-interceptor';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './error/page-not-found.component';
-import { ConfirmationSignoutPopupComponent } from './confirmation-signout-popup/confirmation-signout-popup.component';
 import { GuidanceComponent } from './guidance/guidance.component';
 
 import { GuidanceService } from './guidance/guidance.service';
@@ -42,7 +41,6 @@ export function initConfiguration(configService: ConfigService) {
     PrivacyPolicyComponent,
     HomeComponent,
     PageNotFoundComponent,
-    ConfirmationSignoutPopupComponent,
     GuidanceComponent
   ],
   imports: [

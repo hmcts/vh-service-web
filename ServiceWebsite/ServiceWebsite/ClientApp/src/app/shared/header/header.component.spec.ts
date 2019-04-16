@@ -4,7 +4,6 @@ import { HeaderComponent } from './header.component';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
 import { MockProfileService } from 'src/tests/mock-profile.service';
-import { ChecklistSessionService } from '../../services/checklist-session.service';
 
 
 describe('HeaderComponent',
@@ -16,22 +15,17 @@ describe('HeaderComponent',
       navigate: jasmine.createSpy('navigate')
     };
 
-    const checklistSessionServiceSpy = {
-      setItem: jasmine.createSpy('isChecklistInStorage'),
-    };
-
     const profileService = new MockProfileService();
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-            declarations: [HeaderComponent],
-            providers: [
-              { provide: Router, useValue: router },
-              { provide: ProfileService, useValue: profileService },
-              { provide: ChecklistSessionService, useValue: checklistSessionServiceSpy },
-            ]
-          },
-        )
+        declarations: [HeaderComponent],
+        providers: [
+          { provide: Router, useValue: router },
+          { provide: ProfileService, useValue: profileService },
+        ]
+      },
+      )
         .compileComponents();
     }));
 
@@ -41,16 +35,13 @@ describe('HeaderComponent',
       fixture.detectChanges();
     });
 
-    it('should create the head component',
-      () => {
-        expect(component).toBeTruthy();
-      });
     it('header component should have top menu items',
       () => {
         component.topMenuItems = [];
         component.ngOnInit();
         expect(component.topMenuItems.length).toBeGreaterThan(0);
       });
+
     it('selected top menu item has active property set to true, others item active set to false',
       () => {
         component.topMenuItems = [];
@@ -63,6 +54,7 @@ describe('HeaderComponent',
           }
         }
       });
+
     it('user should navigate by selecting top meny item',
       () => {
         component.ngOnInit();

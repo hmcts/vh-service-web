@@ -9,8 +9,6 @@ import { of } from 'rxjs';
 import { WindowRef, WindowLocation } from './shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
 import { HeaderComponent } from './shared/header/header.component';
-import { ChecklistSessionService } from './services/checklist-session.service';
-
 
 const adalService = {
   init: jasmine.createSpy('init'),
@@ -64,9 +62,7 @@ describe('AppComponent', () => {
           { provide: AdalService, useValue: adalService },
           { provide: Config, useValue: config },
           { provide: WindowRef, useValue: window },
-          { provide: PageTrackerService, useValue: pageTracker },
-          { provide: ChecklistSessionService, useValue: checklistSessionServiceSpy },
-
+          { provide: PageTrackerService, useValue: pageTracker }
         ],
     }).compileComponents();
 

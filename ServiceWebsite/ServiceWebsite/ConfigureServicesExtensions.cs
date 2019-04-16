@@ -38,7 +38,6 @@ namespace ServiceWebsite
                 .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
-            serviceCollection.AddTransient<IChecklistService, ChecklistService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
 
             serviceCollection.AddSwaggerToApi();
