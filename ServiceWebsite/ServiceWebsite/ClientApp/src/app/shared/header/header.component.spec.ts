@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserProfile } from 'src/app/models/user-profile.model';
 import { Constants } from '../constants';
+import { By } from '@angular/platform-browser';
 
 
 export class MockProfileService {
@@ -57,30 +58,13 @@ describe('HeaderComponent',
       fixture.detectChanges();
     });
 
-    it('header component should have top menu items',
-      () => {
-        component.topMenuItems = [];
-        component.ngOnInit();
-        expect(component.topMenuItems.length).toBeGreaterThan(0);
-      });
+    it('should navigate to logout page on pressing logout', () => {
+      component.loggedIn = true;
+      fixture.detectChanges();
 
-    it('selected top menu item has active property set to true, others item active set to false',
-      () => {
-        component.topMenuItems = [];
-        component.ngOnInit();
-        component.selectMenuItem(0);
-        expect(component.topMenuItems[0].active).toBeTruthy();
-        if (component.topMenuItems.length > 1) {
-          for (const item of component.topMenuItems.slice(1)) {
-            expect(item.active).toBeFalsy();
-          }
-        }
-      });
+      const link = fixture.debugElement.query(By.css('#header-logout-link'));
+      link.triggerEventHandler('click', null);
 
-    it('user should navigate by selecting top meny item',
-      () => {
-        component.ngOnInit();
-        component.selectMenuItem(0);
-        expect(router.navigate).toHaveBeenCalledWith([component.topMenuItems[0].url]);
-      });
+      expect(router.navigate).toHaveBeenCalledWith(['/logout']);
+    });
   });
