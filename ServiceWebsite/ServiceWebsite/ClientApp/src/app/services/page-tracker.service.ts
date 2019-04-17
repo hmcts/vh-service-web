@@ -6,25 +6,12 @@ import 'rxjs/add/operator/pairwise';
 @Injectable()
 export class PageTrackerService {
 
-  PREVIOUS_ROUTE = 'PREVIOUS_ROUTE';
-
   constructor(private logger: AppInsightsLogger) {}
 
   trackNavigation(router: Router) {
     router.events
       .filter(event => event instanceof ResolveEnd)
       .subscribe((event: ResolveEnd) => this.logPageResolved(event));
-  }
-
-  trackPreviousPage(router: Router) {
-    router.events.filter(e => e instanceof NavigationEnd)
-      .pairwise().subscribe((e) => {
-        sessionStorage.setItem(this.PREVIOUS_ROUTE, e[0]['url']);
-      });
-  }
-
-  getPreviousUrl() {
-    return sessionStorage.getItem(this.PREVIOUS_ROUTE);
   }
 
   private logPageResolved(event: ResolveEnd): void {
