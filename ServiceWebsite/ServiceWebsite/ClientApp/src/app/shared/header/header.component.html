@@ -11,7 +11,7 @@
     <nav>
       <ul id="navigation" class="govuk-header__navigation right-align" aria-label="Top Level Navigation">
         <li *ngIf="loggedIn" class="govuk-header__navigation-item">
-          <a class="govuk-header__link" href="javascript:void()" (click)="logout()">
+          <a id="header-logout-link" class="govuk-header__link" href="javascript:void()" (click)="logout()">
             Sign out
           </a>
         </li>
