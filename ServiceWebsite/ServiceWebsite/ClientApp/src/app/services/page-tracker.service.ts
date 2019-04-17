@@ -1,32 +1,17 @@
 import { Router, ResolveEnd, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { AppInsightsLogger } from './app-insights-logger.service';
 import { Injectable } from '@angular/core';
-import { SessionStorage } from './session-storage';
 import 'rxjs/add/operator/pairwise';
 
 @Injectable()
 export class PageTrackerService {
 
-  PREVIOUS_ROUTE = 'PREVIOUS_ROUTE';
-
-  constructor(private logger: AppInsightsLogger, private sessionStorage: SessionStorage) {}
+  constructor(private logger: AppInsightsLogger) {}
 
   trackNavigation(router: Router) {
     router.events
       .filter(event => event instanceof ResolveEnd)
       .subscribe((event: ResolveEnd) => this.logPageResolved(event));
-  }
-
-  trackPreviousPage(router: Router) {
-    router.events.filter(e => e instanceof NavigationEnd)
-      .pairwise().subscribe((e) => {
-        this.sessionStorage.setItem(this.PREVIOUS_ROUTE, e[0]['url']);
-        console.log('NAVIGATION PREVIOUS => ', e[0]['url']);
-      });
-  }
-
-  getPreviousUrl() {
-    return this.sessionStorage.getItem(this.PREVIOUS_ROUTE);
   }
 
   private logPageResolved(event: ResolveEnd): void {

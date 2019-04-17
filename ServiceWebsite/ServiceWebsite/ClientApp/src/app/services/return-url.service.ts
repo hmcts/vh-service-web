@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import { SessionStorage } from './session-storage';
 
 const SESSION_STORAGE_KEY = 'RETURN_URL';
 
 @Injectable()
 export class ReturnUrlService {
-
-  constructor(private storage: SessionStorage) { }
-
   // return any existing url and remove it from storage, will return null if no return url has been set
   popUrl(): string {
-    const returnUrl = this.storage.getItem(SESSION_STORAGE_KEY);
+    const returnUrl = sessionStorage.getItem(SESSION_STORAGE_KEY);
     if (returnUrl) {
-      this.storage.removeItem(SESSION_STORAGE_KEY);
+      sessionStorage.removeItem(SESSION_STORAGE_KEY);
       return returnUrl;
     }
 
@@ -21,6 +17,6 @@ export class ReturnUrlService {
 
   // set the return url to use after login
   setUrl(url: string): void {
-    this.storage.setItem(SESSION_STORAGE_KEY, url);
+    sessionStorage.setItem(SESSION_STORAGE_KEY, url);
   }
 }

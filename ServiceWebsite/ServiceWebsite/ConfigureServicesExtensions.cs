@@ -32,14 +32,12 @@ namespace ServiceWebsite
 
             // Build the hearings api client using a reusable HttpClient factory and predefined base url
             var container = serviceCollection.BuildServiceProvider();
-            var settings = container.GetService<IOptions<EnvironmentSettings>>().Value;
             var serviceSettings = container.GetService<IOptions<ServiceSettings>>().Value;
             serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
                 .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
                 .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
-            serviceCollection.AddTransient<IChecklistService, ChecklistService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
 
             serviceCollection.AddSwaggerToApi();

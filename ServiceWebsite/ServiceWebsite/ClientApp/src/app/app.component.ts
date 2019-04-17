@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   // Pad the router space until it has been loaded
   padUnactivatedRouter = true;
   loggedIn: boolean;
-  showSignOutConfirmation = false;
 
   @ViewChild(HeaderComponent)
   header: HeaderComponent;
@@ -31,7 +30,6 @@ export class AppComponent implements OnInit {
     this.loggedIn = false;
     this.initAuthentication();
     pageTracker.trackNavigation(router);
-    pageTracker.trackPreviousPage(router);
   }
 
   private initAuthentication() {
@@ -54,20 +52,5 @@ export class AppComponent implements OnInit {
     if (!this.loggedIn) {
       this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
     }
-
-    this.header.needSaveData.subscribe(() => { this.showConfirmation(); });
   }
-
-  showConfirmation() {
-    this.showSignOutConfirmation = true;
-  }
-
-  handleContinue() {
-    this.showSignOutConfirmation = false;
-  }
-
-  handleCancel() {
-    this.showSignOutConfirmation = false;
-    this.router.navigate(['/logout']);
-    }
 }

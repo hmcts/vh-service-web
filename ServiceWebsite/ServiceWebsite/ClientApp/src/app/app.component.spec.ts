@@ -1,16 +1,13 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, async  } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, async  } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { Router, NavigationEnd } from '@angular/router';
-import { FooterStubComponent, RouterOutletStubComponent } from 'src/tests/component-stubs';
 import { AdalService } from 'adal-angular4';
 import { Config } from './models/config';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { WindowRef, WindowLocation } from './shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
 import { HeaderComponent } from './shared/header/header.component';
-import { ChecklistSessionService } from './services/checklist-session.service';
-
+import { Component } from '@angular/core';
 
 const adalService = {
   init: jasmine.createSpy('init'),
@@ -18,31 +15,27 @@ const adalService = {
   userInfo: jasmine.createSpy('userInfo')
 };
 
-const config = {};
+@Component({ selector: 'app-footer', template: '' })
+export class FooterStubComponent { }
 
-@Component({
-  selector: 'app-confirmation-signout-popup',
-  template: ''
-})
-export class ConfirmationSignoutPopupStubComponent {
-  @Output() continueAnswers: EventEmitter<any> = new EventEmitter<any>();
-  @Output() cancelAnswers: EventEmitter<any> = new EventEmitter<any>();
-}
+// tslint:disable-next-line:component-selector
+@Component({ selector: 'router-outlet', template: '' })
+export class RouterOutletStubComponent { }
+
+const config = {};
 
 let component: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 let router: any;
 let window: jasmine.SpyObj<WindowRef>;
 let pageTracker: jasmine.SpyObj<PageTrackerService>;
-const checklistSessionServiceSpy = {
-  setItem: jasmine.createSpy('isChecklistInStorage'),
-};
+
 describe('AppComponent', () => {
 
   beforeEach(async(() => {
     router = {
       navigate: jasmine.createSpy('navigate'),
-      events: Observable.of(new NavigationEnd(1, '/someurl', '/urlafter'))
+      events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
     };
 
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
@@ -55,7 +48,6 @@ describe('AppComponent', () => {
         AppComponent,
         FooterStubComponent,
         RouterOutletStubComponent,
-        ConfirmationSignoutPopupStubComponent,
         HeaderComponent,
       ],
       providers:
@@ -64,9 +56,7 @@ describe('AppComponent', () => {
           { provide: AdalService, useValue: adalService },
           { provide: Config, useValue: config },
           { provide: WindowRef, useValue: window },
-          { provide: PageTrackerService, useValue: pageTracker },
-          { provide: ChecklistSessionService, useValue: checklistSessionServiceSpy },
-
+          { provide: PageTrackerService, useValue: pageTracker }
         ],
     }).compileComponents();
 
@@ -76,26 +66,6 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-
-  it('should show popup confirmation', fakeAsync(() => {
-    fixture.detectChanges();
-    component.showConfirmation();
-    expect(component.showSignOutConfirmation).toBeTruthy();
-  }));
-
-  it('should close popup confirmation', fakeAsync(() => {
-    fixture.detectChanges();
-    component.handleContinue();
-    expect(component.showSignOutConfirmation).toBeFalsy();
-  }));
-
-  it('should close popup confirmation and navigate to logout', fakeAsync(() => {
-    fixture.detectChanges();
-    component.handleCancel();
-    expect(component.showSignOutConfirmation).toBeFalsy();
-    expect(router.navigate).toHaveBeenCalled();
-  }));
 
   it('should redirect to login with current url as return url if not authenticated', fakeAsync(() => {
     adalService.userInfo.and.returnValue({ authenticated: false });

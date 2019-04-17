@@ -1,8 +1,6 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TopMenuItems } from '../refData/topMenuItems';
 import { Router } from '@angular/router';
-import { ChecklistSessionService } from '../../services/checklist-session.service';
-
 
 @Component({
   selector: 'app-header',
@@ -11,11 +9,10 @@ import { ChecklistSessionService } from '../../services/checklist-session.servic
 })
 export class HeaderComponent implements OnInit {
   topMenuItems = [];
-  $needSaveData: EventEmitter<any>;
+
   @Input() loggedIn: boolean;
 
-  constructor(private router: Router, private checklistSessionService: ChecklistSessionService) {
-    this.$needSaveData = new EventEmitter<any>();
+  constructor(private router: Router) {
   }
 
   selectMenuItem(indexOfItem: number) {
@@ -31,14 +28,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    if (this.checklistSessionService.isChecklistInStorage()) {
-       this.$needSaveData.emit();
-    } else {
-      this.router.navigate(['/logout']);
-    }
-  }
-
-  get needSaveData() {
-    return this.$needSaveData;
+    this.router.navigate(['/logout']);
   }
 }

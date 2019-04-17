@@ -15,7 +15,6 @@ import { Config } from './models/config';
 import { CustomAdalInterceptor } from './custom-adal-interceptor';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './error/page-not-found.component';
-import { ConfirmationSignoutPopupComponent } from './confirmation-signout-popup/confirmation-signout-popup.component';
 import { GuidanceComponent } from './guidance/guidance.component';
 
 import { GuidanceService } from './guidance/guidance.service';
@@ -24,7 +23,6 @@ import { DocumentRedirectService } from './services/document-redirect.service';
 import { ReturnUrlService } from './services/return-url.service';
 import { WindowRef } from './shared/window-ref';
 import { AppInsightsLogger } from './services/app-insights-logger.service';
-import { OtherInformationComponent } from './other-information/other-information.component';
 
 import { CitizenModule } from './citizen/citizen.module';
 import { ProfessionalModule } from './professional.module';
@@ -43,9 +41,7 @@ export function initConfiguration(configService: ConfigService) {
     PrivacyPolicyComponent,
     HomeComponent,
     PageNotFoundComponent,
-    ConfirmationSignoutPopupComponent,
-    GuidanceComponent,
-    OtherInformationComponent,
+    GuidanceComponent
   ],
   imports: [
     BrowserModule,

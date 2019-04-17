@@ -1,8 +1,5 @@
-import { TestBed, inject } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { ReturnUrlService } from './return-url.service';
-import { SessionStorage } from './session-storage';
-import { MockSessionStorage } from 'src/tests/mock-session-storage';
 
 describe('ReturnUrlService', () => {
 
@@ -11,8 +8,7 @@ describe('ReturnUrlService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ReturnUrlService,
-        { provide: SessionStorage, useClass: MockSessionStorage }
+        ReturnUrlService
       ]
     });
 

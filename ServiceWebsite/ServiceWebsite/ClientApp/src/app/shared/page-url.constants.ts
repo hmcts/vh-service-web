@@ -10,7 +10,6 @@ export let PageUrls = {
   AbilityToTakePart: '/ability-to-check',
   IsHearingSuitableForVideo: '/is-hearing-suitable-for-video',
   CheckYourAnswer: '/check-your-answers',
-  OtherInformation: '/other-information',
 
   ChecklistConsent: '/consent',
   ChecklistThankyou: '/answers-received',
