@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
     this.loggedIn = false;
     this.initAuthentication();
     pageTracker.trackNavigation(router);
-    pageTracker.trackPreviousPage(router);
   }
 
   private initAuthentication() {
