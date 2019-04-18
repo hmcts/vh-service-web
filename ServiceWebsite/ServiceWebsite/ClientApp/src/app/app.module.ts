@@ -20,14 +20,13 @@ import { GuidanceComponent } from './guidance/guidance.component';
 import { GuidanceService } from './guidance/guidance.service';
 import { PrintService } from './services/print.service';
 import { DocumentRedirectService } from './services/document-redirect.service';
-import { ReturnUrlService } from './services/return-url.service';
 import { WindowRef } from './shared/window-ref';
 import { AppInsightsLogger } from './services/app-insights-logger.service';
 
 import { CitizenModule } from './citizen/citizen.module';
 import { ProfessionalModule } from './professional.module';
 import { ProfessionalCitizenModule } from './professional-citizen.module';
-import { SecurityModule } from './security.module';
+import { SecurityModule } from './security/security.module';
 import { SharedModule } from './shared/shared.module';
 
 export function initConfiguration(configService: ConfigService) {
@@ -67,7 +66,6 @@ export function initConfiguration(configService: ConfigService) {
     AdalService,
     AdalGuard,
     AdalInterceptor,
-    ReturnUrlService,
     WindowRef,
     ErrorService,
     GuidanceService,

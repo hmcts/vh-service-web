@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdalService } from 'adal-angular4';
-import { LoggerService } from '../services/logger.service';
-import { ReturnUrlService } from '../services/return-url.service';
+import { ReturnUrlService } from '../return-url.service';
+import { LoggerService } from 'src/app/services/logger.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
 

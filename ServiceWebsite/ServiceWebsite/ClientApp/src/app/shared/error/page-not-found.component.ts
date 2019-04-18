@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LocaleResources } from '../shared/resources/locale-resources';
-import { CONFIG } from '../shared/config';
+import { LocaleResources } from '../resources/locale-resources';
+import { CONFIG } from '../config';
 
 @Component({
-  selector: 'app-unauthorised',
-  templateUrl: './unauthorised.component.html'
+  selector: 'app-page-not-found',
+  templateUrl: './page-not-found.component.html'
 })
-export class UnauthorisedComponent implements OnInit {
+export class PageNotFoundComponent implements OnInit {
 
   localeResources: any;
   showTextDetails = false;
@@ -14,7 +14,6 @@ export class UnauthorisedComponent implements OnInit {
   constructor() {
     this.localeResources = LocaleResources[CONFIG.Locale];
   }
-
   ngOnInit() {
   }
 

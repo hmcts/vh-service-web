@@ -4,8 +4,8 @@ import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AdalService } from 'adal-angular4';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoggerService } from '../services/logger.service';
-import { ReturnUrlService } from '../services/return-url.service';
+import { ReturnUrlService } from 'src/app/security/return-url.service';
+import { LoggerService } from 'src/app/services/logger.service';
 
 export class MockAdalService {
   userInfo = {
