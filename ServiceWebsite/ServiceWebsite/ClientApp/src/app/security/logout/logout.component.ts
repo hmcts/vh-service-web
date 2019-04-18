@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdalService } from 'adal-angular4';
+import { Paths } from '../paths';
 
 @Component({
   selector: 'app-logout',
@@ -7,14 +8,16 @@ import { AdalService } from 'adal-angular4';
 })
 export class LogoutComponent implements OnInit {
 
-  isAuthenticated = false;
+  loginLink = Paths.Login;
 
-  constructor(private adalSvc: AdalService) {
-    this.isAuthenticated = this.adalSvc.userInfo.authenticated;
+  constructor(private adalSvc: AdalService) {}
+
+  get loggedIn(): boolean {
+    return this.adalSvc.userInfo.authenticated;
   }
 
   ngOnInit() {
-    if (this.isAuthenticated) {
+    if (this.loggedIn) {
       this.adalSvc.logOut();
     }
   }

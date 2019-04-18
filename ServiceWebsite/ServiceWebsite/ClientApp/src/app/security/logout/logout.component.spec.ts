@@ -1,35 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LogoutComponent } from './logout.component';
 import { AdalService } from 'adal-angular4';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LogoutComponent', () => {
-  let component: LogoutComponent;
-  let fixture: ComponentFixture<LogoutComponent>;
-
-  const adalSpy = jasmine.createSpyObj<AdalService>(['logOut']);
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [LogoutComponent],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: AdalService, useValue: adalSpy }
-      ]
-    })
-      .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LogoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  const adalSpy = jasmine.createSpyObj<AdalService>(['logOut', 'userInfo']);
+  const component = new LogoutComponent(adalSpy);
 
   it('should logout adal on loading component if logged in', () => {
-    component.isAuthenticated = true;
+    adalSpy.userInfo.authenticated = true;
     component.ngOnInit();
     expect(adalSpy.logOut).toHaveBeenCalled();
   });
