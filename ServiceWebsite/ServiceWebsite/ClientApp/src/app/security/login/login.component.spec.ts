@@ -2,7 +2,7 @@ import { async } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { AdalService } from 'adal-angular4';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { ReturnUrlService } from 'src/app/security/return-url.service';
 import { LoggerService } from 'src/app/services/logger.service';
 
@@ -33,17 +33,27 @@ describe('LoginComponent', () => {
     adalService.userInfo.authenticated = authenticated;
   };
 
+  const whenInitializingComponent = () => {
+    component.ngOnInit();
+  }
+
   it('should store root url if no return url is set and call login if not authenticated', () => {
     givenAuthenticated(false);
-    component.ngOnInit();
+
+    whenInitializingComponent();
+
     expect(adalService.login).toHaveBeenCalled();
     expect(returnUrl.setUrl).toHaveBeenCalledWith('/');
   });
 
   it('should remember return url if given when not authenticated', async () => {
     givenAuthenticated(false);
+
+    // and we have a return url set in the query param
     route.snapshot.queryParams['returnUrl'] = 'returnto';
-    await component.ngOnInit();
+
+    whenInitializingComponent();
+
     expect(returnUrl.setUrl).toHaveBeenCalledWith('returnto');
   });
 
@@ -51,21 +61,27 @@ describe('LoginComponent', () => {
     givenAuthenticated(true);
     returnUrl.popUrl.and.returnValue('testurl');
 
-    await component.ngOnInit();
+    whenInitializingComponent();
 
     expect(router.navigateByUrl).toHaveBeenCalledWith('testurl');
   });
 
   it('should redirect to root url when authenticated if no return  url has been set', async () => {
     givenAuthenticated(true);
-    await component.ngOnInit();
+
+    whenInitializingComponent();
+
     expect(router.navigateByUrl).toHaveBeenCalledWith('/');
   });
 
   it('should redirect to root if the remembered return url is invalid', async () => {
     givenAuthenticated(true);
+
+    // and navigating to the return url throws an error
     router.navigateByUrl.and.throwError('invalid url');
-    await component.ngOnInit();
+
+    whenInitializingComponent();
+
     expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 });
