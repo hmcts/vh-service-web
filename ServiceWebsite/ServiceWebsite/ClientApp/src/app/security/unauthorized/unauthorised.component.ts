@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CONFIG } from '../../shared/config';
 import { LocaleResources } from '../../shared/resources/locale-resources';
 
@@ -6,19 +6,12 @@ import { LocaleResources } from '../../shared/resources/locale-resources';
   selector: 'app-unauthorised',
   templateUrl: './unauthorised.component.html'
 })
-export class UnauthorisedComponent implements OnInit {
+export class UnauthorisedComponent {
 
   localeResources: any;
   showTextDetails = false;
 
   constructor() {
     this.localeResources = LocaleResources[CONFIG.Locale];
-  }
-
-  ngOnInit() {
-  }
-
-  showDetails(): void {
-    this.showTextDetails = !this.showTextDetails;
   }
 }
