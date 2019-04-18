@@ -7,7 +7,7 @@ describe('LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
 
-  const adalSpy = jasmine.createSpyObj('AdalService', ['userInfo']);
+  const adalSpy = jasmine.createSpyObj<AdalService>(['logOut']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,7 +28,9 @@ describe('LogoutComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should logout adal on loading component if logged in', () => {
+    component.isAuthenticated = true;
+    component.ngOnInit();
+    expect(adalSpy.logOut).toHaveBeenCalled();
   });
 });
