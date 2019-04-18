@@ -17,11 +17,11 @@ export class LoginComponent implements OnInit {
     private returnUrlService: ReturnUrlService,
     private adalSvc: AdalService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.adalSvc.userInfo.authenticated) {
       const returnUrl = this.returnUrlService.popUrl() || '/';
       try {
-        this.router.navigateByUrl(returnUrl);
+        await this.router.navigateByUrl(returnUrl);
       } catch (e) {
         this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
         this.router.navigate(['/']);
