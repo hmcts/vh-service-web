@@ -6,16 +6,17 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './error/page-not-found.component';
 import { GuidanceComponent } from './guidance/guidance.component';
+import { Paths } from './paths';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'error', component: ErrorComponent },
-  { path: 'privacy-policy', component: PrivacyPolicyComponent },
-  { path: 'page-not-found', component: PageNotFoundComponent },
-  { path: 'guidance', component: GuidanceComponent },
-  { path: 'guidance/:print', component: GuidanceComponent },
-  { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
+  { path: '', redirectTo: Paths.Home, pathMatch: 'full' },
+  { path: Paths.Home, component: HomeComponent },
+  { path: Paths.Error, component: ErrorComponent },
+  { path: Paths.PrivacyPolicy, component: PrivacyPolicyComponent },
+  { path: Paths.PageNotFound, component: PageNotFoundComponent },
+  { path: Paths.Guidance, component: GuidanceComponent },
+  { path: `${Paths.Guidance}/:print`, component: GuidanceComponent },
+  { path: '**', redirectTo: Paths.PageNotFound, pathMatch: 'full' }
 ];
 
 @NgModule({

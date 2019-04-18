@@ -1,7 +1,7 @@
 import { Injectable, ErrorHandler, Injector, NgZone } from '@angular/core';
 import { LoggerService } from './logger.service';
 import { Router } from '@angular/router';
-import { PageUrls } from 'src/app/shared/page-url.constants';
+import { Paths } from '../paths';
 
 @Injectable()
 export class ErrorService extends ErrorHandler {
@@ -19,13 +19,8 @@ export class ErrorService extends ErrorHandler {
 
     err = this.unboxRejection(err);
 
-    if (this.isUnauthorized(err)) {
-      logger.error('User is not authorized - 401', err, { url: router.url });
-      this.redirectTo(router, PageUrls.Unauthorised);
-    } else {
-      logger.error('Unhandled error occured', err, { url: router.url });
-      this.redirectTo(router, PageUrls.ServiceProblem);
-    }
+    logger.error('Unhandled error occured', err, { url: router.url });
+      this.redirectTo(router, Paths.Error);
   }
 
   private redirectTo(router: Router, page: string): any {
@@ -36,9 +31,5 @@ export class ErrorService extends ErrorHandler {
   private unboxRejection(err: any): any {
     // if the error is thrown through a promise, we can unbox the actual error this way
     return err.rejection || err;
-  }
-
-  private isUnauthorized(err) {
-    return err.status && err.status === 401;
   }
 }

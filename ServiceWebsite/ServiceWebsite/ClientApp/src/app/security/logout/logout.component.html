@@ -1,0 +1,6 @@
+<p *ngIf="loggedIn">
+  Signing out...
+</p>
+<p *ngIf="!loggedIn">
+  Signed out successfully. Click <a [routerLink]="[loginPath]">here</a> to log back in.
+</p>

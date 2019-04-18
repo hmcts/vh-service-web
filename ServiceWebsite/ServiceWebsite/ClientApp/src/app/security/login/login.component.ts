@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdalService } from 'adal-angular4';
-import { LoggerService } from '../services/logger.service';
-import { ReturnUrlService } from '../services/return-url.service';
+import { ReturnUrlService } from '../return-url.service';
+import { LoggerService } from 'src/app/services/logger.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
 
@@ -18,11 +17,13 @@ export class LoginComponent implements OnInit {
     private returnUrlService: ReturnUrlService,
     private adalSvc: AdalService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    console.log(`this.adalSvc.userInfo.authenticated = ${this.adalSvc.userInfo.authenticated}`);
     if (this.adalSvc.userInfo.authenticated) {
       const returnUrl = this.returnUrlService.popUrl() || '/';
+      console.log(`returnUrl = ${returnUrl}`);
       try {
-        this.router.navigateByUrl(returnUrl);
+        await this.router.navigateByUrl(returnUrl);
       } catch (e) {
         this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
         this.router.navigate(['/']);
