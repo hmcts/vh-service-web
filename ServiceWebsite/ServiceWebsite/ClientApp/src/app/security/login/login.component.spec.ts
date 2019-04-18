@@ -35,7 +35,7 @@ describe('LoginComponent', () => {
 
   const whenInitializingComponent = () => {
     component.ngOnInit();
-  }
+  };
 
   it('should store root url if no return url is set and call login if not authenticated', () => {
     givenAuthenticated(false);
