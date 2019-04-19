@@ -1,10 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
-import {  ActivatedRoute } from '@angular/router';
-import { LocaleResources } from '../shared/resources/locale-resources';
-import { CONFIG } from '../shared/config';
-import { GuidanceModel } from '../models/guidance.model';
-import { GuidanceService } from './guidance.service';
-import { PrintService } from '../services/print.service';
+import { ActivatedRoute } from '@angular/router';
+import { LocaleResources } from '../../modules/shared/resources/locale-resources';
+import { CONFIG } from '../../modules/shared/config';
+import { PrintService } from '../../services/print.service';
+import { GuidanceModel, GuidanceService } from 'src/app/services/guidance.service';
 
 @Component({
   selector: 'app-guidance',

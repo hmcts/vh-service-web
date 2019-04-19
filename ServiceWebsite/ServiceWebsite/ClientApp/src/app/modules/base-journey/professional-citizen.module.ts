@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule} from '@angular/router';
 
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { ProfessionalCitizenRoutingModule } from './professional-citizen-routing.module';
 
 @NgModule({

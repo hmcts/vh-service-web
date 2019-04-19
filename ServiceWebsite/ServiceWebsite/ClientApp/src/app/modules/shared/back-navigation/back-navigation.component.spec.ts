@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BackNavigationComponent } from './back-navigation.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ErrorService } from '../services/error.service';
+import { ErrorService } from '../../../services/error.service';
 
 describe('BackNavigationComponent', () => {
   let component: BackNavigationComponent;

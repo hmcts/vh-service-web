@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ErrorComponent } from './error/error.component';
+import { ErrorComponent } from './pages/error/error.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './error/page-not-found.component';
-import { GuidanceComponent } from './guidance/guidance.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { Paths } from './paths';
 
 export const routes: Routes = [

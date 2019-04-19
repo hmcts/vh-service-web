@@ -1,4 +1,4 @@
-import { Constants } from 'src/app/shared/constants';
+import { Constants } from 'src/app/modules/shared/constants';
 
 export class UserProfile {
   public email;
