@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
-import { CitizenRoutingModule } from './citizen-routing.module';
+import { IndividualJourneyRoutingModule } from './individual-journey-routing.module';
 
 @NgModule({
   imports: [
@@ -11,9 +11,9 @@ import { CitizenRoutingModule } from './citizen-routing.module';
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    CitizenRoutingModule,
+    IndividualJourneyRoutingModule,
   ],
   declarations: [
   ],
  })
-export class CitizenModule { }
+export class IndividualJourneyModule { }

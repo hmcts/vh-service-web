@@ -20,7 +20,7 @@ import { AppInsightsLogger } from './services/app-insights-logger.service';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { GuidanceComponent } from './pages/guidance/guidance.component';
-import { CitizenModule } from './modules/individual-journey/citizen.module';
+import { IndividualJourneyModule } from './modules/individual-journey/individual-journey.module';
 import { ProfessionalModule } from './modules/representative-journey/professional.module';
 import { ProfessionalCitizenModule } from './modules/base-journey/professional-citizen.module';
 import { SecurityModule } from './modules/security/security.module';
@@ -49,7 +49,7 @@ export function initConfiguration(configService: ConfigService) {
 
     // app
     AppRoutingModule,
-    CitizenModule,
+    IndividualJourneyModule,
     ProfessionalModule,
     ProfessionalCitizenModule,
     SecurityModule,
