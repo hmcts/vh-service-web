@@ -1,7 +1,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
 import { LoggerService } from './logger.service';
-import { Config } from '../models/config';
+import { Config } from '../modules/shared/models/config';
 import { AppInsightsLogger } from './app-insights-logger.service';
 
 describe('LoggerService', () => {
