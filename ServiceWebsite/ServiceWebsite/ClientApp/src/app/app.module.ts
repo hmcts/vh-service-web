@@ -11,7 +11,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { LoggerService } from './services/logger.service';
 import { ConfigService, ENVIRONMENT_CONFIG } from './services/config.service';
 import { Config } from './models/config';
-import { CustomAdalInterceptor } from './custom-adal-interceptor';
+import { CustomAdalInterceptor } from './services/custom-adal-interceptor';
 
 import { GuidanceService } from './services/guidance.service';
 import { PrintService } from './services/print.service';
@@ -21,11 +21,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { IndividualJourneyModule } from './modules/individual-journey/individual-journey.module';
-import { ProfessionalModule } from './modules/representative-journey/professional.module';
-import { ProfessionalCitizenModule } from './modules/base-journey/professional-citizen.module';
+import { BaseJourneyModule } from './modules/base-journey/base-journey.module';
 import { SecurityModule } from './modules/security/security.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { ErrorComponent } from './pages/error/error.component';
+import { RepresentativeJourneyModule } from './modules/representative-journey/representative-journey.module';
 
 export function initConfiguration(configService: ConfigService) {
   return () => configService.load();
@@ -50,8 +50,8 @@ export function initConfiguration(configService: ConfigService) {
     // app
     AppRoutingModule,
     IndividualJourneyModule,
-    ProfessionalModule,
-    ProfessionalCitizenModule,
+    RepresentativeJourneyModule,
+    BaseJourneyModule,
     SecurityModule,
     SharedModule,
   ],
@@ -69,9 +69,7 @@ export function initConfiguration(configService: ConfigService) {
     ErrorService,
     GuidanceService,
     PrintService,
-
     DocumentRedirectService,
-
     { provide: ErrorHandler, useClass: ErrorService }
   ],
   bootstrap: [AppComponent]

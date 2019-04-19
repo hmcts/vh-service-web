@@ -4,19 +4,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule} from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
-import { ProfessionalCitizenRoutingModule } from './professional-citizen-routing.module';
+import { BaseJourneyRoutingModule } from './base-journey-routing.module';
 
 @NgModule({
   declarations: [
   ],
   imports: [
+    // angular
     CommonModule,
-    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    ProfessionalCitizenRoutingModule,
+
+    // app
+    SharedModule,
+    BaseJourneyRoutingModule,
   ],
 })
-export class ProfessionalCitizenModule {
+export class BaseJourneyModule {
 }

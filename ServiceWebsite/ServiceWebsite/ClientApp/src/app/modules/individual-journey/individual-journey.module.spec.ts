@@ -1,13 +1,13 @@
 import { IndividualJourneyModule } from './individual-journey.module';
 
-describe('CitizenModule', () => {
-  let citizenModule: IndividualJourneyModule;
+describe('IndividualJourneyModule', () => {
+  let module: IndividualJourneyModule;
 
   beforeEach(() => {
-    citizenModule = new IndividualJourneyModule();
+    module = new IndividualJourneyModule();
   });
 
   it('should create an instance', () => {
-    expect(citizenModule).toBeTruthy();
+    expect(module).toBeTruthy();
   });
 });
