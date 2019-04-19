@@ -7,10 +7,13 @@ import { IndividualJourneyRoutingModule } from './individual-journey-routing.mod
 
 @NgModule({
   imports: [
+    // angular
     CommonModule,
-    SharedModule,
     ReactiveFormsModule,
     FormsModule,
+
+    // app
+    SharedModule,
     IndividualJourneyRoutingModule,
   ],
   declarations: [
