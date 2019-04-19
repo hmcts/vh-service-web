@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const citizenRoutes: Routes = [
+const routes: Routes = [
 ];
 
 @NgModule({
@@ -9,8 +9,8 @@ const citizenRoutes: Routes = [
     RouterModule
   ],
   imports: [
-    RouterModule.forChild(citizenRoutes)
+    RouterModule.forChild(routes)
   ],
 })
-export class CitizenRoutingModule {
+export class IndividualJourneyRoutingModule {
 }
