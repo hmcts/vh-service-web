@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfile } from 'src/app/modules/shared/models/user-profile.model';
 import { Constants } from '../constants';
 import { By } from '@angular/platform-browser';
 
