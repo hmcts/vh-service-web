@@ -18,10 +18,8 @@ export class LoginComponent implements OnInit {
     private adalSvc: AdalService) { }
 
   async ngOnInit() {
-    console.log(`this.adalSvc.userInfo.authenticated = ${this.adalSvc.userInfo.authenticated}`);
     if (this.adalSvc.userInfo.authenticated) {
       const returnUrl = this.returnUrlService.popUrl() || '/';
-      console.log(`returnUrl = ${returnUrl}`);
       try {
         await this.router.navigateByUrl(returnUrl);
       } catch (e) {
