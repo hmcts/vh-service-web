@@ -4,15 +4,16 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // components
-import { FooterComponent } from '../shared/footer/footer.component';
-import { HeaderComponent } from '../shared/header/header.component';
-import { BackNavigationComponent } from '../back-navigation/back-navigation.component';
-import { ShowDetailsComponent } from '../shared/show-details/show-details.component';
-import { ErrorFooterComponent } from '../shared/error-footer/error-footer.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { ShowDetailsComponent } from './show-details/show-details.component';
+import { ErrorFooterComponent } from './error-footer/error-footer.component';
+import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 
 // services
-import { ProfileService } from '../services/profile.service';
-import { PageTrackerService } from '../services/page-tracker.service';
+import { ProfileService } from '../../services/profile.service';
+import { PageTrackerService } from '../../services/page-tracker.service';
+import { WindowRef } from './window-ref';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { PageTrackerService } from '../services/page-tracker.service';
     BackNavigationComponent,
     ShowDetailsComponent,
     ErrorFooterComponent,
+    WindowRef
   ]
 })
 export class SharedModule { }

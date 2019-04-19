@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocaleResources } from '../resources/locale-resources';
 import { CONFIG } from '../config';
-import { Constants } from '../../shared/constants';
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-error-footer',

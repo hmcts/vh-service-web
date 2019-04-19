@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LocaleResources } from '../shared/resources/locale-resources';
-import { CONFIG } from '../shared/config';
+import { LocaleResources } from 'src/app/modules/shared/resources/locale-resources';
+import { CONFIG } from 'src/app/modules/shared/config';
 
 @Component({
   selector: 'app-page-not-found',

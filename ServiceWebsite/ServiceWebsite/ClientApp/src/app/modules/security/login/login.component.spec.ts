@@ -3,7 +3,7 @@ import { async } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { AdalService } from 'adal-angular4';
 import { Router } from '@angular/router';
-import { ReturnUrlService } from 'src/app/security/return-url.service';
+import { ReturnUrlService } from 'src/app/modules/security/return-url.service';
 import { LoggerService } from 'src/app/services/logger.service';
 
 describe('LoginComponent', () => {

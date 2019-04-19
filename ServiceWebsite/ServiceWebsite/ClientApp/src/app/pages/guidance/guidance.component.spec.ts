@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GuidanceComponent } from './guidance.component';
-import { GuidanceService } from './guidance.service';
-import { PrintService } from '../services/print.service';
+import { PrintService } from '../../services/print.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GuidanceService } from 'src/app/services/guidance.service';
 
 describe('GuidanceComponent', () => {
   let component: GuidanceComponent;

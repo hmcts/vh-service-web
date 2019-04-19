@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageNotFoundComponent } from './page-not-found.component';
-import { ErrorFooterComponent } from '../shared/error-footer/error-footer.component';
+import { ErrorFooterComponent } from 'src/app/modules/shared/error-footer/error-footer.component';
 
 describe('PageNotFoundComponent', () => {
   let component: PageNotFoundComponent;

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { LocaleResources } from '../shared/resources/locale-resources';
-import { CONFIG } from '../shared/config';
-import { Constants } from '../shared/constants';
+import { Component } from '@angular/core';
+import { LocaleResources } from 'src/app/modules/shared/resources/locale-resources';
+import { Constants } from 'src/app/modules/shared/constants';
+import { CONFIG } from 'src/app/modules/shared/config';
 
 @Component({
   selector: 'app-error',
