@@ -27,19 +27,19 @@ import { WindowRef } from './window-ref';
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent,
+    ErrorFooterComponent
   ],
   providers: [
     ProfileService,
-    PageTrackerService
+    PageTrackerService,
+    WindowRef
   ],
   exports: [
     FooterComponent,
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent,
-    WindowRef
+    ErrorFooterComponent
   ]
 })
 export class SharedModule { }
