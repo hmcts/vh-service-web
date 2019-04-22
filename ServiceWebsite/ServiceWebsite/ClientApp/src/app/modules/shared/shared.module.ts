@@ -31,15 +31,15 @@ import { WindowRef } from './window-ref';
   ],
   providers: [
     ProfileService,
-    PageTrackerService
+    PageTrackerService,
+    WindowRef
   ],
   exports: [
     FooterComponent,
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent,
-    WindowRef
+    ErrorFooterComponent
   ]
 })
 export class SharedModule { }
