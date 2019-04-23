@@ -1,25 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 
+import configureTestBedFor from '../individual-base-component/component-test-bed';
 import { AboutYouComponent } from './about-you.component';
-import { IndividualLocalisation } from '../../services/individual-localisation';
 
 describe('AboutYouComponent', () => {
   let component: AboutYouComponent;
   let fixture: ComponentFixture<AboutYouComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AboutYouComponent ],
-      providers: [
-        IndividualLocalisation
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(AboutYouComponent);
+    fixture = configureTestBedFor(AboutYouComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

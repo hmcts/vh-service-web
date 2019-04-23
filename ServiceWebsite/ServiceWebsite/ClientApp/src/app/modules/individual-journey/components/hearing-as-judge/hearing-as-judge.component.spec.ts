@@ -1,24 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HearingAsJudgeComponent } from './hearing-as-judge.component';
-import { IndividualLocalisation } from '../../services/individual-localisation';
+import { ComponentFixture } from '@angular/core/testing';
+
+import configureTestBedFor from '../individual-base-component/component-test-bed';
 
 describe('HearingAsJudgeComponent', () => {
   let component: HearingAsJudgeComponent;
   let fixture: ComponentFixture<HearingAsJudgeComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HearingAsJudgeComponent ],
-      providers: [
-        IndividualLocalisation
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(HearingAsJudgeComponent);
+    fixture = configureTestBedFor(HearingAsJudgeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

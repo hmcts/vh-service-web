@@ -1,24 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HelpTheCourtDecideComponent } from './help-the-court-decide.component';
-import { IndividualLocalisation } from '../../services/individual-localisation';
+import { ComponentFixture } from '@angular/core/testing';
+
+import configureTestBedFor from '../individual-base-component/component-test-bed';
 
 describe('HelpTheCourtDecideComponent', () => {
   let component: HelpTheCourtDecideComponent;
   let fixture: ComponentFixture<HelpTheCourtDecideComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HelpTheCourtDecideComponent ],
-      providers: [
-        IndividualLocalisation
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(HelpTheCourtDecideComponent);
+    fixture = configureTestBedFor(HelpTheCourtDecideComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

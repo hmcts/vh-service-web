@@ -1,24 +1,14 @@
-import { IndividualLocalisation } from './../../services/individual-localisation';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 
+import configureTestBedFor from '../individual-base-component/component-test-bed';
 import { ThankYouComponent } from './thank-you.component';
 
 describe('ThankYouComponent', () => {
   let component: ThankYouComponent;
   let fixture: ComponentFixture<ThankYouComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ThankYouComponent ],
-      providers: [
-        IndividualLocalisation
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(ThankYouComponent);
+    fixture = configureTestBedFor(ThankYouComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

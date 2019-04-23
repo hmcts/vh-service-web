@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { IndividualJourneyRoutingModule } from './individual-journey-routing.module';
 
 // services
+import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualLocalisation } from './services/individual-localisation';
 
 @NgModule({
@@ -23,7 +24,7 @@ import { IndividualLocalisation } from './services/individual-localisation';
   declarations: [
   ],
   providers: [
-    IndividualLocalisation
+    { provide: Localisation, useClass: IndividualLocalisation }
   ]
  })
 export class IndividualJourneyModule { }

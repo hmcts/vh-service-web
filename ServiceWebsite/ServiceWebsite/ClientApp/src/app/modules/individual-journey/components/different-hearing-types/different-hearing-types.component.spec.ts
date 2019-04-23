@@ -1,24 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 
+import configureTestBedFor from '../individual-base-component/component-test-bed';
 import { DifferentHearingTypesComponent } from './different-hearing-types.component';
-import { IndividualLocalisation } from '../../services/individual-localisation';
 
 describe('DifferentHearingTypesComponent', () => {
   let component: DifferentHearingTypesComponent;
   let fixture: ComponentFixture<DifferentHearingTypesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DifferentHearingTypesComponent ],
-      providers: [
-        IndividualLocalisation
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(DifferentHearingTypesComponent);
+    fixture = configureTestBedFor(DifferentHearingTypesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
