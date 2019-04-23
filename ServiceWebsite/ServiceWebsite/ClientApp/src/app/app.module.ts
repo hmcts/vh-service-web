@@ -57,11 +57,11 @@ export function initConfiguration(configService: ConfigService) {
     ReactiveFormsModule,
 
     // app
-    AppRoutingModule,
+    SecurityModule,
+    BaseJourneyModule,
     IndividualJourneyModule,
     RepresentativeJourneyModule,
-    BaseJourneyModule,
-    SecurityModule,
+    AppRoutingModule,
     SharedModule,
   ],
   providers: [
