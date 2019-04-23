@@ -1,0 +1,45 @@
+import { NgModule} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+// components
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { ShowDetailsComponent } from './show-details/show-details.component';
+import { ErrorFooterComponent } from './error-footer/error-footer.component';
+import { BackNavigationComponent } from './back-navigation/back-navigation.component';
+
+// services
+import { ProfileService } from '../../services/profile.service';
+import { PageTrackerService } from '../../services/page-tracker.service';
+import { WindowRef } from './window-ref';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule.forRoot(),
+  ],
+  declarations: [
+    FooterComponent,
+    HeaderComponent,
+    BackNavigationComponent,
+    ShowDetailsComponent,
+    ErrorFooterComponent,
+  ],
+  providers: [
+    ProfileService,
+    PageTrackerService,
+    WindowRef
+  ],
+  exports: [
+    FooterComponent,
+    HeaderComponent,
+    BackNavigationComponent,
+    ShowDetailsComponent,
+    ErrorFooterComponent
+  ]
+})
+export class SharedModule { }

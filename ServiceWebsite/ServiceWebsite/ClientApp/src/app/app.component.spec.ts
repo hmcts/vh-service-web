@@ -2,11 +2,11 @@ import { TestBed, ComponentFixture, fakeAsync, async  } from '@angular/core/test
 import { AppComponent } from './app.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { AdalService } from 'adal-angular4';
-import { Config } from './models/config';
+import { Config } from './modules/shared/models/config';
 import { of } from 'rxjs';
-import { WindowRef, WindowLocation } from './shared/window-ref';
+import { WindowRef, WindowLocation } from './modules/shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
-import { HeaderComponent } from './shared/header/header.component';
+import { HeaderComponent } from './modules/shared/header/header.component';
 import { Component } from '@angular/core';
 
 const adalService = {

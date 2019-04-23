@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserProfile } from '../models/user-profile.model';
+import { UserProfile } from '../modules/shared/models/user-profile.model';
 import { ErrorService } from './error.service';
 
 @Injectable()

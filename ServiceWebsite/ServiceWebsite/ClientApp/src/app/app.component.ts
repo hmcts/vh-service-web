@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdalService } from 'adal-angular4';
-import { Config } from './models/config';
-import { HeaderComponent } from './shared/header/header.component';
-import { WindowRef } from './shared/window-ref';
+import { Config } from './modules/shared/models/config';
+import { HeaderComponent } from './modules/shared/header/header.component';
+import { WindowRef } from './modules/shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
 
 @Component({

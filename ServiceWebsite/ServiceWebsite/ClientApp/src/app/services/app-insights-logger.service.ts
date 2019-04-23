@@ -1,6 +1,6 @@
 import { AppInsights } from 'applicationinsights-js';
 import { Logger } from './logger';
-import { Config } from '../models/config';
+import { Config } from '../modules/shared/models/config';
 import { Injectable } from '@angular/core';
 
 @Injectable()
