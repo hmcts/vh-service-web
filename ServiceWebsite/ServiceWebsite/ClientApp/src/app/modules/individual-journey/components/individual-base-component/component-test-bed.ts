@@ -33,6 +33,6 @@ const canCreate = <T>(component: Type<T>): void => {
     const fixture = configureTestBedFor(component);
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
-}
+};
 
 export { configureTestBedFor as ConfigureTestBedFor, canCreate as CanCreateComponent };
