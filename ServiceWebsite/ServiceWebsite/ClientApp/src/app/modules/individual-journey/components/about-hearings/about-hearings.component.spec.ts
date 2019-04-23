@@ -1,19 +1,8 @@
-import { ComponentFixture } from '@angular/core/testing';
-
+import { CanCreateComponent } from '../individual-base-component/component-test-bed';
 import { AboutHearingsComponent } from './about-hearings.component';
-import { ConfigureTestBedFor } from '../individual-base-component/component-test-bed';
 
 describe('AboutHearingsComponent', () => {
-  let component: AboutHearingsComponent;
-  let fixture: ComponentFixture<AboutHearingsComponent>;
-
-  beforeEach(() => {
-    fixture = ConfigureTestBedFor(AboutHearingsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('can be created', () => {
+    CanCreateComponent(AboutHearingsComponent);
   });
 });

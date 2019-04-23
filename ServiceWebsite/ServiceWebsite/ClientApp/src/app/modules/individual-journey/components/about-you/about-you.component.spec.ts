@@ -1,19 +1,8 @@
-import { ComponentFixture } from '@angular/core/testing';
-
-import { ConfigureTestBedFor } from '../individual-base-component/component-test-bed';
 import { AboutYouComponent } from './about-you.component';
+import { CanCreateComponent } from '../individual-base-component/component-test-bed';
 
 describe('AboutYouComponent', () => {
-  let component: AboutYouComponent;
-  let fixture: ComponentFixture<AboutYouComponent>;
-
-  beforeEach(() => {
-    fixture = ConfigureTestBedFor(AboutYouComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('can be created', () => {
+    CanCreateComponent(AboutYouComponent);
   });
 });
