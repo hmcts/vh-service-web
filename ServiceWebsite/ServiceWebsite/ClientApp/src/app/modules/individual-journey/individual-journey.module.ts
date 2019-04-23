@@ -6,6 +6,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { IndividualJourneyRoutingModule } from './individual-journey-routing.module';
 
+// services
+import { IndividualLocalisation } from './services/individual-localisation';
+
 @NgModule({
   imports: [
     // angular
@@ -19,5 +22,8 @@ import { IndividualJourneyRoutingModule } from './individual-journey-routing.mod
   ],
   declarations: [
   ],
+  providers: [
+    IndividualLocalisation
+  ]
  })
 export class IndividualJourneyModule { }

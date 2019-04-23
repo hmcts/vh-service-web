@@ -1,13 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IndividualLocalisation } from '../services/individual-localisation';
+import { Localisation } from '../../shared/localisation';
 
 @Pipe({
   name: 'localise'
 })
 export class LocalisePipe implements PipeTransform {
 
+  constructor(private localisation: Localisation) {}
+
   transform(value: any, args?: any): any {
-    return new IndividualLocalisation().get(value);
+    if (args) {
+      return this.localisation.get(value, args);
+    }
+
+    return this.localisation.get(value);
   }
 
 }

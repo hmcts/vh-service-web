@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AboutHearingsComponent } from './about-hearings.component';
 import { IndividualLocalisation } from '../../services/individual-localisation';
+import { Localisation } from 'src/app/modules/shared/localisation';
 
 describe('AboutHearingsComponent', () => {
   let component: AboutHearingsComponent;
@@ -12,7 +13,8 @@ describe('AboutHearingsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AboutHearingsComponent, LocalisePipe ],
       providers: [
-        IndividualLocalisation
+        { provide: Localisation, useClass: IndividualLocalisation },
+        LocalisePipe
       ]
     })
     .compileComponents();
