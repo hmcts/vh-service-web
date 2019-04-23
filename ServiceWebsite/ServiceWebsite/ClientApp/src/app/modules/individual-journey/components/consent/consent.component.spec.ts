@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
 
-import configureTestBedFor from '../individual-base-component/component-test-bed';
+import { ConfigureTestBedFor } from '../individual-base-component/component-test-bed';
 import { ConsentComponent } from './consent.component';
 
 describe('ConsentComponent', () => {
@@ -8,7 +8,7 @@ describe('ConsentComponent', () => {
   let fixture: ComponentFixture<ConsentComponent>;
 
   beforeEach(() => {
-    fixture = configureTestBedFor(ConsentComponent);
+    fixture = ConfigureTestBedFor(ConsentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

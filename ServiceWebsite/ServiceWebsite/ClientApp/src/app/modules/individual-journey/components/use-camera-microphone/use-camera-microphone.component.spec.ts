@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
 
-import configureTestBedFor from '../individual-base-component/component-test-bed';
+import { ConfigureTestBedFor } from '../individual-base-component/component-test-bed';
 import { UseCameraMicrophoneComponent } from './use-camera-microphone.component';
 
 
@@ -9,7 +9,7 @@ describe('UseCameraMicrophoneComponent', () => {
   let fixture: ComponentFixture<UseCameraMicrophoneComponent>;
 
   beforeEach(() => {
-    fixture = configureTestBedFor(UseCameraMicrophoneComponent);
+    fixture = ConfigureTestBedFor(UseCameraMicrophoneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

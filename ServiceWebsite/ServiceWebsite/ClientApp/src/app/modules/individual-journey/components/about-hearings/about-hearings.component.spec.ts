@@ -1,14 +1,14 @@
 import { ComponentFixture } from '@angular/core/testing';
 
 import { AboutHearingsComponent } from './about-hearings.component';
-import configureTestBedFor from '../individual-base-component/component-test-bed';
+import { ConfigureTestBedFor } from '../individual-base-component/component-test-bed';
 
 describe('AboutHearingsComponent', () => {
   let component: AboutHearingsComponent;
   let fixture: ComponentFixture<AboutHearingsComponent>;
 
   beforeEach(() => {
-    fixture = configureTestBedFor(AboutHearingsComponent);
+    fixture = ConfigureTestBedFor(AboutHearingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

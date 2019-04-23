@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
 
-import configureTestBedFor from '../individual-base-component/component-test-bed';
+import { ConfigureTestBedFor } from '../individual-base-component/component-test-bed';
 import { InterpreterComponent } from './interpreter.component';
 
 describe('InterpreterComponent', () => {
@@ -8,7 +8,7 @@ describe('InterpreterComponent', () => {
   let fixture: ComponentFixture<InterpreterComponent>;
 
   beforeEach(() => {
-    fixture = configureTestBedFor(InterpreterComponent);
+    fixture = ConfigureTestBedFor(InterpreterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

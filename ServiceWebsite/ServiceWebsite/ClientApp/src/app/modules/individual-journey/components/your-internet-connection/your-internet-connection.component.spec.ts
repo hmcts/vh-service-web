@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
 
-import configureTestBedFor from '../individual-base-component/component-test-bed';
+import { ConfigureTestBedFor } from '../individual-base-component/component-test-bed';
 import { YourInternetConnectionComponent } from './your-internet-connection.component';
 
 
@@ -9,7 +9,7 @@ describe('YourInternetConnectionComponent', () => {
   let fixture: ComponentFixture<YourInternetConnectionComponent>;
 
   beforeEach(() => {
-    fixture = configureTestBedFor(YourInternetConnectionComponent);
+    fixture = ConfigureTestBedFor(YourInternetConnectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
