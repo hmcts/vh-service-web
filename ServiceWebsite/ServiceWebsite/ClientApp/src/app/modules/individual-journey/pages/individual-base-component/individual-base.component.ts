@@ -1,14 +1,17 @@
 import { OnInit, Injectable } from '@angular/core';
+import { IndividualJourney } from '../../individual-journey';
 
 @Injectable()
 export abstract class IndividualBaseComponent implements OnInit {
+    constructor(private journey: IndividualJourney) {}
+
     ngOnInit(): void {}
 
-    continue(): void {
-        // will contain code to proceed to next step
+    fail(): void {
+        this.journey.fail();
     }
 
-    fail(): void {
-        // will contain code to proceed to a step after failure or abortion of the current step
+    continue(): void {
+        this.journey.next();
     }
 }
