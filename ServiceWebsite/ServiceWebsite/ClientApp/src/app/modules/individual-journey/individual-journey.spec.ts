@@ -108,4 +108,17 @@ describe('IndividualJourney', () => {
         expect(() => whenProceeding())
             .toThrowError(`Missing transition for step: ${IndividualJourneySteps[Steps.ThankYou]}`);
     });
+
+    it('should stay where it is if trying to jump to the current step', () => {
+        // given we're on the first step
+        journey.begin();
+        const currentStep = redirected;
+        redirected = null;
+
+        // when trying to go to the same step
+        journey.jumpTo(currentStep);
+
+        // we shouldn't have moved
+        expect(redirected).toBeNull();
+    });
 });
