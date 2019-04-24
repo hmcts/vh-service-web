@@ -8,9 +8,9 @@ import { Localisation } from 'src/app/modules/shared/localisation';
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
  * @param component The type of component to prepare test bed for
- * @param customizeConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
+ * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
-const configureTestBedFor = <T>(component: Type<T>, customizeConfiguration?: Function): ComponentFixture<T> => {
+const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
     const config: TestModuleMetadata = {
         declarations: [ component, LocalisePipe ],
         providers: [
@@ -18,8 +18,8 @@ const configureTestBedFor = <T>(component: Type<T>, customizeConfiguration?: Fun
             LocalisePipe
         ]
     };
-    if (customizeConfiguration) {
-        customizeConfiguration(config);
+    if (customiseConfiguration) {
+        customiseConfiguration(config);
     }
     TestBed.configureTestingModule(config).compileComponents();
     return TestBed.createComponent(component);
@@ -28,10 +28,10 @@ const configureTestBedFor = <T>(component: Type<T>, customizeConfiguration?: Fun
 /**
  * Helper method to quickly test if the component can be created, setting up a test bed and everything.
  * @param component The component type to create.
- * @param customizeConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
+ * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
-const canCreate = <T>(component: Type<T>, customizeConfiguration?: Function): void => {
-    const fixture = configureTestBedFor(component, customizeConfiguration);
+const canCreate = <T>(component: Type<T>, customiseConfiguration?: Function): void => {
+    const fixture = configureTestBedFor(component, customiseConfiguration);
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
 };
