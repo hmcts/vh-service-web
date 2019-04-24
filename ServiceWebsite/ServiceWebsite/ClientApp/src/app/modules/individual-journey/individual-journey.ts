@@ -72,14 +72,6 @@ export class IndividualJourney implements JourneyBase {
         }
     }
 
-    /**
-     * Enter the journey at a given step
-     */
-    enter(step: IndividualJourneySteps) {
-        this.currentStep = step;
-        console.log(`entered journey at ${step}`);
-    }
-
     begin() {
         this.goto(IndividualJourneySteps.AboutHearings);
     }
