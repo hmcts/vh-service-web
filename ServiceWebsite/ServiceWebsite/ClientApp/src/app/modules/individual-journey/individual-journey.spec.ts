@@ -89,6 +89,14 @@ describe('IndividualJourney', () => {
         expectDropOffToThankYouFrom(Steps.Consent);
     });
 
+    it(`should continue to ${Steps.MediaAccessError} if failing ${Steps.AccessToCameraAndMicrophone}`, () => {
+        givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
+
+        whenFailingTheStep();
+
+        expectStep(redirected).toBe(step(Steps.MediaAccessError));
+    })
+
     it('should raise an error on unexpected failure transition', () => {
         givenUserIsAtStep(Steps.AboutHearings);
         expect(() => whenFailingTheStep())

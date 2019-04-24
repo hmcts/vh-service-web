@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { JourneyBase } from '../base-journey/journey-base';
 
 export enum IndividualJourneySteps {
     AboutHearings,
@@ -16,7 +17,8 @@ export enum IndividualJourneySteps {
     YourInternetConnection,
     AccessToRoom,
     Consent,
-    ThankYou
+    ThankYou,
+    MediaAccessError
 }
 
 class StepTransition {
@@ -32,7 +34,7 @@ class StepTransition {
 }
 
 @Injectable()
-export class IndividualJourney {
+export class IndividualJourney implements JourneyBase {
     readonly redirect: EventEmitter<IndividualJourneySteps> = new EventEmitter();
 
     private currentStep: IndividualJourneySteps;
@@ -101,6 +103,8 @@ export class IndividualJourney {
 
         if (dropoutToThankYouFrom.includes(this.currentStep)) {
             this.goto(IndividualJourneySteps.ThankYou);
+        } else if (this.currentStep === IndividualJourneySteps.AccessToCameraAndMicrophone) {
+            this.goto(IndividualJourneySteps.MediaAccessError);
         } else {
             throw new Error(`Missing/unexpected failure for step: ${IndividualJourneySteps[this.currentStep]}`);
         }
