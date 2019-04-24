@@ -5,23 +5,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { LocalisePipe } from './pipes/localise.pipe';
 
 // components
-import { AboutHearingsComponent } from './components/about-hearings/about-hearings.component';
-import { DifferentHearingTypesComponent } from './components/different-hearing-types/different-hearing-types.component';
-import { ExploreCourtBuildingComponent } from './components/explore-court-building/explore-court-building.component';
-import { CourtBuildingVideoComponent } from './components/court-building-video/court-building-video.component';
-import { ExploreVideoHearingComponent } from './components/explore-video-hearing/explore-video-hearing.component';
-import { UseCameraMicrophoneComponent } from './components/use-camera-microphone/use-camera-microphone.component';
-import { HearingAsParticipantComponent } from './components/hearing-as-participant/hearing-as-participant.component';
-import { HearingAsJudgeComponent } from './components/hearing-as-judge/hearing-as-judge.component';
-import { HelpTheCourtDecideComponent } from './components/help-the-court-decide/help-the-court-decide.component';
-import { AboutYouComponent } from './components/about-you/about-you.component';
-import { InterpreterComponent } from './components/interpreter/interpreter.component';
-import { YourComputerComponent } from './components/your-computer/your-computer.component';
-import { AboutYourComputerComponent } from './components/about-your-computer/about-your-computer.component';
-import { YourInternetConnectionComponent } from './components/your-internet-connection/your-internet-connection.component';
-import { AccessToRoomComponent } from './components/access-to-room/access-to-room.component';
-import { ConsentComponent } from './components/consent/consent.component';
-import { ThankYouComponent } from './components/thank-you/thank-you.component';
+import { AboutHearingsComponent } from './pages/about-hearings/about-hearings.component';
+import { DifferentHearingTypesComponent } from './pages/different-hearing-types/different-hearing-types.component';
+import { ExploreCourtBuildingComponent } from './pages/explore-court-building/explore-court-building.component';
+import { CourtBuildingVideoComponent } from './pages/court-building-video/court-building-video.component';
+import { ExploreVideoHearingComponent } from './pages/explore-video-hearing/explore-video-hearing.component';
+import { UseCameraMicrophoneComponent } from './pages/use-camera-microphone/use-camera-microphone.component';
+import { HearingAsParticipantComponent } from './pages/hearing-as-participant/hearing-as-participant.component';
+import { HearingAsJudgeComponent } from './pages/hearing-as-judge/hearing-as-judge.component';
+import { HelpTheCourtDecideComponent } from './pages/help-the-court-decide/help-the-court-decide.component';
+import { AboutYouComponent } from './pages/about-you/about-you.component';
+import { InterpreterComponent } from './pages/interpreter/interpreter.component';
+import { YourComputerComponent } from './pages/your-computer/your-computer.component';
+import { AboutYourComputerComponent } from './pages/about-your-computer/about-your-computer.component';
+import { YourInternetConnectionComponent } from './pages/your-internet-connection/your-internet-connection.component';
+import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.component';
+import { ConsentComponent } from './pages/consent/consent.component';
+import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { MediaErrorComponent } from './pages/media-error/media-error.component';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -40,7 +41,8 @@ const routes: Routes = [
   { path: 'your-internet-connection', component: YourInternetConnectionComponent },
   { path: 'access-to-a-room', component: AccessToRoomComponent },
   { path: 'consent', component: ConsentComponent },
-  { path: 'thank-you', component: ThankYouComponent }
+  { path: 'thank-you', component: ThankYouComponent },
+  { path: 'media-error', component: MediaErrorComponent }
 ];
 
 @NgModule({
@@ -62,7 +64,8 @@ const routes: Routes = [
     YourInternetConnectionComponent,
     AccessToRoomComponent,
     ConsentComponent,
-    ThankYouComponent
+    ThankYouComponent,
+    MediaErrorComponent
   ],
   exports: [
     RouterModule
