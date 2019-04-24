@@ -21,49 +21,35 @@ export enum IndividualJourneySteps {
     MediaAccessError
 }
 
-class StepTransition {
-    private transition: Function;
-
-    constructor(transitionLogic: Function) {
-        this.transition = transitionLogic;
-    }
-
-    run(): IndividualJourneySteps {
-        return this.transition();
-    }
-}
-
 @Injectable()
 export class IndividualJourney implements JourneyBase {
     readonly redirect: EventEmitter<IndividualJourneySteps> = new EventEmitter();
 
     private currentStep: IndividualJourneySteps;
 
-    private readonly stepLogic = new Map<IndividualJourneySteps, StepTransition>();
+    private readonly stepOrder: IndividualJourneySteps[];
 
     constructor() {
-        this.addStepLogic(IndividualJourneySteps.AboutHearings, () => IndividualJourneySteps.DifferentHearingTypes);
-        this.addStepLogic(IndividualJourneySteps.DifferentHearingTypes, () => IndividualJourneySteps.ExploreCourtBuilding);
-        this.addStepLogic(IndividualJourneySteps.ExploreCourtBuilding, () => IndividualJourneySteps.CourtInformationVideo);
-        this.addStepLogic(IndividualJourneySteps.CourtInformationVideo, () => IndividualJourneySteps.AccessToCameraAndMicrophone);
-        this.addStepLogic(IndividualJourneySteps.AccessToCameraAndMicrophone, () => IndividualJourneySteps.HearingAsParticipant);
-        this.addStepLogic(IndividualJourneySteps.HearingAsParticipant, () => IndividualJourneySteps.HearingAsJudge);
-        this.addStepLogic(IndividualJourneySteps.HearingAsJudge, () => IndividualJourneySteps.HelpTheCourtDecide);
-        this.addStepLogic(IndividualJourneySteps.HelpTheCourtDecide, () => IndividualJourneySteps.AboutYou);
-        this.addStepLogic(IndividualJourneySteps.AboutYou, () => IndividualJourneySteps.Interpreter);
-        this.addStepLogic(IndividualJourneySteps.Interpreter, () => IndividualJourneySteps.AccessToComputer);
-        this.addStepLogic(IndividualJourneySteps.AccessToComputer, () => IndividualJourneySteps.AboutYourComputer);
-        this.addStepLogic(IndividualJourneySteps.AboutYourComputer, () => IndividualJourneySteps.YourInternetConnection);
-        this.addStepLogic(IndividualJourneySteps.YourInternetConnection, () => IndividualJourneySteps.AccessToRoom);
-        this.addStepLogic(IndividualJourneySteps.AccessToRoom, () => IndividualJourneySteps.Consent);
-        this.addStepLogic(IndividualJourneySteps.Consent, () => IndividualJourneySteps.ThankYou);
+        this.stepOrder = [
+            IndividualJourneySteps.AboutHearings,
+            IndividualJourneySteps.DifferentHearingTypes,
+            IndividualJourneySteps.ExploreCourtBuilding,
+            IndividualJourneySteps.CourtInformationVideo,
+            IndividualJourneySteps.AccessToCameraAndMicrophone,
+            IndividualJourneySteps.HearingAsParticipant,
+            IndividualJourneySteps.HearingAsJudge,
+            IndividualJourneySteps.HelpTheCourtDecide,
+            IndividualJourneySteps.AboutYou,
+            IndividualJourneySteps.Interpreter,
+            IndividualJourneySteps.AccessToComputer,
+            IndividualJourneySteps.AboutYourComputer,
+            IndividualJourneySteps.YourInternetConnection,
+            IndividualJourneySteps.AccessToRoom,
+            IndividualJourneySteps.Consent,
+            IndividualJourneySteps.ThankYou
+        ];
 
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
-    }
-
-    addStepLogic(step: IndividualJourneySteps, logic: Function) {
-        const transition = new StepTransition(logic);
-        this.stepLogic.set(step, transition);
     }
 
     private goto(step: IndividualJourneySteps) {
@@ -77,12 +63,12 @@ export class IndividualJourney implements JourneyBase {
     }
 
     next() {
-        const transition = this.stepLogic.get(this.currentStep);
-        if (transition) {
-            this.goto(transition.run());
-        } else {
+        const currentStep = this.stepOrder.indexOf(this.currentStep);
+        if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
             throw new Error('Missing transition for step: ' + IndividualJourneySteps[this.currentStep]);
         }
+
+        this.goto(currentStep + 1);
     }
 
     fail() {
