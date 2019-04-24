@@ -4,7 +4,7 @@ import { OnInit, Injectable } from '@angular/core';
 export abstract class IndividualBaseComponent implements OnInit {
     ngOnInit(): void {}
 
-    protected continue(): void {
+    continue(): void {
         // will contain code to proceed to next step
     }
 }

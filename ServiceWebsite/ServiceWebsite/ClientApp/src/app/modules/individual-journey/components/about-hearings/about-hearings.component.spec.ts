@@ -1,4 +1,4 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed';
+import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { AboutHearingsComponent } from './about-hearings.component';
 
 describe('AboutHearingsComponent', () => {

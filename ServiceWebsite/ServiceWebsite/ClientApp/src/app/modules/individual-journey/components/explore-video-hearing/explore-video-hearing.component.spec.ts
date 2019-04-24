@@ -1,4 +1,4 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed';
+import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { ExploreVideoHearingComponent } from './explore-video-hearing.component';
 
 describe('ExploreVideoHearingComponent', () => {
