@@ -1,8 +1,22 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 export enum IndividualJourneySteps {
-    AboutHearings = 1,
-    InformationVideo = 2
+    AboutHearings,
+    DifferentHearingTypes,
+    ExploreCourtBuilding,
+    CourtInformationVideo,
+    AccessToCameraAndMicrophone,
+    HearingAsParticipant,
+    HearingAsJudge,
+    HelpTheCourtDecide,
+    AboutYou,
+    Interpreter,
+    AccessToComputer,
+    AboutYourComputer,
+    YourInternetConnection,
+    AccessToRoom,
+    Consent,
+    ThankYou
 }
 
 class StepTransition {
@@ -26,7 +40,21 @@ export class IndividualJourney {
     private readonly stepLogic = new Map<IndividualJourneySteps, StepTransition>();
 
     constructor() {
-        this.addStepLogic(IndividualJourneySteps.AboutHearings, () => IndividualJourneySteps.InformationVideo);
+        this.addStepLogic(IndividualJourneySteps.AboutHearings, () => IndividualJourneySteps.DifferentHearingTypes);
+        this.addStepLogic(IndividualJourneySteps.DifferentHearingTypes, () => IndividualJourneySteps.ExploreCourtBuilding);
+        this.addStepLogic(IndividualJourneySteps.ExploreCourtBuilding, () => IndividualJourneySteps.CourtInformationVideo);
+        this.addStepLogic(IndividualJourneySteps.CourtInformationVideo, () => IndividualJourneySteps.AccessToCameraAndMicrophone);
+        this.addStepLogic(IndividualJourneySteps.AccessToCameraAndMicrophone, () => IndividualJourneySteps.HearingAsParticipant);
+        this.addStepLogic(IndividualJourneySteps.HearingAsParticipant, () => IndividualJourneySteps.HearingAsJudge);
+        this.addStepLogic(IndividualJourneySteps.HearingAsJudge, () => IndividualJourneySteps.HelpTheCourtDecide);
+        this.addStepLogic(IndividualJourneySteps.HelpTheCourtDecide, () => IndividualJourneySteps.AboutYou);
+        this.addStepLogic(IndividualJourneySteps.AboutYou, () => IndividualJourneySteps.Interpreter);
+        this.addStepLogic(IndividualJourneySteps.Interpreter, () => IndividualJourneySteps.AccessToComputer);
+        this.addStepLogic(IndividualJourneySteps.AccessToComputer, () => IndividualJourneySteps.AboutYourComputer);
+        this.addStepLogic(IndividualJourneySteps.AboutYourComputer, () => IndividualJourneySteps.YourInternetConnection);
+        this.addStepLogic(IndividualJourneySteps.YourInternetConnection, () => IndividualJourneySteps.AccessToRoom);
+        this.addStepLogic(IndividualJourneySteps.AccessToRoom, () => IndividualJourneySteps.Consent);
+        this.addStepLogic(IndividualJourneySteps.Consent, () => IndividualJourneySteps.ThankYou);
 
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
     }
@@ -59,7 +87,22 @@ export class IndividualJourney {
         if (transition) {
             this.goto(transition.run());
         } else {
-            throw new Error('Missing transition for step: ' + this.currentStep);
+            throw new Error('Missing transition for step: ' + IndividualJourneySteps[this.currentStep]);
+        }
+    }
+
+    fail() {
+        const dropoutToThankYouFrom = [
+            IndividualJourneySteps.AccessToComputer,
+            IndividualJourneySteps.AboutYourComputer,
+            IndividualJourneySteps.YourInternetConnection,
+            IndividualJourneySteps.Consent
+        ];
+
+        if (dropoutToThankYouFrom.includes(this.currentStep)) {
+            this.goto(IndividualJourneySteps.ThankYou);
+        } else {
+            throw new Error(`Missing/unexpected failure for step: ${IndividualJourneySteps[this.currentStep]}`);
         }
     }
 
