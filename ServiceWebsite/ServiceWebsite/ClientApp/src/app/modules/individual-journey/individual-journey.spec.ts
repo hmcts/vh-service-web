@@ -95,7 +95,7 @@ describe('IndividualJourney', () => {
         whenFailingTheStep();
 
         expectStep(redirected).toBe(step(Steps.MediaAccessError));
-    })
+    });
 
     it('should raise an error on unexpected failure transition', () => {
         givenUserIsAtStep(Steps.AboutHearings);
