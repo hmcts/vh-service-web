@@ -28,9 +28,10 @@ const configureTestBedFor = <T>(component: Type<T>, customizeConfiguration?: Fun
 /**
  * Helper method to quickly test if the component can be created, setting up a test bed and everything.
  * @param component The component type to create.
+ * @param customizeConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
-const canCreate = <T>(component: Type<T>): void => {
-    const fixture = configureTestBedFor(component);
+const canCreate = <T>(component: Type<T>, customizeConfiguration?: Function): void => {
+    const fixture = configureTestBedFor(component, customizeConfiguration);
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
 };
