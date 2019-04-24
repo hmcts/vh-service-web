@@ -22,6 +22,7 @@ import { YourInternetConnectionComponent } from './pages/your-internet-connectio
 import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.component';
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { MediaErrorComponent } from './pages/media-error/media-error.component';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -40,7 +41,8 @@ const routes: Routes = [
   { path: 'your-internet-connection', component: YourInternetConnectionComponent },
   { path: 'access-to-a-room', component: AccessToRoomComponent },
   { path: 'consent', component: ConsentComponent },
-  { path: 'thank-you', component: ThankYouComponent }
+  { path: 'thank-you', component: ThankYouComponent },
+  { path: 'media-error', component: MediaErrorComponent }
 ];
 
 @NgModule({
@@ -62,7 +64,8 @@ const routes: Routes = [
     YourInternetConnectionComponent,
     AccessToRoomComponent,
     ConsentComponent,
-    ThankYouComponent
+    ThankYouComponent,
+    MediaErrorComponent
   ],
   exports: [
     RouterModule
