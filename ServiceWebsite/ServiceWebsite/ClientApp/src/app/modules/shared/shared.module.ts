@@ -27,7 +27,7 @@ import { WindowRef } from './window-ref';
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent,
+    ErrorFooterComponent
   ],
   providers: [
     ProfileService,
