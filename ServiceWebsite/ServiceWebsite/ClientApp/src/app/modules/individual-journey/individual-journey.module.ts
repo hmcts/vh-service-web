@@ -14,7 +14,7 @@ import { IndividualLocalisation } from './services/individual-localisation';
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
-
+import { ParticipantViewComponent } from './pages/participant-view/participant-view.component';
 @NgModule({
   imports: [
     // angular
@@ -29,10 +29,14 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
   declarations: [
     AudioBarComponent,
     UserCameraViewComponent,
-    VideoViewComponent
+    VideoViewComponent,
+    ParticipantViewComponent
   ],
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation }
-  ]
+  ],
+  exports: [
+    UserCameraViewComponent,
+    ]
  })
 export class IndividualJourneyModule { }

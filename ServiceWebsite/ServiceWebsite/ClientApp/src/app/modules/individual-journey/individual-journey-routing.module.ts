@@ -54,7 +54,7 @@ const routes: Routes = [
     CourtBuildingVideoComponent,
     ExploreVideoHearingComponent,
     UseCameraMicrophoneComponent,
-    ParticipantViewComponent,
+  //  ParticipantViewComponent,
     JudgeViewComponent,
     HelpTheCourtDecideComponent,
     AboutYouComponent,
@@ -68,7 +68,7 @@ const routes: Routes = [
     MediaErrorComponent
   ],
   exports: [
-    RouterModule
+    RouterModule,
   ],
   imports: [
     RouterModule.forChild(routes)

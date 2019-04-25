@@ -1,16 +1,16 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-camera-view',
   templateUrl: './user-camera-view.component.html',
   styles: []
 })
-export class UserCameraViewComponent implements OnInit {
+export class UserCameraViewComponent implements OnInit, AfterContentInit {
 
   @Input()
-  videoWidth: number;
+  videoWidth: string;
 
-  @ViewChild('#videoBox')
+  @ViewChild('videoBox')
   videoBox: ElementRef;
 
   stream: MediaStream;
@@ -18,11 +18,19 @@ export class UserCameraViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (typeof (this.videoBox.nativeElement.srcObject) != "undefined") {
-      this.videoBox.nativeElement.srcObject = this.stream;
-    }
-    else {
-      this.videoBox.nativeElement.src = URL.createObjectURL(this.stream);
+   
+  }
+
+  setSource(stream: MediaStream) {
+    this.stream = stream;
+    if (this.videoBox) {
+      if (typeof (this.videoBox.nativeElement.srcObject) != "undefined") {
+        this.videoBox.nativeElement.srcObject = this.stream;
+      }
+      else {
+        this.videoBox.nativeElement.src = URL.createObjectURL(this.stream);
+      }
     }
   }
 }
+
