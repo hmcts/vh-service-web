@@ -1,21 +1,20 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { LogAdapter } from './log-adapter';
+import { TestBed, inject } from '@angular/core/testing';
 
-import { LoggerService } from './logger.service';
-import { Config } from '../modules/shared/models/config';
-import { AppInsightsLogger } from './app-insights-logger.service';
+import { LoggerService, LOG_ADAPTER } from './logger.service';
 
 describe('LoggerService', () => {
 
   let logger: LoggerService;
-  let appInsightsLogger: jasmine.SpyObj<AppInsightsLogger>;
+  let logAdapter: jasmine.SpyObj<LogAdapter>;
 
   beforeEach(() => {
-    appInsightsLogger = jasmine.createSpyObj('AppInsightsLogger', ['trackException', 'trackEvent']);
+    logAdapter = jasmine.createSpyObj('AppInsightsLogger', ['trackException', 'trackEvent']);
 
     TestBed.configureTestingModule({
       providers: [
         LoggerService,
-        { provide: AppInsightsLogger, useValue: appInsightsLogger }
+        { provide: LOG_ADAPTER, useValue: logAdapter, multi: true }
       ]
     });
 
