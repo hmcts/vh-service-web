@@ -50,22 +50,10 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\modules\individual-journey\services\user-media.service.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
+   <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
     <ProjectReference Include="..\ServiceWebsite.Services\ServiceWebsite.Services.csproj" />
     <ProjectReference Include="..\ServiceWebsite.UserAPI.Client\ServiceWebsite.UserAPI.Client.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\modules\individual-journey\pages\participant-view\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\modules\individual-journey\services\user-media.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
