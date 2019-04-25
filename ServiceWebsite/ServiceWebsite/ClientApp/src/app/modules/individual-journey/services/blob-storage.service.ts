@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Config } from '../../shared/models/config';
+import { ConfigService } from 'src/app/services/config.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class BlobStorageService {
 
     baseVideoUrl: string;
