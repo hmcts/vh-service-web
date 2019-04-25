@@ -1,3 +1,4 @@
+import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
 import { CommonModule } from '@angular/common';
 import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
 import { Type } from '@angular/core';
@@ -7,7 +8,7 @@ import { LocalisePipe } from '../../pipes/localise.pipe';
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
-import { IndividualSuitabilityModel, SuitabilityAnswer } from '../../individual-suitability.model';
+import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -20,7 +21,8 @@ const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Fun
         imports: [ CommonModule, ReactiveFormsModule ],
         providers: [
             { provide: Localisation, useClass: IndividualLocalisation },
-            { provide: IndividualJourney, useValue: new IndividualJourney() },
+            { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
+            { provide: IndividualJourney, useClass: IndividualJourney },
             LocalisePipe
         ]
     };

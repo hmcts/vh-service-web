@@ -32,7 +32,9 @@ export class IndividualJourney implements JourneyBase {
 
     readonly model: IndividualSuitabilityModel;
 
-    constructor() {
+    constructor(model: IndividualSuitabilityModel) {
+        this.model = model;
+
         this.stepOrder = [
             IndividualJourneySteps.AboutHearings,
             IndividualJourneySteps.DifferentHearingTypes,
@@ -53,27 +55,6 @@ export class IndividualJourney implements JourneyBase {
         ];
 
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
-
-        this.model = {
-            computer: HasAccessToComputer.No,
-            internet: {
-                answer: true,
-                notes: ''
-            },
-            interpreter: false,
-            consent: {
-                answer: true,
-                notes: ''
-            },
-            room: {
-                answer: true,
-                notes: ''
-            },
-            aboutYou: {
-                answer: true,
-                notes: ''
-            }
-        };
     }
 
     private goto(step: IndividualJourneySteps) {
