@@ -9,8 +9,9 @@ describe('LoggerService', () => {
   let logAdapter: jasmine.SpyObj<LogAdapter>;
 
   beforeEach(() => {
-    logAdapter = jasmine.createSpyObj('AppInsightsLogger', ['trackException', 'trackEvent']);
+    logAdapter = jasmine.createSpyObj<LogAdapter>(['trackException', 'trackEvent']);
 
+    // Set up the entire testing module as to test the injection token works properly
     TestBed.configureTestingModule({
       providers: [
         LoggerService,
@@ -21,11 +22,18 @@ describe('LoggerService', () => {
     logger = TestBed.get(LoggerService);
   });
 
-  it('should be created', inject([LoggerService], (service: LoggerService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('logs events to all adapters', () => {
+    const properties = {};
+    logger.event('event', properties);
 
-  it('waits until initialized before logging', () => {
-    logger.event('testing');
+    expect(logAdapter.trackEvent).toHaveBeenCalledWith('event', properties);
+  });
+
+  it('logs errors to all adapters', () => {
+    const error = new Error();
+    const properties = {};
+    logger.error('error', error, properties);
+
+    expect(logAdapter.trackException).toHaveBeenCalledWith('error', error, properties);
   });
 });
