@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: Paths.PageNotFound, component: PageNotFoundComponent },
   { path: Paths.Guidance, component: GuidanceComponent },
   { path: `${Paths.Guidance}/:print`, component: GuidanceComponent },
-  { path: '**', redirectTo: Paths.PageNotFound, pathMatch: 'full' },
+  { path: '**', redirectTo: Paths.PageNotFound, pathMatch: 'full' }
 ];
 
 @NgModule({
