@@ -11,7 +11,7 @@ import { ExploreCourtBuildingComponent } from './pages/explore-court-building/ex
 import { CourtBuildingVideoComponent } from './pages/court-building-video/court-building-video.component';
 import { ExploreVideoHearingComponent } from './pages/explore-video-hearing/explore-video-hearing.component';
 import { UseCameraMicrophoneComponent } from './pages/use-camera-microphone/use-camera-microphone.component';
-import { HearingAsParticipantComponent } from './pages/hearing-as-participant/hearing-as-participant.component';
+import { ParticipantViewComponent } from './pages/participant-view/participant-view.component';
 import { HearingAsJudgeComponent } from './pages/hearing-as-judge/hearing-as-judge.component';
 import { HelpTheCourtDecideComponent } from './pages/help-the-court-decide/help-the-court-decide.component';
 import { AboutYouComponent } from './pages/about-you/about-you.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'court-building-video', component: CourtBuildingVideoComponent },
   { path: 'explore-video-hearing', component: ExploreVideoHearingComponent },
   { path: 'use-camera-microphone', component: UseCameraMicrophoneComponent },
-  { path: 'participant-view', component: HearingAsParticipantComponent },
+  { path: 'participant-view', component: ParticipantViewComponent },
   { path: 'judge-view', component: HearingAsJudgeComponent },
   { path: 'help-the-court-decide', component: HelpTheCourtDecideComponent },
   { path: 'about-you', component: AboutYouComponent },
@@ -54,7 +54,7 @@ const routes: Routes = [
     CourtBuildingVideoComponent,
     ExploreVideoHearingComponent,
     UseCameraMicrophoneComponent,
-    HearingAsParticipantComponent,
+    ParticipantViewComponent,
     HearingAsJudgeComponent,
     HelpTheCourtDecideComponent,
     AboutYouComponent,
