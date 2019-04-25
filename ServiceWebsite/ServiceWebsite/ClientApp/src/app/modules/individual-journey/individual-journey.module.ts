@@ -38,7 +38,7 @@ import { IndividualSuitabilityModelFactory } from './individual-suitability-mode
   ],
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },
-    { provide: IndividualSuitabilityModel, useFactory: () => IndividualSuitabilityModelFactory },
+    { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
     IndividualJourney
   ]
  })

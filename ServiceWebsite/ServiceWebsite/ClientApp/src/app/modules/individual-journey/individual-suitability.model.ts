@@ -9,6 +9,9 @@ export enum HasAccessToComputer {
     NotSure
 }
 
+/**
+ * Exposes the basic properties of the suitability model.
+ */
 export abstract class IndividualSuitabilityModel {
     computer: HasAccessToComputer;
 
