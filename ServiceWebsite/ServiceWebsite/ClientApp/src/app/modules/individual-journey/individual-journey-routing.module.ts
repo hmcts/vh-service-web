@@ -23,6 +23,7 @@ import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.com
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
+import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -48,13 +49,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     LocalisePipe,
+    UserCameraViewComponent,
     AboutHearingsComponent,
     DifferentHearingTypesComponent,
     ExploreCourtBuildingComponent,
     CourtBuildingVideoComponent,
     ExploreVideoHearingComponent,
     UseCameraMicrophoneComponent,
-  //  ParticipantViewComponent,
+    ParticipantViewComponent,
     JudgeViewComponent,
     HelpTheCourtDecideComponent,
     AboutYouComponent,

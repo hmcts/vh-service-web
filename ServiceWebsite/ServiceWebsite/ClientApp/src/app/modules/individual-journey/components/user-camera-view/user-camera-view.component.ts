@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-user-camera-view',
   templateUrl: './user-camera-view.component.html',
   styles: []
 })
-export class UserCameraViewComponent implements OnInit, AfterContentInit {
+export class UserCameraViewComponent implements OnInit{
 
   @Input()
   videoWidth: string;

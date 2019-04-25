@@ -33,8 +33,12 @@ export class UserMediaService extends MediaService {
     }
     let currentStream = this.browser.mediaDevices.getUserMedia(this.constraints);
     return currentStream.then(s => {
-      this.stream = s;
-      return new Promise<MediaStream>((resolve, reject) => { resolve(s); });
+      if (s instanceof MediaStream) {
+        this.stream = s;
+        return new Promise<MediaStream>((resolve, reject) => { resolve(s); });
+      } else {
+        return new Promise<string>((resolve, reject) => { reject('Error'); });
+      }
     });
   }
 

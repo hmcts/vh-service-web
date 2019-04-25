@@ -14,7 +14,6 @@ import { IndividualLocalisation } from './services/individual-localisation';
 import { IndividualJourney } from './individual-journey';
 
 // components
-import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
@@ -31,7 +30,6 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
   ],
   declarations: [
     AudioBarComponent,
-    UserCameraViewComponent,
     VideoViewComponent
   ],
   providers: [
