@@ -1,23 +1,21 @@
-export declare namespace IndividualSuitability {
-    enum HasComputerAnswer {
-        Yes,
-        No,
-        NotSure
-    }
+export class SuitabilityAnswer {
+    answer: boolean;
+    notes: string;
+}
 
-    class SuitabilityAnswerWithNotes {
-        answer: boolean;
-        notes: string;
-    }
+export enum HasAccessToComputer {
+    Yes,
+    No,
+    NotSure
 }
 
 export abstract class IndividualSuitabilityModel {
-    computer: IndividualSuitability.HasComputerAnswer;
+    computer: HasAccessToComputer;
 
     interpreter: boolean;
 
-    aboutYou: IndividualSuitability.SuitabilityAnswerWithNotes;
-    internet: IndividualSuitability.SuitabilityAnswerWithNotes;
-    room: IndividualSuitability.SuitabilityAnswerWithNotes;
-    consent: IndividualSuitability.SuitabilityAnswerWithNotes;
+    aboutYou: SuitabilityAnswer;
+    internet: SuitabilityAnswer;
+    room: SuitabilityAnswer;
+    consent: SuitabilityAnswer;
 }

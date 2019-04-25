@@ -19,9 +19,13 @@ export class AboutYouComponent extends IndividualBaseComponent implements OnDest
   constructor(journey: IndividualJourney) {
     super(journey);
 
-    this.ability = new FormControl(this.moreDetails.aboutYou.answer, [ Validators.required ]);
-    this.ability = new FormControl(this.moreDetails.aboutYou.notes, [ Validators.required ]);
-    this.moreDetails = new FormControl();
+    //
+    // The following is an example usage of the model.
+    // Any values updated/stored will be handled on .continue() or .fail() by the journey object
+    //
+
+    this.ability = new FormControl(this.model.aboutYou.answer, [ Validators.required ]);
+    this.moreDetails = new FormControl(this.model.aboutYou.notes, [ Validators.required ]);
 
     this.abilityForm = new FormGroup({
       ability: this.ability,

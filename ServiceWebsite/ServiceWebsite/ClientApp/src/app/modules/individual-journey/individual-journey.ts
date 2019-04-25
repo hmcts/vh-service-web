@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualSuitabilityModel, IndividualSuitability } from './individual-suitability.model';
+import { IndividualSuitabilityModel, IndividualSuitability, HasAccessToComputer } from './individual-suitability.model';
 
 export enum IndividualJourneySteps {
     AboutHearings,
@@ -53,8 +53,9 @@ export class IndividualJourney implements JourneyBase {
         ];
 
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
+
         this.model = {
-            computer: IndividualSuitability.HasComputerAnswer.No,
+            computer: 'Yes',
             internet: {
                 answer: true,
                 notes: ''
