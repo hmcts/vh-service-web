@@ -8,7 +8,19 @@ import { MediaAccessService } from '../../services/media-access.service';
   styles: []
 })
 export class UseCameraMicrophoneComponent extends IndividualBaseComponent {
+  showTextDetails: boolean = false;
+  mediaAccepted: boolean = false;
   constructor(private mediaAccess: MediaAccessService) {
     super();
+  }
+  switchOnMedia()
+  {
+    this.mediaAccess.requestAccess().then((data: any) => {
+        this.mediaAccepted = data;
+       if(!this.mediaAccepted )
+      {
+        
+      }
+    });
   }
 }

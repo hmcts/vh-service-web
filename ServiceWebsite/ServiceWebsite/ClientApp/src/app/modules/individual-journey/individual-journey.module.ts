@@ -14,6 +14,8 @@ import { IndividualLocalisation } from './services/individual-localisation';
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { MediaAccessService } from './services/media-access.service';
 
 @NgModule({
   imports: [
@@ -29,10 +31,12 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
   declarations: [
     AudioBarComponent,
     UserCameraViewComponent,
-    VideoViewComponent
-  ],
+    VideoViewComponent,
+    ContactUsComponent
+   ],
   providers: [
-    { provide: Localisation, useClass: IndividualLocalisation }
+    { provide: Localisation, useClass: IndividualLocalisation },
+    {provide: MediaAccessService, useValue: {requestAccess:()=>{return Promise.resolve(true)}}}
   ]
  })
 export class IndividualJourneyModule { }

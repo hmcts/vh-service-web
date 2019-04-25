@@ -14,6 +14,6 @@ export class ShowDetailsComponent {
   showTextDetails = false;
 
   showDetails() {
-    this.showTextDetails = !this.showTextDetails;
+   this.showTextDetails = !this.showTextDetails;
   }
 }
