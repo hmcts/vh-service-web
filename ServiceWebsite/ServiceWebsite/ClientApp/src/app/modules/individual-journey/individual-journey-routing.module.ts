@@ -11,8 +11,8 @@ import { ExploreCourtBuildingComponent } from './pages/explore-court-building/ex
 import { CourtBuildingVideoComponent } from './pages/court-building-video/court-building-video.component';
 import { ExploreVideoHearingComponent } from './pages/explore-video-hearing/explore-video-hearing.component';
 import { UseCameraMicrophoneComponent } from './pages/use-camera-microphone/use-camera-microphone.component';
-import { HearingAsParticipantComponent } from './pages/hearing-as-participant/hearing-as-participant.component';
-import { HearingAsJudgeComponent } from './pages/hearing-as-judge/hearing-as-judge.component';
+import { ParticipantViewComponent } from './pages/participant-view/participant-view.component';
+import { JudgeViewComponent } from './pages/judge-view/judge-view.component';
 import { HelpTheCourtDecideComponent } from './pages/help-the-court-decide/help-the-court-decide.component';
 import { AboutYouComponent } from './pages/about-you/about-you.component';
 import { InterpreterComponent } from './pages/interpreter/interpreter.component';
@@ -33,8 +33,8 @@ const routes: Routes = [
   { path: 'court-building-video', component: CourtBuildingVideoComponent },
   { path: 'explore-video-hearing', component: ExploreVideoHearingComponent },
   { path: 'use-camera-microphone', component: UseCameraMicrophoneComponent },
-  { path: 'participant-view', component: HearingAsParticipantComponent },
-  { path: 'judge-view', component: HearingAsJudgeComponent },
+  { path: 'participant-view', component: ParticipantViewComponent },
+  { path: 'judge-view', component: JudgeViewComponent },
   { path: 'help-the-court-decide', component: HelpTheCourtDecideComponent },
   { path: 'about-you', component: AboutYouComponent },
   { path: 'interpreter', component: InterpreterComponent },
@@ -56,8 +56,8 @@ const routes: Routes = [
     CourtBuildingVideoComponent,
     ExploreVideoHearingComponent,
     UseCameraMicrophoneComponent,
-    HearingAsParticipantComponent,
-    HearingAsJudgeComponent,
+    ParticipantViewComponent,
+    JudgeViewComponent,
     HelpTheCourtDecideComponent,
     AboutYouComponent,
     InterpreterComponent,
