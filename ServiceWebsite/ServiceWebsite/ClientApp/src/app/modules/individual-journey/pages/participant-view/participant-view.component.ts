@@ -4,7 +4,7 @@ import { UserMediaService } from '../../services/user-media.service';
 import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
-import { LoggerService } from '../../../../services/logger.service';
+import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
 
 @Component({
   selector: 'app-participant-view',
@@ -15,28 +15,30 @@ import { LoggerService } from '../../../../services/logger.service';
 export class ParticipantViewComponent extends IndividualBaseComponent implements AfterContentInit, OnDestroy {
 
   @ViewChild(UserCameraViewComponent)
-  userCameraViewComponent: UserCameraViewComponent
+  userCameraViewComponent: UserCameraViewComponent;
+
+  @ViewChild(AudioBarComponent)
+  audioBarComponent: AudioBarComponent;
 
   stream: MediaStream;
-  widthVideo = 410;
+  widthVideo = 300;
 
-  constructor(journey: IndividualJourney, private userMediaService: MediaService,
-    private loggerService: LoggerService) {
+  constructor(journey: IndividualJourney, private userMediaService: MediaService) {
     super(journey);
   }
 
   ngAfterContentInit() {
     this.userMediaService.getStream().then(s => {
-      if (s instanceof MediaStream) {
-        this.stream = s;
-        this.userCameraViewComponent.setSource(s);
-      } else {
-        this.loggerService.error('Error to use camera or microphone', s);
-      }
+      this.stream = s;
+      this.userCameraViewComponent.setSource(s);
+      this.audioBarComponent.viewAudioBar(s);
     });
   }
 
   ngOnDestroy() {
     this.userMediaService.stopStream();
+  }
+
+  replay() {
   }
 }

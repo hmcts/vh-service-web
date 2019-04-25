@@ -1,1 +1,2 @@
-describe('AudioBarComponent', () => {});
+describe('AudioBarComponent', () => {
+});

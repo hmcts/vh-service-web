@@ -24,6 +24,7 @@ import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
+import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -67,7 +68,8 @@ const routes: Routes = [
     AccessToRoomComponent,
     ConsentComponent,
     ThankYouComponent,
-    MediaErrorComponent
+    MediaErrorComponent,
+    AudioBarComponent
   ],
   exports: [
     RouterModule,

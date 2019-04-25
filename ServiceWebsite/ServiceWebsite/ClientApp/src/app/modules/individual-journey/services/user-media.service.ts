@@ -23,7 +23,7 @@ export class UserMediaService extends MediaService {
 
     this.constraints = {
       audio: true,
-      video: { facingMode: { exact: "user" } }
+      video: { facingMode: { exact: 'user' } }
     };
   }
 
@@ -31,7 +31,7 @@ export class UserMediaService extends MediaService {
     if (this.stream) {
       this.stopStream();
     }
-    let currentStream = this.browser.mediaDevices.getUserMedia(this.constraints);
+    const currentStream = this.browser.mediaDevices.getUserMedia(this.constraints);
     return currentStream.then(s => {
       if (s instanceof MediaStream) {
         this.stream = s;

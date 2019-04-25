@@ -5,5 +5,29 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
     <app-user-camera-view [videoWidth]="widthVideo"></app-user-camera-view>
+    <div>
+      <app-audio-bar [audioBarWidth]="widthVideo"></app-audio-bar>
+    </div>
+    <div>
+      <a href="javascript:void()" class="govuk-link">Change camera or microphone</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row vh-top-30">
+  <div class="govuk-grid-column-full">
+    <p class="govuk-body">
+      When the video has ended, show the judge's view to see how you will appear to others in the hearing.
+    </p>
+  </div>
+</div>
+<div class="govuk-grid-row vh-top-30">
+  <div class="govuk-grid-column-full">
+    <button type="submit" class="govuk-button govuk-!-margin-right-1" (click)="continue()">
+      Show judge's view
+    </button>
+
+    <input type="button" class="govuk-button hmcts-button--secondary" (click)="replay()" value="Re-play practice hearing"/>
   </div>
 </div>

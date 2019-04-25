@@ -4,7 +4,6 @@ import { TestModuleMetadata, TestBed } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
 import { Component, Input } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
-import { LoggerService } from '../../../../services/logger.service';
 
 @Component({
   selector: 'app-user-camera-view',
@@ -15,6 +14,15 @@ class StubUserCameraViewComponent {
   videoWidth: string;
 }
 
+@Component({
+  selector: 'app-audio-bar',
+  template: ''
+})
+class StubAudioBarComponent {
+  @Input()
+  audioBarWidth: string;
+}
+
 describe('ParticipantViewComponent', () => {
   it('can be created', () => {
     CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
@@ -22,21 +30,25 @@ describe('ParticipantViewComponent', () => {
         { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) }
       );
       configuration.declarations.push(StubUserCameraViewComponent);
+      configuration.declarations.push(StubAudioBarComponent);
     });
   });
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;
-    let journey: IndividualJourney;
-    let userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream'])
-    let loggerService = jasmine.createSpyObj<LoggerService>(['error']);
+    const journey = new IndividualJourney();
+    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
     beforeEach(() => {
-      component = new ParticipantViewComponent(journey, userMediaService, loggerService);  
+      component = new ParticipantViewComponent(journey, userMediaService);
     });
     it('should get source for video', () => {
       userMediaService.getStream.and.returnValue(new Promise<MediaStream>((resolve, reject) => { resolve(new MediaStream()); }));
       component.ngAfterContentInit();
-      expect(component.stream).toBeTruthy();
+      expect(userMediaService.getStream).toHaveBeenCalled();
+    });
+    it('should stop use camera on destroy', () => {
+      component.ngOnDestroy();
+      expect(userMediaService.stopStream).toHaveBeenCalled();
     });
   });
 });

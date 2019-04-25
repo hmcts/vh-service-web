@@ -15,7 +15,6 @@ import { IndividualJourney } from './individual-journey';
 
 // components
 import { VideoViewComponent } from './components/video-view/video-view.component';
-import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 @NgModule({
   imports: [
@@ -29,7 +28,6 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
     IndividualJourneyRoutingModule,
   ],
   declarations: [
-    AudioBarComponent,
     VideoViewComponent
   ],
   providers: [
