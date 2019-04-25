@@ -40,7 +40,7 @@ import { MediaAccessService } from './services/media-access.service';
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },
 
-    {provide: MediaAccessService, useValue: {requestAccess:()=>{return Promise.resolve(true)}}}
+    {provide: MediaAccessService, useValue: {requestAccess:()=>{return Promise.resolve(true)}}},
 
     IndividualJourney
 
