@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 import { MediaAccessService } from '../../services/media-access.service';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: 'app-use-camera-microphone',
@@ -8,19 +9,15 @@ import { MediaAccessService } from '../../services/media-access.service';
   styles: []
 })
 export class UseCameraMicrophoneComponent extends IndividualBaseComponent {
-  showTextDetails: boolean = false;
-  mediaAccepted: boolean = false;
+   mediaAccepted: boolean = false;
   constructor(private mediaAccess: MediaAccessService) {
     super();
   }
-  switchOnMedia()
-  {
-    this.mediaAccess.requestAccess().then((data: any) => {
-        this.mediaAccepted = data;
-       if(!this.mediaAccepted )
-      {
-        
-      }
-    });
+  
+  async switchOnMedia() {
+    this.mediaAccepted = await this.mediaAccess.requestAccess();
+    if (!this.mediaAccepted) {
+      fail();
+    }
   }
 }

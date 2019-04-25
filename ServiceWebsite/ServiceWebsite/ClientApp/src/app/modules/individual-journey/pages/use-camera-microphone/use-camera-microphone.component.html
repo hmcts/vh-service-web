@@ -1,26 +1,31 @@
-
 <div class="govuk-width-container">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirdsl" *ngIf="!mediaAccepted">
-      <div><h1 class="govuk-heading-l">{{'Use your camera and microphone'|localise}}</h1></div>
-      <div><p class="govuk-body" id="message1">{{'Switch on your camera and microphone to see the short interactive video.'|localise}}</p>
-      </div>
-      <app-show-details [detailsTitle]="'Why do I need to use my camera and microphone'"
-      [textArray]="['If you switch on your camera and microphone, you’ll be able to see what it’s like to be in a video hearing. Once the video has finished, your camera and microphone will switch off again.']">
-        </app-show-details> 
-        <button type="button" class="govuk-button hmcts-button--primary" (click)="switchOnMedia()" id="continue">
-            {{ 'Switch on' | localise:'Button' }}
-          </button>
-     
-    </div>
-    <div class="govuk-grid-column-two-thirdsl" *ngIf="mediaAccepted">
-        <div><h1 class="govuk-heading-l">{{'Your camera and microphone are now switched on'|localise}}</h1></div>
-        <div><p class="govuk-body" id="message1">{{'You\'re now ready to watch intecractive video.'|localise}}</p>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirdsl" *ngIf="!mediaAccepted">
+            <div>
+                <h1 class="govuk-heading-l">{{'Use your camera and microphone'|localise}}</h1>
+            </div>
+            <div>
+                <p class="govuk-body" id="message1">{{'Switch on your camera and microphone to see the short
+                    interactive video.'|localise}}</p>
+            </div>
+            <app-show-details [detailsTitle]="'Why do I need to use my camera and microphone'" [textArray]="['If you switch on your camera and microphone, you’ll be able to see what it’s like to be in a video hearing. Once the video has finished, your camera and microphone will switch off again.']">
+            </app-show-details>
+            <button type="button" class="govuk-button hmcts-button--primary" (click)="switchOnMedia()" id="continue">
+                {{ 'Switch on' | localise:'Button' }}
+            </button>
+
         </div>
-        <button type="button" class="govuk-button hmcts-button--primary" (click)="continue()" id="continue">
-            {{ 'Watch video' | localise:'Button' }}
-          </button>
-      </div>
-  
-  </div>
+        <div class="govuk-grid-column-two-thirdsl" *ngIf="mediaAccepted">
+            <div>
+                <h1 class="govuk-heading-l">{{'Your camera and microphone are now switched on'|localise}}</h1>
+            </div>
+            <div>
+                <p class="govuk-body" id="message1">{{'You\'re now ready to watch intecractive video.'|localise}}</p>
+            </div>
+            <button type="button" class="govuk-button hmcts-button--primary" (click)="continue()" id="continue">
+                {{ 'Watch video' | localise:'Button' }}
+            </button>
+        </div>
+
+    </div>
 </div>
