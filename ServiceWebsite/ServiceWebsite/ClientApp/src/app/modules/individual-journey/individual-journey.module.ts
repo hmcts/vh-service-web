@@ -10,11 +10,14 @@ import { IndividualJourneyRoutingModule } from './individual-journey-routing.mod
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualLocalisation } from './services/individual-localisation';
 
+// business logic
+import { IndividualJourney } from './individual-journey';
+
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
-import { ParticipantViewComponent } from './pages/participant-view/participant-view.component';
+
 @NgModule({
   imports: [
     // angular
@@ -29,14 +32,11 @@ import { ParticipantViewComponent } from './pages/participant-view/participant-v
   declarations: [
     AudioBarComponent,
     UserCameraViewComponent,
-    VideoViewComponent,
-    ParticipantViewComponent
+    VideoViewComponent
   ],
   providers: [
-    { provide: Localisation, useClass: IndividualLocalisation }
-  ],
-  exports: [
-    UserCameraViewComponent,
-    ]
+    { provide: Localisation, useClass: IndividualLocalisation },
+    IndividualJourney
+  ]
  })
 export class IndividualJourneyModule { }
