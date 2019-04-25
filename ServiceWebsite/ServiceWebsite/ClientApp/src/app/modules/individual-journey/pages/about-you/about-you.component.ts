@@ -1,6 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
-import { IndividualJourney } from '../../individual-journey';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -9,21 +8,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './about-you.component.html',
   styles: []
 })
-export class AboutYouComponent extends IndividualBaseComponent implements OnDestroy {
+export class AboutYouComponent extends IndividualBaseComponent implements OnDestroy, OnInit {
   abilityForm: FormGroup;
   ability: FormControl;
   moreDetails: FormControl;
   abilityInputChanges: Subscription;
   moreDetailsChanges: Subscription;
 
-  constructor(journey: IndividualJourney) {
-    super(journey);
-
+  ngOnInit() {
     //
     // The following is an example usage of the model.
     // Any values updated/stored will be handled on .continue() or .fail() by the journey object
     //
-
     this.ability = new FormControl(this.model.aboutYou.answer, [ Validators.required ]);
     this.moreDetails = new FormControl(this.model.aboutYou.notes, [ Validators.required ]);
 

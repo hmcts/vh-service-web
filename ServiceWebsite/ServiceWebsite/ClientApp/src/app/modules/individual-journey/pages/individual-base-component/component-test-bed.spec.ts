@@ -7,6 +7,7 @@ import { LocalisePipe } from '../../pipes/localise.pipe';
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualSuitabilityModel, SuitabilityAnswer } from '../../individual-suitability.model';
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -19,7 +20,7 @@ const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Fun
         imports: [ CommonModule, ReactiveFormsModule ],
         providers: [
             { provide: Localisation, useClass: IndividualLocalisation },
-            { provide: IndividualJourney, useValue: jasmine.createSpyObj<IndividualJourney>(['next', 'fail']) },
+            { provide: IndividualJourney, useValue: new IndividualJourney() },
             LocalisePipe
         ]
     };
