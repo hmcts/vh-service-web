@@ -1,3 +1,39 @@
-<p>
-  about-you works!
-</p>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ 'About you' | localise }}</h1>
+
+    <form [formGroup]="abilityForm" class="govuk-form-group" (ngSubmit)="continue()">
+
+      <div [ngClass]="abilityForm.invalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <fieldset class="govuk-fieldset" aria-describedby="ability-hint ability-error">
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="ability_yes" name="ability" type="radio" value="Yes"
+                    formControlName="ability">
+                  <label class="govuk-label govuk-radios__label" for="ability-yes">
+                    <strong>{{ 'Yes' | localise }}</strong>
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="ability_no" name="ability" type="radio" value="No"
+                    formControlName="ability">
+                  <label class="govuk-label govuk-radios__label" for="ability-no">
+                    <strong> {{ 'No' | localise }}</strong>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="mt-20">
+        <input class="govuk-button" type="button" value="{{ 'Continue' | localise }}" (click)="continue()">
+      </div>
+
+    </form>
+
+  </div>
+</div>  
