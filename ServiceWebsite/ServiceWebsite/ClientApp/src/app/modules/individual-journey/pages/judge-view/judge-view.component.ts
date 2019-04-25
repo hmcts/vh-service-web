@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 
 @Component({
-  selector: 'app-hearing-as-judge',
-  templateUrl: './hearing-as-judge.component.html',
+  selector: 'app-judge-view',
+  templateUrl: './judge-view.component.html',
   styles: []
 })
-export class HearingAsJudgeComponent extends IndividualBaseComponent {
+export class JudgeViewComponent extends IndividualBaseComponent {
 }
