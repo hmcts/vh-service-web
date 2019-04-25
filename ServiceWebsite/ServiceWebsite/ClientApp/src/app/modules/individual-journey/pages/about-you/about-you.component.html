@@ -1,3 +1,71 @@
-<p>
-  about-you works!
-</p>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ 'About you' | localise }}</h1>
+
+    <form [formGroup]="abilityForm" class="govuk-form-group" (ngSubmit)="continue()">
+
+      <div [ngClass]="abilityForm.invalid && abilityCheck ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <fieldset class="govuk-fieldset" aria-describedby="ability-hint ability-error">
+          <div *ngIf="abilityForm.invalid && abilityCheck">
+            <span id="ability-error" class="govuk-error-message">
+              {{ 'Please complete this question' | localise }}
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-6">
+            {{ 'Is there anything that could affect your ability to take part in a video hearing?' | localise }}
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            {{ 'For example:' | localise }}
+          </p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>{{ 'are you hard of hearing or deaf?' | localise }}</li>
+            <li>{{ 'are you blind or partially sighted?' | localise }}</li>
+            <li>{{ 'do you have a learning disability or sometimes struggle to understand everyday things?' | localise }}</li>
+            <li>{{ 'do you have mobility issues that make it difficult to travel?' | localise }}</li>
+            <li>{{ 'something else?' | localise }}</li>
+          </ul>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="ability_yes" name="ability" type="radio" value="Yes"
+                    formControlName="ability">
+                  <label class="govuk-label govuk-radios__label" for="ability-yes">
+                    <strong>{{ 'Yes' | localise }}</strong>
+                  </label>
+
+                  <div class="form-group textarea-top-margin" *ngIf="selectedAnswer === 'Yes'" [ngClass]="abilityForm.invalid && abilityCheck && !ProvideMoreInfo ? 'govuk-form-group--error' : 'govuk-form-group'">
+                    <div>
+                      <span id="ability-error" [ngClass]="abilityForm.invalid && abilityCheck && !ProvideMoreInfo ? 'govuk-error-message' : 'govuk-hint'">
+                        {{ 'Please provide more information' | localise}}
+                      </span>
+                    </div>
+                    <textarea class="txtMore vh-text-width" id="moreDetails" name="moreDetails" rows="5" cols="80" formControlName="moreDetails"
+                      aria-describedby="more-detail-hint" [ngClass]="abilityForm.invalid && abilityCheck && !ProvideMoreInfo ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
+                  </div>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="ability_no" name="ability" type="radio" value="No"
+                    formControlName="ability">
+                  <label class="govuk-label govuk-radios__label" for="ability-no">
+                    <strong> {{ 'No' | localise }}</strong>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="mt-20">
+        <input class="govuk-button" type="button" value="{{ 'Continue' | localise }}" (click)="continue()">
+      </div>
+
+    </form>
+
+  </div>
+</div>

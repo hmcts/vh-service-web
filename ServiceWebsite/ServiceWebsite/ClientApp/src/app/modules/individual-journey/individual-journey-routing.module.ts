@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 // directives/pipes
 import { LocalisePipe } from './pipes/localise.pipe';
@@ -23,6 +24,7 @@ import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.com
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -71,7 +73,9 @@ const routes: Routes = [
     RouterModule
   ],
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CommonModule,
+    ReactiveFormsModule
   ],
 })
 export class IndividualJourneyRoutingModule {

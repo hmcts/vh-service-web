@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
 import { Type } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { LocalisePipe } from '../../pipes/localise.pipe';
 import { IndividualLocalisation } from '../../services/individual-localisation';
@@ -14,6 +16,7 @@ import { IndividualJourney } from '../../individual-journey';
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
     const config: TestModuleMetadata = {
         declarations: [ component, LocalisePipe ],
+        imports: [ CommonModule, ReactiveFormsModule ],
         providers: [
             { provide: Localisation, useClass: IndividualLocalisation },
             { provide: IndividualJourney, useValue: jasmine.createSpyObj<IndividualJourney>(['next', 'fail']) },

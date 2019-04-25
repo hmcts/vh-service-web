@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
+import { IndividualSuitabilityModel, IndividualSuitability } from './individual-suitability.model';
 
 export enum IndividualJourneySteps {
     AboutHearings,
@@ -29,6 +30,8 @@ export class IndividualJourney implements JourneyBase {
 
     private readonly stepOrder: IndividualJourneySteps[];
 
+    readonly model: IndividualSuitabilityModel;
+
     constructor() {
         this.stepOrder = [
             IndividualJourneySteps.AboutHearings,
@@ -50,6 +53,26 @@ export class IndividualJourney implements JourneyBase {
         ];
 
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
+        this.model = {
+            computer: IndividualSuitability.HasComputerAnswer.No,
+            internet: {
+                answer: true,
+                notes: ''
+            },
+            interpreter: false,
+            consent: {
+                answer: true,
+                notes: ''
+            },
+            room: {
+                answer: true,
+                notes: ''
+            },
+            aboutYou: {
+                answer: true,
+                notes: ''
+            }
+        };
     }
 
     private goto(step: IndividualJourneySteps) {
