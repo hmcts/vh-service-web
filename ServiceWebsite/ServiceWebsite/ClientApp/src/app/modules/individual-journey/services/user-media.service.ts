@@ -44,10 +44,10 @@ export class UserMediaService extends MediaService {
 
   stopStream() {
     if (this.stream) {
-      this.stream.getAudioTracks().map((track) => {
+      this.stream.getAudioTracks().forEach((track) => {
         track.stop();
       });
-      this.stream.getVideoTracks().map((track) => {
+      this.stream.getVideoTracks().forEach((track) => {
         track.stop();
       });
     }
