@@ -32,4 +32,14 @@
     <PackageReference Include="WebDriver.ChromeDriver.win32" Version="2.46.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceWebsite\ServiceWebsite.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
