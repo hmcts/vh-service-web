@@ -30,7 +30,7 @@ export class JourneyStepComponentBindings {
 
     /**
      * Returns any step that matches the given route path or null if no matches exist
-     * @param route the route url to match with 
+     * @param route the route url to match with
      */
     getJourneyStep(route: string): Steps {
         // find any binding, if there isn't one, ignore
