@@ -1,5 +1,5 @@
 import { JourneyRoutingListenerService } from './services/journey-routing-listener.service';
-import { JourneyStepComponentBindings } from './services/journey-component-binding.service';
+import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';

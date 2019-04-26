@@ -63,6 +63,13 @@ export class IndividualJourney implements JourneyBase {
         }
     }
 
+    /**
+     * Get the current step
+     */
+    get step(): IndividualJourneySteps {
+        return this.currentStep;
+    }
+
     begin() {
         this.goto(IndividualJourneySteps.AboutHearings);
     }
