@@ -8,7 +8,6 @@ export class JourneyStepComponentBindings {
     private readonly bindings = new Map<Steps, string>();
 
     constructor() {
-        this.bindings.set(Steps.AccessToRoom, Paths.AboutHearings);
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
         this.bindings.set(Steps.AboutYou, Paths.AboutYou);
         this.bindings.set(Steps.AboutHearings, Paths.AboutHearings);
