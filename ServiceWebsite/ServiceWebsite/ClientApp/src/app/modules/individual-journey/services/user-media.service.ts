@@ -14,7 +14,7 @@ export class UserMediaService extends MediaService {
 
   readonly constraints: MediaStreamConstraints = {
     audio: true,
-    video: { facingMode: { exact: 'user' } }
+    video: true
   };
 
   private stream: MediaStream;
