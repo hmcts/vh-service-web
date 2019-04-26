@@ -1,13 +1,14 @@
 import { UserCameraViewComponent } from './user-camera-view.component';
 import { ElementRef } from '@angular/core';
 
+const ne = { srcObject: '' };
+
 class MockElementRef extends ElementRef {
-  constructor() {
-    const ne = { srcObject: '' };
-    super(ne);
-  }
+  constructor() { super(ne); }
 }
+
 const component = new UserCameraViewComponent();
+
 describe('UserCameraViewComponent', () => {
   it('should set media stream', () => {
     component.setSource(new MediaStream());

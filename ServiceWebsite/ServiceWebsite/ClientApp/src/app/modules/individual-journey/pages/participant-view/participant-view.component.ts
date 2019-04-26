@@ -31,7 +31,7 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
     this.userMediaService.getStream().then(s => {
       this.stream = s;
       this.userCameraViewComponent.setSource(s);
-      this.audioBarComponent.viewAudioBar(s);
+      this.audioBarComponent.setSource(s);
     });
   }
 

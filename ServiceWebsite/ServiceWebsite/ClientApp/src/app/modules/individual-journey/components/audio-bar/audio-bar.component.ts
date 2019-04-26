@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-audio-bar',
   templateUrl: './audio-bar.component.html',
   styles: []
 })
-export class AudioBarComponent implements OnInit {
+export class AudioBarComponent {
 
   @Input()
   audioBarWidth: string;
@@ -24,10 +24,7 @@ export class AudioBarComponent implements OnInit {
     this.audioContext = new (window['AudioContext'] || window['webkitAudioContext'])();
   }
 
-  ngOnInit() {
-  }
-
-  viewAudioBar(stream: MediaStream) {
+  setSource(stream: MediaStream) {
     this.getCanvasContex();
     const source = this.audioContext.createMediaStreamSource(stream);
     // Create a new volume meter and connect it.
