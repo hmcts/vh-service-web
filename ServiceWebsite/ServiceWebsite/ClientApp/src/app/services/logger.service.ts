@@ -2,7 +2,7 @@ import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { LogAdapter } from './log-adapter';
 import { Logger } from './logger';
 
-export const LOG_ADAPTER = new InjectionToken<LogAdapter[]>('LogAdapter');
+export const LOG_ADAPTER = new InjectionToken<LogAdapter>('LogAdapter');
 
 @Injectable()
 export class LoggerService implements Logger {
