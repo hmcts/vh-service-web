@@ -25,7 +25,7 @@ import { MediaAccessService } from './services/media-access.service';
 import { LocalisePipe } from './pipes/localise.pipe';
 
 // Temporary mock
-class MediaAccessMock implements MediaAccessService {
+export class MediaAccessMock implements MediaAccessService {
   requestAccess(): Promise<boolean> {
     return Promise.resolve(true);
   }
