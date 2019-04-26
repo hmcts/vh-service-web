@@ -21,13 +21,17 @@ export class VideoViewComponent {
   @ViewChild('video')
   videoElement: ElementRef;
   
-  //This method is invoked when a video is ready to start playing
+  /**
+   * This method is invoked when a video is ready to start playing
+   */
   readyToPlay()
   {
     this.loaded.emit();
   }
 
-  //Plays the video
+  /**
+   * Plays the video
+   */
   play(){
     this.videoElement.nativeElement.play();
   }
