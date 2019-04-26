@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { ShowDetailsComponent } from './show-details/show-details.component';
 import { ErrorFooterComponent } from './error-footer/error-footer.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 // services
 import { ProfileService } from '../../services/profile.service';
@@ -27,7 +28,8 @@ import { WindowRef } from './window-ref';
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent
+    ErrorFooterComponent,
+    ContactUsComponent
   ],
   providers: [
     ProfileService,
@@ -39,7 +41,8 @@ import { WindowRef } from './window-ref';
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent
+    ErrorFooterComponent,
+    ContactUsComponent
   ]
 })
 export class SharedModule { }

@@ -13,7 +13,8 @@ variables:
   "AzureAd/ClientId":"$(vh-service-web-appid)",
   "AzureAd/ClientSecret":"$(vh-service-web-key)",
   "AzureAd:TenantId":"$(TenantId)",
-  "VhServices/BookingsApiResourceId":"$(vh-bookings-api-identifieruris)"
+  "VhServices/BookingsApiResourceId":"$(vh-bookings-api-identifieruris)",
+  "AzureStorage/BaseVideoUrl":"https://vhcoreinfrapreview.blob.core.windows.net/video"
     '
   vhAzureKeyVault: 'https://vhwebsitepreview.vault.azure.net/' # Used during integration tests
   keyVaultName: vhcoreinfrahtpreview # Used to get secrets for integration tests

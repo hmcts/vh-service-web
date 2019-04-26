@@ -9,7 +9,15 @@ import { IndividualJourney } from '../../individual-journey';
   styles: []
 })
 export class UseCameraMicrophoneComponent extends IndividualBaseComponent {
+  mediaAccepted = false;
   constructor(journey: IndividualJourney, private mediaAccess: MediaAccessService) {
     super(journey);
+  }
+
+  async switchOnMedia() {
+    this.mediaAccepted = await this.mediaAccess.requestAccess();
+    if (!this.mediaAccepted) {
+      this.fail();
+    }
   }
 }

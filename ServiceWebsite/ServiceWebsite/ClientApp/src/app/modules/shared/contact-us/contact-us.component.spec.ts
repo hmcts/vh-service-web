@@ -1,16 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { ShowDetailsComponent } from './show-details.component';
 import { By } from '@angular/platform-browser';
+import { ContactUsComponent } from './contact-us.component';
 
-describe('ShowDetailsComponent', () => {
+describe('ContactUsComponent', () => {
   it('should expand details when clicked', async () => {
     TestBed.configureTestingModule({
-      declarations: [ShowDetailsComponent],
+      declarations: [ContactUsComponent],
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(ShowDetailsComponent);
-    const component = fixture.componentInstance;
-    component.textArray = [ 'test text' ];
+    const fixture = TestBed.createComponent(ContactUsComponent);
     fixture.detectChanges();
 
     const element = fixture.debugElement.query(By.css('.govuk-details__summary'));
@@ -20,6 +18,5 @@ describe('ShowDetailsComponent', () => {
 
     const detailsElement = fixture.debugElement.query(By.css('.govuk-details__text'));
     expect(detailsElement).toBeTruthy();
-    expect(detailsElement.nativeElement.innerText).toContain('test text');
   });
 });
