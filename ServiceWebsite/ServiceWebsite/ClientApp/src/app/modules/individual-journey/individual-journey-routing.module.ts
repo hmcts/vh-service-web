@@ -25,6 +25,7 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -45,7 +46,7 @@ const routes: Routes = [
   { path: 'consent', component: ConsentComponent },
   { path: 'thank-you', component: ThankYouComponent },
   { path: 'media-error', component: MediaErrorComponent }
-];
+  ];
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ const routes: Routes = [
     AccessToRoomComponent,
     ConsentComponent,
     ThankYouComponent,
-    MediaErrorComponent
+    MediaErrorComponent,
+    ContactUsComponent
   ],
   exports: [
     RouterModule

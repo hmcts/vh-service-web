@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Constants } from '../../../shared/constants';
 
 @Component({
   selector: 'app-contact-us',
@@ -7,12 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactUsComponent implements OnInit {
   showTextDetails: boolean = false;
-  constructor() { }
+  contactUsEmail: string;
+  constructor() {
+    this.contactUsEmail = Constants.ContactUsEmail;
+   }
 
   ngOnInit() {
   }
 
-  showContactUsDetails() {
+  showContactDetails() {
     this.showTextDetails = !this.showTextDetails;
   }
 

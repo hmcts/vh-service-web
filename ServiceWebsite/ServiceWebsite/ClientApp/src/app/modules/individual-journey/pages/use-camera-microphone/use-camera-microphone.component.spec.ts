@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { IndividualJourney } from '../../individual-journey';
 import { ShowDetailsComponent } from 'src/app/modules/shared/show-details/show-details.component';
+import { ContactUsComponent } from '../../components/contact-us/contact-us.component';
 
 describe('UseCameraMicrophoneComponent', () => {
 let mediaAccessService : jasmine.SpyObj<MediaAccessService>;
@@ -22,7 +23,7 @@ beforeEach(() => {
         config.providers.push(
           { provide: MediaAccessService, useValue: mediaAccessService }
         );
-        config.declarations.push(ShowDetailsComponent);
+        config.declarations.push([ShowDetailsComponent, ContactUsComponent]);
       });
   });
 
