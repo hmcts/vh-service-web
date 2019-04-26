@@ -38,15 +38,21 @@ describe('ParticipantViewComponent', () => {
     let component: ParticipantViewComponent;
     const journey = new IndividualJourney();
     const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
+
+    const mediaStream = new MediaStream();
+
     beforeEach(() => {
       component = new ParticipantViewComponent(journey, userMediaService);
     });
     it('should get source for video', () => {
-      userMediaService.getStream.and.returnValue(new Promise<MediaStream>((resolve, reject) => { resolve(new MediaStream()); }));
+      userMediaService.getStream.and.returnValue(new Promise<MediaStream>((resolve, reject) => { resolve(mediaStream); }));
       component.ngAfterContentInit();
       expect(userMediaService.getStream).toHaveBeenCalled();
     });
     it('should stop use camera on destroy', () => {
+      userMediaService.getStream.and.returnValue(new Promise<MediaStream>((resolve, reject) => { resolve(mediaStream); }));
+      component.ngAfterContentInit();
+
       component.ngOnDestroy();
       expect(userMediaService.stopStream).toHaveBeenCalled();
     });
