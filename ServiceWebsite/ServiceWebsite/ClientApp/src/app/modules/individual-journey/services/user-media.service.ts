@@ -1,14 +1,19 @@
 import { Injectable, } from '@angular/core';
 import { MediaService } from './media.service';
 
+const browser = <any>navigator;
 @Injectable({
   providedIn: 'root',
 })
 export class UserMediaService extends MediaService {
 
-  browser = <any>navigator;
-  constraints: MediaStreamConstraints;
-  stream: MediaStream;
+
+  readonly constraints: MediaStreamConstraints = {
+    audio: true,
+    video: { facingMode: { exact: 'user' } }
+  };
+
+  private stream: MediaStream;
 
   constructor() {
     super();
@@ -16,22 +21,17 @@ export class UserMediaService extends MediaService {
   }
 
   private initialize() {
-    this.browser.mediaDevices.getUserMedia = (this.browser.mediaDevices.getUserMedia ||
-      this.browser.webkitGetUserMedia ||
-      this.browser.mozGetUserMedia ||
-      this.browser.msGetUserMedia);
-
-    this.constraints = {
-      audio: true,
-      video: { facingMode: { exact: 'user' } }
-    };
+    browser.mediaDevices.getUserMedia = (browser.mediaDevices.getUserMedia ||
+      browser.webkitGetUserMedia ||
+      browser.mozGetUserMedia ||
+      browser.msGetUserMedia);
   }
 
   getStream(): Promise<MediaStream> {
     if (this.stream) {
       this.stopStream();
     }
-    const currentStream = this.browser.mediaDevices.getUserMedia(this.constraints);
+    const currentStream = browser.mediaDevices.getUserMedia(this.constraints);
     return currentStream.then(s => {
       if (s instanceof MediaStream) {
         this.stream = s;

@@ -58,12 +58,12 @@ describe('ParticipantViewComponent', () => {
       component = new ParticipantViewComponent(journey, userMediaService);
     });
     it('should get source for video', () => {
-      userMediaService.getStream.and.returnValue(new Promise<MediaStream>((resolve, reject) => { resolve(mediaStream); }));
+      userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
       component.ngAfterContentInit();
       expect(userMediaService.getStream).toHaveBeenCalled();
     });
     it('should stop use camera on destroy', () => {
-      userMediaService.getStream.and.returnValue(new Promise<MediaStream>((resolve, reject) => { resolve(mediaStream); }));
+      userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
       component.ngAfterContentInit();
 
       component.ngOnDestroy();
