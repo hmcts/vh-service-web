@@ -12,7 +12,6 @@ browser.mediaDevices.getUserMedia = (browser.mediaDevices.getUserMedia ||
 })
 export class UserMediaService extends MediaService {
 
-
   readonly constraints: MediaStreamConstraints = {
     audio: true,
     video: { facingMode: { exact: 'user' } }
