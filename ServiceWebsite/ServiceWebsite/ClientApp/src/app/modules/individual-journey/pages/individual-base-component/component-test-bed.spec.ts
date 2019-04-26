@@ -1,10 +1,14 @@
+import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
+import { CommonModule } from '@angular/common';
 import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
 import { Type } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { LocalisePipe } from '../../pipes/localise.pipe';
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -14,9 +18,11 @@ import { IndividualJourney } from '../../individual-journey';
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
     const config: TestModuleMetadata = {
         declarations: [ component, LocalisePipe ],
+        imports: [ CommonModule, ReactiveFormsModule ],
         providers: [
             { provide: Localisation, useClass: IndividualLocalisation },
-            { provide: IndividualJourney, useValue: jasmine.createSpyObj<IndividualJourney>(['next', 'fail']) },
+            { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
+            { provide: IndividualJourney, useClass: IndividualJourney },
             LocalisePipe
         ]
     };

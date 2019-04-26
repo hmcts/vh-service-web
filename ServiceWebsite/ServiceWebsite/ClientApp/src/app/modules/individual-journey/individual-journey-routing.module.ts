@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// directives/pipes
-import { LocalisePipe } from './pipes/localise.pipe';
-
 // components
 import { AboutHearingsComponent } from './pages/about-hearings/about-hearings.component';
 import { DifferentHearingTypesComponent } from './pages/different-hearing-types/different-hearing-types.component';
@@ -48,29 +45,30 @@ const routes: Routes = [
   { path: 'media-error', component: MediaErrorComponent }
   ];
 
+// Export all components loaded so these can be declared in parent module
+export const Components = [
+  AboutHearingsComponent,
+  DifferentHearingTypesComponent,
+  ExploreCourtBuildingComponent,
+  CourtBuildingVideoComponent,
+  ExploreVideoHearingComponent,
+  UseCameraMicrophoneComponent,
+  ParticipantViewComponent,
+  JudgeViewComponent,
+  HelpTheCourtDecideComponent,
+  AboutYouComponent,
+  InterpreterComponent,
+  YourComputerComponent,
+  AboutYourComputerComponent,
+  YourInternetConnectionComponent,
+  AccessToRoomComponent,
+  ConsentComponent,
+  ThankYouComponent,
+  MediaErrorComponent,
+  ContactUsComponent
+];
+
 @NgModule({
-  declarations: [
-    LocalisePipe,
-    AboutHearingsComponent,
-    DifferentHearingTypesComponent,
-    ExploreCourtBuildingComponent,
-    CourtBuildingVideoComponent,
-    ExploreVideoHearingComponent,
-    UseCameraMicrophoneComponent,
-    ParticipantViewComponent,
-    JudgeViewComponent,
-    HelpTheCourtDecideComponent,
-    AboutYouComponent,
-    InterpreterComponent,
-    YourComputerComponent,
-    AboutYourComputerComponent,
-    YourInternetConnectionComponent,
-    AccessToRoomComponent,
-    ConsentComponent,
-    ThankYouComponent,
-    MediaErrorComponent,
-    ContactUsComponent
-  ],
   exports: [
     RouterModule
   ],
@@ -80,5 +78,4 @@ const routes: Routes = [
     SharedModule
   ],
 })
-export class IndividualJourneyRoutingModule {
-}
+export class IndividualJourneyRoutingModule {}

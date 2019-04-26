@@ -1,3 +1,4 @@
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { IndividualJourney, IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey';
 
 describe('IndividualJourney', () => {
@@ -6,7 +7,7 @@ describe('IndividualJourney', () => {
 
     beforeEach(() => {
         redirected = null;
-        journey = new IndividualJourney();
+        journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
 
         journey.redirect.subscribe((s: Steps) => redirected = s);
     });

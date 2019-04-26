@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
+import { IndividualSuitabilityModel, HasAccessToComputer } from './individual-suitability.model';
 
 export enum IndividualJourneySteps {
     AboutHearings,
@@ -29,7 +30,11 @@ export class IndividualJourney implements JourneyBase {
 
     private readonly stepOrder: IndividualJourneySteps[];
 
-    constructor() {
+    readonly model: IndividualSuitabilityModel;
+
+    constructor(model: IndividualSuitabilityModel) {
+        this.model = model;
+
         this.stepOrder = [
             IndividualJourneySteps.AboutHearings,
             IndividualJourneySteps.DifferentHearingTypes,

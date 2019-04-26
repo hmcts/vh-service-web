@@ -1,10 +1,10 @@
 import { AppInsights } from 'applicationinsights-js';
-import { Logger } from './logger';
+import { LogAdapter } from './log-adapter';
 import { Config } from '../modules/shared/models/config';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class AppInsightsLogger implements Logger {
+export class AppInsightsLogger implements LogAdapter {
   errorInfo: any;
   constructor(config: Config) {
     const appInsightsConfig: Microsoft.ApplicationInsights.IConfig = {
