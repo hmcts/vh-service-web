@@ -29,7 +29,6 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
   declarations: [
     AudioBarComponent,
     UserCameraViewComponent,
-    VideoViewComponent
   ],
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation }
