@@ -36,5 +36,10 @@ In the `ServiceWebsite.UserAPI.Client` project:
 npx nswag run user-api-csharp.nswag 
 ```
 
+In the `ServiceWebsite.BookingsAPI.Client` project:
+```
+npx nswag run booking-api-csharp.nswag 
+```
+
 # Running accessibility linting
 In the `ClientApp` folder run `node accessibility_lint.js`. Will output a json with any issues.

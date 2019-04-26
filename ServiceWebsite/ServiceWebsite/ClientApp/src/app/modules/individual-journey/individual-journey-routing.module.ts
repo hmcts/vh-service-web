@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'consent', component: ConsentComponent },
   { path: 'thank-you', component: ThankYouComponent },
   { path: 'media-error', component: MediaErrorComponent }
-];
+  ];
 
 // Export all components loaded so these can be declared in parent module
 export const Components = [
