@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// directives/pipes
-import { LocalisePipe } from './pipes/localise.pipe';
-
 // components
 import { AboutHearingsComponent } from './pages/about-hearings/about-hearings.component';
 import { DifferentHearingTypesComponent } from './pages/different-hearing-types/different-hearing-types.component';
@@ -23,8 +20,6 @@ import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.com
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
-import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
-import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -47,36 +42,34 @@ const routes: Routes = [
   { path: 'media-error', component: MediaErrorComponent }
 ];
 
+// Export all components loaded so these can be declared in parent module
+export const Components = [
+  AboutHearingsComponent,
+  DifferentHearingTypesComponent,
+  ExploreCourtBuildingComponent,
+  CourtBuildingVideoComponent,
+  ExploreVideoHearingComponent,
+  UseCameraMicrophoneComponent,
+  ParticipantViewComponent,
+  JudgeViewComponent,
+  HelpTheCourtDecideComponent,
+  AboutYouComponent,
+  InterpreterComponent,
+  YourComputerComponent,
+  AboutYourComputerComponent,
+  YourInternetConnectionComponent,
+  AccessToRoomComponent,
+  ConsentComponent,
+  ThankYouComponent,
+  MediaErrorComponent
+];
+
 @NgModule({
-  declarations: [
-    LocalisePipe,
-    UserCameraViewComponent,
-    AboutHearingsComponent,
-    DifferentHearingTypesComponent,
-    ExploreCourtBuildingComponent,
-    CourtBuildingVideoComponent,
-    ExploreVideoHearingComponent,
-    UseCameraMicrophoneComponent,
-    ParticipantViewComponent,
-    JudgeViewComponent,
-    HelpTheCourtDecideComponent,
-    AboutYouComponent,
-    InterpreterComponent,
-    YourComputerComponent,
-    AboutYourComputerComponent,
-    YourInternetConnectionComponent,
-    AccessToRoomComponent,
-    ConsentComponent,
-    ThankYouComponent,
-    MediaErrorComponent,
-    AudioBarComponent
-  ],
   exports: [
-    RouterModule,
+    RouterModule
   ],
   imports: [
     RouterModule.forChild(routes)
   ],
 })
-export class IndividualJourneyRoutingModule {
-}
+export class IndividualJourneyRoutingModule {}
