@@ -103,7 +103,7 @@ export class IndividualJourney implements JourneyBase {
     }
 
     handles(userType: string): boolean {
-        return userType === Constants.UserType.Citizen;
+        return userType === 'Individual';
     }
 
     /**
