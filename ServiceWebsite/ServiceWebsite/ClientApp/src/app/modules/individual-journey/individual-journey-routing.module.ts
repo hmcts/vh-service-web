@@ -22,7 +22,6 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -64,8 +63,7 @@ export const Components = [
   AccessToRoomComponent,
   ConsentComponent,
   ThankYouComponent,
-  MediaErrorComponent,
-  ContactUsComponent
+  MediaErrorComponent
 ];
 
 @NgModule({

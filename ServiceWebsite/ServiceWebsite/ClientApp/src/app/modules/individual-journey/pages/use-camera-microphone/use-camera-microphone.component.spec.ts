@@ -1,12 +1,10 @@
 import { UseCameraMicrophoneComponent } from './use-camera-microphone.component';
 import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
-import { TestModuleMetadata, async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaAccessService } from '../../services/media-access.service';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { IndividualJourney } from '../../individual-journey';
 import { ShowDetailsComponent } from 'src/app/modules/shared/show-details/show-details.component';
-import { ContactUsComponent } from '../../components/contact-us/contact-us.component';
+import { ContactUsComponent } from 'src/app/modules/shared/contact-us/contact-us.component';
 
 describe('UseCameraMicrophoneComponent', () => {
 let mediaAccessService: jasmine.SpyObj<MediaAccessService>;
