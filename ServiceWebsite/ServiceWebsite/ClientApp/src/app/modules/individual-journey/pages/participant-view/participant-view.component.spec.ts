@@ -4,6 +4,7 @@ import { TestModuleMetadata, TestBed } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
 import { Component, Input } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualSuitabilityModel} from '../../individual-suitability.model';
 
 @Component({
   selector: 'app-user-camera-view',
@@ -23,6 +24,16 @@ class StubAudioBarComponent {
   audioBarWidth: string;
 }
 
+@Component({
+  selector: 'app-contact-us',
+  template: ''
+})
+class StubContactUsComponent {
+}
+
+class StepMock extends IndividualSuitabilityModel {
+}
+
 describe('ParticipantViewComponent', () => {
   it('can be created', () => {
     CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
@@ -31,12 +42,14 @@ describe('ParticipantViewComponent', () => {
       );
       configuration.declarations.push(StubUserCameraViewComponent);
       configuration.declarations.push(StubAudioBarComponent);
+      configuration.declarations.push(StubContactUsComponent);
+
     });
   });
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;
-    const journey = new IndividualJourney();
+    const journey = new IndividualJourney(new StepMock());
     const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
 
     const mediaStream = new MediaStream();
