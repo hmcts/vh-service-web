@@ -24,6 +24,13 @@ import { MediaAccessService } from './services/media-access.service';
 // directives/pipes
 import { LocalisePipe } from './pipes/localise.pipe';
 
+// Temporary mock
+class MediaAccessMock implements MediaAccessService {
+  requestAccess(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+}
+
 @NgModule({
   imports: [
     // angular
@@ -45,9 +52,8 @@ import { LocalisePipe } from './pipes/localise.pipe';
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
-    {provide: MediaAccessService, useValue: {requestAccess: () => Promise.resolve(true)}},
+    { provide: MediaAccessService, useClass: MediaAccessMock },
     IndividualJourney
-
   ]
  })
 export class IndividualJourneyModule { }

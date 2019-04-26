@@ -20,8 +20,6 @@ import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.com
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -71,9 +69,7 @@ export const Components = [
     RouterModule
   ],
   imports: [
-    RouterModule.forChild(routes),
-    CommonModule,
-    SharedModule
+    RouterModule.forChild(routes)
   ],
 })
 export class IndividualJourneyRoutingModule {}
