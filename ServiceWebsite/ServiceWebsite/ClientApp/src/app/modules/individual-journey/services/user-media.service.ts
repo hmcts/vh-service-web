@@ -2,6 +2,11 @@ import { Injectable, } from '@angular/core';
 import { MediaService } from './media.service';
 
 const browser = <any>navigator;
+browser.mediaDevices.getUserMedia = (browser.mediaDevices.getUserMedia ||
+  browser.webkitGetUserMedia ||
+  browser.mozGetUserMedia ||
+  browser.msGetUserMedia);
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,14 +22,6 @@ export class UserMediaService extends MediaService {
 
   constructor() {
     super();
-    this.initialize();
-  }
-
-  private initialize() {
-    browser.mediaDevices.getUserMedia = (browser.mediaDevices.getUserMedia ||
-      browser.webkitGetUserMedia ||
-      browser.mozGetUserMedia ||
-      browser.msGetUserMedia);
   }
 
   getStream(): Promise<MediaStream> {
