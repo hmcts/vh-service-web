@@ -2,6 +2,7 @@ import { Injectable, ErrorHandler, Injector, NgZone } from '@angular/core';
 import { LoggerService } from './logger.service';
 import { Router } from '@angular/router';
 import { Paths } from '../paths';
+import { Logger } from './logger';
 
 @Injectable()
 export class ErrorService extends ErrorHandler {
@@ -15,7 +16,7 @@ export class ErrorService extends ErrorHandler {
 
   handleError(err: any) {
     const router: Router = this.injector.get(Router);
-    const logger: LoggerService = this.injector.get(LoggerService);
+    const logger: Logger = this.injector.get(Logger);
 
     err = this.unboxRejection(err);
 
