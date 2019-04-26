@@ -1,8 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 
 @Component({
   selector: 'app-home',
-  template: '<p>This is a placeholder landing page until the point the journey has been implemented.</p>'
+  template: ''
 })
-export class HomeComponent {}
+export class HomeComponent implements OnInit {
+  constructor(private journeyFactory: JourneyFactory) {}
+
+  ngOnInit() {
+    this.journeyFactory.getJourney().begin();
+  }
+}
 
