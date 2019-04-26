@@ -23,19 +23,13 @@ export class UserMediaService extends MediaService {
     super();
   }
 
-  getStream(): Promise<MediaStream> {
+  async getStream(): Promise<MediaStream> {
     if (this.stream) {
       this.stopStream();
     }
-    const currentStream = browser.mediaDevices.getUserMedia(this.constraints);
-    return currentStream.then(s => {
-      if (s instanceof MediaStream) {
-        this.stream = s;
-        return new Promise<MediaStream>((resolve, reject) => { resolve(s); });
-      } else {
-        return new Promise<string>((resolve, reject) => { reject('Error'); });
-      }
-    });
+
+    this.stream = await browser.mediaDevices.getUserMedia(this.constraints);
+    return this.stream;
   }
 
   stopStream() {
