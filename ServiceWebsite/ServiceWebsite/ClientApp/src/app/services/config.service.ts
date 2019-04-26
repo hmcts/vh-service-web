@@ -25,6 +25,7 @@ export class ConfigService {
     ENVIRONMENT_CONFIG.clientId = result.client_id;
     ENVIRONMENT_CONFIG.redirectUri = result.redirect_uri;
     ENVIRONMENT_CONFIG.postLogoutRedirectUri = result.post_logout_redirect_uri;
+    ENVIRONMENT_CONFIG.baseVideoUrl = result.baseVideoUrl;
     return Promise.resolve(ENVIRONMENT_CONFIG);
   }
 }

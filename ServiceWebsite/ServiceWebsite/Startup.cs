@@ -64,6 +64,7 @@ namespace ServiceWebsite
             services.Configure<SecuritySettings>(options => Configuration.Bind("ApplicationInsights", options));
             services.Configure<EnvironmentSettings>(options => Configuration.Bind(options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
+            services.Configure<EnvironmentSettings>(options => Configuration.Bind("AzureStorage", options));
         }
 
         private void RegisterAuth(IServiceCollection services)

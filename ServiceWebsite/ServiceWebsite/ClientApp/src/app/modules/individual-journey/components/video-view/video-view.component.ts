@@ -32,6 +32,7 @@ export class VideoViewComponent {
    * Plays the video
    */
   play() {
-    this.videoElement.nativeElement.play();
+    const video: HTMLVideoElement = this.videoElement.nativeElement;
+    video.play();
   }
 }

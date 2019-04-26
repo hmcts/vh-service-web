@@ -29,7 +29,8 @@ namespace ServiceWebsite.Controllers
                 TenantId = _settings.TenantId,
                 ClientId = _settings.ClientId,
                 RedirectUri = $"{baseUrl}/login",
-                PostLogoutRedirectUri = $"{baseUrl}/"
+                PostLogoutRedirectUri = $"{baseUrl}/",
+                BaseVideoUrl = _settings.BaseVideoUrl
             };
 
             return Json(config);

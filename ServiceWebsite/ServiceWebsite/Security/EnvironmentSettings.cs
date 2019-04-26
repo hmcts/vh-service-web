@@ -27,5 +27,10 @@ namespace ServiceWebsite.Security
         public string VideoAppUrl { get; set; }
 
         public bool RequireHttpsMetadata { get; set; }
+
+        /// <summary>
+        ///     Base Video Url for videos stored in azure storage
+        /// </summary>
+        public string BaseVideoUrl { get; set; }
     }
 }

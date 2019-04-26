@@ -1,2 +1,2 @@
-<video [src]="source" type="video/mp4" width="100%" height="100%" autoplay (oncanplay)="readyToPlay()">
+<video #video [src]="source" type="video/mp4" width="100%" height="100%" autoplay (canplay)="readyToPlay()">
 </video>

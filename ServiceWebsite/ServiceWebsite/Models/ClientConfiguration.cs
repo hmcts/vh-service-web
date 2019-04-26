@@ -18,5 +18,10 @@
         public string ClientId { get; internal set; }
         public string RedirectUri { get; internal set; }
         public string PostLogoutRedirectUri { get; internal set; }
+
+        /// <summary>
+        ///     Base Video Url for videos stored in azure storage
+        /// </summary>
+        public string BaseVideoUrl { get; set; }
     }
 }
