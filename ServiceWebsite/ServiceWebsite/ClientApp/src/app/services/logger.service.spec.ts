@@ -1,32 +1,39 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { LogAdapter } from './log-adapter';
+import { TestBed, inject } from '@angular/core/testing';
 
-import { LoggerService } from './logger.service';
-import { Config } from '../modules/shared/models/config';
-import { AppInsightsLogger } from './app-insights-logger.service';
+import { LoggerService, LOG_ADAPTER } from './logger.service';
 
 describe('LoggerService', () => {
 
   let logger: LoggerService;
-  let appInsightsLogger: jasmine.SpyObj<AppInsightsLogger>;
+  let logAdapter: jasmine.SpyObj<LogAdapter>;
 
   beforeEach(() => {
-    appInsightsLogger = jasmine.createSpyObj('AppInsightsLogger', ['trackException', 'trackEvent']);
+    logAdapter = jasmine.createSpyObj<LogAdapter>(['trackException', 'trackEvent']);
 
+    // Set up the entire testing module as to test the injection token works properly
     TestBed.configureTestingModule({
       providers: [
         LoggerService,
-        { provide: AppInsightsLogger, useValue: appInsightsLogger }
+        { provide: LOG_ADAPTER, useValue: logAdapter, multi: true }
       ]
     });
 
     logger = TestBed.get(LoggerService);
   });
 
-  it('should be created', inject([LoggerService], (service: LoggerService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('logs events to all adapters', () => {
+    const properties = {};
+    logger.event('event', properties);
 
-  it('waits until initialized before logging', () => {
-    logger.event('testing');
+    expect(logAdapter.trackEvent).toHaveBeenCalledWith('event', properties);
+  });
+
+  it('logs errors to all adapters', () => {
+    const error = new Error();
+    const properties = {};
+    logger.error('error', error, properties);
+
+    expect(logAdapter.trackException).toHaveBeenCalledWith('error', error, properties);
   });
 });
