@@ -6,7 +6,6 @@ describe('BlobStorageService', () => {
         const config = new Config();
         config.baseVideoUrl = 'http://test.com';
         const blobStorageService = new BlobStorageService(config);
-        console.log(blobStorageService);
         const actualValue = blobStorageService.getVideoUrl('videoFileName');
         expect(actualValue).toEqual('http://test.com/videoFileName');
     });

@@ -51,10 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\modules\individual-journey\services\blob-storage.service.spec.ts~RF22f9b8e.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
     <ProjectReference Include="..\ServiceWebsite.Services\ServiceWebsite.Services.csproj" />
     <ProjectReference Include="..\ServiceWebsite.UserAPI.Client\ServiceWebsite.UserAPI.Client.csproj" />
