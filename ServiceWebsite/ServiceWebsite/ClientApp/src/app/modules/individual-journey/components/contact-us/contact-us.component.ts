@@ -7,7 +7,7 @@ import { Constants } from '../../../shared/constants';
   styles: []
 })
 export class ContactUsComponent implements OnInit {
-  showTextDetails: boolean = false;
+  showTextDetails = false;
   contactUsEmail: string;
   constructor() {
     this.contactUsEmail = Constants.ContactUsEmail;

@@ -9,7 +9,7 @@ import { IndividualJourney } from '../../individual-journey';
   styles: []
 })
 export class UseCameraMicrophoneComponent extends IndividualBaseComponent {
-  mediaAccepted: boolean = false;
+  mediaAccepted = false;
   constructor(journey: IndividualJourney, private mediaAccess: MediaAccessService) {
     super(journey);
   }

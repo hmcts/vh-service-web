@@ -45,7 +45,7 @@ import { LocalisePipe } from './pipes/localise.pipe';
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
-    {provide: MediaAccessService, useValue: {requestAccess:()=>{return Promise.resolve(true)}}},
+    {provide: MediaAccessService, useValue: {requestAccess: () => Promise.resolve(true)}},
     IndividualJourney
 
   ]
