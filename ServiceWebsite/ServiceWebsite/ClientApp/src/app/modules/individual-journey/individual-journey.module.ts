@@ -10,6 +10,9 @@ import { IndividualJourneyRoutingModule } from './individual-journey-routing.mod
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualLocalisation } from './services/individual-localisation';
 
+// business logic
+import { IndividualJourney } from './individual-journey';
+
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
@@ -31,7 +34,8 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
     UserCameraViewComponent,
   ],
   providers: [
-    { provide: Localisation, useClass: IndividualLocalisation }
+    { provide: Localisation, useClass: IndividualLocalisation },
+    IndividualJourney
   ]
  })
 export class IndividualJourneyModule { }

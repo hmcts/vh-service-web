@@ -22,12 +22,14 @@ import { ErrorComponent } from './pages/error/error.component';
 // services
 import { ErrorService } from './services/error.service';
 import { ConfigService, ENVIRONMENT_CONFIG } from './services/config.service';
-import { LoggerService } from './services/logger.service';
+import { LoggerService, LOG_ADAPTER } from './services/logger.service';
 import { CustomAdalInterceptor } from './services/custom-adal-interceptor';
 import { GuidanceService } from './services/guidance.service';
 import { PrintService } from './services/print.service';
 import { DocumentRedirectService } from './services/document-redirect.service';
 import { AppInsightsLogger } from './services/app-insights-logger.service';
+import { ConsoleLogger } from './services/console-logger';
+import { Logger } from './services/logger';
 
 // modules
 import { RepresentativeJourneyModule } from './modules/representative-journey/representative-journey.module';
@@ -68,10 +70,12 @@ export function initConfiguration(configService: ConfigService) {
     { provide: APP_INITIALIZER, useFactory: initConfiguration, deps: [ConfigService], multi: true },
     { provide: Config, useFactory: () => ENVIRONMENT_CONFIG },
     { provide: HTTP_INTERCEPTORS, useClass: CustomAdalInterceptor, multi: true },
+    { provide: LOG_ADAPTER, useClass: ConsoleLogger, multi: true },
+    { provide: LOG_ADAPTER, useClass: AppInsightsLogger, multi: true },
+    { provide: Logger, useClass: LoggerService },
+    AppInsightsLogger,
     AppRoutingModule,
     ConfigService,
-    LoggerService,
-    AppInsightsLogger,
     AdalService,
     AdalGuard,
     AdalInterceptor,
