@@ -2,10 +2,11 @@ import { LogAdapter } from './log-adapter';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { LoggerService, LOG_ADAPTER } from './logger.service';
+import { Logger } from './logger';
 
 describe('LoggerService', () => {
 
-  let logger: LoggerService;
+  let logger: Logger;
   let logAdapter: jasmine.SpyObj<LogAdapter>;
 
   beforeEach(() => {
@@ -14,12 +15,12 @@ describe('LoggerService', () => {
     // Set up the entire testing module as to test the injection token works properly
     TestBed.configureTestingModule({
       providers: [
-        LoggerService,
+        { provide: Logger, useClass: LoggerService },
         { provide: LOG_ADAPTER, useValue: logAdapter, multi: true }
       ]
     });
 
-    logger = TestBed.get(LoggerService);
+    logger = TestBed.get(Logger);
   });
 
   it('logs events to all adapters', () => {

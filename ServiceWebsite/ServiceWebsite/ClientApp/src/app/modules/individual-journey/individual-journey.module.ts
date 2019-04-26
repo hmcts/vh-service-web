@@ -19,9 +19,17 @@ import { VideoViewComponent } from './components/video-view/video-view.component
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
+import { MediaAccessService } from './services/media-access.service';
 
 // directives/pipes
 import { LocalisePipe } from './pipes/localise.pipe';
+
+// Temporary mock
+export class MediaAccessMock implements MediaAccessService {
+  requestAccess(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+}
 
 @NgModule({
   imports: [
@@ -44,6 +52,7 @@ import { LocalisePipe } from './pipes/localise.pipe';
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
+    { provide: MediaAccessService, useClass: MediaAccessMock },
     IndividualJourney
   ]
  })
