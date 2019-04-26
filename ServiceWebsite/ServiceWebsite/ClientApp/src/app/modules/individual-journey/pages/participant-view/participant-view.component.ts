@@ -7,4 +7,8 @@ import { IndividualBaseComponent } from '../individual-base-component/individual
   styles: []
 })
 export class ParticipantViewComponent extends IndividualBaseComponent {
+  source: string;
+  showVideo: boolean;
+
+
 }
