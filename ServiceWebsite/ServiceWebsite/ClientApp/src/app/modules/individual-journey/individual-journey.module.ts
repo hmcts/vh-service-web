@@ -17,6 +17,8 @@ import { IndividualJourney } from './individual-journey';
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
+import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
 
 @NgModule({
   imports: [
@@ -36,6 +38,7 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
   ],
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },
+    { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
     IndividualJourney
   ]
  })
