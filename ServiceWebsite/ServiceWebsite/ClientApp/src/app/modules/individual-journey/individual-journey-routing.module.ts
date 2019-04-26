@@ -78,5 +78,4 @@ const routes: Routes = [
     CommonModule
   ],
 })
-export class IndividualJourneyRoutingModule {
-}
+export class IndividualJourneyRoutingModule {}
