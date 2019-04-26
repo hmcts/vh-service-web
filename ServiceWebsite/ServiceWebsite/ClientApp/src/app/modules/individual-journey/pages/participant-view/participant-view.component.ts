@@ -8,11 +8,7 @@ import { IndividualBaseComponent } from '../individual-base-component/individual
 })
 export class ParticipantViewComponent extends IndividualBaseComponent {
   source: string;
-  showVideo : boolean;
+  showVideo: boolean;
 
-  ngOnInit() {
-    this.source = 'https://vhcoreinfradev.blob.core.windows.net/video/btd_individual_laptop_large.mp4';
-  }
 
-  
 }
