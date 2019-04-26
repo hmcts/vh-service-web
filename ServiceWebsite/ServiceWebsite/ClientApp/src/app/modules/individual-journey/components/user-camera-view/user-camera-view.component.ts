@@ -17,12 +17,10 @@ export class UserCameraViewComponent {
 
   setSource(stream: MediaStream) {
     this.stream = stream;
-    if (this.videoBox) {
-      if (typeof (this.videoBox.nativeElement.srcObject) !== 'undefined') {
-        this.videoBox.nativeElement.srcObject = this.stream;
-      } else {
-        this.videoBox.nativeElement.src = URL.createObjectURL(this.stream);
-      }
+    if (typeof (this.videoBox.nativeElement.srcObject) !== 'undefined') {
+      this.videoBox.nativeElement.srcObject = this.stream;
+    } else {
+      this.videoBox.nativeElement.src = URL.createObjectURL(this.stream);
     }
   }
 }
