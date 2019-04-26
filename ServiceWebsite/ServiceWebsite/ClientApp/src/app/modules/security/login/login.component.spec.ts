@@ -4,14 +4,14 @@ import { LoginComponent } from './login.component';
 import { AdalService } from 'adal-angular4';
 import { Router } from '@angular/router';
 import { ReturnUrlService } from 'src/app/modules/security/return-url.service';
-import { LoggerService } from 'src/app/services/logger.service';
+import { Logger } from 'src/app/services/logger';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let router: jasmine.SpyObj<Router>;
   let adalService: jasmine.SpyObj<AdalService>;
   let returnUrl: jasmine.SpyObj<ReturnUrlService>;
-  let logger: jasmine.SpyObj<LoggerService>;
+  let logger: jasmine.SpyObj<Logger>;
   let route: any;
 
   beforeEach(async(() => {
@@ -21,7 +21,7 @@ describe('LoginComponent', () => {
       }
     };
 
-    logger = jasmine.createSpyObj<LoggerService>(['error']);
+    logger = jasmine.createSpyObj<Logger>(['error']);
     adalService = jasmine.createSpyObj<AdalService>(['setAuthenticated', 'login', 'userInfo']);
     router = jasmine.createSpyObj<Router>(['navigate', 'navigateByUrl']);
     returnUrl = jasmine.createSpyObj<ReturnUrlService>(['popUrl', 'setUrl']);

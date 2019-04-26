@@ -20,6 +20,8 @@ import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.com
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
+import { VideoViewComponent } from './components/video-view/video-view.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   { path: 'about-hearings', component: AboutHearingsComponent },
@@ -61,7 +63,8 @@ export const Components = [
   AccessToRoomComponent,
   ConsentComponent,
   ThankYouComponent,
-  MediaErrorComponent
+  MediaErrorComponent,
+  VideoViewComponent
 ];
 
 @NgModule({
@@ -72,4 +75,4 @@ export const Components = [
     RouterModule.forChild(routes)
   ],
 })
-export class IndividualJourneyRoutingModule {}
+export class IndividualJourneyRoutingModule { }
