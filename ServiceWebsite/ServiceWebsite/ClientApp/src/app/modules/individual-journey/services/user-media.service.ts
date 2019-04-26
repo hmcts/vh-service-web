@@ -33,13 +33,15 @@ export class UserMediaService extends MediaService {
   }
 
   stopStream() {
-    if (this.stream) {
-      this.stream.getAudioTracks().forEach((track) => {
-        track.stop();
-      });
-      this.stream.getVideoTracks().forEach((track) => {
-        track.stop();
-      });
+    if (!this.stream) {
+      return;
     }
+
+    this.stream.getAudioTracks().forEach((track) => {
+      track.stop();
+    });
+    this.stream.getVideoTracks().forEach((track) => {
+      track.stop();
+    });
   }
 }
