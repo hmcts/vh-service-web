@@ -1,0 +1,23 @@
+<div class="govuk-!-margin-top-7">
+    <details class="govuk-details">
+      <summary class="govuk-details__summary" (click)="toggle()">
+        <span class="govuk-details__summary-text" id="citizen-contact-details">
+          Contact us for help
+        </span>
+      </summary>
+      <div class="govuk-details__text" *ngIf="expanded">
+        <p class="govuk-body govuk-!-margin-bottom-0">Call 0300 303 0655 and quote your case number</p>
+        <span id="telephone-hint" class="govuk-hint">
+            (available between 9am and 5pm, Monday to Friday)
+        </span>
+  
+        <p class="govuk-body govuk-!-margin-bottom-0">
+            Email us at <a class="govuk-link" target="_blank" href="mailto:{{contactUsEmail}}" data-hsupport="email">{{contactUsEmail}}</a>
+            quoting your case number
+        </p>
+        <span id="email-hint" class="govuk-hint">
+            (available between 9am and 5pm, Monday to Friday)
+        </span>
+      </div>
+    </details>
+  </div>
