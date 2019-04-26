@@ -1,10 +1,12 @@
 import { JourneyStepComponentBindings } from './journey-component-bindings';
 import { IndividualJourney, IndividualJourneySteps as Steps } from '../individual-journey';
 import { Router, ResolveEnd } from '@angular/router';
+import { Injectable } from '@angular/core';
 
 /**
  * Connects the routing to the journey
  */
+@Injectable()
 export class JourneyRoutingListenerService {
 
     constructor(private journey: IndividualJourney, private router: Router, private bindings: JourneyStepComponentBindings) {
@@ -13,7 +15,7 @@ export class JourneyRoutingListenerService {
 
     private gotoStep(step: Steps) {
         const path = this.bindings.getRoute(step);
-        this.router.navigate([path]);
+        this.router.navigate([`/${path}`]);
     }
 
     private enterJourney(url: string) {
@@ -22,7 +24,7 @@ export class JourneyRoutingListenerService {
         const step = this.bindings.getJourneyStep(route);
 
         // Any routes not mapped to steps can be ignored
-        if (step) {
+        if (step !== null) {
             this.journey.jumpTo(step);
         }
     }
