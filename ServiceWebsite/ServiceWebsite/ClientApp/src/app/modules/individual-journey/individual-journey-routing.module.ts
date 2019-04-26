@@ -23,7 +23,6 @@ import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
-import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   { path: Paths.AboutHearings, component: AboutHearingsComponent },

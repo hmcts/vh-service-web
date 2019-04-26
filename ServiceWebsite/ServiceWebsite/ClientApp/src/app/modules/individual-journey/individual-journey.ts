@@ -73,7 +73,8 @@ export class IndividualJourney implements JourneyBase {
             throw new Error('Missing transition for step: ' + IndividualJourneySteps[this.currentStep]);
         }
 
-        this.goto(currentStep + 1);
+        const nextStep = this.stepOrder[currentStep + 1];
+        this.goto(nextStep);
     }
 
     fail() {

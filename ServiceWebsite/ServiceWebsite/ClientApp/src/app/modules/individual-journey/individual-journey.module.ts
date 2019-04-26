@@ -1,3 +1,5 @@
+import { JourneyRoutingListenerService } from './services/journey-routing-listener.service';
+import { JourneyStepComponentBindings } from './services/journey-component-binding.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -9,6 +11,8 @@ import { IndividualJourneyRoutingModule, Components } from './individual-journey
 // services
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualLocalisation } from './services/individual-localisation';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
+import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
 
 // business logic
 import { IndividualJourney } from './individual-journey';
@@ -17,8 +21,6 @@ import { IndividualJourney } from './individual-journey';
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
-import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
 
 // directives/pipes
 import { LocalisePipe } from './pipes/localise.pipe';
@@ -44,7 +46,15 @@ import { LocalisePipe } from './pipes/localise.pipe';
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
-    IndividualJourney
+    IndividualJourney,
+    JourneyStepComponentBindings,
+    JourneyRoutingListenerService
   ]
  })
-export class IndividualJourneyModule { }
+export class IndividualJourneyModule {
+  constructor(service: JourneyRoutingListenerService) {
+    // this makes sure the binder is created and listens to routing events,
+    // unless we use it somewhere it would not get instantiated
+    service.initialise();
+  }
+}
