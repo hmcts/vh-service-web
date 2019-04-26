@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { Paths } from './paths';
+
 // components
 import { AboutHearingsComponent } from './pages/about-hearings/about-hearings.component';
 import { DifferentHearingTypesComponent } from './pages/different-hearing-types/different-hearing-types.component';
@@ -22,24 +24,24 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 
 const routes: Routes = [
-  { path: 'about-hearings', component: AboutHearingsComponent },
-  { path: 'different-hearing-types', component: DifferentHearingTypesComponent },
-  { path: 'explore-court-building', component: ExploreCourtBuildingComponent },
-  { path: 'court-building-video', component: CourtBuildingVideoComponent },
-  { path: 'explore-video-hearing', component: ExploreVideoHearingComponent },
-  { path: 'use-camera-microphone', component: UseCameraMicrophoneComponent },
-  { path: 'participant-view', component: ParticipantViewComponent },
-  { path: 'judge-view', component: JudgeViewComponent },
-  { path: 'help-the-court-decide', component: HelpTheCourtDecideComponent },
-  { path: 'about-you', component: AboutYouComponent },
-  { path: 'interpreter', component: InterpreterComponent },
-  { path: 'your-computer', component: YourComputerComponent },
-  { path: 'about-your-computer', component: AboutYourComputerComponent },
-  { path: 'your-internet-connection', component: YourInternetConnectionComponent },
-  { path: 'access-to-a-room', component: AccessToRoomComponent },
-  { path: 'consent', component: ConsentComponent },
-  { path: 'thank-you', component: ThankYouComponent },
-  { path: 'media-error', component: MediaErrorComponent }
+  { path: Paths.AboutHearings, component: AboutHearingsComponent },
+  { path: Paths.DifferentHearingTypes, component: DifferentHearingTypesComponent },
+  { path: Paths.ExploreCourtBuilding, component: ExploreCourtBuildingComponent },
+  { path: Paths.CourtBuildingVideo, component: CourtBuildingVideoComponent },
+  { path: Paths.ExploreVideoHearing, component: ExploreVideoHearingComponent },
+  { path: Paths.UseCameraMicrophone, component: UseCameraMicrophoneComponent },
+  { path: Paths.ParticipantView, component: ParticipantViewComponent },
+  { path: Paths.JudgeView, component: JudgeViewComponent },
+  { path: Paths.HelpTheCourtDecide, component: HelpTheCourtDecideComponent },
+  { path: Paths.AboutYou, component: AboutYouComponent },
+  { path: Paths.Interpreter, component: InterpreterComponent },
+  { path: Paths.YourComputer, component: YourComputerComponent },
+  { path: Paths.AboutYourComputer, component: AboutYourComputerComponent },
+  { path: Paths.YourInternetConnection, component: YourInternetConnectionComponent },
+  { path: Paths.AccessToRoom, component: AccessToRoomComponent },
+  { path: Paths.Consent, component: ConsentComponent },
+  { path: Paths.ThankYou, component: ThankYouComponent },
+  { path: Paths.MediaError, component: MediaErrorComponent }
 ];
 
 // Export all components loaded so these can be declared in parent module
