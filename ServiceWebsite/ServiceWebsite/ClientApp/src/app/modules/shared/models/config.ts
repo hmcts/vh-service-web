@@ -6,6 +6,7 @@ export class Config {
   clientId: string;
   postLogoutRedirectUri: string;
   redirectUri: string;
+  baseVideoUrl: string;
 
   constructor(videoAppUrl: string = null, appInsightsInstrumentationKey: string = null) {
     this.videoAppUrl = videoAppUrl;
