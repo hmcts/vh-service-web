@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
@@ -15,7 +14,6 @@ using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
 using ServiceWebsite.UserAPI.Client;
 using ServiceWebsite.Configuration;
-using ServiceWebsite.Domain;
 
 namespace ServiceWebsite
 {

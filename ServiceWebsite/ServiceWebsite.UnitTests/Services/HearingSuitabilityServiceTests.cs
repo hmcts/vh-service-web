@@ -120,11 +120,5 @@ namespace ServiceWebsite.UnitTests.Services
             _bookingsApiClient.Setup(x => x.GetPersonSuitabilityAnswersAsync(Username))
                 .ReturnsAsync(_hearingsList);
         }
-
-        private static DateTime SomeDate()
-        {
-            // Just some random date close to now
-            return DateTime.Now.AddDays(new Random().Next(5, 10) - 5);
-        }
     }
 }
