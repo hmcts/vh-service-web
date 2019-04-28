@@ -9,7 +9,6 @@ using NUnit.Framework;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Domain;
 using ServiceWebsite.Models;
-using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 
 namespace ServiceWebsite.UnitTests.Controllers
@@ -18,15 +17,13 @@ namespace ServiceWebsite.UnitTests.Controllers
     {
         private HearingSuitabilityController _controller;
         private Mock<IHearingSuitabilityService> _service;
-        private Mock<ICurrentUser> _userIdentity;
 
         [SetUp]
         public void Setup()
         {
             _service = new Mock<IHearingSuitabilityService>();
-            _userIdentity = new Mock<ICurrentUser>();
-            _userIdentity.Setup(x => x.Username).Returns("some.user@hearings.reform.hmcts.net");
-            _controller = new HearingSuitabilityController(_userIdentity.Object, _service.Object);
+            _controller = new HearingSuitabilityController(_service.Object);
+            _controller.MockUserIdentity("some.user@hearings.reform.hmcts.net");
         }
 
         [Test]

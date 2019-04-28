@@ -11,13 +11,10 @@ namespace ServiceWebsite.Controllers
     [Authorize]
     public class HearingSuitabilityController : Controller
     {
-        private readonly ICurrentUser _userIdentity;
         private readonly IHearingSuitabilityService _suitabilityService;
 
-        public HearingSuitabilityController(ICurrentUser userIdentity,
-            IHearingSuitabilityService suitabilityService)
+        public HearingSuitabilityController(IHearingSuitabilityService suitabilityService)
         {
-            _userIdentity = userIdentity;
             _suitabilityService = suitabilityService;
         }
         
@@ -25,7 +22,7 @@ namespace ServiceWebsite.Controllers
         [ActionName("GetUpcomingHearingSuitabilityAnswers")]
         public async Task<IActionResult> GetUserSuitabilityAnswers()
         {
-            var hearings = await _suitabilityService.GetUpcomingHearingsSuitability(_userIdentity.Username);
+            var hearings = await _suitabilityService.GetUpcomingHearingsSuitability(User.Identity.Name);
             return Ok(SuitabilityAnswersMapping.Map(hearings));
         }
     }

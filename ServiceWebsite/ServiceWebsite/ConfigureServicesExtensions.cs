@@ -49,12 +49,6 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
             serviceCollection.AddTransient<IPastHearing, PastSuitabilityQuestionnaireTimeLimit>();
-            
-            serviceCollection.AddTransient<ICurrentUser, CurrentUserPrincipal>((ctx) =>
-            {
-                var userPrincipal = ctx.GetService<IHttpContextAccessor>().HttpContext.User;
-                return new CurrentUserPrincipal(userPrincipal);
-            });
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;
