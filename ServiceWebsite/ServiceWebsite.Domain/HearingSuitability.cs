@@ -18,5 +18,11 @@ namespace ServiceWebsite.Domain
         public DateTime HearingScheduledAt { get; }
         
         public List<SuitabilityAnswer> Answers { get; }
+        
+        public bool IsPast()
+        {
+            // You can answer questions up until the time of the hearing
+            return HearingScheduledAt < DateTime.UtcNow;
+        }
     }
 }

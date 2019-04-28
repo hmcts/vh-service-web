@@ -8,24 +8,17 @@ namespace ServiceWebsite.Services
 {
     public class HearingSuitabilityService : IHearingSuitabilityService
     {
-        private readonly IPastHearing _pastHearing;
         private readonly IBookingsApiClient _bookingsApiClient;
 
-        public HearingSuitabilityService(IPastHearing pastHearing, IBookingsApiClient bookingsApiClient)
+        public HearingSuitabilityService(IBookingsApiClient bookingsApiClient)
         {
-            _pastHearing = pastHearing;
             _bookingsApiClient = bookingsApiClient;
         }
 
         public async Task<List<HearingSuitability>> GetUpcomingHearingsSuitability(string username)
         {
             var suitabilityAnswers = await _bookingsApiClient.GetPersonSuitabilityAnswersAsync(username);
-            return suitabilityAnswers.Where(IsUpcomingHearing).Select(CreateModel).ToList();
-        }
-
-        private bool IsUpcomingHearing(PersonSuitabilityAnswerResponse hearing)
-        {
-            return !_pastHearing.IsPast(hearing.Scheduled_at.GetValueOrDefault());
+            return suitabilityAnswers.Select(CreateModel).Where(h => !h.IsPast()).ToList();
         }
 
         private static HearingSuitability CreateModel(PersonSuitabilityAnswerResponse response)

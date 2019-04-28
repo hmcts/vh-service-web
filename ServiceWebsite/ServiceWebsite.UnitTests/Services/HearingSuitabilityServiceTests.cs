@@ -37,7 +37,7 @@ namespace ServiceWebsite.UnitTests.Services
             var pastHearing = new PersonSuitabilityAnswerResponse
             {
                 Hearing_id = _pastHearingId,
-                Scheduled_at = DateTime.UtcNow.AddDays(2),
+                Scheduled_at = DateTime.UtcNow.AddDays(-2),
                 Answers = new List<SuitabilityAnswerResponse>()
             };
 
@@ -65,14 +65,12 @@ namespace ServiceWebsite.UnitTests.Services
         private HearingSuitabilityService _service;
         
         private Mock<IBookingsApiClient> _bookingsApiClient;
-        private Mock<IPastHearing> _pastHearing;
 
         [SetUp]
         public void Setup()
-        { 
-            _bookingsApiClient = new Mock<IBookingsApiClient>();
-            _pastHearing = new Mock<IPastHearing>();
-            _service = new HearingSuitabilityService(_pastHearing.Object, _bookingsApiClient.Object);
+        {
+            _bookingsApiClient = new Mock<IBookingsApiClient>();            
+            _service = new HearingSuitabilityService(_bookingsApiClient.Object);
         }
         
         [Test]
@@ -108,7 +106,6 @@ namespace ServiceWebsite.UnitTests.Services
         public async Task should_filter_out_past_hearings_when_getting_upcoming_hearings()
         {
             GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers();
-            AndThisHearingIsConsideredPast(_pastHearingId);
 
             // when getting the hearings
             var upcomingHearings = await _service.GetUpcomingHearingsSuitability(Username);
@@ -122,12 +119,6 @@ namespace ServiceWebsite.UnitTests.Services
         {
             _bookingsApiClient.Setup(x => x.GetPersonSuitabilityAnswersAsync(Username))
                 .ReturnsAsync(_hearingsList);
-        }
-
-        private void AndThisHearingIsConsideredPast(Guid hearingId)
-        {
-            var timestamp = _hearingsList.Single(h => h.Hearing_id == hearingId).Scheduled_at.GetValueOrDefault();
-            _pastHearing.Setup(x => x.IsPast(timestamp)).Returns(true);
         }
 
         private static DateTime SomeDate()

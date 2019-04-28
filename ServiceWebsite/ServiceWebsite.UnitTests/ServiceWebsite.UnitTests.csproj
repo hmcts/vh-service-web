@@ -22,5 +22,8 @@
     <ProjectReference Include="..\ServiceWebsite.BookingApi.Client\ServiceWebsite.BookingApi.Client.csproj" />
     <ProjectReference Include="..\ServiceWebsite\ServiceWebsite.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mappings" />
+  </ItemGroup>
 
 </Project>

@@ -48,7 +48,6 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
-            serviceCollection.AddTransient<IPastHearing, PastSuitabilityQuestionnaireTimeLimit>();
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;
