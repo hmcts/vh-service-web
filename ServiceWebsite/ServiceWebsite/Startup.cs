@@ -103,7 +103,7 @@ namespace ServiceWebsite
             app.UseSwaggerUI(c =>
             {
                 const string url = "/swagger/v1/swagger.json";
-                c.SwaggerEndpoint(url, "Video Hearings Service Web");
+                c.SwaggerEndpoint(url, "Video Hearings Website backend");
             });
 
             if (env.IsDevelopment())
