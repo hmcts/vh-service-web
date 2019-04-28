@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
+using ServiceWebsite.BookingsAPI.Client;
 using Swashbuckle.AspNetCore.Swagger;
 using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
 using ServiceWebsite.UserAPI.Client;
 using ServiceWebsite.Configuration;
+using ServiceWebsite.Domain;
 
 namespace ServiceWebsite
 {
@@ -27,6 +29,7 @@ namespace ServiceWebsite
 
             serviceCollection.AddTransient<AddBearerTokenHeaderHandler>();
             serviceCollection.AddTransient<UserApiTokenHandler>();
+            serviceCollection.AddTransient<BookingsApiTokenHandler>();
             serviceCollection.AddScoped<ITokenProvider, TokenProvider>();
             serviceCollection.AddScoped<SecuritySettings>();
             
@@ -37,9 +40,15 @@ namespace ServiceWebsite
             serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
                 .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
                 .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
+            
+            serviceCollection.AddHttpClient<IBookingsApiClient, BookingsApiClient>()
+                .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>())
+                .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
+            serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
+            serviceCollection.AddTransient<IPastHearing, PastSuitabilityQuestionnaireTimeLimit>();
             
             serviceCollection.AddTransient<ICurrentUser, CurrentUserPrincipal>((ctx) =>
             {
@@ -63,7 +72,7 @@ namespace ServiceWebsite
 
             serviceCollection.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {Title = "Hearings API", Version = "v1"});
+                c.SwaggerDoc("v1", new Info { Title = "Video Hearings Service Web API", Version = "v1" });
                 c.IncludeXmlComments(xmlPath);
                 c.EnableAnnotations();
                 c.AddSecurityDefinition("Bearer",

@@ -21,6 +21,7 @@ namespace ServiceWebsite.Controllers
             _suitabilityService = suitabilityService;
         }
         
+        [HttpGet]
         [ActionName("GetUpcomingHearingSuitabilityAnswers")]
         public async Task<IActionResult> GetUserSuitabilityAnswers()
         {
