@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9B20FDBB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWebsite.BookingApi.Client", "ServiceWebsite.BookingApi.Client\ServiceWebsite.BookingApi.Client.csproj", "{D1DC10D3-0866-4827-A145-F8056772A371}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWebsite.AcceptanceTests", "ServiceWebsite.AcceptanceTests\ServiceWebsite.AcceptanceTests.csproj", "{119775EE-221C-48F0-AC75-1CE9006E94B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{D1DC10D3-0866-4827-A145-F8056772A371}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1DC10D3-0866-4827-A145-F8056772A371}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1DC10D3-0866-4827-A145-F8056772A371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119775EE-221C-48F0-AC75-1CE9006E94B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119775EE-221C-48F0-AC75-1CE9006E94B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119775EE-221C-48F0-AC75-1CE9006E94B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119775EE-221C-48F0-AC75-1CE9006E94B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9A885A59-EF12-4429-A749-51AE897462C5} = {9B20FDBB-5B9B-4308-8D26-1C83C287D48C}
 		{838F3A68-1C32-4A13-86B9-C00B808FF0A5} = {9B20FDBB-5B9B-4308-8D26-1C83C287D48C}
+		{119775EE-221C-48F0-AC75-1CE9006E94B2} = {9B20FDBB-5B9B-4308-8D26-1C83C287D48C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DF0D81B-36CE-426F-A117-7065BF5C0ECD}
