@@ -1,6 +1,6 @@
 <div class="govuk-width-container">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirdsl" *ngIf="!mediaAccepted">
+        <div class="govuk-grid-column-full" *ngIf="!mediaAccepted">
             <div>
                 <h1 class="govuk-heading-l">{{'Use your camera and microphone'|localise}}</h1>
             </div>
@@ -17,7 +17,7 @@
 
 
         </div>
-        <div class="govuk-grid-column-two-thirdsl" *ngIf="mediaAccepted">
+        <div class="govuk-grid-column-two-full" *ngIf="mediaAccepted">
             <div>
                 <h1 class="govuk-heading-l">{{'Your camera and microphone are now switched on'|localise}}</h1>
             </div>
