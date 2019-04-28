@@ -11,14 +11,8 @@ namespace ServiceWebsite.UnitTests.Controllers
         /// </summary>
         public static void MockUserIdentity(this Controller controller, string username)
         {
-            controller.ControllerContext = new ControllerContext
-            {
-                HttpContext = new DefaultHttpContext
-                {
-                    User = new TestPrincipal(username)
-                    
-                }
-            };
-        } 
+            var httpContext = new DefaultHttpContext {User = new TestPrincipal(username)};
+            controller.ControllerContext = new ControllerContext {HttpContext = httpContext};
+        }
     }
 }

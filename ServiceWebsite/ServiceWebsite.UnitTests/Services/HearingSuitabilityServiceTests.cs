@@ -14,6 +14,10 @@ namespace ServiceWebsite.UnitTests.Services
     public class HearingSuitabilityServiceTests
     {
         private const string Username = "some.username@hearings.reform.hmcts.net";
+        
+        private HearingSuitabilityService _service;
+        
+        private Mock<IBookingsApiClient> _bookingsApiClient;
 
         private readonly List<PersonSuitabilityAnswerResponse> _hearingsList;
         
@@ -62,10 +66,6 @@ namespace ServiceWebsite.UnitTests.Services
             };
         }
 
-        private HearingSuitabilityService _service;
-        
-        private Mock<IBookingsApiClient> _bookingsApiClient;
-
         [SetUp]
         public void Setup()
         {
@@ -78,7 +78,6 @@ namespace ServiceWebsite.UnitTests.Services
         {
             GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers();
 
-            // when getting the hearings
             var upcomingHearings = await _service.GetUpcomingHearingsSuitability(Username);
             
             // then list includes upcoming hearing
@@ -91,7 +90,6 @@ namespace ServiceWebsite.UnitTests.Services
         {
             GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers();
 
-            // when getting the hearings
             var upcomingHearings = await _service.GetUpcomingHearingsSuitability(Username);
             
             // then existing answers are return
@@ -107,7 +105,6 @@ namespace ServiceWebsite.UnitTests.Services
         {
             GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers();
 
-            // when getting the hearings
             var upcomingHearings = await _service.GetUpcomingHearingsSuitability(Username);
             
             // then list does not include past hearing
