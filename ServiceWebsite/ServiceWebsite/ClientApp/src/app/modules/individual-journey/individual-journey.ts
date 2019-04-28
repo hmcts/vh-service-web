@@ -1,7 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualSuitabilityModel, HasAccessToComputer } from './individual-suitability.model';
-import { Constants } from '../shared/constants';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
+
+const IndividualUserType = 'Individual';
 
 export enum IndividualJourneySteps {
     AboutHearings,
@@ -103,7 +104,7 @@ export class IndividualJourney implements JourneyBase {
     }
 
     handles(userType: string): boolean {
-        return userType === 'Individual';
+        return userType === IndividualUserType;
     }
 
     /**

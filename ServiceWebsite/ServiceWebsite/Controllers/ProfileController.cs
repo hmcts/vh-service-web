@@ -5,6 +5,7 @@ using Hearings.Common.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
+using ServiceWebsite.Models.Mappings;
 using ServiceWebsite.Services;
 using ServiceWebsite.UserAPI.Client;
 
@@ -14,12 +15,13 @@ namespace ServiceWebsite.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        // private readonly IParticipantService _participantService;
         private readonly IUserApiClient _userApiClient;
+        private readonly IHearingSuitabilityService _hearingSuitabilityClient;
 
-        public ProfileController(IUserApiClient userApiClient)
+        public ProfileController(IUserApiClient userApiClient, IHearingSuitabilityService hearingSuitabilityClient)
         {
             _userApiClient = userApiClient;
+            _hearingSuitabilityClient = hearingSuitabilityClient;
         }
         
         [HttpGet]
@@ -31,7 +33,7 @@ namespace ServiceWebsite.Controllers
                 
                 var profile = new
                 {
-                    Email=participant.Email,
+                    participant.Email,
                     Role = participant.User_role
                 };
 

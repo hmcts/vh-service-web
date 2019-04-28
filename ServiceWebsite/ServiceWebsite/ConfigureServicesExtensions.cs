@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
@@ -39,6 +40,12 @@ namespace ServiceWebsite
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
+            
+            serviceCollection.AddTransient<ICurrentUser, CurrentUserPrincipal>((ctx) =>
+            {
+                var userPrincipal = ctx.GetService<IHttpContextAccessor>().HttpContext.User;
+                return new CurrentUserPrincipal(userPrincipal);
+            });
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;
