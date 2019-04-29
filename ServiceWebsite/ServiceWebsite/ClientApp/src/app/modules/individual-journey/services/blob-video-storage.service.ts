@@ -12,12 +12,15 @@ export class BlobVideoStorageService extends VideoUrlService {
         super();
     }
 
-    getVideoUrl(videoName: string): string {
-        const fileName = this.getVideoFileName(videoName);
-        return this.blobStorageService.getVideoUrl(fileName);
+    get inHearingExampleVideo() {
+        return this.blobStorageService.getVideoUrl(VideoFiles.BeforeTheDay_ParticipantView);
     }
 
-    private getVideoFileName(videoName: string): string {
-        return VideoFiles[videoName];
+    get judgeSelfViewVideo() {
+        return this.blobStorageService.getVideoUrl(VideoFiles.BeforeTheDay_JudgeView_Judge);
+    }
+
+    get otherParticipantExampleVideo() {
+        return this.blobStorageService.getVideoUrl(VideoFiles.BeforeTheDay_JudgeView_Participant);
     }
 }

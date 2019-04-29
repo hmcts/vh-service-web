@@ -8,6 +8,7 @@ variables:
     sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
     sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts
     sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
+  coverletCoverageExclusions: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.UserAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite.IntegrationTests]*,[ServiceWebsite.UnitTests]*'
   integrationTestsAppSettingsTransform: '
   "AzureAd/Authority":"https://login.microsoftonline.com/$(TenantId)",
   "AzureAd/ClientId":"$(vh-service-web-appid)",
@@ -29,9 +30,7 @@ resources:
     endpoint: 'GitHubDevOps'
 
 trigger:
-- master
-pr:
-- master
+  - master
 
 jobs:
 - template: jobs/angularDotNetCore.yml@azureDevOpsTemplates # Template reference

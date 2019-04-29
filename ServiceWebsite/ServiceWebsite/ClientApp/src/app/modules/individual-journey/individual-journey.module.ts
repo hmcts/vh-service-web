@@ -1,5 +1,3 @@
-import { JourneyRoutingListenerService } from './services/journey-routing-listener.service';
-import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -11,13 +9,16 @@ import { IndividualJourneyRoutingModule, Components } from './individual-journey
 // services
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualLocalisation } from './services/individual-localisation';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
-import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
 import { MediaService } from './services/media.service';
-import { UserMediaService } from './services/user-media.service';
+import {UserMediaService} from './services/user-media.service'
+import { JourneyRoutingListenerService } from './services/journey-routing-listener.service';
+import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 
 // business logic
 import { IndividualJourney } from './individual-journey';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
+import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
+import { JOURNEY } from './../base-journey/services/journey.factory';
 
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
@@ -49,6 +50,7 @@ import { LocalisePipe } from './pipes/localise.pipe';
     { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
     { provide: MediaService, useClass: UserMediaService },
+    { provide: JOURNEY, useFactory: (journey: IndividualJourney) => journey, deps: [ IndividualJourney ], multi: true },
     IndividualJourney,
     JourneyStepComponentBindings,
     JourneyRoutingListenerService
