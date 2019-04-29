@@ -37,6 +37,7 @@ import { IndividualJourneyModule } from './modules/individual-journey/individual
 import { BaseJourneyModule } from './modules/base-journey/base-journey.module';
 import { SecurityModule } from './modules/security/security.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { SERVICE_WEB_API_BASE_URL } from './services/clients/api-client';
 
 export function initConfiguration(configService: ConfigService) {
   return () => configService.load();
@@ -72,6 +73,7 @@ export function initConfiguration(configService: ConfigService) {
     { provide: HTTP_INTERCEPTORS, useClass: CustomAdalInterceptor, multi: true },
     { provide: LOG_ADAPTER, useClass: ConsoleLogger, multi: true },
     { provide: LOG_ADAPTER, useClass: AppInsightsLogger, multi: true },
+    { provide: SERVICE_WEB_API_BASE_URL, useFactory: () => '.' },
     { provide: Logger, useClass: LoggerService },
     AppInsightsLogger,
     AppRoutingModule,
