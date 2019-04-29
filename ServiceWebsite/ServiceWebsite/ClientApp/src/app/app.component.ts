@@ -37,7 +37,8 @@ export class AppComponent implements OnInit {
       tenant: this.config.tenantId,
       clientId: this.config.clientId,
       postLogoutRedirectUri: this.config.postLogoutRedirectUri,
-      redirectUri: this.config.redirectUri
+      redirectUri: this.config.redirectUri,
+      baseVideoUrl: this.config.baseVideoUrl,
     };
 
     this.adalService.init(config);

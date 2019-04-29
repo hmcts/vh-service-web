@@ -1,5 +1,7 @@
 <div class="govuk-grid-row">
-
+  <div class="govuk-grid-column-full">
+    <app-video-view [source]="videoSource" (loaded)="videoLoaded()"></app-video-view>
+  </div>
 </div>
 
 <div class="govuk-grid-row">
@@ -28,7 +30,8 @@
       Show judge's view
     </button>
 
-    <input type="button" class="govuk-button hmcts-button--secondary" (click)="replay()" value="Re-play practice hearing"/>
+    <input type="button" class="govuk-button hmcts-button--secondary"
+           (click)="replay()" value="Re-play practice hearing" />
   </div>
   <app-contact-us></app-contact-us>
 </div>

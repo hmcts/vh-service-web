@@ -5,6 +5,16 @@ import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
 import { Component, Input } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
+import { BlobVideoStorageService } from '../../../individual-journey/services/blob-video-storage.service';
+
+@Component({
+  selector: 'app-video-view',
+  template: ''
+})
+class StubVideoViewComponent {
+  @Input()
+  source: string;
+}
 
 @Component({
   selector: 'app-user-camera-view',
@@ -35,11 +45,13 @@ describe('ParticipantViewComponent', () => {
   it('can be created', () => {
     CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
       configuration.providers.push(
-        { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) }
+        { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) },
+        { provide: BlobVideoStorageService, useValue: jasmine.createSpyObj<BlobVideoStorageService>(['getVideoUrl']) }
       );
       configuration.declarations.push(StubUserCameraViewComponent);
       configuration.declarations.push(StubAudioBarComponent);
       configuration.declarations.push(StubContactUsComponent);
+      configuration.declarations.push(StubVideoViewComponent);
 
     });
   });
@@ -47,11 +59,12 @@ describe('ParticipantViewComponent', () => {
   describe('functionality', () => {
     let component: ParticipantViewComponent;
     const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
+    const blobVideoService = jasmine.createSpyObj<BlobVideoStorageService>(['getVideoUrl']);
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
       const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
-      component = new ParticipantViewComponent(journey, userMediaService);
+      component = new ParticipantViewComponent(journey, userMediaService, blobVideoService);
     });
 
     it('should set the video source to a media stream when initialized', () => {

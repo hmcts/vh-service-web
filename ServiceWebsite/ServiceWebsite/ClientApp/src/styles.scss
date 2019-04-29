@@ -4,29 +4,38 @@
 
 /* Extend default tags with govuk-typography classes */
 h1 {
-  @extend .govuk-heading-xl
+    @extend .govuk-heading-xl
 }
 
-h2 {
-  @extend .govuk-heading-l
+h2 { 
+    @extend .govuk-heading-l
 }
 
 h3 {
-  @extend .govuk-heading-m
+    @extend .govuk-heading-m
 }
 
 h4 {
-  @extend .govuk-heading-s
+    @extend .govuk-heading-s
 }
 
 p {
-  @extend .govuk-body
+    @extend .govuk-body
 }
 
 a {
-  text-decoration: underline;
+  text-decoration:underline;
 }
 
-.vh-top-30 {
-  margin-top: 30px;
+.vh-top-30{
+margin-top:30px;
 }
+
+[disabled='disabled'].hmcts-button--secondary,
+[disabled].hmcts-button--secondary
+{
+  background-color: #d3d4d5;
+}
+
+
+
