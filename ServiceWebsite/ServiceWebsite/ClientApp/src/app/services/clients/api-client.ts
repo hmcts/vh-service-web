@@ -128,7 +128,7 @@ export class ApiClient {
     /**
      * @return Success
      */
-    getUserSuitabilityAnswers(): Observable<void> {
+    getUserSuitabilityAnswers(): Observable<HearingSuitabilityResponse[]> {
         let url_ = this.baseUrl + "/api/hearing-suitability";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -136,6 +136,7 @@ export class ApiClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "application/json"
             })
         };
 
@@ -146,14 +147,14 @@ export class ApiClient {
                 try {
                     return this.processGetUserSuitabilityAnswers(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<HearingSuitabilityResponse[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<HearingSuitabilityResponse[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetUserSuitabilityAnswers(response: HttpResponseBase): Observable<void> {
+    protected processGetUserSuitabilityAnswers(response: HttpResponseBase): Observable<HearingSuitabilityResponse[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -162,7 +163,14 @@ export class ApiClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(HearingSuitabilityResponse.fromJS(item));
+            }
+            return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -173,7 +181,7 @@ export class ApiClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<HearingSuitabilityResponse[]>(<any>null);
     }
 
     /**
@@ -228,6 +236,117 @@ export class ApiClient {
     }
 }
 
+/** The answers submitted thus far for a given hearing and participant */
+export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
+    /** Id for the hearing the answers have been or should be submitted for */
+    hearing_id!: string | undefined;
+    /** When the hearing is scheduled at */
+    hearing_scheduled_at!: Date | undefined;
+    /** A list of answers, will be empty before any answers have been submitted */
+    answers!: HearingSuitabilityAnswer[] | undefined;
+
+    constructor(data?: IHearingSuitabilityResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.hearing_id = data["hearing_id"];
+            this.hearing_scheduled_at = data["hearing_scheduled_at"] ? new Date(data["hearing_scheduled_at"].toString()) : <any>undefined;
+            if (data["answers"] && data["answers"].constructor === Array) {
+                this.answers = [] as any;
+                for (let item of data["answers"])
+                    this.answers!.push(HearingSuitabilityAnswer.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): HearingSuitabilityResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new HearingSuitabilityResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["hearing_id"] = this.hearing_id;
+        data["hearing_scheduled_at"] = this.hearing_scheduled_at ? this.hearing_scheduled_at.toISOString() : <any>undefined;
+        if (this.answers && this.answers.constructor === Array) {
+            data["answers"] = [];
+            for (let item of this.answers)
+                data["answers"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** The answers submitted thus far for a given hearing and participant */
+export interface IHearingSuitabilityResponse {
+    /** Id for the hearing the answers have been or should be submitted for */
+    hearing_id: string | undefined;
+    /** When the hearing is scheduled at */
+    hearing_scheduled_at: Date | undefined;
+    /** A list of answers, will be empty before any answers have been submitted */
+    answers: HearingSuitabilityAnswer[] | undefined;
+}
+
+/** The answer for a suitability question */
+export class HearingSuitabilityAnswer implements IHearingSuitabilityAnswer {
+    /** Unique identifier for the question answered */
+    question_key!: string | undefined;
+    /** Answer string, can be any type of answer, a boolean, enumeration etc */
+    answer!: string | undefined;
+    /** Supplementary data to further extend the answer, can be notes or data relating to the answer */
+    extended_answer!: string | undefined;
+
+    constructor(data?: IHearingSuitabilityAnswer) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.question_key = data["question_key"];
+            this.answer = data["answer"];
+            this.extended_answer = data["extended_answer"];
+        }
+    }
+
+    static fromJS(data: any): HearingSuitabilityAnswer {
+        data = typeof data === 'object' ? data : {};
+        let result = new HearingSuitabilityAnswer();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["question_key"] = this.question_key;
+        data["answer"] = this.answer;
+        data["extended_answer"] = this.extended_answer;
+        return data; 
+    }
+}
+
+/** The answer for a suitability question */
+export interface IHearingSuitabilityAnswer {
+    /** Unique identifier for the question answered */
+    question_key: string | undefined;
+    /** Answer string, can be any type of answer, a boolean, enumeration etc */
+    answer: string | undefined;
+    /** Supplementary data to further extend the answer, can be notes or data relating to the answer */
+    extended_answer: string | undefined;
+}
 
 export class SwaggerException extends Error {
     message: string;
