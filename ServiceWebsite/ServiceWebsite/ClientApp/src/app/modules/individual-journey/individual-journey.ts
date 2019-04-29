@@ -2,8 +2,6 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 
-const IndividualUserType = 'Individual';
-
 export enum IndividualJourneySteps {
     AboutHearings,
     DifferentHearingTypes,
@@ -101,10 +99,6 @@ export class IndividualJourney implements JourneyBase {
         } else {
             throw new Error(`Missing/unexpected failure for step: ${IndividualJourneySteps[this.currentStep]}`);
         }
-    }
-
-    handles(userType: string): boolean {
-        return userType === IndividualUserType;
     }
 
     /**

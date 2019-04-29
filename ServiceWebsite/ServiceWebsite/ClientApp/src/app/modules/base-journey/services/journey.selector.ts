@@ -1,0 +1,21 @@
+import { JourneyFactory } from './journey.factory';
+import { InjectionToken, Injectable, Inject } from '@angular/core';
+import { JourneyBase } from '../journey-base';
+
+export const JOURNEY_FACTORY = new InjectionToken<JourneyFactory>('JourneyFactory');
+
+@Injectable()
+export class JourneySelector {
+    constructor(@Inject(JOURNEY_FACTORY) private factories: JourneyFactory[]) {}
+
+    getJourney(username: string, userType: string): Promise<JourneyBase> {
+        const factory = this.factories.filter(j => j.handles(userType));
+        if (factory.length === 0) {
+            throw new Error(`Found no journeys matching user type: ${userType}`);
+        } else if (factory.length > 1) {
+            throw new Error(`Found more than one journey matching user type: ${userType}`);
+        }
+
+        return factory[0].create(username);
+    }
+}

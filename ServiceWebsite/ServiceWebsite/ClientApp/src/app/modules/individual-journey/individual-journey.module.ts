@@ -15,9 +15,10 @@ import { JourneyStepComponentBindings } from './services/journey-component-bindi
 
 // business logic
 import { IndividualJourney } from './individual-journey';
+import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
-import { JOURNEY } from './../base-journey/services/journey.factory';
+import { JOURNEY_FACTORY } from './../base-journey/services/journey.selector';
 
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
@@ -56,7 +57,7 @@ export class MediaAccessMock implements MediaAccessService {
     { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
     { provide: MediaAccessService, useClass: MediaAccessMock },
-    { provide: JOURNEY, useFactory: (journey: IndividualJourney) => journey, deps: [ IndividualJourney ], multi: true },
+    { provide: JOURNEY_FACTORY, useClass: IndividualJourneyFactory, multi: true },
     IndividualJourney,
     JourneyStepComponentBindings,
     JourneyRoutingListenerService
