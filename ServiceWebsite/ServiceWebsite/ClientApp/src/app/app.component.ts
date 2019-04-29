@@ -53,17 +53,13 @@ export class AppComponent implements OnInit {
     this.adalService.handleWindowCallback();
     this.loggedIn = this.adalService.userInfo.authenticated;
 
-    console.log(`CHECKLING LOGIN: ${this.loggedIn}`)
     if (!this.loggedIn) {
       await this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
       return;
     }
 
-    console.log(`GETTING PROFILE:`);
     const profile = await this.profileService.getUserProfile();
-    console.log(`PROFILE: ${profile}`);
-    const journey = await this.journeySelector.getJourney(profile.role);
-    console.log(`JOURNEY: ${journey}`);
+    const journey = await this.journeySelector.getJourney(profile.role);    
     journey.begin();
   }
 }
