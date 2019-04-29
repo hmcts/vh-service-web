@@ -1,6 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualSuitabilityModel, HasAccessToComputer } from './individual-suitability.model';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
+
+const IndividualUserType = 'Individual';
 
 export enum IndividualJourneySteps {
     AboutHearings,
@@ -63,6 +65,13 @@ export class IndividualJourney implements JourneyBase {
         }
     }
 
+    /**
+     * Get the current step
+     */
+    get step(): IndividualJourneySteps {
+        return this.currentStep;
+    }
+
     begin() {
         this.goto(IndividualJourneySteps.AboutHearings);
     }
@@ -73,7 +82,8 @@ export class IndividualJourney implements JourneyBase {
             throw new Error('Missing transition for step: ' + IndividualJourneySteps[this.currentStep]);
         }
 
-        this.goto(currentStep + 1);
+        const nextStep = this.stepOrder[currentStep + 1];
+        this.goto(nextStep);
     }
 
     fail() {
@@ -91,6 +101,10 @@ export class IndividualJourney implements JourneyBase {
         } else {
             throw new Error(`Missing/unexpected failure for step: ${IndividualJourneySteps[this.currentStep]}`);
         }
+    }
+
+    handles(userType: string): boolean {
+        return userType === IndividualUserType;
     }
 
     /**

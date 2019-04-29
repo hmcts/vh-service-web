@@ -1,5 +1,4 @@
-import { Injectable, ErrorHandler, Injector, NgZone } from '@angular/core';
-import { LoggerService } from './logger.service';
+import { Injectable, ErrorHandler, Injector, NgZone, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paths } from '../paths';
 import { Logger } from './logger';
@@ -16,7 +15,7 @@ export class ErrorService extends ErrorHandler {
 
   handleError(err: any) {
     const router: Router = this.injector.get(Router);
-    const logger: Logger = this.injector.get(Logger);
+    const logger: Logger = this.injector.get(Logger as Type<Logger>);
 
     err = this.unboxRejection(err);
 
