@@ -1,15 +1,14 @@
-import { ApiClient } from './../../services/clients/api-client';
+import { SuitabilityService } from './services/suitability.service';
 import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualJourney } from './individual-journey';
-import { of } from 'rxjs';
 
 describe('IndividualJourneyFactory', () => {
-    const client = jasmine.createSpyObj<ApiClient>(['getUserSuitabilityAnswers']);
+    const client = jasmine.createSpyObj<SuitabilityService>(['getAllSuitabilityAnswers']);
     let journey: jasmine.SpyObj<IndividualJourney>;
 
     beforeEach(() => {
         journey = jasmine.createSpyObj<IndividualJourney>(['begin']);
-        client.getUserSuitabilityAnswers.and.returnValue(of([]));
+        client.getAllSuitabilityAnswers.and.returnValue(Promise.resolve([]));
     });
 
     it('returns the factory provided by the module', async () => {

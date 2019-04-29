@@ -1,3 +1,4 @@
+import { SuitabilityService } from './services/suitability.service';
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { ApiClient } from './../../services/clients/api-client';
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
@@ -11,12 +12,11 @@ const IndividualUserType = 'Individual';
 @Injectable()
 export class IndividualJourneyFactory implements JourneyFactory {
 
-    constructor(private journey: IndividualJourney, private apiClient: ApiClient) {
+    constructor(private journey: IndividualJourney, private suitabilityService: SuitabilityService) {
     }
 
     async create(): Promise<JourneyBase> {
-        const suitability = this.mapAll(await this.apiClient.getUserSuitabilityAnswers().toPromise());
-
+        const suitability = await this.suitabilityService.getAllSuitabilityAnswers();
         return Promise.resolve(this.journey);
     }
 
