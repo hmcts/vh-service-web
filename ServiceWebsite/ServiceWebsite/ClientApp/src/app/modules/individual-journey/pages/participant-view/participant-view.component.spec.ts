@@ -6,6 +6,7 @@ import { MediaService } from '../../services/media.service';
 import { Component, Input } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
+import { Config } from '../../../shared/models/config';
 
 @Component({
   selector: 'app-video-view',
@@ -41,12 +42,15 @@ class StubAudioBarComponent {
 class StubContactUsComponent {
 }
 
+class ConfigStub { }
+
 describe('ParticipantViewComponent', () => {
   it('can be created', () => {
     CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
       configuration.providers.push(
         { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) },
-        { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['inHearingExampleVideo']) }
+        { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['inHearingExampleVideo']) },
+        { provide: Config, useClass: ConfigStub }
       );
       configuration.declarations.push(StubUserCameraViewComponent);
       configuration.declarations.push(StubAudioBarComponent);
@@ -58,7 +62,7 @@ describe('ParticipantViewComponent', () => {
   describe('functionality', () => {
     let component: ParticipantViewComponent;
     const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
-    const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['inHearingExampleVideo'])
+    const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['inHearingExampleVideo']);
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
@@ -78,6 +82,17 @@ describe('ParticipantViewComponent', () => {
 
       component.ngOnDestroy();
       expect(userMediaService.stopStream).toHaveBeenCalled();
+    });
+    it('should assign url to video sources', () => {
+      videoUrlService.inHearingExampleVideo.and.returnValue('/hearingVideo');
+      component.ngOnInit();
+      expect(component.videoSource).toBeTruthy();
+    });
+    it('should enabled re-play when video is loaded', () => {
+      expect(component.disabledReplay).toBeTruthy();
+
+      component.videoLoaded();
+      expect(component.disabledReplay).toBeFalsy();
     });
   });
 });

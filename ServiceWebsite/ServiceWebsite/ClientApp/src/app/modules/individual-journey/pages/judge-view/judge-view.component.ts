@@ -12,7 +12,7 @@ import { BlobVideoStorageService } from '../../services/blob-video-storage.servi
 @Component({
   selector: 'app-judge-view',
   templateUrl: './judge-view.component.html',
-  styles: [],
+  styleUrls: ['./judge-view.component.css'],
   providers: [
     { provide: MediaService, useClass: UserMediaService },
     { provide: VideoUrlService, useClass: BlobVideoStorageService }
@@ -31,9 +31,10 @@ export class JudgeViewComponent extends IndividualBaseComponent implements OnIni
   @ViewChild('videoJudge')
   videoViewComponentJudge: VideoViewComponent;
 
-  stream: MediaStream;
-  widthVideo = 500;
-  videoSource: string;
+  widthVideo = 495;
+  widthAudioBar = 230;
+  videoSourceJudge: string;
+  videoSourceParticipant: string;
   disabledReplay = true;
 
   constructor(journey: IndividualJourney, private userMediaService: MediaService,
@@ -42,18 +43,21 @@ export class JudgeViewComponent extends IndividualBaseComponent implements OnIni
   }
 
   ngOnInit() {
-    this.videoSource = this.videoUrlService.inHearingExampleVideo;
+    this.videoSourceJudge = this.videoUrlService.judgeSelfViewVideo;
+    this.videoSourceParticipant = this.videoUrlService.otherParticipantExampleVideo;
   }
 
-  ngAfterContentInit() {
-    this.userMediaService.getStream().then(s => {
-      this.stream = s;
-      this.userCameraViewComponent.setSource(s);
-      this.audioBarComponent.setSource(s);
-    });
+  async ngAfterContentInit() {
+    const stream = await this.userMediaService.getStream();
+    this.userCameraViewComponent.setSource(stream);
+    this.audioBarComponent.setSource(stream);
   }
 
-  videoLoaded() {
+  videoParticipantLoaded() {
+    this.disabledReplay = false;
+  }
+
+  videoJudgeLoaded() {
     this.disabledReplay = false;
   }
 
@@ -63,6 +67,6 @@ export class JudgeViewComponent extends IndividualBaseComponent implements OnIni
 
   replay() {
     this.videoViewComponent.play();
+    this.videoViewComponentJudge.play();
   }
-
 }

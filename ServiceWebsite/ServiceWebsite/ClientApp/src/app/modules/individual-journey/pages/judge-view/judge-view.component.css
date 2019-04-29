@@ -1,0 +1,14 @@
+.vh-video-top {
+  height: 250px;
+  overflow: hidden;
+}
+
+.vh-video-mp0 {
+  margin: 0;
+  padding: 0;
+}
+
+.vh-video-mp0_left {
+  margin-left: 0;
+  padding-left: 0;
+}

@@ -12,7 +12,7 @@ import { BlobVideoStorageService } from '../../services/blob-video-storage.servi
 @Component({
   selector: 'app-participant-view',
   templateUrl: './participant-view.component.html',
-  styles: [],
+  styleUrls: ['./participant-view.component.css'],
   providers: [
     { provide: MediaService, useClass: UserMediaService },
     { provide: VideoUrlService, useClass: BlobVideoStorageService }
@@ -29,8 +29,7 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
   @ViewChild(VideoViewComponent)
   videoViewComponent: VideoViewComponent;
 
-  stream: MediaStream;
-  widthVideo = 300;
+  widthVideo = 230;
   videoSource: string;
   disabledReplay = true;
 
@@ -43,12 +42,10 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
     this.videoSource = this.videoUrlService.inHearingExampleVideo;
   }
 
-  ngAfterContentInit() {
-    this.userMediaService.getStream().then(s => {
-      this.stream = s;
-      this.userCameraViewComponent.setSource(s);
-      this.audioBarComponent.setSource(s);
-    });
+  async ngAfterContentInit() {
+    const stream = await this.userMediaService.getStream();
+    this.userCameraViewComponent.setSource(stream);
+    this.audioBarComponent.setSource(stream);
   }
 
   videoLoaded() {

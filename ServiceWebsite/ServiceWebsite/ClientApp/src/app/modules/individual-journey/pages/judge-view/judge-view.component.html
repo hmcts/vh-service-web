@@ -1,17 +1,17 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-    <app-user-camera-view [videoWidth]="widthVideo"></app-user-camera-view>
+<div class="govuk-grid-row vh-video-top">
+  <div class="govuk-grid-column-one-half vh-video-mp0">
+    <app-user-camera-view [videoWidth]="widthVideo" ></app-user-camera-view>
   </div>
-  <div class="govuk-grid-column-one-half">
-    <app-video-view #videoParticipant [source]="videoSourceParticipant" (loaded)="videoLoaded()"></app-video-view>
+  <div class="govuk-grid-column-one-half vh-video-mp0">
+    <app-video-view #videoParticipant [source]="videoSourceParticipant" (loaded)="videoParticipantLoaded()"></app-video-view>
   </div>
 </div>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-    <app-video-view #videoJudge [source]="videoSourceJudge" (loaded)="videoLoaded()"></app-video-view>
+<div class="govuk-grid-row vh-top-30">
+  <div class="govuk-grid-column-one-quarter vh-video-mp0_left">
+    <app-video-view #videoJudge [source]="videoSourceJudge" (loaded)="videoJudgeLoaded()"></app-video-view>
     <div>
-      <app-audio-bar [audioBarWidth]="widthVideo"></app-audio-bar>
+      <app-audio-bar [audioBarWidth]="widthAudioBar"></app-audio-bar>
     </div>
     <div>
       <a href="javascript:void()" class="govuk-link">Change camera or microphone</a>
@@ -20,15 +20,15 @@
   </div>
 </div>
 
-<div class="govuk-grid-row vh-top-30">
-  <div class="govuk-grid-column-full">
+<div class="govuk-grid-row vh-top-30 ">
+  <div class="govuk-grid-column-full  vh-video-mp0_left">
     <p class="govuk-body">
       When the video has ended, click 'Continue'. You can try the practice video hearing again if you like.
     </p>
   </div>
 </div>
-<div class="govuk-grid-row vh-top-30">
-  <div class="govuk-grid-column-full">
+<div class="govuk-grid-row vh-top-30 ">
+  <div class="govuk-grid-column-full vh-video-mp0_left">
     <button type="submit" class="govuk-button govuk-!-margin-right-1" (click)="continue()">
       Continue
     </button>
