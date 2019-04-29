@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     }
 
     const profile = await this.profileService.getUserProfile();
-    const journey = await this.journeySelector.getJourney(profile.role);    
+    const journey = await this.journeySelector.getJourney(profile.role);
     journey.begin();
   }
 }
