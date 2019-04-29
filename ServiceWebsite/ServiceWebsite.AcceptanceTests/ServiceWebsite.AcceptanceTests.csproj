@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="Faker.NETCore" Version="1.0.1" />
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
@@ -17,6 +18,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="4.5.1" />
+    <PackageReference Include="NBuilder" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="nunit" Version="3.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
@@ -33,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ServiceWebsite.BookingApi.Client\ServiceWebsite.BookingApi.Client.csproj" />
     <ProjectReference Include="..\ServiceWebsite\ServiceWebsite.csproj" />
   </ItemGroup>
 
@@ -40,6 +43,15 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Features\Login.feature">
+      <Generator></Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\Login.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Contexts;
+using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.AcceptanceTests.Models;
+using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Configuration;
+using System;
+using System.Net;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
@@ -11,7 +17,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
     [Binding]
     public class DataSetUp
     {
-        [BeforeScenario()]
+        [BeforeScenario(Order = 0)]
         public void OneTimeSetup(TestContext testContext)
         {
             var configRootBuilder = new ConfigurationBuilder()
@@ -29,6 +35,19 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             testContext.BaseUrl = vhServiceConfig.BookingsApiUrl;
             testContext.TestUserSecrets = userAccountConfig;
             testContext.AzureAd = azureAdConfig;
+            testContext.WebsiteUrl = configRoot.GetSection("WebsiteUrl").Value;
+        }
+
+        [BeforeScenario]
+        public void CreateNewHearingRequest(TestContext testContext)
+        {
+                var endpoint = new ApiUriFactory().HearingEndpoints;
+                var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual,testContext.TestUserSecrets.Representative);
+                testContext.Request = testContext.Post(endpoint.BookNewHearing, requestBody);
+                testContext.Response = testContext.Client().Execute(testContext.Request);
+                testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
+                var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);
+                testContext.HearingId = model.Id.ToString();
         }
     }
 }
