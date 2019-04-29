@@ -14,6 +14,7 @@ export class IndividualJourneyFactory implements JourneyFactory {
 
     async create(): Promise<JourneyBase> {
         const models = await this.suitabilityService.getAllSuitabilityAnswers();
+
         const upcoming = models.filter(h => h.isUpcoming());
         if (upcoming.length === 0) {
             this.journey.withNoUpcomingHearings();
