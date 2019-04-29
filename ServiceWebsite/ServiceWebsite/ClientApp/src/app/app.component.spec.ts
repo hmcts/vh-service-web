@@ -8,6 +8,8 @@ import { WindowRef, WindowLocation } from './modules/shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
 import { HeaderComponent } from './modules/shared/header/header.component';
 import { Component } from '@angular/core';
+import { JourneySelector } from './modules/base-journey/services/journey.selector';
+import { ProfileService } from './services/profile.service';
 
 const adalService = {
   init: jasmine.createSpy('init'),
@@ -29,6 +31,8 @@ let fixture: ComponentFixture<AppComponent>;
 let router: any;
 let window: jasmine.SpyObj<WindowRef>;
 let pageTracker: jasmine.SpyObj<PageTrackerService>;
+let journeySelector: jasmine.SpyObj<JourneySelector>;
+let profileService: jasmine.SpyObj<ProfileService>;
 
 describe('AppComponent', () => {
 
@@ -37,6 +41,9 @@ describe('AppComponent', () => {
       navigate: jasmine.createSpy('navigate'),
       events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
     };
+
+    journeySelector = jasmine.createSpyObj<JourneySelector>(['getJourney']);
+    profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
 
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
 
@@ -56,7 +63,9 @@ describe('AppComponent', () => {
           { provide: AdalService, useValue: adalService },
           { provide: Config, useValue: config },
           { provide: WindowRef, useValue: window },
-          { provide: PageTrackerService, useValue: pageTracker }
+          { provide: PageTrackerService, useValue: pageTracker },
+          { provide: ProfileService, useValue: profileService },
+          { provide: JourneySelector, useValue: journeySelector }
         ],
     }).compileComponents();
 

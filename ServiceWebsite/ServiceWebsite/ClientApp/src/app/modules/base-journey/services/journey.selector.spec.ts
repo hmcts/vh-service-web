@@ -32,7 +32,7 @@ describe('JourneyFactory', () => {
     it('should raise error if no journeys are found for user type', async () => {
         let error: any;
         try {
-            await selector.getJourney('user', 'missing type');
+            await selector.getJourney('missing type');
         } catch (e) {
             error = e.message;
         }
@@ -43,7 +43,7 @@ describe('JourneyFactory', () => {
     it('should raise error if more than one journey exists for user type', async () => {
         let error: any;
         try {
-            await selector.getJourney('user', 'duplicate');
+            await selector.getJourney('duplicate');
         } catch (e) {
             error = e.message;
         }
@@ -55,6 +55,6 @@ describe('JourneyFactory', () => {
         const journey = jasmine.createSpyObj<JourneyBase>(['begin']);
         properJourneyFactory.create.and.returnValue(Promise.resolve(journey));
 
-        expect(await selector.getJourney('user', 'proper')).toBe(journey);
+        expect(await selector.getJourney('proper')).toBe(journey);
     });
 });

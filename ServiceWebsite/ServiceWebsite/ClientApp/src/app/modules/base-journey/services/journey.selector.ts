@@ -8,7 +8,7 @@ export const JOURNEY_FACTORY = new InjectionToken<JourneyFactory>('JourneyFactor
 export class JourneySelector {
     constructor(@Inject(JOURNEY_FACTORY) private factories: JourneyFactory[]) {}
 
-    getJourney(username: string, userType: string): Promise<JourneyBase> {
+    getJourney(userType: string): Promise<JourneyBase> {
         const factory = this.factories.filter(j => j.handles(userType));
         if (factory.length === 0) {
             throw new Error(`Found no journeys matching user type: ${userType}`);
@@ -16,6 +16,6 @@ export class JourneySelector {
             throw new Error(`Found more than one journey matching user type: ${userType}`);
         }
 
-        return factory[0].create(username);
+        return factory[0].create();
     }
 }
