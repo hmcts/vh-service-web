@@ -3,13 +3,13 @@
     <app-user-camera-view [videoWidth]="widthVideo" ></app-user-camera-view>
   </div>
   <div class="govuk-grid-column-one-half vh-video-mp0">
-    <app-video-view #videoParticipant [source]="videoSourceParticipant" (loaded)="videoParticipantLoaded()"></app-video-view>
+    <app-video-view #videoParticipant [source]="videoSourceParticipant" (loaded)="videoLoaded()"></app-video-view>
   </div>
 </div>
 
 <div class="govuk-grid-row vh-top-30">
   <div class="govuk-grid-column-one-quarter vh-video-mp0_left">
-    <app-video-view #videoJudge [source]="videoSourceJudge" (loaded)="videoJudgeLoaded()"></app-video-view>
+    <app-video-view #videoJudge [source]="videoSourceJudge" (loaded)="videoLoaded()"></app-video-view>
     <div>
       <app-audio-bar [audioBarWidth]="widthAudioBar"></app-audio-bar>
     </div>

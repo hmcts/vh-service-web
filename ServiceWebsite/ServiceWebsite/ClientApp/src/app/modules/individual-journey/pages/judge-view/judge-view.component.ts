@@ -53,14 +53,10 @@ export class JudgeViewComponent extends IndividualBaseComponent implements OnIni
     this.audioBarComponent.setSource(stream);
   }
 
-  videoParticipantLoaded() {
+  videoLoaded() {
     this.disabledReplay = false;
   }
-
-  videoJudgeLoaded() {
-    this.disabledReplay = false;
-  }
-
+  
   ngOnDestroy() {
     this.userMediaService.stopStream();
   }
