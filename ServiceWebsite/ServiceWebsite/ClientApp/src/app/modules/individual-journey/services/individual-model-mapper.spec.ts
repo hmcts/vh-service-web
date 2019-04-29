@@ -50,8 +50,8 @@ describe('IndividualModelMapper', () => {
         model = new IndividualModelMapper().map(serviceResponse);
     };
 
-    const givenAnswerIs = (answerKey: string, answer: string, extended?: string) => {
-        serviceResponse.answers.find(a => a.question_key === answerKey).answer = answer;;
+    const givenAnswerIs = (answerKey: string, answer: string) => {
+        serviceResponse.answers.find(a => a.question_key === answerKey).answer = answer;
     };
 
     const givenExtendedAnswerIs = (answerKey: string, extendedAnswer: string) => {
