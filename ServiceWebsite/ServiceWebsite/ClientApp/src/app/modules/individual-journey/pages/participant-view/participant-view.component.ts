@@ -26,12 +26,10 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
     super(journey);
   }
 
-  ngAfterContentInit() {
-    this.userMediaService.getStream().then(s => {
-      this.stream = s;
-      this.userCameraViewComponent.setSource(s);
-      this.audioBarComponent.setSource(s);
-    });
+  async ngAfterContentInit() {
+    this.stream = await this.userMediaService.getStream();
+    this.userCameraViewComponent.setSource(this.stream);
+    this.audioBarComponent.setSource(this.stream);
   }
 
   ngOnDestroy() {
