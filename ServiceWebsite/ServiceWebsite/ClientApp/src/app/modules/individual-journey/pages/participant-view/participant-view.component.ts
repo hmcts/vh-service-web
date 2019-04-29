@@ -9,8 +9,7 @@ import { AudioBarComponent } from '../../components/audio-bar/audio-bar.componen
 @Component({
   selector: 'app-participant-view',
   templateUrl: './participant-view.component.html',
-  styles: [],
-  providers: [{ provide: MediaService, useClass: UserMediaService }]
+  styles: []
 })
 export class ParticipantViewComponent extends IndividualBaseComponent implements AfterContentInit, OnDestroy {
 

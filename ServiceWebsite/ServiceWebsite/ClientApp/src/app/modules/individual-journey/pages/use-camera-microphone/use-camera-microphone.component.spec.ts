@@ -1,16 +1,16 @@
 import { UseCameraMicrophoneComponent } from './use-camera-microphone.component';
 import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { TestModuleMetadata } from '@angular/core/testing';
-import { MediaAccessService } from '../../services/media-access.service';
+import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { ShowDetailsComponent } from 'src/app/modules/shared/show-details/show-details.component';
 import { ContactUsComponent } from 'src/app/modules/shared/contact-us/contact-us.component';
 
 describe('UseCameraMicrophoneComponent', () => {
-let mediaAccessService: jasmine.SpyObj<MediaAccessService>;
+  let mediaService: jasmine.SpyObj<MediaService>;
 let individualJourney: jasmine.SpyObj<IndividualJourney>;
 beforeEach(() => {
-  mediaAccessService = jasmine.createSpyObj<MediaAccessService>(['requestAccess']);
+  mediaService = jasmine.createSpyObj<MediaService>(['requestAccess']);
   individualJourney = jasmine.createSpyObj<IndividualJourney>(['next', 'fail']);
  });
 
@@ -19,15 +19,15 @@ beforeEach(() => {
     CanCreateComponent(UseCameraMicrophoneComponent,
       (config: TestModuleMetadata) => {
         config.providers.push(
-          { provide: MediaAccessService, useValue: mediaAccessService }
+          { provide: MediaService, useValue: mediaService }
         );
         config.declarations.push([ShowDetailsComponent, ContactUsComponent]);
       });
   });
 
   it('should call fail when access denied', async() => {
-    mediaAccessService.requestAccess.and.returnValue(Promise.resolve(false));
-    const component = new UseCameraMicrophoneComponent(individualJourney, mediaAccessService);
+    mediaService.requestAccess.and.returnValue(Promise.resolve(false));
+    const component = new UseCameraMicrophoneComponent(individualJourney, mediaService);
     await component.switchOnMedia();
     expect(individualJourney.fail).toHaveBeenCalled();
   });

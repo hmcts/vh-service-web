@@ -35,7 +35,7 @@ describe('ParticipantViewComponent', () => {
   it('can be created', () => {
     CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
       configuration.providers.push(
-        { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) }
+        { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['getStream', 'stopStream','requestAccess']) }
       );
       configuration.declarations.push(StubUserCameraViewComponent);
       configuration.declarations.push(StubAudioBarComponent);
@@ -46,7 +46,7 @@ describe('ParticipantViewComponent', () => {
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;
-    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
+    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream','requestAccess']);
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
