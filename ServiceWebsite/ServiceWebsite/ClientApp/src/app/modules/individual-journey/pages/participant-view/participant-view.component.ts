@@ -6,8 +6,7 @@ import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
 import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
-import { VideoFiles } from '../../services/video-files';
-import { BlobVideoStorageService } from '../../services/blob-video-storage.service';
+import { VideoUrlService } from '../../services/video-url.service';
 
 @Component({
   selector: 'app-participant-view',
@@ -31,12 +30,12 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
   videoSource: string;
 
   constructor(journey: IndividualJourney, private userMediaService: MediaService,
-    private blobStorageService: BlobVideoStorageService) {
+    private videoUrlService: VideoUrlService) {
     super(journey);
   }
 
   ngOnInit() {
-    this.videoSource = this.blobStorageService.getVideoUrl(VideoFiles.BeforeTheDay_ParticipantView);
+    this.videoSource = this.videoUrlService.inHearingExampleVideo;
   }
 
   ngAfterContentInit() {

@@ -3,7 +3,7 @@ import { CanCreateComponent } from '../individual-base-component/component-test-
 import { ParticipantViewComponent } from './participant-view.component';
 import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { BlobVideoStorageService } from '../../../individual-journey/services/blob-video-storage.service';
 
@@ -52,6 +52,8 @@ describe('ParticipantViewComponent', () => {
       configuration.declarations.push(StubAudioBarComponent);
       configuration.declarations.push(StubContactUsComponent);
       configuration.declarations.push(StubVideoViewComponent);
+      configuration.schemas.push(CUSTOM_ELEMENTS_SCHEMA);
+      configuration.schemas.push(NO_ERRORS_SCHEMA);
 
     });
   });
