@@ -5,6 +5,9 @@ import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
 import { Component, Input } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
+import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
+import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
+import {ContactUsComponent} from '../../../shared/contact-us/contact-us.component';
 
 @Component({
   selector: 'app-user-camera-view',
@@ -37,9 +40,9 @@ describe('ParticipantViewComponent', () => {
       configuration.providers.push(
         { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['getStream', 'stopStream', 'requestAccess']) }
       );
-      configuration.declarations.push(StubUserCameraViewComponent);
-      configuration.declarations.push(StubAudioBarComponent);
-      configuration.declarations.push(StubContactUsComponent);
+      configuration.declarations.push(UserCameraViewComponent);
+      configuration.declarations.push(AudioBarComponent);
+      configuration.declarations.push(ContactUsComponent);
 
     });
   });
