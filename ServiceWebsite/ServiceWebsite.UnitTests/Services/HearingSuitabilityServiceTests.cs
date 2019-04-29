@@ -74,11 +74,11 @@ namespace ServiceWebsite.UnitTests.Services
         }
         
         [Test]
-        public async Task should_return_upcoming_hearing_suitability_for_user()
+        public async Task should_return_hearing_suitability_for_user()
         {
-            GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers();
+            GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
-            var upcomingHearings = await _service.GetUpcomingHearingsSuitability(Username);
+            var upcomingHearings = await _service.GetHearingsSuitability(Username);
             
             // then list includes upcoming hearing
             var upcomingHearing = upcomingHearings.Single(h => h.HearingId == _upcomingHearing.Hearing_id);
@@ -88,9 +88,9 @@ namespace ServiceWebsite.UnitTests.Services
         [Test]
         public async Task should_return_answered_questions_for_upcoming_hearings()
         {
-            GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers();
+            GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
-            var upcomingHearings = await _service.GetUpcomingHearingsSuitability(Username);
+            var upcomingHearings = await _service.GetHearingsSuitability(Username);
             
             // then existing answers are return
             var submittedHearing = upcomingHearings.Single(h => h.HearingId == _submittedHearingId);
@@ -101,18 +101,18 @@ namespace ServiceWebsite.UnitTests.Services
         }
         
         [Test]
-        public async Task should_filter_out_past_hearings_when_getting_upcoming_hearings()
+        public async Task should_return_past_hearing_suitability_answers()
         {
-            GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers();
+            GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
-            var upcomingHearings = await _service.GetUpcomingHearingsSuitability(Username);
+            var upcomingHearings = await _service.GetHearingsSuitability(Username);
             
             // then list does not include past hearing
             var hearingIds = upcomingHearings.Select(h => h.HearingId).ToList();
-            hearingIds.Should().NotContain(_pastHearingId);
+            hearingIds.Should().Contain(_pastHearingId);
         }
 
-        private void GivenTheBookingsApiReturnsListOfUpcomingHearingsWithAnswers()
+        private void GivenTheBookingsApiReturnsListOfHearingsWithAnswers()
         {
             _bookingsApiClient.Setup(x => x.GetPersonSuitabilityAnswersAsync(Username))
                 .ReturnsAsync(_hearingsList);

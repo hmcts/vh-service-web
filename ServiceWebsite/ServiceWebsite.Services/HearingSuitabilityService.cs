@@ -15,10 +15,10 @@ namespace ServiceWebsite.Services
             _bookingsApiClient = bookingsApiClient;
         }
 
-        public async Task<List<HearingSuitability>> GetUpcomingHearingsSuitability(string username)
+        public async Task<List<HearingSuitability>> GetHearingsSuitability(string username)
         {
             var suitabilityAnswers = await _bookingsApiClient.GetPersonSuitabilityAnswersAsync(username);
-            return suitabilityAnswers.Select(CreateModel).Where(h => !h.IsPast()).ToList();
+            return suitabilityAnswers.Select(CreateModel).ToList();
         }
 
         private static HearingSuitability CreateModel(PersonSuitabilityAnswerResponse response)

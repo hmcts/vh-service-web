@@ -19,10 +19,10 @@ namespace ServiceWebsite.Controllers
         }
         
         [HttpGet]
-        [ActionName("GetUpcomingHearingSuitabilityAnswers")]
+        [ActionName("GetHearingSuitabilityAnswers")]
         public async Task<IActionResult> GetUserSuitabilityAnswers()
         {
-            var hearings = await _suitabilityService.GetUpcomingHearingsSuitability(User.Identity.Name);
+            var hearings = await _suitabilityService.GetHearingsSuitability(User.Identity.Name);
             return Ok(SuitabilityAnswersMapping.Map(hearings));
         }
     }

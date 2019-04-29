@@ -48,7 +48,7 @@ namespace ServiceWebsite.UnitTests.Controllers
 
         private void GivenServiceReturns(HearingSuitability hearingSuitability)
         {
-            _service.Setup(x => x.GetUpcomingHearingsSuitability(It.IsAny<string>()))
+            _service.Setup(x => x.GetHearingsSuitability(It.IsAny<string>()))
                 .ReturnsAsync(new List<HearingSuitability> {hearingSuitability});
         }
     }
