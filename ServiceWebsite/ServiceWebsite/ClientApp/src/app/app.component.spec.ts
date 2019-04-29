@@ -1,3 +1,4 @@
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { TestBed, ComponentFixture, fakeAsync, async  } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { Router, NavigationEnd } from '@angular/router';
@@ -11,12 +12,6 @@ import { Component } from '@angular/core';
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from './services/profile.service';
 
-const adalService = {
-  init: jasmine.createSpy('init'),
-  handleWindowCallback: jasmine.createSpy('handleWindowCallback'),
-  userInfo: jasmine.createSpy('userInfo')
-};
-
 @Component({ selector: 'app-footer', template: '' })
 export class FooterStubComponent { }
 
@@ -24,23 +19,25 @@ export class FooterStubComponent { }
 @Component({ selector: 'router-outlet', template: '' })
 export class RouterOutletStubComponent { }
 
-const config = {};
-
-let component: AppComponent;
-let fixture: ComponentFixture<AppComponent>;
-let router: any;
-let window: jasmine.SpyObj<WindowRef>;
-let pageTracker: jasmine.SpyObj<PageTrackerService>;
-let journeySelector: jasmine.SpyObj<JourneySelector>;
-let profileService: jasmine.SpyObj<ProfileService>;
-
 describe('AppComponent', () => {
+
+  const config = {};
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let router: any;
+  let window: jasmine.SpyObj<WindowRef>;
+  let pageTracker: jasmine.SpyObj<PageTrackerService>;
+  let journeySelector: jasmine.SpyObj<JourneySelector>;
+  let profileService: jasmine.SpyObj<ProfileService>;
+  let adalService: jasmine.SpyObj<AdalService>;
 
   beforeEach(async(() => {
     router = {
       navigate: jasmine.createSpy('navigate'),
       events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
     };
+
+    adalService = jasmine.createSpyObj<AdalService>(['handleWindowCallback', 'userInfo', 'init']);
 
     journeySelector = jasmine.createSpyObj<JourneySelector>(['getJourney']);
     profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
@@ -77,7 +74,7 @@ describe('AppComponent', () => {
   });
 
   it('should redirect to login with current url as return url if not authenticated', fakeAsync(() => {
-    adalService.userInfo.and.returnValue({ authenticated: false });
+    adalService.userInfo.authenticated = false;
     window.getLocation.and.returnValue(new WindowLocation('/url', '?search', '#hash'));
 
     component.ngOnInit();
@@ -90,4 +87,15 @@ describe('AppComponent', () => {
     expect(lastRoutingArgs.url).toEqual('/login');
     expect(lastRoutingArgs.queryParams.returnUrl).toEqual('/url?search#hash');
   }));
+
+  it('should  select and start journey on init', async () => {
+    adalService.userInfo.authenticated = true;
+    const journey = jasmine.createSpyObj<JourneyBase>(['begin']);
+    journeySelector.getJourney.and.returnValue(Promise.resolve(journey));
+    profileService.getUserProfile.and.returnValue(Promise.resolve({ role: 'role' }));
+
+    await component.ngOnInit();
+
+    expect(journey.begin).toHaveBeenCalled();
+  });
 });
