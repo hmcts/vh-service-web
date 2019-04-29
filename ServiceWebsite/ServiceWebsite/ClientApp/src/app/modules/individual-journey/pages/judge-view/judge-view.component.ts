@@ -56,7 +56,7 @@ export class JudgeViewComponent extends IndividualBaseComponent implements OnIni
   videoLoaded() {
     this.disabledReplay = false;
   }
-  
+
   ngOnDestroy() {
     this.userMediaService.stopStream();
   }

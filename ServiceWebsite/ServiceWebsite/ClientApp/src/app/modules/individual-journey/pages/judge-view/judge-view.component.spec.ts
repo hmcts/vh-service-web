@@ -90,16 +90,10 @@ describe('JudgeViewComponent', () => {
       expect(component.videoSourceParticipant).toBeTruthy();
       expect(component.videoSourceJudge).toBeTruthy();
     });
-    it('should enabled re-play when participant video is loaded', () => {
+    it('should enabled re-play when video is loaded', () => {
       expect(component.disabledReplay).toBeTruthy();
 
-      component.videoParticipantLoaded();
-      expect(component.disabledReplay).toBeFalsy();
-    });
-    it('should enabled re-play when judge video is loaded', () => {
-      expect(component.disabledReplay).toBeTruthy();
-
-      component.videoJudgeLoaded();
+      component.videoLoaded();
       expect(component.disabledReplay).toBeFalsy();
     });
   });
