@@ -1,10 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterContentInit, OnDestroy, OnInit, ElementRef } from '@angular/core';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
+import { UserMediaService } from '../../services/user-media.service';
+import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
+import { IndividualJourney } from '../../individual-journey';
+import { MediaService } from '../../services/media.service';
+import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
+import { VideoViewComponent } from '../../components/video-view/video-view.component';
+import { VideoUrlService } from '../../services/video-url.service';
+import { BlobVideoStorageService } from '../../services/blob-video-storage.service';
 
 @Component({
   selector: 'app-judge-view',
   templateUrl: './judge-view.component.html',
-  styles: []
+  styles: [],
+  providers: [
+    { provide: MediaService, useClass: UserMediaService },
+    { provide: VideoUrlService, useClass: BlobVideoStorageService }
+  ]
 })
-export class JudgeViewComponent extends IndividualBaseComponent {
+export class JudgeViewComponent extends IndividualBaseComponent implements OnInit, AfterContentInit, OnDestroy {
+  @ViewChild(UserCameraViewComponent)
+  userCameraViewComponent: UserCameraViewComponent;
+
+  @ViewChild(AudioBarComponent)
+  audioBarComponent: AudioBarComponent;
+
+  @ViewChild('videoParticipant')
+  videoViewComponent: VideoViewComponent;
+
+  @ViewChild('videoJudge')
+  videoViewComponentJudge: VideoViewComponent;
+
+  stream: MediaStream;
+  widthVideo = 500;
+  videoSource: string;
+  disabledReplay = true;
+
+  constructor(journey: IndividualJourney, private userMediaService: MediaService,
+    private videoUrlService: VideoUrlService) {
+    super(journey);
+  }
+
+  ngOnInit() {
+    this.videoSource = this.videoUrlService.inHearingExampleVideo;
+  }
+
+  ngAfterContentInit() {
+    this.userMediaService.getStream().then(s => {
+      this.stream = s;
+      this.userCameraViewComponent.setSource(s);
+      this.audioBarComponent.setSource(s);
+    });
+  }
+
+  videoLoaded() {
+    this.disabledReplay = false;
+  }
+
+  ngOnDestroy() {
+    this.userMediaService.stopStream();
+  }
+
+  replay() {
+    this.videoViewComponent.play();
+  }
+
 }

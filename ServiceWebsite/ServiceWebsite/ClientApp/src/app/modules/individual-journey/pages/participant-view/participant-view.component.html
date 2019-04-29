@@ -31,7 +31,7 @@
     </button>
 
     <input type="button" class="govuk-button hmcts-button--secondary"
-           (click)="replay()" value="Re-play practice hearing" />
+           (click)="replay()" value="Re-play practice hearing" [disabled]="disabledReplay" />
   </div>
   <app-contact-us></app-contact-us>
 </div>

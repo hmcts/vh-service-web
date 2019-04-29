@@ -7,12 +7,16 @@ import { MediaService } from '../../services/media.service';
 import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
+import { BlobVideoStorageService } from '../../services/blob-video-storage.service';
 
 @Component({
   selector: 'app-participant-view',
   templateUrl: './participant-view.component.html',
   styles: [],
-  providers: [{ provide: MediaService, useClass: UserMediaService }]
+  providers: [
+    { provide: MediaService, useClass: UserMediaService },
+    { provide: VideoUrlService, useClass: BlobVideoStorageService }
+  ]
 })
 export class ParticipantViewComponent extends IndividualBaseComponent implements OnInit, AfterContentInit, OnDestroy {
 
@@ -28,6 +32,7 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
   stream: MediaStream;
   widthVideo = 300;
   videoSource: string;
+  disabledReplay = true;
 
   constructor(journey: IndividualJourney, private userMediaService: MediaService,
     private videoUrlService: VideoUrlService) {
@@ -47,6 +52,7 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
   }
 
   videoLoaded() {
+    this.disabledReplay = false;
   }
 
   ngOnDestroy() {
