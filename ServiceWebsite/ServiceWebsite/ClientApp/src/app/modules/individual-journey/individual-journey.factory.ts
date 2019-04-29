@@ -1,6 +1,4 @@
 import { SuitabilityService } from './services/suitability.service';
-import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
-import { ApiClient } from './../../services/clients/api-client';
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 import { JourneyBase } from '../base-journey/journey-base';
 import { IndividualJourney } from './individual-journey';
