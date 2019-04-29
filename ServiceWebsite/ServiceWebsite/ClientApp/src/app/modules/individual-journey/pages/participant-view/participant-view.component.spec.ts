@@ -48,7 +48,6 @@ describe('ParticipantViewComponent', () => {
     let component: ParticipantViewComponent;
     const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream', 'requestAccess']);
     const mediaStream = new MediaStream();
-    userMediaService.getStream.and.returnValue(mediaStream);
     beforeEach(() => {
       const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
       component = new ParticipantViewComponent(journey, userMediaService);
