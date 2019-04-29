@@ -57,6 +57,32 @@ export class IndividualJourney implements JourneyBase {
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
     }
 
+    withAnswers(model: IndividualSuitabilityModel) {
+        // hack to override the model
+        this.model.aboutYou = model.aboutYou;
+        this.model.computer = model.computer;
+        this.model.consent = model.consent;
+        this.model.hearing = model.hearing;
+        this.model.internet = model.internet;
+        this.model.interpreter = model.interpreter;
+        this.model.room = model.room;
+    }
+
+    withNoUpcomingHearings() {
+        // TODO: Better way to set the journey to redirect
+        this.model.hearing = null;
+    }
+
+    isCompleted(): boolean {
+        // TODO: Or are we completed if anything has been submitted?
+        return this.model.aboutYou.answer !== undefined
+            && this.model.computer !== undefined
+            && this.model.consent !== undefined
+            && this.model.internet !== undefined
+            && this.model.interpreter !== undefined
+            && this.model.room !== undefined;
+    }
+
     private goto(step: IndividualJourneySteps) {
         if (this.currentStep !== step) {
             this.redirect.emit(step);

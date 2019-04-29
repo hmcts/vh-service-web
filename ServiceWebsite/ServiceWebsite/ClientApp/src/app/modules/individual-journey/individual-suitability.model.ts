@@ -23,12 +23,19 @@ export abstract class IndividualSuitabilityModel {
     internet: SuitabilityAnswer;
     room: SuitabilityAnswer;
     consent: SuitabilityAnswer;
+
+    isUpcoming(): boolean {
+        const now = new Date();
+        return this.hearing.scheduleDateTime >= now;
+    }
 }
 
 export class Hearing {
-    constructor(id?: string) {
+    constructor(id?: string, scheduledDateTime?: Date) {
         this.id = id;
+        this.scheduleDateTime = scheduledDateTime;
     }
 
     id: string;
+    scheduleDateTime: Date;
 }

@@ -107,7 +107,9 @@ describe('IndividualModelMapper', () => {
 
     it('should map hearing', () => {
         serviceResponse.hearing_id = '123';
+        serviceResponse.hearing_scheduled_at = new Date();
         whenMappingModel();
         expect(model.hearing.id).toBe('123');
+        expect(model.hearing.scheduleDateTime).toEqual(serviceResponse.hearing_scheduled_at);
     });
 });

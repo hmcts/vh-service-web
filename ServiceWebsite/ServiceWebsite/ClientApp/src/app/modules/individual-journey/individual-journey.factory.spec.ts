@@ -1,13 +1,13 @@
 import { SuitabilityService } from './services/suitability.service';
 import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualJourney } from './individual-journey';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 
 describe('IndividualJourneyFactory', () => {
     const client = jasmine.createSpyObj<SuitabilityService>(['getAllSuitabilityAnswers']);
-    let journey: jasmine.SpyObj<IndividualJourney>;
+    const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
 
     beforeEach(() => {
-        journey = jasmine.createSpyObj<IndividualJourney>(['begin']);
         client.getAllSuitabilityAnswers.and.returnValue(Promise.resolve([]));
     });
 

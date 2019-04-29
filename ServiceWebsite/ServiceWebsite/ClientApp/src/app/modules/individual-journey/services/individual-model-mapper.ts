@@ -15,7 +15,7 @@ export const IndividualQuestionKeys = {
 export class IndividualModelMapper {
     map(response: HearingSuitabilityResponse): IndividualSuitabilityModel {
         const model = new MutableIndividualSuitabilityModel();
-        model.hearing = new Hearing(response.hearing_id);
+        model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at);
 
         // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);

@@ -1,6 +1,6 @@
 import { IndividualSuitabilityModel, HasAccessToComputer, SuitabilityAnswer, Hearing } from './individual-suitability.model';
 
-export class MutableIndividualSuitabilityModel implements IndividualSuitabilityModel {
+export class MutableIndividualSuitabilityModel extends IndividualSuitabilityModel {
     hearing: Hearing;
     computer: HasAccessToComputer;
     interpreter: boolean;

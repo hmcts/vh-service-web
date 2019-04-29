@@ -5,7 +5,6 @@ import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.fa
 import { JourneyBase } from '../base-journey/journey-base';
 import { IndividualJourney } from './individual-journey';
 import { Injectable } from '@angular/core';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
 
 const IndividualUserType = 'Individual';
 
@@ -16,17 +15,24 @@ export class IndividualJourneyFactory implements JourneyFactory {
     }
 
     async create(): Promise<JourneyBase> {
-        const suitability = await this.suitabilityService.getAllSuitabilityAnswers();
-        return Promise.resolve(this.journey);
-    }
+        const models = await this.suitabilityService.getAllSuitabilityAnswers();
+        const upcoming = models.filter(h => h.isUpcoming());
+        if (upcoming.length === 0) {
+            this.journey.withNoUpcomingHearings();
+            return this.journey;
+        }
 
-    private mapAll(input: any[]): IndividualSuitabilityModel[] {
-        return input.map(item => this.mapHearingSuitability(item));
-    }
+        for (const model of models) {
+            this.journey.withAnswers(model);
+            if (this.journey.isCompleted()) {
+                return this.journey;
+            }
+        }
 
-    private mapHearingSuitability(input: any): IndividualSuitabilityModel {
-        const model = new MutableIndividualSuitabilityModel();
-        return model;
+        // finally, if we have an upcoming model that's not completed then let's pick the first upcoming one
+        const nextUpcoming = upcoming[0];
+        this.journey.withAnswers(nextUpcoming);
+        return this.journey;
     }
 
     handles(userType: string): boolean {
