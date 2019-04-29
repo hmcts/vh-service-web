@@ -11,7 +11,7 @@ browser.mediaDevices.getUserMedia = (browser.mediaDevices.getUserMedia ||
 @Injectable({
   providedIn: 'root',
 })
-export class UserMediaService extends MediaService{
+export class UserMediaService extends MediaService {
 
   readonly constraints: MediaStreamConstraints = {
     audio: true,
@@ -29,7 +29,7 @@ export class UserMediaService extends MediaService{
       await this.getStream();
       return true;
     } catch (exception) {
-      this.logger.error('error', exception, null)
+      this.logger.error('error', exception, null);
       return false;
     }
   }

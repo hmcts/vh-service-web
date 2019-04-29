@@ -10,7 +10,7 @@ import { IndividualJourneyRoutingModule, Components } from './individual-journey
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualLocalisation } from './services/individual-localisation';
 import { MediaService } from './services/media.service';
-import {UserMediaService} from './services/user-media.service'
+import {UserMediaService} from './services/user-media.service';
 import { JourneyRoutingListenerService } from './services/journey-routing-listener.service';
 import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 
