@@ -1,4 +1,4 @@
-import { HasAccessToComputer } from './../individual-suitability.model';
+import { HasAccessToComputer, Hearing } from './../individual-suitability.model';
 import { IndividualSuitabilityModel, SuitabilityAnswer } from '../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
@@ -15,6 +15,7 @@ export const IndividualQuestionKeys = {
 export class IndividualModelMapper {
     map(response: HearingSuitabilityResponse): IndividualSuitabilityModel {
         const model = new MutableIndividualSuitabilityModel();
+        model.hearing = new Hearing(response.hearing_id);
 
         // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);

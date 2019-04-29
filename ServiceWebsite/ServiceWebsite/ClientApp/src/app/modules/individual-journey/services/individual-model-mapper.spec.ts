@@ -9,7 +9,7 @@ describe('IndividualModelMapper', () => {
 
     beforeEach(() => {
         serviceResponse = new HearingSuitabilityResponse({
-            hearing_id: '123',
+            hearing_id: '',
             hearing_scheduled_at: new Date(),
             answers: [
                 new HearingSuitabilityAnswer({
@@ -103,5 +103,11 @@ describe('IndividualModelMapper', () => {
         givenExtendedAnswerIs(Keys.AboutYou, 'more information');
         whenMappingModel();
         expect(model.aboutYou.notes).toBe('more information');
+    });
+
+    it('should map hearing', () => {
+        serviceResponse.hearing_id = '123';
+        whenMappingModel();
+        expect(model.hearing.id).toBe('123');
     });
 });
