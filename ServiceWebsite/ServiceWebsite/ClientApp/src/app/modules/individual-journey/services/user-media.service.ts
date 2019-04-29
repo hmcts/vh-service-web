@@ -1,6 +1,6 @@
 import { Injectable, } from '@angular/core';
 import { MediaService } from './media.service';
-import { LoggerService } from '../../../services/logger.service';
+import { Logger } from '../../../services/logger';
 
 const browser = <any>navigator;
 browser.mediaDevices.getUserMedia = (browser.mediaDevices.getUserMedia ||
@@ -20,7 +20,7 @@ export class UserMediaService extends MediaService {
 
   private stream: MediaStream;
 
-  constructor(private logger: LoggerService) {
+  constructor(private logger: Logger) {
     super();
   }
 
@@ -29,7 +29,7 @@ export class UserMediaService extends MediaService {
       await this.getStream();
       return true;
     } catch (exception) {
-      this.logger.error('error', exception, null);
+      this.logger.error('Failed to get access to user media', exception);
       return false;
     }
   }
