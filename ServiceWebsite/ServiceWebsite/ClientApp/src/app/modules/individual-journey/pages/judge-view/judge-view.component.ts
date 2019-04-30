@@ -1,10 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { UserMediaService } from '../../services/user-media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
-import { BlobVideoStorageService } from '../../services/blob-video-storage.service';
 import { HearingViewBaseComponent } from '../../components/hearing-view-base.component';
 
 @Component({

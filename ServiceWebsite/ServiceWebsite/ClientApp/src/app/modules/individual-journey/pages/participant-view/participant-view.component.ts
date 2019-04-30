@@ -1,5 +1,4 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { UserMediaService } from '../../services/user-media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
