@@ -6,11 +6,12 @@ import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
 import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
+import { async } from '@angular/core/testing';
 
 describe('ParticipantViewComponent', () => {
-  it('can be created', () => {
+  it('can be created', async(() => {
     CanCreateHearingViewComponent(ParticipantViewComponent);
-  });
+  }));
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;

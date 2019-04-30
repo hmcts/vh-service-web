@@ -6,11 +6,12 @@ import { VideoUrlService } from '../../services/video-url.service';
 import { IndividualJourney } from '../../individual-journey';
 import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
 import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
+import { async } from '@angular/core/testing';
 
 describe('JudgeViewComponent', () => {
-  it('can be created', () => {
+  it('can be created', async(() => {
     CanCreateHearingViewComponent(JudgeViewComponent);
-  });
+  }));
 
   describe('functionality', () => {
     let component: JudgeViewComponent;

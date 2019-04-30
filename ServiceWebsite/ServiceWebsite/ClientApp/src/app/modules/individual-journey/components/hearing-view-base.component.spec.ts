@@ -1,3 +1,5 @@
+import { AudioBarComponent } from './audio-bar/audio-bar.component';
+import { UserCameraViewComponent } from './user-camera-view/user-camera-view.component';
 import { UserMediaService } from './../services/user-media.service';
 import { CanCreateComponent } from '../pages/individual-base-component/component-test-bed.spec';
 import { Type, Component, Input } from '@angular/core';
@@ -17,24 +19,6 @@ class StubVideoViewComponent {
 }
 
 @Component({
-  selector: 'app-user-camera-view',
-  template: ''
-})
-class StubUserCameraViewComponent {
-  @Input()
-  videoWidth: string;
-}
-
-@Component({
-  selector: 'app-audio-bar',
-  template: ''
-})
-class StubAudioBarComponent {
-  @Input()
-  audioBarWidth: number;
-}
-
-@Component({
   selector: 'app-contact-us',
   template: ''
 })
@@ -50,8 +34,8 @@ const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
       { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(videoUrls) },
       { provide: Config, useValue: {} }
     );
-    configuration.declarations.push(StubUserCameraViewComponent);
-    configuration.declarations.push(StubAudioBarComponent);
+    configuration.declarations.push(UserCameraViewComponent);
+    configuration.declarations.push(AudioBarComponent);
     configuration.declarations.push(StubContactUsComponent);
     configuration.declarations.push(StubVideoViewComponent);
   });
