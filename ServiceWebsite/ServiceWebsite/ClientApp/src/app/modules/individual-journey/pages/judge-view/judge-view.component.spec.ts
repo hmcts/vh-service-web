@@ -1,3 +1,5 @@
+import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
+import { AudioBarComponent } from './../../components/audio-bar/audio-bar.component';
 import { JudgeViewComponent } from './judge-view.component';
 import { MediaService } from '../../services/media.service';
 import { VideoUrlService } from '../../services/video-url.service';
@@ -19,17 +21,19 @@ describe('JudgeViewComponent', () => {
     beforeEach(() => {
       const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
       component = new JudgeViewComponent(journey, userMediaService, videoUrlService);
+      component.audioBarComponent = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
+      component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
     });
 
-    it('should set the video source to a media stream when initialized', () => {
+    it('should set the video source to a media stream when initialized', async () => {
       userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
-      component.ngAfterContentInit();
+      await component.ngAfterContentInit();
       expect(userMediaService.getStream).toHaveBeenCalled();
     });
 
-    it('should stop use camera on destroy', () => {
+    it('should stop use camera on destroy', async () => {
       userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
-      component.ngAfterContentInit();
+      await component.ngAfterContentInit();
 
       component.ngOnDestroy();
       expect(userMediaService.stopStream).toHaveBeenCalled();

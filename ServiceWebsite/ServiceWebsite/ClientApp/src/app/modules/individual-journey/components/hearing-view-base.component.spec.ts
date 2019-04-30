@@ -43,7 +43,7 @@ const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
   const videoUrls = [ 'inHearingExampleVideo', 'judgeSelfViewVideo', 'otherParticipantExampleVideo' ];
   CanCreateComponent(component, (configuration: TestModuleMetadata) => {
     configuration.providers.push(
-      { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['getStream']) },
+      { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']) },
       { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(videoUrls) },
       { provide: Config, useValue: {} }
     );
