@@ -1,11 +1,11 @@
-import { IndividualSuitabilityModel, HasAccessToComputer, SuitabilityAnswer, Hearing } from './individual-suitability.model';
+import { IndividualSuitabilityModel, SuitabilityAnswer } from './individual-suitability.model';
 
 export class MutableIndividualSuitabilityModel extends IndividualSuitabilityModel {
-    hearing: Hearing;
-    computer: HasAccessToComputer;
-    interpreter: boolean;
-    aboutYou: SuitabilityAnswer;
-    internet: SuitabilityAnswer;
-    room: SuitabilityAnswer;
-    consent: SuitabilityAnswer;
+    constructor() {
+        super();
+        this.aboutYou = new SuitabilityAnswer();
+        this.consent = new SuitabilityAnswer();
+        this.internet = new SuitabilityAnswer();
+        this.room = new SuitabilityAnswer();
+    }
 }

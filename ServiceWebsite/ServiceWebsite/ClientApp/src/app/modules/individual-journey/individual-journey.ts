@@ -19,7 +19,8 @@ export enum IndividualJourneySteps {
     AccessToRoom,
     Consent,
     ThankYou,
-    MediaAccessError
+    MediaAccessError,
+    GotoVideoApp
 }
 
 @Injectable()
@@ -93,7 +94,12 @@ export class IndividualJourney implements JourneyBase {
     }
 
     begin() {
-        this.goto(IndividualJourneySteps.AboutHearings);
+        // if we don't have a hearing or we've already completed the questionnaire
+        if (this.currentModel === null || this.isCompleted()) {
+            this.goto(IndividualJourneySteps.GotoVideoApp);
+        } else {
+            this.goto(IndividualJourneySteps.AboutHearings);
+        }
     }
 
     next() {
