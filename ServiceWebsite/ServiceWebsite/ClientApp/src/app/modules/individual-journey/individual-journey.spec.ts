@@ -77,21 +77,21 @@ describe('IndividualJourney', () => {
 
     it(`should continue to ${Steps.ThankYou} if individual has no access to a computer`, () => {
         givenUserIsAtStep(Steps.AccessToComputer);
-        journey.model.camera === HasAccessToCamera.No;
+        journey.model.camera = HasAccessToCamera.No;
         journey.next();
         expectDropOffToThankYouFrom(Steps.AccessToComputer);
     });
 
     it(`should continue to ${Steps.ThankYou} if individual has no access to a camera or microphone`, () => {
         givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
-        journey.model.computer === false;
+        journey.model.computer = false;
         journey.next();
         expectDropOffToThankYouFrom(Steps.AccessToComputer);
     });
 
     it(`should continue to ${Steps.ThankYou} if individual has no access to an internet connection`, () => {
         givenUserIsAtStep(Steps.YourInternetConnection);
-        journey.model.internet === false;
+        journey.model.internet = false;
         journey.next();
         expectDropOffToThankYouFrom(Steps.YourInternetConnection);
     });
