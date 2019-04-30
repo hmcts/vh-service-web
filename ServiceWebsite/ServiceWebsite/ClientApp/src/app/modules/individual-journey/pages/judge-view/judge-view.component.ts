@@ -1,5 +1,4 @@
-import { Component, ViewChild, AfterContentInit, OnDestroy, OnInit, ElementRef } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
+import { Component, ViewChild, OnInit} from '@angular/core';
 import { UserMediaService } from '../../services/user-media.service';
 import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
 import { IndividualJourney } from '../../individual-journey';
@@ -8,6 +7,7 @@ import { AudioBarComponent } from '../../components/audio-bar/audio-bar.componen
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
 import { BlobVideoStorageService } from '../../services/blob-video-storage.service';
+import { HearingViewBaseComponent } from '../../components/hearing-view-base.component';
 
 @Component({
   selector: 'app-judge-view',
@@ -18,7 +18,7 @@ import { BlobVideoStorageService } from '../../services/blob-video-storage.servi
     { provide: VideoUrlService, useClass: BlobVideoStorageService }
   ]
 })
-export class JudgeViewComponent extends IndividualBaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class JudgeViewComponent extends HearingViewBaseComponent implements OnInit {
   @ViewChild(UserCameraViewComponent)
   userCameraViewComponent: UserCameraViewComponent;
 
@@ -35,11 +35,10 @@ export class JudgeViewComponent extends IndividualBaseComponent implements OnIni
   widthAudioBar = 230;
   videoSourceJudge: string;
   videoSourceParticipant: string;
-  disabledReplay = true;
 
-  constructor(journey: IndividualJourney, private userMediaService: MediaService,
+  constructor(journey: IndividualJourney, userMediaService: MediaService,
     private videoUrlService: VideoUrlService) {
-    super(journey);
+    super(userMediaService, journey);
   }
 
   ngOnInit() {
@@ -48,19 +47,11 @@ export class JudgeViewComponent extends IndividualBaseComponent implements OnIni
   }
 
   async ngAfterContentInit() {
-    const stream = await this.userMediaService.getStream();
-    this.userCameraViewComponent.setSource(stream);
-    this.audioBarComponent.setSource(stream);
+    await super.ngAfterContentInit();
+    this.userCameraViewComponent.setSource(this.stream);
+    this.audioBarComponent.setSource(this.stream);
   }
-
-  videoLoaded() {
-    this.disabledReplay = false;
-  }
-
-  ngOnDestroy() {
-    this.userMediaService.stopStream();
-  }
-
+ 
   replay() {
     this.videoViewComponent.play();
     this.videoViewComponentJudge.play();
