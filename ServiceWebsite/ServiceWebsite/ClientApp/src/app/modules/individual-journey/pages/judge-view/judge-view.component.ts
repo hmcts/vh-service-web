@@ -10,11 +10,7 @@ import { HearingViewBaseComponent } from '../../components/hearing-view-base.com
 @Component({
   selector: 'app-judge-view',
   templateUrl: './judge-view.component.html',
-  styleUrls: ['./judge-view.component.css'],
-  // providers: [
-  //   { provide: MediaService, useClass: UserMediaService },
-  //   { provide: VideoUrlService, useClass: BlobVideoStorageService }
-  // ]
+  styleUrls: ['./judge-view.component.css']
 })
 export class JudgeViewComponent extends HearingViewBaseComponent implements OnInit {
 
