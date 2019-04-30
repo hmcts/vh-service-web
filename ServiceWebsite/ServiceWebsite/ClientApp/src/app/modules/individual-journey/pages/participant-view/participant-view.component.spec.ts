@@ -37,7 +37,7 @@ describe('ParticipantViewComponent', () => {
       component = new ParticipantViewComponent(journey, userMediaService);
       component.userCameraViewComponent = userCameraViewComponentSpy;
       component.audioBarComponent = audioBarComponentSpy;
-      
+
     });
 
     it('should set the video source to a media stream when initialized', async() => {
