@@ -8,7 +8,7 @@
     "build-watch": "ng build --watch",
     "build-prod": "ng build --prod",
     "test-once": "ng test --watch=false --code-coverage",
-    "test-once-ci": "ng test --browsers=ChromeHeadless --watch=false --code-coverage --sourceMap=true",
+    "test-once-ci": "ng test --browsers=ChromeHeadlessWithFakeStream --watch=false --code-coverage --sourceMap=true",
     "test": "ng test --code-coverage",
     "lint": "ng lint"
   },

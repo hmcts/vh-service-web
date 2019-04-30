@@ -1,4 +1,4 @@
-import { IndividualSuitabilityModel, HasAccessToComputer, SuitabilityAnswer } from './individual-suitability.model';
+import { IndividualSuitabilityModel, HasAccessToComputer, SuitabilityAnswer, Hearing } from './individual-suitability.model';
 
 export class MutableIndividualSuitabilityModel implements IndividualSuitabilityModel {
     computer: HasAccessToComputer;
@@ -7,4 +7,5 @@ export class MutableIndividualSuitabilityModel implements IndividualSuitabilityM
     internet: SuitabilityAnswer;
     room: SuitabilityAnswer;
     consent: SuitabilityAnswer;
+    hearing: Hearing;
 }

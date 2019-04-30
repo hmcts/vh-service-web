@@ -5,6 +5,7 @@ import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../services/media.service';
 import { VideoUrlService } from '../services/video-url.service';
 import { Config } from '../../shared/models/config';
+import { Logger } from 'src/app/services/logger';
 
 @Component({
   selector: 'app-video-view',
@@ -44,6 +45,7 @@ const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
   const videoUrls = [ 'inHearingExampleVideo', 'judgeSelfViewVideo', 'otherParticipantExampleVideo' ];
   CanCreateComponent(component, (configuration: TestModuleMetadata) => {
     configuration.providers.push(
+      { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['error']) },
       { provide: MediaService, useClass: UserMediaService },
       { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(videoUrls) },
       { provide: Config, useValue: {} }

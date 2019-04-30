@@ -42,6 +42,10 @@ module.exports = function(config) {
       ChromeWithFakeStream: {
         base: 'Chrome',
         flags: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream']
+      },
+      ChromeHeadlessWithFakeStream: {
+        base: 'ChromeHeadless',
+        flags: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream']
       }
     },
     singleRun: false
