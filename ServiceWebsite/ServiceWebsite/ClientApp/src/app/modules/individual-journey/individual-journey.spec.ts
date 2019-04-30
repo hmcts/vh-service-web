@@ -1,5 +1,6 @@
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { IndividualJourney, IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey';
+import { HasAccessToCamera } from './individual-suitability.model';
 
 describe('IndividualJourney', () => {
     let journey: IndividualJourney;
@@ -64,7 +65,7 @@ describe('IndividualJourney', () => {
         nextStepIs(Steps.AccessToRoom);
         nextStepIs(Steps.Consent);
 
-         // this last step is pending change, will proceed to self test in the future
+        // this last step is pending change, will proceed to self test in the future
         nextStepIs(Steps.ThankYou);
     });
 
@@ -74,19 +75,30 @@ describe('IndividualJourney', () => {
         expectStep(redirected).toBe(step(Steps.ThankYou));
     };
 
-    it(`should continue to ${Steps.ThankYou} if failing questions on ${Steps.AccessToComputer}`, () => {
+    it(`should continue to ${Steps.ThankYou} if individual has no access to a computer`, () => {
+        givenUserIsAtStep(Steps.AccessToComputer);
+        journey.model.camera === HasAccessToCamera.No;
+        journey.next();
         expectDropOffToThankYouFrom(Steps.AccessToComputer);
     });
 
-    it(`should continue to ${Steps.ThankYou} if failing questions on ${Steps.AboutYourComputer}`, () => {
+    it(`should continue to ${Steps.ThankYou} if individual has no access to a camera or microphone`, () => {
+        givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
+        journey.model.computer === false;
+        journey.next();
         expectDropOffToThankYouFrom(Steps.AccessToComputer);
     });
 
-    it(`should continue to ${Steps.ThankYou} if failing questions on ${Steps.YourInternetConnection}`, () => {
+    it(`should continue to ${Steps.ThankYou} if individual has no access to an internet connection`, () => {
+        givenUserIsAtStep(Steps.YourInternetConnection);
+        journey.model.internet === false;
+        journey.next();
         expectDropOffToThankYouFrom(Steps.YourInternetConnection);
     });
 
-    it(`should continue to ${Steps.ThankYou} if failing questions on ${Steps.Consent}`, () => {
+    it(`should continue to ${Steps.ThankYou} if individual has selected no to a video hearing`, () => {
+        givenUserIsAtStep(Steps.Consent);
+        journey.next();
         expectDropOffToThankYouFrom(Steps.Consent);
     });
 

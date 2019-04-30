@@ -1,10 +1,11 @@
-import { IndividualSuitabilityModel, HasAccessToComputer, SuitabilityAnswer } from './individual-suitability.model';
+import { IndividualSuitabilityModel, HasAccessToCamera, SuitabilityAnswer } from './individual-suitability.model';
 
 export class MutableIndividualSuitabilityModel implements IndividualSuitabilityModel {
-    computer: HasAccessToComputer;
+    camera: HasAccessToCamera;
+    computer: boolean;
+    internet: boolean;
     interpreter: boolean;
+    room: boolean;
     aboutYou: SuitabilityAnswer;
-    internet: SuitabilityAnswer;
-    room: SuitabilityAnswer;
     consent: SuitabilityAnswer;
 }
