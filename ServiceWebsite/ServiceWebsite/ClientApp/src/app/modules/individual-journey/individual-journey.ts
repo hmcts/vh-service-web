@@ -30,10 +30,10 @@ export class IndividualJourney implements JourneyBase {
 
     private readonly stepOrder: IndividualJourneySteps[];
 
-    readonly model: IndividualSuitabilityModel;
+    private currentModel: IndividualSuitabilityModel;
 
     constructor(model: IndividualSuitabilityModel) {
-        this.model = model;
+        this.currentModel = model;
 
         this.stepOrder = [
             IndividualJourneySteps.AboutHearings,
@@ -57,30 +57,26 @@ export class IndividualJourney implements JourneyBase {
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
     }
 
+    get model(): IndividualSuitabilityModel {
+        return this.currentModel;
+    }
+
     withAnswers(model: IndividualSuitabilityModel) {
-        // hack to override the model
-        this.model.aboutYou = model.aboutYou;
-        this.model.computer = model.computer;
-        this.model.consent = model.consent;
-        this.model.hearing = model.hearing;
-        this.model.internet = model.internet;
-        this.model.interpreter = model.interpreter;
-        this.model.room = model.room;
+        this.currentModel = model;
     }
 
     withNoUpcomingHearings() {
-        // TODO: Better way to set the journey to redirect
-        this.model.hearing = null;
+        this.currentModel = null;
     }
 
     isCompleted(): boolean {
         // TODO: Or are we completed if anything has been submitted?
-        return this.model.aboutYou.answer !== undefined
-            && this.model.computer !== undefined
-            && this.model.consent !== undefined
-            && this.model.internet !== undefined
-            && this.model.interpreter !== undefined
-            && this.model.room !== undefined;
+        return this.currentModel.aboutYou.answer !== undefined
+            && this.currentModel.computer !== undefined
+            && this.currentModel.consent !== undefined
+            && this.currentModel.internet !== undefined
+            && this.currentModel.interpreter !== undefined
+            && this.currentModel.room !== undefined;
     }
 
     private goto(step: IndividualJourneySteps) {
