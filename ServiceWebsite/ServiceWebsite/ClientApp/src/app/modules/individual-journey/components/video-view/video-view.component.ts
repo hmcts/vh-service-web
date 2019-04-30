@@ -37,7 +37,7 @@ export class VideoViewComponent {
     this.videoTag.play();
   }
 
-  get videoTag() {
+  private get videoTag() {
     const video: HTMLVideoElement = this.videoElement.nativeElement;
     return video;
   }
