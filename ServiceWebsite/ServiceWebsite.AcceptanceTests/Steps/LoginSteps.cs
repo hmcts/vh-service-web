@@ -52,6 +52,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void ThenIndividulStartsSuitabilityQuestionnaire()
         {
             _loginPage.SignInTitle();
+            _browserContext.ValidatePage("/about-hearings");
         }
     }
 }

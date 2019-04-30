@@ -94,17 +94,14 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 Console.WriteLine($"Cannot switch to the main window:  {ex}");
             }
         }
-        private By _pageTitle = By.XPath("//h1[@class='govuk-heading-l']");
-        public void ValidatePage(string url, string pageTitle, By webelement = null)
+
+        public void ValidatePage(string url)
         {
-            if (webelement == null)
-                webelement = _pageTitle;
             Retry(() =>
             {
                 WaitForAngular();
                 NgDriver.Url.Should().Contain(url);
             });
-            NgDriver.WaitUntilElementVisible(webelement).Text.Trim().Should().Contain(pageTitle);
         }
 
         public string ExecuteJavascript(string script)

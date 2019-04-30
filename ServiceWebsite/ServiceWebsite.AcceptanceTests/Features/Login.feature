@@ -6,3 +6,7 @@
 Scenario: Individual logs in to Vh-Service web
 	When Individual logs in with valid credentials
 	Then Individul starts suitability questionnaire
+
+Scenario: Representative logs in to Vh-Service web
+	When Representative logs in with valid credentials
+	Then Individul starts suitability questionnaire
