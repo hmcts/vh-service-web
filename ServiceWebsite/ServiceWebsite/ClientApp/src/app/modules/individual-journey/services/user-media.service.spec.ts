@@ -11,4 +11,12 @@ describe('UserMediaService', () => {
      userMediaService.stopStream();
     });
 
+    it('should return media access request successfull', async () => {
+        const logger = jasmine.createSpyObj<LoggerService>(['error']);
+        const userMediaService = new UserMediaService(logger);
+        const result = await userMediaService.requestAccess();
+         expect(result).not.toBeNull();
+         expect(result).toBeTruthy();
+         userMediaService.stopStream();
+        });
 });
