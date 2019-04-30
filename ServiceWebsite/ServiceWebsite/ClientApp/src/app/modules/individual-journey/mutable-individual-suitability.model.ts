@@ -1,4 +1,4 @@
-import { IndividualSuitabilityModel, HasAccessToCamera, SuitabilityAnswer } from './individual-suitability.model';
+import { IndividualSuitabilityModel, HasAccessToCamera, SuitabilityAnswer, Hearing } from './individual-suitability.model';
 
 export class MutableIndividualSuitabilityModel implements IndividualSuitabilityModel {
     camera: HasAccessToCamera;

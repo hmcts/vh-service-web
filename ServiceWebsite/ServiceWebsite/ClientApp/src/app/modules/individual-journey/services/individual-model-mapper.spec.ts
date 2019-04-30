@@ -1,4 +1,4 @@
-import { HasAccessToComputer } from './../individual-suitability.model';
+import { HasAccessToCamera } from './../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from './../../../services/clients/api-client';
 import { IndividualModelMapper, IndividualQuestionKeys as Keys } from './individual-model-mapper';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
@@ -58,14 +58,17 @@ describe('IndividualModelMapper', () => {
         serviceResponse.answers.find(a => a.question_key === answerKey).extended_answer = extendedAnswer;
     };
 
-    it('should map computer answers', () => {
-        const values = [ 'Yes', 'No', 'Not sure' ];
-        const expected = [ HasAccessToComputer.Yes, HasAccessToComputer.No, HasAccessToComputer.NotSure ];
+    it('should map computer camera and microphone answers', () => {
+        const values = ['Yes', 'No', 'Not sure'];
+        const expected = [HasAccessToCamera.Yes, HasAccessToCamera.No, HasAccessToCamera.NotSure];
 
         for (let i = 0; i < expected.length; ++i) {
-            givenAnswerIs(Keys.Computer, values[i]);
+            console.log(values[i]);
+            console.log(33);
+            console.log(expected[i]);
+            givenAnswerIs(Keys.Camera, values[i]);
             whenMappingModel();
-            expect(model.computer).toBe(expected[i]);
+            expect(model.camera).toBe(expected[i]);
         }
     });
 
@@ -73,13 +76,23 @@ describe('IndividualModelMapper', () => {
         givenAnswerIs(Keys.Interpreter, 'false');
         whenMappingModel();
         expect(model.interpreter).toBeFalsy();
+
+        givenAnswerIs(Keys.Computer, 'false');
+        whenMappingModel();
+        expect(model.computer).toBeFalsy();
+
+        givenAnswerIs(Keys.Internet, 'false');
+        whenMappingModel();
+        expect(model.internet).toBeFalsy();
+
+        givenAnswerIs(Keys.Room, 'false');
+        whenMappingModel();
+        expect(model.room).toBeFalsy();
     });
 
     it('should map false answers', () => {
         givenAnswerIs(Keys.AboutYou, 'false');
-
         whenMappingModel();
-
         expect(model.aboutYou.answer).toBeFalsy();
     });
 
@@ -94,8 +107,8 @@ describe('IndividualModelMapper', () => {
 
         expect(model.aboutYou.answer).toBe(true);
         expect(model.consent.answer).toBe(true);
-        expect(model.internet.answer).toBe(true);
-        expect(model.room.answer).toBe(true);
+        expect(model.internet).toBe(true);
+        expect(model.room).toBe(true);
         expect(model.interpreter).toBe(true);
     });
 
