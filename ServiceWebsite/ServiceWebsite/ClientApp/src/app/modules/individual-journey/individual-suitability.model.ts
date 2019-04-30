@@ -21,4 +21,15 @@ export abstract class IndividualSuitabilityModel {
     internet: SuitabilityAnswer;
     room: SuitabilityAnswer;
     consent: SuitabilityAnswer;
+
+    hearing: Hearing;
+}
+
+export class Hearing {
+    constructor(id?: string, scheduledDateTime?: Date) {
+        this.id = id;
+        this.scheduleDateTime = scheduledDateTime;
+    }
+    id: string;
+    scheduleDateTime: Date;
 }

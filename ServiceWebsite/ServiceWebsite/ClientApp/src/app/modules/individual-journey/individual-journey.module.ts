@@ -27,6 +27,7 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 // directives/pipes
 import { LocalisePipe } from './pipes/localise.pipe';
+import { SuitabilityService } from './services/suitability.service';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { LocalisePipe } from './pipes/localise.pipe';
     { provide: JOURNEY, useFactory: (journey: IndividualJourney) => journey, deps: [ IndividualJourney ], multi: true },
     IndividualJourney,
     JourneyStepComponentBindings,
-    JourneyRoutingListenerService
+    JourneyRoutingListenerService,
+    SuitabilityService
   ]
  })
 export class IndividualJourneyModule {
