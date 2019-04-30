@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
-import { MediaAccessService } from '../../services/media-access.service';
+import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 
 @Component({
@@ -10,7 +10,7 @@ import { IndividualJourney } from '../../individual-journey';
 })
 export class UseCameraMicrophoneComponent extends IndividualBaseComponent {
   mediaAccepted = false;
-  constructor(journey: IndividualJourney, private mediaAccess: MediaAccessService) {
+  constructor(journey: IndividualJourney, private mediaAccess: MediaService) {
     super(journey);
   }
 

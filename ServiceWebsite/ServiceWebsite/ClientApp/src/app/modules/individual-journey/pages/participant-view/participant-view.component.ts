@@ -9,8 +9,7 @@ import { AudioBarComponent } from '../../components/audio-bar/audio-bar.componen
 @Component({
   selector: 'app-participant-view',
   templateUrl: './participant-view.component.html',
-  styles: [],
-  providers: [{ provide: MediaService, useClass: UserMediaService }]
+  styles: []
 })
 export class ParticipantViewComponent extends IndividualBaseComponent implements AfterContentInit, OnDestroy {
 
@@ -27,12 +26,10 @@ export class ParticipantViewComponent extends IndividualBaseComponent implements
     super(journey);
   }
 
-  ngAfterContentInit() {
-    this.userMediaService.getStream().then(s => {
-      this.stream = s;
-      this.userCameraViewComponent.setSource(s);
-      this.audioBarComponent.setSource(s);
-    });
+  async ngAfterContentInit() {
+    this.stream = await this.userMediaService.getStream();
+    this.userCameraViewComponent.setSource(this.stream);
+    this.audioBarComponent.setSource(this.stream);
   }
 
   ngOnDestroy() {

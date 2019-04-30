@@ -3,66 +3,52 @@ import { CanCreateComponent } from '../individual-base-component/component-test-
 import { ParticipantViewComponent } from './participant-view.component';
 import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
+import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
+import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
+import { ContactUsComponent } from '../../../shared/contact-us/contact-us.component';
+import { UserMediaService } from '../../services/user-media.service';
+import { Logger } from 'src/app/services/logger';
 
-@Component({
-  selector: 'app-user-camera-view',
-  template: ''
-})
-class StubUserCameraViewComponent {
-  @Input()
-  videoWidth: string;
-}
-
-@Component({
-  selector: 'app-audio-bar',
-  template: ''
-})
-class StubAudioBarComponent {
-  @Input()
-  audioBarWidth: string;
-}
-
-@Component({
-  selector: 'app-contact-us',
-  template: ''
-})
-class StubContactUsComponent {
-}
 
 describe('ParticipantViewComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
+  it('can be created', async () => {
+    await CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
       configuration.providers.push(
-        { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) }
+        { provide: MediaService, useClass: UserMediaService },
+        { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['error']) }
       );
-      configuration.declarations.push(StubUserCameraViewComponent);
-      configuration.declarations.push(StubAudioBarComponent);
-      configuration.declarations.push(StubContactUsComponent);
-
+      configuration.declarations.push(UserCameraViewComponent);
+      configuration.declarations.push(AudioBarComponent);
+      configuration.declarations.push(ContactUsComponent);
     });
   });
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;
-    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
-    const mediaStream = new MediaStream();
-
+    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream', 'requestAccess']);
+    const mediaStream = jasmine.createSpyObj<MediaStream>(['stop']);
+    let audioBarComponentSpy: jasmine.SpyObj<AudioBarComponent>;
+    const userCameraViewComponentSpy = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
     beforeEach(() => {
+      audioBarComponentSpy = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
       const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
       component = new ParticipantViewComponent(journey, userMediaService);
+      component.userCameraViewComponent = userCameraViewComponentSpy;
+      component.audioBarComponent = audioBarComponentSpy;
+
     });
 
-    it('should set the video source to a media stream when initialized', () => {
+    it('should set the video source to a media stream when initialized', async () => {
       userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
-      component.ngAfterContentInit();
+      await component.ngAfterContentInit();
       expect(userMediaService.getStream).toHaveBeenCalled();
     });
 
-    it('should stop use camera on destroy', () => {
+    it('should stop use camera on destroy', async () => {
       userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
-      component.ngAfterContentInit();
+      await component.ngAfterContentInit();
 
       component.ngOnDestroy();
       expect(userMediaService.stopStream).toHaveBeenCalled();
