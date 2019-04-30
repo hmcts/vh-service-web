@@ -7,7 +7,7 @@ import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
 import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
-import {ContactUsComponent} from '../../../shared/contact-us/contact-us.component';
+import { ContactUsComponent } from '../../../shared/contact-us/contact-us.component';
 import { UserMediaService } from '../../services/user-media.service';
 import { Logger } from 'src/app/services/logger';
 
@@ -40,13 +40,13 @@ describe('ParticipantViewComponent', () => {
 
     });
 
-    it('should set the video source to a media stream when initialized', async() => {
+    it('should set the video source to a media stream when initialized', async () => {
       userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
       await component.ngAfterContentInit();
       expect(userMediaService.getStream).toHaveBeenCalled();
     });
 
-    it('should stop use camera on destroy', async() => {
+    it('should stop use camera on destroy', async () => {
       userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
       await component.ngAfterContentInit();
 

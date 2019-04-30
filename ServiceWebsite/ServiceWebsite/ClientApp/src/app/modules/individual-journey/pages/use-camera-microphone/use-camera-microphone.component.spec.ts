@@ -8,11 +8,11 @@ import { ContactUsComponent } from 'src/app/modules/shared/contact-us/contact-us
 
 describe('UseCameraMicrophoneComponent', () => {
   let mediaService: jasmine.SpyObj<MediaService>;
-let individualJourney: jasmine.SpyObj<IndividualJourney>;
-beforeEach(() => {
-  mediaService = jasmine.createSpyObj<MediaService>(['requestAccess']);
-  individualJourney = jasmine.createSpyObj<IndividualJourney>(['next', 'fail']);
- });
+  let individualJourney: jasmine.SpyObj<IndividualJourney>;
+  beforeEach(() => {
+    mediaService = jasmine.createSpyObj<MediaService>(['requestAccess']);
+    individualJourney = jasmine.createSpyObj<IndividualJourney>(['next', 'fail']);
+  });
 
   it('can be created', () => {
 
@@ -25,7 +25,7 @@ beforeEach(() => {
       });
   });
 
-  it('should call fail when access denied', async() => {
+  it('should call fail when access denied', async () => {
     mediaService.requestAccess.and.returnValue(Promise.resolve(false));
     const component = new UseCameraMicrophoneComponent(individualJourney, mediaService);
     await component.switchOnMedia();
