@@ -4,7 +4,6 @@ import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
-import { BlobVideoStorageService } from '../../services/blob-video-storage.service';
 import { HearingViewBaseComponent } from '../../components/hearing-view-base.component';
 
 @Component({
@@ -17,8 +16,8 @@ export class ParticipantViewComponent extends HearingViewBaseComponent implement
   @ViewChild(VideoViewComponent)
   videoViewComponent: VideoViewComponent;
 
-  widthVideo = 230;
   videoSource: string;
+  widthAudioBar = 215;
 
   constructor(journey: IndividualJourney, userMediaService: MediaService,
     private videoUrlService: VideoUrlService) {

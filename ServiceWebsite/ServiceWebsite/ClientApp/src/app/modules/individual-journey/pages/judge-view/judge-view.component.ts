@@ -11,10 +11,6 @@ import { HearingViewBaseComponent } from '../../components/hearing-view-base.com
   selector: 'app-judge-view',
   templateUrl: './judge-view.component.html',
   styleUrls: ['./judge-view.component.css'],
-  // providers: [
-  //   { provide: MediaService, useClass: UserMediaService },
-  //   { provide: VideoUrlService, useClass: BlobVideoStorageService }
-  // ]
 })
 export class JudgeViewComponent extends HearingViewBaseComponent implements OnInit {
 
@@ -24,10 +20,9 @@ export class JudgeViewComponent extends HearingViewBaseComponent implements OnIn
   @ViewChild('videoJudge')
   videoViewComponentJudge: VideoViewComponent;
 
-  widthVideo = 495;
-  widthAudioBar = 230;
   videoSourceJudge: string;
   videoSourceParticipant: string;
+  widthAudioBar = 230;
 
   constructor(journey: IndividualJourney, userMediaService: MediaService,
     private videoUrlService: VideoUrlService) {
