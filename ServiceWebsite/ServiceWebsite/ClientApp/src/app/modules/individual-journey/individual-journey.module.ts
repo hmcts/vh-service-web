@@ -62,7 +62,8 @@ export class MediaAccessMock implements MediaAccessService {
     IndividualJourney,
     SuitabilityService,
     JourneyStepComponentBindings,
-    JourneyRoutingListenerService
+    JourneyRoutingListenerService,
+    SuitabilityService
   ]
  })
 export class IndividualJourneyModule {

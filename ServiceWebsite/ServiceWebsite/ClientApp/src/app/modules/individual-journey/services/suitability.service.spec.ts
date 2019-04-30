@@ -1,4 +1,4 @@
-import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
+import { HearingSuitabilityResponse } from 'src/app/services/clients/api-client';
 import { SuitabilityService } from './suitability.service';
 import { ApiClient } from './../../../services/clients/api-client';
 import { of } from 'rxjs';

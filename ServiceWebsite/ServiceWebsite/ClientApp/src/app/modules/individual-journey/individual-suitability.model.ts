@@ -35,7 +35,6 @@ export class Hearing {
         this.id = id;
         this.scheduleDateTime = scheduledDateTime;
     }
-
     id: string;
     scheduleDateTime: Date;
 }
