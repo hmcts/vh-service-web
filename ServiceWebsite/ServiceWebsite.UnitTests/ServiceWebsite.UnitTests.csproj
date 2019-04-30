@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -25,6 +25,7 @@
     <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.0-alpha12" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServiceWebsite.BookingApi.Client\ServiceWebsite.BookingApi.Client.csproj" />
     <ProjectReference Include="..\ServiceWebsite\ServiceWebsite.csproj" />
   </ItemGroup>
 

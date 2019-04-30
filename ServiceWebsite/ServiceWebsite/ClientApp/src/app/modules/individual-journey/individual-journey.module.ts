@@ -26,6 +26,7 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 // directives/pipes
 import { LocalisePipe } from './pipes/localise.pipe';
+import { SuitabilityService } from './services/suitability.service';
 
 // Temporary mock
 export class MediaAccessMock implements MediaAccessService {
@@ -59,7 +60,8 @@ export class MediaAccessMock implements MediaAccessService {
     { provide: JOURNEY, useFactory: (journey: IndividualJourney) => journey, deps: [ IndividualJourney ], multi: true },
     IndividualJourney,
     JourneyStepComponentBindings,
-    JourneyRoutingListenerService
+    JourneyRoutingListenerService,
+    SuitabilityService
   ]
  })
 export class IndividualJourneyModule {

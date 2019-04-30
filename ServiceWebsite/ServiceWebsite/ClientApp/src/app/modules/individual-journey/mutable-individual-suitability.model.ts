@@ -8,4 +8,5 @@ export class MutableIndividualSuitabilityModel implements IndividualSuitabilityM
     room: boolean;
     aboutYou: SuitabilityAnswer;
     consent: SuitabilityAnswer;
+    hearing: Hearing;
 }

@@ -22,4 +22,15 @@ export abstract class IndividualSuitabilityModel {
 
     aboutYou: SuitabilityAnswer;
     consent: SuitabilityAnswer;
+
+    hearing: Hearing;
+}
+
+export class Hearing {
+    constructor(id?: string, scheduledDateTime?: Date) {
+        this.id = id;
+        this.scheduleDateTime = scheduledDateTime;
+    }
+    id: string;
+    scheduleDateTime: Date;
 }
