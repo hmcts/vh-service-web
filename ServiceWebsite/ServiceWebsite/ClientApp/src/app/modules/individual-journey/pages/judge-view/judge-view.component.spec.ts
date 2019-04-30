@@ -1,62 +1,13 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { JudgeViewComponent } from './judge-view.component';
-import { Component, Input } from '@angular/core';
-import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
-import { Config } from '../../../shared/models/config';
 import { VideoUrlService } from '../../services/video-url.service';
 import { IndividualJourney } from '../../individual-journey';
 import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
-
-@Component({
-  selector: 'app-video-view',
-  template: ''
-})
-class StubVideoViewComponent {
-  @Input()
-  source: string;
-}
-
-@Component({
-  selector: 'app-user-camera-view',
-  template: ''
-})
-class StubUserCameraViewComponent {
-  @Input()
-  videoWidth: string;
-}
-
-@Component({
-  selector: 'app-audio-bar',
-  template: ''
-})
-class StubAudioBarComponent {
-  @Input()
-  audioBarWidth: string;
-}
-
-@Component({
-  selector: 'app-contact-us',
-  template: ''
-})
-class StubContactUsComponent {
-}
-
-class ConfigStub { }
+import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
 
 describe('JudgeViewComponent', () => {
   it('can be created', () => {
-    CanCreateComponent(JudgeViewComponent, (configuration: TestModuleMetadata) => {
-      configuration.providers.push(
-        { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) },
-        { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['judgeSelfViewVideo']) },
-        { provide: Config, useClass: ConfigStub }
-      );
-      configuration.declarations.push(StubUserCameraViewComponent);
-      configuration.declarations.push(StubAudioBarComponent);
-      configuration.declarations.push(StubContactUsComponent);
-      configuration.declarations.push(StubVideoViewComponent);
-    });
+    CanCreateHearingViewComponent(JudgeViewComponent);
   });
 
   describe('functionality', () => {

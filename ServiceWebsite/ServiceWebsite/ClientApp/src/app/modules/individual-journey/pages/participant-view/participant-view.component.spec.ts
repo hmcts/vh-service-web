@@ -1,62 +1,13 @@
 import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { ParticipantViewComponent } from './participant-view.component';
-import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
-import { Component, Input } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
-import { Config } from '../../../shared/models/config';
-
-@Component({
-  selector: 'app-video-view',
-  template: ''
-})
-class StubVideoViewComponent {
-  @Input()
-  source: string;
-}
-
-@Component({
-  selector: 'app-user-camera-view',
-  template: ''
-})
-class StubUserCameraViewComponent {
-  @Input()
-  videoWidth: string;
-}
-
-@Component({
-  selector: 'app-audio-bar',
-  template: ''
-})
-class StubAudioBarComponent {
-  @Input()
-  audioBarWidth: string;
-}
-
-@Component({
-  selector: 'app-contact-us',
-  template: ''
-})
-class StubContactUsComponent {
-}
-
-class ConfigStub { }
+import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
 
 describe('ParticipantViewComponent', () => {
   it('can be created', () => {
-    CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
-      configuration.providers.push(
-        { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['get']) },
-        { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['inHearingExampleVideo']) },
-        { provide: Config, useClass: ConfigStub }
-      );
-      configuration.declarations.push(StubUserCameraViewComponent);
-      configuration.declarations.push(StubAudioBarComponent);
-      configuration.declarations.push(StubContactUsComponent);
-      configuration.declarations.push(StubVideoViewComponent);
-    });
+    CanCreateHearingViewComponent(ParticipantViewComponent);
   });
 
   describe('functionality', () => {
