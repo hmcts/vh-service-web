@@ -23,6 +23,7 @@ export class JourneyRoutingListenerService {
     private gotoStep(step: Steps) {
         if (step === Steps.GotoVideoApp) {
             this.redirect.to(this.config.videoAppUrl);
+            return;
         }
 
         const path = this.bindings.getRoute(step);
