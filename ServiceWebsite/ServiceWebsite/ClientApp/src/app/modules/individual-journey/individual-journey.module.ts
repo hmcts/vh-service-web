@@ -1,3 +1,5 @@
+import { BlobVideoStorageService } from './services/blob-video-storage.service';
+import { UserMediaService } from './services/user-media.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -26,6 +28,8 @@ import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 // directives/pipes
 import { LocalisePipe } from './pipes/localise.pipe';
+import { MediaService } from './services/media.service';
+import { VideoUrlService } from './services/video-url.service';
 
 // Temporary mock
 export class MediaAccessMock implements MediaAccessService {
@@ -57,6 +61,8 @@ export class MediaAccessMock implements MediaAccessService {
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
     { provide: MediaAccessService, useClass: MediaAccessMock },
     { provide: JOURNEY, useFactory: (journey: IndividualJourney) => journey, deps: [ IndividualJourney ], multi: true },
+    { provide: MediaService, useClass: UserMediaService },
+    { provide: VideoUrlService, useClass: BlobVideoStorageService },
     IndividualJourney,
     JourneyStepComponentBindings,
     JourneyRoutingListenerService

@@ -25,6 +25,7 @@ export class AudioBarComponent {
   }
 
   setSource(stream: MediaStream) {
+    console.log('SET SOURCE CALLED!!!');
     this.getCanvasContex();
     const source = this.audioContext.createMediaStreamSource(stream);
     // Create a new volume meter and connect it.

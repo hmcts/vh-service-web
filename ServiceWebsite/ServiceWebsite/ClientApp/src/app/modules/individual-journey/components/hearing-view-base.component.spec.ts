@@ -1,3 +1,4 @@
+import { UserMediaService } from './../services/user-media.service';
 import { CanCreateComponent } from '../pages/individual-base-component/component-test-bed.spec';
 import { Type, Component, Input } from '@angular/core';
 import { TestModuleMetadata } from '@angular/core/testing';
@@ -29,7 +30,7 @@ class StubUserCameraViewComponent {
 })
 class StubAudioBarComponent {
   @Input()
-  audioBarWidth: string;
+  audioBarWidth: number;
 }
 
 @Component({
@@ -43,7 +44,7 @@ const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
   const videoUrls = [ 'inHearingExampleVideo', 'judgeSelfViewVideo', 'otherParticipantExampleVideo' ];
   CanCreateComponent(component, (configuration: TestModuleMetadata) => {
     configuration.providers.push(
-      { provide: MediaService, useValue: jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']) },
+      { provide: MediaService, useClass: UserMediaService },
       { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(videoUrls) },
       { provide: Config, useValue: {} }
     );

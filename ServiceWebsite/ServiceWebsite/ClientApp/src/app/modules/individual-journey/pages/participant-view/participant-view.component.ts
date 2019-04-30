@@ -11,10 +11,6 @@ import { HearingViewBaseComponent } from '../../components/hearing-view-base.com
   selector: 'app-participant-view',
   templateUrl: './participant-view.component.html',
   styleUrls: ['./participant-view.component.css'],
-  providers: [
-    { provide: MediaService, useClass: UserMediaService },
-    { provide: VideoUrlService, useClass: BlobVideoStorageService }
-  ]
 })
 export class ParticipantViewComponent extends HearingViewBaseComponent implements OnInit {
 
