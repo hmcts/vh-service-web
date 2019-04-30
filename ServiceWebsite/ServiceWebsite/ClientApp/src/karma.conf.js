@@ -37,7 +37,13 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["Chrome"],
+    browsers: ["ChromeWithFakeStream"],
+    customLaunchers: {
+      ChromeWithFakeStream: {
+        base: 'Chrome',
+        flags: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream']
+      }
+    },
     singleRun: false
   });
 };
