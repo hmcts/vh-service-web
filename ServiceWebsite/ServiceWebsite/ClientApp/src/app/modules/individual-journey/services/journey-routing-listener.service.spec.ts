@@ -53,13 +53,13 @@ describe('JourneyRoutingListenerService', () => {
     };
 
     const givenInitialisedAtStartStep = () => {
-        givenCurrentUrlIs('/' + bindings.getRoute(journey.startStep));
+        givenCurrentUrlIs('/' + bindings.getRoute(IndividualJourney.initialStep));
         journey.forSuitabilityAnswers([suitabilityForUpcomingHearing]);
         service.initialise();
     };
 
     it(`should redirect externally to video web when entering journey that has no hearings`, () => {
-        givenCurrentUrlIs('/' + bindings.getRoute(journey.startStep));
+        givenCurrentUrlIs('/' + bindings.getRoute(IndividualJourney.initialStep));
         journey.forSuitabilityAnswers([]);
         service.initialise();
         expect(redirectService.to).toHaveBeenCalledWith(config.videoAppUrl);
@@ -70,7 +70,7 @@ describe('JourneyRoutingListenerService', () => {
         journey.forSuitabilityAnswers([suitabilityForUpcomingHearing]);
         service.initialise();
 
-        const startStepUrl = bindings.getRoute(journey.startStep);
+        const startStepUrl = bindings.getRoute(IndividualJourney.initialStep);
         expect(router.navigate).toHaveBeenCalledWith([`/${startStepUrl}`]);
     });
 

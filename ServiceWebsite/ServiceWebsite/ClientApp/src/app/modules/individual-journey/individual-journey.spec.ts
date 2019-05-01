@@ -85,7 +85,7 @@ describe('IndividualJourney', () => {
 
     it('should follow the happy path journey', () => {
         // given we're starting at the beginning
-        journey.jumpTo(journey.startStep);
+        journey.startAt(IndividualJourney.initialStep);
 
         // then the happy path journey would be
         nextStepIs(Steps.DifferentHearingTypes);

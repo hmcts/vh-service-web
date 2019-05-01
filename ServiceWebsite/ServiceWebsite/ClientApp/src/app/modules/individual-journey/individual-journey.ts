@@ -26,10 +26,12 @@ export enum IndividualJourneySteps {
 
 @Injectable()
 export class IndividualJourney implements JourneyBase {
+    static readonly initialStep = IndividualJourneySteps.AboutHearings;
+
     readonly redirect: EventEmitter<IndividualJourneySteps> = new EventEmitter();
 
     private readonly stepOrder: IndividualJourneySteps[] = [
-        IndividualJourneySteps.AboutHearings,
+        IndividualJourney.initialStep,
         IndividualJourneySteps.DifferentHearingTypes,
         IndividualJourneySteps.ExploreCourtBuilding,
         IndividualJourneySteps.CourtInformationVideo,
@@ -55,10 +57,6 @@ export class IndividualJourney implements JourneyBase {
 
     constructor() {
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
-    }
-
-    get startStep(): IndividualJourneySteps {
-        return this.stepOrder[0];
     }
 
     get step(): IndividualJourneySteps {

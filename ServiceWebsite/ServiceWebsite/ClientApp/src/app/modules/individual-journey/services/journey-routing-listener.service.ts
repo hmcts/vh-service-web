@@ -34,12 +34,12 @@ export class JourneyRoutingListenerService {
     private tryJumpJourneyTo(route: string) {
         const step = this.bindings.getJourneyStep(route);
 
-        if (step !== null) {
-            this.journey.jumpTo(step);
-        } else if (this.isStartRoute(route)) {
-            this.journey.jumpTo(this.journey.startStep);
+        if (step === null) {
+            // Any routes not mapped to steps can be ignored
+            return;
         }
-        // Any routes not mapped to steps can be ignored
+
+        this.journey.jumpTo(step);
     }
 
     private getRouteFromUrl(url: string): string {
@@ -56,20 +56,9 @@ export class JourneyRoutingListenerService {
           .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.url)));
 
         const currentRoute = this.getRouteFromUrl(this.router.url);
-        if (this.isStartRoute(currentRoute)) {
-            // since the current route doesn't map to a step, force jump to the start
-            this.journey.startAt(this.journey.startStep);
-        } else {
-            const journeyStep = this.bindings.getJourneyStep(currentRoute);
-            if (journeyStep === null) {
-                // if we've initialised the journey on some non-journey step, for example, 
-                return;
-            }
+        const journeyStep = this.bindings.getJourneyStep(currentRoute);
+        if (journeyStep !== null) {
             this.journey.startAt(journeyStep);
         }
-    }
-
-    private isStartRoute(route: string): boolean {
-        return route === AppPaths.Home;
     }
 }
