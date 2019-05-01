@@ -1,4 +1,3 @@
-import { ENVIRONMENT_CONFIG } from './services/config.service';
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
