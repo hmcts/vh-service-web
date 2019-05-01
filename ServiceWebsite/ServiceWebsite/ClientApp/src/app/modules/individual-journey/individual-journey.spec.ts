@@ -84,7 +84,7 @@ describe('IndividualJourney', () => {
 
     it(`should continue to ${Steps.ThankYou} if individual has no access to a camera or microphone`, () => {
         givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
-        journey.model.camera = HasAccessToCamera.NotSure;
+        journey.model.camera = HasAccessToCamera.No;
         journey.next();
         expectStep(redirected).toBe(step(Steps.ThankYou));
     });
