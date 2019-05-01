@@ -1,14 +1,14 @@
-<div class="govuk-grid-row vh-video-top">
-  <div class="govuk-grid-column-one-half vh-mp0">
+<div class="vh-video-top">
+  <div class="vh-video-w">
     <app-user-camera-view></app-user-camera-view>
   </div>
-  <div class="govuk-grid-column-one-half vh-mp0">
+  <div class="vh-video-w">
     <app-video-view #videoParticipant [source]="videoSourceParticipant" (loaded)="videoLoaded()"></app-video-view>
   </div>
 </div>
 
 <div class="govuk-grid-row vh-top-30">
-  <div class="govuk-grid-column-one-quarter vh-mpl0">
+  <div class="govuk-grid-column-one-quarter">
     <app-video-view #videoJudge [source]="videoSourceJudge" (loaded)="videoLoaded()"></app-video-view>
     <div>
       <app-audio-bar [audioBarWidth]="widthAudioBar"></app-audio-bar>
@@ -21,14 +21,14 @@
 </div>
 
 <div class="govuk-grid-row vh-top-30 ">
-  <div class="govuk-grid-column-full vh-mpl0">
+  <div class="govuk-grid-column-full">
     <p class="govuk-body">
       When the video has ended, click 'Continue'. You can try the practice video hearing again if you like.
     </p>
   </div>
 </div>
 <div class="govuk-grid-row vh-top-30 ">
-  <div class="govuk-grid-column-full vh-mpl0">
+  <div class="govuk-grid-column-full">
     <button type="submit" class="govuk-button govuk-!-margin-right-1" (click)="continue()">
       Continue
     </button>
@@ -36,5 +36,9 @@
     <input type="button" class="govuk-button hmcts-button--secondary"
            (click)="replay()" value="Re-play practice hearing" [disabled]="disabledReplay" />
   </div>
-  <app-contact-us></app-contact-us>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <app-contact-us></app-contact-us>
+  </div>
 </div>

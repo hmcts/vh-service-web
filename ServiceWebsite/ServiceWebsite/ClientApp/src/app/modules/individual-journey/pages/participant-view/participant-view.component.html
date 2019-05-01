@@ -1,4 +1,4 @@
-<div class="govuk-grid-row" style="height:350px; overflow:hidden;">
+<div class="govuk-grid-row" >
   <div class="govuk-grid-column-full">
     <app-video-view [source]="videoSource" (loaded)="videoLoaded()"></app-video-view>
   </div>
@@ -33,5 +33,9 @@
     <input type="button" class="govuk-button hmcts-button--secondary"
            (click)="replay()" value="Re-play practice hearing" [disabled]="disabledReplay" />
   </div>
-  <app-contact-us></app-contact-us>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <app-contact-us></app-contact-us>
+  </div>
 </div>
