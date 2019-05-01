@@ -24,7 +24,7 @@ describe('IndividualModelMapper', () => {
                 }),
                 new HearingSuitabilityAnswer({
                     question_key: Keys.Computer,
-                    answer: 'Yes',
+                    answer: 'true',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
@@ -40,6 +40,11 @@ describe('IndividualModelMapper', () => {
                 new HearingSuitabilityAnswer({
                     question_key: Keys.Room,
                     answer: 'true',
+                    extended_answer: ''
+                }),
+                new HearingSuitabilityAnswer({
+                    question_key: Keys.Camera,
+                    answer: 'Yes',
                     extended_answer: ''
                 }),
             ]
@@ -63,9 +68,6 @@ describe('IndividualModelMapper', () => {
         const expected = [HasAccessToCamera.Yes, HasAccessToCamera.No, HasAccessToCamera.NotSure];
 
         for (let i = 0; i < expected.length; ++i) {
-            console.log(values[i]);
-            console.log(33);
-            console.log(expected[i]);
             givenAnswerIs(Keys.Camera, values[i]);
             whenMappingModel();
             expect(model.camera).toBe(expected[i]);
