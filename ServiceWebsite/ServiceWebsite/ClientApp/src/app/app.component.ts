@@ -1,3 +1,4 @@
+import { ENVIRONMENT_CONFIG } from './services/config.service';
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
   }
 
   private initAuthentication() {
+    console.log('using configuration!');
     const config = {
       tenant: this.config.tenantId,
       clientId: this.config.clientId,

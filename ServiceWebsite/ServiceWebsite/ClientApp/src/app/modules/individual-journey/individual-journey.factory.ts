@@ -3,16 +3,22 @@ import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.fa
 import { JourneyBase } from '../base-journey/journey-base';
 import { IndividualJourney } from './individual-journey';
 import { Injectable } from '@angular/core';
+import { JourneyRoutingListenerService } from './services/journey-routing-listener.service';
 
 const IndividualUserType = 'Individual';
 
 @Injectable()
 export class IndividualJourneyFactory implements JourneyFactory {
 
-    constructor(private journey: IndividualJourney, private suitabilityService: SuitabilityService) {
+    constructor(private journey: IndividualJourney,
+        private suitabilityService: SuitabilityService,
+        private journeyRoutingListenerService: JourneyRoutingListenerService) {
     }
 
     async create(): Promise<JourneyBase> {
+        // start listening to routing changes
+        this.journeyRoutingListenerService.initialise();
+
         const models = await this.suitabilityService.getAllSuitabilityAnswers();
 
         const upcoming = models.filter(h => h.isUpcoming());

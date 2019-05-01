@@ -64,10 +64,4 @@ import { VideoUrlService } from './services/video-url.service';
     SuitabilityService
   ]
  })
-export class IndividualJourneyModule {
-  constructor(service: JourneyRoutingListenerService) {
-    // this makes sure the binder is created and listens to routing events,
-    // unless we use it somewhere it would not get instantiated
-    service.initialise();
-  }
-}
+export class IndividualJourneyModule {}
