@@ -41,9 +41,8 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         [BeforeScenario]
         public void CreateNewHearingRequest(TestContext testContext)
         {
-                var endpoint = new ApiUriFactory().HearingEndpoints;
                 var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual,testContext.TestUserSecrets.Representative);
-                testContext.Request = testContext.Post(endpoint.BookNewHearing, requestBody);
+                testContext.Request = testContext.Post("/hearings", requestBody);
                 testContext.Response = testContext.Client().Execute(testContext.Request);
                 testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
                 var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);

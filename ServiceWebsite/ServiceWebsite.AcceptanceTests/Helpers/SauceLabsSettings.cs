@@ -17,7 +17,6 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 
             if (RunWithSaucelabs)
             {
-                //ondemand.eu-central-1.saucelabs.com
                 RemoteServerUrl = "http://" + Username + ":" + AccessKey + "@ondemand.eu-central-1.saucelabs.com:80/wd/hub";
             }
         }

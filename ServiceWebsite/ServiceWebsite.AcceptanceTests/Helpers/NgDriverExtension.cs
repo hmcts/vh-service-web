@@ -8,20 +8,7 @@ using System.Collections.Generic;
 namespace ServiceWebsite.AcceptanceTests.Helpers
 {
     public static class NgDriverExtension
-    {
-        public static NgWebElement FindElement(this ISearchContext context, By by, int timeout = 20, bool displayed = false)
-        {
-            var wait = new DefaultWait<ISearchContext>(context)
-            { Timeout = TimeSpan.FromSeconds(timeout) };
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            return wait.Until(ctx => {
-                var elem = ctx.FindElement(by);
-                if (displayed && !elem.Displayed)
-                    return null;
-
-                return ((NgWebElement)(elem));
-            });
-        }
+    {       
         public static ReadOnlyCollection<IWebElement> FindElements(this IWebDriver driver, By elementLocator, int timeout = 10)
         {
             try

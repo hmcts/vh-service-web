@@ -18,8 +18,8 @@ namespace ServiceWebsite.AcceptanceTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Case Admin and VH Officer Accessing VH-Admin Web")]
-    public partial class CaseAdminAndVHOfficerAccessingVH_AdminWebFeature
+    [NUnit.Framework.DescriptionAttribute("Participants Accessing VH-Admin Web")]
+    public partial class ParticipantsAccessingVH_AdminWebFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,7 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Case Admin and VH Officer Accessing VH-Admin Web", "\tAs an Invidual or Representative\r\n\tI would like to login to VH-Service Web\r\n\tSo " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participants Accessing VH-Admin Web", "\tAs an Invidual or Representative\r\n\tI would like to login to VH-Service Web\r\n\tSo " +
                     "that I can complete suitability Questionnaire", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -83,7 +83,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.When("Individual logs in with valid credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.Then("Individul starts suitability questionnaire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Individual starts suitability questionnaire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -101,7 +101,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 13
  testRunner.When("Representative logs in with valid credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
- testRunner.Then("Individul starts suitability questionnaire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Representative starts suitability questionnaire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

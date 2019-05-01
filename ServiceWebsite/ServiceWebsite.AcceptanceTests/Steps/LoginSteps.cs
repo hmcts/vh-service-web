@@ -48,7 +48,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _scenarioContext.Add("Participant", participant);
         }
 
-        [Then(@"Individul starts suitability questionnaire")]
+        [Then(@"Individual starts suitability questionnaire")]
+        [Then(@"Representative starts suitability questionnaire")]
         public void ThenIndividulStartsSuitabilityQuestionnaire()
         {
             _loginPage.SignInTitle();

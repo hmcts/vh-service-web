@@ -14,11 +14,6 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
         public NgWebDriver NgDriver;
         internal ContextItems Items { get; set; }
 
-        public BrowserContext()
-        {
-            Items = new ContextItems(this);
-        }
-
         public void BrowserSetup(string baseUrl, SeleniumEnvironment environment)
         {
             if (string.IsNullOrEmpty(baseUrl))
@@ -117,12 +112,10 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
     internal class ContextItems
     {
         private ConcurrentDictionary<string, dynamic> _items;
-        private readonly BrowserContext _context;
 
-        public ContextItems(BrowserContext context)
+        public ContextItems()
         {
             _items = new ConcurrentDictionary<string, dynamic>();
-            _context = context;
         }
 
         public void AddOrUpdate<T>(string key, T value)

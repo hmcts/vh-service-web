@@ -28,8 +28,8 @@
     <PackageReference Include="RestSharp" Version="106.6.9" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="SpecFlow" Version="3.0.177-beta" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.177-beta" />
+    <PackageReference Include="SpecFlow" Version="3.0.191" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.191" />
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     <PackageReference Include="WebDriver.ChromeDriver.win32" Version="2.46.0" />
   </ItemGroup>
@@ -62,8 +62,14 @@
   <ItemGroup>
     <SpecFlowFeatureFiles Update="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Login.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
   </ItemGroup>
+  
+  <Target Name="AfterUpdateFeatureFilesInProject">
+    <!-- include any generated SpecFlow files in the compilation of the project if not included yet -->
+    <ItemGroup>
+      <Compile Include="**\*.feature.cs" Exclude="@(Compile)" />
+    </ItemGroup>
+  </Target>
 
 </Project>
