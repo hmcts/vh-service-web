@@ -1,4 +1,4 @@
-import { HasAccessToComputer, Hearing } from './../individual-suitability.model';
+import { HasAccessToCamera, Hearing } from './../individual-suitability.model';
 import { IndividualSuitabilityModel, SuitabilityAnswer } from '../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
@@ -9,7 +9,8 @@ export const IndividualQuestionKeys = {
     Room: 'ROOM',
     Internet: 'INTERNET',
     Interpreter: 'INTERPRETER',
-    Computer: 'COMPUTER'
+    Computer: 'COMPUTER',
+    Camera: 'CAMERA_MICROPHONE'
 };
 
 export class IndividualModelMapper {
@@ -19,29 +20,30 @@ export class IndividualModelMapper {
         // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
         model.consent = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
-        model.internet = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
-        model.room = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
-        model.interpreter = this.mapInterpreter(response.answers);
-        model.computer = this.mapComputer(response.answers);
+        model.internet = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Internet);
+        model.room = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Room);
+        model.interpreter = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Interpreter);
+        model.computer = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Computer);
+        model.camera = this.mapComputerCamera(response.answers);
         return model;
     }
-    private mapInterpreter(answers: HearingSuitabilityAnswer[]): boolean {
-        const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Interpreter);
+    private mapBooleanValue(answers: HearingSuitabilityAnswer[], key: string) {
+        const answer = answers.find(a => a.question_key === key);
         if (answer) {
             return answer.answer === 'true';
         }
         return undefined;
     }
-    private mapComputer(answers: HearingSuitabilityAnswer[]): HasAccessToComputer {
-        const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Computer);
+    private mapComputerCamera(answers: HearingSuitabilityAnswer[]): HasAccessToCamera {
+        const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Camera);
         if (answer) {
             switch (answer.answer) {
                 case 'Yes':
-                    return HasAccessToComputer.Yes;
+                    return HasAccessToCamera.Yes;
                 case 'No':
-                    return HasAccessToComputer.No;
+                    return HasAccessToCamera.No;
                 case 'Not sure':
-                    return HasAccessToComputer.NotSure;
+                    return HasAccessToCamera.NotSure;
                 default:
                     throw new Error(`Unexpected answer to computer question: ${answer.answer}`);
             }
