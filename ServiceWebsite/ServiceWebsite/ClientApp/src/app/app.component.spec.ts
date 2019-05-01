@@ -88,7 +88,7 @@ describe('AppComponent', () => {
     expect(lastRoutingArgs.queryParams.returnUrl).toEqual('/url?search#hash');
   }));
 
-  it('should  select and start journey on init', async () => {
+  it('should select and start journey on init', async () => {
     adalService.userInfo.authenticated = true;
     const journey = jasmine.createSpyObj<JourneyBase>(['begin']);
     journeySelector.getJourney.and.returnValue(Promise.resolve(journey));
