@@ -16,19 +16,15 @@ export class IndividualModelMapper {
     map(response: HearingSuitabilityResponse): IndividualSuitabilityModel {
         const model = new MutableIndividualSuitabilityModel();
         model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at);
-
         // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
         model.consent = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
         model.internet = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
         model.room = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
-
         model.interpreter = this.mapInterpreter(response.answers);
         model.computer = this.mapComputer(response.answers);
-
         return model;
     }
-
     private mapInterpreter(answers: HearingSuitabilityAnswer[]): boolean {
         const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Interpreter);
         if (answer) {
@@ -36,7 +32,6 @@ export class IndividualModelMapper {
         }
         return undefined;
     }
-
     private mapComputer(answers: HearingSuitabilityAnswer[]): HasAccessToComputer {
         const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Computer);
         if (answer) {
@@ -53,7 +48,6 @@ export class IndividualModelMapper {
         }
         return undefined;
     }
-
     private mapBooleanAnswerFromKey(key: string, answers: HearingSuitabilityAnswer[]): SuitabilityAnswer {
         const answer = answers.find(a => a.question_key === key);
         if (answer) {
@@ -61,7 +55,6 @@ export class IndividualModelMapper {
         }
         return new SuitabilityAnswer();
     }
-
     private answer(value: string, notes: string): SuitabilityAnswer {
         const answer = new SuitabilityAnswer();
         answer.answer = value === 'true';
