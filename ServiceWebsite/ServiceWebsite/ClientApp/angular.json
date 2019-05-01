@@ -82,7 +82,10 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "sourceMap": true
+            "sourceMap": true,
+            "codeCoverageExclude": [
+              "src/app/services/clients/*.ts"
+          ]
           }
         },
         "lint": {
