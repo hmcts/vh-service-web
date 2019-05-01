@@ -11,17 +11,14 @@ export class AboutYourComputerComponent extends IndividualBaseComponent {
 
   yes() {
     this.model.camera = HasAccessToCamera.Yes;
-    console.log(this.model.camera);
     this.continue();
   }
   no() {
     this.model.camera = HasAccessToCamera.No;
-    console.log(this.model.camera);
     this.continue();
   }
   notsure() {
     this.model.camera = HasAccessToCamera.NotSure;
-    console.log(this.model.camera);
     this.continue();
   }
 }

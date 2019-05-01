@@ -20,36 +20,15 @@ export class IndividualModelMapper {
         // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
         model.consent = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
-        model.internet = this.mapInternet(response.answers);
-        model.room = this.mapRoom(response.answers);
-        model.interpreter = this.mapInterpreter(response.answers);
+        model.internet = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Internet);
+        model.room = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Room);
+        model.interpreter = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Interpreter);
+        model.computer = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Computer);
         model.camera = this.mapComputerCamera(response.answers);
-        model.computer = this.mapComputer(response.answers);
         return model;
     }
-    private mapInterpreter(answers: HearingSuitabilityAnswer[]): boolean {
-        const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Interpreter);
-        if (answer) {
-            return answer.answer === 'true';
-        }
-        return undefined;
-    }
-    private mapComputer(answers: HearingSuitabilityAnswer[]): boolean {
-        const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Computer);
-        if (answer) {
-            return answer.answer === 'true';
-        }
-        return undefined;
-    }
-    private mapInternet(answers: HearingSuitabilityAnswer[]): boolean {
-        const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Internet);
-        if (answer) {
-            return answer.answer === 'true';
-        }
-        return undefined;
-    }
-    private mapRoom(answers: HearingSuitabilityAnswer[]): boolean {
-        const answer = answers.find(a => a.question_key === IndividualQuestionKeys.Room);
+    private mapBooleanValue(answers: HearingSuitabilityAnswer[], key: string) {
+        const answer = answers.find(a => a.question_key === key);
         if (answer) {
             return answer.answer === 'true';
         }

@@ -89,7 +89,7 @@ export class IndividualJourney implements JourneyBase {
             nextStep = IndividualJourneySteps.ThankYou;
         }
         // access to a camera and microphone.
-        if (this.model.camera === HasAccessToCamera.No || this.model.camera === HasAccessToCamera.NotSure) {
+        if (this.model.camera === HasAccessToCamera.No) {
             nextStep = IndividualJourneySteps.ThankYou;
         }
         // access to the internet.

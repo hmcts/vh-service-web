@@ -74,21 +74,16 @@ describe('IndividualModelMapper', () => {
         }
     });
 
-    it('should map interpreted', () => {
+    it('should map boolean values', () => {
         givenAnswerIs(Keys.Interpreter, 'false');
+        givenAnswerIs(Keys.Computer, 'false');
+        givenAnswerIs(Keys.Internet, 'false');
+        givenAnswerIs(Keys.Room, 'false');
+
         whenMappingModel();
         expect(model.interpreter).toBeFalsy();
-
-        givenAnswerIs(Keys.Computer, 'false');
-        whenMappingModel();
         expect(model.computer).toBeFalsy();
-
-        givenAnswerIs(Keys.Internet, 'false');
-        whenMappingModel();
         expect(model.internet).toBeFalsy();
-
-        givenAnswerIs(Keys.Room, 'false');
-        whenMappingModel();
         expect(model.room).toBeFalsy();
     });
 

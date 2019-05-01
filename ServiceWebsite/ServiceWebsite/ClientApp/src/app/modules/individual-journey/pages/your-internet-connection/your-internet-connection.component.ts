@@ -12,12 +12,10 @@ export class YourInternetConnectionComponent extends IndividualBaseComponent {
 
   yes() {
     this.model.internet = true;
-    console.log(this.model.internet);
     this.continue();
   }
   no() {
     this.model.internet = false;
-    console.log(this.model.internet);
     this.continue();
   }
 }
