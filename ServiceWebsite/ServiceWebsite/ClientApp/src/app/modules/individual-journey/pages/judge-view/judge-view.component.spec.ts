@@ -1,8 +1,56 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
+import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
+import { AudioBarComponent } from './../../components/audio-bar/audio-bar.component';
 import { JudgeViewComponent } from './judge-view.component';
+import { MediaService } from '../../services/media.service';
+import { VideoUrlService } from '../../services/video-url.service';
+import { IndividualJourney } from '../../individual-journey';
+import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
+import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
+import { async } from '@angular/core/testing';
 
 describe('JudgeViewComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(JudgeViewComponent);
+  it('can be created', async(() => {
+    CanCreateHearingViewComponent(JudgeViewComponent);
+  }));
+
+  describe('functionality', () => {
+    let component: JudgeViewComponent;
+    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
+    const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['judgeSelfViewVideo', 'otherParticipantExampleVideo']);
+    const mediaStream = new MediaStream();
+
+    beforeEach(() => {
+      const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
+      component = new JudgeViewComponent(journey, userMediaService, videoUrlService);
+      component.audioBarComponent = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
+      component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
+    });
+
+    it('should set the video source to a media stream when initialized', async () => {
+      userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
+      await component.ngAfterContentInit();
+      expect(userMediaService.getStream).toHaveBeenCalled();
+    });
+
+    it('should stop use camera on destroy', async () => {
+      userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
+      await component.ngAfterContentInit();
+
+      component.ngOnDestroy();
+      expect(userMediaService.stopStream).toHaveBeenCalled();
+    });
+    it('should assign url to video sources', () => {
+      videoUrlService.otherParticipantExampleVideo.and.returnValue('/participantVideo');
+      videoUrlService.judgeSelfViewVideo.and.returnValue('/judgeVideo');
+      component.ngOnInit();
+      expect(component.videoSourceParticipant).toBeTruthy();
+      expect(component.videoSourceJudge).toBeTruthy();
+    });
+    it('should enabled re-play when video is loaded', () => {
+      expect(component.disabledReplay).toBeTruthy();
+
+      component.videoLoaded();
+      expect(component.disabledReplay).toBeFalsy();
+    });
   });
 });

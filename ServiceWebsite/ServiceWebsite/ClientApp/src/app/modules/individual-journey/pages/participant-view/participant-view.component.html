@@ -1,12 +1,14 @@
-<div class="govuk-grid-row">
-
+<div class="govuk-grid-row" style="height:350px; overflow:hidden;">
+  <div class="govuk-grid-column-full">
+    <app-video-view [source]="videoSource" (loaded)="videoLoaded()"></app-video-view>
+  </div>
 </div>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-    <app-user-camera-view [videoWidth]="widthVideo"></app-user-camera-view>
+<div class="govuk-grid-row vh-top-30">
+  <div class="govuk-grid-column-one-quarter">
+    <app-user-camera-view></app-user-camera-view>
     <div>
-      <app-audio-bar [audioBarWidth]="widthVideo"></app-audio-bar>
+      <app-audio-bar [audioBarWidth]="widthAudioBar"></app-audio-bar>
     </div>
     <div>
       <a href="javascript:void()" class="govuk-link">Change camera or microphone</a>
@@ -28,7 +30,8 @@
       Show judge's view
     </button>
 
-    <input type="button" class="govuk-button hmcts-button--secondary" (click)="replay()" value="Re-play practice hearing"/>
+    <input type="button" class="govuk-button hmcts-button--secondary"
+           (click)="replay()" value="Re-play practice hearing" [disabled]="disabledReplay" />
   </div>
   <app-contact-us></app-contact-us>
 </div>

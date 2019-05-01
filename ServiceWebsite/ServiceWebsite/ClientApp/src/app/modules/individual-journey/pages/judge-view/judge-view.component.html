@@ -1,8 +1,40 @@
-<div>
-    <h1 class="govuk-heading-xl">
-      Judge view
-    </h1>
+<div class="govuk-grid-row vh-video-top">
+  <div class="govuk-grid-column-one-half vh-mp0">
+    <app-user-camera-view></app-user-camera-view>
   </div>
-  <div>
-      <input class="govuk-button" (click)="continue()" value="Continue" type="button" />
+  <div class="govuk-grid-column-one-half vh-mp0">
+    <app-video-view #videoParticipant [source]="videoSourceParticipant" (loaded)="videoLoaded()"></app-video-view>
   </div>
+</div>
+
+<div class="govuk-grid-row vh-top-30">
+  <div class="govuk-grid-column-one-quarter vh-mpl0">
+    <app-video-view #videoJudge [source]="videoSourceJudge" (loaded)="videoLoaded()"></app-video-view>
+    <div>
+      <app-audio-bar [audioBarWidth]="widthAudioBar"></app-audio-bar>
+    </div>
+    <div>
+      <a href="javascript:void()" class="govuk-link">Change camera or microphone</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row vh-top-30 ">
+  <div class="govuk-grid-column-full vh-mpl0">
+    <p class="govuk-body">
+      When the video has ended, click 'Continue'. You can try the practice video hearing again if you like.
+    </p>
+  </div>
+</div>
+<div class="govuk-grid-row vh-top-30 ">
+  <div class="govuk-grid-column-full vh-mpl0">
+    <button type="submit" class="govuk-button govuk-!-margin-right-1" (click)="continue()">
+      Continue
+    </button>
+
+    <input type="button" class="govuk-button hmcts-button--secondary"
+           (click)="replay()" value="Re-play practice hearing" [disabled]="disabledReplay" />
+  </div>
+  <app-contact-us></app-contact-us>
+</div>

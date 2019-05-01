@@ -7,4 +7,13 @@ import { IndividualBaseComponent } from '../individual-base-component/individual
   styles: []
 })
 export class YourInternetConnectionComponent extends IndividualBaseComponent {
+
+  yes() {
+    this.model.internet = true;
+    this.continue();
+  }
+  no() {
+    this.model.internet = false;
+    this.continue();
+  }
 }

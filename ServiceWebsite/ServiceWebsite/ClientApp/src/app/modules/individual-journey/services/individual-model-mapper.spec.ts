@@ -1,4 +1,4 @@
-import { HasAccessToComputer } from './../individual-suitability.model';
+import { HasAccessToCamera } from './../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from './../../../services/clients/api-client';
 import { IndividualModelMapper, IndividualQuestionKeys as Keys } from './individual-model-mapper';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
@@ -24,7 +24,7 @@ describe('IndividualModelMapper', () => {
                 }),
                 new HearingSuitabilityAnswer({
                     question_key: Keys.Computer,
-                    answer: 'Yes',
+                    answer: 'true',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
@@ -40,6 +40,11 @@ describe('IndividualModelMapper', () => {
                 new HearingSuitabilityAnswer({
                     question_key: Keys.Room,
                     answer: 'true',
+                    extended_answer: ''
+                }),
+                new HearingSuitabilityAnswer({
+                    question_key: Keys.Camera,
+                    answer: 'Yes',
                     extended_answer: ''
                 }),
             ]
@@ -58,28 +63,33 @@ describe('IndividualModelMapper', () => {
         serviceResponse.answers.find(a => a.question_key === answerKey).extended_answer = extendedAnswer;
     };
 
-    it('should map computer answers', () => {
-        const values = [ 'Yes', 'No', 'Not sure' ];
-        const expected = [ HasAccessToComputer.Yes, HasAccessToComputer.No, HasAccessToComputer.NotSure ];
+    it('should map computer camera and microphone answers', () => {
+        const values = ['Yes', 'No', 'Not sure'];
+        const expected = [HasAccessToCamera.Yes, HasAccessToCamera.No, HasAccessToCamera.NotSure];
 
         for (let i = 0; i < expected.length; ++i) {
-            givenAnswerIs(Keys.Computer, values[i]);
+            givenAnswerIs(Keys.Camera, values[i]);
             whenMappingModel();
-            expect(model.computer).toBe(expected[i]);
+            expect(model.camera).toBe(expected[i]);
         }
     });
 
-    it('should map interpreted', () => {
+    it('should map boolean values', () => {
         givenAnswerIs(Keys.Interpreter, 'false');
+        givenAnswerIs(Keys.Computer, 'false');
+        givenAnswerIs(Keys.Internet, 'false');
+        givenAnswerIs(Keys.Room, 'false');
+
         whenMappingModel();
         expect(model.interpreter).toBeFalsy();
+        expect(model.computer).toBeFalsy();
+        expect(model.internet).toBeFalsy();
+        expect(model.room).toBeFalsy();
     });
 
     it('should map false answers', () => {
         givenAnswerIs(Keys.AboutYou, 'false');
-
         whenMappingModel();
-
         expect(model.aboutYou.answer).toBeFalsy();
     });
 
@@ -94,8 +104,8 @@ describe('IndividualModelMapper', () => {
 
         expect(model.aboutYou.answer).toBe(true);
         expect(model.consent.answer).toBe(true);
-        expect(model.internet.answer).toBe(true);
-        expect(model.room.answer).toBe(true);
+        expect(model.internet).toBe(true);
+        expect(model.room).toBe(true);
         expect(model.interpreter).toBe(true);
     });
 

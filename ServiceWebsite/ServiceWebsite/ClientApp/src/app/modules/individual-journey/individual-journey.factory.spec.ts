@@ -2,7 +2,7 @@ import { SuitabilityService } from './services/suitability.service';
 import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualJourney, IndividualJourneySteps } from './individual-journey';
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
-import { IndividualSuitabilityModel, Hearing, HasAccessToComputer } from './individual-suitability.model';
+import { IndividualSuitabilityModel, Hearing, HasAccessToCamera } from './individual-suitability.model';
 
 describe('IndividualJourneyFactory', () => {
     const client = jasmine.createSpyObj<SuitabilityService>(['getAllSuitabilityAnswers']);
@@ -65,11 +65,11 @@ describe('IndividualJourneyFactory', () => {
         // where the latter is completed
         const completed = models[0];
         completed.aboutYou.answer = false;
-        completed.room.answer = false;
-        completed.internet.answer = false;
         completed.consent.answer = true;
+        completed.room = false;
+        completed.internet = false;
         completed.interpreter = false;
-        completed.computer = HasAccessToComputer.Yes;
+        completed.camera = HasAccessToCamera.Yes;
 
         // given we have no hearings
         client.getAllSuitabilityAnswers.and.returnValue(Promise.resolve(models));

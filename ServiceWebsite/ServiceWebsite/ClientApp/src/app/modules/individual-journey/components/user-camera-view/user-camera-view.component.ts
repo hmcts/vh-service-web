@@ -7,9 +7,6 @@ import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 })
 export class UserCameraViewComponent {
 
-  @Input()
-  videoWidth: string;
-
   @ViewChild('videoBox')
   videoBox: ElementRef;
 

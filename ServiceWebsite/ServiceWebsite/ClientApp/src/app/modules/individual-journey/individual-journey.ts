@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
+import { IndividualSuitabilityModel, HasAccessToCamera, SuitabilityAnswer } from './individual-suitability.model';
 
 export enum IndividualJourneySteps {
     AboutHearings,
@@ -108,7 +108,20 @@ export class IndividualJourney implements JourneyBase {
             throw new Error('Missing transition for step: ' + IndividualJourneySteps[this.currentStep]);
         }
 
-        const nextStep = this.stepOrder[currentStep + 1];
+        let nextStep = this.stepOrder[currentStep + 1];
+
+        // access to a computer.
+        if (this.model.computer === false) {
+            nextStep = IndividualJourneySteps.ThankYou;
+        }
+        // access to a camera and microphone.
+        if (this.model.camera === HasAccessToCamera.No) {
+            nextStep = IndividualJourneySteps.ThankYou;
+        }
+        // access to the internet.
+        if (this.model.internet === false) {
+            nextStep = IndividualJourneySteps.ThankYou;
+        }
         this.goto(nextStep);
     }
 

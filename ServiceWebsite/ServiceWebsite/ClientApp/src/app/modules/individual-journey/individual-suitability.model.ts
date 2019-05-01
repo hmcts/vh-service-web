@@ -3,7 +3,7 @@ export class SuitabilityAnswer {
     notes: string;
 }
 
-export enum HasAccessToComputer {
+export enum HasAccessToCamera {
     Yes,
     No,
     NotSure
@@ -13,16 +13,17 @@ export enum HasAccessToComputer {
  * Exposes the basic properties of the suitability model.
  */
 export abstract class IndividualSuitabilityModel {
-    hearing: Hearing;
+    camera: HasAccessToCamera;
 
-    computer: HasAccessToComputer;
-
+    computer: boolean;
+    internet: boolean;
     interpreter: boolean;
+    room: boolean;
 
     aboutYou: SuitabilityAnswer;
-    internet: SuitabilityAnswer;
-    room: SuitabilityAnswer;
     consent: SuitabilityAnswer;
+
+    hearing: Hearing;
 
     isUpcoming(): boolean {
         const now = new Date();

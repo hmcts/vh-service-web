@@ -32,7 +32,13 @@ export class VideoViewComponent {
    * Plays the video
    */
   play() {
+    this.videoTag.pause();
+    this.videoTag.currentTime = 0;
+    this.videoTag.play();
+  }
+
+  private get videoTag() {
     const video: HTMLVideoElement = this.videoElement.nativeElement;
-    video.play();
+    return video;
   }
 }

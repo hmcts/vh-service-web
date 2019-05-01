@@ -7,4 +7,13 @@ import { IndividualBaseComponent } from '../individual-base-component/individual
   styles: []
 })
 export class YourComputerComponent extends IndividualBaseComponent {
+
+  yes() {
+    this.model.computer = true;
+    this.continue();
+  }
+  no() {
+    this.model.computer = false;
+    this.continue();
+  }
 }

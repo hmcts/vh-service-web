@@ -1,43 +1,29 @@
+import { AudioBarComponent } from './../../components/audio-bar/audio-bar.component';
+import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
 import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { ParticipantViewComponent } from './participant-view.component';
-import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
-import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
-import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
-import { ContactUsComponent } from '../../../shared/contact-us/contact-us.component';
-import { UserMediaService } from '../../services/user-media.service';
-import { Logger } from 'src/app/services/logger';
-
+import { VideoUrlService } from '../../services/video-url.service';
+import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
+import { async } from '@angular/core/testing';
 
 describe('ParticipantViewComponent', () => {
-  it('can be created', async () => {
-    await CanCreateComponent(ParticipantViewComponent, (configuration: TestModuleMetadata) => {
-      configuration.providers.push(
-        { provide: MediaService, useClass: UserMediaService },
-        { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['error']) }
-      );
-      configuration.declarations.push(UserCameraViewComponent);
-      configuration.declarations.push(AudioBarComponent);
-      configuration.declarations.push(ContactUsComponent);
-    });
-  });
+  it('can be created', async(() => {
+    CanCreateHearingViewComponent(ParticipantViewComponent);
+  }));
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;
-    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream', 'requestAccess']);
-    const mediaStream = jasmine.createSpyObj<MediaStream>(['stop']);
-    let audioBarComponentSpy: jasmine.SpyObj<AudioBarComponent>;
-    const userCameraViewComponentSpy = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
-    beforeEach(() => {
-      audioBarComponentSpy = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
-      const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
-      component = new ParticipantViewComponent(journey, userMediaService);
-      component.userCameraViewComponent = userCameraViewComponentSpy;
-      component.audioBarComponent = audioBarComponentSpy;
+    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
+    const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['inHearingExampleVideo']);
+    const mediaStream = new MediaStream();
 
+    beforeEach(() => {
+      const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
+      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService);
+      component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
+      component.audioBarComponent = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
     });
 
     it('should set the video source to a media stream when initialized', async () => {
@@ -52,6 +38,17 @@ describe('ParticipantViewComponent', () => {
 
       component.ngOnDestroy();
       expect(userMediaService.stopStream).toHaveBeenCalled();
+    });
+    it('should assign url to video sources', () => {
+      videoUrlService.inHearingExampleVideo.and.returnValue('/hearingVideo');
+      component.ngOnInit();
+      expect(component.videoSource).toBeTruthy();
+    });
+    it('should enabled re-play when video is loaded', () => {
+      expect(component.disabledReplay).toBeTruthy();
+
+      component.videoLoaded();
+      expect(component.disabledReplay).toBeFalsy();
     });
   });
 });
