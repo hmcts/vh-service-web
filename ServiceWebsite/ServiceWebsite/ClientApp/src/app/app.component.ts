@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
   }
 
   private initAuthentication() {
-    console.log('using configuration!');
     const config = {
       tenant: this.config.tenantId,
       clientId: this.config.clientId,
