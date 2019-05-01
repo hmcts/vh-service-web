@@ -40,11 +40,6 @@ export class JourneyStepComponentBindings {
             }
         }
 
-        // aside from journey steps, also map the home or landing route to the first step in the journey
-        if (route === AppPaths.Home) {
-            return Steps.AboutHearings;
-        }
-
         return null;
     }
 
