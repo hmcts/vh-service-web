@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
-import { SuitabilityAnswer } from '../../individual-suitability.model';
-import { listenToElementOutputs } from '@angular/core/src/view/element';
 
 @Component({
   selector: 'app-your-internet-connection',
