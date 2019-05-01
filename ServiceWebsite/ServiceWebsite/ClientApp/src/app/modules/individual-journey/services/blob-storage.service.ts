@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Config } from '../../shared/models/config';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class BlobStorageService {
 
-    baseVideoUrl: string;
-    separator = '/';
+  baseVideoUrl: string;
+  separator = '/';
 
-    constructor(config: Config) {
-        this.baseVideoUrl = config.baseVideoUrl;
-    }
+  constructor(config: Config) {
+    this.baseVideoUrl = config.baseVideoUrl;
+  }
 
-    getVideoUrl(videoName: string): string {
-        return this.baseVideoUrl + this.separator + videoName;
-    }
+  getVideoUrl(videoName: string): string {
+    return this.baseVideoUrl + this.separator + videoName;
+  }
 }

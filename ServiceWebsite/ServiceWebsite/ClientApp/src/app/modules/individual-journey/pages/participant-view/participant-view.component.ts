@@ -1,41 +1,33 @@
-import { Component, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
-import { UserMediaService } from '../../services/user-media.service';
-import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
-import { AudioBarComponent } from '../../components/audio-bar/audio-bar.component';
+import { VideoViewComponent } from '../../components/video-view/video-view.component';
+import { VideoUrlService } from '../../services/video-url.service';
+import { HearingViewBaseComponent } from '../../components/hearing-view-base.component';
 
 @Component({
   selector: 'app-participant-view',
   templateUrl: './participant-view.component.html',
-  styles: []
+  styleUrls: ['./participant-view.component.css'],
 })
-export class ParticipantViewComponent extends IndividualBaseComponent implements AfterContentInit, OnDestroy {
+export class ParticipantViewComponent extends HearingViewBaseComponent implements OnInit {
 
-  @ViewChild(UserCameraViewComponent)
-  userCameraViewComponent: UserCameraViewComponent;
+  @ViewChild(VideoViewComponent)
+  videoViewComponent: VideoViewComponent;
 
-  @ViewChild(AudioBarComponent)
-  audioBarComponent: AudioBarComponent;
+  videoSource: string;
+  widthAudioBar = 215;
 
-  stream: MediaStream;
-  widthVideo = 300;
-
-  constructor(journey: IndividualJourney, private userMediaService: MediaService) {
-    super(journey);
+  constructor(journey: IndividualJourney, userMediaService: MediaService,
+    private videoUrlService: VideoUrlService) {
+    super(userMediaService, journey);
   }
 
-  async ngAfterContentInit() {
-    this.stream = await this.userMediaService.getStream();
-    this.userCameraViewComponent.setSource(this.stream);
-    this.audioBarComponent.setSource(this.stream);
-  }
-
-  ngOnDestroy() {
-    this.userMediaService.stopStream();
+  ngOnInit() {
+    this.videoSource = this.videoUrlService.inHearingExampleVideo;
   }
 
   replay() {
+    this.videoViewComponent.play();
   }
 }
