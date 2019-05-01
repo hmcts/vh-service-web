@@ -1,14 +1,17 @@
 .vh-video-top {
-  height: 250px;
-  overflow: hidden;
+  background-color: black;
+  clear: both;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.vh-video-w{
+  width:50%;
 }
 
 .vh-mp0 {
   margin: 0;
   padding: 0;
-}
-
-.vh-mpl0 {
-  margin-left: 0;
-  padding-left: 0;
 }
