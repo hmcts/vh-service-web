@@ -1,10 +1,8 @@
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-
 export interface JourneyFactory {
     /**
-     * Create a journey for the current user
+     * Begin the journey
      */
-    create(): Promise<JourneyBase>;
+    begin(): Promise<void>;
 
     /**
      * Checks if the factory applies to users of the given type

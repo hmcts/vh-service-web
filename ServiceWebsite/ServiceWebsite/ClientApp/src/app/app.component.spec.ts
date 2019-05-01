@@ -39,7 +39,7 @@ describe('AppComponent', () => {
 
     adalService = jasmine.createSpyObj<AdalService>(['handleWindowCallback', 'userInfo', 'init']);
 
-    journeySelector = jasmine.createSpyObj<JourneySelector>(['getJourney']);
+    journeySelector = jasmine.createSpyObj<JourneySelector>(['beginFor']);
     profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
 
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
@@ -90,12 +90,10 @@ describe('AppComponent', () => {
 
   it('should select and start journey on init', async () => {
     adalService.userInfo.authenticated = true;
-    const journey = jasmine.createSpyObj<JourneyBase>(['begin']);
-    journeySelector.getJourney.and.returnValue(Promise.resolve(journey));
     profileService.getUserProfile.and.returnValue(Promise.resolve({ role: 'role' }));
 
     await component.ngOnInit();
 
-    expect(journey.begin).toHaveBeenCalled();
+    expect(journeySelector.beginFor).toHaveBeenCalledWith('role');
   });
 });

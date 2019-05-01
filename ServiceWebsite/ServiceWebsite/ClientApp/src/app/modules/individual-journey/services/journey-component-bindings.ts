@@ -1,5 +1,6 @@
-import { IndividualJourneySteps as Steps } from '../individual-journey';
+import { IndividualJourneySteps as Steps, IndividualJourneySteps } from '../individual-journey';
 import { Paths } from '../paths';
+import { Paths as AppPaths } from '../../../paths';
 
 /**
  * Binds journey steps to components
@@ -37,6 +38,11 @@ export class JourneyStepComponentBindings {
             if (route.toLowerCase() === boundPath.toLowerCase()) {
                 return step;
             }
+        }
+
+        // aside from journey steps, also map the home or landing route to the first step in the journey
+        if (route === AppPaths.Home) {
+            return Steps.AboutHearings;
         }
 
         return null;

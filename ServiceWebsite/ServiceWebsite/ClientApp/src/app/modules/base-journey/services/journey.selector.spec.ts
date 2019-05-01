@@ -1,17 +1,16 @@
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 import { JourneySelector, JOURNEY_FACTORY } from './journey.selector';
-import { TestBed, async } from '@angular/core/testing';
-import { JourneyBase } from '../journey-base';
+import { TestBed } from '@angular/core/testing';
 
-describe('JourneyFactory', () => {
+describe('JourneySelector', () => {
     let selector: JourneySelector;
     let properJourneyFactory: jasmine.SpyObj<JourneyFactory>;
 
     beforeEach(() => {
-        const duplicateJourneyFactory = jasmine.createSpyObj<JourneyFactory>(['handles', 'create']);
+        const duplicateJourneyFactory = jasmine.createSpyObj<JourneyFactory>(['handles', 'begin']);
         duplicateJourneyFactory.handles.and.callFake((userType: string) => userType === 'duplicate');
 
-        properJourneyFactory = jasmine.createSpyObj<JourneyFactory>(['handles', 'create']);
+        properJourneyFactory = jasmine.createSpyObj<JourneyFactory>(['handles', 'begin']);
         properJourneyFactory.handles.and.callFake((userType: string) => userType === 'proper');
 
         TestBed.configureTestingModule({
@@ -32,7 +31,7 @@ describe('JourneyFactory', () => {
     it('should raise error if no journeys are found for user type', async () => {
         let error: any;
         try {
-            await selector.getJourney('missing type');
+            await selector.beginFor('missing type');
         } catch (e) {
             error = e.message;
         }
@@ -43,7 +42,7 @@ describe('JourneyFactory', () => {
     it('should raise error if more than one journey exists for user type', async () => {
         let error: any;
         try {
-            await selector.getJourney('duplicate');
+            await selector.beginFor('duplicate');
         } catch (e) {
             error = e.message;
         }
@@ -52,9 +51,7 @@ describe('JourneyFactory', () => {
     });
 
     it('should return journey for user type', async () => {
-        const journey = jasmine.createSpyObj<JourneyBase>(['begin']);
-        properJourneyFactory.create.and.returnValue(Promise.resolve(journey));
-
-        expect(await selector.getJourney('proper')).toBe(journey);
+        await selector.beginFor('proper');
+        expect(properJourneyFactory.begin).toHaveBeenCalled();
     });
 });

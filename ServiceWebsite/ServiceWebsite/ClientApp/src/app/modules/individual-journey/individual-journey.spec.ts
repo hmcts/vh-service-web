@@ -1,14 +1,59 @@
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { IndividualJourney, IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey';
-import { HasAccessToCamera } from './individual-suitability.model';
+import { HasAccessToCamera, Hearing } from './individual-suitability.model';
+
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+const dayAfterTomorrow = new Date();
+dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 
 describe('IndividualJourney', () => {
     let journey: IndividualJourney;
     let redirected: Steps;
 
+    const getModelForHearing = (id: string, scheduledDateTime: Date) => {
+        const model = new MutableIndividualSuitabilityModel();
+        model.hearing = new Hearing(id, scheduledDateTime);
+        return model;
+    };
+
+    const getCompletedModel = (id: string) => {
+        const model = getModelForHearing(id, tomorrow);
+        model.aboutYou.answer = false;
+        model.consent.answer = true;
+        model.camera = HasAccessToCamera.Yes;
+        model.computer = true;
+        model.internet = true;
+        model.interpreter = false;
+        model.room = true;
+        return model;
+    };
+
+    // helper test data
+    const suitabilityAnswers = {
+        oneUpcomingHearing: [
+            getModelForHearing('upcoming hearing id', tomorrow)
+        ],
+        twoUpcomingHearings: [
+            getModelForHearing('later upcoming hearing id', dayAfterTomorrow),
+            getModelForHearing('earlier upcoming hearing id', tomorrow)
+        ],
+        alreadyCompleted: [
+            getCompletedModel('completed hearing id')
+        ],
+        completedAndUpcoming: [
+            getModelForHearing('upcoming hearing id', tomorrow),
+            getCompletedModel('completed hearing id'),
+            getModelForHearing('another upcoming hearing id', tomorrow)
+        ],
+        noUpcomingHearings: []
+    };
+
     beforeEach(() => {
         redirected = null;
-        journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
+        journey = new IndividualJourney();
+        journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
 
         journey.redirect.subscribe((s: Steps) => redirected = s);
     });
@@ -38,16 +83,9 @@ describe('IndividualJourney', () => {
         expectStep(redirected).toBe(step(expectedStep));
     };
 
-    it(`should begin at ${Steps.AboutHearings}`, () => {
-        // when beginning journey
-        journey.begin();
-
-        expectStep(redirected).toBe(step(Steps.AboutHearings));
-    });
-
     it('should follow the happy path journey', () => {
-        // when beginning journey
-        journey.begin();
+        // given we're starting at the beginning
+        journey.jumpTo(journey.startStep);
 
         // then the happy path journey would be
         nextStepIs(Steps.DifferentHearingTypes);
@@ -121,9 +159,22 @@ describe('IndividualJourney', () => {
             .toThrowError(`Missing transition for step: ${IndividualJourneySteps[Steps.ThankYou]}`);
     });
 
-    it('should stay where it is if trying to jump to the current step', () => {
-        // given we're on the first step
-        journey.begin();
+    it('should goto video app if there are no upcoming hearings', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
+        journey.jumpTo(Steps.AboutHearings);
+        expectStep(redirected).toBe(Steps[Steps.GotoVideoApp]);
+    });
+
+    it('should goto video app if trying to enter a finished journey', () => {
+        // given journey that's finished
+        journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted);
+
+        // when trying to enter later in the journey
+        journey.jumpTo(Steps.HearingAsParticipant);
+        expectStep(redirected).toBe(Steps[Steps.GotoVideoApp]);
+    });
+
+    it('should stay where it is if trying to enter at the current step', () => {
         const currentStep = redirected;
         redirected = null;
 
@@ -132,5 +183,28 @@ describe('IndividualJourney', () => {
 
         // we shouldn't have moved
         expect(redirected).toBeNull();
+    });
+
+    it('should run the story for the first upcoming hearing', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings);
+        expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');
+    });
+
+    it('should redirect fo video app if any suitability answers have been answered', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming);
+        journey.jumpTo(Steps.AboutHearings);
+        expect(redirected).toBe(Steps.GotoVideoApp);
+    });
+
+    it('should throw exception if trying to enter or proceed journey without having been initialised', () => {
+        // given a journey that's not been initialised
+        const uninitialisedJourney = new IndividualJourney();
+        const expectedError = 'Journey must be initialised with suitability answers';
+        expect(() => uninitialisedJourney.jumpTo(Steps.HearingAsParticipant)).toThrowError(expectedError);
+        expect(() => uninitialisedJourney.next()).toThrowError(expectedError);
+    });
+
+    it('should throw an exception if proceeding without having entered the journey', () => {
+        expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
     });
 });
