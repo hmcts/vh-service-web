@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../modules/shared/models/config';
 
-export let ENVIRONMENT_CONFIG: Config = new Config('bobo');
+export let ENVIRONMENT_CONFIG: Config = new Config();
 
 @Injectable()
 export class ConfigService {
