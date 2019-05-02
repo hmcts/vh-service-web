@@ -1,4 +1,4 @@
-import { Component, Output, Input, ElementRef, ViewChild , EventEmitter} from '@angular/core';
+import { Component, Output, Input, ElementRef, ViewChild, EventEmitter } from '@angular/core';
 /*
 Muted videos can autoplay in Chrome. Autoplay with sound is allowed if:
   1)User has interacted with the domain (click, tap, etc.).
@@ -21,13 +21,16 @@ export class VideoViewComponent {
   @ViewChild('video')
   videoElement: ElementRef;
 
+  videoUnavailable: boolean;
   /**
    * This method is invoked when a video is ready to start playing
    */
   readyToPlay() {
     this.loaded.emit();
   }
-
+  videoError(): void {
+    this.videoUnavailable = true;
+  }
   /**
    * Plays the video
    */

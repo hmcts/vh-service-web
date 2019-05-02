@@ -7,4 +7,10 @@ describe('VideoViewComponent', () => {
     videoViewComponent.readyToPlay();
     expect(videoViewComponent.loaded.emit).toHaveBeenCalled();
   });
+
+  it('should set video unvailable on error', () => {
+    const videoViewComponent = new VideoViewComponent();
+    videoViewComponent.videoError();
+    expect(videoViewComponent.videoUnavailable).toBeTruthy();
+  });
 });
