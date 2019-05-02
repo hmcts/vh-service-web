@@ -1,3 +1,5 @@
+import { JourneySelector } from './modules/base-journey/services/journey.selector';
+import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdalService } from 'adal-angular4';
@@ -25,6 +27,8 @@ export class AppComponent implements OnInit {
     private adalService: AdalService,
     private config: Config,
     private window: WindowRef,
+    private profileService: ProfileService,
+    private journeySelector: JourneySelector,
     pageTracker: PageTrackerService
   ) {
     this.loggedIn = false;
@@ -43,14 +47,18 @@ export class AppComponent implements OnInit {
     this.adalService.init(config);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // the window callback modifies the url so store this accordingly first
     const currentUrl = this.window.getLocation().href;
     this.adalService.handleWindowCallback();
     this.loggedIn = this.adalService.userInfo.authenticated;
 
     if (!this.loggedIn) {
-      this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
+      await this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
+      return;
     }
+
+    const profile = await this.profileService.getUserProfile();
+    await this.journeySelector.beginFor(profile.role);
   }
 }

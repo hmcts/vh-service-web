@@ -41,7 +41,7 @@ namespace ServiceWebsite
             
             serviceCollection.AddHttpClient<IBookingsApiClient, BookingsApiClient>()
                 .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>())
-                .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
+                .AddTypedClient(httpClient => BuildBookingsApiClient(httpClient, serviceSettings));
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
@@ -54,6 +54,11 @@ namespace ServiceWebsite
         private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
             return new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
+        }
+        
+        private static IBookingsApiClient BuildBookingsApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
+        {
+            return new BookingsApiClient(httpClient) { BaseUrl = serviceSettings.BookingsApiUrl };
         }
 
         private static void AddSwaggerToApi(this IServiceCollection serviceCollection)

@@ -12,10 +12,10 @@ describe('ConsoleLogger', () => {
   });
 
   it('can log error', () => {
-    logger.trackException('error', new Error('error'));
+    logger.trackException('this is a test error', new Error('this is a test error'));
   });
 
   it('can log error with propeerties', () => {
-    logger.trackException('error', new Error('error'), { property: 'value' });
+    logger.trackException('this is a test error', new Error('this is a test error'), { property: 'value' });
   });
 });

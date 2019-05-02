@@ -1,10 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualSuitabilityModel, HasAccessToCamera, SuitabilityAnswer } from './individual-suitability.model';
-
-const IndividualUserType = 'Individual';
+import { IndividualSuitabilityModel, HasAccessToCamera } from './individual-suitability.model';
 
 export enum IndividualJourneySteps {
+    NotStarted, // default
     AboutHearings,
     DifferentHearingTypes,
     ExploreCourtBuilding,
@@ -21,42 +20,88 @@ export enum IndividualJourneySteps {
     AccessToRoom,
     Consent,
     ThankYou,
-    MediaAccessError
+    MediaAccessError,
+    GotoVideoApp
 }
 
 @Injectable()
 export class IndividualJourney implements JourneyBase {
+    static readonly initialStep = IndividualJourneySteps.AboutHearings;
+
     readonly redirect: EventEmitter<IndividualJourneySteps> = new EventEmitter();
 
-    private currentStep: IndividualJourneySteps;
+    private readonly stepOrder: IndividualJourneySteps[] = [
+        IndividualJourney.initialStep,
+        IndividualJourneySteps.DifferentHearingTypes,
+        IndividualJourneySteps.ExploreCourtBuilding,
+        IndividualJourneySteps.CourtInformationVideo,
+        IndividualJourneySteps.AccessToCameraAndMicrophone,
+        IndividualJourneySteps.HearingAsParticipant,
+        IndividualJourneySteps.HearingAsJudge,
+        IndividualJourneySteps.HelpTheCourtDecide,
+        IndividualJourneySteps.AboutYou,
+        IndividualJourneySteps.Interpreter,
+        IndividualJourneySteps.AccessToComputer,
+        IndividualJourneySteps.AboutYourComputer,
+        IndividualJourneySteps.YourInternetConnection,
+        IndividualJourneySteps.AccessToRoom,
+        IndividualJourneySteps.Consent,
+        IndividualJourneySteps.ThankYou
+    ];
 
-    private readonly stepOrder: IndividualJourneySteps[];
+    private currentStep: IndividualJourneySteps = IndividualJourneySteps.NotStarted;
 
-    readonly model: IndividualSuitabilityModel;
+    private currentModel: IndividualSuitabilityModel;
 
-    constructor(model: IndividualSuitabilityModel) {
-        this.model = model;
+    private isDone: boolean;
 
-        this.stepOrder = [
-            IndividualJourneySteps.AboutHearings,
-            IndividualJourneySteps.DifferentHearingTypes,
-            IndividualJourneySteps.ExploreCourtBuilding,
-            IndividualJourneySteps.CourtInformationVideo,
-            IndividualJourneySteps.AccessToCameraAndMicrophone,
-            IndividualJourneySteps.HearingAsParticipant,
-            IndividualJourneySteps.HearingAsJudge,
-            IndividualJourneySteps.HelpTheCourtDecide,
-            IndividualJourneySteps.AboutYou,
-            IndividualJourneySteps.Interpreter,
-            IndividualJourneySteps.AccessToComputer,
-            IndividualJourneySteps.AboutYourComputer,
-            IndividualJourneySteps.YourInternetConnection,
-            IndividualJourneySteps.AccessToRoom,
-            IndividualJourneySteps.Consent,
-            IndividualJourneySteps.ThankYou
-        ];
-
+    constructor() {
         this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
+    }
+
+    get step(): IndividualJourneySteps {
+        return this.currentStep;
+    }
+
+    forSuitabilityAnswers(suitabilityAnswers: IndividualSuitabilityModel[]) {
+        const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
+        if (upcoming.length === 0) {
+            this.isDone = true;
+            return;
+        }
+
+        for (const answers of suitabilityAnswers) {
+            if (this.isSuitabilityAnswersComplete(answers)) {
+                this.isDone = true;
+                return;
+            }
+        }
+
+        // sort upcoming on date and pick the earliest
+        upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
+        this.currentModel = upcoming[0];
+    }
+
+    startAt(step: IndividualJourneySteps) {
+        this.assertInitialised();
+        if (this.isDone) {
+            this.goto(IndividualJourneySteps.GotoVideoApp);
+        } else {
+            this.goto(step);
+        }
+    }
+
+    get model(): IndividualSuitabilityModel {
+        return this.currentModel;
+    }
+
+    private isSuitabilityAnswersComplete(model: IndividualSuitabilityModel): boolean {
+        return model.aboutYou.answer !== undefined
+            && model.consent.answer !== undefined
+            && model.computer !== undefined
+            && model.internet !== undefined
+            && model.interpreter !== undefined
+            && model.room !== undefined;
     }
 
     private goto(step: IndividualJourneySteps) {
@@ -65,18 +110,10 @@ export class IndividualJourney implements JourneyBase {
         }
     }
 
-    /**
-     * Get the current step
-     */
-    get step(): IndividualJourneySteps {
-        return this.currentStep;
-    }
-
-    begin() {
-        this.goto(IndividualJourneySteps.AboutHearings);
-    }
-
     next() {
+        this.assertInitialised();
+        this.assertEntered();
+
         const currentStep = this.stepOrder.indexOf(this.currentStep);
         if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
             throw new Error('Missing transition for step: ' + IndividualJourneySteps[this.currentStep]);
@@ -116,15 +153,34 @@ export class IndividualJourney implements JourneyBase {
         }
     }
 
-    handles(userType: string): boolean {
-        return userType === IndividualUserType;
-    }
-
     /**
-     * Fast forwards or rewinds the journey to a given place.
+     * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
      * @param position The step to jump to
      */
     jumpTo(position: IndividualJourneySteps) {
-        this.currentStep = position;
+        this.assertInitialised();
+        if (this.isDone) {
+            this.goto(IndividualJourneySteps.GotoVideoApp);
+        } else {
+            this.currentStep = position;
+        }
+    }
+
+    /**
+     * The journey must know if the user has any upcoming hearings and if the suitability has been answered for these.
+     */
+    private assertInitialised() {
+        if (this.isDone || this.model) {
+            return;
+        }
+
+        // we've not initialised the journey
+        throw new Error('Journey must be initialised with suitability answers');
+    }
+
+    private assertEntered() {
+        if (this.currentStep === IndividualJourneySteps.NotStarted) {
+            throw new Error('Journey must be entered before navigation is allowed');
+        }
     }
 }

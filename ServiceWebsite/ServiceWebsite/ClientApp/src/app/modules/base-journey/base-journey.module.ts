@@ -1,4 +1,4 @@
-import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
+import { JourneySelector } from 'src/app/modules/base-journey/services/journey.selector';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { BaseJourneyRoutingModule } from './base-journey-routing.module';
 
 @NgModule({
   providers: [
-    JourneyFactory
+    JourneySelector
   ],
   imports: [
     // angular
