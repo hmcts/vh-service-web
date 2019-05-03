@@ -47,13 +47,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             }
             _scenarioContext.Add("Participant", participant);
         }
-
         [Then(@"Individual starts suitability questionnaire")]
-        [Then(@"Representative starts suitability questionnaire")]
         public void ThenIndividulStartsSuitabilityQuestionnaire()
         {
             _loginPage.SignInTitle();
             _browserContext.ValidatePage("/about-hearings");
+        }
+        [Then(@"Representative should be unauthorised")]
+        public void ThenRepresentativeShouldBeUnauthorised()
+        {
+            _browserContext.ValidatePage("/error");
         }
     }
 }
