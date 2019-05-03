@@ -17,9 +17,10 @@ import { BlobVideoStorageService } from './services/blob-video-storage.service';
 
 // business logic
 import { IndividualJourney } from './individual-journey';
+import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
-import { JOURNEY } from './../base-journey/services/journey.factory';
+import { JOURNEY_FACTORY } from './../base-journey/services/journey.selector';
 
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
@@ -51,19 +52,14 @@ import { VideoUrlService } from './services/video-url.service';
     { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
     { provide: MediaService, useClass: UserMediaService },
-    { provide: JOURNEY, useFactory: (journey: IndividualJourney) => journey, deps: [ IndividualJourney ], multi: true },
+    { provide: JOURNEY_FACTORY, useClass: IndividualJourneyFactory, multi: true },
     { provide: MediaService, useClass: UserMediaService },
     { provide: VideoUrlService, useClass: BlobVideoStorageService },
     IndividualJourney,
+    SuitabilityService,
     JourneyStepComponentBindings,
     JourneyRoutingListenerService,
     SuitabilityService
   ]
  })
-export class IndividualJourneyModule {
-  constructor(service: JourneyRoutingListenerService) {
-    // this makes sure the binder is created and listens to routing events,
-    // unless we use it somewhere it would not get instantiated
-    service.initialise();
-  }
-}
+export class IndividualJourneyModule {}

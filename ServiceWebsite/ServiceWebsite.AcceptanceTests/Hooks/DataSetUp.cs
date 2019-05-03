@@ -38,7 +38,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             testContext.WebsiteUrl = configRoot.GetSection("WebsiteUrl").Value;
         }
 
-        [BeforeScenario]
+        [BeforeScenario(Order = 1)]
         public void CreateNewHearingRequest(TestContext testContext)
         {
                 var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual,testContext.TestUserSecrets.Representative);
@@ -47,6 +47,18 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
                 var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);
                 testContext.HearingId = model.Id.ToString();
+        }
+
+        [AfterScenario(Order = 0)]
+        public static void DeleteHearingRequest(TestContext testContext)
+        {
+            var hearingId = testContext.HearingId;
+            if (!string.IsNullOrEmpty(hearingId))
+            {
+                testContext.Request = testContext.Delete($"/hearings/{hearingId}");
+                testContext.Response = testContext.Client().Execute(testContext.Request);
+                testContext.Response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+            }
         }
     }
 }

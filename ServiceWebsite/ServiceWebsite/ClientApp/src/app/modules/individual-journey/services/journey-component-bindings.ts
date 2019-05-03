@@ -1,5 +1,6 @@
-import { IndividualJourneySteps as Steps } from '../individual-journey';
+import { IndividualJourneySteps as Steps, IndividualJourney } from '../individual-journey';
 import { Paths } from '../paths';
+import { Paths as AppPaths } from '../../../paths';
 
 /**
  * Binds journey steps to components
@@ -37,6 +38,10 @@ export class JourneyStepComponentBindings {
             if (route.toLowerCase() === boundPath.toLowerCase()) {
                 return step;
             }
+        }
+
+        if (route === AppPaths.Home) {
+            return IndividualJourney.initialStep;
         }
 
         return null;

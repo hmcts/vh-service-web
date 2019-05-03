@@ -39,7 +39,7 @@ import { SecurityModule } from './modules/security/security.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { SERVICE_WEB_API_BASE_URL } from './services/clients/api-client';
 
-export function initConfiguration(configService: ConfigService) {
+export function initConfiguration(configService: ConfigService): Function {
   return () => configService.load();
 }
 

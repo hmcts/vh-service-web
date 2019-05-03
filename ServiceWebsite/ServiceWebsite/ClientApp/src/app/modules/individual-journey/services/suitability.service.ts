@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SuitabilityService {
     private readonly mapper = new IndividualModelMapper();
+
     constructor(private client: ApiClient) {}
+
     async getAllSuitabilityAnswers(): Promise<IndividualSuitabilityModel[]> {
         const responses = await this.client.getUserSuitabilityAnswers().toPromise();
         return responses.map(suitability => this.mapper.map(suitability));
