@@ -4,7 +4,6 @@ import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/tes
 import { Type } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { LocalisePipe } from '../../pipes/localise.pipe';
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
@@ -16,21 +15,21 @@ import { IndividualSuitabilityModel } from '../../individual-suitability.model';
  * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
-    const config: TestModuleMetadata = {
-        declarations: [ component, LocalisePipe ],
-        imports: [ CommonModule, ReactiveFormsModule ],
-        providers: [
-            { provide: Localisation, useClass: IndividualLocalisation },
-            { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
-            { provide: IndividualJourney, useClass: IndividualJourney },
-            LocalisePipe
-        ]
-    };
-    if (customiseConfiguration) {
-        customiseConfiguration(config);
-    }
-    TestBed.configureTestingModule(config).compileComponents();
-    return TestBed.createComponent(component);
+  const config: TestModuleMetadata = {
+    declarations: [component],
+    imports: [CommonModule, ReactiveFormsModule],
+    providers: [
+      { provide: Localisation, useClass: IndividualLocalisation },
+      { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
+      { provide: IndividualJourney, useClass: IndividualJourney },
+
+    ]
+  };
+  if (customiseConfiguration) {
+    customiseConfiguration(config);
+  }
+  TestBed.configureTestingModule(config).compileComponents();
+  return TestBed.createComponent(component);
 };
 
 /**
@@ -39,9 +38,9 @@ const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Fun
  * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
 const canCreate = <T>(component: Type<T>, customiseConfiguration?: Function): void => {
-    const fixture = configureTestBedFor(component, customiseConfiguration);
-    fixture.detectChanges();
-    expect(fixture.componentInstance).toBeTruthy();
+  const fixture = configureTestBedFor(component, customiseConfiguration);
+  fixture.detectChanges();
+  expect(fixture.componentInstance).toBeTruthy();
 };
 
 export { configureTestBedFor as ConfigureTestBedFor, canCreate as CanCreateComponent };
