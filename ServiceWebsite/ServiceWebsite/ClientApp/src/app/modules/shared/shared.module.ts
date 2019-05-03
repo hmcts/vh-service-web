@@ -10,6 +10,7 @@ import { ShowDetailsComponent } from './show-details/show-details.component';
 import { ErrorFooterComponent } from './error-footer/error-footer.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { CrestBluePanelComponent } from './crest-blue-panel/crest-blue-panel.component';
 
 // services
 import { ProfileService } from '../../services/profile.service';
@@ -29,7 +30,8 @@ import { WindowRef } from './window-ref';
     BackNavigationComponent,
     ShowDetailsComponent,
     ErrorFooterComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    CrestBluePanelComponent
   ],
   providers: [
     ProfileService,
@@ -42,7 +44,8 @@ import { WindowRef } from './window-ref';
     BackNavigationComponent,
     ShowDetailsComponent,
     ErrorFooterComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    CrestBluePanelComponent
   ]
 })
 export class SharedModule { }
