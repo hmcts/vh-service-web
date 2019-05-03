@@ -1,17 +1,17 @@
 <div id="printDoc" #printDoc>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <h1 class="govuk-heading-xl">
-        {{localeResources.Guidance.GuidanceTitle}}
+      <h1 class="govuk-heading-xl" i18n="@@guidance_h1_1">
+        A guide to video hearings
       </h1>
-      <p class="govuk-body">{{localeResources.Guidance.Paragraph}}</p>
-      <h1 class="govuk-heading-m">{{localeResources.Guidance.Contents}}</h1>
+      <p class="govuk-body" i18n="@@guidance_p_1">This guide explains how video hearings work and provides information you might need to participate.</p>
+      <h1 class="govuk-heading-m" i18n="@@guidance_h1_2">Contents</h1>
 
       <div *ngFor="let ct of contentIndex">
         <div>
           <span class="vh-line"></span>
           <a  *ngIf="!toPrint" class="govuk-link govuk-heading-s vh-block"
-             href="javascript:void()" alt="link to guidance index"
+             href="javascript:void()"  alt="link to guidance index"
              (click)="showSection(ct.Index)">{{ct.Name}}</a>
           <a *ngIf="toPrint" class="govuk-link govuk-heading-s vh-block"
              href="javascript:void()" alt="link to guidance index">{{ct.Name}}</a>
@@ -34,7 +34,7 @@
           <p class="govuk-body">{{ctext.ListTitle}}</p>
           <div *ngFor="let listItem of ctext.ListItems">
             <ul class="govuk-list govuk-list--bullet">
-              <li>{{listItem}}</li>
+              <li i18n>{{listItem}}</li>
             </ul>
 
           </div>
@@ -45,8 +45,8 @@
       <div class="vh-mt30" id="contentPoint" #contentPoint *ngIf="!toPrint">
         <span>
           <img src="/assets/images/printer.png" width="40" height="40" alt="Print this" />
-          <a   [href]="['/guidance/print']"
-             target="_blank" class="govuk-link govuk-heading-s vh-block vh-ml8"> {{localeResources.Guidance.PrintGuide}}</a>
+          <a [href]="['/guidance/print']" i18n="@@guidance_a"
+             target="_blank" class="govuk-link govuk-heading-s vh-block vh-ml8"> Print the entire guide </a>
         </span>
       </div>
     </div>

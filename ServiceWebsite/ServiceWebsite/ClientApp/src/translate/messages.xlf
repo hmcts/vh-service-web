@@ -174,11 +174,543 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="bae24fe299cbc5323a2fa3dacd015b6268e0158f" datatype="html">
+      <trans-unit id="app_a" datatype="html">
         <source>Skip to main content</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/app.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_h1" datatype="html">
+        <source>Sorry, there is a problem with the service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_p_1" datatype="html">
+        <source>Please try again later.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_p_2" datatype="html">
+        <source>If you need to speak to someone please contact us using the options below.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_span_1" datatype="html">
+        <source>
+      Contact us for help
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_p_3" datatype="html">
+        <source>Call us on 0300 303 0655 and quote your reference number </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_span_2" datatype="html">
+        <source>
+      (available between 9am and 5pm, Monday to Friday)
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_p_4" datatype="html">
+        <source>Email: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error_p_5" datatype="html">
+        <source>
+      Email us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/><x id="INTERPOLATION" equiv-text="{{contactUsEmail}}"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/error/error.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h1" datatype="html">
+        <source>Our privacy policy for video hearings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_btn_print" datatype="html">
+        <source>Print</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_1" datatype="html">
+        <source>The video hearings service is managed by HM Courts and Tribunals Service (HMCTS).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_2" datatype="html">
+        <source>When you use this service we (HMCTS) will ask you to provide some personal data. This privacy policy explains why we collect your personal data, what we do with it, and your rights.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h2_1" datatype="html">
+        <source>Why we collect your personal data </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_3" datatype="html">
+        <source>We collect your personal data so you can take part in a video hearing and to meet legal requirements. We also collect data to improve the service.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h2_2" datatype="html">
+        <source>What we do with your data</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_4" datatype="html">
+        <source>Your personal data is processed by our staff in the UK, and the data is stored within the EEA.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_5" datatype="html">
+        <source>HMCTS is an executive agency of the Ministry of Justice. The Ministry of Justice is known as the ‘data controller’ of the personal data you provide. The Ministry’s personal information charter explains more about how we process data.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h2_3" datatype="html">
+        <source>The data we collect</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_6" datatype="html">
+        <source>The personal data we collect includes: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_1" datatype="html">
+        <source>your name, address and contact details, including your email address and telephone number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_2" datatype="html">
+        <source>details of your company and your role, if applicable</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_3" datatype="html">
+        <source>details of anyone who acts on your behalf or anyone that you act for in a video hearing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_4" datatype="html">
+        <source>information we gather to assess your suitability for a video hearing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_5" datatype="html">
+        <source>information about your video hearing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_6" datatype="html">
+        <source>information that tells us if you open an email from us, or click on a link in an email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_7" datatype="html">
+        <source>the login details you use to access the video hearings service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_8" datatype="html">
+        <source>information about how you use this service, like your IP address and the web browser you use. We do this by using <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>cookies<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h2_4" datatype="html">
+        <source>How long we keep your data</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_7" datatype="html">
+        <source>The video hearings service will keep this information for 3 months after the date your hearing is booked to take place. We will then delete it. Information about your application or your case is held by a different department in HMCTS and different arrangements may apply. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h2_5" datatype="html">
+        <source>Storing and sharing your data internationally</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_8" datatype="html">
+        <source>Sometimes we need to send your personal information outside of the UK. When we do this we comply with data protection law.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h2_6" datatype="html">
+        <source>Your rights</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_9" datatype="html">
+        <source>You can ask:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_9" datatype="html">
+        <source>to see the personal data that we hold on you</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_10" datatype="html">
+        <source>to have the personal data corrected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_11" datatype="html">
+        <source>to have the personal data removed or deleted (this will depend on the circumstances, for example if you decide not to continue your claim or application)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_12" datatype="html">
+        <source>that access to the personal data is restricted (for example, you can ask to have your data stored for longer and not automatically deleted)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_10" datatype="html">
+        <source>If you want to see the personal data that we hold on you, you can:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_span_1" datatype="html">
+        <source>complete a form to make a</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_a_1" datatype="html">
+        <source>subject access request</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_13" datatype="html">
+        <source> Your request goes to the MoJ as data controller</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_14" datatype="html">
+        <source>write to us: Disclosure Team, Post point 10.38, 102 Petty France, London, SW1H 9AJ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_11" datatype="html">
+        <source>You can ask for more information about:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_15" datatype="html">
+        <source>agreements we have on sharing information with other organisations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_16" datatype="html">
+        <source>when we are allowed to pass on personal information without telling you</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_17" datatype="html">
+        <source>our instructions to staff on how to collect, use or delete your personal information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_18" datatype="html">
+        <source>how we check that the information we hold is accurate and up-to-date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_p_12" datatype="html">
+        <source>You can contact the MoJ data protection officer, by:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_19" datatype="html">
+        <source>writing to us: Post point 10.38, 102 Petty France, London, SW1H 9AJ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_li_20" datatype="html">
+        <source>
+        emailing:
+        <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>data.compliance@justice.gov.uk<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_h2_7" datatype="html">
+        <source>How to complain</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_span_2" datatype="html">
+        <source>See our </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_a_2" datatype="html">
+        <source>
+        complaints procedure
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_span_3" datatype="html">
+        <source>if you want to complain about how we&apos;ve handled your personal data.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_span_4" datatype="html">
+        <source>Write to: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_span_5" datatype="html">
+        <source>Email:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_a_3" datatype="html">
+        <source>data.compliance@justice.gov.uk</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_span_6" datatype="html">
+        <source>You can also complain to the </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_a_4" datatype="html">
+        <source>Information Commissioner’s Office</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacyPolicy_span_7" datatype="html">
+        <source> if you’re not satisfied with our response or believe we are not processing your personal data lawfully.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/privacy-policy/privacy-policy.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageNotFound_h1" datatype="html">
+        <source>Page not found</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageNotFound_p_1" datatype="html">
+        <source>If you typed the web address, check it is correct.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageNotFound_p_2" datatype="html">
+        <source>If you pasted the web address, check you copied the entire address. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageNotFound_p_3" datatype="html">
+        <source> If the web address is correct or you selected a link or button, contact us using the options below. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="guidance_h1_1" datatype="html">
+        <source>
+        A guide to video hearings
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="guidance_p_1" datatype="html">
+        <source>This guide explains how video hearings work and provides information you might need to participate.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="guidance_h1_2" datatype="html">
+        <source>Contents</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d4adee9c853bac49297f318723c57cad5680066b" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ct.Name}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5afff086e4d540ca96eae71e74fd8580f9fab6be" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ctext.Name}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f8f672235d078572f98a33b6750831e6b8d2ab94" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{textItem}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bda5ee0696693c17fba97b49afa47670e5bf86ce" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ctext.ListTitle}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="49e7c4ad960f22366042c85b8f088dab35e8a627" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{listItem}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="guidance_a" datatype="html">
+        <source> Print the entire guide </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login_p" datatype="html">
@@ -220,7 +752,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="unauthorised_H1" datatype="html">
+      <trans-unit id="unauthorised_h1" datatype="html">
         <source>You are not authorised to use this service</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/security/unauthorized/unauthorised.component.html</context>
@@ -234,7 +766,7 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="unauthorised_p-2" datatype="html">
+      <trans-unit id="unauthorised_p_2" datatype="html">
         <source>If you think this is a mistake and you need to speak to someone, please contact us using the options below. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/security/unauthorized/unauthorised.component.html</context>
@@ -452,43 +984,43 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_P_1" datatype="html">
+      <trans-unit id="aboutHearings_p_1" datatype="html">
         <source>
-              <x id="INTERPOLATION" equiv-text="{{ &apos;Hearings like yours can take place:&apos;}}"/>
+              Hearings like yours can take place:
             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_H2_1" datatype="html">
+      <trans-unit id="aboutHearings_h2_1" datatype="html">
         <source>In a court building</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_P_2" datatype="html">
+      <trans-unit id="aboutHearings_p_2" datatype="html">
         <source>
-              <x id="INTERPOLATION" equiv-text="{{ &apos;At these hearings, all participants gather in the courtroom in front of the judge.&apos;}}"/>
+              At these hearings, all participants gather in the courtroom in front of the judge.
             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_H2_2" datatype="html">
+      <trans-unit id="aboutHearings_h2_2" datatype="html">
         <source>By video</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_P_3" datatype="html">
+      <trans-unit id="aboutHearings_p_3" datatype="html">
         <source>
-              <x id="INTERPOLATION" equiv-text="{{ &apos;These hearings allow you to be seen and heard in court without having to travel. All participants,
+              These hearings allow you to be seen and heard in court without having to travel. All participants,
               including the judge, sit in different locations in front of a computer. They can see and hear each other
-              throughout the hearing.&apos;}}"/>
+              throughout the hearing.
             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
@@ -497,7 +1029,7 @@
       </trans-unit>
       <trans-unit id="aboutHearins_btn_next" datatype="html">
         <source>
-              <x id="INTERPOLATION" equiv-text="{{ &apos;Next&apos;}}"/>
+              Next
             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
@@ -511,18 +1043,18 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="differentHearingTypes_P_1" datatype="html">
+      <trans-unit id="differentHearingTypes_p_1" datatype="html">
         <source>
-              <x id="INTERPOLATION" equiv-text="{{ &apos;The court will decide which method is suitable for your hearing. You can help the court decide by answering some questions.&apos;}}"/>
+              The court will decide which method is suitable for your hearing. You can help the court decide by answering some questions.
             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="differentHearingTypes_P_2" datatype="html">
+      <trans-unit id="differentHearingTypes_p_2" datatype="html">
         <source>
-              <x id="INTERPOLATION" equiv-text="{{ &apos;Before you answer the questions, let’s find out more about the different types of hearing.&apos;}}"/>
+              Before you answer the questions, let’s find out more about the different types of hearing.
             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
@@ -531,14 +1063,14 @@
       </trans-unit>
       <trans-unit id="differentHearingTypes_btn_continue" datatype="html">
         <source>
-              <x id="INTERPOLATION" equiv-text="{{ &apos;Continue&apos;}}"/>
+              Continue
             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="exploreCourtBuilding_H1" datatype="html">
+      <trans-unit id="exploreCourtBuilding_h1" datatype="html">
         <source>
       Explore court building
     </source>
@@ -554,7 +1086,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="courtBuildingVideo_H1" datatype="html">
+      <trans-unit id="courtBuildingVideo_h1" datatype="html">
         <source>
       Court building video
     </source>
@@ -570,7 +1102,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="exploreVideoHearing_H1" datatype="html">
+      <trans-unit id="exploreVideoHearing_h1" datatype="html">
         <source>
       Explore video hearings
     </source>
@@ -586,9 +1118,9 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="useCameraMicrophone_H1" datatype="html">
+      <trans-unit id="useCameraMicrophone_h1" datatype="html">
         <source>
-            <x id="INTERPOLATION" equiv-text="{{&apos;Use your camera and microphone&apos;}}"/>
+            Use your camera and microphone
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -597,7 +1129,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_p_1" datatype="html">
         <source>
-            <x id="INTERPOLATION" equiv-text="{{&apos;Switch on your camera and microphone to see the short interactive video.&apos;}}"/>
+            Switch on your camera and microphone to see the short interactive video.
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -613,16 +1145,16 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_btn_switchOn" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="{{ &apos;Switch on&apos;}}"/>
+          Switch on
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="useCameraMicrophone_H1_1" datatype="html">
+      <trans-unit id="useCameraMicrophone_h1_1" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="{{&apos;Your camera and microphone are now switched on&apos;}}"/>
+          Your camera and microphone are now switched on&apos;
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -631,7 +1163,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_p_2" datatype="html">
         <source>
-            <x id="INTERPOLATION" equiv-text="{{&apos;You\&apos;re now ready to watch the interactive video.&apos;}}"/>
+            You\&apos;re now ready to watch the interactive video.
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -640,7 +1172,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_btn_watchVideo" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="{{ &apos;Watch video&apos;}}"/>
+          Watch video
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -706,7 +1238,7 @@
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="helpTheCourtDecide_H1" datatype="html">
+      <trans-unit id="helpTheCourtDecide_h1" datatype="html">
         <source>
       Help the court decide
     </source>
@@ -722,7 +1254,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutYou_H1" datatype="html">
+      <trans-unit id="aboutYou_h1" datatype="html">
         <source>
     About you
   </source>
@@ -738,7 +1270,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="interpreter_H1" datatype="html">
+      <trans-unit id="interpreter_h1" datatype="html">
         <source>
       Interpreter
     </source>
@@ -754,7 +1286,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="yourComputer_H1" datatype="html">
+      <trans-unit id="yourComputer_h1" datatype="html">
         <source>
     Your computer
   </source>
@@ -784,7 +1316,7 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutYourComputer_H1" datatype="html">
+      <trans-unit id="aboutYourComputer_h1" datatype="html">
         <source>
     About your computer
   </source>
@@ -842,7 +1374,7 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessToRoom_H1" datatype="html">
+      <trans-unit id="accessToRoom_h1" datatype="html">
         <source>
     Access to room
   </source>
@@ -858,7 +1390,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="consent_H1" datatype="html">
+      <trans-unit id="consent_h1" datatype="html">
         <source>
     Consent
   </source>
@@ -867,7 +1399,7 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="thankYou_H1" datatype="html">
+      <trans-unit id="thankYou_h1" datatype="html">
         <source>
     Thank you!
   </source>
@@ -876,8 +1408,8 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="mediaError_H1" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{&apos;You\&apos;ve blocked your camera and microphone&apos;}}"/></source>
+      <trans-unit id="mediaError_h1" datatype="html">
+        <source>You&apos;ve blocked your camera and microphone</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
           <context context-type="linenumber">5</context>
@@ -885,7 +1417,7 @@
       </trans-unit>
       <trans-unit id="mediaError_p_1" datatype="html">
         <source>
-        <x id="INTERPOLATION" equiv-text="{{&apos;We\&apos;re sorry, you can\&apos;t go any further without using your camera and microphone.&apos;}}"/>
+        We&apos;re sorry, you can&apos;t go any further without using your camera and microphone.
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
@@ -894,7 +1426,7 @@
       </trans-unit>
       <trans-unit id="mediaError_p_2" datatype="html">
         <source>
-        <x id="INTERPOLATION" equiv-text="{{&apos;Please call us now or send a message if you need help to change your computer settings.&apos;}}"/>
+        Please call us now or send a message if you need help to change your computer settings.
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
@@ -903,7 +1435,7 @@
       </trans-unit>
       <trans-unit id="mediaError_p_3" datatype="html">
         <source>
-        <x id="INTERPOLATION" equiv-text="{{&apos;Helpline: 0300 303 0655&apos;}}"/>
+        Helpline: 0300 303 0655
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
