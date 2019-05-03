@@ -63,12 +63,12 @@ For custom inputs/attribute, you have to use the canonical binding form:
 ```
 
 Would be:
-```
+```html
 <app-details bind-detailsTitle="titleVariable" i18n-bind-details="@@detailsTitle><app-details> 
 ```
 
 Create a translation source file in the `ServiceWebsite.BookingsAPI.Client` project:
-```
+```bash
 ng xi18n --output-path translate
 ```
 
