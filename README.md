@@ -48,8 +48,7 @@ In the `ClientApp` folder run `node accessibility_lint.js`. Will output a json w
 In html files, for localised text, set attibite 'i18n' for element or attribute with a unique identifier like `i18n="@@customerId"`.
 
 For inner text:
-```html 
-```
+```html
 <p i18n="@@useCameraMicrophone_p_1">Switch on camera.</p>
 ```
 
