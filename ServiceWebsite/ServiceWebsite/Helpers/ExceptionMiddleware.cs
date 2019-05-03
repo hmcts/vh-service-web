@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Hearings.Common;
-using Hearings.Common.Helpers;
 using Microsoft.AspNetCore.Http;
 using ServiceWebsite.Common;
 
