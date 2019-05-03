@@ -24,6 +24,11 @@ export abstract class IndividualSuitabilityModel {
     consent: SuitabilityAnswer;
 
     hearing: Hearing;
+
+    isUpcoming(): boolean {
+        const now = new Date();
+        return this.hearing.scheduleDateTime >= now;
+    }
 }
 
 export class Hearing {

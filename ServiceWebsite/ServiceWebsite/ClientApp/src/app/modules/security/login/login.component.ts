@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         await this.router.navigateByUrl(returnUrl);
       } catch (e) {
         this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
-        this.router.navigate(['/']);
+        await this.router.navigate(['/']);
       }
     } else {
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

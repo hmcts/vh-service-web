@@ -1,6 +1,5 @@
 import { AudioBarComponent } from './../../components/audio-bar/audio-bar.component';
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
-import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
 import { ParticipantViewComponent } from './participant-view.component';
 import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
@@ -20,7 +19,7 @@ describe('ParticipantViewComponent', () => {
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
-      const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
+      const journey = new IndividualJourney();
       component = new ParticipantViewComponent(journey, userMediaService, videoUrlService);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
       component.audioBarComponent = jasmine.createSpyObj<AudioBarComponent>(['setSource']);

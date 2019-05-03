@@ -4,7 +4,6 @@ import { JudgeViewComponent } from './judge-view.component';
 import { MediaService } from '../../services/media.service';
 import { VideoUrlService } from '../../services/video-url.service';
 import { IndividualJourney } from '../../individual-journey';
-import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
 import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
 import { async } from '@angular/core/testing';
 
@@ -20,7 +19,7 @@ describe('JudgeViewComponent', () => {
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
-      const journey = new IndividualJourney(new MutableIndividualSuitabilityModel());
+      const journey = new IndividualJourney();
       component = new JudgeViewComponent(journey, userMediaService, videoUrlService);
       component.audioBarComponent = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);

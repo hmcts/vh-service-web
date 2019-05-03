@@ -33,14 +33,14 @@ describe('LoginComponent', () => {
     adalService.userInfo.authenticated = authenticated;
   };
 
-  const whenInitializingComponent = () => {
-    component.ngOnInit();
+  const whenInitializingComponent = async (): Promise<void> => {
+    await component.ngOnInit();
   };
 
-  it('should store root url if no return url is set and call login if not authenticated', () => {
+  it('should store root url if no return url is set and call login if not authenticated', async () => {
     givenAuthenticated(false);
 
-    whenInitializingComponent();
+    await whenInitializingComponent();
 
     expect(adalService.login).toHaveBeenCalled();
     expect(returnUrl.setUrl).toHaveBeenCalledWith('/');
@@ -52,7 +52,7 @@ describe('LoginComponent', () => {
     // and we have a return url set in the query param
     route.snapshot.queryParams['returnUrl'] = 'returnto';
 
-    whenInitializingComponent();
+    await whenInitializingComponent();
 
     expect(returnUrl.setUrl).toHaveBeenCalledWith('returnto');
   });
@@ -61,7 +61,7 @@ describe('LoginComponent', () => {
     givenAuthenticated(true);
     returnUrl.popUrl.and.returnValue('testurl');
 
-    whenInitializingComponent();
+    await whenInitializingComponent();
 
     expect(router.navigateByUrl).toHaveBeenCalledWith('testurl');
   });
@@ -69,7 +69,7 @@ describe('LoginComponent', () => {
   it('should redirect to root url when authenticated if no return  url has been set', async () => {
     givenAuthenticated(true);
 
-    whenInitializingComponent();
+    await whenInitializingComponent();
 
     expect(router.navigateByUrl).toHaveBeenCalledWith('/');
   });
@@ -80,7 +80,7 @@ describe('LoginComponent', () => {
     // and navigating to the return url throws an error
     router.navigateByUrl.and.throwError('invalid url');
 
-    whenInitializingComponent();
+    await whenInitializingComponent();
 
     expect(router.navigate).toHaveBeenCalledWith(['/']);
   });

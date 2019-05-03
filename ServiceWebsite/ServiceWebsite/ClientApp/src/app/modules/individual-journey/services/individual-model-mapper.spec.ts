@@ -89,8 +89,10 @@ describe('IndividualModelMapper', () => {
 
     it('should map false answers', () => {
         givenAnswerIs(Keys.AboutYou, 'false');
+        givenAnswerIs(Keys.Consent, 'false');
         whenMappingModel();
         expect(model.aboutYou.answer).toBeFalsy();
+        expect(model.consent.answer).toBeFalsy();
     });
 
     it('should map all yes/no answers', () => {
@@ -98,15 +100,17 @@ describe('IndividualModelMapper', () => {
         givenAnswerIs(Keys.Consent, 'true');
         givenAnswerIs(Keys.Internet, 'true');
         givenAnswerIs(Keys.Room, 'true');
+        givenAnswerIs(Keys.Computer, 'true');
         givenAnswerIs(Keys.Interpreter, 'true');
 
         whenMappingModel();
 
-        expect(model.aboutYou.answer).toBe(true);
-        expect(model.consent.answer).toBe(true);
-        expect(model.internet).toBe(true);
-        expect(model.room).toBe(true);
-        expect(model.interpreter).toBe(true);
+        expect(model.aboutYou.answer).toBeTruthy();
+        expect(model.consent.answer).toBeTruthy();
+        expect(model.internet).toBeTruthy();
+        expect(model.room).toBeTruthy();
+        expect(model.computer).toBeTruthy();
+        expect(model.interpreter).toBeTruthy();
     });
 
     it('should map extended answer', () => {

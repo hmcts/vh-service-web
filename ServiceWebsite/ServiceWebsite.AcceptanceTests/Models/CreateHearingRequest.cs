@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using ServiceWebsite.BookingsAPI.Client;
+using System;
 using System.Linq;
 
 namespace ServiceWebsite.AcceptanceTests.Models
@@ -41,6 +42,7 @@ namespace ServiceWebsite.AcceptanceTests.Models
                 .With(x => x.Participants = participants)
                 .With(x => x.Cases = cases)
                 .With(x => x.Created_by = createdBy)
+                .With(x => x.Scheduled_date_time = DateTime.UtcNow.AddDays(2))
                 .Build();
         }
     }

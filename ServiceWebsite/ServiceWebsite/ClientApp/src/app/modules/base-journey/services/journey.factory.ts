@@ -1,20 +1,12 @@
-import { InjectionToken, Injectable, Inject } from '@angular/core';
-import { JourneyBase } from '../journey-base';
+export interface JourneyFactory {
+    /**
+     * Begin the journey
+     */
+    begin(): Promise<void>;
 
-export const JOURNEY = new InjectionToken<JourneyBase>('Journey');
-
-@Injectable()
-export class JourneyFactory {
-    constructor(@Inject(JOURNEY) private journeys: JourneyBase[]) {}
-
-    getJourney(userType: string): JourneyBase {
-        const journeys = this.journeys.filter(j => j.handles(userType));
-        if (journeys.length === 0) {
-            throw new Error(`Found not journeys matching user type: ${userType}`);
-        } else if (journeys.length > 1) {
-            throw new Error(`Found more than one journey matching user type: ${userType}`);
-        }
-
-        return journeys[0];
-    }
+    /**
+     * Checks if the factory applies to users of the given type
+     * @param userType Type of user to test if the factory supplies journeys for
+     */
+    handles(userType: string): boolean;
 }
