@@ -1,34 +1,18 @@
-<div class="govuk-width-container">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <div class="panel-blue">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-quarter">
-            <img src="/assets/images/HMCTSlogo.png" width="180" class="govuk-header__logotype-crest govuk-!-margin-bottom-6"
-             i18n-alt="@@aboutHearings_Img_Crest" alt="HM Courts &amp; Tribunals Service crest" />
-          </div>
-          <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body govuk-!-margin-bottom-6 text-white" i18n="@@aboutHearings_p_1">
-              Hearings like yours can take place:
-            </p>
-            <h2 class="govuk-heading-s text-white" i18n="@@aboutHearings_h2_1">In a court building</h2>
-            <p class="govuk-body govuk-!-margin-bottom-6 text-white" i18n="@@aboutHearings_p_2">
-              At these hearings, all participants gather in the courtroom in front of the judge.
-            </p>
-            <h2 class="govuk-heading-s text-white" i18n="@@aboutHearings_h2_2">By video</h2>
-            <p class="govuk-body govuk-!-margin-bottom-6 text-white" i18n="@@aboutHearings_p_3">
-              These hearings allow you to be seen and heard in court without having to travel. All participants,
-              including the judge, sit in different locations in front of a computer. They can see and hear each other
-              throughout the hearing.
-            </p>
-            <button type="button" class="govuk-button hmcts-button--secondary" (click)="continue()" id="continue" i18n="@@aboutHearins_btn_next">
-              Next
-            </button>
-          </div>
-        </div>
-      </div>
-      <app-contact-us>
-      </app-contact-us>
-    </div>
-  </div>
-</div>
+<app-crest-blue-panel>
+  <p class="govuk-body govuk-!-margin-bottom-6 text-white">
+    {{ 'Hearings like yours can take place:' | localise }}
+  </p>
+  <h2 class="govuk-heading-s text-white">In a court building</h2>
+  <p class="govuk-body govuk-!-margin-bottom-6 text-white">
+    {{ 'At these hearings, all participants gather in the courtroom in front of the judge.' | localise }}
+  </p>
+  <h2 class="govuk-heading-s text-white">By video</h2>
+  <p class="govuk-body govuk-!-margin-bottom-6 text-white">
+    {{ 'These hearings allow you to be seen and heard in court without having to travel. All participants,
+    including the judge, sit in different locations in front of a computer. They can see and hear each other
+    throughout the hearing.' | localise }}
+  </p>
+  <button type="button" class="govuk-button hmcts-button--secondary" (click)="continue()" id="continue">
+    {{ 'Next' | localise:'Button' }}
+  </button>
+</app-crest-blue-panel>
