@@ -45,12 +45,27 @@ npx nswag run booking-api-csharp.nswag
 In the `ClientApp` folder run `node accessibility_lint.js`. Will output a json with any issues.
 
 #Localization
-In html files, for localised text, set attibite 'i18n' for element or attribut with defined customer Id:  i18n="@@customerId" 
-```examples: for element: <p i18n="@@useCameraMicrophone_p_1"> Switch on camera. </p>
-          for attribute: <input value="Continue" i18n-value="@@useCameraMicrophone_btn_continue" type="button" />
-         
-<app-details [detailsTitle]="'title'"><app-details>  need to use canonical form
-   <app-details bind-detailsTitle="'title'" i18n-bind-details="@@useCameraMicrophone_details><app-details> 
+In html files, for localised text, set attibite 'i18n' for element or attribute with a unique identifier like `i18n="@@customerId"`.
+
+For inner text:
+```html 
+```
+<p i18n="@@useCameraMicrophone_p_1">Switch on camera.</p>
+```
+
+For attribute:
+```html
+<input value="Continue" i18n-value="@@useCameraMicrophone_btn_continue" type="button" />
+```
+
+For custom inputs/attribute, you have to use the canonical binding form:
+```html      
+<app-details [detailsTitle]="titleVariable"><app-details>
+```
+
+Would be:
+```
+<app-details bind-detailsTitle="titleVariable" i18n-bind-details="@@detailsTitle><app-details> 
 ```
 
 Create a translation source file in the `ServiceWebsite.BookingsAPI.Client` project:
