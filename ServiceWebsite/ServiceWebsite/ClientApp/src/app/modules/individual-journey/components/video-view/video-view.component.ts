@@ -28,7 +28,7 @@ export class VideoViewComponent {
   readyToPlay() {
     this.loaded.emit();
   }
-  videoError(): void {
+  onVideoError(): void {
     this.videoUnavailable = true;
   }
   /**
