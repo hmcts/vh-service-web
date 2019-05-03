@@ -43,3 +43,18 @@ npx nswag run booking-api-csharp.nswag
 
 # Running accessibility linting
 In the `ClientApp` folder run `node accessibility_lint.js`. Will output a json with any issues.
+
+#Localization
+In html files set attibite and define customer Id:  i18n="@@componentName_Element_number" 
+examples: for element: <p i18n="@@useCameraMicrophone_p_1"> {{'Switch on camera.'}} </p>
+          for attribute: <input value="Continue" i18n-value="@@useCameraMicrophone_btn_continue" type="button" />
+         
+<app-details [detailsTitle]="'title'"><app-details>  need to use canonical form   <app-details bind-detailsTitle="'title'" i18n-bind-details="@@useCameraMicrophone_details><app-details> 
+
+Create a translation source file in the `ServiceWebsite.BookingsAPI.Client` project:
+
+ng xi18n --output-path translate
+
+It will create folder 'translate' and source file 'messages.xlf'
+
+

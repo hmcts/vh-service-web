@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="footer_a_1" datatype="html">
+        <source>
+                Privacy policy
+              </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/footer/footer.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer_a_2" datatype="html">
+        <source>
+              This is a new service. Your feedback will help us improve it
+              </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/footer/footer.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer_p_1" datatype="html">
+        <source> All content is available under the </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/footer/footer.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer_a_3" datatype="html">
+        <source>
+            Open Government Licence v3.0
+              </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/footer/footer.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer_p_2" datatype="html">
+        <source>, except where otherwise stated</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/footer/footer.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer_a_4" datatype="html">
+        <source>© Crown copyright</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/footer/footer.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header_logo_1" datatype="html">
+        <source>HM Courts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/header/header.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header_logo_2" datatype="html">
+        <source>Tribunals Service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/header/header.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header_a" datatype="html">
+        <source>
+            Sign out
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/header/header.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="backNavigation_a" datatype="html">
+        <source>Back</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/back-navigation/back-navigation.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errorFooter_p_1" datatype="html">
+        <source>
+      Contact us for help
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/error-footer/error-footer.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errorFooter_p_2" datatype="html">
+        <source> Telephone: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/error-footer/error-footer.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errorFooter_p_3" datatype="html">
+        <source> Call us on 0300 303 0655 and quote your reference number </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/error-footer/error-footer.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errorFooter_p_4" datatype="html">
+        <source>
+      (available between 9am and 5pm, Monday to Friday)
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/error-footer/error-footer.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errorFooter_p_5" datatype="html">
+        <source> Email: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/error-footer/error-footer.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errorFooter_p_6" datatype="html">
+        <source> Email us at </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/error-footer/error-footer.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactUs_p_1" datatype="html">
+        <source>
+          Contact us for help
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/contact-us/contact-us.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactUs_p_2" datatype="html">
+        <source>Call 0300 303 0655 and quote your case number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/contact-us/contact-us.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactUs_p_3" datatype="html">
+        <source>
+            (available between 9am and 5pm, Monday to Friday)
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/contact-us/contact-us.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactUs_p_4" datatype="html">
+        <source>Email us at </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/contact-us/contact-us.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactUs_p_5" datatype="html">
+        <source> quoting your case number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/contact-us/contact-us.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactUs_p_6" datatype="html">
+        <source>
+            (available between 9am and 5pm, Monday to Friday)
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/contact-us/contact-us.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bae24fe299cbc5323a2fa3dacd015b6268e0158f" datatype="html">
+        <source>Skip to main content</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login_p" datatype="html">
+        <source>
+  Logging in..
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/login/login.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout_p_1" datatype="html">
+        <source>
+  Signing out...
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/logout/logout.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout_p_2" datatype="html">
+        <source>Signed out successfully. Click</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/logout/logout.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout_a" datatype="html">
+        <source>here</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/logout/logout.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout_p_3" datatype="html">
+        <source>to log back in.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/logout/logout.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorised_H1" datatype="html">
+        <source>You are not authorised to use this service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/unauthorized/unauthorised.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorised_p_1" datatype="html">
+        <source>It looks like you are not registered for this service.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/unauthorized/unauthorised.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorised_p-2" datatype="html">
+        <source>If you think this is a mistake and you need to speak to someone, please contact us using the options below. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/security/unauthorized/unauthorised.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.alert.close" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.d.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.previous" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.next" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first" datatype="html">
+        <source>««</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first-aria" datatype="html">
+        <source>First</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous" datatype="html">
+        <source>«</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous-aria" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next" datatype="html">
+        <source>»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next-aria" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last" datatype="html">
+        <source>»»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last-aria" datatype="html">
+        <source>Last</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.progressbar.value" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.d.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+        <source>Increment hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.HH" datatype="html">
+        <source>HH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.hours" datatype="html">
+        <source>Hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+        <source>Decrement hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+        <source>Increment minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.MM" datatype="html">
+        <source>MM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.minutes" datatype="html">
+        <source>Minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+        <source>Decrement minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+        <source>Increment seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.SS" datatype="html">
+        <source>SS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.seconds" datatype="html">
+        <source>Seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+        <source>Decrement seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.PM" datatype="html">
+        <source>PM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.AM" datatype="html">
+        <source>AM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.previous-month" datatype="html">
+        <source>Previous month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.next-month" datatype="html">
+        <source>Next month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearings_Img_Crest" datatype="html">
+        <source>HM Courts &amp; Tribunals Service crest</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearings_P_1" datatype="html">
+        <source>
+              <x id="INTERPOLATION" equiv-text="{{ &apos;Hearings like yours can take place:&apos;}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearings_H2_1" datatype="html">
+        <source>In a court building</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearings_P_2" datatype="html">
+        <source>
+              <x id="INTERPOLATION" equiv-text="{{ &apos;At these hearings, all participants gather in the courtroom in front of the judge.&apos;}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearings_H2_2" datatype="html">
+        <source>By video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearings_P_3" datatype="html">
+        <source>
+              <x id="INTERPOLATION" equiv-text="{{ &apos;These hearings allow you to be seen and heard in court without having to travel. All participants,
+              including the judge, sit in different locations in front of a computer. They can see and hear each other
+              throughout the hearing.&apos;}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearins_btn_next" datatype="html">
+        <source>
+              <x id="INTERPOLATION" equiv-text="{{ &apos;Next&apos;}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="differentHearingTypes_img_crest" datatype="html">
+        <source>HM Courts &amp; Tribunals Service crest</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="differentHearingTypes_P_1" datatype="html">
+        <source>
+              <x id="INTERPOLATION" equiv-text="{{ &apos;The court will decide which method is suitable for your hearing. You can help the court decide by answering some questions.&apos;}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="differentHearingTypes_P_2" datatype="html">
+        <source>
+              <x id="INTERPOLATION" equiv-text="{{ &apos;Before you answer the questions, let’s find out more about the different types of hearing.&apos;}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="differentHearingTypes_btn_continue" datatype="html">
+        <source>
+              <x id="INTERPOLATION" equiv-text="{{ &apos;Continue&apos;}}"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreCourtBuilding_H1" datatype="html">
+        <source>
+      Explore court building
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreCourtBuilding_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courtBuildingVideo_H1" datatype="html">
+        <source>
+      Court building video
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/court-building-video/court-building-video.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courtBuildingVideo_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/court-building-video/court-building-video.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreVideoHearing_H1" datatype="html">
+        <source>
+      Explore video hearings
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreVideoHearing_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="useCameraMicrophone_H1" datatype="html">
+        <source>
+            <x id="INTERPOLATION" equiv-text="{{&apos;Use your camera and microphone&apos;}}"/>
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="useCameraMicrophone_p_1" datatype="html">
+        <source>
+            <x id="INTERPOLATION" equiv-text="{{&apos;Switch on your camera and microphone to see the short interactive video.&apos;}}"/>
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="useCameraMicrophon_detailsTitle" datatype="html">
+        <source>&apos;Why do I need to use my camera and microphone?&apos;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="useCameraMicrophone_btn_switchOn" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ &apos;Switch on&apos;}}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="useCameraMicrophone_H1_1" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{&apos;Your camera and microphone are now switched on&apos;}}"/>
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="useCameraMicrophone_p_2" datatype="html">
+        <source>
+            <x id="INTERPOLATION" equiv-text="{{&apos;You\&apos;re now ready to watch the interactive video.&apos;}}"/>
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="useCameraMicrophone_btn_watchVideo" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ &apos;Watch video&apos;}}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="participantView_a" datatype="html">
+        <source>
+      Change camera or microphone
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="participantView_p" datatype="html">
+        <source>
+      When the video has ended, show the judge&apos;s view to see how you will appear to others in the hearing.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="participantView_btn_showJudgeView" datatype="html">
+        <source>
+      Show judge&apos;s view
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="participantView_btn_replayPracticeHearing" datatype="html">
+        <source>Re-play practice hearing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="judgeView_a_1" datatype="html">
+        <source>Change camera or microphone</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/judge-view/judge-view.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="judgeView_p_1" datatype="html">
+        <source>
+      When the video has ended, click &apos;Continue&apos;. You can try the practice video hearing again if you like.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/judge-view/judge-view.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="judgeView_btn_continue" datatype="html">
+        <source>
+      Continue
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/judge-view/judge-view.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="helpTheCourtDecide_H1" datatype="html">
+        <source>
+      Help the court decide
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="helpTheCourtDecide_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutYou_H1" datatype="html">
+        <source>
+    About you
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutYou_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="interpreter_H1" datatype="html">
+        <source>
+      Interpreter
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/interpreter/interpreter.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="interpreter_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/interpreter/interpreter.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yourComputer_H1" datatype="html">
+        <source>
+    Your computer
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yourComputer_btn_yes" datatype="html">
+        <source>yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yourComputer_btn_no" datatype="html">
+        <source>no</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yourComputer_btn_continue" datatype="html">
+        <source>continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutYourComputer_H1" datatype="html">
+        <source>
+    About your computer
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-your-computer/about-your-computer.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutYourComputer_btn_yes" datatype="html">
+        <source>yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-your-computer/about-your-computer.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutYourComputer_btn_no" datatype="html">
+        <source>no</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-your-computer/about-your-computer.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutYourComputer_btn_notSure" datatype="html">
+        <source>not sure</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-your-computer/about-your-computer.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutYourComputer_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-your-computer/about-your-computer.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yourInternetConnection_btn_yes" datatype="html">
+        <source>yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-internet-connection/your-internet-connection.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yourInternetConnection_btn_no" datatype="html">
+        <source>no</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-internet-connection/your-internet-connection.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yourInternetConnection_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-internet-connection/your-internet-connection.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accessToRoom_H1" datatype="html">
+        <source>
+    Access to room
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/access-to-room/access-to-room.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accessToRoom_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/access-to-room/access-to-room.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="consent_H1" datatype="html">
+        <source>
+    Consent
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/consent/consent.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="thankYou_H1" datatype="html">
+        <source>
+    Thank you!
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/thank-you/thank-you.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mediaError_H1" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{&apos;You\&apos;ve blocked your camera and microphone&apos;}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mediaError_p_1" datatype="html">
+        <source>
+        <x id="INTERPOLATION" equiv-text="{{&apos;We\&apos;re sorry, you can\&apos;t go any further without using your camera and microphone.&apos;}}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mediaError_p_2" datatype="html">
+        <source>
+        <x id="INTERPOLATION" equiv-text="{{&apos;Please call us now or send a message if you need help to change your computer settings.&apos;}}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mediaError_p_3" datatype="html">
+        <source>
+        <x id="INTERPOLATION" equiv-text="{{&apos;Helpline: 0300 303 0655&apos;}}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/media-error/media-error.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

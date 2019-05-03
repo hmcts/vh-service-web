@@ -27,7 +27,6 @@ import { VideoViewComponent } from './components/video-view/video-view.component
 import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 // directives/pipes
-import { LocalisePipe } from './pipes/localise.pipe';
 import { SuitabilityService } from './services/suitability.service';
 import { VideoUrlService } from './services/video-url.service';
 
@@ -47,7 +46,6 @@ import { VideoUrlService } from './services/video-url.service';
     AudioBarComponent,
     UserCameraViewComponent,
     VideoViewComponent,
-    LocalisePipe
   ],
   providers: [
     { provide: Localisation, useClass: IndividualLocalisation },

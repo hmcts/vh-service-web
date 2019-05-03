@@ -4,7 +4,6 @@ import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/tes
 import { Type } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { LocalisePipe } from '../../pipes/localise.pipe';
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
@@ -17,13 +16,13 @@ import { IndividualSuitabilityModel } from '../../individual-suitability.model';
  */
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
     const config: TestModuleMetadata = {
-        declarations: [ component, LocalisePipe ],
+        declarations: [ component ],
         imports: [ CommonModule, ReactiveFormsModule ],
         providers: [
             { provide: Localisation, useClass: IndividualLocalisation },
             { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
             { provide: IndividualJourney, useClass: IndividualJourney },
-            LocalisePipe
+            
         ]
     };
     if (customiseConfiguration) {
