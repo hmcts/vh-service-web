@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PrivacyPolicyComponent } from './privacy-policy.component';
 
 describe('PrivacyPolicyComponent', () => {
@@ -8,9 +7,9 @@ describe('PrivacyPolicyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrivacyPolicyComponent ]
+      declarations: [PrivacyPolicyComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +20,10 @@ describe('PrivacyPolicyComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should print document', () => {
+    spyOn(document, 'execCommand').and.callFake(() => { });
+    component.printPage();
+    expect(document.execCommand).toHaveBeenCalled();
   });
 });
