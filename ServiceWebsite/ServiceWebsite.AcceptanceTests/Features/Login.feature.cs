@@ -89,11 +89,11 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Representative logs in to Vh-Service web")]
+        [NUnit.Framework.DescriptionAttribute("Representative is unauthorised to access Vh-Service web")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
-        public virtual void RepresentativeLogsInToVh_ServiceWeb()
+        public virtual void RepresentativeIsUnauthorisedToAccessVh_ServiceWeb()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative logs in to Vh-Service web", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative is unauthorised to access Vh-Service web", null, new string[] {
                         "smoketest"});
 #line 12
 this.ScenarioInitialize(scenarioInfo);
@@ -101,7 +101,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 13
  testRunner.When("Representative logs in with valid credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
- testRunner.Then("Representative starts suitability questionnaire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Representative should be unauthorised", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
