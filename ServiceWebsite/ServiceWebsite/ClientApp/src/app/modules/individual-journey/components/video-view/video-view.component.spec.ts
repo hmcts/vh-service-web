@@ -10,7 +10,7 @@ describe('VideoViewComponent', () => {
 
   it('should set video unvailable on error', () => {
     const videoViewComponent = new VideoViewComponent();
-    videoViewComponent.videoError();
+    videoViewComponent.onVideoError();
     expect(videoViewComponent.videoUnavailable).toBeTruthy();
   });
 });
