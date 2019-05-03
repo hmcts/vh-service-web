@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using Newtonsoft.Json;
 
 namespace ServiceWebsite.Common
 {
@@ -39,6 +40,22 @@ namespace ServiceWebsite.Common
 
             TelemetryClient.TrackTrace(telemetry);
           
+        }
+
+        public static void TraceWithObject(string traceCategory, string eventTitle, string user, object valueToSerialized)
+        {
+            var telemetry = new TraceTelemetry(traceCategory, SeverityLevel.Information);
+
+            telemetry.Properties.Add("Event", eventTitle);
+
+            telemetry.Properties.Add("User", user);
+
+            if (valueToSerialized != null)
+            {
+                telemetry.Properties.Add(valueToSerialized.GetType().Name, JsonConvert.SerializeObject(valueToSerialized, Formatting.None));
+            }
+
+            TelemetryClient.TrackTrace(telemetry);
         }
 
         public static void TraceException(string traceCategory, string eventTitle, Exception exception, IPrincipal user, IDictionary<string, string> properties)
