@@ -9,6 +9,6 @@ Scenario: Individual logs in to Vh-Service web
 	Then Individual starts suitability questionnaire
 
 @smoketest
-Scenario: Representative logs in to Vh-Service web
+Scenario: Representative is unauthorised to access Vh-Service web
 	When Representative logs in with valid credentials
-	Then Representative starts suitability questionnaire
+	Then Representative should be unauthorised
