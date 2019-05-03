@@ -26,4 +26,10 @@ describe('PrivacyPolicyComponent', () => {
     component.printPage();
     expect(document.execCommand).toHaveBeenCalled();
   });
+  it('should document command print failed and call windows.print', () => {
+    spyOn(document, 'execCommand').and.throwError('error');
+    spyOn(window, 'print').and.callFake(() => { });
+    component.printPage();
+    expect(window.print).toHaveBeenCalled();
+  });
 });
