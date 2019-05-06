@@ -37,11 +37,15 @@ export class AppComponent implements OnInit {
   }
 
   private initAuthentication() {
+    // Required for redirect issue on Edge, it will still create a redirect loop in inPrivate mode
+    // see https://github.com/AzureAD/azure-activedirectory-library-for-js/wiki/Known-issues-on-Edge
+    const cacheLocation = 'localStorage';
     const config = {
       tenant: this.config.tenantId,
       clientId: this.config.clientId,
       postLogoutRedirectUri: this.config.postLogoutRedirectUri,
       redirectUri: this.config.redirectUri,
+      cacheLocation
     };
 
     this.adalService.init(config);
