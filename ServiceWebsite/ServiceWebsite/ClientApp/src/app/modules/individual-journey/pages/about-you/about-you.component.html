@@ -7,7 +7,7 @@
     <form [formGroup]="form" (ngSubmit)="continue()">
 
       <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
-        <fieldset class="govuk-fieldset">
+        <div class="govuk-fieldset">
           <div *ngIf="isFormInvalid">
             <span class="govuk-error-message">
               Please answer this question
@@ -29,7 +29,7 @@
           </ul>
 
           <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset fieldset-margin">
+            <div class="govuk-fieldset fieldset-margin">
               <div class="govuk-radios">
 
                   <div class="govuk-radios__item">
@@ -55,9 +55,9 @@
                   </label>
                 </div>
               </div>
-            </fieldset>
+            </div>
           </div>
-        </fieldset>
+        </div>
       </div>
 
       <div class="mt-20">
