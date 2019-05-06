@@ -1,7 +1,7 @@
 import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
 import { CommonModule } from '@angular/common';
 import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
-import { Type } from '@angular/core';
+import { Type, Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { IndividualLocalisation } from '../../services/individual-localisation';
@@ -9,9 +9,17 @@ import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualSuitabilityModel, Hearing } from '../../individual-suitability.model';
 
-// Common componeents
-import { ContactUsComponent } from 'src/app/modules/shared/contact-us/contact-us.component';
-import { ShowDetailsComponent } from 'src/app/modules/shared/show-details/show-details.component';
+@Component({selector: 'app-contact-us', template: ''})
+export class StubContactUsComponent {}
+
+@Component({selector: 'app-show-details', template: '' })
+export class StubShowDetailsComponent {
+  @Input()
+  detailsTitle: string;
+
+  @Input()
+  textArray: Array<string> = [];
+}
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -26,7 +34,7 @@ const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Fun
   journey.forSuitabilityAnswers([journeyModel]);
 
   const config: TestModuleMetadata = {
-    declarations: [component, ContactUsComponent, ShowDetailsComponent],
+    declarations: [component, StubContactUsComponent, StubShowDetailsComponent],
     imports: [CommonModule, ReactiveFormsModule],
     providers: [
       { provide: Localisation, useClass: IndividualLocalisation },

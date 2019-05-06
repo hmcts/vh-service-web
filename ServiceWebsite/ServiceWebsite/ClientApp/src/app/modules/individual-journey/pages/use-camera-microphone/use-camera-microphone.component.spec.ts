@@ -3,8 +3,6 @@ import { CanCreateComponent } from '../individual-base-component/component-test-
 import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
-import { ShowDetailsComponent } from 'src/app/modules/shared/show-details/show-details.component';
-import { ContactUsComponent } from 'src/app/modules/shared/contact-us/contact-us.component';
 
 describe('UseCameraMicrophoneComponent', () => {
   let mediaService: jasmine.SpyObj<MediaService>;
@@ -21,7 +19,6 @@ describe('UseCameraMicrophoneComponent', () => {
         config.providers.push(
           { provide: MediaService, useValue: mediaService }
         );
-        config.declarations.push([ShowDetailsComponent, ContactUsComponent]);
       });
   });
 
