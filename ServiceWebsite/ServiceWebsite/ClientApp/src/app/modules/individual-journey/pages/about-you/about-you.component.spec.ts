@@ -54,7 +54,7 @@ describe('AboutYouComponent', () => {
 
     // then
     expect(component.isFormInvalid).toBeTruthy();
-    const textfield = fixture.debugElementByCss('#moreDetails');
+    const textfield = fixture.debugElementByCss('#details');
     expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
   });
 
