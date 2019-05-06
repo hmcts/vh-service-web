@@ -18,13 +18,6 @@ class StubVideoViewComponent {
   source: string;
 }
 
-@Component({
-  selector: 'app-contact-us',
-  template: ''
-})
-class StubContactUsComponent {
-}
-
 const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
   const videoUrls = [ 'inHearingExampleVideo', 'judgeSelfViewVideo', 'otherParticipantExampleVideo' ];
   CanCreateComponent(component, (configuration: TestModuleMetadata) => {
@@ -36,7 +29,6 @@ const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
     );
     configuration.declarations.push(UserCameraViewComponent);
     configuration.declarations.push(AudioBarComponent);
-    configuration.declarations.push(StubContactUsComponent);
     configuration.declarations.push(StubVideoViewComponent);
   });
 };
