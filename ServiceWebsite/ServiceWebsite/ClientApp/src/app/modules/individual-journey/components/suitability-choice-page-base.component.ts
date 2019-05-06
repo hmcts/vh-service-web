@@ -28,5 +28,5 @@ export abstract class SuitabilityChoicePageBaseComponent extends IndividualBaseC
   /**
    * Bind the value to the model
    */
-  protected abstract bindModel();
+  protected abstract bindModel(): void;
 }

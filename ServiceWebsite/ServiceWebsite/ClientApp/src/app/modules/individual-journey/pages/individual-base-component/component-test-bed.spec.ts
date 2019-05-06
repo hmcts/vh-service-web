@@ -7,7 +7,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
-import { IndividualSuitabilityModel } from '../../individual-suitability.model';
+import { IndividualSuitabilityModel, Hearing } from '../../individual-suitability.model';
+
+// Common componeents
+import { ContactUsComponent } from 'src/app/modules/shared/contact-us/contact-us.component';
+import { ShowDetailsComponent } from 'src/app/modules/shared/show-details/show-details.component';
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -15,14 +19,19 @@ import { IndividualSuitabilityModel } from '../../individual-suitability.model';
  * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
+  // Journey with initialised model, so that it is accessible in steeps
+  const journey = new IndividualJourney();
+  const journeyModel = new MutableIndividualSuitabilityModel();
+  journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+  journey.forSuitabilityAnswers([journeyModel]);
+
   const config: TestModuleMetadata = {
-    declarations: [component],
+    declarations: [component, ContactUsComponent, ShowDetailsComponent],
     imports: [CommonModule, ReactiveFormsModule],
     providers: [
       { provide: Localisation, useClass: IndividualLocalisation },
       { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
-      { provide: IndividualJourney, useClass: IndividualJourney },
-
+      { provide: IndividualJourney, useValue: journey },
     ]
   };
   if (customiseConfiguration) {

@@ -35,7 +35,7 @@ class SuitabilityChoicePageBaseFixture<T extends SuitabilityChoicePageBaseCompon
 }
 
 const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
-  (component: Type<T>, customiseConfiguration?: Function):SuitabilityChoicePageBaseFixture<T> => {
+  (component: Type<T>, customiseConfiguration?: Function): SuitabilityChoicePageBaseFixture<T> => {
   const fixture = ConfigureTestBedFor(component, customiseConfiguration);
   return new SuitabilityChoicePageBaseFixture(fixture);
 };
