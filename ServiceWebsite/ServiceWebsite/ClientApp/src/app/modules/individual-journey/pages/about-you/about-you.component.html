@@ -4,9 +4,9 @@
       About you
     </h1>
 
-    <form [formGroup]="form" class="govuk-form-group" (ngSubmit)="continue()">
+    <form [formGroup]="form" (ngSubmit)="continue()">
 
-      <div [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <fieldset class="govuk-fieldset" aria-describedby="ability-hint ability-error">
           <div *ngIf="isFormInvalid">
             <span class="govuk-error-message">

@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 
 @Component({
   selector: 'app-about-you',
   templateUrl: './about-you.component.html'
 })
-export class AboutYouComponent extends IndividualBaseComponent implements OnInit {
+export class AboutYouComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
   readonly textInput = new FormControl('');
-  readonly choice = new FormControl('', Validators.required);
-
-  readonly form = new FormGroup({
-    textInput: this.textInput,
-    choice: this.choice
-  });
-
-  submitted = false;
 
   ngOnInit() {
+    this.form.addControl('textInput', this.textInput);
+
     this.choice.valueChanges.subscribe(value => {
       if (value) {
         // If the value is true, the text input is required
@@ -43,24 +37,13 @@ export class AboutYouComponent extends IndividualBaseComponent implements OnInit
     return this.textInput.invalid && this.submitted;
   }
 
-  get isFormInvalid(): boolean {
-      return this.form.invalid && this.submitted;
-  }
-
   continue() {
     this.textInput.markAsTouched();
-    this.submitted = true;
-
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.bindModel(this.choice.value, this.textInput.value);
     super.continue();
   }
 
-  private bindModel(answer: boolean, notes: string): void {
-    this.model.aboutYou.answer = answer;
-    this.model.aboutYou.notes = answer ? notes : null;
+  protected bindModel(): void {
+    this.model.aboutYou.answer = this.choice.value;
+    this.model.aboutYou.notes = this.choice.value ? this.textInput.value : null;
   }
 }
