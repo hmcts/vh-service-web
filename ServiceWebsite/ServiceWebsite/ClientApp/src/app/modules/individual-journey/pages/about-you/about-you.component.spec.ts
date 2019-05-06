@@ -69,4 +69,15 @@ describe('AboutYouComponent', () => {
     expect(component.model.aboutYou.answer).toBe(true);
     expect(component.model.aboutYou.notes).toBe('notes');
   });
+
+  it('should bind notes as null on selecting no', () => {
+    // when
+    fixture.radioBoxIsClicked('#choice-no');
+    fixture.detectChanges();
+    fixture.submitIsClicked();
+
+    // then
+    expect(component.model.aboutYou.answer).toBe(false);
+    expect(component.model.aboutYou.notes).toBeNull();
+  });
 });
