@@ -1,13 +1,25 @@
 import { MutableIndividualSuitabilityModel } from './../../mutable-individual-suitability.model';
 import { CommonModule } from '@angular/common';
 import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
-import { Type } from '@angular/core';
+import { Type, Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
-import { IndividualSuitabilityModel } from '../../individual-suitability.model';
+import { IndividualSuitabilityModel, Hearing } from '../../individual-suitability.model';
+
+@Component({selector: 'app-contact-us', template: ''})
+export class StubContactUsComponent {}
+
+@Component({selector: 'app-show-details', template: '' })
+export class StubShowDetailsComponent {
+  @Input()
+  detailsTitle: string;
+
+  @Input()
+  textArray: Array<string> = [];
+}
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -15,14 +27,19 @@ import { IndividualSuitabilityModel } from '../../individual-suitability.model';
  * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
+  // Journey with initialised model, so that it is accessible in steeps
+  const journey = new IndividualJourney();
+  const journeyModel = new MutableIndividualSuitabilityModel();
+  journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+  journey.forSuitabilityAnswers([journeyModel]);
+
   const config: TestModuleMetadata = {
-    declarations: [component],
+    declarations: [component, StubContactUsComponent, StubShowDetailsComponent],
     imports: [CommonModule, ReactiveFormsModule],
     providers: [
       { provide: Localisation, useClass: IndividualLocalisation },
       { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
-      { provide: IndividualJourney, useClass: IndividualJourney },
-
+      { provide: IndividualJourney, useValue: journey },
     ]
   };
   if (customiseConfiguration) {
