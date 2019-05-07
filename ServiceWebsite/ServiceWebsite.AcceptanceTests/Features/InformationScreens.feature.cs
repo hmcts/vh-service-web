@@ -18,21 +18,22 @@ namespace ServiceWebsite.AcceptanceTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Participants Accessing VH-Admin Web")]
-    public partial class ParticipantsAccessingVH_AdminWebFeature
+    [NUnit.Framework.DescriptionAttribute("Individual Information Screens")]
+    public partial class IndividualInformationScreensFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Login.feature"
+#line 1 "InformationScreens.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participants Accessing VH-Admin Web", "\tAs an Invidual or Representative\r\n\tI would like to login to VH-Service Web\r\n\tSo " +
-                    "that I can complete suitability Questionnaire", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual Information Screens", "As an Individual Participant\r\nI want to see some information about video hearings" +
+                    " before I start the questionnaire\r\nSo that I have a better understanding of what" +
+                    " a video hearing is", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,19 +72,21 @@ namespace ServiceWebsite.AcceptanceTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Representative is unauthorised to access Vh-Service web")]
+        [NUnit.Framework.DescriptionAttribute("Individual views blue information screens")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
-        public virtual void RepresentativeIsUnauthorisedToAccessVh_ServiceWeb()
+        public virtual void IndividualViewsBlueInformationScreens()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative is unauthorised to access Vh-Service web", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual views blue information screens", null, new string[] {
                         "smoketest"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 8
- testRunner.When("Representative logs in with valid credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("Individual logs in with valid credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.Then("Representative should be unauthorised", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("Individual starts suitability questionnaire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 10
+ testRunner.Then("Individual should view blue information screens", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

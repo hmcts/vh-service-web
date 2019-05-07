@@ -40,10 +40,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\InformationScreens.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InformationScreens.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\Login.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Login.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Steps\CommonSteps.cs">
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
@@ -60,6 +68,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\InformationScreens.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>InformationScreens.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>

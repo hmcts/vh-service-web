@@ -43,10 +43,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             NgDriver.Quit();
             NgDriver.Dispose();
         }
-
-        public string PageUrl() => NgDriver.Url;
-        public string PageTitle => NgDriver.Title;
-
+        
         public void LaunchSite()
         {
             if (string.IsNullOrEmpty(_baseUrl))
@@ -67,37 +64,6 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
         }
 
         public void WaitForAngular() => ((NgWebDriver)NgDriver).WaitForAngular();
-
-        public void SwitchTab()
-        {
-            try
-            {
-                var originalTabPageTitle = PageTitle.Trim();
-                var getAllWindowHandles = NgDriver.WindowHandles;
-                var originalWindow = NgDriver.CurrentWindowHandle;
-                foreach (var windowHandle in getAllWindowHandles)
-                {
-                    NgDriver.SwitchTo().Window(windowHandle);
-                    if (!originalTabPageTitle.Equals(NgDriver.Title.Trim()))
-                    {
-                        NgDriver.SwitchTo().Window(windowHandle);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Cannot switch to the main window:  {ex}");
-            }
-        }
-
-        public void ValidatePage(string url)
-        {
-            Retry(() =>
-            {
-                WaitForAngular();
-                NgDriver.Url.Should().Contain(url);
-            });
-        }
 
         public string ExecuteJavascript(string script)
         {
