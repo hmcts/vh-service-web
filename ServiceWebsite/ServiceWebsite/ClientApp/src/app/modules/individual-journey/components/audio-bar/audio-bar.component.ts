@@ -24,24 +24,12 @@ export class AudioBarComponent {
     this.audioContext = new (window['AudioContext'] || window['webkitAudioContext'])();
   }
 
-  setSource(stream: MediaStream) {
+  async setSource(stream: MediaStream) {
     this.getCanvasContex();
-    if (this.audioContext && this.audioContext.state === 'suspended') {
-      new Promise((resolve, reject) => {
-        this.audioContext.resume()
-          .then(
-            () => {
-              this.createAudioSource(stream);
-              resolve();
-            },
-            (error) => {
-              reject(error);
-            }
-          );
-      });
-    } else {
-      this.createAudioSource(stream);
+    if (this.audioContext.state === 'suspended') {
+      await this.audioContext.resume();
     }
+    this.createAudioSource(stream);
   }
 
   private createAudioSource(stream: MediaStream) {
