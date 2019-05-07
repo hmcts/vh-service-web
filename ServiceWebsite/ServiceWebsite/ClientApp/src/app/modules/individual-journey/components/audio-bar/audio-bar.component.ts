@@ -26,6 +26,16 @@ export class AudioBarComponent {
 
   setSource(stream: MediaStream) {
     this.getCanvasContex();
+    if (this.audioContext && this.audioContext.state === 'suspended') {
+      this.audioContext.resume().then(() => {
+        this.createAudioSource(stream);
+      });
+    } else {
+      this.createAudioSource(stream);
+    }
+  }
+
+  private createAudioSource(stream: MediaStream) {
     const source = this.audioContext.createMediaStreamSource(stream);
     // Create a new volume meter and connect it.
     const meter = this.createAudioMeter();
