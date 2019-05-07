@@ -1,8 +1,68 @@
-<div>
-  <h1 class="govuk-heading-xl" i18n="@@aboutYou_h1">
-    About you
-  </h1>
-</div>
-<div>
-    <input class="govuk-button" (click)="continue()" i18n-value="@@aboutYou_btn_continue" value="Continue" type="button" />
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl" i18n="@@aboutYou_h1">
+      About you
+    </h1>
+
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid">
+            <span class="govuk-error-message">
+              Please answer this question
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-6">
+            Is there anything that could affect your ability to take part in a video hearing?
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            For example:
+          </p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>are you hard of hearing or deaf?</li>
+            <li>are you blind or partially sighted?</li>
+            <li>something else?</li>
+          </ul>
+
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+
+                  <div class="govuk-radios__item">
+                    <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true">
+                    <label class="govuk-label govuk-radios__label" for="choice-yes">
+                      <strong>Yes</strong>
+                    </label>
+
+                    <div class="form-group textarea-top-margin" *ngIf="choice.value" [ngClass]="isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+                        <div>
+                          <span [ngClass]="isTextInputInvalid ? 'govuk-error-message' : 'govuk-hint'">
+                            Please provide more information
+                          </span>
+                        </div>
+                        <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80" [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
+                      </div>
+                  </div>
+                  
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false">
+                  <label class="govuk-label govuk-radios__label" for="choice-no">
+                    <strong>No</strong>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-20">
+        <input class="govuk-button" (click)="continue()" i18n-value="@@aboutYou_btn_continue" value="Continue" type="button" />
+      </div>
+    </form>
+  </div>
 </div>
