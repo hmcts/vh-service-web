@@ -4,11 +4,6 @@
 	So that I can complete suitability Questionnaire
 
 @smoketest
-Scenario: Individual logs in to Vh-Service web
-	When Individual logs in with valid credentials
-	Then Individual starts suitability questionnaire
-
-@smoketest
 Scenario: Representative is unauthorised to access Vh-Service web
 	When Representative logs in with valid credentials
 	Then Representative should be unauthorised

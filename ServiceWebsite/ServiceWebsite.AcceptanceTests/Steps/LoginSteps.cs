@@ -8,26 +8,24 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 {
     [Binding]
     public class LoginSteps
-    {        
-        private readonly BrowserContext _browserContext;
+    {
+        private readonly CommonPages _commonPages;
         private readonly MicrosoftLoginPage _loginPage;
         private readonly ScenarioContext _scenarioContext;
         private readonly TestContext _testContext;
-        public LoginSteps(BrowserContext browserContext, MicrosoftLoginPage loginPage,
+        public LoginSteps(CommonPages commonPages, MicrosoftLoginPage loginPage,
             ScenarioContext injectedContext, TestContext testContext)
         {
-            _browserContext = browserContext;
             _loginPage = loginPage;
             _scenarioContext = injectedContext;
             _testContext = testContext;
+            _commonPages = commonPages;
         }
         public void AdminOnMicrosoftLoginPage()
         {
-            _browserContext.Retry(() =>
-            {
-                _browserContext.PageUrl().Should().Contain("login.microsoftonline.com");
-            }, 10);
+            _commonPages.ValidatePage("login.microsoftonline.com");           
         }
+        [Given(@"(.*) logs in with valid credentials")]
         [When(@"(.*) logs in with valid credentials")]
         public void WhenIndividualLogsInWithValidCredentials(string participant)
         {
@@ -47,16 +45,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             }
             _scenarioContext.Add("Participant", participant);
         }
-        [Then(@"Individual starts suitability questionnaire")]
+        [When(@"Individual starts suitability questionnaire")]
         public void ThenIndividulStartsSuitabilityQuestionnaire()
         {
             _loginPage.SignInTitle();
-            _browserContext.ValidatePage("/about-hearings");
         }
         [Then(@"Representative should be unauthorised")]
         public void ThenRepresentativeShouldBeUnauthorised()
         {
-            _browserContext.ValidatePage("/error");
+            _commonPages.ValidatePage("/error");
         }
     }
 }
