@@ -34,13 +34,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void IndividualExploreCourtBuilding()
         {
             _commonPages.ValidatePage("/explore-court-building");
-            _commonPages.ContinueButtonAsInput();
+            _commonPages.Continue();
         }
 
         public void IndividualViewsCourtBuildingVideo()
         {
             _commonPages.ValidatePage("/court-building-video");
-            _commonPages.ContinueButtonAsInput();
+            _commonPages.Continue();
         }
     }
 }

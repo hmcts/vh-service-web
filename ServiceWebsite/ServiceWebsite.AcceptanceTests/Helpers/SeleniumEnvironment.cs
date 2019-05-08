@@ -5,7 +5,6 @@ using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using TechTalk.SpecFlow;
 
@@ -67,8 +66,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     break;
                 default:
                     var profile = new FirefoxProfile();
-                    profile.SetPreference("media.navigator.streams.fake", true);
-                    profile.SetPreference("media.navigator.permission.disabled", true);
+                    profile.SetPreference("use-fake-ui-for-media-stream", true);
                     caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
                     caps.SetCapability("browserName", "Firefox");
                     caps.SetCapability("platform", "Windows 10");
@@ -95,11 +93,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             {
                 AcceptInsecureCertificates = true
             };
-            //if (BlockCameraAndMic)
-            //{
-
-            //}
-            options.SetPreference("media.navigator.permission.disabled", true);
+            options.SetPreference("media.navigator.streams.fake", true);
             return new FirefoxDriver(FireFoxDriverPath, options);
         }
 
@@ -112,14 +106,5 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 return Directory.Exists(osxPath) ? osxPath : assemblyPath;
             }
         }
-
-        private bool BlockCameraAndMic => HasTag("BlockCameraAndMic");
-        private bool TestTablet => HasTag("Tablet");
-
-        private bool HasTag(string tagName)
-        {
-            return _scenario.Tags.Any(tag => tag.Equals(tagName, StringComparison.CurrentCultureIgnoreCase));
-        }
-
     }
 }
