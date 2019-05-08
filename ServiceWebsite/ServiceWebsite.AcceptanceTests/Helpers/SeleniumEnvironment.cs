@@ -1,7 +1,9 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using TechTalk.SpecFlow;
@@ -35,6 +37,10 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             switch (_targetBrowser)
             {
                 case TargetBrowser.Chrome:
+                    var chromeOptions = new Dictionary<string, object>();
+                    chromeOptions["args"] = new List<string>
+                        { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream"};
+                    caps.SetCapability(ChromeOptions.Capability, chromeOptions);
                     caps.SetCapability("browserName", "Chrome");
                     caps.SetCapability("platform", "Windows 10");
                     caps.SetCapability("version", "74.0");
@@ -59,9 +65,13 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     caps.SetCapability("browserName", "Safari");
                     break;
                 default:
+                    var profile = new FirefoxProfile();
+                    profile.SetPreference("media.navigator.streams.fake", true);
+                    profile.SetPreference("media.navigator.permission.disabled", true);
+                    caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
                     caps.SetCapability("browserName", "Firefox");
                     caps.SetCapability("platform", "Windows 10");
-                    caps.SetCapability("version", "66.04");
+                    caps.SetCapability("version", "latest");
                     caps.SetCapability("autoAcceptAlerts", true);
                     break;
             }
