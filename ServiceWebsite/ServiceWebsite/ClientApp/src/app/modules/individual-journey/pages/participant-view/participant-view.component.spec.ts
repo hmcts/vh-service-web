@@ -15,7 +15,7 @@ describe('ParticipantViewComponent', () => {
   describe('functionality', () => {
     let component: ParticipantViewComponent;
     const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
-    const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['inHearingExampleVideo']);
+    const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
@@ -39,7 +39,7 @@ describe('ParticipantViewComponent', () => {
       expect(userMediaService.stopStream).toHaveBeenCalled();
     });
     it('should assign url to video sources', () => {
-      videoUrlService.inHearingExampleVideo.and.returnValue('/hearingVideo');
+      videoUrlService.getVideoFileUrl.and.returnValue('/hearingVideo');
       component.ngOnInit();
       expect(component.videoSource).toBeTruthy();
     });

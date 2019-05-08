@@ -19,7 +19,7 @@ class StubVideoViewComponent {
 }
 
 const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
-  const videoUrls = [ 'inHearingExampleVideo', 'judgeSelfViewVideo', 'otherParticipantExampleVideo' ];
+  const videoUrls = [ 'getVideoFileUrl'];
   CanCreateComponent(component, (configuration: TestModuleMetadata) => {
     configuration.providers.push(
       { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['error']) },

@@ -6,7 +6,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class DeviceType {
 
-   constructor(private deviceDetectorService: DeviceDetectorService) {
+  constructor(private deviceDetectorService: DeviceDetectorService) {
   }
 
   isMobile() {
