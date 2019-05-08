@@ -27,6 +27,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public void Continue() => SetMethods.ClickElement(By.Id("continue"), _browserContext);
         public string PageHeading() => GetMethods.GetText(By.CssSelector("app-use-camera-microphone h1"), _browserContext);
         public string PageDetails() => GetMethods.GetText(By.CssSelector("app-show-details p"), _browserContext);
-        public string BodyOfThePage() => GetMethods.GetText(By.Id("message1"), _browserContext);
+        public string BodyOfThePage() => GetMethods.GetText(By.CssSelector(".govuk-body"), _browserContext);
     }
 }
