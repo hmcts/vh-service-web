@@ -1212,7 +1212,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="helpTheCourtDecide_btn_continue" datatype="html">
-        <source>Continue to questions</source>
+        <source>
+          Continue to questions
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
           <context context-type="linenumber">13</context>

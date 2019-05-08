@@ -5,12 +5,14 @@
         <h1 class="govuk-heading-xl" i18n="@@helpTheCourtDecide_h1">Help the court decide on a suitable method for your hearing</h1>
       </div>
       <div>
-        <p class="govuk-body" id="message1" i18n="@@helpTheCourtDecide_p">
+        <p class="govuk-body" i18n="@@helpTheCourtDecide_p">
           We now need to ask you some questions to help the court decide which method will be suitable for your hearing.
         </p>
       </div>
       <div>
-        <input class="govuk-button" (click)="continue()" value="Continue to questions" i18n-value="@@helpTheCourtDecide_btn_continue" type="button" id="continue"/>
+        <button type="button" i18n="@@helpTheCourtDecide_btn_continue" class="govuk-button" (click)="continue()" id="continue">
+          Continue to questions
+        </button>
       </div>
       <app-contact-us></app-contact-us>
     </div>
