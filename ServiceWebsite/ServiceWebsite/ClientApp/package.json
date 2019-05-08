@@ -33,6 +33,7 @@
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
     "govuk-frontend": "^1.3.0",
+    "ngx-device-detector": "^1.3.5",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },

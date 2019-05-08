@@ -4,6 +4,7 @@ import { MediaService } from '../../services/media.service';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
 import { HearingViewBaseComponent } from '../../components/hearing-view-base.component';
+import { VideoFiles } from '../../services/video-files';
 
 @Component({
   selector: 'app-participant-view',
@@ -24,7 +25,7 @@ export class ParticipantViewComponent extends HearingViewBaseComponent implement
   }
 
   ngOnInit() {
-    this.videoSource = this.videoUrlService.inHearingExampleVideo;
+    this.videoSource = this.videoUrlService.getVideoFileUrl(VideoFiles.BeforeTheDay_ParticipantView);
   }
 
   replay() {

@@ -4,6 +4,7 @@ import { MediaService } from '../../services/media.service';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
 import { HearingViewBaseComponent } from '../../components/hearing-view-base.component';
+import { VideoFiles } from '../../services/video-files';
 
 @Component({
   selector: 'app-judge-view',
@@ -28,8 +29,8 @@ export class JudgeViewComponent extends HearingViewBaseComponent implements OnIn
   }
 
   ngOnInit() {
-    this.videoSourceJudge = this.videoUrlService.judgeSelfViewVideo;
-    this.videoSourceParticipant = this.videoUrlService.otherParticipantExampleVideo;
+    this.videoSourceJudge = this.videoUrlService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Judge);
+    this.videoSourceParticipant = this.videoUrlService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Participant);
   }
 
   replay() {
