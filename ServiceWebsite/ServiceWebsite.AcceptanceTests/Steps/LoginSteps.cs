@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using ServiceWebsite.AcceptanceTests.Contexts;
-using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 

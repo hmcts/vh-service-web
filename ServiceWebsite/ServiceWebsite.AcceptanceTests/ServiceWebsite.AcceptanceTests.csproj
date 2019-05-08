@@ -40,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\IndividualInformationVideo.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IndividualInformationVideo.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\InformationScreens.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -51,6 +56,9 @@
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
     <Compile Update="Steps\CommonSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Steps\InformationVideoSteps.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -68,21 +76,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>IndividualInformationVideo.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\InformationScreens.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>InformationScreens.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Login.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
   </ItemGroup>
-  
-  <Target Name="AfterUpdateFeatureFilesInProject">
-    <!-- include any generated SpecFlow files in the compilation of the project if not included yet -->
-    <ItemGroup>
-      <Compile Include="**\*.feature.cs" Exclude="@(Compile)" />
-    </ItemGroup>
-  </Target>
-
 </Project>
