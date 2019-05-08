@@ -4,8 +4,8 @@
     <body>
       <trans-unit id="footer_a_1" datatype="html">
         <source>
-                Privacy policy
-              </source>
+              Privacy policy
+            </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/shared/footer/footer.component.html</context>
           <context context-type="linenumber">8</context>
@@ -90,7 +90,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="errorFooter_p_2" datatype="html">
-        <source> Telephone: </source>
+        <source>Telephone: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/shared/error-footer/error-footer.component.html</context>
           <context context-type="linenumber">8</context>
@@ -172,6 +172,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/shared/contact-us/contact-us.component.html</context>
           <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crestBluePanel_img" datatype="html">
+        <source>HM Courts &amp; Tribunals Service crest</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/shared/crest-blue-panel/crest-blue-panel.component.html</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="app_a" datatype="html">
@@ -631,14 +638,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="pageNotFound_p_2" datatype="html">
-        <source>If you pasted the web address, check you copied the entire address. </source>
+        <source>If you pasted the web address, check you copied the entire address.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pages/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="pageNotFound_p_3" datatype="html">
-        <source> If the web address is correct or you selected a link or button, contact us using the options below. </source>
+        <source>If the web address is correct or you selected a link or button, contact us using the options below.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pages/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">6</context>
@@ -667,38 +674,6 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="d4adee9c853bac49297f318723c57cad5680066b" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ct.Name}}"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5afff086e4d540ca96eae71e74fd8580f9fab6be" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ctext.Name}}"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
-          <context context-type="linenumber">29</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="f8f672235d078572f98a33b6750831e6b8d2ab94" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{textItem}}"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="bda5ee0696693c17fba97b49afa47670e5bf86ce" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ctext.ListTitle}}"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="49e7c4ad960f22366042c85b8f088dab35e8a627" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{listItem}}"/></source>
         <context-group purpose="location">
@@ -707,7 +682,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="guidance_a" datatype="html">
-        <source> Print the entire guide </source>
+        <source>Print the entire guide </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pages/guidance/guidance.component.html</context>
           <context context-type="linenumber">49</context>
@@ -732,21 +707,21 @@
         </context-group>
       </trans-unit>
       <trans-unit id="logout_p_2" datatype="html">
-        <source>Signed out successfully. Click</source>
+        <source>Signed out successfully. Click </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/security/logout/logout.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout_a" datatype="html">
-        <source>here</source>
+        <source> here </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/security/logout/logout.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout_p_3" datatype="html">
-        <source>to log back in.</source>
+        <source> to log back in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/security/logout/logout.component.html</context>
           <context context-type="linenumber">7</context>
@@ -977,113 +952,104 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_Img_Crest" datatype="html">
-        <source>HM Courts &amp; Tribunals Service crest</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="aboutHearings_p_1" datatype="html">
+      <trans-unit id="aboutHearing_p_1" datatype="html">
         <source>
-              Hearings like yours can take place:
-            </source>
+    Hearings like yours can take place:
+  </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_h2_1" datatype="html">
+      <trans-unit id="aboutHearing_h1_1" datatype="html">
         <source>In a court building</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_p_2" datatype="html">
+      <trans-unit id="aboutHearing_p_2" datatype="html">
         <source>
-              At these hearings, all participants gather in the courtroom in front of the judge.
-            </source>
+    At these hearings, all participants gather in the courtroom in front of the judge.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearing_h2_1" datatype="html">
+        <source>By video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearing_p_3" datatype="html">
+        <source>
+   These hearings allow you to be seen and heard in court without having to travel. All participants,
+    including the judge, sit in different locations in front of a computer. They can see and hear each other
+    throughout the hearing.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearing_btn_next" datatype="html">
+        <source>
+    Next
+  </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearings_h2_2" datatype="html">
-        <source>By video</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="aboutHearings_p_3" datatype="html">
+      <trans-unit id="differentHearingType_p_1" datatype="html">
         <source>
-              These hearings allow you to be seen and heard in court without having to travel. All participants,
-              including the judge, sit in different locations in front of a computer. They can see and hear each other
-              throughout the hearing.
-            </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="aboutHearins_btn_next" datatype="html">
-        <source>
-              Next
-            </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="differentHearingTypes_img_crest" datatype="html">
-        <source>HM Courts &amp; Tribunals Service crest</source>
+    The court will decide which method is suitable for your hearing. You can help the court decide by
+    answering some questions.
+  </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">2</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="differentHearingTypes_p_1" datatype="html">
-        <source>
-              The court will decide which method is suitable for your hearing. You can help the court decide by answering some questions.
-            </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="differentHearingTypes_p_2" datatype="html">
+      <trans-unit id="differentHearingType_btn_continue" datatype="html">
         <source>
-              Before you answer the questions, let’s find out more about the different types of hearing.
-            </source>
+    Continue
+  </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="differentHearingTypes_btn_continue" datatype="html">
-        <source>
-              Continue
-            </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="exploreCourtBuilding_h1" datatype="html">
         <source>
-      Explore court building
+      Hearings held in a court or tribunal building
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreCourtBuilding_p" datatype="html">
+        <source>
+      The short video on the next screen explains how hearings are conducted in a court or tribunal building.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="exploreCourtBuilding_btn_continue" datatype="html">
-        <source>Continue</source>
+        <source>Play the video</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="courtBuildingVideo_h1" datatype="html">
@@ -1154,7 +1120,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_h1_1" datatype="html">
         <source>
-          Your camera and microphone are now switched on&apos;
+          Your camera and microphone are now switched on
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -1163,7 +1129,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_p_2" datatype="html">
         <source>
-            You\&apos;re now ready to watch the interactive video.
+            You&apos;re now ready to watch the interactive video.
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -1256,34 +1222,41 @@
       </trans-unit>
       <trans-unit id="aboutYou_h1" datatype="html">
         <source>
-    About you
-  </source>
+      About you
+    </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aboutYou_btn_continue" datatype="html">
         <source>Continue</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="interpreter_h1" datatype="html">
         <source>
-      Interpreter
+        Getting an interpreter
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/interpreter/interpreter.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="interpreter_detailsTitle" datatype="html">
+        <source>&apos;Getting an interpreter for your hearing&apos;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/interpreter/interpreter.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="interpreter_btn_continue" datatype="html">
         <source>Continue</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/interpreter/interpreter.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="yourComputer_h1" datatype="html">
@@ -1397,6 +1370,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/consent/consent.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="consent_btn_continue" datatype="html">
+        <source>Continue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/consent/consent.component.html</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="thankYou_h1" datatype="html">
