@@ -37,7 +37,8 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 case TargetBrowser.Chrome:
                     caps.SetCapability("browserName", "Chrome");
                     caps.SetCapability("platform", "Windows 10");
-                    caps.SetCapability("version", "71.0");
+                    caps.SetCapability("version", "74.0");
+                    caps.SetCapability("autoAcceptAlerts", true);
                     break;
                 case TargetBrowser.Safari:
                     caps.SetCapability("browserName", "Safari");
@@ -60,12 +61,13 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 default:
                     caps.SetCapability("browserName", "Firefox");
                     caps.SetCapability("platform", "Windows 10");
-                    caps.SetCapability("version", "64.0");
+                    caps.SetCapability("version", "66.04");
+                    caps.SetCapability("autoAcceptAlerts", true);
                     break;
             }
 
             caps.SetCapability("name", _scenario.Title);
-            caps.SetCapability("build", Environment.GetEnvironmentVariable("BUILD_BUILDNUMBER"));
+            caps.SetCapability("build", Environment.GetEnvironmentVariable("Build_DefinitionName") + "  " + Environment.GetEnvironmentVariable("BUILD_BUILDNUMBER"));
 #pragma warning restore 618
 
             // It can take quite a bit of time for some commands to execute remotely so this is higher than default
@@ -82,6 +84,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             {
                 AcceptInsecureCertificates = true
             };
+            options.SetPreference("media.navigator.permission.disabled", true);
             return new FirefoxDriver(FireFoxDriverPath, options);
         }
 

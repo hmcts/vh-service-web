@@ -1,24 +1,24 @@
 ﻿using FluentAssertions;
-using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using System;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class DifferentHearingTypes : AboutHearings
+    public class DifferentHearingTypes
     {
+        private readonly BrowserContext _browserContext;
         private readonly CommonPages _commonPages;
-        public DifferentHearingTypes(BrowserContext browserContext, CommonPages commonPages) : base(browserContext, commonPages)
+        public DifferentHearingTypes(BrowserContext browserContext, CommonPages commonPages)
         {
-            _commonPages = commonPages;
+            _browserContext = browserContext;
+           _commonPages = commonPages;
         }
 
         private const string ExpectedBlueScreenContent = "The court will decide which method is suitable for your hearing. You can help the court decide by answering some questions.Before you answer the questions, let’s find out more about the different types of hearing.Continue";
         public void DifferentHearingTypesBlueScreen()
         {
             _commonPages.ValidatePage("/different-hearing-types");
-            ActualBlueScreenContent().Trim().Should().Be(ExpectedBlueScreenContent);
-            HmctsLogo().Should().BeTrue();
+            _commonPages.ActualBlueScreenContent().Trim().Should().Be(ExpectedBlueScreenContent);
+            _commonPages.HmctsLogo().Should().BeTrue();
         }
     }
 }
