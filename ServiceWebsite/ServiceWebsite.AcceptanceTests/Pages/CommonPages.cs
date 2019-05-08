@@ -27,7 +27,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public void Continue() => SetMethods.ClickElement(By.Id("continue"), _browserContext);
         public string PageHeading() => GetMethods.GetText(By.CssSelector("app-use-camera-microphone h1"), _browserContext);
         public string PageDetails() => GetMethods.GetText(By.CssSelector("app-show-details p"), _browserContext);
-        public string BodyOfThePage() => GetMethods.GetText(By.Id("message1"), _browserContext);
+        public string AccordionDetails() => GetMethods.GetText(By.Id("message1"), _browserContext);
 
         // Html input tag is used for button on pages with no contents
         public void ContinueButtonAsInput() => SetMethods.ClickElement(By.CssSelector("input.govuk-button"), _browserContext);

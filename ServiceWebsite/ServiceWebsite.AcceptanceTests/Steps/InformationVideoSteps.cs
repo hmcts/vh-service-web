@@ -8,11 +8,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly UseCameraMicrophone _useCameraMicrophone;
         private readonly ParticipantView _participantView;
+        private readonly MediaError _mediaError;
 
-        public InformationVideoSteps(UseCameraMicrophone useCameraMicrophone, ParticipantView participantView)
+        public InformationVideoSteps(UseCameraMicrophone useCameraMicrophone, ParticipantView participantView,
+            MediaError mediaError)
         {
             _useCameraMicrophone = useCameraMicrophone;
             _participantView = participantView;
+            _mediaError = mediaError;
         }
 
         [When(@"Camera and Microphone is switched on")]
@@ -26,6 +29,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void ThenIndividualParticipantShouldBeAbleToViewInformationVideo()
         {
             _participantView.IndividualViewsInformationVideo();
+        }
+        [Then(@"Individual participant should not be able to continue with suitability questionnaire")]
+        public void ThenIndividualParticipantShouldNotBeAbleToContinueWithSuitabilityQuestionnaire()
+        {
+            _mediaError.BlockedCameraAndMic();
         }
     }
 }
