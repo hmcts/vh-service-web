@@ -45,7 +45,7 @@ npx nswag run booking-api-csharp.nswag
 In the `ClientApp` folder run `node accessibility_lint.js`. Will output a json with any issues.
 
 #Localization
-In html files, for localised text, set attibite 'i18n' for element or attribute with a unique identifier like `i18n="@@customerId"`.
+In html files, for localised text, set attribute 'i18n' for element or attribute with a unique identifier like `i18n="@@customerId"`.
 
 For inner text:
 ```html
@@ -67,7 +67,7 @@ Would be:
 <app-details bind-detailsTitle="titleVariable" i18n-bind-details="@@detailsTitle><app-details> 
 ```
 
-Create a translation source file in the `ServiceWebsite.BookingsAPI.Client` project:
+Create a translation source file in the `ServiceWebsite/ClientApp` folder:
 ```bash
 ng xi18n --output-path translate
 ```
