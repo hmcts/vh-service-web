@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using ServiceWebsite.Configuration;
-using Hearings.Common;
-using Hearings.Common.Helpers;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using ServiceWebsite.Common;
 
 namespace ServiceWebsite.Security
 {
@@ -53,7 +51,7 @@ namespace ServiceWebsite.Security
             }
             catch (Exception e)
             {
-                ApplicationLogger.TraceException(TraceCategory.APIException.ToString(), "BookHearing Client Exception", e, null,
+                ApplicationLogger.TraceException(TraceCategories.Authorization, "BookHearing Client Exception", e, null,
                     properties);
                 throw;
             }

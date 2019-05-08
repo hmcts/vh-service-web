@@ -1,0 +1,10 @@
+$crest-image-width: 180px;
+$crest-column-padding: 15px;
+
+.vh-crest-column {
+    min-width:$crest-image-width + $crest-column-padding;
+}
+
+.vh-crest-column img {
+    width: $crest-image-width;
+}

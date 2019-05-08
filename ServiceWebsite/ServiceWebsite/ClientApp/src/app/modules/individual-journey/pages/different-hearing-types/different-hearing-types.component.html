@@ -1,35 +1,15 @@
-<div class="govuk-width-container">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <div class="panel-blue">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-quarter">
+<app-crest-blue-panel>
+  <p class="govuk-body govuk-!-margin-bottom-6 text-white" i18n="@@differentHearingType_p_1">
+    The court will decide which method is suitable for your hearing. You can help the court decide by
+    answering some questions.
+  </p>
 
 
-            <img src="/assets/images/HMCTSlogo.png" width="180" class="govuk-header__logotype-crest govuk-!-margin-bottom-6"
-              alt="HM Courts &amp; Tribunals Service crest" />
+  <p class="govuk-body govuk-!-margin-bottom-6 text-white" i18n="@@differentHearingType_p_1">
+    Before you answer the questions, let’s find out more about the different types of hearing.
+  </p>
 
-          </div>
-          <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body govuk-!-margin-bottom-6 text-white">
-              {{ 'The court will decide which method is suitable for your hearing. You can help the court decide by
-              answering some questions.' | localise }}
-            </p>
-
-
-            <p class="govuk-body govuk-!-margin-bottom-6 text-white">
-              {{ 'Before you answer the questions, let’s find out more about the different types of hearing.' |
-              localise }}
-            </p>
-
-            <button type="button" class="govuk-button hmcts-button--secondary" (click)="continue()" id="continue">
-              {{ 'Continue' | localise:'Button' }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <app-contact-us>
-      </app-contact-us>
-    </div>
-  </div>
-</div>
+  <button type="button" i18n="@@differentHearingType_btn_continue" class="govuk-button hmcts-button--secondary" (click)="continue()" id="continue">
+    Continue
+  </button>
+</app-crest-blue-panel>

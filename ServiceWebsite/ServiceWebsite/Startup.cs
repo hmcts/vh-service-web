@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
@@ -35,7 +37,9 @@ namespace ServiceWebsite
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
+            services.AddSingleton<ITelemetryInitializer>(new CloudRoleNameInitializer());
+
             services.AddCors();
 
             services.AddJsonOptions();

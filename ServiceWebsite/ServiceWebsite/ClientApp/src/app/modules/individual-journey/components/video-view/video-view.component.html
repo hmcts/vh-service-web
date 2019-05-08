@@ -1,2 +1,14 @@
-<video #video [src]="source" type="video/mp4" width="100%" height="100%" autoplay (canplay)="readyToPlay()">
+<div class="govuk-warning-text" *ngIf="videoUnavailable">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        Sorry, this video is not available at the moment.
+    </strong>
+</div>
+<video controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable">
+    <source [src]="source" type="video/mp4" (error)="onVideoError()">
+    <!-- track src files are empty as the captions are embedded in the video -->
+    <track src="" kind="captions" srclang="en" label="english_captions">
+    <track src="" kind="descriptions" srclang="en" label="english_description">
+    <p> Sorry, this video is not available at the moment.</p>
 </video>

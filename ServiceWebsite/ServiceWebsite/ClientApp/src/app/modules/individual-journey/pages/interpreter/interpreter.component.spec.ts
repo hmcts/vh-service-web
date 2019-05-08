@@ -1,8 +1,11 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { InterpreterComponent } from './interpreter.component';
+import { CannotProceeedUntilChoiceIsSelected } from '../../components/suitability-choice-page-base.component.spec';
 
 describe('InterpreterComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(InterpreterComponent);
+  it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
+    const fixture = CannotProceeedUntilChoiceIsSelected(InterpreterComponent);
+
+    // and value is bound
+    expect(fixture.component.model.interpreter).toBe(true);
   });
 });

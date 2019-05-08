@@ -1,11 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hearings.Common;
-using Hearings.Common.Helpers;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
-using ServiceWebsite.Services;
 using ServiceWebsite.UserAPI.Client;
 
 namespace ServiceWebsite.Controllers
