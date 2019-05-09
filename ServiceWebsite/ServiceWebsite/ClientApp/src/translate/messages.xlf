@@ -1018,13 +1018,55 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="differentHearingType_btn_continue" datatype="html">
-        <source>
-    Continue
-  </source>
+      <trans-unit id="journey_btn_continue" datatype="html">
+        <source>Continue</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
           <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/court-building-video/court-building-video.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/interpreter/interpreter.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-your-computer/about-your-computer.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/your-internet-connection/your-internet-connection.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/access-to-room/access-to-room.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/consent/consent.component.html</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="exploreCourtBuilding_h1" datatype="html">
@@ -1036,13 +1078,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="exploreCourtBuilding_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="courtBuildingVideo_h1" datatype="html">
         <source>
       Court building video
@@ -1052,13 +1087,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="courtBuildingVideo_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/court-building-video/court-building-video.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="exploreVideoHearing_h1" datatype="html">
         <source>
       Explore video hearings
@@ -1066,13 +1094,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
           <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="exploreVideoHearing_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
-          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="useCameraMicrophone_h1" datatype="html">
@@ -1204,13 +1225,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="helpTheCourtDecide_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="aboutYou_h1" datatype="html">
         <source>
       About you
@@ -1218,13 +1232,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
           <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="aboutYou_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
-          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="interpreter_h1" datatype="html">
@@ -1243,13 +1250,6 @@
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="interpreter_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/interpreter/interpreter.component.html</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="yourComputer_h1" datatype="html">
         <source>
     Your computer
@@ -1264,20 +1264,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
           <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="yourComputer_btn_no" datatype="html">
-        <source>no</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="yourComputer_btn_continue" datatype="html">
-        <source>continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/your-computer/your-computer.component.html</context>
-          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aboutYourComputer_h1" datatype="html">
@@ -1310,13 +1296,6 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutYourComputer_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/about-your-computer/about-your-computer.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="yourInternetConnection_btn_yes" datatype="html">
         <source>yes</source>
         <context-group purpose="location">
@@ -1331,13 +1310,6 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="yourInternetConnection_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/your-internet-connection/your-internet-connection.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="accessToRoom_h1" datatype="html">
         <source>
     Access to room
@@ -1347,13 +1319,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessToRoom_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/access-to-room/access-to-room.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="consent_h1" datatype="html">
         <source>
     Consent
@@ -1361,13 +1326,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/consent/consent.component.html</context>
           <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="consent_btn_continue" datatype="html">
-        <source>Continue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/consent/consent.component.html</context>
-          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="thankYou_h1" datatype="html">
