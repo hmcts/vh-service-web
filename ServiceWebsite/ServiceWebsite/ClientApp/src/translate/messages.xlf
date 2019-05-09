@@ -1025,20 +1025,12 @@
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/court-building-video/court-building-video.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
           <context context-type="linenumber">13</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
-          <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
@@ -1071,11 +1063,27 @@
       </trans-unit>
       <trans-unit id="exploreCourtBuilding_h1" datatype="html">
         <source>
-      Explore court building
+      Hearings held in a court or tribunal building
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreCourtBuilding_p" datatype="html">
+        <source>
+      The short video on the next screen explains how hearings are conducted in a court or tribunal building.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreCourtBuilding_btn_continue" datatype="html">
+        <source>Play the video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="courtBuildingVideo_h1" datatype="html">
@@ -1224,12 +1232,28 @@
         </context-group>
       </trans-unit>
       <trans-unit id="helpTheCourtDecide_h1" datatype="html">
-        <source>
-      Help the court decide
-    </source>
+        <source>Help the court decide on a suitable method for your hearing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="helpTheCourtDecide_p" datatype="html">
+        <source>
+          We now need to ask you some questions to help the court decide which method will be suitable for your hearing.
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="helpTheCourtDecide_btn_continue" datatype="html">
+        <source>
+          Continue to questions
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aboutYou_h1" datatype="html">
