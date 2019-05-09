@@ -37,11 +37,11 @@ export class AppComponent implements OnInit {
   }
 
   private initAuthentication() {
-    const config = {
+    const config: adal.Config = {
       tenant: this.config.tenantId,
       clientId: this.config.clientId,
       postLogoutRedirectUri: this.config.postLogoutRedirectUri,
-      redirectUri: this.config.redirectUri,
+      redirectUri: this.config.redirectUri
     };
 
     this.adalService.init(config);

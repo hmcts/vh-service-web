@@ -21,7 +21,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         private const string UseMyCameraAndMicrophoneMessage = "Switch on your camera and microphone to see the short interactive video.";
         private const string UseMyCameraAndMicrophoneSummaryText = "Why do I need to use my camera and microphone?";
         private const string UseMyCameraAndMicrophoneDetailsText = "If you switch on your camera and microphone, you’ll be able to see what it’s like to be in a video hearing. Once the video has finished, your camera and microphone will switch off again.";
-
+        private By SwitchOnMedia => By.Id("switch-on-media");
         private const string CameraAndMicrophoneAreSwitchedOnHeading = "Your camera and microphone are now switched on";
         private const string CameraAndMicrophoneAreSwitchedOnMessage = "You're now ready to watch the interactive video.";
 
@@ -38,7 +38,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
             _commonPages.BodyOfThePage().Should().Be(UseMyCameraAndMicrophoneMessage);
             UseMyCameraAndMicrophoneSummaryLink().Should().Be(UseMyCameraAndMicrophoneSummaryText);
             _commonPages.PageDetails().Should().Be(UseMyCameraAndMicrophoneDetailsText);
-            _commonPages.Continue();
+            SetMethods.ClickElement(SwitchOnMedia, _context);
         }
 
         public void CameraAndMicrophoneAreSwitchedOn()
