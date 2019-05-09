@@ -20,7 +20,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         public void BlockedCameraAndMic()
         {
             _commonPages.ValidatePage(PageUrl);
-            _commonPages.PageHeading().Should().Be(MediaErrorPageHeading);
         }
     }
 }

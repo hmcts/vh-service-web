@@ -88,7 +88,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.Given("Individual participant is on camera and microphone page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("Camera and Microphone is switched on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("Camera and Microphone are switched on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.Then("Individual participant should be able to view information video", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -96,22 +96,26 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Individual blocks Camera and microphone")]
+        [NUnit.Framework.DescriptionAttribute("Individual participant blocks Camera and microphone")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4401")]
         [NUnit.Framework.CategoryAttribute("VIH-4066")]
-        public virtual void IndividualBlocksCameraAndMicrophone()
+        [NUnit.Framework.CategoryAttribute("BlockCameraAndMic")]
+        public virtual void IndividualParticipantBlocksCameraAndMicrophone()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual blocks Camera and microphone", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant blocks Camera and microphone", null, new string[] {
                         "smoketest",
                         "VIH-4401",
-                        "VIH-4066"});
+                        "VIH-4066",
+                        "BlockCameraAndMic"});
 #line 13
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 14
- testRunner.Given("Individual does not switch on camera and microphone", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Individual participant is on camera and microphone page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 15
+ testRunner.When("Camera and Microphone are not switched on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
  testRunner.Then("Individual participant should not be able to continue with suitability questionna" +
                     "ire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

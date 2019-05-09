@@ -18,8 +18,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _blueInformationScreens = blueInformationScreens;
             _commonPages = commonPages;                       
         }
-
-        [Given(@"(.*) does not switch on camera and microphone")]
+        
         [Given(@"(.*) participant is on camera and microphone page")]
         public void GivenIndividualParticipantIsOnCameraAndMicrophonePage(string participant)
         {

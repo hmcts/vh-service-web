@@ -18,8 +18,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _mediaError = mediaError;
         }
 
-        [When(@"Camera and Microphone is switched on")]
-        public void WhenCameraAndMicrophoneIsSwitchedOn()
+        [When(@"Camera and Microphone are switched on")]
+        public void WhenCameraAndMicrophoneAreSwitchedOn()
         {
             _useCameraMicrophone.IndividualSwitchesOnCameraAndMicrophone();
             _useCameraMicrophone.CameraAndMicrophoneAreSwitchedOn();
@@ -29,11 +29,18 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void ThenIndividualParticipantShouldBeAbleToViewInformationVideo()
         {
             _participantView.IndividualViewsInformationVideo();
+            _participantView.VideoHasStarted();
         }
         [Then(@"Individual participant should not be able to continue with suitability questionnaire")]
         public void ThenIndividualParticipantShouldNotBeAbleToContinueWithSuitabilityQuestionnaire()
         {
             _mediaError.BlockedCameraAndMic();
+        }
+
+        [When(@"Camera and Microphone are not switched on")]
+        public void WhenCameraAndMicrophoneAreNotSwitchedOn()
+        {
+            _useCameraMicrophone.IndividualSwitchesOnCameraAndMicrophone();
         }
     }
 }
