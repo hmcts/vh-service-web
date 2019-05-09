@@ -9,5 +9,8 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 
         public static bool IsElementDisplayed(By element, BrowserContext context) =>
              context.NgDriver.WaitUntilElementVisible(element).Displayed;
+
+        public static string GetAttributeValue(By element, BrowserContext context, string attribute) =>
+            context.NgDriver.WaitUntilElementVisible(element).GetAttribute(attribute);
     }
 }
