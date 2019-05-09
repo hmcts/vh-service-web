@@ -30,11 +30,13 @@ export class VideoViewComponent {
    */
   readyToPlay() {
     this.loaded.emit();
-    this.logger.error('The video file is not available.', null, null);
   }
+
   onVideoError(): void {
+    this.logger.error('The video file is not available.', null, null);
     this.videoUnavailable = true;
   }
+
   /**
    * Plays the video
    */

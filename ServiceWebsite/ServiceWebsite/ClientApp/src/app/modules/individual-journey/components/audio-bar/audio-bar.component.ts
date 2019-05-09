@@ -21,7 +21,7 @@ export class AudioBarComponent {
   colorAudio = '#006435';
 
   constructor() {
-    this.audioContext = new (window['AudioContext'] || window['webkitAudioContext'])();
+    this.createAudioContext();
   }
 
   async setSource(stream: MediaStream) {
@@ -31,11 +31,17 @@ export class AudioBarComponent {
   }
 
   async resumeAudioContext() {
+    if (!this.audioContext) {
+      this.createAudioContext();
+    }
     if (this.audioContext.state === 'suspended') {
       await this.audioContext.resume();
     }
   }
 
+  private createAudioContext() {
+    this.audioContext = new (window['AudioContext'] || window['webkitAudioContext'])();
+  }
   private createAudioSource(stream: MediaStream) {
     const source = this.audioContext.createMediaStreamSource(stream);
     // Create a new volume meter and connect it.
