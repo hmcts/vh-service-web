@@ -31,9 +31,6 @@ export class AudioBarComponent {
   }
 
   async resumeAudioContext() {
-    if (!this.audioContext) {
-      this.createAudioContext();
-    }
     if (this.audioContext.state === 'suspended') {
       await this.audioContext.resume();
     }
