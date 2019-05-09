@@ -1,4 +1,5 @@
-﻿using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
+﻿using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -6,20 +7,22 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class BlueInformationScreensSteps
     {
-        private readonly DifferentHearingTypes _blueScreens;
-        private readonly CommonSteps _commonSteps;
+        private readonly DifferentHearingTypes _differentHearingTypes;
+        private readonly AboutHearings _aboutHearings;
+        private readonly CommonPages _commonPages;
 
-        public BlueInformationScreensSteps(DifferentHearingTypes differentHearingTypes, CommonSteps commonSteps)
+        public BlueInformationScreensSteps(DifferentHearingTypes differentHearingTypes, CommonPages commonPages, AboutHearings aboutHearings)
         {
-            _blueScreens = differentHearingTypes;
-            _commonSteps = commonSteps;
+            _differentHearingTypes = differentHearingTypes;
+            _commonPages = commonPages;
+            _aboutHearings = aboutHearings;
         }
         [Then(@"Individual should view blue information screens")]
         public void ThenIndividualShouldViewBlueInformationScreen()
         {
-            _blueScreens.AboutHearingsBlueScreen();
-            _commonSteps.ParticipantContinuesWithSuitabilityQuestionnaire();
-            _blueScreens.DifferentHearingTypesBlueScreen();
+            _aboutHearings.AboutHearingsBlueScreen();
+            _commonPages.Continue();
+            _differentHearingTypes.DifferentHearingTypesBlueScreen();
         }
     }
 }

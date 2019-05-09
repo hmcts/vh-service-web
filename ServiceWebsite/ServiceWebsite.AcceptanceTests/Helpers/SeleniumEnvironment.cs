@@ -1,7 +1,9 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using TechTalk.SpecFlow;
@@ -35,9 +37,14 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             switch (_targetBrowser)
             {
                 case TargetBrowser.Chrome:
+                    var chromeOptions = new Dictionary<string, object>();
+                    chromeOptions["args"] = new List<string>
+                        { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream"};
+                    caps.SetCapability(ChromeOptions.Capability, chromeOptions);
                     caps.SetCapability("browserName", "Chrome");
                     caps.SetCapability("platform", "Windows 10");
-                    caps.SetCapability("version", "71.0");
+                    caps.SetCapability("version", "74.0");
+                    caps.SetCapability("autoAcceptAlerts", true);
                     break;
                 case TargetBrowser.Safari:
                     caps.SetCapability("browserName", "Safari");
@@ -58,14 +65,18 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     caps.SetCapability("browserName", "Safari");
                     break;
                 default:
+                    var profile = new FirefoxProfile();
+                    profile.SetPreference("use-fake-ui-for-media-stream", true);
+                    caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
                     caps.SetCapability("browserName", "Firefox");
                     caps.SetCapability("platform", "Windows 10");
-                    caps.SetCapability("version", "64.0");
+                    caps.SetCapability("version", "latest");
+                    caps.SetCapability("autoAcceptAlerts", true);
                     break;
             }
 
             caps.SetCapability("name", _scenario.Title);
-            caps.SetCapability("build", Environment.GetEnvironmentVariable("BUILD_BUILDNUMBER"));
+            caps.SetCapability("build", Environment.GetEnvironmentVariable("Build_DefinitionName") + "  " + Environment.GetEnvironmentVariable("BUILD_BUILDNUMBER"));
 #pragma warning restore 618
 
             // It can take quite a bit of time for some commands to execute remotely so this is higher than default
@@ -82,6 +93,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             {
                 AcceptInsecureCertificates = true
             };
+            options.SetPreference("media.navigator.streams.fake", true);
             return new FirefoxDriver(FireFoxDriverPath, options);
         }
 
