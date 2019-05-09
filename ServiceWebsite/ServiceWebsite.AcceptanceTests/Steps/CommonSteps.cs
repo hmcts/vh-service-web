@@ -28,8 +28,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _commonPages.Continue();
             IndividualExploreCourtBuilding();
             IndividualViewsCourtBuildingVideo();
+            IndividualExploreVideoHearing();
         }
-        
+
+        public void IndividualExploreVideoHearing()
+        {
+            _commonPages.ValidatePage("/explore-video-hearing");
+            _commonPages.Continue();
+        }
+
         public void IndividualExploreCourtBuilding()
         {
             _commonPages.ValidatePage("/explore-court-building");
