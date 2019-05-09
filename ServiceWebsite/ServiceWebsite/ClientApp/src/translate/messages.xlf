@@ -1027,15 +1027,6 @@
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="exploreCourtBuilding_h1" datatype="html">
-        <source>
-      Hearings held in a court or tribunal building
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-court-building/explore-court-building.component.html</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="exploreCourtBuilding_p" datatype="html">
         <source>
       The short video on the next screen explains how hearings are conducted in a court or tribunal building.
