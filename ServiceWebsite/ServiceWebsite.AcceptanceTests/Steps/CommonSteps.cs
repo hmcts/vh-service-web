@@ -1,4 +1,5 @@
-﻿using ServiceWebsite.AcceptanceTests.Pages;
+﻿using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.AcceptanceTests.Pages;
 using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;
 
@@ -32,13 +33,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         
         public void IndividualExploreCourtBuilding()
         {
-            _commonPages.ValidatePage("/explore-court-building");
+            _commonPages.ValidatePage(PageUri.ExploreCourtBuildingPage);
             _commonPages.Continue();
         }
 
         public void IndividualViewsCourtBuildingVideo()
         {
-            _commonPages.ValidatePage("/court-building-video");
+            _commonPages.ValidatePage(PageUri.CourtBuildingVideoPage);
             _commonPages.Continue();
         }
     }

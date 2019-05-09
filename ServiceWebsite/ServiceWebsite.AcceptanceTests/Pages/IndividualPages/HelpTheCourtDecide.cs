@@ -2,20 +2,20 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class MediaError
+    public class HelpTheCourtDecide
     {
         private readonly BrowserContext _context;
         private readonly CommonPages _commonPages;
 
-        public MediaError(BrowserContext browserContext, CommonPages commonPages)
+        public HelpTheCourtDecide(BrowserContext browserContext, CommonPages commonPages)
         {
             _context = browserContext;
             _commonPages = commonPages;
         }
 
-        public void BlockedCameraAndMic()
+        public void IndividualHelpsCourtDecide()
         {
-            _commonPages.ValidatePage(PageUri.HelpTheCourtDecidePage);
+
         }
     }
 }
