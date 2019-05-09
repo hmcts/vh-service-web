@@ -1034,7 +1034,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
@@ -1088,12 +1088,19 @@
         </context-group>
       </trans-unit>
       <trans-unit id="exploreVideoHearing_h1" datatype="html">
-        <source>
-      Explore video hearings
-    </source>
+        <source>Now let&apos;s see what it&apos;s like to be in a video hearing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreVideoHearing_p" datatype="html">
+        <source>
+          The video you&apos;re about to watch is interactive. It uses your camera and microphone to show you how a video hearing would look on your computer.
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="useCameraMicrophone_h1" datatype="html">
