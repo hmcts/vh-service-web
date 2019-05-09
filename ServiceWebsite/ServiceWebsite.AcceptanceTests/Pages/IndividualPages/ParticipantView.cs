@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using System;
 
