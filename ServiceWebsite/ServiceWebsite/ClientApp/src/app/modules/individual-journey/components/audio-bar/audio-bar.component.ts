@@ -26,10 +26,14 @@ export class AudioBarComponent {
 
   async setSource(stream: MediaStream) {
     this.getCanvasContex();
+    await this.resumeAudioContext();
+    this.createAudioSource(stream);
+  }
+
+  async resumeAudioContext() {
     if (this.audioContext.state === 'suspended') {
       await this.audioContext.resume();
     }
-    this.createAudioSource(stream);
   }
 
   private createAudioSource(stream: MediaStream) {
