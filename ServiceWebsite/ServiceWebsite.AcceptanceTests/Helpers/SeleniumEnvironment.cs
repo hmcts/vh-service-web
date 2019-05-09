@@ -5,6 +5,7 @@ using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using TechTalk.SpecFlow;
 
@@ -31,16 +32,19 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
         private IWebDriver InitSauceLabsDriver()
         {
 #pragma warning disable 618
-// disable warning of using desired capabilities
+            // disable warning of using desired capabilities
 
             var caps = new DesiredCapabilities();
             switch (_targetBrowser)
             {
                 case TargetBrowser.Chrome:
-                    var chromeOptions = new Dictionary<string, object>();
-                    chromeOptions["args"] = new List<string>
+                    if (!BlockCameraAndMic)
+                    {
+                        var chromeOptions = new Dictionary<string, object>();
+                        chromeOptions["args"] = new List<string>
                         { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream"};
-                    caps.SetCapability(ChromeOptions.Capability, chromeOptions);
+                        caps.SetCapability(ChromeOptions.Capability, chromeOptions);
+                    }
                     caps.SetCapability("browserName", "Chrome");
                     caps.SetCapability("platform", "Windows 10");
                     caps.SetCapability("version", "74.0");
@@ -65,9 +69,12 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     caps.SetCapability("browserName", "Safari");
                     break;
                 default:
-                    var profile = new FirefoxProfile();
-                    profile.SetPreference("use-fake-ui-for-media-stream", true);
-                    caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
+                    if (!BlockCameraAndMic)
+                    {
+                        var profile = new FirefoxProfile();
+                        profile.SetPreference("use-fake-ui-for-media-stream", true);
+                        caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
+                    }
                     caps.SetCapability("browserName", "Firefox");
                     caps.SetCapability("platform", "Windows 10");
                     caps.SetCapability("version", "latest");
@@ -93,7 +100,10 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             {
                 AcceptInsecureCertificates = true
             };
-            options.SetPreference("media.navigator.streams.fake", true);
+            if (!BlockCameraAndMic)
+            {
+                options.SetPreference("media.navigator.streams.fake", true);
+            }
             return new FirefoxDriver(FireFoxDriverPath, options);
         }
 
@@ -105,6 +115,12 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 return Directory.Exists(osxPath) ? osxPath : assemblyPath;
             }
+        }
+        private bool BlockCameraAndMic => HasTag("BlockCameraAndMic");
+
+        private bool HasTag(string tagName)
+        {
+            return _scenario.Tags.Any(tag => tag.Equals(tagName, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }
