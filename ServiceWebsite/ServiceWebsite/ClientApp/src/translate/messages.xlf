@@ -1037,10 +1037,6 @@
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/help-the-court-decide/help-the-court-decide.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-you/about-you.component.html</context>
           <context context-type="linenumber">64</context>
         </context-group>
