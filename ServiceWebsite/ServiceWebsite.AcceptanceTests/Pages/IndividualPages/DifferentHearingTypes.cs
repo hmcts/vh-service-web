@@ -17,8 +17,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         public void DifferentHearingTypesBlueScreen()
         {
             _commonPages.ValidatePage("/different-hearing-types");
-            _commonPages.ActualBlueScreenContent().Trim().Should().Be(ExpectedBlueScreenContent);
-            _commonPages.HmctsLogo().Should().BeTrue();
         }
     }
 }

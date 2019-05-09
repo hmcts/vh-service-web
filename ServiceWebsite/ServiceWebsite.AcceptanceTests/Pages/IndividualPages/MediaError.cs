@@ -15,8 +15,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         }
         private const string PageUrl = "/media-error";
 
-        private const string MediaErrorPageHeading = "You've blocked your camera and microphone";
-
         public void BlockedCameraAndMic()
         {
             _commonPages.ValidatePage(PageUrl);

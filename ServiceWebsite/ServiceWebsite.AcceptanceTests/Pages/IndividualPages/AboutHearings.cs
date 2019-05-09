@@ -19,8 +19,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         public void AboutHearingsBlueScreen()
         {
             _commonPages.ValidatePage("/about-hearings");
-            _commonPages.ActualBlueScreenContent().Trim().Should().Be(ExpectedBlueScreenContent);
-            _commonPages.HmctsLogo().Should().BeTrue();
         }
     }
 }
