@@ -2,7 +2,7 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class DifferentHearingTypes : CommonPage
+    public class DifferentHearingTypes : JourneyStepPage
     {
         public DifferentHearingTypes(BrowserContext browserContext) : base(browserContext)
         {

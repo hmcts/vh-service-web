@@ -2,7 +2,7 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class ExploreCourtBuilding : CommonPage
+    public class ExploreCourtBuilding : JourneyStepPage
     {
         public ExploreCourtBuilding(BrowserContext browserContext) : base(browserContext)
         {

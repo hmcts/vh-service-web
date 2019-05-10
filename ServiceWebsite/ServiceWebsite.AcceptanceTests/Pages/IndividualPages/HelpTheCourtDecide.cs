@@ -2,7 +2,7 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class HelpTheCourtDecide : CommonPage
+    public class HelpTheCourtDecide : JourneyStepPage
     {
         public HelpTheCourtDecide(BrowserContext browserContext) : base(browserContext)
         {

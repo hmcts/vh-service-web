@@ -4,7 +4,7 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class UseCameraMicrophone : CommonPage
+    public class UseCameraMicrophone : JourneyStepPage
     {
         public UseCameraMicrophone(BrowserContext browserContext) : base(browserContext)
         {

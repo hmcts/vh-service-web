@@ -30,6 +30,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _blueInformationScreens.ThenIndividualShouldViewBlueInformationScreen();
             _courtBuilding.Continue();
             _courtBuildingVideo.Continue();
+            _exploreVideoHearing.Continue();
         }
     }
 }

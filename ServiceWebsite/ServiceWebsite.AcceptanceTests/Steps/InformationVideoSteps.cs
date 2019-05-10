@@ -44,7 +44,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Individual participant should not be able to continue with suitability questionnaire")]
         public void ThenIndividualParticipantShouldNotBeAbleToContinueWithSuitabilityQuestionnaire()
         {
-            _mediaError.Continue();
+            _mediaError.Validate();
         }
 
         [When(@"Camera and Microphone are not switched on")]

@@ -2,19 +2,12 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class ExploreVideoHearing
+    public class ExploreVideoHearing : JourneyStepPage
     {
-        private readonly CommonPages _commonPages;
-
-        public ExploreVideoHearing(CommonPages commonPages)
+        public ExploreVideoHearing(BrowserContext browserContext) : base(browserContext)
         {
-            _commonPages = commonPages;
-        }
 
-        public void IndividualExploreVideoHearing()
-        {
-            _commonPages.ValidatePage(PageUri.ExploreVideoHearing);
-            _commonPages.Continue();
         }
+        protected override string UrlToValidate => PageUri.ExploreVideoHearing;
     }
 }

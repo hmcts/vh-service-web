@@ -2,8 +2,8 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-   public class AboutHearings : CommonPage
-   {
+   public class AboutHearings : JourneyStepPage
+    {
         public AboutHearings(BrowserContext browserContext) : base(browserContext)
         {
 

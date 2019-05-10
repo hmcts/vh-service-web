@@ -2,7 +2,7 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class AboutYou : CommonPage
+    public class AboutYou : JourneyStepPage
     {
         public AboutYou(BrowserContext browserContext) : base(browserContext)
         {

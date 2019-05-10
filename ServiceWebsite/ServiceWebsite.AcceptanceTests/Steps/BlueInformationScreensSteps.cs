@@ -9,9 +9,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly DifferentHearingTypes _differentHearingTypes;
         private readonly AboutHearings _aboutHearings;
-        private readonly CommonPage _commonPages;
+        private readonly Page _commonPages;
 
-        public BlueInformationScreensSteps(DifferentHearingTypes differentHearingTypes, CommonPage commonPages, AboutHearings aboutHearings)
+        public BlueInformationScreensSteps(DifferentHearingTypes differentHearingTypes, Page commonPages, AboutHearings aboutHearings)
         {
             _differentHearingTypes = differentHearingTypes;
             _commonPages = commonPages;

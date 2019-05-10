@@ -2,7 +2,7 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class CourtBuildingVideo : CommonPage
+    public class CourtBuildingVideo : JourneyStepPage
     {
         public CourtBuildingVideo(BrowserContext browserContext) : base(browserContext)
         {
