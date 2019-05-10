@@ -15,7 +15,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 
         public void BlockedCameraAndMic()
         {
-            _commonPages.ValidatePage(PageUri.HelpTheCourtDecidePage);
+            _commonPages.ValidatePage(PageUri.MediaErrorPage);
         }
     }
 }

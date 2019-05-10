@@ -2,19 +2,18 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class HelpTheCourtDecide
+    public class AboutYou
     {
         private readonly CommonPages _commonPages;
 
-        public HelpTheCourtDecide(CommonPages commonPages)
+        public AboutYou(CommonPages commonPages)
         {
             _commonPages = commonPages;
         }
 
-        public void IndividualHelpCourtDecide()
+        public void AboutIndividual()
         {
-            _commonPages.ValidatePage(PageUri.HelpTheCourtDecidePage);
-            _commonPages.Continue();
+            _commonPages.ValidatePage(PageUri.AboutYouPage);
         }
     }
 }

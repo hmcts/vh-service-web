@@ -100,7 +100,11 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             {
                 AcceptInsecureCertificates = true
             };
-            if (!BlockCameraAndMic)
+            if (BlockCameraAndMic)
+            {
+                options.SetPreference("permissions.default.microphone", 2);
+            }
+            else
             {
                 options.SetPreference("media.navigator.streams.fake", true);
             }
