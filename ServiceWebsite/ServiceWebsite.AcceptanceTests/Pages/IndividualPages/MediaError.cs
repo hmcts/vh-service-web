@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Helpers;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
@@ -13,13 +12,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
             _context = browserContext;
             _commonPages = commonPages;
         }
-        private const string PageUrl = "/media-error";
-
-        private const string MediaErrorPageHeading = "You've blocked your camera and microphone";
 
         public void BlockedCameraAndMic()
         {
-            _commonPages.ValidatePage(PageUrl);
+            _commonPages.ValidatePage(PageUri.MediaErrorPage);
         }
     }
 }

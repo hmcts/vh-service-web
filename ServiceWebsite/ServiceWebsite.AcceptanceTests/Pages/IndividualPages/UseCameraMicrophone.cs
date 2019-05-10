@@ -16,15 +16,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         }
 
         private By UseMyCameraAndMicrophone => By.CssSelector("app-show-details span");
-        private const string PageUrl = "/use-camera-microphone";
-        private const string UseMyCameraAndMicrophoneHeading = "Use your camera and microphone";
-        private const string UseMyCameraAndMicrophoneMessage = "Switch on your camera and microphone to see the short interactive video.";
         private const string UseMyCameraAndMicrophoneSummaryText = "Why do I need to use my camera and microphone?";
-        private const string UseMyCameraAndMicrophoneAccordionText = "If you switch on your camera and microphone, you’ll be able to see what it’s like to be in a video hearing. Once the video has finished, your camera and microphone will switch off again.";
         private By SwitchOnMedia => By.Id("switch-on-media");
-
-        private const string CameraAndMicrophoneAreSwitchedOnHeading = "Your camera and microphone are now switched on";
-        private const string CameraAndMicrophoneAreSwitchedOnMessage = "You're now ready to watch the interactive video.";
 
         private string UseMyCameraAndMicrophoneAccordion()
         {
@@ -34,16 +27,14 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 
         public void IndividualSwitchesOnCameraAndMicrophone()
         {
-            _commonPages.ValidatePage(PageUrl);
-            _commonPages.PageHeading().Should().Be(UseMyCameraAndMicrophoneHeading);
+            _commonPages.ValidatePage(PageUri.UseCameraMicrophonePage);
             UseMyCameraAndMicrophoneAccordion().Should().Be(UseMyCameraAndMicrophoneSummaryText);
             SetMethods.ClickElement(SwitchOnMedia, _context);
         }
 
         public void CameraAndMicrophoneAreSwitchedOn()
         {
-            _commonPages.ValidatePage(PageUrl);
-            _commonPages.PageHeading().Should().Be(CameraAndMicrophoneAreSwitchedOnHeading);
+            _commonPages.ValidatePage(PageUri.UseCameraMicrophonePage);
             _commonPages.Continue();
         }
     }

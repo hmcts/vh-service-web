@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Helpers;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
@@ -13,12 +12,9 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
            _commonPages = commonPages;
         }
 
-        private const string ExpectedBlueScreenContent = "The court will decide which method is suitable for your hearing. You can help the court decide by answering some questions.Before you answer the questions, let’s find out more about the different types of hearing.Continue";
         public void DifferentHearingTypesBlueScreen()
         {
-            _commonPages.ValidatePage("/different-hearing-types");
-            _commonPages.ActualBlueScreenContent().Trim().Should().Be(ExpectedBlueScreenContent);
-            _commonPages.HmctsLogo().Should().BeTrue();
+            _commonPages.ValidatePage(PageUri.DifferentHearingTypesPage);
         }
     }
 }

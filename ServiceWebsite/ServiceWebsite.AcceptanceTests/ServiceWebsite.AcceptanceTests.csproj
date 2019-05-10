@@ -55,6 +55,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
+    <Compile Update="Steps\AboutYouSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Steps\CommonSteps.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using System;
 
@@ -15,11 +14,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
             _context = browserContext;
             _commonPages = commonPages;
         }
-        private const string PageUrl = "/participant-view";
         private By _videoContent => By.Id("video-element");
         public void IndividualViewsInformationVideo()
         {
-            _commonPages.ValidatePage(PageUrl);
+            _commonPages.ValidatePage(PageUri.ParticipantViewPage);
         }
 
         public void VideoHasStarted()
@@ -41,6 +39,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         public void JudgeView()
         {
             _commonPages.ValidatePage("/judge-view");
+            SetMethods.ClickElement(By.CssSelector("app-judge-view  button"), _context);
         }
+
+        public void ShowJudgeView() =>_commonPages.Continue();        
+        
     }
 }
