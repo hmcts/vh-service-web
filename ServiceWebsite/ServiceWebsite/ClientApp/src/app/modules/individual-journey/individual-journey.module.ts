@@ -24,7 +24,7 @@ import { JOURNEY_FACTORY } from './../base-journey/services/journey.selector';
 
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
-import { VideoViewComponent } from './components/video-view/video-view.component'
+import { VideoViewComponent } from './components/video-view/video-view.component';
 
 // directives/pipes
 import { SuitabilityService } from './services/suitability.service';
