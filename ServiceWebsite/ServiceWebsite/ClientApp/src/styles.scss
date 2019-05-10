@@ -36,6 +36,23 @@ margin-top:30px;
 {
   background-color: #d3d4d5;
 }
+.vh-header__link 
+{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.14285714;
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    margin: 0;
+    /* padding: 0; */
+    border: 0;
+    color: #ffffff;
+    background: none;
+}
 
 
 
