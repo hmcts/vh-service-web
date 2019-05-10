@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Helpers;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
@@ -15,7 +14,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 
         public void DifferentHearingTypesBlueScreen()
         {
-            _commonPages.ValidatePage("/different-hearing-types");
+            _commonPages.ValidatePage(PageUri.DifferentHearingTypesPage);
         }
     }
 }

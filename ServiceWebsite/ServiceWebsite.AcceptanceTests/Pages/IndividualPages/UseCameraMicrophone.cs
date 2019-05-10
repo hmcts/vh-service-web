@@ -16,7 +16,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         }
 
         private By UseMyCameraAndMicrophone => By.CssSelector("app-show-details span");
-        private const string PageUrl = "/use-camera-microphone";
         private const string UseMyCameraAndMicrophoneSummaryText = "Why do I need to use my camera and microphone?";
         private By SwitchOnMedia => By.Id("switch-on-media");
 
@@ -28,14 +27,14 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 
         public void IndividualSwitchesOnCameraAndMicrophone()
         {
-            _commonPages.ValidatePage(PageUrl);
+            _commonPages.ValidatePage(PageUri.UseCameraMicrophonePage);
             UseMyCameraAndMicrophoneAccordion().Should().Be(UseMyCameraAndMicrophoneSummaryText);
             SetMethods.ClickElement(SwitchOnMedia, _context);
         }
 
         public void CameraAndMicrophoneAreSwitchedOn()
         {
-            _commonPages.ValidatePage(PageUrl);
+            _commonPages.ValidatePage(PageUri.UseCameraMicrophonePage);
             _commonPages.Continue();
         }
     }

@@ -1,7 +1,4 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
-using ServiceWebsite.AcceptanceTests.Helpers;
-using System;
+﻿using ServiceWebsite.AcceptanceTests.Helpers;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
@@ -18,7 +15,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 
         public void AboutHearingsBlueScreen()
         {
-            _commonPages.ValidatePage("/about-hearings");
+            _commonPages.ValidatePage(PageUri.AboutHearingsPage);
         }
     }
 }

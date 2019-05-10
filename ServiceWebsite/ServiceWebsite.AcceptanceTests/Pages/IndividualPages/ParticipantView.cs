@@ -14,11 +14,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
             _context = browserContext;
             _commonPages = commonPages;
         }
-        private const string PageUrl = "/participant-view";
         private By _videoContent => By.Id("video-element");
         public void IndividualViewsInformationVideo()
         {
-            _commonPages.ValidatePage(PageUrl);
+            _commonPages.ValidatePage(PageUri.ParticipantViewPage);
         }
 
         public void VideoHasStarted()
