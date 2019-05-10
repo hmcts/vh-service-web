@@ -51,26 +51,19 @@
         </context-group>
       </trans-unit>
       <trans-unit id="header_logo_1" datatype="html">
-        <source>HM Courts</source>
+        <source>HM Courts &amp; Tribunals Service</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/shared/header/header.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="header_logo_2" datatype="html">
-        <source>Tribunals Service</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/shared/header/header.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="header_a" datatype="html">
+      <trans-unit id="header_btn_signout" datatype="html">
         <source>
             Sign out
-          </source>
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/shared/header/header.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="backNavigation_a" datatype="html">
