@@ -23,6 +23,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutHearings.AboutHearingsBlueScreen();
             _commonPages.Continue();
             _differentHearingTypes.DifferentHearingTypesBlueScreen();
+            _commonPages.Continue();
         }
     }
 }

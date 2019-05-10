@@ -39,6 +39,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         public void JudgeView()
         {
             _commonPages.ValidatePage("/judge-view");
+            SetMethods.ClickElement(By.CssSelector("app-judge-view  button"), _context);
         }
+
+        public void ShowJudgeView() =>_commonPages.Continue();        
+        
     }
 }
