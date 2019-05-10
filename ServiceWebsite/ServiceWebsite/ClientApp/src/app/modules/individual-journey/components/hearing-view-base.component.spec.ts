@@ -1,4 +1,3 @@
-import { AudioBarComponent } from './audio-bar/audio-bar.component';
 import { UserCameraViewComponent } from './user-camera-view/user-camera-view.component';
 import { UserMediaService } from './../services/user-media.service';
 import { CanCreateComponent } from '../pages/individual-base-component/component-test-bed.spec';
@@ -28,7 +27,6 @@ const canCreateHearingViewComponent = <T>(component: Type<T>): void => {
       { provide: Config, useValue: {} }
     );
     configuration.declarations.push(UserCameraViewComponent);
-    configuration.declarations.push(AudioBarComponent);
     configuration.declarations.push(StubVideoViewComponent);
   });
 };

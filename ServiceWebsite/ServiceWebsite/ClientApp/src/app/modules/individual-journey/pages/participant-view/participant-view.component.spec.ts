@@ -1,4 +1,3 @@
-import { AudioBarComponent } from './../../components/audio-bar/audio-bar.component';
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
 import { ParticipantViewComponent } from './participant-view.component';
 import { MediaService } from '../../services/media.service';
@@ -22,7 +21,6 @@ describe('ParticipantViewComponent', () => {
       const journey = new IndividualJourney();
       component = new ParticipantViewComponent(journey, userMediaService, videoUrlService);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
-      component.audioBarComponent = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
     });
 
     it('should set the video source to a media stream when initialized', async () => {
