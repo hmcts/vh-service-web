@@ -4,45 +4,12 @@ using System;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class ParticipantView
+    public class ParticipantView : VideoContentPage
     {
-        private readonly BrowserContext _context;
-        private readonly CommonPages _commonPages;
-
-        public ParticipantView(BrowserContext browserContext, CommonPages commonPages)
+        public ParticipantView(BrowserContext browserContext) : base(browserContext)
         {
-            _context = browserContext;
-            _commonPages = commonPages;
-        }
-        private By _videoContent => By.Id("video-element");
-        public void IndividualViewsInformationVideo()
-        {
-            _commonPages.ValidatePage(PageUri.ParticipantViewPage);
-        }
 
-        public void VideoHasStarted()
-        {
-            _context.Retry(() =>
-            {
-                double currentTime;
-                if (!double.TryParse(GetMethods.GetAttributeValue(_videoContent, _context, "currentTime"),
-                        out currentTime))
-                    throw new Exception();
-
-                if (currentTime > 0)
-                    return;
-                throw new Exception($"Video current time is {currentTime}, it hasn't started automatically");
-            });
         }
-
-        //Judge View page will be removed soon, this method allows navigating to Judge View page
-        public void JudgeView()
-        {
-            _commonPages.ValidatePage("/judge-view");
-            SetMethods.ClickElement(By.CssSelector("app-judge-view  button"), _context);
-        }
-
-        public void ShowJudgeView() =>_commonPages.Continue();        
-        
+        protected override string UrlToValidate => PageUri.ParticipantViewPage;
     }
 }

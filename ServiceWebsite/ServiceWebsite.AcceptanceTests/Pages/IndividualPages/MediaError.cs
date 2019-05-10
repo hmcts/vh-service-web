@@ -2,20 +2,12 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class MediaError
+    public class MediaError : CommonPage
     {
-        private readonly BrowserContext _context;
-        private readonly CommonPages _commonPages;
-
-        public MediaError(BrowserContext browserContext, CommonPages commonPages)
+        public MediaError(BrowserContext browserContext) : base(browserContext)
         {
-            _context = browserContext;
-            _commonPages = commonPages;
-        }
 
-        public void BlockedCameraAndMic()
-        {
-            _commonPages.ValidatePage(PageUri.MediaErrorPage);
         }
+        protected override string UrlToValidate => PageUri.MediaErrorPage;
     }
 }

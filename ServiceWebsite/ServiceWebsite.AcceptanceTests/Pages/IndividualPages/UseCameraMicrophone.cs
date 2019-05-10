@@ -4,38 +4,31 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class UseCameraMicrophone
+    public class UseCameraMicrophone : CommonPage
     {
-        private readonly BrowserContext _context;
-        private readonly CommonPages _commonPages;
-
-        public UseCameraMicrophone(BrowserContext browserContext, CommonPages commonPages)
+        public UseCameraMicrophone(BrowserContext browserContext) : base(browserContext)
         {
-            _context = browserContext;
-            _commonPages = commonPages;
+
         }
+        protected override string UrlToValidate => PageUri.UseCameraMicrophonePage;
 
         private By UseMyCameraAndMicrophone => By.CssSelector("app-show-details span");
         private const string UseMyCameraAndMicrophoneSummaryText = "Why do I need to use my camera and microphone?";
         private By SwitchOnMedia => By.Id("switch-on-media");
-
         private string UseMyCameraAndMicrophoneAccordion()
         {
-            SetMethods.ClickElement(UseMyCameraAndMicrophone, _context);
-            return GetMethods.GetText(UseMyCameraAndMicrophone, _context);
+            SetMethods.ClickElement(UseMyCameraAndMicrophone, _browserContext);
+            return GetMethods.GetText(UseMyCameraAndMicrophone, _browserContext);
         }
 
         public void IndividualSwitchesOnCameraAndMicrophone()
         {
-            _commonPages.ValidatePage(PageUri.UseCameraMicrophonePage);
+            _browserContext.Retry(() =>
+            {
+                _browserContext.NgDriver.Url.Should().Contain(PageUri.UseCameraMicrophonePage);
+            });
             UseMyCameraAndMicrophoneAccordion().Should().Be(UseMyCameraAndMicrophoneSummaryText);
-            SetMethods.ClickElement(SwitchOnMedia, _context);
-        }
-
-        public void CameraAndMicrophoneAreSwitchedOn()
-        {
-            _commonPages.ValidatePage(PageUri.UseCameraMicrophonePage);
-            _commonPages.Continue();
+            SetMethods.ClickElement(SwitchOnMedia, _browserContext);
         }
     }
 }

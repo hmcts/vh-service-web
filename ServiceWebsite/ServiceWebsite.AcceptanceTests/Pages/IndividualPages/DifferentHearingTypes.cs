@@ -2,19 +2,12 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class DifferentHearingTypes
+    public class DifferentHearingTypes : CommonPage
     {
-        private readonly BrowserContext _browserContext;
-        private readonly CommonPages _commonPages;
-        public DifferentHearingTypes(BrowserContext browserContext, CommonPages commonPages)
+        public DifferentHearingTypes(BrowserContext browserContext) : base(browserContext)
         {
-            _browserContext = browserContext;
-           _commonPages = commonPages;
-        }
 
-        public void DifferentHearingTypesBlueScreen()
-        {
-            _commonPages.ValidatePage(PageUri.DifferentHearingTypesPage);
         }
+        protected override string UrlToValidate => PageUri.DifferentHearingTypesPage;
     }
 }

@@ -2,18 +2,12 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class AboutYou
+    public class AboutYou : CommonPage
     {
-        private readonly CommonPages _commonPages;
-
-        public AboutYou(CommonPages commonPages)
+        public AboutYou(BrowserContext browserContext) : base(browserContext)
         {
-            _commonPages = commonPages;
-        }
 
-        public void AboutIndividual()
-        {
-            _commonPages.ValidatePage(PageUri.AboutYouPage);
         }
+        protected override string UrlToValidate => PageUri.AboutYouPage;
     }
 }

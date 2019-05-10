@@ -2,19 +2,12 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class ExploreCourtBuilding
+    public class ExploreCourtBuilding : CommonPage
     {
-        private readonly CommonPages _commonPages;
-
-        public ExploreCourtBuilding(CommonPages commonPages)
+        public ExploreCourtBuilding(BrowserContext browserContext) : base(browserContext)
         {
-            _commonPages = commonPages;
-        }
 
-        public void IndividualExploresTheCourtBuilding()
-        {
-            _commonPages.ValidatePage(PageUri.ExploreCourtBuildingPage);
-            _commonPages.Continue();
         }
+        protected override string UrlToValidate => PageUri.ExploreCourtBuildingPage;
     }
 }

@@ -2,19 +2,12 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class CourtBuildingVideo
+    public class CourtBuildingVideo : CommonPage
     {
-        private readonly CommonPages _commonPages;
-
-        public CourtBuildingVideo(CommonPages commonPages)
+        public CourtBuildingVideo(BrowserContext browserContext) : base(browserContext)
         {
-            _commonPages = commonPages;
-        }
 
-        public void IndividualViewsTheCourtBuildingVideo()
-        {
-            _commonPages.ValidatePage(PageUri.CourtBuildingVideoPage);
-            _commonPages.Continue();
         }
+        protected override string UrlToValidate => PageUri.CourtBuildingVideoPage;
     }
 }

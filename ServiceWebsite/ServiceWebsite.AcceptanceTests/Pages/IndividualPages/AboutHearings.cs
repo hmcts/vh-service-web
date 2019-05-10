@@ -2,20 +2,12 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class AboutHearings
-    {
-        private readonly BrowserContext _context;
-        private readonly CommonPages _commonPages;
-
-        public AboutHearings(BrowserContext browserContext, CommonPages commonPages)
+   public class AboutHearings : CommonPage
+   {
+        public AboutHearings(BrowserContext browserContext) : base(browserContext)
         {
-            _context = browserContext;
-            _commonPages = commonPages;
-        }
 
-        public void AboutHearingsBlueScreen()
-        {
-            _commonPages.ValidatePage(PageUri.AboutHearingsPage);
         }
-    }
+        protected override string UrlToValidate => PageUri.AboutHearingsPage;
+   }
 }

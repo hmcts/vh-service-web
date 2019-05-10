@@ -9,9 +9,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly DifferentHearingTypes _differentHearingTypes;
         private readonly AboutHearings _aboutHearings;
-        private readonly CommonPages _commonPages;
+        private readonly CommonPage _commonPages;
 
-        public BlueInformationScreensSteps(DifferentHearingTypes differentHearingTypes, CommonPages commonPages, AboutHearings aboutHearings)
+        public BlueInformationScreensSteps(DifferentHearingTypes differentHearingTypes, CommonPage commonPages, AboutHearings aboutHearings)
         {
             _differentHearingTypes = differentHearingTypes;
             _commonPages = commonPages;
@@ -20,10 +20,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Individual should view blue information screens")]
         public void ThenIndividualShouldViewBlueInformationScreen()
         {
-            _aboutHearings.AboutHearingsBlueScreen();
-            _commonPages.Continue();
-            _differentHearingTypes.DifferentHearingTypesBlueScreen();
-            _commonPages.Continue();
+            _aboutHearings.Continue();
+            _differentHearingTypes.Continue();
         }
     }
 }

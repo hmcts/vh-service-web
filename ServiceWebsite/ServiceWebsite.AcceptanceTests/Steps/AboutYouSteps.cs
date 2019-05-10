@@ -16,7 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Participant should proceed to about you page")]
         public void ThenParticipantShouldProceedToAboutYouPage()
         {
-            _aboutYou.AboutIndividual();
+            _aboutYou.Continue();
         }
     }
 }

@@ -28,9 +28,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
             _blueInformationScreens.ThenIndividualShouldViewBlueInformationScreen();
-            _courtBuilding.IndividualExploresTheCourtBuilding();
-            _courtBuildingVideo.IndividualViewsTheCourtBuildingVideo();
-            _exploreVideoHearing.IndividualExploreVideoHearing();
-      }
+            _courtBuilding.Continue();
+            _courtBuildingVideo.Continue();
+        }
     }
 }

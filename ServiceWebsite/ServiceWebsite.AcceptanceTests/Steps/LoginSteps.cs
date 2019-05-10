@@ -1,4 +1,6 @@
-﻿using ServiceWebsite.AcceptanceTests.Contexts;
+﻿using FluentAssertions;
+using ServiceWebsite.AcceptanceTests.Contexts;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 
@@ -7,21 +9,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class LoginSteps
     {
-        private readonly CommonPages _commonPages;
+        private readonly BrowserContext _browserContext;
         private readonly MicrosoftLoginPage _loginPage;
         private readonly ScenarioContext _scenarioContext;
         private readonly TestContext _testContext;
-        public LoginSteps(CommonPages commonPages, MicrosoftLoginPage loginPage,
-            ScenarioContext injectedContext, TestContext testContext)
+        public LoginSteps(MicrosoftLoginPage loginPage,
+            ScenarioContext injectedContext, TestContext testContext, BrowserContext browserContext)
         {
             _loginPage = loginPage;
             _scenarioContext = injectedContext;
             _testContext = testContext;
-            _commonPages = commonPages;
+            _browserContext = browserContext;
         }
         public void AdminOnMicrosoftLoginPage()
         {
-            _commonPages.ValidatePage("login.microsoftonline.com");           
+            ValidatePage("login.microsoftonline.com");           
         }
         [Given(@"(.*) logs in with valid credentials")]
         [When(@"(.*) logs in with valid credentials")]
@@ -51,7 +53,18 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Representative should be unauthorised")]
         public void ThenRepresentativeShouldBeUnauthorised()
         {
-            _commonPages.ValidatePage("/error");
+            ValidatePage("/error");
+        }
+
+        private void ValidatePage(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                _browserContext.Retry(() =>
+                {
+                    _browserContext.NgDriver.Url.Should().Contain(url);
+                });
+            }
         }
     }
 }
