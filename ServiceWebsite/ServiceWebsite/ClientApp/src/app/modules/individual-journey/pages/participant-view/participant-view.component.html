@@ -8,9 +8,6 @@
   <div class="govuk-grid-column-one-quarter">
     <app-user-camera-view></app-user-camera-view>
     <div>
-      <app-audio-bar [audioBarWidth]="widthAudioBar"></app-audio-bar>
-    </div>
-    <div>
       <a href="javascript:void()" class="govuk-link" i18n="@@participantView_a">
       Change camera or microphone
       </a>
@@ -28,12 +25,12 @@
 </div>
 <div class="govuk-grid-row vh-top-30">
   <div class="govuk-grid-column-full">
-    <button type="submit" class="govuk-button govuk-!-margin-right-1" (click)="continue()" i18n="@@participantView_btn_showJudgeView">
+    <button type="submit" class="govuk-button govuk-!-margin-right-1" id="continue" (click)="continue()" i18n="@@participantView_btn_showJudgeView">
       Show judge's view
     </button>
 
-    <input type="button" class="govuk-button hmcts-button--secondary"
-           (click)="replay()" i18n-value="@@participantView_btn_replayPracticeHearing" value="Re-play practice hearing" [disabled]="disabledReplay" />
+    <button type="button" class="govuk-button hmcts-button--secondary" id="replay"
+           (click)="replay()" i18n="@@participantView_btn_replayPracticeHearing" [disabled]="disabledReplay">Re-play practice hearing</button>
   </div>
 </div>
 <div class="govuk-grid-row">

@@ -19,6 +19,7 @@ export class UserCameraViewComponent {
     } else {
       this.videoBox.nativeElement.src = URL.createObjectURL(this.stream);
     }
+    this.videoBox.nativeElement.muted = true;
   }
 }
 

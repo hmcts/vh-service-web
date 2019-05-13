@@ -1,5 +1,4 @@
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
-import { AudioBarComponent } from './../../components/audio-bar/audio-bar.component';
 import { JudgeViewComponent } from './judge-view.component';
 import { MediaService } from '../../services/media.service';
 import { VideoUrlService } from '../../services/video-url.service';
@@ -21,7 +20,6 @@ describe('JudgeViewComponent', () => {
     beforeEach(() => {
       const journey = new IndividualJourney();
       component = new JudgeViewComponent(journey, userMediaService, videoUrlService);
-      component.audioBarComponent = jasmine.createSpyObj<AudioBarComponent>(['setSource']);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
     });
 

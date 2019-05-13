@@ -2,20 +2,20 @@
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
-    public class AboutHearings
+    public class MediaError
     {
         private readonly BrowserContext _context;
         private readonly CommonPages _commonPages;
 
-        public AboutHearings(BrowserContext browserContext, CommonPages commonPages)
+        public MediaError(BrowserContext browserContext, CommonPages commonPages)
         {
             _context = browserContext;
             _commonPages = commonPages;
         }
 
-        public void AboutHearingsBlueScreen()
+        public void BlockedCameraAndMic()
         {
-            _commonPages.ValidatePage(PageUri.AboutHearingsPage);
+            _commonPages.ValidatePage(PageUri.MediaErrorPage);
         }
     }
 }

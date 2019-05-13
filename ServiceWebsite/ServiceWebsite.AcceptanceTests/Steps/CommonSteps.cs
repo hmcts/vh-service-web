@@ -1,5 +1,4 @@
-﻿using ServiceWebsite.AcceptanceTests.Pages;
-using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
+﻿using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -7,16 +6,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public sealed class CommonSteps
     {
-        private readonly CommonPages _commonPages;
         private readonly BlueInformationScreensSteps _blueInformationScreens;
         private readonly LoginSteps _loginSteps;
+        private readonly ExploreCourtBuilding _courtBuilding;
+        private readonly CourtBuildingVideo _courtBuildingVideo;
+        private readonly ExploreVideoHearing _exploreVideoHearing;
 
-        public CommonSteps(CommonPages commonPages, BlueInformationScreensSteps blueInformationScreens,
-            LoginSteps loginSteps)
+        public CommonSteps(BlueInformationScreensSteps blueInformationScreens,
+            LoginSteps loginSteps, ExploreCourtBuilding courtBuilding,
+            CourtBuildingVideo courtBuildingVideo, ExploreVideoHearing exploreVideoHearing)
         {
             _loginSteps = loginSteps;
             _blueInformationScreens = blueInformationScreens;
-            _commonPages = commonPages;                       
+            _courtBuilding = courtBuilding;
+            _courtBuildingVideo = courtBuildingVideo;
+            _exploreVideoHearing = exploreVideoHearing;
         }
         
         [Given(@"(.*) participant is on camera and microphone page")]
@@ -24,22 +28,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
             _blueInformationScreens.ThenIndividualShouldViewBlueInformationScreen();
-            //Naviagate through the pages with no contents
-            _commonPages.Continue();
-            IndividualExploreCourtBuilding();
-            IndividualViewsCourtBuildingVideo();
-        }
-        
-        public void IndividualExploreCourtBuilding()
-        {
-            _commonPages.ValidatePage("/explore-court-building");
-            _commonPages.ContinueButtonAsInput();
-        }
-
-        public void IndividualViewsCourtBuildingVideo()
-        {
-            _commonPages.ValidatePage("/court-building-video");
-            _commonPages.ContinueButtonAsInput();
-        }
+            _courtBuilding.IndividualExploresTheCourtBuilding();
+            _courtBuildingVideo.IndividualViewsTheCourtBuildingVideo();
+            _exploreVideoHearing.IndividualExploreVideoHearing();
+      }
     }
 }

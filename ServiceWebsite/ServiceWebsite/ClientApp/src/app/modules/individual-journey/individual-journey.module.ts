@@ -25,7 +25,6 @@ import { JOURNEY_FACTORY } from './../base-journey/services/journey.selector';
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
-import { AudioBarComponent } from './components/audio-bar/audio-bar.component';
 
 // directives/pipes
 import { SuitabilityService } from './services/suitability.service';
@@ -44,7 +43,6 @@ import { VideoUrlService } from './services/video-url.service';
   ],
   declarations: [
     ...Components,
-    AudioBarComponent,
     UserCameraViewComponent,
     VideoViewComponent,
   ],

@@ -3,21 +3,18 @@
     <div class="govuk-header__logo">
 
       <span class="govuk-header__logotype vh-header-text">
-        <img src="/assets/images/UkGovCrestWhite.png" height="32" width="38" class="govuk-header__logotype-crest vh-ml15" alt="HMCTS logo crest image" />
+        <img src="/assets/images/UkGovCrestWhite.png" height="32" width="38" class="govuk-header__logotype-crest vh-ml15"
+          alt="HMCTS logo crest image" />
         <span class="govuk-header__logotype-text ">
-          <span i18n="@@header_logo_1">HM Courts</span> &amp; <span i18n="@@header_logo_2">Tribunals Service</span>
+          <span i18n="@@header_logo_1">HM Courts &amp; Tribunals Service</span>
         </span>
       </span>
 
     </div>
-    <nav>
-      <ul id="navigation" class="govuk-header__navigation right-align" aria-label="Top Level Navigation">
-        <li *ngIf="loggedIn" class="govuk-header__navigation-item">
-          <a id="header-logout-link" class="govuk-header__link" href="javascript:void()" (click)="logout()" i18n="@@header_a">
+    <div *ngIf="loggedIn" class="vh-sign" >
+        <button id="header-logout-link" class="vh-header__link  right-align" href="javascript:void()" (click)="logout()" i18n="@@header_btn_signout">
             Sign out
-          </a>
-        </li>
-      </ul>
-    </nav>
+        </button>
+    </div>
   </div>
 </header>

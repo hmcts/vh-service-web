@@ -1,8 +1,20 @@
-<div>
-    <h1 class="govuk-heading-xl" i18n="@@exploreVideoHearing_h1">
-      Explore video hearings
-    </h1>
+<div class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div>
+        <h1 class="govuk-heading-xl" i18n="@@exploreVideoHearing_h1">Now let's see what it's like to be in a video hearing</h1>
+      </div>
+      <div>
+        <p class="govuk-body" i18n="@@exploreVideoHearing_p">
+          The video you're about to watch is interactive. It uses your camera and microphone to show you how a video hearing would look on your computer.
+        </p>
+      </div>
+      <div>
+        <button type="button" i18n="@@journey_btn_continue" class="govuk-button" (click)="continue()" id="continue">
+          Continue
+        </button>
+      </div>
+      <app-contact-us></app-contact-us>
+    </div>
   </div>
-  <div>
-      <input class="govuk-button" (click)="continue()" value="Continue" i18n-value="@@exploreVideoHearing_btn_continue" type="button" />
-  </div>
+</div>

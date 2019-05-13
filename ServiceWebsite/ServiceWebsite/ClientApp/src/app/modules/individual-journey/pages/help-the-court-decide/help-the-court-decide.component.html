@@ -1,8 +1,20 @@
-<div>
-    <h1 class="govuk-heading-xl" i18n="@@helpTheCourtDecide_h1">
-      Help the court decide
-    </h1>
+<div class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div>
+        <h1 class="govuk-heading-xl" i18n="@@helpTheCourtDecide_h1">Help the court decide on a suitable method for your hearing</h1>
+      </div>
+      <div>
+        <p class="govuk-body" i18n="@@helpTheCourtDecide_p">
+          We now need to ask you some questions to help the court decide which method will be suitable for your hearing.
+        </p>
+      </div>
+      <div>
+        <button type="button" i18n="@@helpTheCourtDecide_btn_continue" class="govuk-button" (click)="continue()" id="continue">
+          Continue to questions
+        </button>
+      </div>
+      <app-contact-us></app-contact-us>
+    </div>
   </div>
-  <div>
-      <input class="govuk-button" (click)="continue()" value="Continue" i18n-value="@@helpTheCourtDecide_btn_continue" type="button" />
-  </div>
+</div>
