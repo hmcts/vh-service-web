@@ -5,7 +5,8 @@
         Sorry, this video is not available at the moment.
     </strong>
 </div>
-<video id="video-element" controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable">
+<video id="video-element" controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable"
+    (error)="onVideoError()">
     <source [src]="source" type="video/mp4" (error)="onVideoError()">
     <p> Sorry, this video is not available at the moment.</p>
 </video>
