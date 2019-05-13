@@ -6,12 +6,11 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
     public class UseCameraMicrophone : JourneyStepPage
     {
-        public UseCameraMicrophone(BrowserContext browserContext) : base(browserContext)
+        public UseCameraMicrophone(BrowserContext browserContext) : base(browserContext, PageUri.UseCameraMicrophonePage)
         {
 
         }
-        protected override string UrlToValidate => PageUri.UseCameraMicrophonePage;
-
+        
         private By UseMyCameraAndMicrophone => By.CssSelector("app-show-details span");
         private const string UseMyCameraAndMicrophoneSummaryText = "Why do I need to use my camera and microphone?";
         private By SwitchOnMedia => By.Id("switch-on-media");

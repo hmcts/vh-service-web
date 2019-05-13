@@ -1,7 +1,5 @@
 ﻿using FluentAssertions;
-using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using System;
 
 namespace ServiceWebsite.AcceptanceTests.Pages
 {
@@ -10,22 +8,21 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         protected readonly BrowserContext _browserContext;
         private readonly string _urlToValidate = string.Empty;
 
-        public Page(BrowserContext browserContext)
+        public Page(BrowserContext browserContext, string pageUrl)
         {
             _browserContext = browserContext;
+            _urlToValidate = pageUrl;
         }
 
         public virtual void Validate()
         {
-            if(!string.IsNullOrEmpty(UrlToValidate))
+            if(!string.IsNullOrEmpty(_urlToValidate))
             {
                 _browserContext.Retry(() =>
                 {
-                    _browserContext.NgDriver.Url.Should().Contain(UrlToValidate);
+                    _browserContext.NgDriver.Url.Should().Contain(_urlToValidate);
                 });
             }
         }
-
-        protected virtual string UrlToValidate => string.Empty;
     }
 }
