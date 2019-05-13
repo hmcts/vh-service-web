@@ -11,10 +11,18 @@ describe('BlobVideoStorageService', () => {
     const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile', 'isTablet', 'isDesktop']);
     config.baseVideoUrl = 'http://test.com';
     const blobVideoStorageService = new BlobVideoStorageService(new BlobStorageService(config), deviceType);
-
-    for (const key of Object.keys(VideoFiles)) {
-      expect(blobVideoStorageService.getVideoFileUrl(VideoFiles[key])).not.toBeNull();
-    }
+    deviceType.isMobile.and.returnValue(true);
+    expect(blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Judge)).toBeTruthy();
+    expect(blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Participant)).toBeTruthy();
+    expect(blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_ParticipantView)).toBeTruthy();
   });
 
+  it('should throw an error if invalid video file name', () => {
+    const config = new Config();
+    const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile', 'isTablet', 'isDesktop']);
+    config.baseVideoUrl = 'http://test.com';
+    const blobVideoStorageService = new BlobVideoStorageService(new BlobStorageService(config), deviceType);
+    deviceType.isMobile.and.returnValue(true);
+    expect(() => { blobVideoStorageService.getVideoFileUrl(undefined); }
+    ).toThrowError('Error video file name is invalid.');  });
 });

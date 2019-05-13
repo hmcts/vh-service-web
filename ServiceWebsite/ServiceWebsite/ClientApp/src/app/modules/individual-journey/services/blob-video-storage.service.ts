@@ -27,6 +27,10 @@ export class BlobVideoStorageService extends VideoUrlService {
 
   getVideoFileUrl(videoFileName: VideoFiles) {
     const name = this.deviceType.isMobile() ? this.lowResolutions.get(videoFileName) : this.highResolutions.get(videoFileName);
-    return this.blobStorageService.getVideoUrl(name);
+    if (!!name) {
+      return this.blobStorageService.getVideoUrl(name);
+    } else {
+      throw new Error('Error video file name is invalid.');
+    }
   }
 }
