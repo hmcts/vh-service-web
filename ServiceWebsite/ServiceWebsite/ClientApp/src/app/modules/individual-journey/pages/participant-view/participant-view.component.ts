@@ -16,7 +16,6 @@ export class ParticipantViewComponent extends HearingViewBaseComponent implement
   videoViewComponent: VideoViewComponent;
 
   videoSource: string;
-  widthAudioBar = 215;
 
   constructor(journey: IndividualJourney, userMediaService: MediaService,
     private videoUrlService: VideoUrlService) {

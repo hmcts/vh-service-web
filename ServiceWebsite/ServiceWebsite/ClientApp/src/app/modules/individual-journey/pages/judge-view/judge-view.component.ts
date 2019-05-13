@@ -20,7 +20,6 @@ export class JudgeViewComponent extends HearingViewBaseComponent implements OnIn
 
   videoSourceJudge: string;
   videoSourceParticipant: string;
-  widthAudioBar = 230;
 
   constructor(journey: IndividualJourney, userMediaService: MediaService,
     private videoUrlService: VideoUrlService) {
