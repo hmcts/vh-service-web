@@ -1089,7 +1089,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="exploreVideoHearing_h1" datatype="html">
-        <source>Now let&apos;s see what it&apos;s like to be in a video hearing</source>
+        <source>See what it&apos;s like to be in a video hearing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
           <context context-type="linenumber">5</context>
@@ -1097,7 +1097,7 @@
       </trans-unit>
       <trans-unit id="exploreVideoHearing_p" datatype="html">
         <source>
-          The video you&apos;re about to watch is interactive. It uses your camera and microphone to show you how a video hearing would look on your computer.
+          The video on the next screen shows you what it would be like to take part in a hearing from your computer.
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/explore-video-hearing/explore-video-hearing.component.html</context>
@@ -1171,7 +1171,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="participantView_p" datatype="html">
@@ -1180,7 +1180,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="participantView_btn_showJudgeView" datatype="html">
@@ -1189,21 +1189,21 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="participantView_btn_replayPracticeHearing" datatype="html">
         <source>Re-play practice hearing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/participant-view/participant-view.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="judgeView_a_1" datatype="html">
         <source>Change camera or microphone</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/judge-view/judge-view.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="judgeView_p_1" datatype="html">
@@ -1212,7 +1212,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/judge-view/judge-view.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="judgeView_btn_continue" datatype="html">
@@ -1221,7 +1221,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/judge-view/judge-view.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="helpTheCourtDecide_h1" datatype="html">
