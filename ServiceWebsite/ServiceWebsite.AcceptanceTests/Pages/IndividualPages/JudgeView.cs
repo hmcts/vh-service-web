@@ -13,7 +13,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         public override void Continue()
         {
             Validate();
-            SetMethods.ClickElement(By.CssSelector("app-judge-view  button"), _browserContext);
+            SetMethods.ClickElement(By.CssSelector("app-judge-view  button"), BrowserContext);
         }
     }
 }

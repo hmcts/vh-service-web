@@ -40,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\ContactUs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContactUs.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\IndividualInformationVideo.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -51,6 +56,9 @@
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
     <Compile Update="Steps\AboutYouSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Steps\ContactUsSteps.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Steps\InformationVideoSteps.cs">
@@ -71,6 +79,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\ContactUs.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IndividualInformationVideo.feature.cs</LastGenOutput>

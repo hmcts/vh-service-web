@@ -13,7 +13,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public virtual void Continue()
         {
             Validate();
-            _browserContext.NgDriver.WaitUntilElementVisible(By.Id("continue")).Click();
+            BrowserContext.NgDriver.WaitUntilElementVisible(By.Id("continue")).Click();
         }
     }
 }

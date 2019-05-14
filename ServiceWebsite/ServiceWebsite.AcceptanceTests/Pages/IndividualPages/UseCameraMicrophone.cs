@@ -16,18 +16,18 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         private By SwitchOnMedia => By.Id("switch-on-media");
         private string UseMyCameraAndMicrophoneAccordion()
         {
-            SetMethods.ClickElement(UseMyCameraAndMicrophone, _browserContext);
-            return GetMethods.GetText(UseMyCameraAndMicrophone, _browserContext);
+            SetMethods.ClickElement(UseMyCameraAndMicrophone, BrowserContext);
+            return GetMethods.GetText(UseMyCameraAndMicrophone, BrowserContext);
         }
 
         public void IndividualSwitchesOnCameraAndMicrophone()
         {
-            _browserContext.Retry(() =>
+            BrowserContext.Retry(() =>
             {
-                _browserContext.NgDriver.Url.Should().Contain(PageUri.UseCameraMicrophonePage);
+                BrowserContext.NgDriver.Url.Should().Contain(PageUri.UseCameraMicrophonePage);
             });
             UseMyCameraAndMicrophoneAccordion().Should().Be(UseMyCameraAndMicrophoneSummaryText);
-            SetMethods.ClickElement(SwitchOnMedia, _browserContext);
+            SetMethods.ClickElement(SwitchOnMedia, BrowserContext);
         }
     }
 }
