@@ -7,4 +7,5 @@ So that I can contact them if I need help
 Scenario: Individual views contact details
 	Given 'Individual' is provided with a way of viewing contact details
 	When Individual is on any of the service web page 
+	When Individual is on the service web landing page 
 	Then Individual should be able to view contact details

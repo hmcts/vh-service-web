@@ -13,9 +13,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _contactUs = new ContactUs(browserContext, PageUri.AboutHearingsPage);
         }
-        
-        [When(@"Individual is on any of the service web page")]
-        public void WhenIndividualIsOnAnyOfTheWebPage()
+
+        [When(@"Individual is on the service web landing page")]
+        public void WhenIndividualIsOnTheServiceWebLandingPage()
         {
             _contactUs.Validate();
         }
