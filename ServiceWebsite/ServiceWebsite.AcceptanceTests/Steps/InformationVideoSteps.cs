@@ -1,4 +1,6 @@
-﻿using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
+﻿using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -6,48 +8,25 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public sealed class InformationVideoSteps
     {
-        private readonly UseCameraMicrophone _useCameraMicrophone;
-        private readonly ParticipantView _participantView;
-        private readonly MediaError _mediaError;
-        private readonly HelpTheCourtDecide _helpTheCourtDecide;
-
-        public InformationVideoSteps(UseCameraMicrophone useCameraMicrophone, ParticipantView participantView,
-            MediaError mediaError, HelpTheCourtDecide helpTheCourtDecide)
+        private readonly VideoContentPage _participantView;
+        private readonly JudgeView _judgeView;
+        private readonly JourneyStepPage _helpTheCourtDecide;
+        public InformationVideoSteps(BrowserContext browserContext, JudgeView judgeView)
         {
-            _useCameraMicrophone = useCameraMicrophone;
-            _participantView = participantView;
-            _mediaError = mediaError;
-            _helpTheCourtDecide = helpTheCourtDecide;
-        }
-
-        [When(@"Camera and Microphone are switched on")]
-        public void WhenCameraAndMicrophoneAreSwitchedOn()
-        {
-            _useCameraMicrophone.IndividualSwitchesOnCameraAndMicrophone();
-            _useCameraMicrophone.CameraAndMicrophoneAreSwitchedOn();
+            _participantView = new VideoContentPage(browserContext, PageUri.ParticipantViewPage);
+            _judgeView = judgeView;
+            _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage);
         }
 
         [Then(@"Individual participant should be able to view information video")]
         public void ThenIndividualParticipantShouldBeAbleToViewInformationVideo()
         {
-            _participantView.IndividualViewsInformationVideo();
             _participantView.VideoHasStarted();
+            _participantView.Continue();
+            _judgeView.VideoHasStarted();
+            _judgeView.Continue();
+            _helpTheCourtDecide.Continue();
 
-            //Judge page will be removed soon
-            _participantView.ShowJudgeView();
-            _participantView.JudgeView();
-            _helpTheCourtDecide.IndividualHelpCourtDecide();
-        }
-        [Then(@"Individual participant should not be able to continue with suitability questionnaire")]
-        public void ThenIndividualParticipantShouldNotBeAbleToContinueWithSuitabilityQuestionnaire()
-        {
-            _mediaError.BlockedCameraAndMic();
-        }
-
-        [When(@"Camera and Microphone are not switched on")]
-        public void WhenCameraAndMicrophoneAreNotSwitchedOn()
-        {
-            _useCameraMicrophone.IndividualSwitchesOnCameraAndMicrophone();
         }
     }
 }
