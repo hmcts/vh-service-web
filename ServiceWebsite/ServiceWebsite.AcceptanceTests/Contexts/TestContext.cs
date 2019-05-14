@@ -16,6 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
         public UserAccount TestUserSecrets { get; set; }
         public SecuritySettings AzureAd { get; set; }
         public string WebsiteUrl { get; set; }
+        public string VideoAppUrl { get; set; }
 
         public RestClient Client()
         {
