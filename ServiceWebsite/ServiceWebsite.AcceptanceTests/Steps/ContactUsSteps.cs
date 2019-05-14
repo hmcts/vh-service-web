@@ -23,7 +23,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Individual should be able to view contact details")]
         public void ThenIndividualShouldBeAbleToViewContactDetails()
         {
-            _contactUs.ContactUsForHelp().Should().BeTrue("Contact detail section is missing");
+            _contactUs.VerifyDetails().Should().BeTrue("Contact detail section is missing");
         }
     }
 }

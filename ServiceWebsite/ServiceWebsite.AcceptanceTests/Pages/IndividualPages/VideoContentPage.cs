@@ -13,10 +13,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         private By _videoContent => By.Id("video-element");
         public void VideoHasStarted()
         {
-            _browserContext.Retry(() =>
+            BrowserContext.Retry(() =>
             {
                 double currentTime;
-                if (!double.TryParse(GetMethods.GetAttributeValue(_videoContent, _browserContext, "currentTime"),
+                if (!double.TryParse(GetMethods.GetAttributeValue(_videoContent, BrowserContext, "currentTime"),
                         out currentTime))
                     throw new Exception();
 

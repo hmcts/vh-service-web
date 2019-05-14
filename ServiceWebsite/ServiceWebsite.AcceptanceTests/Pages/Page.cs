@@ -5,22 +5,22 @@ namespace ServiceWebsite.AcceptanceTests.Pages
 {
     public class Page
     {
-        protected readonly BrowserContext _browserContext;
         private readonly string _urlToValidate = string.Empty;
+        protected BrowserContext BrowserContext { get; private set; }
 
         public Page(BrowserContext browserContext, string pageUrl)
         {
-            _browserContext = browserContext;
-            _urlToValidate = pageUrl;
+            BrowserContext = browserContext;
+            _urlToValidate = pageUrl;             
         }
 
         public virtual void Validate()
         {
             if(!string.IsNullOrEmpty(_urlToValidate))
             {
-                _browserContext.Retry(() =>
+                BrowserContext.Retry(() =>
                 {
-                    _browserContext.NgDriver.Url.Should().Contain(_urlToValidate);
+                    BrowserContext.NgDriver.Url.Should().Contain(_urlToValidate);
                 });
             }
         }

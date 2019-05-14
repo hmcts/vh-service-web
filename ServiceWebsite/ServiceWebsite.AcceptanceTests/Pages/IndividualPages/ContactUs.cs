@@ -9,11 +9,11 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         {
 
         }
-        public bool ContactUsForHelp()
+        public bool VerifyDetails()
         {
-            SetMethods.ClickElement(By.Id("citizen-contact-details"), _browserContext);
-            var contactEmailHint = GetMethods.IsElementDisplayed(By.Id("contact-us-email-times-hint"), _browserContext);
-            var contactTelephoneHint = GetMethods.IsElementDisplayed(By.Id("contact-us-telephone-times-hint"), _browserContext);
+            SetMethods.ClickElement(By.Id("citizen-contact-details"), BrowserContext);
+            var contactEmailHint = GetMethods.IsElementDisplayed(By.Id("contact-us-email-times-hint"), BrowserContext);
+            var contactTelephoneHint = GetMethods.IsElementDisplayed(By.Id("contact-us-telephone-times-hint"), BrowserContext);
             var isElementDisplayed = contactEmailHint && contactTelephoneHint;
             return isElementDisplayed;
         }
