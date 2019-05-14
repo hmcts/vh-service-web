@@ -14,6 +14,10 @@ export class BlobStorageService {
   }
 
   getVideoUrl(videoName: string): string {
-    return this.baseVideoUrl + this.separator + videoName;
+    if (!!videoName) {
+      return this.baseVideoUrl + this.separator + videoName;
+    } else {
+      throw new Error('Error video file name is invalid.');
+    }
   }
 }

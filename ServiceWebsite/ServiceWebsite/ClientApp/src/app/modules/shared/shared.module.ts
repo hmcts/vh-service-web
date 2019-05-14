@@ -2,6 +2,7 @@ import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 // components
 import { FooterComponent } from './footer/footer.component';
@@ -23,6 +24,7 @@ import { WindowRef } from './window-ref';
     ReactiveFormsModule,
     FormsModule,
     NgbModule.forRoot(),
+    DeviceDetectorModule.forRoot(),
   ],
   declarations: [
     FooterComponent,
