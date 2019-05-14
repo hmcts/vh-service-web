@@ -25,8 +25,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             ValidatePage("login.microsoftonline.com");           
         }
+        [When(@"'(.*)' with no upcoming hearings logs in with valid credentials")]
         [Given(@"(.*) logs in with valid credentials")]
-        [When(@"(.*) logs in with valid credentials")]
+        [When(@"'(.*)' logs in with valid credentials")]
         public void WhenIndividualLogsInWithValidCredentials(string participant)
         {
             AdminOnMicrosoftLoginPage();
@@ -65,6 +66,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _browserContext.NgDriver.Url.Should().Contain(url);
                 });
             }
+        }
+
+        [Then(@"Person should be redirected to Video Web")]
+        public void ThenIndividualUserShouldBeRedirectedToVideoWeb()
+        {
+            ValidatePage(_testContext.VideoAppUrl);
         }
     }
 }

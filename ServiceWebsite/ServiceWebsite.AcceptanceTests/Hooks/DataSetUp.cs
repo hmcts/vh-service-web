@@ -8,7 +8,6 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Models;
 using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Configuration;
-using System;
 using System.Net;
 using TechTalk.SpecFlow;
 
@@ -36,6 +35,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             testContext.TestUserSecrets = userAccountConfig;
             testContext.AzureAd = azureAdConfig;
             testContext.WebsiteUrl = configRoot.GetSection("WebsiteUrl").Value;
+            testContext.VideoAppUrl = configRoot.GetSection("VideoAppUrl").Value;
         }
 
         [BeforeScenario(Order = 1)]
