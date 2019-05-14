@@ -1106,7 +1106,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_h1" datatype="html">
         <source>
-            Use your camera and microphone
+            Use your camera
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -1115,7 +1115,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_p_1" datatype="html">
         <source>
-            Switch on your camera and microphone to see the short interactive video.
+            Switch on your camera to see the short interactive video.
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
@@ -1123,7 +1123,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="useCameraMicrophon_detailsTitle" datatype="html">
-        <source>&apos;Why do I need to use my camera and microphone?&apos;</source>
+        <source>&apos;Why do I need to use my camera?&apos;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
           <context context-type="linenumber">17</context>
@@ -1140,7 +1140,7 @@
       </trans-unit>
       <trans-unit id="useCameraMicrophone_h1_1" datatype="html">
         <source>
-          Your camera and microphone are now switched on
+          Your camera is now switched on
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/use-camera-microphone/use-camera-microphone.component.html</context>
