@@ -25,8 +25,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             ValidatePage("login.microsoftonline.com");           
         }
+        [Given(@"'(.*)' is provided with a way of viewing contact details")]
         [When(@"'(.*)' with no upcoming hearings logs in with valid credentials")]
-        [Given(@"(.*) logs in with valid credentials")]
         [When(@"'(.*)' logs in with valid credentials")]
         public void WhenIndividualLogsInWithValidCredentials(string participant)
         {
