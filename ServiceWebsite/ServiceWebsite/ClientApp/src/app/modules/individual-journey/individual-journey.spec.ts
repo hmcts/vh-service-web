@@ -94,7 +94,6 @@ describe('IndividualJourney', () => {
         nextStepIs(Steps.ExploreVideoHearing);
         nextStepIs(Steps.AccessToCameraAndMicrophone);
         nextStepIs(Steps.HearingAsParticipant);
-        nextStepIs(Steps.HearingAsJudge);
         nextStepIs(Steps.HelpTheCourtDecide);
         nextStepIs(Steps.AboutYou);
         nextStepIs(Steps.Interpreter);
