@@ -12,7 +12,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         }
         
         private By UseMyCameraAndMicrophone => By.CssSelector("app-show-details span");
-        private const string UseMyCameraAndMicrophoneSummaryText = "Why do I need to use my camera and microphone?";
+        private const string UseMyCameraAndMicrophoneSummaryText = "Why do I need to use my camera?";
         private By SwitchOnMedia => By.Id("switch-on-media");
         private string UseMyCameraAndMicrophoneAccordion()
         {
