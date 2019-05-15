@@ -53,6 +53,21 @@ margin-top:30px;
     background: none;
 }
 
+.vh-button-white {
+  background-color: #ffffff;
+  color: #0b0b0b;
+  margin-top: 12px;
+  margin-bottom: 0px;
+  padding: 7px 17px 4px 17px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.vh-button-white:hover {
+  background-color: #ffffff;
+  color: #0b0b0b;
+}
+
 .vh-hide-h1 {
   font-size: 0;
   width: 1px;
@@ -65,7 +80,5 @@ margin-top:30px;
   margin: 0 !important;
   clip: rect(1px,1px,1px,1px);
 }
-
-
 
 
