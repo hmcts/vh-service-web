@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 
@@ -7,8 +7,13 @@ import { IndividualSuitabilityModel } from '../../individual-suitability.model';
   templateUrl: './your-computer.component.html',
   styles: []
 })
-export class YourComputerComponent extends SuitabilityChoicePageBaseComponent {
+export class YourComputerComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
+  hearingDate: Date;
 
+  ngOnInit() {
+    this.hearingDate = this.model.hearing.scheduleDateTime;
+    console.log(this.hearingDate);
+  }
   protected bindModel() {
     this.model.computer = this.choice.value;
   }
