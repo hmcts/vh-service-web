@@ -11,7 +11,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly JourneyStepPage _aboutHearings;
         private readonly JourneyStepPage _differentHearingTypesPage;
         private readonly JourneyStepPage _exploreCourtBuildingPage;
-        private readonly JourneyStepPage _courtBuildingVideoPage;
+        private readonly VideoContentPage _courtBuildingVideoPage;
         private readonly JourneyStepPage _exploreVideoHearing;
         private readonly UseCameraMicrophone _useCameraMicrophonePage;
         private readonly Page _mediaError;
@@ -22,7 +22,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutHearings = new JourneyStepPage(browserContext, PageUri.AboutHearingsPage);
             _differentHearingTypesPage = new JourneyStepPage(browserContext, PageUri.DifferentHearingTypesPage);
             _exploreCourtBuildingPage = new JourneyStepPage(browserContext, PageUri.ExploreCourtBuildingPage);
-            _courtBuildingVideoPage = new JourneyStepPage(browserContext, PageUri.CourtBuildingVideoPage);
+            _courtBuildingVideoPage = new VideoContentPage(browserContext, PageUri.CourtBuildingVideoPage);
             _exploreVideoHearing = new JourneyStepPage(browserContext, PageUri.ExploreVideoHearing);
             _useCameraMicrophonePage = useCameraMicrophone;
             _loginSteps = loginSteps;
@@ -36,7 +36,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutHearings.Continue();
             _differentHearingTypesPage.Continue();
             _exploreCourtBuildingPage.Continue();
-            _courtBuildingVideoPage.Continue();
+            _courtBuildingVideoPage.VideoHasStarted();
+            _courtBuildingVideoPage.Continue();            
             _exploreVideoHearing.Continue();
         }
 
