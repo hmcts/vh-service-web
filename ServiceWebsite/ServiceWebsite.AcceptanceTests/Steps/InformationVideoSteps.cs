@@ -9,12 +9,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     public sealed class InformationVideoSteps
     {
         private readonly VideoContentPage _participantView;
-        private readonly JudgeView _judgeView;
         private readonly JourneyStepPage _helpTheCourtDecide;
-        public InformationVideoSteps(BrowserContext browserContext, JudgeView judgeView)
+        public InformationVideoSteps(BrowserContext browserContext)
         {
             _participantView = new VideoContentPage(browserContext, PageUri.ParticipantViewPage);
-            _judgeView = judgeView;
             _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage);
         }
 
@@ -23,10 +21,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _participantView.VideoHasStarted();
             _participantView.Continue();
-            _judgeView.VideoHasStarted();
-            _judgeView.Continue();
             _helpTheCourtDecide.Continue();
-
         }
     }
 }

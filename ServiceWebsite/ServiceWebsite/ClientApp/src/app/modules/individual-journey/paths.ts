@@ -6,7 +6,6 @@ export const Paths = {
     ExploreVideoHearing: 'explore-video-hearing',
     UseCameraMicrophone: 'use-camera-microphone',
     ParticipantView: 'participant-view',
-    JudgeView: 'judge-view',
     HelpTheCourtDecide: 'help-the-court-decide',
     AboutYou: 'about-you',
     Interpreter: 'interpreter',
