@@ -13,7 +13,7 @@ import { UserCameraViewComponent } from '../../components/user-camera-view/user-
   templateUrl: './participant-view.component.html',
   styleUrls: ['./participant-view.component.css'],
 })
-export class ParticipantViewComponent extends IndividualBaseComponent implements OnInit, AfterContentInit {
+export class ParticipantViewComponent extends IndividualBaseComponent implements OnInit, AfterContentInit, OnDestroy {
 
   @ViewChild(VideoViewComponent)
   videoViewComponent: VideoViewComponent;

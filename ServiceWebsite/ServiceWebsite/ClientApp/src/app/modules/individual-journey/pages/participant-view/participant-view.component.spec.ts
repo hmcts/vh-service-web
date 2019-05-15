@@ -1,20 +1,46 @@
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
+import { TestModuleMetadata } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { Config } from '../../../shared/models/config';
 import { ParticipantViewComponent } from './participant-view.component';
 import { MediaService } from '../../services/media.service';
+import { UserMediaService } from '../../services/user-media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
-import { CanCreateHearingViewComponent } from '../../components/hearing-view-base.component.spec';
 import { async } from '@angular/core/testing';
+import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
+import { Logger } from 'src/app/services/logger';
+
+@Component({
+  selector: 'app-video-view',
+  template: ''
+})
+class StubVideoViewComponent {
+  @Input()
+  source: string;
+}
 
 describe('ParticipantViewComponent', () => {
+  const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
+  const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
+
   it('can be created', async(() => {
-    CanCreateHearingViewComponent(ParticipantViewComponent);
+    CanCreateComponent(ParticipantViewComponent,
+      (configuration: TestModuleMetadata) => {
+        configuration.providers.push(
+          { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['getVideoFileUrlerror']) },
+          { provide: MediaService, useClass: UserMediaService },
+          { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']) },
+          { provide: Config, useValue: {} }
+        );
+        configuration.declarations.push(UserCameraViewComponent);
+        configuration.declarations.push(StubVideoViewComponent);
+      }
+    );
   }));
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;
-    const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
-    const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
