@@ -12,8 +12,7 @@ describe('BlobVideoStorageService', () => {
     config.baseVideoUrl = 'http://test.com';
     const blobVideoStorageService = new BlobVideoStorageService(new BlobStorageService(config), deviceType);
     deviceType.isMobile.and.returnValue(true);
-    expect(blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Judge)).toBeTruthy();
-    expect(blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Participant)).toBeTruthy();
+    expect(blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_Court)).toBeTruthy();
     expect(blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_ParticipantView)).toBeTruthy();
   });
 
@@ -23,7 +22,7 @@ describe('BlobVideoStorageService', () => {
     config.baseVideoUrl = 'http://test.com';
     const blobVideoStorageService = new BlobVideoStorageService(new BlobStorageService(config), deviceType);
     deviceType.isMobile.and.returnValue(true);
-    const fileName = blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Judge);
+    const fileName = blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_ParticipantView);
     expect(fileName.includes('small')).toBeTruthy();
   });
 
@@ -33,7 +32,7 @@ describe('BlobVideoStorageService', () => {
     config.baseVideoUrl = 'http://test.com';
     const blobVideoStorageService = new BlobVideoStorageService(new BlobStorageService(config), deviceType);
     deviceType.isMobile.and.returnValue(false);
-    const fileName = blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_JudgeView_Judge);
+    const fileName = blobVideoStorageService.getVideoFileUrl(VideoFiles.BeforeTheDay_ParticipantView);
     expect(fileName.includes('large')).toBeTruthy();
   });
 

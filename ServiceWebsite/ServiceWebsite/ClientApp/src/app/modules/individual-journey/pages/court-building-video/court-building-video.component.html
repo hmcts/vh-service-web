@@ -1,8 +1,24 @@
-<div>
-    <h1 class="govuk-heading-xl" i18n="@@courtBuildingVideo_h1">
-      Court building video
-    </h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <app-video-view [source]="videoSource" (loaded)="videoLoaded()"></app-video-view>
   </div>
-  <div>
-      <button class="govuk-button" (click)="continue()" i18n="@@journey_btn_continue" id="continue" type="button">Continue</button>
+</div>
+
+<div class="govuk-grid-row vh-top-30">
+  <div class="govuk-grid-column-full">
+    <button type="submit" class="govuk-button govuk-!-margin-right-1" id="continue" (click)="continue()" i18n="@@courtBuildingVideo_btn_journey_continue">
+      Continue
+    </button>
+
+    <button type="button" class="govuk-button hmcts-button--secondary" id="replay"
+            (click)="replay()" i18n="@@courtBuildingVideo_btn_replayPracticeHearing" [disabled]="disabledReplay">
+      Re-play the video
+    </button>
   </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <app-contact-us></app-contact-us>
+  </div>
+</div>
