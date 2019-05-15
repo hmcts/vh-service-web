@@ -9,7 +9,6 @@
         public const string HelpTheCourtDecidePage = "/help-the-court-decide";
         public const string MediaErrorPage = "/media-error";
         public const string ParticipantViewPage = "/participant-view";
-        public const string JudgeViewPage = "/judge-view";
         public const string UseCameraMicrophonePage = "/use-camera-microphone";
         public const string AboutYouPage = "/about-you";
         public const string ExploreVideoHearing = "/explore-video-hearing";

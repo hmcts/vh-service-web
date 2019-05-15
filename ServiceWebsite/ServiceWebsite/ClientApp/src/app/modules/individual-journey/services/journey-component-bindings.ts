@@ -20,7 +20,6 @@ export class JourneyStepComponentBindings {
         this.bindings.set(Steps.ExploreVideoHearing, Paths.ExploreVideoHearing);
         this.bindings.set(Steps.DifferentHearingTypes, Paths.DifferentHearingTypes);
         this.bindings.set(Steps.ExploreCourtBuilding, Paths.ExploreCourtBuilding);
-        this.bindings.set(Steps.HearingAsJudge, Paths.JudgeView);
         this.bindings.set(Steps.HearingAsParticipant, Paths.ParticipantView);
         this.bindings.set(Steps.HelpTheCourtDecide, Paths.HelpTheCourtDecide);
         this.bindings.set(Steps.Interpreter, Paths.Interpreter);
