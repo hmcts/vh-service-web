@@ -945,47 +945,50 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearing_p_1" datatype="html">
-        <source>
-    Hearings like yours can take place:
-  </source>
+      <trans-unit id="aboutHearing_h1_1" datatype="html">
+        <source>About hearings</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearing_h1_1" datatype="html">
-        <source>In a court building</source>
+      <trans-unit id="aboutHearing_p_1" datatype="html">
+        <source>
+     Court hearings like yours can take place in a court building or by video.
+  </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearing_p_2" datatype="html">
-        <source>
-    At these hearings, all participants gather in the courtroom in front of the judge.
-  </source>
+      <trans-unit id="aboutHearing_h2_1" datatype="html">
+        <source>In a court building</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="aboutHearing_h2_1" datatype="html">
-        <source>By video</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="aboutHearing_p_3" datatype="html">
-        <source>
-   These hearings allow you to be seen and heard in court without having to travel. All participants,
-    including the judge, sit in different locations in front of a computer. They can see and hear each other
-    throughout the hearing.
+      <trans-unit id="aboutHearing_ul_1_li_1" datatype="html">
+        <source>all participants gather in the courtroom in front of the judge.
   </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearing_h2_2" datatype="html">
+        <source>By video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutHearing_ul_2_li_1" datatype="html">
+        <source>all participants, including the judge, take part from different locations using a computer. They can see and hear each other throughout the hearing.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/about-hearings/about-hearings.component.html</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aboutHearing_btn_next" datatype="html">
@@ -997,25 +1000,45 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="differentHearingType_p_1" datatype="html">
-        <source>
-    The court will decide which method is suitable for your hearing. You can help the court decide by
-    answering some questions.
-  </source>
+      <trans-unit id="differentHearingType_h1_1" datatype="html">
+        <source>Which type of court hearing?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="differentHearingType_p_1" datatype="html">
+        <source>
+      The court will decide if it&apos;s more suitable for the hearing to take place in a court building or by video.
+  </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="differentHearingType_p_2" datatype="html">
+        <source>
+      We need to ask you some questions to help the court decide.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="differentHearingType_p_3" datatype="html">
+        <source>
+      Before you answer the questions, we&apos;ll show you what the different types of hearing are like.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="journey_btn_continue" datatype="html">
         <source>Continue</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/different-hearing-types/different-hearing-types.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/individual-journey/pages/court-building-video/court-building-video.component.html</context>
