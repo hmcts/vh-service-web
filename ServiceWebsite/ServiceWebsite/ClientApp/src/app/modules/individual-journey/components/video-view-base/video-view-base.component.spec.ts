@@ -9,6 +9,7 @@ import { UserMediaService } from '../../services/user-media.service';
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
 import { VideoViewBaseComponent } from './video-view-base.component';
 import { IndividualJourney } from '../../individual-journey';
+import { VideoFiles } from '../../services/video-files';
 
 @Component({
   selector: 'app-video-view',
@@ -38,7 +39,7 @@ describe('functionality', () => {
 
   beforeEach(() => {
     const journey = new IndividualJourney();
-    component = new VideoViewBaseComponent(journey, videoUrlService);
+    component = new VideoViewBaseComponent(journey, videoUrlService, VideoFiles.BeforeTheDay_Court);
   });
 
   it('should set the video source when initialized', () => {

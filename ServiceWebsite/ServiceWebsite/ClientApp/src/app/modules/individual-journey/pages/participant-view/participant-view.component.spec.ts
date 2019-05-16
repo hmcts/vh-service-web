@@ -37,10 +37,5 @@ describe('ParticipantViewComponent', () => {
       component.ngOnDestroy();
       expect(userMediaService.stopStream).toHaveBeenCalled();
     });
-    it('should assign url to video sources', () => {
-      videoUrlService.getVideoFileUrl.and.returnValue('/hearingVideo');
-      component.ngOnInit();
-      expect(component.videoSource).toBeTruthy();
-    });
   });
 });

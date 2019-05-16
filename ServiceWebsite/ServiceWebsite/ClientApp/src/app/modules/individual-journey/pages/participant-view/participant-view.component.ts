@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterContentInit, OnDestroy, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
 import { VideoUrlService } from '../../services/video-url.service';
@@ -11,7 +11,7 @@ import { VideoViewBaseComponent } from '../../components/video-view-base/video-v
   templateUrl: './participant-view.component.html',
   styleUrls: ['./participant-view.component.css'],
 })
-export class ParticipantViewComponent extends VideoViewBaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ParticipantViewComponent extends VideoViewBaseComponent implements AfterContentInit, OnDestroy {
 
   @ViewChild(UserCameraViewComponent)
   userCameraViewComponent: UserCameraViewComponent;
@@ -20,12 +20,7 @@ export class ParticipantViewComponent extends VideoViewBaseComponent implements 
 
   constructor(journey: IndividualJourney, private userMediaService: MediaService,
     videoUrlService: VideoUrlService) {
-    super(journey, videoUrlService);
-  }
-
-  ngOnInit() {
-    this.videoFile = VideoFiles.BeforeTheDay_ParticipantView;
-    super.ngOnInit();
+    super(journey, videoUrlService, VideoFiles.BeforeTheDay_ParticipantView);
   }
 
   async ngAfterContentInit() {

@@ -8,7 +8,8 @@ import { VideoFiles } from '../../services/video-files';
 @Injectable()
 export class VideoViewBaseComponent extends IndividualBaseComponent implements OnInit {
 
-  constructor(journey: IndividualJourney, private videoUrlService: VideoUrlService) {
+  constructor(journey: IndividualJourney, private videoUrlService: VideoUrlService,
+    private videoFile: VideoFiles) {
     super(journey);
   }
 
@@ -17,7 +18,6 @@ export class VideoViewBaseComponent extends IndividualBaseComponent implements O
 
   videoSource: string;
   disabledReplay = true;
-  videoFile: VideoFiles;
 
   ngOnInit() {
     this.videoSource = this.videoUrlService.getVideoFileUrl(this.videoFile);
