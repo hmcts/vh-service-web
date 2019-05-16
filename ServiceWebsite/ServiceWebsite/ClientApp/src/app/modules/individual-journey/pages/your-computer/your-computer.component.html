@@ -12,7 +12,8 @@
     </span>
 
     <div>
-      <p class="govuk-body">Your hearing is due to take place on {{ hearingDate }}</p>
+      <p class="govuk-body">Your hearing is due to take place on <strong>{{ hearingDate | appLongDatetime }}</strong>
+      </p>
       <p class="govuk-body">At this time, will you have access to a laptop or desktop computer (not a mobile, not a
         tablet)?</p>
     </div>

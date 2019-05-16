@@ -46,32 +46,33 @@ const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
  * Generalising the test in one place such as with this, allows us to ensure that all pages follow a similar pattern.
  * @param component The component to be tested.
  */
-const cannotProceedUntilChoiceIsSelected = <T extends SuitabilityChoicePageBaseComponent>(component: Type<T>):
-  SuitabilityChoicePageBaseFixture<T> => {
-  const fixture = configureTestBedFor(component);
+const cannotProceedUntilChoiceIsSelected =
+  <T extends SuitabilityChoicePageBaseComponent>(component: Type<T>, customiseConfiguration?: Function):
+    SuitabilityChoicePageBaseFixture<T> => {
+    const fixture = configureTestBedFor(component, customiseConfiguration);
 
-  // when
-  fixture.submitIsClicked();
+    // when
+    fixture.submitIsClicked();
 
-  // then
-  expect(fixture.component.isFormInvalid).toBeTruthy();
+    // then
+    expect(fixture.component.isFormInvalid).toBeTruthy();
 
-  // expect form to be erronous
-  const formContainer = fixture.debugElementByCss('#form-container');
-  expect(formContainer.classes['govuk-form-group--error']).toBeTruthy();
+    // expect form to be erronous
+    const formContainer = fixture.debugElementByCss('#form-container');
+    expect(formContainer.classes['govuk-form-group--error']).toBeTruthy();
 
-  // and error message to be displayed
-  const errorMessage = fixture.debugElementByCss('#error-message');
-  expect(errorMessage.nativeElement).toBeTruthy();
+    // and error message to be displayed
+    const errorMessage = fixture.debugElementByCss('#error-message');
+    expect(errorMessage.nativeElement).toBeTruthy();
 
-  // when selecting a radio button
-  fixture.radioBoxIsClicked('#choice-yes');
+    // when selecting a radio button
+    fixture.radioBoxIsClicked('#choice-yes');
 
-  // then
-  fixture.submitIsClicked();
+    // then
+    fixture.submitIsClicked();
 
-  return fixture;
-};
+    return fixture;
+  };
 
 export {
   configureTestBedFor as ConfigureTestBedForPageComponent,
