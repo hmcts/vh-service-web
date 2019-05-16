@@ -17,6 +17,7 @@ import { CrestBluePanelComponent } from './crest-blue-panel/crest-blue-panel.com
 import { ProfileService } from '../../services/profile.service';
 import { PageTrackerService } from '../../services/page-tracker.service';
 import { WindowRef } from './window-ref';
+import { LongDatetimePipe } from './date-time.pipe';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { WindowRef } from './window-ref';
     ShowDetailsComponent,
     ErrorFooterComponent,
     ContactUsComponent,
-    CrestBluePanelComponent
+    CrestBluePanelComponent,
+    LongDatetimePipe
   ],
   providers: [
     ProfileService,
@@ -47,7 +49,8 @@ import { WindowRef } from './window-ref';
     ShowDetailsComponent,
     ErrorFooterComponent,
     ContactUsComponent,
-    CrestBluePanelComponent
+    CrestBluePanelComponent,
+    LongDatetimePipe
   ]
 })
 export class SharedModule { }
