@@ -1,12 +1,64 @@
-<div>
-  <h1 class="govuk-heading-xl" i18n="@@aboutYourComputer_h1">
-    About your computer
-  </h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl" i18n="@@aboutYourComputer_h1">
+      About your computer
+    </h1>
+
+
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid">
+            <span class="govuk-error-message" id="error-message" i18n="@@aboutYourComputer_span_1">
+              Please answer this question
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@aboutYourComputer_p_1">
+            Does the computer have a camera and microphone?
+          </p>
+
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input formControlName="choice"  class="govuk-radios__input" id="choice-notSure" type="radio" [value]="hasAccessToCamera.NotSure">
+                  <label class="govuk-label govuk-radios__label" for="choice-notSure" i18n="@@aboutYourComputer_label_1">
+                    I'm not sure
+                  </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice"  class="govuk-radios__input" id="choice-yes" type="radio" [value]="hasAccessToCamera.Yes">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYourComputer_label_2">
+                    Yes
+                  </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice"  class="govuk-radios__input" id="choice-no" type="radio" [value]="hasAccessToCamera.No">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYourComputer_label_3">
+                    No
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vh-top-20">
+        <app-show-details i18n-bind-detailsTitle="@@aboutYourComputer_detailsTitle" bind-detailsTitle="'What happens if I\'m not sure?'"
+                          i18-bind-textArray="@@aboutYourComputer_textArray" bind-textArray="['That\'s fine. You\'ll have the chance to find out later by watching a short video.']">
+        </app-show-details>
+      </div>
+
+      <div class="vh-top-20">
+        <button class="govuk-button" (click)="continue()" i18n="@@aboutYourComputer_journey_btn_continue" id="continue" type="button">Continue</button>
+      </div>
+    </form>
+  </div>
 </div>
-<div>
-    <button class="govuk-button" (click)="yes()" i18n="@@aboutYourComputer_btn_yes" type="button">yes</button>
-    <button class="govuk-button" (click)="no()" i18n="@@aboutYourComputer_btn_no" type="button">no</button>
-    <button class="govuk-button" (click)="notsure()" i18n="@@aboutYourComputer_btn_notSure" type="button">not sure</button>
-    <br />
-  <button class="govuk-button" (click)="continue()" i18n="@@journey_btn_continue" id="continue" type="button">Continue</button>
-</div>
+
+
