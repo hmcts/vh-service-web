@@ -1,24 +1,23 @@
 import { Component } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 import { HasAccessToCamera } from '../../individual-suitability.model';
+import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 
 @Component({
   selector: 'app-about-your-computer',
   templateUrl: './about-your-computer.component.html',
   styles: []
 })
-export class AboutYourComputerComponent extends IndividualBaseComponent {
+export class AboutYourComputerComponent extends SuitabilityChoicePageBaseComponent {
 
-  yes() {
-    this.model.camera = HasAccessToCamera.Yes;
-    this.continue();
-  }
-  no() {
-    this.model.camera = HasAccessToCamera.No;
-    this.continue();
-  }
-  notsure() {
-    this.model.camera = HasAccessToCamera.NotSure;
-    this.continue();
+  protected bindModel(): void {
+    switch (this.choice.value) {
+      case 'notSure':
+        this.model.camera = HasAccessToCamera.NotSure;
+      case 'no':
+        this.model.camera = HasAccessToCamera.No;
+      case 'yes':
+        this.model.camera = HasAccessToCamera.Yes;
+      default:
+    }
   }
 }
