@@ -23,21 +23,21 @@
             <div class="govuk-fieldset fieldset-margin">
               <div class="govuk-radios">
                 <div class="govuk-radios__item">
-                  <input formControlName="choice"  class="govuk-radios__input" id="choice-notSure" type="radio" [value]="'notSure'">
+                  <input formControlName="choice"  class="govuk-radios__input" id="choice-notSure" type="radio" [value]="hasAccessToCamera.NotSure">
                   <label class="govuk-label govuk-radios__label" for="choice-notSure" i18n="@@aboutYourComputer_label_1">
                     <strong>I'm not sure</strong>
                   </label>
                 </div>
 
                 <div class="govuk-radios__item">
-                  <input formControlName="choice"  class="govuk-radios__input" id="choice-yes" type="radio" [value]="'yes'">
+                  <input formControlName="choice"  class="govuk-radios__input" id="choice-yes" type="radio" [value]="hasAccessToCamera.Yes">
                   <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYourComputer_label_2">
                     <strong>Yes</strong>
                   </label>
                 </div>
 
                 <div class="govuk-radios__item">
-                  <input formControlName="choice"  class="govuk-radios__input" id="choice-no" type="radio" [value]="'no'">
+                  <input formControlName="choice"  class="govuk-radios__input" id="choice-no" type="radio" [value]="hasAccessToCamera.No">
                   <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYourComputer_label_3">
                     <strong>No</strong>
                   </label>

@@ -9,15 +9,9 @@ import { SuitabilityChoicePageBaseComponent } from '../../components/suitability
 })
 export class AboutYourComputerComponent extends SuitabilityChoicePageBaseComponent {
 
+  hasAccessToCamera = HasAccessToCamera;
+
   protected bindModel(): void {
-    switch (this.choice.value) {
-      case 'notSure':
-        this.model.camera = HasAccessToCamera.NotSure;
-      case 'no':
-        this.model.camera = HasAccessToCamera.No;
-      case 'yes':
-        this.model.camera = HasAccessToCamera.Yes;
-      default:
-    }
+    this.model.camera = this.choice.value;
   }
 }
