@@ -7,6 +7,8 @@ import { Logger } from 'src/app/services/logger';
 import { MediaService } from '../../services/media.service';
 import { UserMediaService } from '../../services/user-media.service';
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
+import { VideoViewBaseComponent } from './video-view-base.component';
+import { IndividualJourney } from '../../individual-journey';
 
 @Component({
   selector: 'app-video-view',
@@ -29,5 +31,27 @@ const canCreateVideoViewBaseComponent = <T>(component: Type<T>): void => {
     configuration.declarations.push(UserCameraViewComponent);
   });
 };
+
+describe('functionality', () => {
+  let component: VideoViewBaseComponent;
+  const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
+
+  beforeEach(() => {
+    const journey = new IndividualJourney();
+    component = new VideoViewBaseComponent(journey, videoUrlService);
+  });
+
+  it('should set the video source when initialized', () => {
+    videoUrlService.getVideoFileUrl.and.returnValue('/hearingVideo');
+    component.ngOnInit();
+    expect(videoUrlService.getVideoFileUrl).toHaveBeenCalled();
+    expect(component.videoSource).toBeTruthy();
+  });
+  it('should enabled re-play when video is loaded', () => {
+    expect(component.disabledReplay).toBeTruthy();
+    component.videoLoaded();
+    expect(component.disabledReplay).toBeFalsy();
+  });
+});
 
 export { canCreateVideoViewBaseComponent as CanCreateVideoViewBaseComponent };

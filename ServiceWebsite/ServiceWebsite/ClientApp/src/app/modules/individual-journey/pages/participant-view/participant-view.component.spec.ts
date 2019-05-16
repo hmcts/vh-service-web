@@ -42,11 +42,5 @@ describe('ParticipantViewComponent', () => {
       component.ngOnInit();
       expect(component.videoSource).toBeTruthy();
     });
-    it('should enabled re-play when video is loaded', () => {
-      expect(component.disabledReplay).toBeTruthy();
-
-      component.videoLoaded();
-      expect(component.disabledReplay).toBeFalsy();
-    });
   });
 });
