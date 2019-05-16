@@ -34,8 +34,8 @@
 
                   <div class="govuk-radios__item">
                     <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true">
-                    <label class="govuk-label govuk-radios__label govuk-label--s" for="choice-yes">
-                      <strong>Yes</strong>
+                    <label class="govuk-label govuk-radios__label" for="choice-yes">
+                      Yes
                     </label>
 
                     <div class="form-group textarea-top-margin" *ngIf="choice.value" [ngClass]="isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
@@ -50,8 +50,8 @@
                   
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false">
-                  <label class="govuk-label govuk-radios__label govuk-label--s" for="choice-no">
-                    <strong>No</strong>
+                  <label class="govuk-label govuk-radios__label" for="choice-no">
+                    No
                   </label>
                 </div>
               </div>
