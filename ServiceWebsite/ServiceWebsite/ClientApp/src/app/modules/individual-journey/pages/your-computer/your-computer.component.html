@@ -23,7 +23,7 @@
         <div class="govuk-radios__item">
           <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true"
             data-aria-controls="conditional-how-contacted-conditional">
-          <label class="govuk-label govuk-radios__label" for="choice-yes">
+          <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@yourComputer_choice_yes">
             Yes
           </label>
         </div>
@@ -31,7 +31,7 @@
         <div class="govuk-radios__item">
           <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false"
             data-aria-controls="conditional-how-contacted">
-          <label class="govuk-label govuk-radios__label" for="choice-no">
+          <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@yourComputer_choice_no">
             No
           </label>
         </div>
@@ -54,4 +54,5 @@
 
   <button class="govuk-button" (click)="continue()" i18n="@@yourComputer_btn_continue" id="continue"
     type="button">Continue</button>
-</form><app-contact-us></app-contact-us>
+</form>
+<app-contact-us></app-contact-us>
