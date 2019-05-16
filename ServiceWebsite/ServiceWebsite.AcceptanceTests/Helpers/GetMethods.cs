@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System.Collections.Generic;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
 {
@@ -12,5 +13,8 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 
         public static string GetAttributeValue(By element, BrowserContext context, string attribute) =>
             context.NgDriver.WaitUntilElementVisible(element).GetAttribute(attribute);
+
+        public static IEnumerable<IWebElement> GetElements(By element, BrowserContext context) =>
+             context.NgDriver.WaitUntilElementsVisible(element);
     }
 }

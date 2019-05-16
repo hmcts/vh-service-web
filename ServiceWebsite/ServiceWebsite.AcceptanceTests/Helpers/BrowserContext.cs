@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using Polly;
 using Protractor;
 using System;
@@ -9,7 +8,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 {
     public class BrowserContext
     {
-        private string _baseUrl;
+        public string BaseUrl { private get; set; }
 
         public NgWebDriver NgDriver;
         internal ContextItems Items { get; set; }
@@ -23,7 +22,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             NgDriver = new NgWebDriver(driver);
             TryMaximize();
             NgDriver.IgnoreSynchronization = true;
-            _baseUrl = baseUrl;
+            BaseUrl = baseUrl;
         }
 
         public void TryMaximize()
@@ -43,16 +42,16 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             NgDriver.Quit();
             NgDriver.Dispose();
         }
-        
+
         public void LaunchSite()
         {
-            if (string.IsNullOrEmpty(_baseUrl))
+            if (string.IsNullOrEmpty(BaseUrl))
             {
                 throw new InvalidOperationException("BaseUrl has not been set through BrowserSetup() yet");
             }
 
-            Console.WriteLine($"Navigating to {_baseUrl}");
-            NgDriver.WrappedDriver.Navigate().GoToUrl(_baseUrl);
+            Console.WriteLine($"Navigating to {BaseUrl}");
+            NgDriver.WrappedDriver.Navigate().GoToUrl(BaseUrl);
         }
 
         internal void Retry(Action action, int times = 5)
@@ -72,7 +71,8 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
         public void AcceptAlert()
         {
             Retry(() => NgDriver.SwitchTo().Alert().Accept(), 3);
-        }        
+        }
+        public void GoToPage(string page) => NgDriver.WrappedDriver.Navigate().GoToUrl($"{BaseUrl}{page}");
     }
 
     internal class ContextItems
