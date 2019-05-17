@@ -4,6 +4,6 @@ export function ValidateForWhiteSpace(control: AbstractControl) {
   if (!!control.value && control.value.trim().length > 3) {
     return null;
   }
-  var result = { validInput: true };
+  const result = { validInput: true };
   return result;
 }
