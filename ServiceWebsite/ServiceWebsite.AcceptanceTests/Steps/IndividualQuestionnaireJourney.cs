@@ -26,14 +26,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
             switch (page)
             {
-                case "about you": _aboutYou.GoToDecisionJourneyPage(PageUri.AboutYouPage);
+                case "about you": _aboutYou.Navigate();
                     _currentPage = _aboutYou;
                     break;
                 case "interpreter":
-                    _aboutYou.GoToDecisionJourneyPage(PageUri.AboutYouPage);
-                    _aboutYou.SelectNo();
-                    _aboutYou.Continue();
-                    _currentPage = _interpreter;
+                    NavigateToDecisionPage(_aboutYou);
+                     _currentPage = _interpreter;
                     break;
             }            
         }
@@ -44,10 +42,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _currentPage.Continue();
         }
 
-        [Then(@"An error message should be displayed")]
-        public void ThenAnErrorMessageShouldBeDisplayed()
+        [Then(@"(.*) error should be displayed")]
+        [Then(@"(.*) errors should be displayed")]
+        public void ThenAnErrorMessageShouldBeDisplayed(int errorCounter)
         {
-            _errorMessage.ValidateErrorMessage();
+            _errorMessage.ValidateErrorMessage(errorCounter);
         }
 
         [Then(@"Participant should proceed to about you page")]
@@ -91,6 +90,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "interpreter" : _interpreter.Validate();
                     break;
             }
+        }
+        private void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
+        {
+            decisionJourneyPage.Navigate();
+            decisionJourneyPage.SelectNo();
+            decisionJourneyPage.Continue();
         }
     }
 }

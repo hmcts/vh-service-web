@@ -13,9 +13,9 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             _browserContext = browserContext;
         }
 
-        public void ValidateErrorMessage()
+        public void ValidateErrorMessage(int errorCounter)
         {
-            GetMethods.GetElements(By.CssSelector("span.govuk-error-message"), _browserContext).Count().Should().BeGreaterOrEqualTo(1);
+            GetMethods.GetElements(By.CssSelector("span.govuk-error-message"), _browserContext).Count().Should().Be(errorCounter);
             _browserContext.NgDriver.Navigate().Refresh();
         }
     }

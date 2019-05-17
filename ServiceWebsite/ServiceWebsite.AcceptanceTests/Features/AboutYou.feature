@@ -7,13 +7,13 @@
 Scenario: Individual participant attempts to proceed to next page without providing answer on About You page
 	Given 'Individual' participant is on 'about you' page
 	When Individual attempts to proceed without selecting an answer
-	Then An error message should be displayed
+	Then 1 error should be displayed
 	When Individual provides answer as yes
 	And Individual attempts to proceed without providing additional information
-	Then An error message should be displayed
+	Then 2 errors should be displayed
 	When Individual provides additional information containing a two character length 'AB'
 	And Individual proceeds to next page
-	Then An error message should be displayed
+	Then 2 errors should be displayed
 
 @smoketest @VIH-4332
 Scenario: Individual participant provides additional information for video hearing suitability
