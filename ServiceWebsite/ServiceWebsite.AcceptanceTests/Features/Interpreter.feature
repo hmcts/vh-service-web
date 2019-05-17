@@ -7,7 +7,7 @@
 Scenario: Interpreter Page - Individual participant attempts to proceed to next page without providing answer
 	Given 'Individual' participant is on 'interpreter' page
 	When Individual attempts to proceed without selecting an answer
-	Then An error message should be displayed
+	Then 1 error should be displayed
 
 @VIH-4333 @WIP_001
 Scenario: Individual participant provides additional information for video hearing suitability
