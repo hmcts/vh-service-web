@@ -1,19 +1,20 @@
-import { Component } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
+import { Component, OnInit } from '@angular/core';
+import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
+import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 
 @Component({
   selector: 'app-your-computer',
   templateUrl: './your-computer.component.html',
   styles: []
 })
-export class YourComputerComponent extends IndividualBaseComponent {
+export class YourComputerComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
+  hearingDate: Date;
 
-  yes() {
-    this.model.computer = true;
-    this.continue();
+  ngOnInit() {
+    this.hearingDate = this.model.hearing.scheduleDateTime;
+    console.log(this.hearingDate);
   }
-  no() {
-    this.model.computer = false;
-    this.continue();
+  protected bindModel() {
+    this.model.computer = this.choice.value;
   }
 }
