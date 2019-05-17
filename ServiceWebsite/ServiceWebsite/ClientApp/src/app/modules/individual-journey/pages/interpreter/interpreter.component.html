@@ -1,44 +1,48 @@
 <div>
-    <h1 class="govuk-heading-xl" i18n="@@interpreter_h1">
-        Getting an interpreter
-    </h1>
+  <h1 class="govuk-heading-xl" i18n="@@interpreter_h1">
+    Getting an interpreter
+  </h1>
 </div>
 <form [formGroup]="form" (ngSubmit)="continue()">
-    <div id="form-container" class="govuk-form-group" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+  <div id="form-container" class="govuk-form-group" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
-        <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid">
-          Please answer this question
-        </span>
-      
-      <div>
-        <p class="govuk-body">If you would find it difficult to take part in your hearing in English, you may need to get an interpreter.</p>
-        <p class="govuk-body">Will you need an interpreter for your hearing?</p>
-      </div>
-      
-        <div class="govuk-fieldset">
-          <div class="govuk-radios" data-module="radios">
-            <div class="govuk-radios__item">
-              <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true" data-aria-controls="conditional-how-contacted-conditional">
-              <label class="govuk-label govuk-radios__label" for="choice-yes">
-                Yes
-              </label>
-            </div>
-      
-            <div class="govuk-radios__item">
-              <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false" data-aria-controls="conditional-how-contacted">
-              <label class="govuk-label govuk-radios__label" for="choice-no">
-                No
-              </label>
-            </div>
-          
-          </div>
+    <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@interpreter_span_1">
+      Please answer this question
+    </span>
+
+    <div>
+      <p class="govuk-body" i18n="@@interpreter_p_1">If you would find it difficult to take part in your hearing in
+        English, you may need to get
+        an interpreter.</p>
+      <p class="govuk-body" i18n="@@interpreter_p_2">Will you need an interpreter for your hearing?</p>
+    </div>
+
+    <div class="govuk-fieldset">
+      <div class="govuk-radios" data-module="radios">
+        <div class="govuk-radios__item">
+          <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true"
+            data-aria-controls="conditional-how-contacted-conditional">
+          <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@interpreter_choice_yes">
+            Yes
+          </label>
         </div>
+
+        <div class="govuk-radios__item">
+          <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false"
+            data-aria-controls="conditional-how-contacted">
+          <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@interpreter_choice_no">
+            No
+          </label>
+        </div>
+
       </div>
-    <app-show-details
-    i18n-bind-detailsTitle="@@interpreter_detailsTitle" bind-detailsTitle="'Getting an interpreter for your hearing'"
-  i18-bind-textArray="@@interpreter_textArray" bind-textArray="['For most types of hearing, you’ll need to find and pay for an interpreter yourself. For some types of hearing, the court may provide an interpreter for free. You can find out more about getting an interpreter here.']">
+    </div>
+  </div>
+  <app-show-details i18n-bind-detailsTitle="@@interpreter_detailsTitle" bind-detailsTitle="'Getting an interpreter for your hearing'"
+    i18-bind-textArray="@@interpreter_textArray" bind-textArray="['For most types of hearing, you’ll need to find and pay for an interpreter yourself. For some types of hearing, the court may provide an interpreter for free of charge.  &lt;a href=&quot;https://www.gov.uk//get-interpreter-at-court-or-tribunal/&quot;class=&quot;govuk-link govuk-link--no-visited-state &quot;  target=&quot;_blank&quot;&gt;Find out more about getting an interpreter&lt;/a&gt;.']">
   </app-show-details>
-  <button class="govuk-button" (click)="continue()" i18n="@@journey_btn_continue" id="continue" type="button">Continue</button>
+
+  <button class="govuk-button" (click)="continue()" i18n="@@interpreter_btn_continue" id="continue" type="button">Continue</button>
 </form>
 
 <app-contact-us></app-contact-us>

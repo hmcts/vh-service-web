@@ -31,6 +31,10 @@ a {
 margin-top:30px;
 }
 
+.vh-top-20 {
+  margin-top: 20px;
+}
+
 [disabled='disabled'].hmcts-button--secondary,
 [disabled].hmcts-button--secondary
 {
@@ -68,5 +72,17 @@ margin-top:30px;
   color: #0b0b0b;
 }
 
+.vh-hide-h1 {
+  font-size: 0;
+  width: 1px;
+  height: 1px;
+  display: inline-block;
+  overflow: hidden;
+  position: absolute !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  clip: rect(1px,1px,1px,1px);
+}
 
 

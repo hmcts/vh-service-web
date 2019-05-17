@@ -10,15 +10,13 @@ import { DeviceType } from './device-type';
 export class BlobVideoStorageService extends VideoUrlService {
 
   readonly lowResolutions = new Map<VideoFiles, string>([
-    [VideoFiles.BeforeTheDay_JudgeView_Judge, 'btd_judgeview_individual_small.mp4'],
     [VideoFiles.BeforeTheDay_ParticipantView, 'btd_individual_laptop_small.mp4'],
-    [VideoFiles.BeforeTheDay_JudgeView_Participant, 'btd_judgeview_judge_small.mp4'],
+    [VideoFiles.BeforeTheDay_Court, 'btd_court_small.mp4'],
   ]);
 
   readonly highResolutions = new Map<VideoFiles, string>([
-    [VideoFiles.BeforeTheDay_JudgeView_Judge, 'btd_judgeview_individual_large.mp4'],
     [VideoFiles.BeforeTheDay_ParticipantView, 'btd_individual_laptop_large.mp4'],
-    [VideoFiles.BeforeTheDay_JudgeView_Participant, 'btd_judgeview_judge_large.mp4'],
+    [VideoFiles.BeforeTheDay_Court, 'btd_court.mp4'],
   ]);
 
   constructor(private blobStorageService: BlobStorageService, private deviceType: DeviceType) {

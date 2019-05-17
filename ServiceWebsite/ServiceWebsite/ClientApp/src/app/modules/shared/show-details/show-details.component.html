@@ -6,8 +6,8 @@
   </summary>
   <div class="govuk-details__text" *ngIf="expanded">
     <div *ngFor="let textItem of textArray">
-      <p class="govuk-body govuk-!-margin-bottom-4">
-        {{textItem}}
+      <p class="govuk-body govuk-!-margin-bottom-4" [innerHTML]="textItem">
+       
       </p>
     </div>
   </div>
