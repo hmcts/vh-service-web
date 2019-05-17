@@ -50,9 +50,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
+    <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
     <ProjectReference Include="..\ServiceWebsite.Services\ServiceWebsite.Services.csproj" />
     <ProjectReference Include="..\ServiceWebsite.UserAPI.Client\ServiceWebsite.UserAPI.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

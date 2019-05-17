@@ -1,5 +1,5 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl" i18n="@@aboutYou_h1">
       About you
     </h1>
@@ -15,7 +15,7 @@
           </div>
 
           <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@aboutYou_p_1">
-            Is there anything that could affect your ability to take part in a video hearing?
+              Is there anything you’d like the court to take into account when it decides which type of hearing will be suitable?
           </p>
 
           <p class="govuk-body govuk-!-margin-bottom-1" i18n="@@aboutYou_p_2">
@@ -23,9 +23,11 @@
           </p>
 
           <ul class="govuk-list govuk-list--bullet">
-            <li i18n="@@aboutYou_listItem_1">are you hard of hearing or deaf?</li>
-            <li i18n="@@aboutYou_listItem_2">are you blind or partially sighted?</li>
-            <li i18n="@@aboutYou_listItem_2">something else?</li>
+              <li i18n="@@aboutYou_listItem_1">are you hard of hearing or deaf?</li>
+              <li i18n="@@aboutYou_listItem_2">are you blind or partially sighted?</li>
+              <li i18n="@@aboutYou_listItem_3">do you have a learning disability or sometimes struggle to understand everyday things?</li>
+              <li i18n="@@aboutYou_listItem_4">do you have mobility issues that make it difficult to travel?</li>
+              <li i18n="@@aboutYou_listItem_5">something else?</li>
           </ul>
 
           <div class="govuk-form-group">
@@ -42,10 +44,10 @@
                   <div class="form-group textarea-top-margin" *ngIf="choice.value"
                     [ngClass]="isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
                     <div>
-                      <span [ngClass]="isTextInputInvalid ? 'govuk-error-message' : 'govuk-hint'"
-                        i18n="@@aboutYou_span_2">
-                        Please provide more information
-                      </span>
+                        <span [ngClass]="isTextInputInvalid ? 'govuk-error-message' : 'govuk-hint'"
+                              i18n="@@aboutYou_span_2">
+                            Please tell us more about that
+                        </span>
                     </div>
                     <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
                       [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { SuitabilityAnswer } from '../../individual-suitability.model';
+import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
 
 @Component({
   selector: 'app-about-you',
@@ -16,7 +17,7 @@ export class AboutYouComponent extends SuitabilityChoicePageBaseComponent implem
     this.choice.valueChanges.subscribe(value => {
       if (value) {
         // If the value is true, the text input is required
-        this.textInput.setValidators(Validators.required);
+        this.textInput.setValidators([Validators.required, ValidateForWhiteSpace]);
         this.textInput.markAsUntouched();
       } else {
         this.textInput.clearValidators();
