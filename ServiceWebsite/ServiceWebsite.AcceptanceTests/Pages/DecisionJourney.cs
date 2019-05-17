@@ -16,7 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             SetMethods.SelectRadioButton(_yes, BrowserContext);
             SetMethods.InputValue(detail, By.Id("details"), BrowserContext);
         }
-        public void SelectNo() => SetMethods.ClickElement(By.Id("choice-no"), BrowserContext);
+        public void SelectNo() => SetMethods.SelectRadioButton(By.Id("choice-no"), BrowserContext);
         public void GoToDecisionJourneyPage(string page)
         {
             BrowserContext.GoToPage(page);

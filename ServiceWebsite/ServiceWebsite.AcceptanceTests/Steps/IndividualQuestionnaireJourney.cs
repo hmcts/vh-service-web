@@ -30,8 +30,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _currentPage = _aboutYou;
                     break;
                 case "interpreter":
-                    _interpreter.GoToDecisionJourneyPage(PageUri.InterpreterPage);
+                    _aboutYou.GoToDecisionJourneyPage(PageUri.AboutYouPage);
                     _aboutYou.SelectNo();
+                    _aboutYou.Continue();
                     _currentPage = _interpreter;
                     break;
             }            
