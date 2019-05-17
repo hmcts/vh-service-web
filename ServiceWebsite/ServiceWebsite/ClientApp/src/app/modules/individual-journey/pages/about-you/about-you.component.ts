@@ -17,9 +17,6 @@ export class AboutYouComponent extends SuitabilityChoicePageBaseComponent implem
     this.choice.valueChanges.subscribe(value => {
       if (value) {
         // If the value is true, the text input is required
-        // ValidateForWhiteSpace
-        // && Validators.pattern(/^\s*$/g)
-        // this.textInput.setValidators([Validators.required, Validators.minLength(3), ValidateForWhiteSpace]);
         this.textInput.setValidators([Validators.required, ValidateForWhiteSpace]);
         this.textInput.markAsUntouched();
       } else {

@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
   </ItemGroup>
 
@@ -60,6 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
   </ItemGroup>
 

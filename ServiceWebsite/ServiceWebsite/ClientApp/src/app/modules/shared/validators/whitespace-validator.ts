@@ -1,9 +1,8 @@
 import { AbstractControl } from '@angular/forms';
 
 export function ValidateForWhiteSpace(control: AbstractControl) {
-  if (!!control.value && control.value.trim().length > 3) {
+  if (!!control.value && control.value.trim().length > 2) {
     return null;
   }
-  const result = { validInput: true };
-  return result;
+  return { validInput: true };
 }
