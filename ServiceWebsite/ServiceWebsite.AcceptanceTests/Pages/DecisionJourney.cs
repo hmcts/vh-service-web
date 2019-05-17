@@ -5,9 +5,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages
 {
     public class DecisionJourney : JourneyStepPage
     {
+        private readonly string _pageUrl;
         public DecisionJourney(BrowserContext browserContext, string pageUrl) : base(browserContext, pageUrl)
         {
-
+            _pageUrl = pageUrl;
         }
         private By _yes => By.CssSelector("#choice-yes");
         public void SelectYes() => SetMethods.SelectRadioButton(_yes, BrowserContext);
@@ -16,10 +17,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             SetMethods.SelectRadioButton(_yes, BrowserContext);
             SetMethods.InputValue(detail, By.Id("details"), BrowserContext);
         }
-        public void SelectNo() => SetMethods.ClickElement(By.Id("choice-no"), BrowserContext);
-        public void GoToDecisionJourneyPage(string page)
+        public void SelectNo() => SetMethods.SelectRadioButton(By.Id("choice-no"), BrowserContext);
+        public void Navigate()
         {
-            BrowserContext.GoToPage(page);
+            BrowserContext.GoToPage(_pageUrl);
         }
     }
 }
