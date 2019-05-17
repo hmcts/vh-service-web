@@ -40,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\AboutYou.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutYou.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\ContactUs.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -54,9 +59,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Login.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Steps\AboutYouSteps.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Update="Steps\ContactUsSteps.cs">
       <SubType>Code</SubType>
@@ -79,6 +81,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\AboutYou.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AboutYou.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ContactUs.feature.cs</LastGenOutput>

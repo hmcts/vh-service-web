@@ -100,13 +100,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Individual user views information about video hearings")]
         [NUnit.Framework.CategoryAttribute("VIH-4401")]
         [NUnit.Framework.CategoryAttribute("VIH-4066")]
-        [NUnit.Framework.CategoryAttribute("WIP_Test1")]
         public virtual void IndividualUserViewsInformationAboutVideoHearings()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual user views information about video hearings", null, new string[] {
                         "VIH-4401",
-                        "VIH-4066",
-                        "WIP_Test1"});
+                        "VIH-4066"});
 #line 13
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -122,13 +120,11 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Individual proceeds to about you page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4403")]
         [NUnit.Framework.CategoryAttribute("VIH-4399")]
         public virtual void IndividualProceedsToAboutYouPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual proceeds to about you page", null, new string[] {
-                        "smoketest",
                         "VIH-4403",
                         "VIH-4399"});
 #line 19
@@ -141,7 +137,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 22
  testRunner.Then("Individual participant should be able to view information video", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 23
- testRunner.And("Participant should proceed to about you page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Individual should be on \'about you\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

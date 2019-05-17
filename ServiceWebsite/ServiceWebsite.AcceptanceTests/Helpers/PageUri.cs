@@ -12,5 +12,6 @@
         public const string UseCameraMicrophonePage = "/use-camera-microphone";
         public const string AboutYouPage = "/about-you";
         public const string ExploreVideoHearing = "/explore-video-hearing";
+        public const string InterpreterPage = "/interpreter";
     }
 }
