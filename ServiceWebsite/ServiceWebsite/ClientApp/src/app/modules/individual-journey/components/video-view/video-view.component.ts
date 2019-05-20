@@ -39,7 +39,7 @@ export class VideoViewComponent implements OnDestroy {
    * Plays the video
    */
   play() {
-    this.stopPlaying(); 
+    this.stopPlaying();
     this.videoTag.play();
   }
 
@@ -54,12 +54,11 @@ export class VideoViewComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stopPlaying(); 
+    this.stopPlaying();
     if (this.videoTag.srcObject) {
       this.videoTag.srcObject = null;
-    }
-    else {
-        this.videoTag.src = null;
-      }
+    } else {
+      this.videoTag.src = null;
     }
   }
+}
