@@ -1,4 +1,4 @@
-import { Component, Output, Input, ElementRef, ViewChild, EventEmitter } from '@angular/core';
+import { Component, Output, Input, ElementRef, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
 import { Logger } from 'src/app/services/logger';
 /*
 Muted videos can autoplay in Chrome. Autoplay with sound is allowed if:
@@ -12,7 +12,7 @@ Muted videos can autoplay in Chrome. Autoplay with sound is allowed if:
   templateUrl: './video-view.component.html',
   styles: []
 })
-export class VideoViewComponent {
+export class VideoViewComponent implements OnDestroy {
   constructor(private logger: Logger) {
   }
   @Output()
@@ -39,13 +39,26 @@ export class VideoViewComponent {
    * Plays the video
    */
   play() {
-    this.videoTag.pause();
-    this.videoTag.currentTime = 0;
+    this.stopPlaying();
     this.videoTag.play();
   }
 
   private get videoTag() {
     const video: HTMLVideoElement = this.videoElement.nativeElement;
     return video;
+  }
+
+  private stopPlaying() {
+    this.videoTag.pause();
+    this.videoTag.currentTime = 0;
+  }
+
+  ngOnDestroy() {
+    this.stopPlaying();
+    if (this.videoTag.srcObject) {
+      this.videoTag.srcObject = null;
+    } else {
+      this.videoTag.src = null;
+    }
   }
 }
