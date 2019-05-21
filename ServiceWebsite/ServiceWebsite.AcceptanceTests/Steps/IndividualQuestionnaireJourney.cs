@@ -9,31 +9,27 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly DecisionJourney _aboutYou;
         private readonly ErrorMessage _errorMessage;
-        private readonly LoginSteps _loginSteps;
         private DecisionJourney _currentPage;
         private readonly DecisionJourney _interpreter;
         private readonly DecisionJourney _yourComputer;
         private readonly Page _thankYou;
         private readonly DecisionJourney _aboutYourComputer;
-        private readonly DecisionJourney _helpCourtDecides;
+        private readonly InformationSteps _informationSteps;
         private bool Answer { get; set; }
-        public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, LoginSteps loginSteps)
+        public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps informationSteps)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
             _errorMessage = errorMessage;
-            _loginSteps = loginSteps;
             _yourComputer = new DecisionJourney(browserContext, PageUri.YourComputerPage);
             _thankYou = new Page(browserContext, PageUri.ThankYouPage);
             _aboutYourComputer = new DecisionJourney(browserContext, PageUri.AboutYourComputerPage);
-            _helpCourtDecides = new DecisionJourney(browserContext, PageUri.HelpTheCourtDecidePage);
+            _informationSteps = informationSteps;
         }
         [Given(@"'(.*)' participant is on '(.*)' page")]
         public void GivenIndividualParticipantIsOnPage(string participant, string page)
         {
-            _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
-            _helpCourtDecides.Navigate();
-            _helpCourtDecides.Continue();
+            _informationSteps.InformationScreens(participant);
             switch (page)
             {
                 case "about you":

@@ -73,9 +73,6 @@
     <Compile Update="Steps\ContactUsSteps.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Steps\InformationVideoSteps.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Steps\YourComputerSteps.cs">
       <SubType>Code</SubType>
     </Compile>

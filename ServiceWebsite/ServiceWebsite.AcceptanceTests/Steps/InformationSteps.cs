@@ -6,7 +6,7 @@ using TechTalk.SpecFlow;
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
     [Binding]
-    public sealed class CommonSteps
+    public sealed class InformationSteps
     {
         private readonly JourneyStepPage _aboutHearings;
         private readonly JourneyStepPage _differentHearingTypesPage;
@@ -16,8 +16,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly UseCameraMicrophone _useCameraMicrophonePage;
         private readonly Page _mediaError;
         private readonly LoginSteps _loginSteps;
+        private readonly VideoContentPage _participantView;
+        private readonly JourneyStepPage _helpTheCourtDecide;
 
-        public CommonSteps(BrowserContext browserContext, LoginSteps loginSteps, UseCameraMicrophone useCameraMicrophone)
+        public InformationSteps(BrowserContext browserContext, LoginSteps loginSteps, UseCameraMicrophone useCameraMicrophone)
         {
             _aboutHearings = new JourneyStepPage(browserContext, PageUri.AboutHearingsPage);
             _differentHearingTypesPage = new JourneyStepPage(browserContext, PageUri.DifferentHearingTypesPage);
@@ -27,18 +29,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _useCameraMicrophonePage = useCameraMicrophone;
             _loginSteps = loginSteps;
             _mediaError = new Page(browserContext, PageUri.MediaErrorPage);
+            _participantView = new VideoContentPage(browserContext, PageUri.ParticipantViewPage);
+            _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage);
         }
 
         [Given(@"(.*) participant proceeds to camera and microphone page")]
         public void GivenIndividualParticipantProceedsToCameraAndMicrophonePage(string participant)
         {
             _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
-            _aboutHearings.Continue();
-            _differentHearingTypesPage.Continue();
-            _exploreCourtBuildingPage.Continue();
-            _courtBuildingVideoPage.VideoHasStarted();
-            _courtBuildingVideoPage.Continue();            
-            _exploreVideoHearing.Continue();
+            ExploreVideoHearing();
         }
 
         [Then(@"Individual participant should not be able to continue with suitability questionnaire")]
@@ -58,6 +57,31 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenCameraAndMicrophoneAreNotSwitchedOn()
         {
             _useCameraMicrophonePage.IndividualSwitchesOnCameraAndMicrophone();
+        }
+
+        [Then(@"Individual participant should be able to view information video")]
+        public void ThenIndividualParticipantShouldBeAbleToViewInformationVideo()
+        {
+            _participantView.VideoHasStarted();
+            _participantView.Continue();
+            _helpTheCourtDecide.Continue();
+        }
+
+        private void ExploreVideoHearing()
+        {
+            _aboutHearings.Continue();
+            _differentHearingTypesPage.Continue();
+            _exploreCourtBuildingPage.Continue();
+            _courtBuildingVideoPage.VideoHasStarted();
+            _courtBuildingVideoPage.Continue();
+            _exploreVideoHearing.Continue();
+        }
+
+        public void InformationScreens(string participant)
+        {
+            GivenIndividualParticipantProceedsToCameraAndMicrophonePage(participant);
+            WhenCameraAndMicrophoneAreSwitchedOn();
+            ThenIndividualParticipantShouldBeAbleToViewInformationVideo();
         }
     }
 }
