@@ -37,6 +37,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             switch (page)
             {
                 case "about you":
+                    _aboutYou.Validate();
                     _currentPage = _aboutYou;
                     break;
                 case "interpreter":
@@ -121,10 +122,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             if (decisionJourneyPage == _yourComputer)
             {
+                decisionJourneyPage.Validate();
                 decisionJourneyPage.SelectYes();
             }
             else
             {
+                decisionJourneyPage.Validate();
                 decisionJourneyPage.SelectNo();
             }            
             decisionJourneyPage.Continue();
