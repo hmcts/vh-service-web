@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
-import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 
 @Component({
   selector: 'app-your-computer',
@@ -12,7 +11,6 @@ export class YourComputerComponent extends SuitabilityChoicePageBaseComponent im
 
   ngOnInit() {
     this.hearingDate = this.model.hearing.scheduleDateTime;
-    console.log(this.hearingDate);
   }
   protected bindModel() {
     this.model.computer = this.choice.value;
