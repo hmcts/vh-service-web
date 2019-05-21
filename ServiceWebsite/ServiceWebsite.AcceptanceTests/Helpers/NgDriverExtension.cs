@@ -86,7 +86,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page.", ex);
             }
         }
-        public static IWebElement WaitUntilElementVisible(this IWebDriver driver, By elementLocator, int timeout = 30)
+        public static IWebElement WaitUntilElementVisible(this IWebDriver driver, By elementLocator, int timeout = 50)
         {
             try
             {
