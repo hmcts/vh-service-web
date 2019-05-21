@@ -5,8 +5,6 @@ import {
 } from '../../components/suitability-choice-page-base.component.spec';
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
 import { TestModuleMetadata } from '@angular/core/testing';
-import { IndividualJourney } from '../../individual-journey';
-import { JourneyStepComponentBindings } from '../../services/journey-component-bindings';
 
 describe('YourComputerComponent', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
