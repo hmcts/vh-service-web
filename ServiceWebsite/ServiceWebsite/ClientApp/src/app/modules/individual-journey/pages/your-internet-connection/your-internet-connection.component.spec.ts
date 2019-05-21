@@ -6,6 +6,6 @@ describe('InterpreterComponent', () => {
     const fixture = CannotProceeedUntilChoiceIsSelected(YourInternetConnectionComponent);
 
     // and value is bound
-    expect(fixture.component.model.interpreter).toBe(true);
+    expect(fixture.component.model.internet).toBe(true);
   });
 });
