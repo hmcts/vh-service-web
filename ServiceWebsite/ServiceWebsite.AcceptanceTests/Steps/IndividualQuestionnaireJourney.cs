@@ -15,6 +15,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourComputer;
         private readonly Page _thankYou;
         private readonly DecisionJourney _aboutYourComputer;
+        private readonly DecisionJourney _helpCourtDecides;
         private bool Answer { get; set; }
         public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, LoginSteps loginSteps)
         {
@@ -25,12 +26,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourComputer = new DecisionJourney(browserContext, PageUri.YourComputerPage);
             _thankYou = new Page(browserContext, PageUri.ThankYouPage);
             _aboutYourComputer = new DecisionJourney(browserContext, PageUri.AboutYourComputerPage);
+            _helpCourtDecides = new DecisionJourney(browserContext, PageUri.HelpTheCourtDecidePage);
         }
         [Given(@"'(.*)' participant is on '(.*)' page")]
         public void GivenIndividualParticipantIsOnPage(string participant, string page)
         {
             _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
-            _aboutYou.Navigate();
+            _helpCourtDecides.Navigate();
+            _helpCourtDecides.Continue();
             switch (page)
             {
                 case "about you":
