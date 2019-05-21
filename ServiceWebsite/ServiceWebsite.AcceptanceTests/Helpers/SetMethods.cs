@@ -12,7 +12,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 
         public static void SelectRadioButton(By element, BrowserContext context)
         {
-            var webElement = context.NgDriver.FindElement(element);
+            var webElement = context.NgDriver.WaitUntilElementVisible(element);
             if (webElement.Enabled)            
                 webElement.Click();                       
         }           
