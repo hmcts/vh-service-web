@@ -1,19 +1,13 @@
 import { Component } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
+import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 
 @Component({
   selector: 'app-your-internet-connection',
   templateUrl: './your-internet-connection.component.html',
   styles: []
 })
-export class YourInternetConnectionComponent extends IndividualBaseComponent {
-
-  yes() {
-    this.model.internet = true;
-    this.continue();
+export class YourInternetConnectionComponent extends SuitabilityChoicePageBaseComponent {
+  protected bindModel() {
+    this.model.internet = this.choice.value;
   }
-  no() {
-    this.model.internet = false;
-    this.continue();
-  }
-}
+ }
