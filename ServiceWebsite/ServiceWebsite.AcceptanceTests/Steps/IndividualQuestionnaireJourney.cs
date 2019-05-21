@@ -12,28 +12,40 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly LoginSteps _loginSteps;
         private DecisionJourney _currentPage;
         private readonly DecisionJourney _interpreter;
+        private readonly DecisionJourney _yourComputer;
+        private readonly Page _thankYou;
+        private readonly DecisionJourney _aboutYourComputer;
+        private bool Answer { get; set; }
         public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, LoginSteps loginSteps)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
             _errorMessage = errorMessage;
             _loginSteps = loginSteps;
-
+            _yourComputer = new DecisionJourney(browserContext, PageUri.YourComputerPage);
+            _thankYou = new Page(browserContext, PageUri.ThankYouPage);
+            _aboutYourComputer = new DecisionJourney(browserContext, PageUri.AboutYourComputerPage);
         }
         [Given(@"'(.*)' participant is on '(.*)' page")]
         public void GivenIndividualParticipantIsOnPage(string participant, string page)
         {
             _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
+            _aboutYou.Navigate();
             switch (page)
             {
-                case "about you": _aboutYou.Navigate();
+                case "about you":
                     _currentPage = _aboutYou;
                     break;
                 case "interpreter":
                     NavigateToDecisionPage(_aboutYou);
-                     _currentPage = _interpreter;
+                    _currentPage = _interpreter;
                     break;
-            }            
+                case "your computer":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    _currentPage = _yourComputer;
+                    break;
+            }
         }
 
         [When(@"Individual attempts to proceed without selecting an answer")]
@@ -79,6 +91,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenIndividualProvidesAnswerAsNo()
         {
             _currentPage.SelectNo();
+            Answer = false;
         }
         [Then(@"Individual should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
@@ -87,14 +100,30 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             {
                 case "about you": _aboutYou.Validate();
                     break;
-                case "interpreter" : _interpreter.Validate();
+                case "interpreter": _interpreter.Validate();
+                    break;
+                case "your computer": _yourComputer.Validate();
+                    break;
+                case "thank you":
+                    if (!Answer)
+                    {
+                        _thankYou.Validate();
+                    }
+                    break;
+                case "about your computer": _aboutYourComputer.Validate();
                     break;
             }
         }
         private void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
         {
-            decisionJourneyPage.Navigate();
-            decisionJourneyPage.SelectNo();
+            if (decisionJourneyPage == _yourComputer)
+            {
+                decisionJourneyPage.SelectYes();
+            }
+            else
+            {
+                decisionJourneyPage.SelectNo();
+            }            
             decisionJourneyPage.Continue();
         }
     }
