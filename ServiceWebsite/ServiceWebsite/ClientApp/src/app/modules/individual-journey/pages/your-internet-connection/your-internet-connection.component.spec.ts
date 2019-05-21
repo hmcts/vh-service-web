@@ -1,8 +1,11 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
 import { YourInternetConnectionComponent } from './your-internet-connection.component';
+import { CannotProceeedUntilChoiceIsSelected } from '../../components/suitability-choice-page-base.component.spec';
 
-describe('YourInternetConnectionComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(YourInternetConnectionComponent);
+describe('InterpreterComponent', () => {
+  it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
+    const fixture = CannotProceeedUntilChoiceIsSelected(YourInternetConnectionComponent);
+
+    // and value is bound
+    expect(fixture.component.model.internet).toBe(true);
   });
 });
