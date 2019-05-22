@@ -62,6 +62,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IndividualInformationVideo.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\InternetConnection.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InternetConnection.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\Interpreter.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -99,8 +104,6 @@
 
   <ItemGroup>
     <SpecFlowFeatureFiles Update="Features\AboutYourComputer.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
       <LastGenOutput>AboutYourComputer.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
     </SpecFlowFeatureFiles>
@@ -115,6 +118,10 @@
     <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IndividualInformationVideo.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\InternetConnection.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>InternetConnection.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Interpreter.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
