@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\AboutYou - Copy.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="Faker.NETCore" Version="1.0.1" />
@@ -40,10 +44,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Features\AboutYou.feature.cs">
+    <Compile Update="Features\AboutYourComputer.feature.cs">
+      <DependentUpon>AboutYouComputer.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\AboutYourComputer.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AboutYou.feature</DependentUpon>
+      <DependentUpon>AboutYourComputer.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\ContactUs.feature.cs">
       <DesignTime>True</DesignTime>
@@ -91,6 +98,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\AboutYourComputer.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+      <LastGenOutput>AboutYourComputer.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AboutYou.feature.cs</LastGenOutput>
