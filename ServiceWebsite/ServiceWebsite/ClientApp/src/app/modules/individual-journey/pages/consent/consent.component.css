@@ -1,0 +1,17 @@
+.vh-note {
+  border: 1px solid #d9d9d9 !important;
+}
+
+.vh-border {
+  padding-left: 20px;
+  margin-left: 15px;
+  border-left: 10px solid #cccccc;
+}
+.vh-p10{
+  padding-bottom:10px !important;
+  padding-top:10px !important;
+}
+
+.vh-m15{
+  margin-top:15px !important;
+}
