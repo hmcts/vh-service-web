@@ -19,7 +19,7 @@ Scenario: Individual participant owns a computer
 	Then Individual should be on 'about your computer' screen
 
 @VIH-4334
-Scenario: Your computer Page - Individual participant attempts to proceed to next page without providing answer
+Scenario: Your Computer Page - Individual participant attempts to proceed to next page without providing answer
 	Given 'Individual' participant is on 'your computer' page
 	When Individual attempts to proceed without selecting an answer
 	Then 1 error should be displayed

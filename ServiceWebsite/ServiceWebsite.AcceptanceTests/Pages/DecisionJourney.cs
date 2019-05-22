@@ -24,10 +24,9 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         {
             BrowserContext.Retry(() => SetMethods.SelectRadioButton(By.XPath("//*[@for='choice-no']"), BrowserContext), 1);
         }
-
-        public void Navigate()
+        public void SelectNotSure()
         {
-            BrowserContext.GoToPage(_pageUrl);
+            BrowserContext.Retry(() => SetMethods.SelectRadioButton(By.XPath("//*[@for='choice-notSure']"), BrowserContext), 1);
         }
     }
 }
