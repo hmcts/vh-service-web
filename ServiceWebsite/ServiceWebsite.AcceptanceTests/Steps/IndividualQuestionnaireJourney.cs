@@ -14,9 +14,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourComputer;
         private readonly Page _thankYou;
         private readonly DecisionJourney _aboutYourComputer;
-        private readonly InformationSteps _informationSteps;
-        private bool Answer { get; set; }
-        public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps informationSteps)
+        private readonly InformationSteps _information;
+        private bool Answer;
+        public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
@@ -24,12 +24,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourComputer = new DecisionJourney(browserContext, PageUri.YourComputerPage);
             _thankYou = new Page(browserContext, PageUri.ThankYouPage);
             _aboutYourComputer = new DecisionJourney(browserContext, PageUri.AboutYourComputerPage);
-            _informationSteps = informationSteps;
+            _information = information;
         }
         [Given(@"'(.*)' participant is on '(.*)' page")]
         public void GivenIndividualParticipantIsOnPage(string participant, string page)
         {
-            _informationSteps.InformationScreens(participant);
+            _information.InformationScreen(participant);
             switch (page)
             {
                 case "about you":
@@ -46,12 +46,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _currentPage = _yourComputer;
                     break;
             }
-        }
-
-        [When(@"Individual attempts to proceed without selecting an answer")]
-        public void WhenIndividualAttemptsToProceedWithoutSelectingAnAnswer()
-        {
-            _currentPage.Continue();
         }
 
         [Then(@"(.*) error should be displayed")]
@@ -73,6 +67,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _currentPage.SelectYes();
         }
 
+        [When(@"Individual attempts to proceed without selecting an answer")]
         [When(@"Individual proceeds to next page")]
         [When(@"Individual attempts to proceed without providing additional information")]
         public void WhenIndividualAttemptsToProceedWithoutProvidingAdditionalInformation()

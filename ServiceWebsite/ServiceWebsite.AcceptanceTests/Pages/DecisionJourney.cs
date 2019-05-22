@@ -10,14 +10,21 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         {
             _pageUrl = pageUrl;
         }
-        private By _yes => By.XPath("//*[@for='choice-yes']");
-        public void SelectYes() => SetMethods.SelectRadioButton(_yes, BrowserContext);
+        
+        public void SelectYes()
+        {
+            BrowserContext.Retry(() => SetMethods.SelectRadioButton(By.XPath("//*[@for='choice-yes']"), BrowserContext), 1);            
+        }
         public void SelectYes(string detail)
         {
-            SetMethods.SelectRadioButton(_yes, BrowserContext);
+            SelectYes();
             SetMethods.InputValue(detail, By.Id("details"), BrowserContext);
         }
-        public void SelectNo() => SetMethods.SelectRadioButton(By.XPath("//*[@for='choice-no']"), BrowserContext);
+        public void SelectNo()
+        {
+            BrowserContext.Retry(() => SetMethods.SelectRadioButton(By.XPath("//*[@for='choice-no']"), BrowserContext), 1);
+        }
+
         public void Navigate()
         {
             BrowserContext.GoToPage(_pageUrl);

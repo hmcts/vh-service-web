@@ -77,7 +77,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _exploreVideoHearing.Continue();
         }
 
-        public void InformationScreens(string participant)
+        public void InformationScreen(string participant)
         {
             GivenIndividualParticipantProceedsToCameraAndMicrophonePage(participant);
             WhenCameraAndMicrophoneAreSwitchedOn();
