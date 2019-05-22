@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       const currentPathname = this.window.getLocation().pathname;
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-      if (currentPathname !== returnUrl) {
+      if (!returnUrl.startsWith(currentPathname)) {
         this.returnUrlService.setUrl(returnUrl);
       }
 

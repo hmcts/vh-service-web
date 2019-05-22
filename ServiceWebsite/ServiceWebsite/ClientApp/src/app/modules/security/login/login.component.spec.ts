@@ -65,7 +65,7 @@ describe('LoginComponent', () => {
     givenAuthenticated(false);
 
     // and we have a return url set in the query param
-    route.snapshot.queryParams['returnUrl'] = '/login';
+    route.snapshot.queryParams['returnUrl'] = '/login?returnUrl=%2Flogin';
 
     await whenInitializingComponent();
 
