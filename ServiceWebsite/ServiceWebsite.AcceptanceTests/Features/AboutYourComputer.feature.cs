@@ -18,22 +18,22 @@ namespace ServiceWebsite.AcceptanceTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Individual answers \'Your computer\' question")]
-    public partial class IndividualAnswersYourComputerQuestionFeature
+    [NUnit.Framework.DescriptionAttribute("Individual answers \'About Your Computer\' question")]
+    public partial class IndividualAnswersAboutYourComputerQuestionFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "YourComputer.feature"
+#line 1 "AboutYourComputer.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual answers \'Your computer\' question", "\tAs an Individual Participant\r\n\tI want to let the court know whether I have a com" +
-                    "puter or not\r\n\tSo that the court can decide whether a video hearing is not suita" +
-                    "ble for me", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual answers \'About Your Computer\' question", "\tAs an Individual Participant\r\n\tI want to let the court know whether my computer " +
+                    "has a camera and microphone or not\r\n\tSo that the court can decide whether a vide" +
+                    "o hearing is not suitable for me", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -72,70 +72,90 @@ namespace ServiceWebsite.AcceptanceTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Individual participant does not own a computer")]
+        [NUnit.Framework.DescriptionAttribute("Individual participant computer has no camera and microphone")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
-        [NUnit.Framework.CategoryAttribute("VIH-4334")]
-        public virtual void IndividualParticipantDoesNotOwnAComputer()
+        [NUnit.Framework.CategoryAttribute("VIH-4335")]
+        public virtual void IndividualParticipantComputerHasNoCameraAndMicrophone()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant does not own a computer", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant computer has no camera and microphone", null, new string[] {
                         "smoketest",
-                        "VIH-4334"});
+                        "VIH-4335"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 8
- testRunner.Given("\'Individual\' participant is on \'your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("\'Individual\' participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("Hearing due date is in the future", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
  testRunner.When("Individual provides answer as no", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
+#line 10
  testRunner.And("Individual proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
+#line 11
  testRunner.Then("Individual should be on \'thank you\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Individual participant owns a computer")]
-        [NUnit.Framework.CategoryAttribute("VIH-4334")]
-        public virtual void IndividualParticipantOwnsAComputer()
+        [NUnit.Framework.DescriptionAttribute("Individual participant computer has both camera and microphone")]
+        [NUnit.Framework.CategoryAttribute("VIH-4335")]
+        public virtual void IndividualParticipantComputerHasBothCameraAndMicrophone()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant owns a computer", null, new string[] {
-                        "VIH-4334"});
-#line 15
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant computer has both camera and microphone", null, new string[] {
+                        "VIH-4335"});
+#line 14
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
+#line 15
+ testRunner.Given("\'Individual\' participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
- testRunner.Given("\'Individual\' participant is on \'your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 17
  testRunner.When("Individual provides answer as yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 18
+#line 17
  testRunner.And("Individual proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
- testRunner.Then("Individual should be on \'about your computer\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 18
+ testRunner.Then("Individual should be on \'your internet connection\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Your Computer Page - Individual participant attempts to proceed to next page with" +
-            "out providing answer")]
-        [NUnit.Framework.CategoryAttribute("VIH-4334")]
-        public virtual void YourComputerPage_IndividualParticipantAttemptsToProceedToNextPageWithoutProvidingAnswer()
+        [NUnit.Framework.DescriptionAttribute("Individual participant not sure about computer having camera and microphone")]
+        [NUnit.Framework.CategoryAttribute("VIH-4335")]
+        public virtual void IndividualParticipantNotSureAboutComputerHavingCameraAndMicrophone()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Your Computer Page - Individual participant attempts to proceed to next page with" +
-                    "out providing answer", null, new string[] {
-                        "VIH-4334"});
-#line 22
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant not sure about computer having camera and microphone", null, new string[] {
+                        "VIH-4335"});
+#line 21
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
+#line 22
+ testRunner.Given("\'Individual\' participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
- testRunner.Given("\'Individual\' participant is on \'your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("Individual provides answer as not sure", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
- testRunner.When("Individual attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("Individual proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
+ testRunner.Then("Individual should be on \'your internet connection\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Your computer Page - Individual participant attempts to proceed to next page with" +
+            "out providing answer")]
+        [NUnit.Framework.CategoryAttribute("VIH-4335")]
+        public virtual void YourComputerPage_IndividualParticipantAttemptsToProceedToNextPageWithoutProvidingAnswer()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Your computer Page - Individual participant attempts to proceed to next page with" +
+                    "out providing answer", null, new string[] {
+                        "VIH-4335"});
+#line 28
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 29
+ testRunner.Given("\'Individual\' participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 30
+ testRunner.When("Individual attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
  testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

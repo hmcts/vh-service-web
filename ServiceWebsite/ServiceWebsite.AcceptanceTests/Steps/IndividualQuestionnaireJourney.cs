@@ -16,6 +16,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _aboutYourComputer;
         private readonly InformationSteps _information;
         private bool Answer;
+        private readonly DecisionJourney _yourInternetConnection;
+        private readonly DecisionJourney _accessToARoom;
         public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
@@ -25,6 +27,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _thankYou = new Page(browserContext, PageUri.ThankYouPage);
             _aboutYourComputer = new DecisionJourney(browserContext, PageUri.AboutYourComputerPage);
             _information = information;
+            _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
+            _accessToARoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
         }
         [Given(@"'(.*)' participant is on '(.*)' page")]
         public void GivenIndividualParticipantIsOnPage(string participant, string page)
@@ -45,6 +49,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_interpreter);
                     _currentPage = _yourComputer;
                     break;
+                case "about your computer":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    _currentPage = _aboutYourComputer;
+                    break;
+                case "your internet connection":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    _currentPage = _yourInternetConnection;
+                    break;
             }
         }
 
@@ -61,10 +78,20 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutYou.Validate();
         }
 
-        [When(@"Individual provides answer as yes")]
-        public void WhenIndividualProvidesAnswerAsYes()
+        [When(@"Individual provides answer as (.*)")]
+        public void WhenIndividualProvidesAnswerAsNotsure(string answer)
         {
-            _currentPage.SelectYes();
+            switch (answer)
+            {
+                case "yes": _currentPage.SelectYes();
+                    break;
+                case "no":
+                    _currentPage.SelectNo();
+                    Answer = false;
+                    break;
+                case "not sure": _currentPage.SelectNotSure();
+                    break;
+            }
         }
 
         [When(@"Individual attempts to proceed without selecting an answer")]
@@ -82,12 +109,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutYou.SelectYes(detail);
         }
 
-        [When(@"Individual provides answer as no")]
-        public void WhenIndividualProvidesAnswerAsNo()
-        {
-            _currentPage.SelectNo();
-            Answer = false;
-        }
         [Then(@"Individual should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
@@ -107,11 +128,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "about your computer": _aboutYourComputer.Validate();
                     break;
+                case "your internet connection": _yourInternetConnection.Validate();
+                    break;
+                case "access to a room": _accessToARoom.Validate();
+                    break;
             }
         }
         private void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
         {
-            if (decisionJourneyPage == _yourComputer)
+            if (decisionJourneyPage == _yourComputer || decisionJourneyPage == _aboutYourComputer)
             {
                 decisionJourneyPage.Validate();
                 decisionJourneyPage.SelectYes();

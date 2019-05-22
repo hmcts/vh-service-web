@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdalService } from 'adal-angular4';
 import { ReturnUrlService } from '../return-url.service';
 import { Logger } from 'src/app/services/logger';
+import {WindowRef} from '../../shared/window-ref';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private logger: Logger,
     private returnUrlService: ReturnUrlService,
-    private adalSvc: AdalService) { }
+    private adalSvc: AdalService,
+    private window: WindowRef) { }
 
   async ngOnInit() {
     if (this.adalSvc.userInfo.authenticated) {
@@ -27,8 +29,13 @@ export class LoginComponent implements OnInit {
         await this.router.navigate(['/']);
       }
     } else {
+      const currentPathname = this.window.getLocation().pathname;
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-      this.returnUrlService.setUrl(returnUrl);
+
+      if (!returnUrl.startsWith(currentPathname)) {
+        this.returnUrlService.setUrl(returnUrl);
+      }
+
       this.assertEdgeRedirectIssue(returnUrl);
       this.adalSvc.login();
     }
