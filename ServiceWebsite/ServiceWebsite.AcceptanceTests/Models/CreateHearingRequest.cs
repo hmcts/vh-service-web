@@ -7,7 +7,7 @@ namespace ServiceWebsite.AcceptanceTests.Models
 {
     internal static class CreateHearingRequest
     {
-
+        public static DateTime ScheduleDateTime { get; private set; }
         public static BookNewHearingRequest BuildRequest(string individual, string representative)
         {
             var participants = Builder<ParticipantRequest>.CreateListOfSize(3).All()
@@ -34,6 +34,7 @@ namespace ServiceWebsite.AcceptanceTests.Models
             var cases = Builder<CaseRequest>.CreateListOfSize(2).Build().ToList();
 
             var createdBy = "caseAdmin@emailaddress.com";
+            ScheduleDateTime = DateTime.Now.AddDays(1);
 
             return Builder<BookNewHearingRequest>.CreateNew()
                 .With(x => x.Case_type_name = "Civil Money Claims")
@@ -42,7 +43,7 @@ namespace ServiceWebsite.AcceptanceTests.Models
                 .With(x => x.Participants = participants)
                 .With(x => x.Cases = cases)
                 .With(x => x.Created_by = createdBy)
-                .With(x => x.Scheduled_date_time = DateTime.UtcNow.AddDays(2))
+                .With(x => x.Scheduled_date_time = ScheduleDateTime)
                 .Build();
         }
     }
