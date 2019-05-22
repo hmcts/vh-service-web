@@ -13,5 +13,8 @@
         public const string AboutYouPage = "/about-you";
         public const string ExploreVideoHearing = "/explore-video-hearing";
         public const string InterpreterPage = "/interpreter";
+        public const string YourComputerPage = "/your-computer";
+        public const string AboutYourComputerPage = "/about-your-computer";
+        public const string ThankYouPage = "/thank-you";
     }
 }
