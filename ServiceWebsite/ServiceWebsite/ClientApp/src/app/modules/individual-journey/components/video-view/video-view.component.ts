@@ -30,10 +30,11 @@ export class VideoViewComponent implements OnDestroy {
    */
   readyToPlay() {
     this.loaded.emit();
-    this.logger.error('The video file is not available.', null, null);
   }
+
   onVideoError(): void {
     this.videoUnavailable = true;
+    this.logger.error('The video file is not available.', null, null);
   }
   /**
    * Plays the video
