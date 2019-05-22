@@ -17,10 +17,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Given(@"Hearing due date is in the future")]
         public void GivenHearingDueDateIsInTheFuture()
         {
-            var date = CreateHearingRequest.ScheduleDateTime;
-            var day = date.ToString("dddd dd MMMM");
-            var hearingDueDate = GetMethods.GetText(By.CssSelector("#form-container strong"), _context);
-            hearingDueDate.Should().Contain($"{day}");
+            var hearingDueDate = GetMethods.IsElementDisplayed(By.CssSelector("#form-container strong"), _context);
+            hearingDueDate.Should().BeTrue();
         }
     }
 }
