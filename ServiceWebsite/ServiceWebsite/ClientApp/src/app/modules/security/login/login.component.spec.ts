@@ -5,6 +5,7 @@ import { AdalService } from 'adal-angular4';
 import { Router } from '@angular/router';
 import { ReturnUrlService } from 'src/app/modules/security/return-url.service';
 import { Logger } from 'src/app/services/logger';
+import {WindowRef} from '../../shared/window-ref';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -12,6 +13,7 @@ describe('LoginComponent', () => {
   let adalService: jasmine.SpyObj<AdalService>;
   let returnUrl: jasmine.SpyObj<ReturnUrlService>;
   let logger: jasmine.SpyObj<Logger>;
+  let window: jasmine.SpyObj<WindowRef>;
   let route: any;
 
   beforeEach(async(() => {
@@ -25,8 +27,9 @@ describe('LoginComponent', () => {
     adalService = jasmine.createSpyObj<AdalService>(['setAuthenticated', 'login', 'userInfo']);
     router = jasmine.createSpyObj<Router>(['navigate', 'navigateByUrl']);
     returnUrl = jasmine.createSpyObj<ReturnUrlService>(['popUrl', 'setUrl']);
+    window = jasmine.createSpyObj<WindowRef>(['getLocation']);
 
-    component = new LoginComponent(route, router, logger, returnUrl, adalService);
+    component = new LoginComponent(route, router, logger, returnUrl, adalService, window);
   }));
 
   const givenAuthenticated = (authenticated: boolean) => {
@@ -34,6 +37,7 @@ describe('LoginComponent', () => {
   };
 
   const whenInitializingComponent = async (): Promise<void> => {
+    window.getLocation.and.returnValue({pathname: '/login'});
     await component.ngOnInit();
   };
 
@@ -55,6 +59,17 @@ describe('LoginComponent', () => {
     await whenInitializingComponent();
 
     expect(returnUrl.setUrl).toHaveBeenCalledWith('returnto');
+  });
+
+  it('should not set url when current pathname is same as return url when not authenticated', async () => {
+    givenAuthenticated(false);
+
+    // and we have a return url set in the query param
+    route.snapshot.queryParams['returnUrl'] = '/login?returnUrl=%2Flogin';
+
+    await whenInitializingComponent();
+
+    expect(returnUrl.setUrl).not.toHaveBeenCalled();
   });
 
   it('should redirect to remembered return url if authenticated', async () => {
