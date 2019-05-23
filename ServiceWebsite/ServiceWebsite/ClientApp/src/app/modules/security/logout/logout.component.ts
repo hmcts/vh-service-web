@@ -8,7 +8,7 @@ import { Paths } from '../paths';
 })
 export class LogoutComponent implements OnInit {
 
-  readonly loginPath = './' +Paths.Login;
+  readonly loginPath = './' + Paths.Login;
 
   constructor(private adalSvc: AdalService) {}
 
