@@ -7,9 +7,9 @@
 
     <form [formGroup]="form" (ngSubmit)="continue()">
 
-      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+      <div id="form-container" [ngClass]="isFormInvalid && !textInputNo.invalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <div class="govuk-fieldset">
-          <div *ngIf="isFormInvalid">
+          <div *ngIf="isFormInvalid  && !textInputNo.invalid">
             <span class="govuk-error-message" i18n="@@consent_span_1">
               Please answer this question
             </span>
@@ -36,7 +36,7 @@
                 <div class="vh-border vh-p10">
                   <div class="form-group textarea-top-margin">
                     <div>
-                      <span class="govuk-hint" i18n="@@consent_span_2" id="more-detail-hint-yes">
+                      <span [ngClass]="choice.value ? 'govuk-body' : 'govuk-hint'" i18n="@@consent_span_2" id="more-detail-hint-yes">
                         If there anything else you'd like to tell the court?
                       </span>
                       <textarea formControlName="textInputYes" class="txtMore vh-text-width govuk-textarea" id="details-yes" rows="8" cols="80"
@@ -54,14 +54,17 @@
                     No
                   </label>
                 </div>
-                <div class="vh-border vh-p10">
-                  <div class="form-group textarea-top-margin"
-                       [ngClass]="isTextInputNoInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+                <div class="vh-border vh-p10" [ngClass]="isTextInputNoInvalid ? 'vh-border-err' : 'vh-border'">
+                  <div class="form-group textarea-top-margin govuk-form-group">
                     <div>
-                      <span [ngClass]="isTextInputInvalid ? 'govuk-error-message' : 'govuk-hint'"
-                            i18n="@@consent_span_2" id="more-detail-hint-no">
+                      <span [ngClass]="noSelected ? 'govuk-body' : 'govuk-hint'" i18n="@@consent_span_2" id="more-detail-hint-no">
                         To help the court make a decision about which type of hearing you'll have, it would be helpful to understand the reason behind your answer.
-                        <br /><strong>The reason you give will not affect the judge's decision at the end of your hearing (the result of your case).</strong>
+                        <br /><span class="govuk-hint" [ngClass]="{ 'vh-bold': !noSelected }">The reason you give will not affect the judge's decision at the end of your hearing (the result of your case).</span>
+                      </span>
+                    </div>
+                    <div *ngIf="isTextInputNoInvalid">
+                      <span class="govuk-error-message" i18n="@@consent_span_3">
+                        Please type in this box
                       </span>
                     </div>
                     <textarea formControlName="textInputNo" class="txtMore vh-text-width" id="details-no" rows="8" cols="80"

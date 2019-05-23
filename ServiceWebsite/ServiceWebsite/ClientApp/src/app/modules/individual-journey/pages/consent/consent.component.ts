@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
-import { DISABLED } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-consent',
@@ -42,7 +40,6 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
   }
 
   private optionYes() {
-   // this.textInputYes.setValidators([Validators.required, ValidateForWhiteSpace]);
     this.textInputYes.markAsUntouched();
     this.textInputYes.enable();
     this.noSelected = false;
@@ -63,11 +60,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     this.textInputYes.setValue('');
   }
 
-  get isTextInputYesInvalid(): boolean {
-    return this.textInputYes.invalid && this.submitted;
-  }
-
-  get isTextInputNoInvalid(): boolean {
+   get isTextInputNoInvalid(): boolean {
     return this.textInputNo.invalid && this.submitted;
   }
 
