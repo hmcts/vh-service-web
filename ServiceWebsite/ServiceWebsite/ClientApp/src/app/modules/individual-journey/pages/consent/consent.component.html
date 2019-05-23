@@ -1,8 +1,97 @@
-<div>
-  <h1 class="govuk-heading-xl" i18n="@@consent_h1">
-    Consent
-  </h1>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl" i18n="@@consent_h1">
+      Your consent for a video hearing
+    </h1>
+
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid && !textInputNo.invalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid  && !textInputNo.invalid">
+            <span class="govuk-error-message" i18n="@@consent_span_1">
+              Please answer this question
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@consent_p_1">
+            Video hearings are a new service. As you'd be using your own computer and room, we'd like to find out if you would be happy to do this.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-1" i18n="@@consent_p_2">
+            Would you be content to take part in your hearing by video?
+          </p>
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+
+                <div class="govuk-radios__item vh-p10">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
+                         [value]="true">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@consent_label_1">
+                    Yes
+                  </label>
+                </div>
+                <div class="vh-border vh-p10">
+                  <div class="form-group textarea-top-margin">
+                    <div>
+                      <label  [ngClass]="choice.value ? 'govuk-body' : 'govuk-hint'" i18n="@@consent_span_2" id="more-detail-hint-yes">
+                        If there anything else you'd like to tell the court?
+                      </label>
+                      <textarea formControlName="textInputYes" class="txtMore vh-text-width govuk-textarea" id="details-yes" rows="8" cols="80"
+                                [ngClass]="{'vh-note': !choice.value}"
+                                aria-describedby="more-detail-hint-yes"
+                                aria-label="text to understand the reason for answer yes"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="govuk-radios__item vh-p10 vh-m15">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
+                         [value]="false">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@consent_label_2">
+                    No
+                  </label>
+                </div>
+                <div class="vh-border vh-p10" [ngClass]="isTextInputNoInvalid ? 'vh-border-err' : 'vh-border'">
+                  <div class="form-group textarea-top-margin govuk-form-group">
+                    <div>
+                      <span class="vh-b"  [ngClass]="noSelected ? 'govuk-body' : 'govuk-hint'" i18n="@@consent_span_2" id="more-detail-hint-no">
+                        To help the court make a decision about which type of hearing you'll have, it would be helpful to understand the reason behind your answer.
+                      </span>
+                      <span class="govuk-hint" i18n="@@consent_span_3" [ngClass]="{ 'vh-bold': !noSelected }">The reason you give will not affect the judge's decision at the end of your hearing (the result of your case).</span>
+
+                    </div>
+                    <label *ngIf="isTextInputNoInvalid">
+                      <span class="govuk-error-message" i18n="@@consent_span_4">
+                        Please type in this box
+                      </span>
+                    </label>
+                    <textarea formControlName="textInputNo" class="txtMore vh-text-width" id="details-no" rows="8" cols="80"
+                              [ngClass]="{'govuk-textarea--error':isTextInputNoInvalid,
+                                  'govuk-textarea': !isTextInputNoInvalid,
+                                  'vh-note': !noSelected }"
+                              aria-describedby="more-detail-hint-no"
+                              aria-label="text to understand the reason for answer"></textarea>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-20">
+        <button class="govuk-button" (click)="continue()" i18n="@@consent_btn_continue" id="continue"
+                type="button">
+          Continue
+        </button>
+      </div>
+    </form>
+    <app-contact-us></app-contact-us>
+  </div>
 </div>
-<div>
-    <button class="govuk-button" (click)="continue()" i18n="@@journey_btn_continue" id="continue" type="button">Continue</button>
-</div>
+
