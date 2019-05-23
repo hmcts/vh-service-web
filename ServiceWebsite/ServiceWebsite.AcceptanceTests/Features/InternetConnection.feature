@@ -6,14 +6,14 @@
 @smoketest @VIH-4336
 Scenario: Individual participant will not be able to access the internet at the time of hearing
 	Given 'Individual' participant is on 'your internet connection' page
-	When Individual provides answer as no
+	When Individual provides answer as No
 	And Individual proceeds to next page
 	Then Individual should be on 'thank you' screen
 
  @VIH-4336
 Scenario: Individual participant will have internet access at the time of hearing
 	Given 'Individual' participant is on 'your internet connection' page	
-	When Individual provides answer as yes
+	When Individual provides answer as Yes
 	And Individual proceeds to next page
 	Then Individual should be on 'access to a room' screen
 

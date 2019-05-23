@@ -18,5 +18,6 @@
         public const string ThankYouPage = "/thank-you";
         public const string YourInternetConnectionPage = "/your-internet-connection";
         public const string AccessToARoomPage = "/access-to-a-room";
+        public const string ConsentPage = "/consent";
     }
 }
