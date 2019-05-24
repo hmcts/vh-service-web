@@ -5,9 +5,13 @@
         <h1 class="govuk-heading-xl" i18n="@@exploreVideoHearing_h1">See what it's like to be in a video hearing</h1>
       </div>
       <div>
-        <p class="govuk-body" i18n="@@exploreVideoHearing_p">
+        <p class="govuk-body" id="exploreComputer" i18n="@@exploreVideoHearing_p_1" *ngIf="!isMobile">
           The video on the next screen shows you what it would be like to take part in a hearing from your computer.
         </p>
+        <p class="govuk-body" id="exploreMobile" i18n="@@exploreVideoHearing_p_2" *ngIf="isMobile">
+          The next video shows you how video hearings work.
+        </p>
+
       </div>
       <div>
         <button type="button" i18n="@@journey_btn_continue" class="govuk-button" (click)="continue()" id="continue">

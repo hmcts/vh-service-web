@@ -1,10 +1,10 @@
 import { Config } from './../../shared/models/config';
 import { JourneyStepComponentBindings } from './journey-component-bindings';
-import { IndividualJourney, IndividualJourneySteps as Steps } from '../individual-journey';
+import { IndividualJourney } from '../individual-journey';
+import { IndividualJourneySteps as Steps } from '../individual-journey-steps';
 import { Router, ResolveEnd } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DocumentRedirectService } from 'src/app/services/document-redirect.service';
-import { Paths as AppPaths } from '../../../paths';
 
 /**
  * Connects the routing to the journey

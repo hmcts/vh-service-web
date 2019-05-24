@@ -5,10 +5,14 @@ import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
 import { async } from '@angular/core/testing';
 import { CanCreateVideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component.spec';
+import { DeviceType } from '../../services/device-type';
+import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
 
 describe('ParticipantViewComponent', () => {
   const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
   const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
+  const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+  const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
 
   it('can be created', async(() => {
     CanCreateVideoViewBaseComponent(ParticipantViewComponent);
@@ -19,8 +23,9 @@ describe('ParticipantViewComponent', () => {
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
-      const journey = new IndividualJourney();
-      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService);
+      deviceType.isMobile.and.returnValue(false);
+      const journey = new IndividualJourney(individualStepsOrderFactory);
+      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
     });
 
@@ -36,6 +41,19 @@ describe('ParticipantViewComponent', () => {
 
       component.ngOnDestroy();
       expect(userMediaService.stopStream).toHaveBeenCalled();
+    });
+    it('should detect that device is not a mobile phone', () => {
+      expect(component.isMobile).toBeFalsy();
+    });
+    it('should detect that device is a mobile phone and not use media', async() => {
+      deviceType.isMobile.and.returnValue(true);
+      const journey = new IndividualJourney(individualStepsOrderFactory);
+      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType);
+      component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
+
+      await component.ngAfterContentInit();
+      expect(component.isMobile).toBeTruthy();
+      expect(component.stream).toBeFalsy();
     });
   });
 });

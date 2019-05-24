@@ -10,6 +10,8 @@ import { UserCameraViewComponent } from './../../components/user-camera-view/use
 import { VideoViewBaseComponent } from './video-view-base.component';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoFiles } from '../../services/video-files';
+import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
+import { DeviceType } from '../../services/device-type';
 
 @Component({
   selector: 'app-video-view',
@@ -19,6 +21,7 @@ class StubVideoViewComponent {
   @Input()
   source: string;
 }
+const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
 
 const canCreateVideoViewBaseComponent = <T>(component: Type<T>): void => {
   CanCreateComponent(component, (configuration: TestModuleMetadata) => {
@@ -27,6 +30,7 @@ const canCreateVideoViewBaseComponent = <T>(component: Type<T>): void => {
       { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']) },
       { provide: Config, useValue: {} },
       { provide: MediaService, useClass: UserMediaService },
+      { provide: DeviceType, useValue: deviceType },
     );
     configuration.declarations.push(StubVideoViewComponent);
     configuration.declarations.push(UserCameraViewComponent);
@@ -36,9 +40,11 @@ const canCreateVideoViewBaseComponent = <T>(component: Type<T>): void => {
 describe('functionality', () => {
   let component: VideoViewBaseComponent;
   const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
+  const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
+  deviceType.isMobile.and.returnValue(false);
 
   beforeEach(() => {
-    const journey = new IndividualJourney();
+    const journey = new IndividualJourney(individualStepsOrderFactory);
     component = new VideoViewBaseComponent(journey, videoUrlService, VideoFiles.BeforeTheDay_Court);
   });
 

@@ -8,6 +8,8 @@ import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualSuitabilityModel, Hearing } from '../../individual-suitability.model';
+import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
+import { DeviceType } from '../../services/device-type';
 
 @Component({selector: 'app-contact-us', template: ''})
 export class StubContactUsComponent {}
@@ -28,8 +30,12 @@ export class StubShowDetailsComponent {
  */
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
   // Journey with initialised model, so that it is accessible in steeps
-  const journey = new IndividualJourney();
+  const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+  const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
+  deviceType.isMobile.and.returnValue(false);
+  const journey = new IndividualJourney(individualStepsOrderFactory);
   const journeyModel = new MutableIndividualSuitabilityModel();
+
   journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
   journey.forSuitabilityAnswers([journeyModel]);
 
