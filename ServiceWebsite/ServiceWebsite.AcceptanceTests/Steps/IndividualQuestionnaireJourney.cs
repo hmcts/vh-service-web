@@ -17,7 +17,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly InformationSteps _information;
         private bool Answer;
         private readonly DecisionJourney _yourInternetConnection;
-        private readonly DecisionJourney _accessToARoom;
+        private readonly DecisionJourney _accessToRoom;
+        private readonly DecisionJourney _consent;
         public IndividualQuestionnaireJourney(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
@@ -28,7 +29,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutYourComputer = new DecisionJourney(browserContext, PageUri.AboutYourComputerPage);
             _information = information;
             _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
-            _accessToARoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
+            _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
+            _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
         }
         [Given(@"'(.*)' participant is on '(.*)' page")]
         public void GivenIndividualParticipantIsOnPage(string participant, string page)
@@ -62,6 +64,23 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_aboutYourComputer);
                     _currentPage = _yourInternetConnection;
                     break;
+                case "access to a room":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    _currentPage = _accessToRoom;
+                    break;
+                case "consent":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    NavigateToDecisionPage(_accessToRoom);
+                    _currentPage = _consent;
+                    break;
             }
         }
 
@@ -79,17 +98,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
         [When(@"Individual provides answer as (.*)")]
-        public void WhenIndividualProvidesAnswerAsNotsure(string answer)
+        public void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
             switch (answer)
             {
-                case "yes": _currentPage.SelectYes();
+                case AnswerType.Yes: _currentPage.SelectYes();
                     break;
-                case "no":
+                case AnswerType.No:
                     _currentPage.SelectNo();
                     Answer = false;
                     break;
-                case "not sure": _currentPage.SelectNotSure();
+                case AnswerType.NotSure: _currentPage.SelectNotSure();
                     break;
             }
         }
@@ -130,20 +149,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "your internet connection": _yourInternetConnection.Validate();
                     break;
-                case "access to a room": _accessToARoom.Validate();
+                case "access to a room": _accessToRoom.Validate();
+                    break;
+                case "consent": _consent.Validate();
                     break;
             }
         }
         private void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
         {
-            if (decisionJourneyPage == _yourComputer || decisionJourneyPage == _aboutYourComputer)
-            {
-                decisionJourneyPage.Validate();
+            decisionJourneyPage.Validate();
+            if (decisionJourneyPage == _yourComputer || decisionJourneyPage == _aboutYourComputer || decisionJourneyPage == _yourInternetConnection)
+            {                
                 decisionJourneyPage.SelectYes();
             }
             else
             {
-                decisionJourneyPage.Validate();
                 decisionJourneyPage.SelectNo();
             }            
             decisionJourneyPage.Continue();

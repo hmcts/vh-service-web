@@ -7,14 +7,14 @@
 Scenario: Individual participant does not own a computer
 	Given 'Individual' participant is on 'your computer' page
 	And Hearing due date is in the future
-	When Individual provides answer as no
+	When Individual provides answer as No
 	And Individual proceeds to next page
 	Then Individual should be on 'thank you' screen
 
  @VIH-4334
 Scenario: Individual participant owns a computer
 	Given 'Individual' participant is on 'your computer' page	
-	When Individual provides answer as yes
+	When Individual provides answer as Yes
 	And Individual proceeds to next page
 	Then Individual should be on 'about your computer' screen
 

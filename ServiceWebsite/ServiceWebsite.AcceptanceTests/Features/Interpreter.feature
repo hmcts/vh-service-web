@@ -12,6 +12,6 @@ Scenario: Interpreter Page - Individual participant attempts to proceed to next 
 @VIH-4333
 Scenario: Individual participant provides additional information for video hearing suitability
 	Given 'Individual' participant is on 'interpreter' page	
-	When Individual provides answer as no
+	When Individual provides answer as No
 	And Individual proceeds to next page
 	Then Individual should be on 'your-computer' screen

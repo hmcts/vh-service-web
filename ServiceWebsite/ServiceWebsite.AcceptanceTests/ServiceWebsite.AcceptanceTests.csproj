@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\AboutYou - Copy.feature.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="Faker.NETCore" Version="1.0.1" />
@@ -44,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\AboutYou.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutYou.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\AboutYourComputer.feature.cs">
       <DependentUpon>AboutYouComputer.feature</DependentUpon>
     </Compile>
@@ -76,6 +77,14 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Login.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\AccessToRoom.feature.cs">
+      <DependentUpon>AccessToRoom.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\AccessToRoom.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AccessToRoom.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\YourComputer.feature.cs">
       <DesignTime>True</DesignTime>
@@ -130,6 +139,12 @@
     <SpecFlowFeatureFiles Update="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\AccessToRoom.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+      <LastGenOutput>AccessToRoom.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\YourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
