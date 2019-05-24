@@ -53,6 +53,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutYourComputer.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\Consent.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Consent.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\ContactUs.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -119,6 +124,10 @@
     <SpecFlowFeatureFiles Update="Features\AboutYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AboutYou.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\Consent.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Consent.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

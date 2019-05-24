@@ -103,9 +103,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             switch (answer)
             {
                 case AnswerType.Yes: _currentPage.SelectYes();
+                    Answer = true;
                     break;
-                case AnswerType.No:
-                    _currentPage.SelectNo();
+                case AnswerType.No: _currentPage.SelectNo();
                     Answer = false;
                     break;
                 case AnswerType.NotSure: _currentPage.SelectNotSure();
@@ -140,10 +140,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "your computer": _yourComputer.Validate();
                     break;
                 case "thank you":
-                    if (!Answer)
-                    {
                         _thankYou.Validate();
-                    }
                     break;
                 case "about your computer": _aboutYourComputer.Validate();
                     break;
@@ -168,5 +165,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             }            
             decisionJourneyPage.Continue();
         }
+        [When(@"Individual provides additional information for not consenting to video hearing as '(.*)'")]
+        public void WhenIndividualProvidesAdditionalInformationForNotConsentingToVideoHearingAs(string detail)
+        {
+            _aboutYou.SelectYes(detail);
+        }
+
     }
 }
