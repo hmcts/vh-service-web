@@ -8,11 +8,12 @@ import { Paths } from '../paths';
 })
 export class LogoutComponent implements OnInit {
 
-  readonly loginPath = './' + Paths.Login;
+  readonly loginPath = '../' + Paths.Login;
 
   constructor(private adalSvc: AdalService) {}
 
   get loggedIn(): boolean {
+    console.log(this.loginPath);
     return this.adalSvc.userInfo.authenticated;
   }
 
