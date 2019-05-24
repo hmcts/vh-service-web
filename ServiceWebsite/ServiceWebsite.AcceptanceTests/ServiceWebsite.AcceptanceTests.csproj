@@ -45,6 +45,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutYou.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\AboutYourComputer.feature.cs">
+      <DependentUpon>AboutYouComputer.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\AboutYourComputer.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutYourComputer.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\ContactUs.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -54,6 +62,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>IndividualInformationVideo.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\InternetConnection.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InternetConnection.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\Interpreter.feature.cs">
       <DesignTime>True</DesignTime>
@@ -65,10 +78,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\AccessToRoom.feature.cs">
+      <DependentUpon>AccessToRoom.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\AccessToRoom.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AccessToRoom.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\YourComputer.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>YourComputer.feature</DependentUpon>
+    </Compile>
     <Compile Update="Steps\ContactUsSteps.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Steps\InformationVideoSteps.cs">
+    <Compile Update="Steps\YourComputerSteps.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -86,6 +112,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\AboutYourComputer.feature">
+      <LastGenOutput>AboutYourComputer.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AboutYou.feature.cs</LastGenOutput>
@@ -98,6 +128,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IndividualInformationVideo.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\InternetConnection.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>InternetConnection.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Interpreter.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Interpreter.feature.cs</LastGenOutput>
@@ -105,6 +139,16 @@
     <SpecFlowFeatureFiles Update="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\AccessToRoom.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+      <LastGenOutput>AccessToRoom.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\YourComputer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>YourComputer.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
   </ItemGroup>
 </Project>

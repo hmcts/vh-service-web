@@ -7,19 +7,22 @@
   </div>
 </div>
 
-<div class="govuk-grid-row vh-top-30">
-  <div class="govuk-grid-column-one-quarter">
-    <app-user-camera-view></app-user-camera-view>
+<div *ngIf="!isMobile">
+  <div class="govuk-grid-row vh-top-30">
+    <div class="govuk-grid-column-one-quarter">
+      <app-user-camera-view></app-user-camera-view>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row vh-top-30">
+    <div class="govuk-grid-column-full">
+      <p class="govuk-body" i18n="@@participantView_p">
+        When the video has ended, click 'Continue'. You can try the practice video hearing again if you like.
+      </p>
+    </div>
   </div>
 </div>
 
-<div class="govuk-grid-row vh-top-30">
-  <div class="govuk-grid-column-full">
-    <p class="govuk-body" i18n="@@participantView_p">
-      When the video has ended, click 'Continue'. You can try the practice video hearing again if you like.
-    </p>
-  </div>
-</div>
 <div class="govuk-grid-row vh-top-30">
   <div class="govuk-grid-column-full">
     <button type="submit" class="govuk-button govuk-!-margin-right-1" id="continue" (click)="continue()" i18n="@@participantView_btn_journey_continue">

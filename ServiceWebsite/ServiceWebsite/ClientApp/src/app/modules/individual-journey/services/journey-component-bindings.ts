@@ -1,4 +1,5 @@
-import { IndividualJourneySteps as Steps, IndividualJourney } from '../individual-journey';
+import { IndividualJourney } from '../individual-journey';
+import { IndividualJourneySteps as Steps} from '../individual-journey-steps';
 import { Paths } from '../paths';
 import { Paths as AppPaths } from '../../../paths';
 

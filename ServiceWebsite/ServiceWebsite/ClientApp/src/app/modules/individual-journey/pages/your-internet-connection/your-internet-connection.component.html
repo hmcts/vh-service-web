@@ -1,11 +1,64 @@
-<div>
-  <h1 class="govuk-heading-xl" i18n-value="@@yourInternetConnection_h1">
-    Your internet connection
-  </h1>
-</div>
-<div>
-  <button class="govuk-button" (click)="yes()" i18n="@@yourInternetConnection_btn_yes" type="button">yes</button>
-  <button class="govuk-button" (click)="no()" i18n="@@yourInternetConnection_btn_no" type="button">no</button>
-  <br />
-  <button class="govuk-button" (click)="continue()" i18n="@@journey_btn_continue" id="continue" type="button">Continue</button>
-</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl" i18n="@@internetConnection_h1">
+      Your internet connection
+    </h1>
+
+
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid">
+            <span class="govuk-error-message" id="error-message" i18n="@@internetConnection_span_1">
+              Please answer this question
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@internetConnection_p_1">
+            At the time of your hearing, will the computer be able to access the internet?
+          </p>
+
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
+                         [value]="true">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@internetConnection_label_2">
+                    Yes
+                  </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
+                         [value]="false">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@internetConnection_label_3">
+                    No
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vh-top-20">
+        <app-show-details i18n-bind-detailsTitle="@@internetConnection_detailsTitle"
+                          bind-detailsTitle="'What happens if my internet isn\'t reliable or isn\'t working on the day?'" i18-bind-textArray="@@internetConnection_textArray"
+                          bind-textArray="['Don\'t worry. We\'ll test that your computer can connect to the internet before the day of your
+                          court hearing - and on the day of the hearing. If, for any reason, the internet connection
+                          fails we will rearrange the hearing. This will not be held against you in any way.','If it\'s difficult for you to have a video hearing because of your internet connection,
+                          we\'ll arrange a different type of hearing for you.']">
+        </app-show-details>
+      </div>
+
+      <div class="vh-top-20">
+        <button class="govuk-button" (click)="continue()" i18n="@@internetConnection_journey_btn_continue" id="continue"
+                type="button">
+          Continue
+        </button>
+      </div>
+    </form>
+    <app-contact-us></app-contact-us>
+  </div>

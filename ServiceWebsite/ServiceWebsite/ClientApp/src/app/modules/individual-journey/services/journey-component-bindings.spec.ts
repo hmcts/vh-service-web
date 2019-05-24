@@ -1,5 +1,5 @@
 import { Paths } from '../paths';
-import { IndividualJourneySteps } from '../individual-journey';
+import { IndividualJourneySteps } from '../individual-journey-steps';
 import { JourneyStepComponentBindings } from './journey-component-bindings';
 
 describe('JourneyStepComponentBindings', () => {

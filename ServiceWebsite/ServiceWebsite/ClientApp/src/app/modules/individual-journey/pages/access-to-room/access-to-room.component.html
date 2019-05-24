@@ -1,8 +1,74 @@
-<div>
-  <h1 class="govuk-heading-xl" i18n="@@accessToRoom_h1">
-    Access to room
-  </h1>
-</div>
-<div>
-    <button class="govuk-button" (click)="continue()" i18n="@@journey_btn_continue" id="continue" type="button">Continue</button>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl" i18n="@@accessRoom_h1">
+      A quiet, private room
+    </h1>
+
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid">
+            <span id="error-message"  class="govuk-error-message" i18n="@@accessRoom_span_1">
+              Please answer this question
+            </span>
+          </div>
+          <p class="govuk-body" i18n="@@accessRoom_p_1">Your hearing is due to take place on <strong>{{ hearingDate | appLongDatetime }}.</strong></p>
+
+          <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@accessRoom_p_2">
+            If you have a video hearing, you'll need to sit in a room in your home or office.
+          </p>
+
+          <p class="govuk-body govuk-!-margin-bottom-1" i18n="@@accessRoom_p_3">
+            At the time of your hearing, will you be able to use a room:
+          </p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li i18n="@@accessRoom_listItem_1">where you won't be disturbed?</li>
+            <li i18n="@@accessRoom_listItem_2">that's bright enough for you to be seen clearly?</li>
+            <li i18n="@@accessRoom_listItem_3">where your computer can connect to the internet?</li>
+          </ul>
+
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
+                         [value]="true">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@accessRoom_label_1">
+                    Yes
+                  </label>
+
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
+                         [value]="false">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@accessRoom_label_2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vh-top-20">
+        <app-show-details i18n-bind-detailsTitle="@@accessRoom_detailsTitle"
+                          bind-detailsTitle="'Choosing a room'" i18-bind-textArray="@@accessRoom_textArray"
+                          bind-textArray="['It\'s important you can concentrate during a hearing. Your home or a private office is fine. An open office or public library is not suitable because you could be distracted or overheard.']">
+        </app-show-details>
+      </div>
+
+      <div class="mt-20">
+        <button class="govuk-button" (click)="continue()" i18n="@@accessRoom_btn_continue" id="continue"
+                type="button">
+          Continue
+        </button>
+      </div>
+    </form>
+    <app-contact-us></app-contact-us>
+  </div>
 </div>
