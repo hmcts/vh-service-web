@@ -6,9 +6,9 @@
 
     <form [formGroup]="form" (ngSubmit)="continue()">
 
-      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+      <div id="form-container" [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <div class="govuk-fieldset">
-          <div *ngIf="isFormInvalid">
+          <div *ngIf="isFormInvalid && !isTextInputInvalid">
             <span class="govuk-error-message" i18n="@@aboutYou_span_1">
               Please answer this question
             </span>
@@ -36,27 +36,27 @@
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
-                    [value]="true">
+                         [value]="true">
                   <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYou_label_1">
                     Yes
                   </label>
-
-                  <div class="form-group textarea-top-margin" *ngIf="choice.value"
-                    [ngClass]="isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+                </div>
+                <div [ngClass]="isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
+                  <div class="form-group textarea-top-margin" *ngIf="choice.value">
                     <div>
-                        <span [ngClass]="isTextInputInvalid ? 'govuk-error-message' : 'govuk-hint'"
-                              i18n="@@aboutYou_span_2">
-                            Please tell us more about that
-                        </span>
+                      <label [ngClass]="isTextInputInvalid ? 'govuk-error-message' : 'govuk-label'"
+                            i18n="@@aboutYou_label_1">
+                        Please tell us more about that
+                      </label>
                     </div>
                     <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
-                      [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
+                              [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
                   </div>
                 </div>
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
-                    [value]="false">
+                         [value]="false">
                   <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYou_label_2">
                     No
                   </label>
