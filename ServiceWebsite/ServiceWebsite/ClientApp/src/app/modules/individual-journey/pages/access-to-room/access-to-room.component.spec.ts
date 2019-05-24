@@ -4,9 +4,6 @@ import {
 } from '../../components/suitability-choice-page-base.component.spec';
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
 import { TestModuleMetadata } from '@angular/core/testing';
-import { IndividualJourney } from '../../individual-journey';
-import { JourneyStepComponentBindings } from '../../services/journey-component-bindings';
-
 import { AccessToRoomComponent } from './access-to-room.component';
 
 describe('AccessToRoomComponent', () => {

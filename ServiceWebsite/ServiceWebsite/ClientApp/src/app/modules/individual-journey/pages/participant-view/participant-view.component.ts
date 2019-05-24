@@ -5,6 +5,7 @@ import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';
 import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
 import { VideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component';
+import { DeviceType } from '../../services/device-type';
 
 @Component({
   selector: 'app-participant-view',
@@ -17,15 +18,19 @@ export class ParticipantViewComponent extends VideoViewBaseComponent implements 
   userCameraViewComponent: UserCameraViewComponent;
 
   stream: MediaStream;
+  isMobile = false;
 
   constructor(journey: IndividualJourney, private userMediaService: MediaService,
-    videoUrlService: VideoUrlService) {
+    videoUrlService: VideoUrlService, private deviceType: DeviceType) {
     super(journey, videoUrlService, VideoFiles.BeforeTheDay_ParticipantView);
+    this.isMobile = this.deviceType.isMobile();
   }
 
   async ngAfterContentInit() {
-    this.stream = await this.userMediaService.getStream();
-    this.userCameraViewComponent.setSource(this.stream);
+    if (!this.isMobile) {
+      this.stream = await this.userMediaService.getStream();
+      this.userCameraViewComponent.setSource(this.stream);
+    }
   }
 
   ngOnDestroy() {
