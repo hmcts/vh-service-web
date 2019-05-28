@@ -47,9 +47,9 @@
                       <label class="govuk-label" i18n="@@aboutYou_label_1">
                         Please tell us more about that
                       </label>
-                      <label *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYou_label_2">
+                      <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYou_span_2">
                         Please type in the box
-                      </label>
+                      </span>
                     </div>
                     <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
                               [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
