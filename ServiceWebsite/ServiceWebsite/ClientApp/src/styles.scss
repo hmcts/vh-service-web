@@ -85,4 +85,7 @@ margin-top:30px;
   clip: rect(1px,1px,1px,1px);
 }
 
-
+.vh-radios__conditional--error {
+  @extend .govuk-radios__conditional;
+  border-left: 4px solid #b10e1e;
+}
