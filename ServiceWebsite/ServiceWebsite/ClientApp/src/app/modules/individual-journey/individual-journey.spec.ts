@@ -171,15 +171,6 @@ describe('IndividualJourney', () => {
     expectStep(redirected).toBe(Steps[Steps.GotoVideoApp]);
   });
 
-  it('should goto video app if trying to enter a finished journey', () => {
-    // given journey that's finished
-    journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted);
-
-    // when trying to enter later in the journey
-    journey.jumpTo(Steps.HearingAsParticipant);
-    expectStep(redirected).toBe(Steps[Steps.GotoVideoApp]);
-  });
-
   it('should stay where it is if trying to enter at the current step', () => {
     const currentStep = redirected;
     redirected = null;
@@ -194,12 +185,6 @@ describe('IndividualJourney', () => {
   it('should run the story for the first upcoming hearing', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings);
     expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');
-  });
-
-  it('should redirect fo video app if any suitability answers have been answered', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming);
-    journey.jumpTo(Steps.AboutHearings);
-    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it('should throw exception if trying to enter or proceed journey without having been initialised', () => {

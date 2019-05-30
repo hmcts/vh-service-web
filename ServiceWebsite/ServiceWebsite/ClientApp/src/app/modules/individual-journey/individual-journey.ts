@@ -35,13 +35,6 @@ export class IndividualJourney implements JourneyBase {
       return;
     }
 
-    for (const answers of suitabilityAnswers) {
-      if (this.isSuitabilityAnswersComplete(answers)) {
-        this.isDone = true;
-        return;
-      }
-    }
-
     // sort upcoming on date and pick the earliest
     upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
     this.currentModel = upcoming[0];
@@ -58,15 +51,6 @@ export class IndividualJourney implements JourneyBase {
 
   get model(): IndividualSuitabilityModel {
     return this.currentModel;
-  }
-
-  private isSuitabilityAnswersComplete(model: IndividualSuitabilityModel): boolean {
-    return model.aboutYou.answer !== undefined
-      && model.consent.answer !== undefined
-      && model.computer !== undefined
-      && model.internet !== undefined
-      && model.interpreter !== undefined
-      && model.room !== undefined;
   }
 
   private goto(step: IndividualJourneySteps) {
