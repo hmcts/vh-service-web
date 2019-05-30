@@ -1,4 +1,5 @@
-import { IndividualSuitabilityModel, HasAccessToCamera, SuitabilityAnswer, Hearing } from './individual-suitability.model';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
+import { HasAccessToCamera, SuitabilityAnswer, Hearing } from '../base-journey/participant-suitability.model';
 
 export class MutableIndividualSuitabilityModel extends IndividualSuitabilityModel {
     constructor() {

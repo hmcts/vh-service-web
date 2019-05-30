@@ -1,6 +1,6 @@
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { IndividualJourney } from './individual-journey';
-import { HasAccessToCamera, Hearing } from './individual-suitability.model';
+import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
 import { DeviceType } from './services/device-type';

@@ -7,14 +7,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
-import { IndividualSuitabilityModel, Hearing } from '../../individual-suitability.model';
+import { IndividualSuitabilityModel } from '../../individual-suitability.model';
+import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
 import { DeviceType } from '../../services/device-type';
 
-@Component({selector: 'app-contact-us', template: ''})
-export class StubContactUsComponent {}
+@Component({ selector: 'app-contact-us', template: '' })
+export class StubContactUsComponent { }
 
-@Component({selector: 'app-show-details', template: '' })
+@Component({ selector: 'app-show-details', template: '' })
 export class StubShowDetailsComponent {
   @Input()
   detailsTitle: string;

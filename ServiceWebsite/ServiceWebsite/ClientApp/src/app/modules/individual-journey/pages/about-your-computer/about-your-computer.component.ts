@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HasAccessToCamera } from '../../individual-suitability.model';
+import { HasAccessToCamera } from '../../../base-journey/participant-suitability.model';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 
 @Component({
