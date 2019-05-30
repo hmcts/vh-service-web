@@ -1,5 +1,5 @@
-import { HasAccessToCamera, Hearing } from './../individual-suitability.model';
-import { IndividualSuitabilityModel, SuitabilityAnswer } from '../individual-suitability.model';
+import { SuitabilityAnswer, HasAccessToCamera, Hearing } from '../../base-journey/participant-suitability.model';
+import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
 

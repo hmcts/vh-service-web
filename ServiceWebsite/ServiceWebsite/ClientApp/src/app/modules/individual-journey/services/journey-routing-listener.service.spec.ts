@@ -9,7 +9,7 @@ import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitabi
 import { Paths } from '../paths';
 import { Paths as AppPaths } from '../../../paths';
 import { DocumentRedirectService } from 'src/app/services/document-redirect.service';
-import { Hearing } from '../individual-suitability.model';
+import { Hearing } from '../../base-journey/participant-suitability.model';
 import { DeviceType } from '../services/device-type';
 import { IndividualStepsOrderFactory } from '../individual-steps-order.factory';
 

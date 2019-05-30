@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
-import { SuitabilityAnswer } from '../../individual-suitability.model';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
 
 @Component({

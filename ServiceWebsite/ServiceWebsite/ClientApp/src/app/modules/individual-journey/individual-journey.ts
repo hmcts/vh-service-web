@@ -1,8 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualSuitabilityModel, HasAccessToCamera } from './individual-suitability.model';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
+import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 
 @Injectable()
 export class IndividualJourney implements JourneyBase {

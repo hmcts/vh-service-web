@@ -1,4 +1,4 @@
-import { HasAccessToCamera } from './../individual-suitability.model';
+import { HasAccessToCamera } from '../../base-journey/participant-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from './../../../services/clients/api-client';
 import { IndividualModelMapper, IndividualQuestionKeys as Keys } from './individual-model-mapper';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
