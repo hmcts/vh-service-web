@@ -2,6 +2,7 @@ import { SuitabilityAnswer, HasAccessToCamera, Hearing } from '../../base-journe
 import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
+import { ParticipantModelMapper } from '../../base-journey/services/participant-model-mapper';
 
 export const RepresentativeQuestionKeys = {
     AboutYou: 'ABOUT_YOU',
@@ -13,7 +14,8 @@ export const RepresentativeQuestionKeys = {
     Computer: 'COMPUTER'
 };
 
-export class RepresentativeModelMapper {
+export class RepresentativeModelMapper extends ParticipantModelMapper {
+
     map(response: HearingSuitabilityResponse): RepresentativeSuitabilityModel {
         const model = new MutableRepresentativeSuitabilityModel();
         model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at);
@@ -27,40 +29,5 @@ export class RepresentativeModelMapper {
         model.computer = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.Computer);
         return model;
     }
-    private mapBooleanValue(answers: HearingSuitabilityAnswer[], key: string) {
-        const answer = answers.find(a => a.question_key === key);
-        if (answer) {
-            return answer.answer === 'true';
-        }
-        return undefined;
-    }
-    private mapComputerCamera(answers: HearingSuitabilityAnswer[]): HasAccessToCamera {
-        const answer = answers.find(a => a.question_key === RepresentativeQuestionKeys.Camera);
-        if (answer) {
-            switch (answer.answer) {
-                case 'Yes':
-                    return HasAccessToCamera.Yes;
-                case 'No':
-                    return HasAccessToCamera.No;
-                case 'Not sure':
-                    return HasAccessToCamera.NotSure;
-                default:
-                    throw new Error(`Unexpected answer to computer question: ${answer.answer}`);
-            }
-        }
-        return undefined;
-    }
-    private mapBooleanAnswerFromKey(key: string, answers: HearingSuitabilityAnswer[]): SuitabilityAnswer {
-        const answer = answers.find(a => a.question_key === key);
-        if (answer) {
-            return this.answer(answer.answer, answer.extended_answer);
-        }
-        return new SuitabilityAnswer();
-    }
-    private answer(value: string, notes: string): SuitabilityAnswer {
-        const answer = new SuitabilityAnswer();
-        answer.answer = value === 'true';
-        answer.notes = notes;
-        return answer;
-    }
+
 }
