@@ -29,7 +29,7 @@ namespace AdminWebsite.AcceptanceTests.Hooks
             return Enum.TryParse(NUnit.Framework.TestContext.Parameters["TargetBrowser"], true, out targetTargetBrowser) ? targetTargetBrowser : TargetBrowser.Chrome;
         }
 
-        [BeforeScenario (Order = 2)]
+        [BeforeScenario (Order = 1)]
         public void BeforeScenario()
         {
             var environment = new SeleniumEnvironment(_saucelabsSettings, _scenarioContext.ScenarioInfo, GetTargetBrowser());
