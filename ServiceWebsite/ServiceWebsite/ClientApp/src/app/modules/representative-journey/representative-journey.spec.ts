@@ -23,7 +23,7 @@ describe('RepresentativeJourney', () => {
   const getCompletedModel = (id: string) => {
     const model = getModelForHearing(id, tomorrow);
     model.aboutYou.answer = false;
-    model.aboutClient.answer = true;
+    model.aboutYourClient.answer = true;
     model.hearingSuitability.answer = true;
     model.clientAttenance = true;
     model.camera = HasAccessToCamera.Yes;

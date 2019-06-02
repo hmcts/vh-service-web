@@ -19,9 +19,9 @@ export class RepresentativeJourney implements JourneyBase {
 
   private isDone: boolean;
 
-  constructor(private individualStepsOrderFactory: RepresentativeStepsOrderFactory) {
+  constructor(private representativeStepsOrderFactory: RepresentativeStepsOrderFactory) {
     this.redirect.subscribe((step: RepresentativeJourneySteps) => this.currentStep = step);
-    this.stepOrder = this.individualStepsOrderFactory.stepOrder();
+    this.stepOrder = this.representativeStepsOrderFactory.stepOrder();
   }
 
   get step(): RepresentativeJourneySteps {
@@ -62,7 +62,7 @@ export class RepresentativeJourney implements JourneyBase {
 
   private isSuitabilityAnswersComplete(model: RepresentativeSuitabilityModel): boolean {
     return model.aboutYou.answer !== undefined
-      && model.aboutClient.answer !== undefined
+      && model.aboutYourClient.answer !== undefined
       && model.clientAttenance !== undefined
       && model.hearingSuitability.answer !== undefined
       && model.room !== undefined

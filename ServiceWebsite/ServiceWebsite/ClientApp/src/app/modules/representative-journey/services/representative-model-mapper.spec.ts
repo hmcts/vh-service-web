@@ -90,7 +90,7 @@ describe('RepresentativeModelMapper', () => {
         givenAnswerIs(Keys.AboutYourClient, 'false');
         whenMappingModel();
         expect(model.aboutYou.answer).toBeFalsy();
-        expect(model.aboutClient.answer).toBeFalsy();
+        expect(model.aboutYourClient.answer).toBeFalsy();
     });
 
     it('should map all yes/no answers', () => {
@@ -104,7 +104,7 @@ describe('RepresentativeModelMapper', () => {
         whenMappingModel();
 
         expect(model.aboutYou.answer).toBeTruthy();
-        expect(model.aboutClient.answer).toBeTruthy();
+        expect(model.aboutYourClient.answer).toBeTruthy();
         expect(model.hearingSuitability).toBeTruthy();
         expect(model.room).toBeTruthy();
         expect(model.computer).toBeTruthy();

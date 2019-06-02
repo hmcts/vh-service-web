@@ -1,6 +1,6 @@
-import { SuitabilityAnswer, HasAccessToCamera, Hearing } from '../../base-journey/participant-suitability.model';
+import { Hearing } from '../../base-journey/participant-suitability.model';
 import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
-import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
+import { HearingSuitabilityResponse } from 'src/app/services/clients/api-client';
 import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
 import { ParticipantModelMapper } from '../../base-journey/services/participant-model-mapper';
 
@@ -21,7 +21,7 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
         model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at);
         // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.AboutYou, response.answers);
-        model.aboutClient = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.AboutYourClient, response.answers);
+        model.aboutYourClient = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.AboutYourClient, response.answers);
         model.clientAttenance = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.ClientAttendance);
         model.hearingSuitability = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.HearingSuitability, response.answers);
         model.room = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.Room);

@@ -2,7 +2,7 @@ import { Paths } from '../paths';
 import { RepresentativeJourneySteps } from '../representative-journey-steps';
 import { RepresentativeJourneyStepComponentBindings } from './representative-journey-component-bindings';
 
-describe('JourneyStepComponentBindings', () => {
+describe('RepresentativeJourneyStepComponentBindings', () => {
     const bindings: RepresentativeJourneyStepComponentBindings = new RepresentativeJourneyStepComponentBindings();
 
     it('returns null if no mapping exists for a path', () => {
