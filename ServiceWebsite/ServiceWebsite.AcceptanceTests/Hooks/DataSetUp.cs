@@ -38,7 +38,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             testContext.VideoAppUrl = configRoot.GetSection("VideoAppUrl").Value;
         }
 
-        [BeforeScenario(Order = 1)]
+        [BeforeScenario(Order = 2)]
         public void CreateNewHearingRequest(TestContext testContext)
         {
                 var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual,testContext.TestUserSecrets.Representative);
