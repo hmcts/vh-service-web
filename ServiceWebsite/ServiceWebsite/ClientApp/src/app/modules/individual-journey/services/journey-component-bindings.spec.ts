@@ -19,6 +19,7 @@ describe('JourneyStepComponentBindings', () => {
     });
 
     it('should throw an exception if no route binding exists for a given step', () => {
-        expect(() => bindings.getRoute(new JourneyStep("Test Step"))).toThrowError('Missing route binding for journey step: Test Step');
+        const undefinedStep = 'Undefined Step';
+        expect(() => bindings.getRoute(new JourneyStep(undefinedStep))).toThrowError('Missing route binding for journey step: ' +undefinedStep);
     });
 });
