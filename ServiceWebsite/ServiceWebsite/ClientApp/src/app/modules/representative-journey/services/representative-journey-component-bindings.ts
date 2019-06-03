@@ -1,6 +1,6 @@
 import { RepresentativeJourney } from '../representative-journey';
-import { RepresentativeJourneySteps as Steps} from '../representative-journey-steps';
-import { Paths } from '../paths';
+import { RepresentativeJourneySteps as Steps } from '../representative-journey-steps';
+import { Paths } from '../../representative-journey/paths';
 import { Paths as AppPaths } from '../../../paths';
 
 /**

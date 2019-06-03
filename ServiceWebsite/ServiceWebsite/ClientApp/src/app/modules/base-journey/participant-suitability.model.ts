@@ -26,10 +26,14 @@ export abstract class ParticipantSuitabilityModel {
 }
 
 export class Hearing {
-    constructor(id?: string, scheduledDateTime?: Date) {
+    constructor(id?: string, scheduledDateTime?: Date, caseName?: string, caseNumber?: string) {
         this.id = id;
         this.scheduleDateTime = scheduledDateTime;
+        this.caseName = caseName;
+        this.caseNumber = caseNumber;
     }
     id: string;
     scheduleDateTime: Date;
+    caseName: string;
+    caseNumber: string;
 }

@@ -5,7 +5,7 @@ export class MutableRepresentativeSuitabilityModel extends RepresentativeSuitabi
     constructor() {
         super();
         this.aboutYou = new SuitabilityAnswer();
-        this.aboutClient = new SuitabilityAnswer();
+        this.aboutYourClient = new SuitabilityAnswer();
         this.hearingSuitability = new SuitabilityAnswer();
     }
 
@@ -13,7 +13,7 @@ export class MutableRepresentativeSuitabilityModel extends RepresentativeSuitabi
     computer: boolean;
     room: boolean;
     aboutYou: SuitabilityAnswer;
-    aboutClient: SuitabilityAnswer;
+    aboutYourClient: SuitabilityAnswer;
     hearingSuitability: SuitabilityAnswer;
     hearing: Hearing;
 }
