@@ -19,9 +19,9 @@ export class RepresentativeJourney implements JourneyBase {
 
   private isDone: boolean;
 
-  constructor(private individualStepsOrderFactory: RepresentativeStepsOrderFactory) {
+  constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
     this.redirect.subscribe((step: RepresentativeJourneySteps) => this.currentStep = step);
-    this.stepOrder = this.individualStepsOrderFactory.stepOrder();
+    this.stepOrder = this.stepsFactory.stepOrder();
   }
 
   get step(): RepresentativeJourneySteps {
