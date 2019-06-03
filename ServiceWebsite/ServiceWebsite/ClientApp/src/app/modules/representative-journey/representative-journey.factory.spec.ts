@@ -23,7 +23,7 @@ describe('RepresentativeJourneyFactory', () => {
         expect(journey.forSuitabilityAnswers).toHaveBeenCalledWith([]);
     });
 
-    it('handles individual users', () => {
+    it('handles representative users', () => {
         expect(factory.handles('Representative')).toBeTruthy();
     });
 });
