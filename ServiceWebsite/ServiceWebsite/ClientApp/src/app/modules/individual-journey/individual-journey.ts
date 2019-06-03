@@ -4,23 +4,24 @@ import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
+import { JourneyStep } from '../base-journey/journey-step';
 
 @Injectable()
 export class IndividualJourney implements JourneyBase {
   static readonly initialStep = IndividualJourneySteps.AboutHearings;
 
-  readonly redirect: EventEmitter<IndividualJourneySteps> = new EventEmitter();
+  readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
 
-  stepOrder: Array<IndividualJourneySteps>;
+  stepOrder: Array<JourneyStep>;
 
-  private currentStep: IndividualJourneySteps = IndividualJourneySteps.NotStarted;
+  private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
 
   private currentModel: IndividualSuitabilityModel;
 
   private isDone: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory) {
-    this.redirect.subscribe((step: IndividualJourneySteps) => this.currentStep = step);
+    this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.individualStepsOrderFactory.stepOrder();
   }
 
@@ -40,7 +41,7 @@ export class IndividualJourney implements JourneyBase {
     this.currentModel = upcoming[0];
   }
 
-  startAt(step: IndividualJourneySteps) {
+  startAt(step: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
@@ -53,7 +54,7 @@ export class IndividualJourney implements JourneyBase {
     return this.currentModel;
   }
 
-  private goto(step: IndividualJourneySteps) {
+  private goto(step: JourneyStep) {
     if (this.currentStep !== step) {
       this.redirect.emit(step);
     }
@@ -65,7 +66,7 @@ export class IndividualJourney implements JourneyBase {
 
     const currentStep = this.stepOrder.indexOf(this.currentStep);
     if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + IndividualJourneySteps[this.currentStep]);
+      throw new Error('Missing transition for step: ' + this.currentStep);
     }
 
     let nextStep = this.stepOrder[currentStep + 1];
@@ -98,7 +99,7 @@ export class IndividualJourney implements JourneyBase {
     } else if (this.currentStep === IndividualJourneySteps.AccessToCameraAndMicrophone) {
       this.goto(IndividualJourneySteps.MediaAccessError);
     } else {
-      throw new Error(`Missing/unexpected failure for step: ${IndividualJourneySteps[this.currentStep]}`);
+      throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
     }
   }
 
@@ -106,7 +107,7 @@ export class IndividualJourney implements JourneyBase {
    * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
    * @param position The step to jump to
    */
-  jumpTo(position: IndividualJourneySteps) {
+  jumpTo(position: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);

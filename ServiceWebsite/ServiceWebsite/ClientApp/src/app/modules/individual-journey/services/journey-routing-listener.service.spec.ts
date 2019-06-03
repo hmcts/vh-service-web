@@ -91,6 +91,6 @@ describe('JourneyRoutingListenerService', () => {
     routerEvents.next(new ResolveEnd(0, `/${Paths.Consent}`, null, null));
 
     // then we should be at the consent page,
-    expect(IndividualJourneySteps[journey.step]).toBe(IndividualJourneySteps[IndividualJourneySteps.Consent]);
+    expect(journey.step).toBe(IndividualJourneySteps.Consent);
   });
 });
