@@ -5,4 +5,4 @@ describe('AccessToRoomComponent', () => {
   it('can be created', () => {
     CanCreateComponent(AccessToRoomComponent);
   });
-})
+});
