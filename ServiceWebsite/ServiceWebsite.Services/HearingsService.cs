@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Common;
 using ServiceWebsite.Domain;
 
@@ -9,20 +10,44 @@ namespace ServiceWebsite.Services
 {
     public class HearingsService : IHearingsService
     {
-        public async Task<Hearing[]> GetHearingsFor(string userEmail)
-        {
-           
-            List<Hearing> hearings = new List<Hearing>();
-            for(int i=1;i<=5;i++)
-            {
+        private readonly IBookingsApiClient _bookingsApiClient;
 
-                hearings.Add(new Hearing(1,"Case "+i,"Case "+i));
-            }
-            return await Task.FromResult(hearings.ToArray());
-           
+        public HearingsService(IBookingsApiClient bookingsApiClient)
+        {
+            _bookingsApiClient = bookingsApiClient;
         }
 
-        private DateTime Today => DateTime.UtcNow.Date;
-        private DateTime NextYear => DateTime.Today.AddYears(1).Date;
+        public async Task<Hearing> GetHearingFor(string username, Guid id)
+        {
+            try
+            {
+                var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(id);
+                if (!HearingContainsParticipant(hearingResponse, username))
+                {
+                    throw new UnauthorizedAccessException("User is not participant of hearing: " + id);
+                }
+                return Map(hearingResponse);
+            }
+            catch (BookingsApiException e)
+            {
+                if (e.StatusCode == (int) HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException("Could not find hearing with id: " + id);
+                }
+
+                throw;
+            }
+        }
+
+        private static bool HearingContainsParticipant(HearingDetailsResponse response, string username)
+        {
+            return response.Participants.Any(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+        }
+        
+        private static Hearing Map(HearingDetailsResponse response)
+        {
+            var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.GetValueOrDefault(true)) ?? response.Cases.First();
+            return new Hearing(response.Id.Value, hearingCase.Name, hearingCase.Number);
+        }
     }
 }
