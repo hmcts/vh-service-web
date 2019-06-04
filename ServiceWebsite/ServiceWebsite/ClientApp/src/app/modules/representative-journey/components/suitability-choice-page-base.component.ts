@@ -2,12 +2,12 @@ import {
   SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
 } from '../../base-journey/components/suitability-choice-page-base.component';
 import { Injectable } from '@angular/core';
-import { IndividualJourney } from '../individual-journey';
-import { IndividualSuitabilityModel } from '../individual-suitability.model';
+import { RepresentativeJourney } from '../representative-journey';
+import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
 
 @Injectable()
 export abstract class SuitabilityChoicePageBaseComponent extends GenericSuitabilityChoicePageBaseComponent {
-  constructor(private journey: IndividualJourney) {
+  constructor(private journey: RepresentativeJourney) {
     super();
   }
 
@@ -15,7 +15,7 @@ export abstract class SuitabilityChoicePageBaseComponent extends GenericSuitabil
     this.journey.next();
   }
 
-  get model(): IndividualSuitabilityModel {
+  get model(): RepresentativeSuitabilityModel {
     return this.journey.model;
   }
 }

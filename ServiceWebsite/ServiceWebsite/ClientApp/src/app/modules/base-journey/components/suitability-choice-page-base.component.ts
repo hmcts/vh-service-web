@@ -13,7 +13,7 @@ export abstract class SuitabilityChoicePageBaseComponent {
     return this.form.invalid && this.submitted;
   }
 
-  protected abstract continueJourney();
+  protected abstract continueJourney(): void;
 
   continue() {
     this.submitted = true;
