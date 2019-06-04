@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
 import { RepresentativeJourneyRoutingModule } from './representative-journey-routing.module';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
+
+// services
 import { JOURNEY_FACTORY } from '../base-journey/services/journey.selector';
 import { RepresentativeJourneyFactory } from './representative-journey.factory';
 import { RepresentativeJourney } from './representative-journey';
@@ -13,6 +15,8 @@ import { RepresentativeJourneyStepComponentBindings } from './services/represent
 import { RepresentativeJourneyRoutingListenerService } from './services/representative-journey-routing-listener.service';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
+
+// components
 import { AboutVideoHearingsComponent } from './pages/about-video-hearings/about-video-hearings.component';
 import { AboutYouAndYourClientComponent } from './pages/about-you-and-your-client/about-you-and-your-client.component';
 import { AboutYouComponent } from './pages/about-you/about-you.component';
@@ -25,6 +29,7 @@ import { QuestionnaireCompletedComponent } from './pages/questionnaire-completed
 import { AboutYourComputerComponent } from './pages/about-your-computer/about-your-computer.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { PleaseContactUsComponent } from './pages/please-contact-us/please-contact-us.component';
+import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,8 @@ import { PleaseContactUsComponent } from './pages/please-contact-us/please-conta
     QuestionnaireCompletedComponent,
     AboutYourComputerComponent,
     ThankYouComponent,
-    PleaseContactUsComponent
+    PleaseContactUsComponent,
+    HearingDetailsHeaderComponent
   ],
   imports: [
     // angular
