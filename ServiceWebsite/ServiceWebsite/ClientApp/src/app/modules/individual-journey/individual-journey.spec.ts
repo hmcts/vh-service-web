@@ -4,6 +4,7 @@ import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitabil
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
 import { DeviceType } from './services/device-type';
+import { JourneyStep } from '../base-journey/journey-step';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -13,7 +14,7 @@ dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 
 describe('IndividualJourney', () => {
   let journey: IndividualJourney;
-  let redirected: Steps;
+  let redirected: JourneyStep;
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableIndividualSuitabilityModel();
@@ -61,7 +62,7 @@ describe('IndividualJourney', () => {
     journey = new IndividualJourney(individualStepsOrderFactory);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
 
-    journey.redirect.subscribe((s: Steps) => redirected = s);
+    journey.redirect.subscribe((s: JourneyStep) => redirected = s);
   });
 
   const whenProceeding = () => {
@@ -72,21 +73,21 @@ describe('IndividualJourney', () => {
     journey.fail();
   };
 
-  const givenUserIsAtStep = (s: IndividualJourneySteps) => {
+  const givenUserIsAtStep = (s: JourneyStep) => {
     journey.jumpTo(s);
   };
 
-  const expectStep = (s: IndividualJourneySteps): jasmine.ArrayLikeMatchers<string> => {
-    return expect(IndividualJourneySteps[s]);
+  const expectStep = (s: JourneyStep): jasmine.ArrayLikeMatchers<string> => {
+    return expect(s.toString());
   };
 
-  const step = (s: IndividualJourneySteps): string => {
-    return IndividualJourneySteps[s];
+  const step = (s: JourneyStep): string => {
+    return s.toString();
   };
 
-  const nextStepIs = (expectedStep: IndividualJourneySteps) => {
+  const nextStepIs = (expectedStep: JourneyStep) => {
     whenProceeding();
-    expectStep(redirected).toBe(step(expectedStep));
+    expectStep(redirected).toBe(expectedStep.toString());
   };
 
   it('should follow the happy path journey', () => {
@@ -113,7 +114,7 @@ describe('IndividualJourney', () => {
     nextStepIs(Steps.ThankYou);
   });
 
-  const expectDropOffToThankYouFrom = (s: IndividualJourneySteps) => {
+  const expectDropOffToThankYouFrom = (s: JourneyStep) => {
     givenUserIsAtStep(s);
     whenFailingTheStep();
     expectStep(redirected).toBe(step(Steps.ThankYou));
@@ -156,19 +157,19 @@ describe('IndividualJourney', () => {
   it('should raise an error on unexpected failure transition', () => {
     givenUserIsAtStep(Steps.AboutHearings);
     expect(() => whenFailingTheStep())
-      .toThrowError(`Missing/unexpected failure for step: ${IndividualJourneySteps[Steps.AboutHearings]}`);
+      .toThrowError(`Missing/unexpected failure for step: ${Steps.AboutHearings}`);
   });
 
   it('should raise an error on missing transition', () => {
     givenUserIsAtStep(Steps.ThankYou);
     expect(() => whenProceeding())
-      .toThrowError(`Missing transition for step: ${IndividualJourneySteps[Steps.ThankYou]}`);
+      .toThrowError(`Missing transition for step: ${Steps.ThankYou}`);
   });
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
     journey.jumpTo(Steps.AboutHearings);
-    expectStep(redirected).toBe(Steps[Steps.GotoVideoApp]);
+    expectStep(redirected).toBe(Steps.GotoVideoApp.toString());
   });
 
   it('should stay where it is if trying to enter at the current step', () => {
