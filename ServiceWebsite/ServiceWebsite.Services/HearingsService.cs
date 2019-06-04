@@ -22,6 +22,11 @@ namespace ServiceWebsite.Services
            
         }
 
+        public Task<Hearing> GetHearingFor(string username, string id)
+        {
+            throw new NotImplementedException();
+        }
+
         private DateTime Today => DateTime.UtcNow.Date;
         private DateTime NextYear => DateTime.Today.AddYears(1).Date;
     }

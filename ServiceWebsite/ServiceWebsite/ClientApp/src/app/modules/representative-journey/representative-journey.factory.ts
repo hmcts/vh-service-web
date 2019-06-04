@@ -1,3 +1,4 @@
+import { HearingService } from './services/hearing.service';
 import { RepresentativeSuitabilityService } from './services/representative-suitability.service';
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 import { RepresentativeJourney } from './representative-journey';
@@ -11,6 +12,7 @@ export class RepresentativeJourneyFactory implements JourneyFactory {
 
     constructor(private journey: RepresentativeJourney,
         private suitabilityService: RepresentativeSuitabilityService,
+        private hearingService: HearingService,
         private journeyRoutingListenerService: RepresentativeJourneyRoutingListenerService) {
     }
 
@@ -18,6 +20,10 @@ export class RepresentativeJourneyFactory implements JourneyFactory {
         const models = await this.suitabilityService.getAllSuitabilityAnswers();
         this.journey.forSuitabilityAnswers(models);
         this.journeyRoutingListenerService.initialise();
+        if (this.journey.model) {
+            // pre-load the selected hearing
+            await this.hearingService.get(this.journey.model.hearing.id);
+        }
         return Promise.resolve();
     }
 

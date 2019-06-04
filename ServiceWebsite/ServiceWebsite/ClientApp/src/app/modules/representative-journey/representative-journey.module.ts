@@ -1,3 +1,4 @@
+import { HearingService } from './services/hearing.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -65,7 +66,8 @@ import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-
     RepresentativeJourneyStepComponentBindings,
     RepresentativeJourneyRoutingListenerService,
     RepresentativeSuitabilityService,
-    RepresentativeStepsOrderFactory
+    RepresentativeStepsOrderFactory,
+    HearingService
   ]
 })
 export class RepresentativeJourneyModule {

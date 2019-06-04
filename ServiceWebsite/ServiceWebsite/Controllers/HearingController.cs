@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using ServiceWebsite.Common;
 using ServiceWebsite.Services;
 
 namespace ServiceWebsite.Controllers
@@ -17,6 +18,21 @@ namespace ServiceWebsite.Controllers
         public HearingsController(IHearingsService participants)
         {
             _hearings = participants;
+        }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetHearing(string id)
+        {
+            try
+            {
+                var hearing = await _hearings.GetHearingFor(User.Identity.Name, id);
+                return Ok(hearing);
+            }
+            catch (NotFoundException e)
+            {
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing hearing for user", e, User);
+                return NotFound($"No hearing with id '{id}' found for user");
+            }
         }
 
         [HttpGet("next")]
