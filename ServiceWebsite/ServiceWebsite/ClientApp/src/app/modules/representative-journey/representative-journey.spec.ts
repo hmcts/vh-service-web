@@ -102,7 +102,7 @@ describe('RepresentativeJourney', () => {
     whenFailingTheStep();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
   };
-  const expectDropOffToContactUsFrom = (s: RepresentativeJourneySteps) => {
+  const expectDropOffToContactUsFrom = (s: JourneyStep) => {
     givenUserIsAtStep(s);
     whenProceeding();
     expect(redirected).toBe(Steps.ContactUs);
