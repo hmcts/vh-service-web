@@ -73,7 +73,7 @@ describe('RepresentativeJourney', () => {
   const givenUserIsAtStep = (s: JourneyStep) => {
     journey.jumpTo(s);
   };
- 
+
   const nextStepIs = (expectedStep: JourneyStep) => {
     whenProceeding();
     expect(redirected).toBe(expectedStep);

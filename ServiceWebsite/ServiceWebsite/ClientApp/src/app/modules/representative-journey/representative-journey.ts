@@ -14,7 +14,7 @@ export class RepresentativeJourney implements JourneyBase {
 
   stepOrder: Array<JourneyStep>;
 
-  private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;h
+  private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted; h;
 
   private currentModel: RepresentativeSuitabilityModel;
 
