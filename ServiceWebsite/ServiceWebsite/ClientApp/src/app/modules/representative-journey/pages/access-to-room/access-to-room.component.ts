@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-access-to-room',
   templateUrl: './access-to-room.component.html',
-  styles: []
+  styleUrls: ['./access-to-room.component.css']
 })
 export class AccessToRoomComponent extends RepresentativeBaseComponent {
 
