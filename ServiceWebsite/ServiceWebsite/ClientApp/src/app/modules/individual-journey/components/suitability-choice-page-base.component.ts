@@ -1,32 +1,19 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IndividualBaseComponent } from '../pages/individual-base-component/individual-base.component';
+import {
+  SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
+} from '../../base-journey/components/suitability-choice-page-base.component';
+import { IndividualJourney } from '../individual-journey';
+import { IndividualSuitabilityModel } from '../individual-suitability.model';
 
-export abstract class SuitabilityChoicePageBaseComponent extends IndividualBaseComponent {
-  readonly choice = new FormControl('', Validators.required);
-
-  submitted = false;
-
-  readonly form = new FormGroup({
-    choice: this.choice
-  });
-
-  get isFormInvalid(): boolean {
-    return this.form.invalid && this.submitted;
+export abstract class SuitabilityChoicePageBaseComponent extends GenericSuitabilityChoicePageBaseComponent {
+  constructor(private journey: IndividualJourney) {
+    super();
   }
 
-  continue() {
-    this.submitted = true;
-
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.bindModel();
-    super.continue();
+  protected continueJourney() {
+    this.journey.next();
   }
 
-  /**
-   * Bind the value to the model
-   */
-  protected abstract bindModel(): void;
+  get model(): IndividualSuitabilityModel {
+    return this.journey.model;
+  }
 }
