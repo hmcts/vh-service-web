@@ -5,6 +5,7 @@ import { IndividualJourneySteps as Steps } from '../individual-journey-steps';
 import { Router, ResolveEnd } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DocumentRedirectService } from 'src/app/services/document-redirect.service';
+import { JourneyStep } from '../../base-journey/journey-step';
 
 /**
  * Connects the routing to the journey
@@ -18,10 +19,10 @@ export class JourneyRoutingListenerService {
         private bindings: JourneyStepComponentBindings,
         private config: Config,
         private redirect: DocumentRedirectService) {
-        journey.redirect.subscribe((step: Steps) => this.gotoStep(step));
+        journey.redirect.subscribe((step: JourneyStep) => this.gotoStep(step));
     }
 
-    private gotoStep(step: Steps) {
+    private gotoStep(step: JourneyStep) {
         if (step === Steps.GotoVideoApp) {
             this.redirect.to(this.config.videoAppUrl);
             return;
