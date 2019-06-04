@@ -82,3 +82,9 @@
 .mb-0{
     margin-bottom: 0px;
 }
+.ml-15 {
+    margin-left: 15px;
+}
+.link-font {
+    font-size: 1.1875rem;
+}
