@@ -105,7 +105,7 @@ describe('RepresentativeJourney', () => {
   const expectDropOffToContactUsFrom = (s: RepresentativeJourneySteps) => {
     givenUserIsAtStep(s);
     whenProceeding();
-    expectStep(redirected).toBe(step(Steps.ContactUs));
+    expect(redirected).toBe(Steps.ContactUs);
   };
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
@@ -142,7 +142,7 @@ describe('RepresentativeJourney', () => {
   it('should raise an error on missing transition', () => {
     givenUserIsAtStep(Steps.ContactUs);
     expect(() => whenProceeding())
-      .toThrowError(`Missing transition for step: ${RepresentativeJourneySteps[Steps.ContactUs]}`);
+      .toThrowError(`Missing transition for step: ${Steps.ContactUs}`);
   });
 
   it('should goto video app if there are no upcoming hearings', () => {

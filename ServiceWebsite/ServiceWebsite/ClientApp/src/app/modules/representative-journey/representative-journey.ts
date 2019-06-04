@@ -92,7 +92,7 @@ export class RepresentativeJourney implements JourneyBase {
     // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
     // access to a computer.
     if (this.model.computer === false) {
-      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted){
+      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
         nextStep = RepresentativeJourneySteps.ContactUs;
       } else {
         nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
@@ -100,7 +100,7 @@ export class RepresentativeJourney implements JourneyBase {
     }
     // access to a camera and microphone.
     if (this.model.camera === HasAccessToCamera.No) {
-      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted){
+      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
         nextStep = RepresentativeJourneySteps.ContactUs;
       } else {
         nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
