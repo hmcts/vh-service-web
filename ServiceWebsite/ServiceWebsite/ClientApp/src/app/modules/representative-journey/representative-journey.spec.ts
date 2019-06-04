@@ -114,11 +114,6 @@ describe('RepresentativeJourney', () => {
     whenProceeding();
     expectStep(redirected).toBe(step(Steps.ContactUs));
   };
-/*   const expectDropOffToThankYouFrom = (s: RepresentativeJourneySteps) => {
-    givenUserIsAtStep(s);
-    whenProceeding();
-    expectStep(redirected).toBe(step(Steps.ThankYou));
-  }; */
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
     givenUserIsAtStep(Steps.AccessToComputer);
@@ -144,14 +139,6 @@ describe('RepresentativeJourney', () => {
     journey.next();
     expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
   });
-  it(`should continue to ${Steps.ThankYou} from ${Steps.QuestionnaireCompleted}
-      if representative answered 'yes' or 'i'm not sure' to camera question`, () => {
-      givenUserIsAtStep(Steps.QuestionnaireCompleted);
-      journey.model.camera = HasAccessToCamera.NotSure;
-      journey.next();
-      nextStepIs(Steps.ThankYou);
-      /* expectDropOffToThankYouFrom(Steps.QuestionnaireCompleted); */
-    });
 
   it('should raise an error on unexpected failure transition', () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
@@ -159,11 +146,11 @@ describe('RepresentativeJourney', () => {
       .toThrowError(`Missing/unexpected failure for step: ${RepresentativeJourneySteps[Steps.AboutVideoHearings]}`);
   });
 
-  /*   it('should raise an error on missing transition', () => {
-      givenUserIsAtStep(Steps.ThankYou);
-      expect(() => whenProceeding())
-        .toThrowError(`Missing transition for step: ${RepresentativeJourneySteps[Steps.ThankYou]}`);
-    }); */
+  it('should raise an error on missing transition', () => {
+    givenUserIsAtStep(Steps.ContactUs);
+    expect(() => whenProceeding())
+      .toThrowError(`Missing transition for step: ${RepresentativeJourneySteps[Steps.ContactUs]}`);
+  });
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
