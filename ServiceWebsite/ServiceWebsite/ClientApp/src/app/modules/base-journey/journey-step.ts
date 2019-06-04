@@ -1,11 +1,9 @@
-export class JourneyStep
-{
-   constructor(private step : string)
-    {
+export class JourneyStep {
+   constructor(private step: string) {
 
     }
 
-    public toString=():string=>{
+    public toString = (): string => {
         return this.step;
     }
 }
