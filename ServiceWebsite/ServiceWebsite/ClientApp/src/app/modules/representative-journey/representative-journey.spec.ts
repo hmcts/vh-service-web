@@ -73,19 +73,10 @@ describe('RepresentativeJourney', () => {
   const givenUserIsAtStep = (s: JourneyStep) => {
     journey.jumpTo(s);
   };
-
-
-  const expectStep = (s: JourneyStep): jasmine.ArrayLikeMatchers<string> => {
-    return expect(s.toString());
-  };
-
-  const step = (s: JourneyStep): string => {
-    return s.toString();
-  };
-
+ 
   const nextStepIs = (expectedStep: JourneyStep) => {
     whenProceeding();
-    expectStep(redirected).toBe(step(expectedStep));
+    expect(redirected).toBe(expectedStep);
   };
 
   it('should follow the happy path journey', () => {
@@ -110,7 +101,7 @@ describe('RepresentativeJourney', () => {
   const expectDropOffToQuestionnaireCompletedFrom = (s: JourneyStep) => {
     givenUserIsAtStep(s);
     whenFailingTheStep();
-    expectStep(redirected).toBe(step(Steps.QuestionnaireCompleted));
+    expect(redirected).toBe(Steps.QuestionnaireCompleted);
   };
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
@@ -135,7 +126,7 @@ describe('RepresentativeJourney', () => {
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
     journey.jumpTo(Steps.AboutVideoHearings);
-    expectStep(redirected).toBe(step(Steps.GotoVideoApp));
+    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it('should goto video app if trying to enter a finished journey', () => {
@@ -144,7 +135,7 @@ describe('RepresentativeJourney', () => {
 
     // when trying to enter later in the journey
     journey.jumpTo(Steps.ClientAttendance);
-    expectStep(redirected).toBe(step(Steps.GotoVideoApp));
+    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it('should stay where it is if trying to enter at the current step', () => {
