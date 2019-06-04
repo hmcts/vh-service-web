@@ -11,7 +11,7 @@ export abstract class SuitabilityChoicePageBaseComponent extends GenericSuitabil
     super();
   }
 
-  protected continueJourney() {
+  protected onFormAccepted() {
     this.journey.next();
   }
 

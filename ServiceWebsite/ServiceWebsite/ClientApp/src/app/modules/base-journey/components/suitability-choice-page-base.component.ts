@@ -1,3 +1,4 @@
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export abstract class SuitabilityChoicePageBaseComponent {
@@ -13,7 +14,7 @@ export abstract class SuitabilityChoicePageBaseComponent {
     return this.form.invalid && this.submitted;
   }
 
-  protected abstract continueJourney(): void;
+  protected abstract onFormAccepted(): void;
 
   continue() {
     this.submitted = true;
@@ -23,7 +24,7 @@ export abstract class SuitabilityChoicePageBaseComponent {
     }
 
     this.bindModel();
-    this.continueJourney();
+    this.onFormAccepted();
   }
 
   /**
