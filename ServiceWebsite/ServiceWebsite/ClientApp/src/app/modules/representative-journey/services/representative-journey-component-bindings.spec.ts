@@ -1,6 +1,7 @@
 import { Paths } from '../paths';
 import { RepresentativeJourneySteps } from '../representative-journey-steps';
 import { RepresentativeJourneyStepComponentBindings } from './representative-journey-component-bindings';
+import { JourneyStep } from '../../base-journey/journey-step';
 
 describe('RepresentativeJourneyStepComponentBindings', () => {
     const bindings: RepresentativeJourneyStepComponentBindings = new RepresentativeJourneyStepComponentBindings();
@@ -18,6 +19,8 @@ describe('RepresentativeJourneyStepComponentBindings', () => {
     });
 
     it('should throw an exception if no route binding exists for a given step', () => {
-        expect(() => bindings.getRoute(999)).toThrowError('Missing route binding for journey step: undefined');
+        const undefinedStep = 'Undefined Step';
+        expect(() => bindings.getRoute(new JourneyStep(undefinedStep)))
+        .toThrowError('Missing route binding for journey step: ' + undefinedStep);
     });
 });
