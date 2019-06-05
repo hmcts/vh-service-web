@@ -10,7 +10,7 @@ export class ThankYouComponent extends RepresentativeBaseComponent implements On
   hearingDate: Date;
 
   ngOnInit() {
-    this.hearingDate = this.model.hearing.scheduleDateTime;
+    // this.hearingDate = this.model.hearing.scheduleDateTime;
   }
 
   protected bindModel(): void { }

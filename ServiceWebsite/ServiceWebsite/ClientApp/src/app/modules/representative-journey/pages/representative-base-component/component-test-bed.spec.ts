@@ -23,6 +23,9 @@ export class StubShowDetailsComponent {
   textArray: Array<string> = [];
 }
 
+@Component({ selector: 'app-hearing-details-header', template: ''})
+export class StubHearingDetailsHeaderComponent {}
+
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
  * @param component The type of component to prepare test bed for
@@ -38,7 +41,7 @@ const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Fun
   journey.forSuitabilityAnswers([journeyModel]);
 
   const config: TestModuleMetadata = {
-    declarations: [component, StubContactUsComponent, StubShowDetailsComponent],
+    declarations: [component, StubContactUsComponent, StubShowDetailsComponent, StubHearingDetailsHeaderComponent],
     imports: [CommonModule, ReactiveFormsModule],
     providers: [
       { provide: RepresentativeSuitabilityModel, useClass: MutableRepresentativeSuitabilityModel },

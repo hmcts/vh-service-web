@@ -19,8 +19,8 @@ export class RepresentativeStepsOrderFactory {
       RepresentativeJourneySteps.AccessToComputer,
       RepresentativeJourneySteps.AboutYourComputer,
       RepresentativeJourneySteps.QuestionnaireCompleted,
+      RepresentativeJourneySteps.ThankYou,
       RepresentativeJourneySteps.ContactUs,
-      RepresentativeJourneySteps.ThankYou
     ];
   }
 }
