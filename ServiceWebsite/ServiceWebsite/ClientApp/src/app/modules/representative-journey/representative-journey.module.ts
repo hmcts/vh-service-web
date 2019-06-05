@@ -15,7 +15,6 @@ import { RepresentativeJourneyStepComponentBindings } from './services/represent
 import { RepresentativeJourneyRoutingListenerService } from './services/representative-journey-routing-listener.service';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
-import { CURRENT_HEARING, CurrentHearingFactory } from './services/current-hearing';
 import { HearingService } from './services/hearing.service';
 
 // components

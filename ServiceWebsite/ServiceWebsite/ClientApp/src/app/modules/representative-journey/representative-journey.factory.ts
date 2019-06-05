@@ -1,4 +1,3 @@
-import { HearingService } from './services/hearing.service';
 import { RepresentativeSuitabilityService } from './services/representative-suitability.service';
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 import { RepresentativeJourney } from './representative-journey';
