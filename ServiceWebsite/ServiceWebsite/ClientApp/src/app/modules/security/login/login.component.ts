@@ -19,7 +19,11 @@ export class LoginComponent implements OnInit {
     private adalSvc: AdalService,
     private window: WindowRef) { }
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.handleLogin();
+  }
+
+  private async handleLogin(): Promise<void> {
     if (this.adalSvc.userInfo.authenticated) {
       const returnUrl = this.returnUrlService.popUrl() || '/';
       try {
@@ -40,7 +44,6 @@ export class LoginComponent implements OnInit {
       this.adalSvc.login();
     }
   }
-
 
   private assertEdgeRedirectIssue(redirectUrl: string): void {
     // Required for redirect issue on Edge, it doesn't solve the issue but it will let us know when it happens

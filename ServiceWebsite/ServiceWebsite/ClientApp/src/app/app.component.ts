@@ -14,10 +14,8 @@ import { PageTrackerService } from './services/page-tracker.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-  // Pad the router space until it has been loaded
-  padUnactivatedRouter = true;
   loggedIn: boolean;
+  initialized: boolean;
 
   @ViewChild(HeaderComponent)
   header: HeaderComponent;
@@ -47,18 +45,23 @@ export class AppComponent implements OnInit {
     this.adalService.init(config);
   }
 
-  async ngOnInit() {
-    // the window callback modifies the url so store this accordingly first
-    const currentUrl = this.window.getLocation().href;
+  ngOnInit() {
     this.adalService.handleWindowCallback();
     this.loggedIn = this.adalService.userInfo.authenticated;
+
+    this.initialiseProfile().then(() => this.initialized = true);
+  }
+
+  private async initialiseProfile(): Promise<void> {
+    // the window callback modifies the url so store this accordingly first
+    const currentUrl = this.window.getLocation().href;
 
     if (!this.loggedIn) {
       await this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
       return;
+    } else {
+      const profile = await this.profileService.getUserProfile();
+      await this.journeySelector.beginFor(profile.role);
     }
-
-    const profile = await this.profileService.getUserProfile();
-    await this.journeySelector.beginFor(profile.role);
   }
 }

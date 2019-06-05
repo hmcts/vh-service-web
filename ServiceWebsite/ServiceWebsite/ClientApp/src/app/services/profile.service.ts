@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserProfile } from '../modules/shared/models/user-profile.model';
-import { ErrorService } from './error.service';
 
 @Injectable()
 export class ProfileService {
@@ -10,7 +9,7 @@ export class ProfileService {
 
   profile: UserProfile;
 
-  constructor(private httpClient: HttpClient, private errorService: ErrorService) {
+  constructor(private httpClient: HttpClient) {
   }
 
   public get isLoggedIn(): boolean {
