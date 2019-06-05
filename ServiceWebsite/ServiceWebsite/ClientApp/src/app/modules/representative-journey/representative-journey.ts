@@ -4,27 +4,28 @@ import { RepresentativeSuitabilityModel } from './representative-suitability.mod
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
+import { JourneyStep } from '../base-journey/journey-step';
 
 @Injectable()
 export class RepresentativeJourney implements JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
 
-  readonly redirect: EventEmitter<RepresentativeJourneySteps> = new EventEmitter();
+  readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
 
-  stepOrder: Array<RepresentativeJourneySteps>;
+  stepOrder: Array<JourneyStep>;
 
-  private currentStep: RepresentativeJourneySteps = RepresentativeJourneySteps.NotStarted;
+  private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted; h;
 
   private currentModel: RepresentativeSuitabilityModel;
 
   private isDone: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
-    this.redirect.subscribe((step: RepresentativeJourneySteps) => this.currentStep = step);
+    this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.stepsFactory.stepOrder();
   }
 
-  get step(): RepresentativeJourneySteps {
+  get step(): JourneyStep {
     return this.currentStep;
   }
 
@@ -47,7 +48,7 @@ export class RepresentativeJourney implements JourneyBase {
     this.currentModel = upcoming[0];
   }
 
-  startAt(step: RepresentativeJourneySteps) {
+  startAt(step: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
@@ -70,7 +71,7 @@ export class RepresentativeJourney implements JourneyBase {
       && model.camera !== undefined;
   }
 
-  private goto(step: RepresentativeJourneySteps) {
+  private goto(step: JourneyStep) {
     if (this.currentStep !== step) {
       this.redirect.emit(step);
     }
@@ -82,7 +83,7 @@ export class RepresentativeJourney implements JourneyBase {
 
     const currentStep = this.stepOrder.indexOf(this.currentStep);
     if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + RepresentativeJourneySteps[this.currentStep]);
+      throw new Error('Missing transition for step: ' + this.currentStep);
     }
 
     let nextStep = this.stepOrder[currentStep + 1];
@@ -107,7 +108,7 @@ export class RepresentativeJourney implements JourneyBase {
     if (dropoutToThankYouFrom.includes(this.currentStep)) {
       this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
     } else {
-      throw new Error(`Missing/unexpected failure for step: ${RepresentativeJourneySteps[this.currentStep]}`);
+      throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
     }
   }
 
@@ -115,7 +116,7 @@ export class RepresentativeJourney implements JourneyBase {
    * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
    * @param position The step to jump to
    */
-  jumpTo(position: RepresentativeJourneySteps) {
+  jumpTo(position: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);

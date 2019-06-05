@@ -89,6 +89,6 @@ describe('JourneyRoutingListenerService', () => {
     routerEvents.next(new ResolveEnd(0, `/${Paths.QuestionnaireCompleted}`, null, null));
 
     // then we should be at the consent page,
-    expect(RepresentativeJourneySteps[journey.step]).toBe(RepresentativeJourneySteps[RepresentativeJourneySteps.QuestionnaireCompleted]);
+    expect(journey.step).toBe(RepresentativeJourneySteps.QuestionnaireCompleted);
   });
 });
