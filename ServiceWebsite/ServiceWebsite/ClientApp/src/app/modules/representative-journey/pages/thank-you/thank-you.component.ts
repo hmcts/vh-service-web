@@ -7,6 +7,4 @@ import { RepresentativeBaseComponent } from '../representative-base-component/re
   styles: [],
 })
 export class ThankYouComponent extends RepresentativeBaseComponent {
-
-  protected bindModel(): void { }
 }
