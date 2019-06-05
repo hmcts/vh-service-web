@@ -15,6 +15,7 @@ namespace ServiceWebsite.UnitTests.Controllers
     {
         private const string Username = "some.user@hearings.reform.hmcts.net";
         private readonly Guid _hearingId = Guid.NewGuid();
+        private readonly DateTime _scheduledDateTime = new DateTime(2019, 2, 4, 12, 30, 0);
         private Mock<IHearingsService> _service;
         private HearingsController _controller;
 
@@ -51,7 +52,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task should_return_hearing_for_user()
         {
-            var hearing = new Hearing(_hearingId, "case name", "case number");
+            var hearing = new Hearing(_hearingId, "case name", "case number", _scheduledDateTime);
             _service.Setup(x => x.GetHearingFor(Username, _hearingId))
                 .ReturnsAsync(hearing);
 
@@ -59,6 +60,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             var hearingResponse = (HearingDetailsResponse) result.Value;
             Assert.AreEqual(hearing.CaseName, hearingResponse.CaseName);
             Assert.AreEqual(hearing.CaseNumber, hearingResponse.CaseNumber);
+            Assert.AreEqual(hearing.ScheduledDateTime, hearingResponse.ScheduledDateTime);
         }
     }
 }

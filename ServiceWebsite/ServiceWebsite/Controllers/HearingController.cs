@@ -56,7 +56,8 @@ namespace ServiceWebsite.Controllers
             return new HearingDetailsResponse
             {
                 CaseName = hearing.CaseName,
-                CaseNumber = hearing.CaseNumber
+                CaseNumber = hearing.CaseNumber,
+                ScheduledDateTime = hearing.ScheduledDateTime
             };
         }
     }

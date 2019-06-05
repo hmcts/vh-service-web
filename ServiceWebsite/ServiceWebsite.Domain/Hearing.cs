@@ -8,11 +8,14 @@ namespace ServiceWebsite.Domain
         public string CaseName { get; }
         public string CaseNumber { get; }
 
-        public Hearing(Guid id, string caseName, string caseNumber)
+        public DateTime ScheduledDateTime { get; }
+
+        public Hearing(Guid id, string caseName, string caseNumber, DateTime scheduledDateTime)
         {
             Id = id;
             CaseName = caseName;
             CaseNumber = caseNumber;
+            ScheduledDateTime = scheduledDateTime;
         }
     }
 }
