@@ -3,14 +3,16 @@ import { IndividualJourneySteps as Steps} from '../individual-journey-steps';
 import { Paths } from '../paths';
 import { Paths as AppPaths } from '../../../paths';
 import { JourneyStep } from '../../base-journey/journey-step';
+import { ParticipantJourneyStepComponentBindings } from '../../base-journey/services/participant-journey-component-bindings';
 
 /**
  * Binds journey steps to components
  */
-export class JourneyStepComponentBindings {
-    private readonly bindings = new Map<JourneyStep, string>();
+export class JourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
+   // readonly bindings = new Map<JourneyStep, string>();
 
     constructor() {
+        super();
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
         this.bindings.set(Steps.AboutYou, Paths.AboutYou);
         this.bindings.set(Steps.AboutHearings, Paths.AboutHearings);
@@ -30,30 +32,4 @@ export class JourneyStepComponentBindings {
         this.bindings.set(Steps.YourInternetConnection, Paths.YourInternetConnection);
     }
 
-    /**
-     * Returns any step that matches the given route path or null if no matches exist
-     * @param route the route url to match with
-     */
-    getJourneyStep(route: string): JourneyStep {
-        // find any binding, if there isn't one, ignore
-        for (const [ step, boundPath ] of Array.from(this.bindings.entries())) {
-            if (route.toLowerCase() === boundPath.toLowerCase()) {
-                return step;
-            }
-        }
-
-        if (route === AppPaths.Home) {
-            return IndividualJourney.initialStep;
-        }
-
-        return null;
-    }
-
-    getRoute(step: JourneyStep): string {
-        if (!this.bindings.has(step)) {
-            throw new Error('Missing route binding for journey step: ' + step);
-        }
-
-        return this.bindings.get(step);
-    }
-}
+   }
