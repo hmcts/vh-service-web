@@ -88,7 +88,8 @@ describe('JourneyRoutingListenerService', () => {
     givenInitialisedAtStartStep();
 
     // when we navigate to the consent page through other means than the journey, i.e. back button
-    routerEvents.next(new ResolveEnd(0, `/${Paths.Consent}`, null, null));
+    const consentUrl = `/${Paths.Consent}`;
+    routerEvents.next(new ResolveEnd(0, consentUrl, consentUrl, null));
 
     // then we should be at the consent page,
     expect(journey.step).toBe(IndividualJourneySteps.Consent);
