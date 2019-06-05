@@ -1,14 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using ServiceWebsite.Common;
+using ServiceWebsite.Domain;
+using ServiceWebsite.Models;
 using ServiceWebsite.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ServiceWebsite.Controllers
 {
+    [Produces("application/json")]
     [Route("/api/hearings/")]
     [Authorize]
     public class HearingsController : Controller
@@ -20,36 +23,42 @@ namespace ServiceWebsite.Controllers
             _hearings = participants;
         }
         
+        /// <summary>
+        /// Return details for a hearing booked for the current user
+        /// </summary>
+        /// <param name="id">Id of the hearing to get details for</param>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetHearing(string id)
+        [SwaggerOperation(OperationId="GetHearingById")]
+        [ProducesResponseType(typeof(HearingDetailsResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetHearing(Guid id)
         {
             try
             {
                 var hearing = await _hearings.GetHearingFor(User.Identity.Name, id);
-                return Ok(hearing);
+                var response = MapDetails(hearing);
+                return Ok(response);
             }
             catch (NotFoundException e)
             {
                 ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing hearing for user", e, User);
                 return NotFound($"No hearing with id '{id}' found for user");
             }
+            catch (UnauthorizedAccessException e)
+            {
+                ApplicationLogger.TraceException(TraceCategories.Authorization, "Not participant of hearing", e, User);
+                return new UnauthorizedObjectResult($"User is not a participant of hearing with id '{id}'");
+            }
         }
 
-        [HttpGet("next")]
-        public async Task<IActionResult> GetNextHearing()
+        private static HearingDetailsResponse MapDetails(Hearing hearing)
         {
-            var hearings = await _hearings.GetHearingsFor(User.Identity.Name);
-            var hearing = hearings.FirstOrDefault();
-            if (hearing == null) {
-                return NotFound($"No upcoming hearings for user [{User.Identity.Name}]");
-            }
-
-            var settings = new JsonSerializerSettings
+            return new HearingDetailsResponse
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                CaseName = hearing.CaseName,
+                CaseNumber = hearing.CaseNumber,
+                ScheduledDateTime = hearing.ScheduledDateTime
             };
-
-            return Json(hearing,settings);
         }
     }
 }

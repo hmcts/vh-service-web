@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Common;
 using ServiceWebsite.Domain;
 
@@ -9,25 +10,44 @@ namespace ServiceWebsite.Services
 {
     public class HearingsService : IHearingsService
     {
-        public async Task<Hearing[]> GetHearingsFor(string userEmail)
+        private readonly IBookingsApiClient _bookingsApiClient;
+
+        public HearingsService(IBookingsApiClient bookingsApiClient)
         {
-           
-            List<Hearing> hearings = new List<Hearing>();
-            for(int i=1;i<=5;i++)
+            _bookingsApiClient = bookingsApiClient;
+        }
+
+        public async Task<Hearing> GetHearingFor(string username, Guid id)
+        {
+            try
             {
-
-                hearings.Add(new Hearing(1,"Case "+i,"Case "+i));
+                var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(id);
+                if (!HearingContainsParticipant(hearingResponse, username))
+                {
+                    throw new UnauthorizedAccessException("User is not participant of hearing: " + id);
+                }
+                return Map(hearingResponse);
             }
-            return await Task.FromResult(hearings.ToArray());
-           
+            catch (BookingsApiException e)
+            {
+                if (e.StatusCode == (int) HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException("Could not find hearing with id: " + id);
+                }
+
+                throw;
+            }
         }
 
-        public Task<Hearing> GetHearingFor(string username, string id)
+        private static bool HearingContainsParticipant(HearingDetailsResponse response, string username)
         {
-            throw new NotImplementedException();
+            return response.Participants.Any(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
-
-        private DateTime Today => DateTime.UtcNow.Date;
-        private DateTime NextYear => DateTime.Today.AddYears(1).Date;
+        
+        private static Hearing Map(HearingDetailsResponse response)
+        {
+            var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.GetValueOrDefault(true)) ?? response.Cases.First();
+            return new Hearing(response.Id.Value, hearingCase.Name, hearingCase.Number, response.Scheduled_date_time.Value);
+        }
     }
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { HearingService } from './../services/hearing.service';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RepresentativeJourney } from '../representative-journey';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-hearing-details-header',
@@ -10,18 +10,17 @@ import * as moment from 'moment';
 export class HearingDetailsHeaderComponent implements OnInit {
   caseNumber: string;
   caseName: string;
-  scheduledDate: string;
-  scheduledTime: string;
+  scheduledDateTime: Date;
+  loaded: boolean;
 
-  constructor(private journey: RepresentativeJourney) { }
+  constructor(private journey: RepresentativeJourney, private service: HearingService) {
+  }
 
-  ngOnInit() {
-    const hearing = this.journey.model.hearing;
+  async ngOnInit() {
+    const hearing = await this.service.getHearing(this.journey.model.hearing.id);
     this.caseName = hearing.caseName;
     this.caseNumber = hearing.caseNumber;
-
-    // different format from what's used in the other datetime places
-    this.scheduledDate = moment(hearing.scheduleDateTime).format('D MMMM YYYY');
-    this.scheduledTime = moment(hearing.scheduleDateTime).format('hh:mm');
+    this.scheduledDateTime = hearing.scheduledDateTime;
+    this.loaded = true;
   }
 }

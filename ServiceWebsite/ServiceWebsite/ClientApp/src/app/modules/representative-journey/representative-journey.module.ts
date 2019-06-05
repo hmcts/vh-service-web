@@ -1,4 +1,3 @@
-import { HearingService } from './services/hearing.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +15,8 @@ import { RepresentativeJourneyStepComponentBindings } from './services/represent
 import { RepresentativeJourneyRoutingListenerService } from './services/representative-journey-routing-listener.service';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
+import { CURRENT_HEARING, CurrentHearingFactory } from './services/current-hearing';
+import { HearingService } from './services/hearing.service';
 
 // components
 import { AboutVideoHearingsComponent } from './pages/about-video-hearings/about-video-hearings.component';
