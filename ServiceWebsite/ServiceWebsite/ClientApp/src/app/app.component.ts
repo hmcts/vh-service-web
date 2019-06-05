@@ -58,7 +58,6 @@ export class AppComponent implements OnInit {
 
     if (!this.loggedIn) {
       await this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
-      return;
     } else {
       const profile = await this.profileService.getUserProfile();
       await this.journeySelector.beginFor(profile.role);

@@ -53,7 +53,7 @@ export class RepresentativeJourneyRoutingListenerService {
         // if the user presses back button
         this.router.events
             .filter(event => event instanceof ResolveEnd)
-            .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.url)));
+            .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects)));
 
         const currentRoute = this.getRouteFromUrl(this.router.url);
         const journeyStep = this.bindings.getJourneyStep(currentRoute);
