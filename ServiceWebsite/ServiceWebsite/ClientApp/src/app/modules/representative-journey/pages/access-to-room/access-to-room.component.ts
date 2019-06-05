@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 
 @Component({
