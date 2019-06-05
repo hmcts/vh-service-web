@@ -3,11 +3,65 @@
     <h1 class="govuk-heading-xl" i18n="@@accessToARoom_h1">
       Access to a suitable room
     </h1>
-
-    <div class="mt-20">
-      <button class="govuk-button" (click)="continue()" i18n="@@accessToARoom_btn_continue" id="continue" type="button">
-        Continue
-      </button>
+    <div>
+      <app-hearing-details-header></app-hearing-details-header>
     </div>
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid">
+            <span id="error-message" class="govuk-error-message" i18n="@@accessToARoom_span_1">
+              Please answer this question
+            </span>
+          </div>
+          <p class="govuk-body govuk-!-margin-bottom-1" i18n="@@accessToARoom_p_1">For a video hearing, will you have access to a room:</p>
+          <br />
+          <ul class="govuk-list govuk-list--bullet">
+            <li i18n="@@accessToARoom_listItem_1">that is bright enough for you</li>
+            <li i18n="@@accessToARoom_listItem_2">where your computer can connect to the internet</li>
+            <li i18n="@@accessToARoom_listItem_3">where your client can sit alongside you (if they're attending with you)</li>
+          </ul>
+
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
+                         [value]="true">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@accessToARoom_label_1">
+                    Yes
+                  </label>
+
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
+                         [value]="false">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@accessToARoom_label_2">
+                    No
+                  </label>
+
+                </div>
+                <div *ngIf="choice.value === false" class="vh-border">
+                  <p class="govuk-body vh-left" i18n="@@accessToARoom_p_2">You'll need a suitable room in order to take part in a video hearing.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-20">
+        <button class="govuk-button" (click)="continue()" i18n="@@accessToARoom_btn_continue" id="continue"
+                type="button">
+          Continue
+        </button>
+      </div>
+    </form>
+    <app-contact-us></app-contact-us>
   </div>
 </div>
+
+
