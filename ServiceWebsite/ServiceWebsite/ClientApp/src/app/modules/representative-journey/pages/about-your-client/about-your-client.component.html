@@ -44,14 +44,15 @@
                 <div [ngClass]="isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
                   <div class="form-group textarea-top-margin" *ngIf="choice.value">
                     <div>
-                      <label class="govuk-label" i18n="@@aboutYourClient_label_1">
-                        Please provide more information
-                      </label>
                       <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYourClient_span_2">
                         Please complete this section
                       </span>
+                      <label class="govuk-label" i18n="@@aboutYourClient_label_1">
+                        Please provide more information
+                      </label>
                     </div>
-                    <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
+                    <textarea formControlName="textInput" aria-label="details" class="txtMore vh-text-width"
+                      id="details" rows="5" cols="80"
                       [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
                   </div>
                 </div>
