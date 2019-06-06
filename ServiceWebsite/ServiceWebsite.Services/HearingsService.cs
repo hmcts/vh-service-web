@@ -24,7 +24,7 @@ namespace ServiceWebsite.Services
                 var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(id);
                 if (!HearingContainsParticipant(hearingResponse, username))
                 {
-                    throw new UnauthorizedAccessException("User is not participant of hearing: " + id);
+                    throw new UnauthorizedAccessException($"User is not participant of hearing: {id}");
                 }
                 return Map(hearingResponse);
             }
@@ -32,7 +32,7 @@ namespace ServiceWebsite.Services
             {
                 if (e.StatusCode == (int) HttpStatusCode.NotFound)
                 {
-                    throw new NotFoundException("Could not find hearing with id: " + id);
+                    throw new NotFoundException($"Could not find hearing with id: {id}");
                 }
 
                 throw;
