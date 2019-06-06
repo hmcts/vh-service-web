@@ -3,14 +3,13 @@ import {
   ConfigureTestBedForPageComponent,
   SuitabilityChoicePageBaseFixture
 } from '../../components/suitability-choice-page-base.component.spec';
-import { ConfigureTestBedForTextboxPageComponent } from '../../components/suitability-choice-textbox-page-base.component.spec';
 
 describe('AboutYourClientComponent', () => {
   let fixture: SuitabilityChoicePageBaseFixture<AboutYourClientComponent>;
   let component: AboutYourClientComponent;
 
   beforeEach(() => {
-    fixture = ConfigureTestBedForTextboxPageComponent(AboutYourClientComponent);
+    fixture = ConfigureTestBedForPageComponent(AboutYourClientComponent);
     component = fixture.component;
     fixture.detectChanges();
   });
