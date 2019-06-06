@@ -32,7 +32,7 @@ namespace ServiceWebsite.Services
             {
                 if (e.StatusCode == (int) HttpStatusCode.NotFound)
                 {
-                    throw new NotFoundException("Could not find hearing with id: " + id);
+                    throw new NotFoundException($"Could not find hearing with id: {id}");
                 }
 
                 throw;
@@ -46,7 +46,7 @@ namespace ServiceWebsite.Services
         
         private static Hearing Map(HearingDetailsResponse response)
         {
-            var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.GetValueOrDefault(true)) ?? response.Cases.First();
+            var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.Value) ?? response.Cases.First();
             return new Hearing(
                 response.Id.Value,
                 hearingCase.Name,
