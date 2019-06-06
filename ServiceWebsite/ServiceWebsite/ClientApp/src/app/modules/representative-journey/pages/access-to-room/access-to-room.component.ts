@@ -4,7 +4,7 @@ import { SuitabilityChoicePageBaseComponent } from '../../components/suitability
 @Component({
   selector: 'app-access-to-room',
   templateUrl: './access-to-room.component.html',
-  styleUrls: ['./access-to-room.component.css']
+  styleUrls: []
 })
 export class AccessToRoomComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
 
