@@ -88,3 +88,13 @@
 .link-font {
     font-size: 1.1875rem;
 }
+
+.vh-border {
+    padding-left: 20px;
+    margin-left: 17px;
+    border-left: 5px solid #cccccc;
+  }
+  .vh-left{
+    margin-left:13px;
+  }
+  

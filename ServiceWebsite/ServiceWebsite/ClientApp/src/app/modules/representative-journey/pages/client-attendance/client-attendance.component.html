@@ -3,12 +3,58 @@
     <h1 class="govuk-heading-xl" i18n="@@yourClientsAttendance_h1">
       Your client's attendance
     </h1>
-
-    <div class="mt-20">
-      <button class="govuk-button" (click)="continue()" i18n="@@yourClientsAttendance_btn_continue" id="continue"
-        type="button">
-        Continue
-      </button>
+    <div>
+      <app-hearing-details-header></app-hearing-details-header>
     </div>
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid">
+            <span id="error-message" class="govuk-error-message" i18n="@@yourClientsAttendance_span_1">
+              Please answer this question
+            </span>
+          </div>
+          <p class="govuk-body govuk-!-margin-bottom-1" i18n="@@yourClientsAttendance_p_1">
+            Will your client be attending the hearing?
+          </p>
+          <br />
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
+                         [value]="true">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@yourClientsAttendance_label_1">
+                    Yes, my client will attend and will be sitting with me
+                  </label>
+
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
+                         [value]="false">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@yourClientsAttendance_label_2">
+                    No, my client will not be attending
+                  </label>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-20">
+        <button class="govuk-button" (click)="continue()" i18n="@@yourClientsAttendance_btn_continue" id="continue"
+                type="button">
+          Continue
+        </button>
+      </div>
+    </form>
+    <app-contact-us></app-contact-us>
+
   </div>
 </div>
