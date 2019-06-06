@@ -29,8 +29,7 @@ export class RepresentativeJourneyRoutingListenerService {
         }
 
         const path = this.bindings.getRoute(step);
-        this.router.navigate([`/${path}`]);
-        console.log(`navigating to ${path}`);
+        this.router.navigate([`/${path}`]); 
     }
 
     private tryJumpJourneyTo(route: string) {

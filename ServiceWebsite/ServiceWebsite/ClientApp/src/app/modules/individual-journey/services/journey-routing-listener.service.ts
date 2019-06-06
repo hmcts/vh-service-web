@@ -40,7 +40,12 @@ export class JourneyRoutingListenerService {
             return;
         }
 
-        this.journey.jumpTo(step);
+        // restart the journey if navigating to the first step
+        if (step === IndividualJourney.initialStep) {
+            this.journey.startAt(step);
+        } else {
+            this.journey.jumpTo(step);
+        }
     }
 
     private getRouteFromUrl(url: string): string {
