@@ -22,7 +22,7 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
         // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.AboutYou, response.answers);
         model.aboutYourClient = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.AboutYourClient, response.answers);
-        model.clientAttenance = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.ClientAttendance);
+        model.clientAttendance = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.ClientAttendance);
         model.hearingSuitability = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.HearingSuitability, response.answers);
         model.room = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.Room);
         model.camera = this.mapComputerCamera(response.answers);

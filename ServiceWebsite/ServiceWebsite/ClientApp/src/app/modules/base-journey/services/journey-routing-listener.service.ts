@@ -1,25 +1,24 @@
-import { Config } from './../../shared/models/config';
-import { RepresentativeJourneyStepComponentBindings } from './representative-journey-component-bindings';
-import { RepresentativeJourney } from '../representative-journey';
-import { RepresentativeJourneySteps as Steps } from '../representative-journey-steps';
+import { Config } from '../../shared/models/config';
+import { ParticipantJourneySteps as Steps } from '../participant-journey-steps';
 import { Router, ResolveEnd } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DocumentRedirectService } from 'src/app/services/document-redirect.service';
-import { JourneyStep } from '../../base-journey/journey-step';
+import { JourneyStep } from '../journey-step';
+import { JourneyBase } from '../journey-base';
+import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
 
 /**
  * Connects the routing to the journey
  */
 @Injectable()
-export class RepresentativeJourneyRoutingListenerService {
+export class JourneyRoutingListenerService {
+    private journey: JourneyBase;
+    private componentBindings: ParticipantJourneyStepComponentBindings;
 
     constructor(
-        private journey: RepresentativeJourney,
         private router: Router,
-        private bindings: RepresentativeJourneyStepComponentBindings,
         private config: Config,
         private redirect: DocumentRedirectService) {
-        journey.redirect.subscribe((step: JourneyStep) => this.gotoStep(step));
     }
 
     private gotoStep(step: JourneyStep) {
@@ -28,41 +27,44 @@ export class RepresentativeJourneyRoutingListenerService {
             return;
         }
 
-        const path = this.bindings.getRoute(step);
+        const path = this.componentBindings.getRoute(step);
         this.router.navigate([`/${path}`]);
     }
 
     private tryJumpJourneyTo(route: string) {
-        const step = this.bindings.getJourneyStep(route);
-
+        const step = this.componentBindings.getJourneyStep(route);
         if (step === null) {
             // Any routes not mapped to steps can be ignored
             return;
         }
 
         // restart the journey if navigating to the first step
-        if (step === RepresentativeJourney.initialStep) {
+        if (step === this.componentBindings.initialStep) {
             this.journey.startAt(step);
         } else {
             this.journey.jumpTo(step);
         }
     }
 
-    private getRouteFromUrl(url: string): string {
+    private   getRouteFromUrl(url: string): string {
         // trim leading slash
         return url.replace(/^\//, '');
     }
 
-    initialise() {
+  initialise(componentBindings: ParticipantJourneyStepComponentBindings, journey: JourneyBase) {
+        this.journey = journey;
+        this.componentBindings = componentBindings;
+
         // begin tracking events, this will also work for the browser-back
         // meaning that it will automagically correct the journey to the right step
         // if the user presses back button
         this.router.events
-            .filter(event => event instanceof ResolveEnd)
-            .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects)));
+          .filter(event => event instanceof ResolveEnd)
+          .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects)));
 
         const currentRoute = this.getRouteFromUrl(this.router.url);
-        const journeyStep = this.bindings.getJourneyStep(currentRoute);
+        const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
+        this.journey.redirect.subscribe((step: JourneyStep) => this.gotoStep(step));
         if (journeyStep !== null) {
             this.journey.startAt(journeyStep);
         }

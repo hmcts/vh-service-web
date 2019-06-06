@@ -7,14 +7,14 @@ import { HasAccessToCamera } from '../base-journey/participant-suitability.model
 import { JourneyStep } from '../base-journey/journey-step';
 
 @Injectable()
-export class RepresentativeJourney implements JourneyBase {
+export class RepresentativeJourney extends JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
 
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
 
   stepOrder: Array<JourneyStep>;
 
-  private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted; h;
+  private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
 
   private currentModel: RepresentativeSuitabilityModel;
 
@@ -22,6 +22,7 @@ export class RepresentativeJourney implements JourneyBase {
   private isSelfTestDone: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
+    super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.stepsFactory.stepOrder();
   }
@@ -65,7 +66,7 @@ export class RepresentativeJourney implements JourneyBase {
   private isSuitabilityAnswersComplete(model: RepresentativeSuitabilityModel): boolean {
     return model.aboutYou.answer !== undefined
       && model.aboutYourClient.answer !== undefined
-      && model.clientAttenance !== undefined
+      && model.clientAttendance !== undefined
       && model.hearingSuitability.answer !== undefined
       && model.room !== undefined
       && model.computer !== undefined
