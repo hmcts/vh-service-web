@@ -7,6 +7,7 @@ import { RepresentativeSuitabilityModel } from '../representative-suitability.mo
 
 @Injectable()
 export abstract class SuitabilityChoicePageBaseComponent extends GenericSuitabilityChoicePageBaseComponent {
+
   constructor(private journey: RepresentativeJourney) {
     super();
   }
