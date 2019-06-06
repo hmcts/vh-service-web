@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.AcceptanceTests.Navigation;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {

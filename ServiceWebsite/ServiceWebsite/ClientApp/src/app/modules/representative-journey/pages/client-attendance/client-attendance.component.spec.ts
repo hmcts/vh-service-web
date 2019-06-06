@@ -1,8 +1,12 @@
 import { ClientAttendanceComponent } from './client-attendance.component';
-import { CanCreateComponent } from '../representative-base-component/component-test-bed.spec';
+import {
+  CannotProceeedUntilChoiceIsSelected
+} from '../../components/suitability-choice-page-base.component.spec';
 
-describe('ClientAttendanceComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(ClientAttendanceComponent);
+describe('ClientAttendanceComponent for representative', () => {
+  it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
+    const fixture = CannotProceeedUntilChoiceIsSelected(ClientAttendanceComponent);
+    // and value is bound
+    expect(fixture.component.model.clientAttendance).toBe(true);
   });
 });
