@@ -26,7 +26,7 @@ describe('RepresentativeJourney', () => {
     model.aboutYou.answer = false;
     model.aboutYourClient.answer = true;
     model.hearingSuitability.answer = true;
-    model.clientAttenance = true;
+    model.clientAttendance = true;
     model.camera = HasAccessToCamera.Yes;
     model.computer = true;
     model.room = true;
@@ -93,7 +93,6 @@ describe('RepresentativeJourney', () => {
     nextStepIs(Steps.AccessToComputer);
     nextStepIs(Steps.AboutYourComputer);
     nextStepIs(Steps.QuestionnaireCompleted);
-    nextStepIs(Steps.ContactUs);
     // this last step is pending change, will proceed to self test in the future
     nextStepIs(Steps.ThankYou);
   });
@@ -103,12 +102,35 @@ describe('RepresentativeJourney', () => {
     whenFailingTheStep();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
   };
+  const expectDropOffToContactUsFrom = (s: JourneyStep) => {
+    givenUserIsAtStep(s);
+    whenProceeding();
+    expect(redirected).toBe(Steps.ContactUs);
+  };
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
     givenUserIsAtStep(Steps.AccessToComputer);
     journey.model.computer = false;
     journey.next();
     expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
+  });
+  it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
+    givenUserIsAtStep(Steps.QuestionnaireCompleted);
+    journey.model.computer = false;
+    journey.next();
+    expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
+  });
+  it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
+    givenUserIsAtStep(Steps.AboutYourComputer);
+    journey.model.camera = HasAccessToCamera.No;
+    journey.next();
+    expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
+  });
+  it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
+    givenUserIsAtStep(Steps.QuestionnaireCompleted);
+    journey.model.camera = HasAccessToCamera.No;
+    journey.next();
+    expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
   });
 
   it('should raise an error on unexpected failure transition', () => {
@@ -118,9 +140,9 @@ describe('RepresentativeJourney', () => {
   });
 
   it('should raise an error on missing transition', () => {
-    givenUserIsAtStep(Steps.ThankYou);
+    givenUserIsAtStep(Steps.ContactUs);
     expect(() => whenProceeding())
-      .toThrowError(`Missing transition for step: ${Steps.ThankYou}`);
+      .toThrowError(`Missing transition for step: ${Steps.ContactUs}`);
   });
 
   it('should goto video app if there are no upcoming hearings', () => {

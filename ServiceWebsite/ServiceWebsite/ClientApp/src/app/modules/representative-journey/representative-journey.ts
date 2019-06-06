@@ -19,6 +19,7 @@ export class RepresentativeJourney implements JourneyBase {
   private currentModel: RepresentativeSuitabilityModel;
 
   private isDone: boolean;
+  private isSelfTestDone: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
@@ -64,7 +65,7 @@ export class RepresentativeJourney implements JourneyBase {
   private isSuitabilityAnswersComplete(model: RepresentativeSuitabilityModel): boolean {
     return model.aboutYou.answer !== undefined
       && model.aboutYourClient.answer !== undefined
-      && model.clientAttenance !== undefined
+      && model.clientAttendance !== undefined
       && model.hearingSuitability.answer !== undefined
       && model.room !== undefined
       && model.computer !== undefined
@@ -88,24 +89,37 @@ export class RepresentativeJourney implements JourneyBase {
 
     let nextStep = this.stepOrder[currentStep + 1];
 
+    // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
     // access to a computer.
     if (this.model.computer === false) {
-      nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
+        nextStep = RepresentativeJourneySteps.ContactUs;
+      } else {
+        nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      }
     }
     // access to a camera and microphone.
     if (this.model.camera === HasAccessToCamera.No) {
-      nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
+        nextStep = RepresentativeJourneySteps.ContactUs;
+      } else {
+        nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      }
     }
     this.goto(nextStep);
   }
 
   fail() {
-    const dropoutToThankYouFrom = [
+    const dropoutToQuestionnaireCompletedFrom = [
       RepresentativeJourneySteps.AccessToComputer,
       RepresentativeJourneySteps.AboutYourComputer,
     ];
 
-    if (dropoutToThankYouFrom.includes(this.currentStep)) {
+    const dropoutToContactUsFrom = [
+      RepresentativeJourneySteps.QuestionnaireCompleted
+    ];
+
+    if (dropoutToQuestionnaireCompletedFrom.includes(this.currentStep)) {
       this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
     } else {
       throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);

@@ -5,6 +5,6 @@ import { ParticipantSuitabilityModel, SuitabilityAnswer } from '../base-journey/
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
     aboutYourClient: SuitabilityAnswer;
-    clientAttenance: boolean;
+    clientAttendance: boolean;
     hearingSuitability: SuitabilityAnswer;
 }
