@@ -5,8 +5,9 @@ import { JourneyStep } from '../journey-step';
 /**
  * Binds journey steps to components
  */
-export class ParticipantJourneyStepComponentBindings {
+export abstract class ParticipantJourneyStepComponentBindings {
     readonly bindings = new Map<JourneyStep, string>();
+    readonly initialStep;
 
     /**
      * Returns any step that matches the given route path or null if no matches exist
@@ -21,7 +22,7 @@ export class ParticipantJourneyStepComponentBindings {
         }
 
         if (route === AppPaths.Home) {
-            return JourneyBase.initialStep;
+            return this.initialStep;
         }
 
         return null;

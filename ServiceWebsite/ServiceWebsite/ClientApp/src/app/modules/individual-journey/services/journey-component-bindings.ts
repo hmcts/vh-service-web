@@ -9,8 +9,8 @@ import { ParticipantJourneyStepComponentBindings } from '../../base-journey/serv
  * Binds journey steps to components
  */
 export class JourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
-   // readonly bindings = new Map<JourneyStep, string>();
-
+   readonly bindings = new Map<JourneyStep, string>();
+   readonly initialStep = Steps.AboutHearings;
     constructor() {
         super();
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
