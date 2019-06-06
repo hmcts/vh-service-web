@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;
 
