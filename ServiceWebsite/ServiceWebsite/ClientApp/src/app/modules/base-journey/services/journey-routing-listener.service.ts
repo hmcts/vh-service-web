@@ -18,12 +18,9 @@ export class JourneyRoutingListenerService {
     private componentBindings: ParticipantJourneyStepComponentBindings;
 
     constructor(
-       // private journey: JourneyBase,
         private router: Router,
-       // private bindings: ParticipantJourneyStepComponentBindings,
         private config: Config,
         private redirect: DocumentRedirectService) {
-
     }
 
     private gotoStep(step: JourneyStep) {
@@ -64,12 +61,9 @@ export class JourneyRoutingListenerService {
 
         const currentRoute = this.getRouteFromUrl(this.router.url);
         const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
-        console.log(journeyStep);
         this.journey.redirect.subscribe((step: JourneyStep) => this.gotoStep(step));
         if (journeyStep !== null) {
             this.journey.startAt(journeyStep);
         }
-
-
     }
 }

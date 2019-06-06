@@ -59,7 +59,6 @@ describe('JourneyRoutingListenerService', () => {
       events: routerEvents.asObservable(),
       url: url
     } as jasmine.SpyObj<Router>;
-    console.log(router);
     service = new JourneyRoutingListenerService(
       router,
       config,
