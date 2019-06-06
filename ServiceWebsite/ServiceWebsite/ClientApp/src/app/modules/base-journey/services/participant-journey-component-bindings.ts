@@ -1,4 +1,3 @@
-import { JourneyBase } from '../journey-base';
 import { Paths as AppPaths } from '../../../paths';
 import { JourneyStep } from '../journey-step';
 
@@ -21,7 +20,7 @@ export abstract class ParticipantJourneyStepComponentBindings {
             }
         }
 
-        if (route === AppPaths.Home) {
+        if (route === AppPaths.Root) {
             return this.initialStep;
         }
 
