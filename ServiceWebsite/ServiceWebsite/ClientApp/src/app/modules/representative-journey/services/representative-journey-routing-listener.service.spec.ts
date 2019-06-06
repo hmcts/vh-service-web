@@ -76,14 +76,11 @@ describe('JourneyRoutingListenerService', () => {
     expect(router.navigate).toHaveBeenCalledWith([`/${startStepUrl}`]);
   });
 
-  it('should navigate to mapped route on journey step change', () => {
-    givenInitialisedAtStartStep();
-    journey.next();
-    expect(router.navigate).toHaveBeenCalled();
-  });
 
-  it('should restart journey at initial step if redirected to root', () => {
+  it('should re-route to start step if routed to application home', () => {
     givenCurrentUrlIs('/login');
+    journey.forSuitabilityAnswers([suitabilityForUpcomingHearing]);
+    service.initialise();
 
     const rootUrl = `/${AppPaths.Root}`;
     routerEvents.next(new ResolveEnd(0, rootUrl, rootUrl, null));
@@ -91,6 +88,12 @@ describe('JourneyRoutingListenerService', () => {
     // then we should be redirected to the initial step url
     const startStepUrl = bindings.getRoute(RepresentativeJourney.initialStep);
     expect(router.navigate).toHaveBeenCalledWith([`/${startStepUrl}`]);
+  });
+
+  it('should navigate to mapped route on journey step change', () => {
+    givenInitialisedAtStartStep();
+    journey.next();
+    expect(router.navigate).toHaveBeenCalled();
   });
 
   it('should jump to step when navigated', () => {
