@@ -30,6 +30,7 @@ export class RepresentativeJourneyRoutingListenerService {
 
         const path = this.bindings.getRoute(step);
         this.router.navigate([`/${path}`]);
+        console.log(`navigating to ${path}`);
     }
 
     private tryJumpJourneyTo(route: string) {
@@ -40,7 +41,12 @@ export class RepresentativeJourneyRoutingListenerService {
             return;
         }
 
-        this.journey.jumpTo(step);
+        // restart the journey if navigating to the first step
+        if (step === RepresentativeJourney.initialStep) {
+            this.journey.startAt(step);
+        } else {
+            this.journey.jumpTo(step);
+        }
     }
 
     private getRouteFromUrl(url: string): string {

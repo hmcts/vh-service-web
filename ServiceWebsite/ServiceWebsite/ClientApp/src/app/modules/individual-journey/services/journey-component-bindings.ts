@@ -42,7 +42,7 @@ export class JourneyStepComponentBindings {
             }
         }
 
-        if (route === AppPaths.Home) {
+        if (route === AppPaths.Root) {
             return IndividualJourney.initialStep;
         }
 

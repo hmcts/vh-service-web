@@ -68,7 +68,7 @@ describe('JourneyRoutingListenerService', () => {
   });
 
   it('should re-route to start step component if entering on application home', () => {
-    givenCurrentUrlIs('/' + AppPaths.Home);
+    givenCurrentUrlIs('/' + AppPaths.Root);
     journey.forSuitabilityAnswers([suitabilityForUpcomingHearing]);
     service.initialise();
 
@@ -82,6 +82,17 @@ describe('JourneyRoutingListenerService', () => {
     expect(router.navigate).toHaveBeenCalled();
   });
 
+  it('should restart journey at initial step if redirected to root', () => {
+    givenCurrentUrlIs('/login');
+
+    const rootUrl = `/${AppPaths.Root}`;
+    routerEvents.next(new ResolveEnd(0, rootUrl, rootUrl, null));
+
+    // then we should be redirected to the initial step url
+    const startStepUrl = bindings.getRoute(RepresentativeJourney.initialStep);
+    expect(router.navigate).toHaveBeenCalledWith([`/${startStepUrl}`]);
+  });
+
   it('should jump to step when navigated', () => {
     givenInitialisedAtStartStep();
 
@@ -89,7 +100,7 @@ describe('JourneyRoutingListenerService', () => {
     const questionnaireUrl = `/${Paths.QuestionnaireCompleted}`;
     routerEvents.next(new ResolveEnd(0, questionnaireUrl, questionnaireUrl, null));
 
-    // then we should be at the consent page,
+    // then we should be at the consent page
     expect(journey.step).toBe(RepresentativeJourneySteps.QuestionnaireCompleted);
   });
 });

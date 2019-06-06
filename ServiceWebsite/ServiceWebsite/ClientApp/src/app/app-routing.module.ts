@@ -10,8 +10,7 @@ import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { Paths } from './paths';
 
 export const routes: Routes = [
-  { path: '', redirectTo: Paths.Home, pathMatch: 'full' },
-  { path: Paths.Home, component: HomeComponent },
+  { path: Paths.Root, component: HomeComponent, pathMatch: 'full' },
   { path: Paths.Error, component: ErrorComponent },
   { path: Paths.PrivacyPolicy, component: PrivacyPolicyComponent },
   { path: Paths.PageNotFound, component: PageNotFoundComponent },

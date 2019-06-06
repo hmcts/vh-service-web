@@ -37,7 +37,7 @@ export class RepresentativeJourneyStepComponentBindings {
             }
         }
 
-        if (route === AppPaths.Home) {
+        if (route === AppPaths.Root) {
             return RepresentativeJourney.initialStep;
         }
 

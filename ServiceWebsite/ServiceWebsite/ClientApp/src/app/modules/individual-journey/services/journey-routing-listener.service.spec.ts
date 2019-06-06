@@ -70,7 +70,7 @@ describe('JourneyRoutingListenerService', () => {
   });
 
   it('should re-route to start step component if entering on application home', () => {
-    givenCurrentUrlIs('/' + AppPaths.Home);
+    givenCurrentUrlIs('/' + AppPaths.Root);
     journey.forSuitabilityAnswers([suitabilityForUpcomingHearing]);
     service.initialise();
 
