@@ -3,6 +3,7 @@ import { RepresentativeJourney } from './representative-journey';
 import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps as Steps, RepresentativeJourneySteps } from './representative-journey-steps';
+import { JourneyStep } from '../base-journey/journey-step';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -12,7 +13,7 @@ dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 
 describe('RepresentativeJourney', () => {
   let journey: RepresentativeJourney;
-  let redirected: Steps;
+  let redirected: JourneyStep;
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableRepresentativeSuitabilityModel();
@@ -58,7 +59,7 @@ describe('RepresentativeJourney', () => {
     journey = new RepresentativeJourney(representativeStepsOrderFactory);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
 
-    journey.redirect.subscribe((s: Steps) => redirected = s);
+    journey.redirect.subscribe((s: JourneyStep) => redirected = s);
   });
 
   const whenProceeding = () => {
@@ -69,21 +70,13 @@ describe('RepresentativeJourney', () => {
     journey.fail();
   };
 
-  const givenUserIsAtStep = (s: RepresentativeJourneySteps) => {
+  const givenUserIsAtStep = (s: JourneyStep) => {
     journey.jumpTo(s);
   };
 
-  const expectStep = (s: RepresentativeJourneySteps): jasmine.ArrayLikeMatchers<string> => {
-    return expect(RepresentativeJourneySteps[s]);
-  };
-
-  const step = (s: RepresentativeJourneySteps): string => {
-    return RepresentativeJourneySteps[s];
-  };
-
-  const nextStepIs = (expectedStep: RepresentativeJourneySteps) => {
+  const nextStepIs = (expectedStep: JourneyStep) => {
     whenProceeding();
-    expectStep(redirected).toBe(step(expectedStep));
+    expect(redirected).toBe(expectedStep);
   };
 
   it('should follow the happy path journey', () => {
@@ -100,15 +93,19 @@ describe('RepresentativeJourney', () => {
     nextStepIs(Steps.AccessToComputer);
     nextStepIs(Steps.AboutYourComputer);
     nextStepIs(Steps.QuestionnaireCompleted);
-    nextStepIs(Steps.ContactUs);
     // this last step is pending change, will proceed to self test in the future
     nextStepIs(Steps.ThankYou);
   });
 
-  const expectDropOffToQuestionnaireCompletedFrom = (s: RepresentativeJourneySteps) => {
+  const expectDropOffToQuestionnaireCompletedFrom = (s: JourneyStep) => {
     givenUserIsAtStep(s);
     whenFailingTheStep();
-    expectStep(redirected).toBe(step(Steps.QuestionnaireCompleted));
+    expect(redirected).toBe(Steps.QuestionnaireCompleted);
+  };
+  const expectDropOffToContactUsFrom = (s: JourneyStep) => {
+    givenUserIsAtStep(s);
+    whenProceeding();
+    expect(redirected).toBe(Steps.ContactUs);
   };
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
@@ -117,23 +114,41 @@ describe('RepresentativeJourney', () => {
     journey.next();
     expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
   });
+  it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
+    givenUserIsAtStep(Steps.QuestionnaireCompleted);
+    journey.model.computer = false;
+    journey.next();
+    expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
+  });
+  it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
+    givenUserIsAtStep(Steps.AboutYourComputer);
+    journey.model.camera = HasAccessToCamera.No;
+    journey.next();
+    expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
+  });
+  it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
+    givenUserIsAtStep(Steps.QuestionnaireCompleted);
+    journey.model.camera = HasAccessToCamera.No;
+    journey.next();
+    expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
+  });
 
   it('should raise an error on unexpected failure transition', () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
     expect(() => whenFailingTheStep())
-      .toThrowError(`Missing/unexpected failure for step: ${RepresentativeJourneySteps[Steps.AboutVideoHearings]}`);
+      .toThrowError(`Missing/unexpected failure for step: ${Steps.AboutVideoHearings}`);
   });
 
   it('should raise an error on missing transition', () => {
-    givenUserIsAtStep(Steps.ThankYou);
+    givenUserIsAtStep(Steps.ContactUs);
     expect(() => whenProceeding())
-      .toThrowError(`Missing transition for step: ${RepresentativeJourneySteps[Steps.ThankYou]}`);
+      .toThrowError(`Missing transition for step: ${Steps.ContactUs}`);
   });
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
     journey.jumpTo(Steps.AboutVideoHearings);
-    expectStep(redirected).toBe(Steps[Steps.GotoVideoApp]);
+    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it('should goto video app if trying to enter a finished journey', () => {
@@ -142,7 +157,7 @@ describe('RepresentativeJourney', () => {
 
     // when trying to enter later in the journey
     journey.jumpTo(Steps.ClientAttendance);
-    expectStep(redirected).toBe(Steps[Steps.GotoVideoApp]);
+    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it('should stay where it is if trying to enter at the current step', () => {
