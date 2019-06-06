@@ -65,7 +65,7 @@ export class RepresentativeJourney implements JourneyBase {
   private isSuitabilityAnswersComplete(model: RepresentativeSuitabilityModel): boolean {
     return model.aboutYou.answer !== undefined
       && model.aboutYourClient.answer !== undefined
-      && model.clientAttenance !== undefined
+      && model.clientAttendance !== undefined
       && model.hearingSuitability.answer !== undefined
       && model.room !== undefined
       && model.computer !== undefined
