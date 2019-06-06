@@ -1,4 +1,4 @@
-﻿namespace ServiceWebsite.AcceptanceTests.Helpers
+﻿namespace ServiceWebsite.AcceptanceTests.Navigation
 {
     public class PageUri
     {
