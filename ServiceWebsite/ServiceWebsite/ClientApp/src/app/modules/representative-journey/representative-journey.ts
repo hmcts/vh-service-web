@@ -4,27 +4,30 @@ import { RepresentativeSuitabilityModel } from './representative-suitability.mod
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
+import { JourneyStep } from '../base-journey/journey-step';
 
 @Injectable()
-export class RepresentativeJourney implements JourneyBase {
+export class RepresentativeJourney extends JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
 
-  readonly redirect: EventEmitter<RepresentativeJourneySteps> = new EventEmitter();
+  readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
 
-  stepOrder: Array<RepresentativeJourneySteps>;
+  stepOrder: Array<JourneyStep>;
 
-  private currentStep: RepresentativeJourneySteps = RepresentativeJourneySteps.NotStarted;
+  private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
 
   private currentModel: RepresentativeSuitabilityModel;
 
   private isDone: boolean;
+  private isSelfTestDone: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
-    this.redirect.subscribe((step: RepresentativeJourneySteps) => this.currentStep = step);
+    super();
+    this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.stepsFactory.stepOrder();
   }
 
-  get step(): RepresentativeJourneySteps {
+  get step(): JourneyStep {
     return this.currentStep;
   }
 
@@ -47,7 +50,7 @@ export class RepresentativeJourney implements JourneyBase {
     this.currentModel = upcoming[0];
   }
 
-  startAt(step: RepresentativeJourneySteps) {
+  startAt(step: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
@@ -63,14 +66,14 @@ export class RepresentativeJourney implements JourneyBase {
   private isSuitabilityAnswersComplete(model: RepresentativeSuitabilityModel): boolean {
     return model.aboutYou.answer !== undefined
       && model.aboutYourClient.answer !== undefined
-      && model.clientAttenance !== undefined
+      && model.clientAttendance !== undefined
       && model.hearingSuitability.answer !== undefined
       && model.room !== undefined
       && model.computer !== undefined
       && model.camera !== undefined;
   }
 
-  private goto(step: RepresentativeJourneySteps) {
+  private goto(step: JourneyStep) {
     if (this.currentStep !== step) {
       this.redirect.emit(step);
     }
@@ -82,32 +85,45 @@ export class RepresentativeJourney implements JourneyBase {
 
     const currentStep = this.stepOrder.indexOf(this.currentStep);
     if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + RepresentativeJourneySteps[this.currentStep]);
+      throw new Error('Missing transition for step: ' + this.currentStep);
     }
 
     let nextStep = this.stepOrder[currentStep + 1];
 
+    // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
     // access to a computer.
     if (this.model.computer === false) {
-      nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
+        nextStep = RepresentativeJourneySteps.ContactUs;
+      } else {
+        nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      }
     }
     // access to a camera and microphone.
     if (this.model.camera === HasAccessToCamera.No) {
-      nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
+        nextStep = RepresentativeJourneySteps.ContactUs;
+      } else {
+        nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
+      }
     }
     this.goto(nextStep);
   }
 
   fail() {
-    const dropoutToThankYouFrom = [
+    const dropoutToQuestionnaireCompletedFrom = [
       RepresentativeJourneySteps.AccessToComputer,
       RepresentativeJourneySteps.AboutYourComputer,
     ];
 
-    if (dropoutToThankYouFrom.includes(this.currentStep)) {
+    const dropoutToContactUsFrom = [
+      RepresentativeJourneySteps.QuestionnaireCompleted
+    ];
+
+    if (dropoutToQuestionnaireCompletedFrom.includes(this.currentStep)) {
       this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
     } else {
-      throw new Error(`Missing/unexpected failure for step: ${RepresentativeJourneySteps[this.currentStep]}`);
+      throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
     }
   }
 
@@ -115,7 +131,7 @@ export class RepresentativeJourney implements JourneyBase {
    * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
    * @param position The step to jump to
    */
-  jumpTo(position: RepresentativeJourneySteps) {
+  jumpTo(position: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);

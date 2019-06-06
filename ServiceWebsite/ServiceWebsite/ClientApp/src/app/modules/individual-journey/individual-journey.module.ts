@@ -11,7 +11,7 @@ import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualLocalisation } from './services/individual-localisation';
 import { MediaService } from './services/media.service';
 import { UserMediaService } from './services/user-media.service';
-import { JourneyRoutingListenerService } from './services/journey-routing-listener.service';
+import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
 import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 import { BlobVideoStorageService } from './services/blob-video-storage.service';
 
