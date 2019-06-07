@@ -1,4 +1,4 @@
-import { HearingApiService, HearingService } from './../services/hearing.service';
+import { HearingService } from './../services/hearing.service';
 import { Component, OnInit } from '@angular/core';
 import { RepresentativeJourney } from '../representative-journey';
 
