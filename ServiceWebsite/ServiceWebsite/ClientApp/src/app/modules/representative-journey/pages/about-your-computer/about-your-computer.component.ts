@@ -1,26 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { RepresentativeBaseComponent } from '../representative-base-component/representative-base.component';
 import { HasAccessToCamera } from '../../../base-journey/participant-suitability.model';
+import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 
 @Component({
   selector: 'app-about-your-computer',
   templateUrl: './about-your-computer.component.html',
   styles: []
 })
-export class AboutYourComputerComponent extends RepresentativeBaseComponent {
-  yes() {
-    this.model.camera = HasAccessToCamera.Yes;
-    console.log(this.model.camera);
-    this.continue();
+export class AboutYourComputerComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
+
+  hasAccessToCamera = HasAccessToCamera;
+
+  ngOnInit(): void {
+    if (this.model.camera !== undefined && this.model.camera !== null) {
+      this.choice.setValue(this.model.camera);
+    }
   }
-  no() {
-    this.model.camera = HasAccessToCamera.No;
-    console.log(this.model.camera);
-    this.continue();
-  }
-  notsure() {
-    this.model.camera = HasAccessToCamera.NotSure;
-    console.log(this.model.camera);
-    this.continue();
+
+  protected bindModel(): void {
+    this.model.camera = this.choice.value;
   }
 }
