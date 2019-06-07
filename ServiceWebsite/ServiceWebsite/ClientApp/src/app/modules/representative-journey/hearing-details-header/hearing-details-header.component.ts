@@ -1,5 +1,5 @@
-import { HearingService } from './../services/hearing.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { HearingApiService, HearingService } from './../services/hearing.service';
+import { Component, OnInit } from '@angular/core';
 import { RepresentativeJourney } from '../representative-journey';
 
 @Component({
@@ -10,8 +10,9 @@ import { RepresentativeJourney } from '../representative-journey';
 export class HearingDetailsHeaderComponent implements OnInit {
   caseNumber: string;
   caseName: string;
+  caseType: string;
   scheduledDateTime: Date;
-  loaded: boolean;
+  loaded = false;
 
   constructor(private journey: RepresentativeJourney, private service: HearingService) {
   }
@@ -20,6 +21,7 @@ export class HearingDetailsHeaderComponent implements OnInit {
     const hearing = await this.service.getHearing(this.journey.model.hearing.id);
     this.caseName = hearing.caseName;
     this.caseNumber = hearing.caseNumber;
+    this.caseType = hearing.caseType;
     this.scheduledDateTime = hearing.scheduledDateTime;
     this.loaded = true;
   }

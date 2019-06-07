@@ -16,7 +16,7 @@ import { JourneyRoutingListenerService } from '../base-journey/services/journey-
 
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
-import { HearingService } from './services/hearing.service';
+import { HearingService, HearingApiService } from './services/hearing.service';
 
 // components
 import { AboutVideoHearingsComponent } from './pages/about-video-hearings/about-video-hearings.component';
@@ -32,6 +32,7 @@ import { AboutYourComputerComponent } from './pages/about-your-computer/about-yo
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { PleaseContactUsComponent } from './pages/please-contact-us/please-contact-us.component';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
+import { CachedHearingService } from './services/cached-hearing.service';
 
 @NgModule({
   declarations: [
@@ -62,13 +63,14 @@ import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-
   providers: [
     { provide: RepresentativeSuitabilityModel, useFactory: RepresentativeSuitabilityModelFactory },
     { provide: JOURNEY_FACTORY, useClass: RepresentativeJourneyFactory, multi: true },
+    { provide: HearingService, useFactory: (service: HearingService) => new CachedHearingService(service), deps: [ HearingApiService ] },
+    HearingApiService,
     RepresentativeJourney,
     RepresentativeSuitabilityService,
     RepresentativeJourneyStepComponentBindings,
     JourneyRoutingListenerService,
     RepresentativeSuitabilityService,
     RepresentativeStepsOrderFactory,
-    HearingService
   ]
 })
 export class RepresentativeJourneyModule {
