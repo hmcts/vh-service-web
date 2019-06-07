@@ -52,7 +52,8 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task should_return_hearing_for_user()
         {
-            var hearing = new Hearing(_hearingId, "case name", "case number", _scheduledDateTime);
+            var hearing = new Hearing(_hearingId, "case name", "case number", _scheduledDateTime, "caseType",
+                "hearingType");
             _service.Setup(x => x.GetHearingFor(Username, _hearingId))
                 .ReturnsAsync(hearing);
 
@@ -60,6 +61,8 @@ namespace ServiceWebsite.UnitTests.Controllers
             var hearingResponse = (HearingDetailsResponse) result.Value;
             Assert.AreEqual(hearing.CaseName, hearingResponse.CaseName);
             Assert.AreEqual(hearing.CaseNumber, hearingResponse.CaseNumber);
+            Assert.AreEqual(hearing.HearingType, hearingResponse.HearingType);
+            Assert.AreEqual(hearing.CaseType, hearingResponse.CaseType);
             Assert.AreEqual(hearing.ScheduledDateTime, hearingResponse.ScheduledDateTime);
         }
     }

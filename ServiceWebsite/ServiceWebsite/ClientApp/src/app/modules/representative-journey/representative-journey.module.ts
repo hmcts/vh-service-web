@@ -12,7 +12,8 @@ import { RepresentativeJourneyFactory } from './representative-journey.factory';
 import { RepresentativeJourney } from './representative-journey';
 import { RepresentativeSuitabilityService } from './services/representative-suitability.service';
 import { RepresentativeJourneyStepComponentBindings } from './services/representative-journey-component-bindings';
-import { RepresentativeJourneyRoutingListenerService } from './services/representative-journey-routing-listener.service';
+import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
+
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
 import { HearingService } from './services/hearing.service';
@@ -64,7 +65,7 @@ import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-
     RepresentativeJourney,
     RepresentativeSuitabilityService,
     RepresentativeJourneyStepComponentBindings,
-    RepresentativeJourneyRoutingListenerService,
+    JourneyRoutingListenerService,
     RepresentativeSuitabilityService,
     RepresentativeStepsOrderFactory,
     HearingService

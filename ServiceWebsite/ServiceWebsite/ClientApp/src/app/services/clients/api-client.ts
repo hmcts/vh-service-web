@@ -258,6 +258,10 @@ export class HearingDetailsResponse implements IHearingDetailsResponse {
     case_name!: string | undefined;
     /** The hearing lead case number */
     case_number!: string | undefined;
+    /** The case type */
+    case_type!: string | undefined;
+    /** The type of hearing */
+    hearing_type!: string | undefined;
     /** Time and date the hearing is scheduled for */
     scheduled_date_time!: Date | undefined;
 
@@ -274,6 +278,8 @@ export class HearingDetailsResponse implements IHearingDetailsResponse {
         if (data) {
             this.case_name = data["case_name"];
             this.case_number = data["case_number"];
+            this.case_type = data["case_type"];
+            this.hearing_type = data["hearing_type"];
             this.scheduled_date_time = data["scheduled_date_time"] ? new Date(data["scheduled_date_time"].toString()) : <any>undefined;
         }
     }
@@ -289,6 +295,8 @@ export class HearingDetailsResponse implements IHearingDetailsResponse {
         data = typeof data === 'object' ? data : {};
         data["case_name"] = this.case_name;
         data["case_number"] = this.case_number;
+        data["case_type"] = this.case_type;
+        data["hearing_type"] = this.hearing_type;
         data["scheduled_date_time"] = this.scheduled_date_time ? this.scheduled_date_time.toISOString() : <any>undefined;
         return data; 
     }
@@ -300,6 +308,10 @@ export interface IHearingDetailsResponse {
     case_name: string | undefined;
     /** The hearing lead case number */
     case_number: string | undefined;
+    /** The case type */
+    case_type: string | undefined;
+    /** The type of hearing */
+    hearing_type: string | undefined;
     /** Time and date the hearing is scheduled for */
     scheduled_date_time: Date | undefined;
 }

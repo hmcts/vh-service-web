@@ -1,4 +1,5 @@
-﻿using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Navigation;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 
@@ -15,7 +16,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly Page _thankYou;
         private readonly DecisionJourney _aboutYourComputer;
         private readonly InformationSteps _information;
-        private bool Answer;
         private readonly DecisionJourney _yourInternetConnection;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
@@ -103,10 +103,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             switch (answer)
             {
                 case AnswerType.Yes: _currentPage.SelectYes();
-                    Answer = true;
                     break;
                 case AnswerType.No: _currentPage.SelectNo();
-                    Answer = false;
                     break;
                 case AnswerType.NotSure: _currentPage.SelectNotSure();
                     break;

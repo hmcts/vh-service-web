@@ -1,4 +1,5 @@
-﻿using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Navigation;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;

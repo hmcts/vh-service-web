@@ -80,7 +80,7 @@ describe('RepresentativeModelMapper', () => {
         givenAnswerIs(Keys.Room, 'false');
 
         whenMappingModel();
-        expect(model.clientAttenance).toBeFalsy();
+        expect(model.clientAttendance).toBeFalsy();
         expect(model.computer).toBeFalsy();
         expect(model.room).toBeFalsy();
     });
@@ -108,7 +108,7 @@ describe('RepresentativeModelMapper', () => {
         expect(model.hearingSuitability).toBeTruthy();
         expect(model.room).toBeTruthy();
         expect(model.computer).toBeTruthy();
-        expect(model.clientAttenance).toBeTruthy();
+        expect(model.clientAttendance).toBeTruthy();
     });
 
     it('should map extended answer', () => {

@@ -24,7 +24,7 @@ namespace ServiceWebsite.Services
                 var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(id);
                 if (!HearingContainsParticipant(hearingResponse, username))
                 {
-                    throw new UnauthorizedAccessException("User is not participant of hearing: " + id);
+                    throw new UnauthorizedAccessException($"User is not participant of hearing: {id}");
                 }
                 return Map(hearingResponse);
             }
@@ -32,7 +32,7 @@ namespace ServiceWebsite.Services
             {
                 if (e.StatusCode == (int) HttpStatusCode.NotFound)
                 {
-                    throw new NotFoundException("Could not find hearing with id: " + id);
+                    throw new NotFoundException($"Could not find hearing with id: {id}");
                 }
 
                 throw;
@@ -46,8 +46,15 @@ namespace ServiceWebsite.Services
         
         private static Hearing Map(HearingDetailsResponse response)
         {
-            var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.GetValueOrDefault(true)) ?? response.Cases.First();
-            return new Hearing(response.Id.Value, hearingCase.Name, hearingCase.Number, response.Scheduled_date_time.Value);
+            var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.Value) ?? response.Cases.First();
+            return new Hearing(
+                response.Id.Value,
+                hearingCase.Name,
+                hearingCase.Number,
+                response.Scheduled_date_time.Value,
+                response.Case_type_name,
+                response.Hearing_type_name
+            );
         }
     }
 }

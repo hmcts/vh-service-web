@@ -10,12 +10,18 @@ namespace ServiceWebsite.Domain
 
         public DateTime ScheduledDateTime { get; }
 
-        public Hearing(Guid id, string caseName, string caseNumber, DateTime scheduledDateTime)
+        public string CaseType { get; }
+        
+        public string HearingType { get; }
+
+        public Hearing(Guid id, string caseName, string caseNumber, DateTime scheduledDateTime, string caseType, string hearingType)
         {
             Id = id;
             CaseName = caseName;
             CaseNumber = caseNumber;
             ScheduledDateTime = scheduledDateTime;
+            CaseType = caseType;
+            HearingType = hearingType;
         }
     }
 }

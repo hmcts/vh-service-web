@@ -77,17 +77,9 @@ describe('IndividualJourney', () => {
     journey.jumpTo(s);
   };
 
-  const expectStep = (s: JourneyStep): jasmine.ArrayLikeMatchers<string> => {
-    return expect(s.toString());
-  };
-
-  const step = (s: JourneyStep): string => {
-    return s.toString();
-  };
-
   const nextStepIs = (expectedStep: JourneyStep) => {
     whenProceeding();
-    expectStep(redirected).toBe(expectedStep.toString());
+    expect(redirected).toBe(expectedStep);
   };
 
   it('should follow the happy path journey', () => {
@@ -117,7 +109,7 @@ describe('IndividualJourney', () => {
   const expectDropOffToThankYouFrom = (s: JourneyStep) => {
     givenUserIsAtStep(s);
     whenFailingTheStep();
-    expectStep(redirected).toBe(step(Steps.ThankYou));
+    expect(redirected).toBe(Steps.ThankYou);
   };
 
   it(`should continue to ${Steps.ThankYou} if individual has no access to a computer`, () => {
@@ -131,7 +123,7 @@ describe('IndividualJourney', () => {
     givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
     journey.model.camera = HasAccessToCamera.No;
     journey.next();
-    expectStep(redirected).toBe(step(Steps.ThankYou));
+    expect(redirected).toBe(Steps.ThankYou);
   });
 
   it(`should continue to ${Steps.ThankYou} if individual has no access to an internet connection`, () => {
@@ -151,7 +143,7 @@ describe('IndividualJourney', () => {
     givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
 
     whenFailingTheStep();
-    expectStep(redirected).toBe(step(Steps.MediaAccessError));
+    expect(redirected).toBe(Steps.MediaAccessError);
   });
 
   it('should raise an error on unexpected failure transition', () => {
@@ -169,7 +161,7 @@ describe('IndividualJourney', () => {
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
     journey.jumpTo(Steps.AboutHearings);
-    expectStep(redirected).toBe(Steps.GotoVideoApp.toString());
+    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it('should stay where it is if trying to enter at the current step', () => {

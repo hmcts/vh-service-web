@@ -7,7 +7,7 @@ import { HasAccessToCamera } from '../base-journey/participant-suitability.model
 import { JourneyStep } from '../base-journey/journey-step';
 
 @Injectable()
-export class IndividualJourney implements JourneyBase {
+export class IndividualJourney extends JourneyBase {
   static readonly initialStep = IndividualJourneySteps.AboutHearings;
 
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
@@ -21,6 +21,7 @@ export class IndividualJourney implements JourneyBase {
   private isDone: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory) {
+    super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.individualStepsOrderFactory.stepOrder();
   }
