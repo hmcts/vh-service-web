@@ -20,11 +20,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
 
-        public IndividualQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
+        public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
-            _errorMessage = errorMessage;
             _yourComputer = new DecisionJourney(browserContext, PageUri.YourComputerPage);
             _aboutYourComputer = new DecisionJourney(browserContext, PageUri.AboutYourComputerPage);
             _information = information;
@@ -37,11 +36,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void GivenIndividualParticipantIsOnPages(string page)
         {
             _information.InformationScreen("Individual");
-            Journey(page);
+            InitiateJourneySteps(page);
         }
 
 
-        public void Journey(string page)
+        public void InitiateJourneySteps(string page)
         {
             switch (page)
             {
@@ -90,6 +89,57 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
+        }
+
+        [Then(@"Participant should proceed to about you page")]
+        public void ThenParticipantShouldProceedToAboutYouPage()
+        {
+            _aboutYou.Validate();
+        }
+
+        [Then(@"Individual should be on '(.*)' screen")]
+        public void ThenParticipantShouldProceedToPage(string page)
+        {
+            switch (page)
+            {
+                case "about you":
+                    _aboutYou.Validate();
+                    break;
+                case "interpreter":
+                    _interpreter.Validate();
+                    break;
+                case "your computer":
+                    _yourComputer.Validate();
+                    break;
+                case "thank you":
+                    _thankYou.Validate();
+                    break;
+                case "about your computer":
+                    _aboutYourComputer.Validate();
+                    break;
+                case "your internet connection":
+                    _yourInternetConnection.Validate();
+                    break;
+                case "access to a room":
+                    _accessToRoom.Validate();
+                    break;
+                case "consent":
+                    _consent.Validate();
+                    break;
+            }
+        }
+
+        [When(@"Individual provides additional information for not consenting to video hearing as '(.*)'")]
+        public void WhenIndividualProvidesAdditionalInformationForNotConsentingToVideoHearingAs(string detail)
+        {
+            _aboutYou.SelectYes(detail);
+        }
+
+        protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
+        {
+            return (decisionJourneyPage == _yourComputer || 
+                    decisionJourneyPage == _aboutYourComputer || 
+                    decisionJourneyPage == _yourInternetConnection);
         }
     }
 }
