@@ -1,7 +1,5 @@
-import { IndividualJourney } from '../individual-journey';
-import { IndividualJourneySteps as Steps} from '../individual-journey-steps';
+import { IndividualJourneySteps as Steps } from '../individual-journey-steps';
 import { Paths } from '../paths';
-import { Paths as AppPaths } from '../../../paths';
 import { JourneyStep } from '../../base-journey/journey-step';
 import { ParticipantJourneyStepComponentBindings } from '../../base-journey/services/participant-journey-component-bindings';
 
@@ -9,8 +7,8 @@ import { ParticipantJourneyStepComponentBindings } from '../../base-journey/serv
  * Binds journey steps to components
  */
 export class JourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
-   readonly bindings = new Map<JourneyStep, string>();
-   readonly initialStep = Steps.AboutHearings;
+    readonly bindings = new Map<JourneyStep, string>();
+    readonly initialStep = Steps.AboutHearings;
     constructor() {
         super();
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
@@ -31,5 +29,4 @@ export class JourneyStepComponentBindings extends ParticipantJourneyStepComponen
         this.bindings.set(Steps.ThankYou, Paths.ThankYou);
         this.bindings.set(Steps.YourInternetConnection, Paths.YourInternetConnection);
     }
-
-   }
+}

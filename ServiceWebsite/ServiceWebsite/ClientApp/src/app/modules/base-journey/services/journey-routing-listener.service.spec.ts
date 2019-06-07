@@ -10,7 +10,7 @@ import { JourneyStep } from '../journey-step';
 import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
 import { EventEmitter } from '@angular/core';
 
-class JournetStepComponentBindingsStub extends ParticipantJourneyStepComponentBindings {
+class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBindings {
   readonly initialStep = Steps.AboutYou;
   readonly bindings = new Map<JourneyStep, string>();
   constructor() {
@@ -37,7 +37,7 @@ describe('JourneyRoutingListenerService', () => {
   let redirectService: jasmine.SpyObj<DocumentRedirectService>;
   let currentJourneyStep: Steps;
 
-  const bindings = new JournetStepComponentBindingsStub();
+  const bindings = new JourneyStepComponentBindingsStub();
   const config = new Config('videourl', 'appinsightskey');
 
   beforeEach(() => {
@@ -72,9 +72,19 @@ describe('JourneyRoutingListenerService', () => {
   };
 
   it('should re-route to start step component if entering on application home', () => {
-    givenCurrentUrlIs('/' + AppPaths.Home);
+    givenCurrentUrlIs('/' + AppPaths.Root);
     service.initialise(bindings, journey);
-    const startStepUrl = bindings.getRoute(bindings.initialStep);
+    expect(journey.startAt).toHaveBeenCalledWith(bindings.initialStep);
+  });
+
+  it('should re-route to start step if routed to application home', () => {
+    givenCurrentUrlIs('/login');
+    service.initialise(bindings, journey);
+
+    const rootUrl = `/${AppPaths.Root}`;
+    routerEvents.next(new ResolveEnd(0, rootUrl, rootUrl, null));
+
+    // then we should be redirected to the initial step url
     expect(journey.startAt).toHaveBeenCalledWith(bindings.initialStep);
   });
 
@@ -88,8 +98,10 @@ describe('JourneyRoutingListenerService', () => {
     givenInitialisedAtStartStep();
 
     // when we navigate to the consent page through other means than the journey, i.e. back button
-    routerEvents.next(new ResolveEnd(0, `/${Paths.AboutYou}`, null, null));
+    const url = `/${Paths.AboutHearings}`;
+    routerEvents.next(new ResolveEnd(0, url, url, null));
+
     // then we should be at the consent page,
-    expect(journey.jumpTo).toHaveBeenCalledWith(Steps.AboutYou);
+    expect(journey.jumpTo).toHaveBeenCalledWith(Steps.AboutHearings);
   });
 });

@@ -1,6 +1,4 @@
 import { Config } from '../../shared/models/config';
-import { JourneyStepComponentBindings } from '../../individual-journey/services/journey-component-bindings';
-import { IndividualJourney } from '../../individual-journey/individual-journey';
 import { ParticipantJourneySteps as Steps } from '../participant-journey-steps';
 import { Router, ResolveEnd } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -40,7 +38,12 @@ export class JourneyRoutingListenerService {
             return;
         }
 
-        this.journey.jumpTo(step);
+        // restart the journey if navigating to the first step
+        if (step === this.componentBindings.initialStep) {
+            this.journey.startAt(step);
+        } else {
+            this.journey.jumpTo(step);
+        }
     }
 
     private   getRouteFromUrl(url: string): string {
@@ -57,7 +60,7 @@ export class JourneyRoutingListenerService {
         // if the user presses back button
         this.router.events
           .filter(event => event instanceof ResolveEnd)
-          .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.url)));
+          .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects)));
 
         const currentRoute = this.getRouteFromUrl(this.router.url);
         const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
