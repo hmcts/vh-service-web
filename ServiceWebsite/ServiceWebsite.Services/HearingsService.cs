@@ -47,14 +47,7 @@ namespace ServiceWebsite.Services
         private static Hearing Map(HearingDetailsResponse response)
         {
             var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.Value) ?? response.Cases.First();
-            return new Hearing(
-                response.Id.Value,
-                hearingCase.Name,
-                hearingCase.Number,
-                response.Scheduled_date_time.Value,
-                response.Case_type_name,
-                response.Hearing_type_name
-            );
+            return new Hearing(response.Id.Value, hearingCase.Name, hearingCase.Number, response.Scheduled_date_time.Value);
         }
     }
 }

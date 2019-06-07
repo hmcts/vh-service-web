@@ -16,16 +16,6 @@ namespace ServiceWebsite.Models
         /// The hearing lead case number
         /// </summary>
         public string CaseNumber { get; set; }
-        
-        /// <summary>
-        /// The case type
-        /// </summary>
-        public string CaseType { get; set; }
-        
-        /// <summary>
-        /// The type of hearing
-        /// </summary>
-        public string HearingType { get; set; }
 
         /// <summary>
         /// Time and date the hearing is scheduled for

@@ -17,8 +17,6 @@ namespace ServiceWebsite.UnitTests
         private const string Username = "username";
         private readonly Guid _hearingId = Guid.NewGuid();
         private readonly DateTime _scheduledDateTime = new DateTime(2019, 02, 03, 14, 15, 0);
-        private const string HearingType = "hearingType";
-        private const string CaseType = "caseType";
 
         private readonly CaseResponse _case = new CaseResponse
         {
@@ -44,8 +42,6 @@ namespace ServiceWebsite.UnitTests
             Assert.AreEqual(_hearingId, hearing.Id);
             Assert.AreEqual(_case.Name, hearing.CaseName);
             Assert.AreEqual(_case.Number, hearing.CaseNumber);
-            Assert.AreEqual(CaseType, hearing.CaseType);
-            Assert.AreEqual(HearingType, hearing.HearingType);
             Assert.AreEqual(_scheduledDateTime, hearing.ScheduledDateTime);
         }
         
@@ -62,8 +58,10 @@ namespace ServiceWebsite.UnitTests
 
             // the hearing is properly mapped and returned
             var hearing  = await _hearingService.GetHearingFor("username", _hearingId);
+            Assert.AreEqual(_hearingId, hearing.Id);
             Assert.AreEqual(notLeadCase.Name, hearing.CaseName);
             Assert.AreEqual(notLeadCase.Number, hearing.CaseNumber);
+            Assert.AreEqual(_scheduledDateTime, hearing.ScheduledDateTime);
         }
 
         [Test]
@@ -112,8 +110,6 @@ namespace ServiceWebsite.UnitTests
             {
                 Id = _hearingId,
                 Scheduled_date_time = _scheduledDateTime,
-                Case_type_name = CaseType,
-                Hearing_type_name = HearingType,
                 Participants = new List<ParticipantResponse>
                 {
                     new ParticipantResponse { Username = Username }

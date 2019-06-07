@@ -57,8 +57,6 @@ namespace ServiceWebsite.Controllers
             {
                 CaseName = hearing.CaseName,
                 CaseNumber = hearing.CaseNumber,
-                CaseType = hearing.CaseType,
-                HearingType = hearing.HearingType,
                 ScheduledDateTime = hearing.ScheduledDateTime
             };
         }
