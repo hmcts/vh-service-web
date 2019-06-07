@@ -12,4 +12,11 @@ describe('AboutYourComputerComponent', () => {
     // and value is bound
     expect(fixture.component.model.camera).toBe(0);
   });
+  it('should initialize choice value', () => {
+    const fixture = CannotProceeedUntilChoiceIsSelected(AboutYourComputerComponent);
+    fixture.component.model.camera = 1;
+    // and value is bound
+    fixture.component.ngOnInit()
+    expect(fixture.component.model.camera).toBe(1);
+  });
 });

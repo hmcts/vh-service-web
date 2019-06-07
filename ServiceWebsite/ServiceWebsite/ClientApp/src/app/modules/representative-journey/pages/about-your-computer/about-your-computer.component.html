@@ -47,7 +47,9 @@
                     No
                   </label>
                 </div>
-
+                <div *ngIf="choice.value === hasAccessToCamera.No" class="vh-border">
+                  <p class="govuk-body vh-left" i18n="@@aboutYourComputer_rep_p_2">The laptop or desktop computer will need a camera and microphone for you to take part in a video hearing.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -56,7 +58,7 @@
       <div class="vh-top-20">
         <app-show-details i18n-bind-detailsTitle="@@aboutYourComputer_detailsTitle"
                           bind-detailsTitle="'What happens if I\'m not sure?'" i18-bind-textArray="@@aboutYourComputer_rep_textArray"
-                          bind-textArray="['That\'s fine. You\'ll have the chance to find out later by watching a short video.']">
+                          bind-textArray="['That\'s fine. You\'ll have the chance to find out later by watching an interactive video.']">
         </app-show-details>
       </div>
 
@@ -69,16 +71,6 @@
     </form>
     <app-contact-us></app-contact-us>
 
-    <!--<div class="mt-20">
-    <input class="govuk-button" (click)="yes()" value="yes" type="submit" />
-    <input class="govuk-button" (click)="no()" value="no" type="submit" />
-    <input class="govuk-button" (click)="notsure()" value="not sure" type="submit" />
-    <br />
-    <button class="govuk-button" (click)="continue()" i18n="@@aboutYourComputer_btn_continue" id="continue"
-      type="button">
-      Continue
-    </button>
-  </div>-->
   </div>
 </div>
 

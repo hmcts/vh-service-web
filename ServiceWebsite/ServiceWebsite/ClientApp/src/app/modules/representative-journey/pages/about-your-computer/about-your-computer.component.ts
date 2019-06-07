@@ -12,7 +12,9 @@ export class AboutYourComputerComponent extends SuitabilityChoicePageBaseCompone
   hasAccessToCamera = HasAccessToCamera;
 
   ngOnInit(): void {
+    if (this.model.camera !== undefined && this.model.camera !== null) {
       this.choice.setValue(this.model.camera);
+    }
   }
 
   protected bindModel(): void {
