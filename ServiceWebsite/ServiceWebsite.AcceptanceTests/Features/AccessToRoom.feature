@@ -25,6 +25,7 @@ Scenario: Access To A Room Page - Individual participant attempts to proceed to 
 
 @VIH-4432 @WIP_Rep
 Scenario: Access To A Room Page - Representative participant attempts to proceed to next page without providing answer
-	Given Representative participant is on 'access-to-a-room-rep' page
-	When Individual attempts to proceed without selecting an answer
-	Then 1 error should be displayed
+	Given Representative participant is on 'access to a room rep' page
+	When provides answer as Yes
+	And proceeds to next page
+	Then Representative should be on 'consent' screen

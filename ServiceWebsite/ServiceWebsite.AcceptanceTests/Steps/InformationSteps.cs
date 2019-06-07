@@ -20,7 +20,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly VideoContentPage _participantView;
         private readonly JourneyStepPage _helpTheCourtDecide;
         private readonly JourneyStepPage _aboutVideoHearing;
-        private readonly JourneyStepPage _aboutYouClient;
+        private readonly JourneyStepPage _aboutYouAndYourClient;
+        private readonly JourneyStepPage _aboutYou;
 
         public InformationSteps(BrowserContext browserContext, LoginSteps loginSteps, UseCameraMicrophone useCameraMicrophone)
         {
@@ -34,8 +35,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _mediaError = new Page(browserContext, PageUri.MediaErrorPage);
             _participantView = new VideoContentPage(browserContext, PageUri.ParticipantViewPage);
             _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage);
-            _aboutVideoHearing = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYouAndYourClient);
-            _aboutYouClient = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYouAndYourClient);
+            _aboutVideoHearing = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutVideoHearings);
+            _aboutYou = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYou);
+            _aboutYouAndYourClient = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYouAndYourClient);
         }
 
         [Given(@"(.*) participant proceeds to camera and microphone page")]
@@ -94,7 +96,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "Representative":
                     _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
                     _aboutVideoHearing.Continue();
-                    _aboutYouClient.Continue();
+                    _aboutYouAndYourClient.Continue();
                     break;
             }            
         }

@@ -98,6 +98,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
         [Then(@"Individual should be on '(.*)' screen")]
+        //[Then(@"should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
             switch (page)

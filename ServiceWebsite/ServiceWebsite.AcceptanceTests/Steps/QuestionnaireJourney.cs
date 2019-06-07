@@ -30,6 +30,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
         [When(@"Individual provides answer as (.*)")]
+        [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
             switch (answer)
@@ -46,6 +47,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"Individual attempts to proceed without selecting an answer")]
         [When(@"Individual proceeds to next page")]
         [When(@"Individual attempts to proceed without providing additional information")]
+        [When(@"proceeds to next page")]
         private void WhenIndividualAttemptsToProceedWithoutProvidingAdditionalInformation()
         {
             CurrentPage.Continue();
