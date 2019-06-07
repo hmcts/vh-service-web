@@ -1,6 +1,7 @@
 ﻿using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
+using System;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -19,7 +20,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
 
-        public IndividualQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information) : base(browserContext, information)
+        public IndividualQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
@@ -32,13 +33,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
         }
 
-        //[Given(@"'(.*)' participant is on '(.*)' page")]
-        //public void GivenIndividualParticipantIsOnPage(string participant, string page)
-        //{
-        //    _information.InformationScreen(participant);
-        //    Journey(page);
-        //}
-
         [Given(@"Individual participant is on '(.*)' page")]
         public void GivenIndividualParticipantIsOnPages(string page)
         {
@@ -47,7 +41,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
 
-        public  void Journey(string page)
+        public void Journey(string page)
         {
             switch (page)
             {
@@ -95,6 +89,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _currentPage = _consent;
                     break;
             }
+            _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
         }
     }
 }

@@ -7,7 +7,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public sealed class RepresentativeQuestionnaireSteps : QuestionnaireJourney
     {
-        public RepresentativeQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information) : base(browserContext, information)
+        public RepresentativeQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
 
         }

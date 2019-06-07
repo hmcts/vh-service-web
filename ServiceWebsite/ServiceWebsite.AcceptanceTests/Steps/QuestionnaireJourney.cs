@@ -8,6 +8,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class QuestionnaireJourney
     {
+        public QuestionnaireJourney()
+        {
+
+        }
         private readonly DecisionJourney _aboutYou;
         protected ErrorMessage _errorMessage;
         private DecisionJourney _currentPage;
@@ -19,7 +23,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourInternetConnection;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
-        public QuestionnaireJourney(BrowserContext browserContext, InformationSteps information)
+        public readonly ScenarioContext _scenarioContext;
+
+        public QuestionnaireJourney(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
@@ -31,24 +37,25 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
+            _scenarioContext = scenarioContext;
         }
         
 
         [Then(@"(.*) error should be displayed")]
         [Then(@"(.*) errors should be displayed")]
-        public void ThenAnErrorMessageShouldBeDisplayed(int errorCounter)
+        private void ThenAnErrorMessageShouldBeDisplayed(int errorCounter)
         {
             _errorMessage.ValidateErrorMessage(errorCounter);
         }
 
         [Then(@"Participant should proceed to about you page")]
-        public void ThenParticipantShouldProceedToAboutYouPage()
+        private void ThenParticipantShouldProceedToAboutYouPage()
         {
             _aboutYou.Validate();
         }
 
         [When(@"Individual provides answer as (.*)")]
-        public void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
+        private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
             switch (answer)
             {
@@ -64,20 +71,22 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"Individual attempts to proceed without selecting an answer")]
         [When(@"Individual proceeds to next page")]
         [When(@"Individual attempts to proceed without providing additional information")]
-        public void WhenIndividualAttemptsToProceedWithoutProvidingAdditionalInformation()
+        private void WhenIndividualAttemptsToProceedWithoutProvidingAdditionalInformation()
         {
-            _currentPage.Continue();
+            var currentPage = _scenarioContext.Get<DecisionJourney>("CurrentPage");
+            currentPage.Continue();
         }
 
         [When(@"Individual provides additional information '(.*)'")]
         [When(@"Individual provides additional information containing a two character length '(.*)'")]
-        public void WhenIndividualProvidesAdditionalInformationContainingLessThanCharacters(string detail)
+        private void WhenIndividualProvidesAdditionalInformationContainingLessThanCharacters(string detail)
         {
-            _currentPage.SelectYes(detail);
+            var currentPage = _scenarioContext.Get<DecisionJourney>("CurrentPage");
+            currentPage.SelectYes(detail);
         }
 
         [Then(@"Individual should be on '(.*)' screen")]
-        public void ThenParticipantShouldProceedToPage(string page)
+        private void ThenParticipantShouldProceedToPage(string page)
         {
             switch (page)
             {
@@ -114,7 +123,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             decisionJourneyPage.Continue();
         }
         [When(@"Individual provides additional information for not consenting to video hearing as '(.*)'")]
-        public void WhenIndividualProvidesAdditionalInformationForNotConsentingToVideoHearingAs(string detail)
+        private void WhenIndividualProvidesAdditionalInformationForNotConsentingToVideoHearingAs(string detail)
         {
             _aboutYou.SelectYes(detail);
         }
