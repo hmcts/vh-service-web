@@ -50,9 +50,9 @@
                       <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYou_span_2">
                         Please type in the box
                       </span>
+                      <textarea formControlName="textInput" aria-label="option-yes" class="txtMore vh-text-width" id="details" rows="5" cols="80"
+                      [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
                     </div>
-                    <textarea formControlName="textInput" aria-label="option-yes" class="txtMore vh-text-width" id="details" rows="5" cols="80"
-                              [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
                   </div>
                 </div>
 
