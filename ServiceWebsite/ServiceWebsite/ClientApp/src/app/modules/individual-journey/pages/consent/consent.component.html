@@ -39,7 +39,7 @@
                       <label  [ngClass]="choice.value ? 'govuk-body' : 'govuk-hint'" i18n="@@consent_span_2" id="more-detail-hint-yes">
                         If there anything else you'd like to tell the court?
                       </label>
-                      <textarea formControlName="textInputYes" class="txtMore vh-text-width govuk-textarea" id="details-yes" rows="8" cols="80"
+                      <textarea formControlName="textInputYes" aria-label="details" class="txtMore vh-text-width govuk-textarea" id="details-yes" rows="8" cols="80"
                                 [ngClass]="{'vh-note': !choice.value}"
                                 aria-describedby="more-detail-hint-yes"
                                 aria-label="text to understand the reason for answer yes"></textarea>
@@ -69,7 +69,7 @@
                         Please type in this box
                       </span>
                     </label>
-                    <textarea formControlName="textInputNo" class="txtMore vh-text-width" id="details-no" rows="8" cols="80"
+                    <textarea formControlName="textInputNo" aria-label="details" class="txtMore vh-text-width" id="details-no" rows="8" cols="80"
                               [ngClass]="{'govuk-textarea--error':isTextInputNoInvalid,
                                   'govuk-textarea': !isTextInputNoInvalid,
                                   'vh-note': !noSelected }"
