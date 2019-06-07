@@ -16,6 +16,9 @@ export class AboutYourClientComponent
   ngOnInit() {
     this.form.addControl('textInput', this.textInput);
 
+    this.choice.setValue(this.model.aboutYourClient.answer);
+    this.textInput.setValue(this.model.aboutYourClient.notes);
+
     this.choice.valueChanges.subscribe(value => {
       if (value) {
         // If the value is true, the text input is required
