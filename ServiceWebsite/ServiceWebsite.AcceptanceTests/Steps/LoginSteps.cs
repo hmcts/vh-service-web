@@ -59,7 +59,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         private void ValidatePage(string url)
         {
-            if (string.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(url))
             {
                 _browserContext.Retry(() =>
                 {
