@@ -141,13 +141,13 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Access To A Room Page - Representative participant attempts to proceed to next pa" +
             "ge without providing answer")]
         [NUnit.Framework.CategoryAttribute("VIH-4432")]
-        [NUnit.Framework.CategoryAttribute("WIP_Rep")]
+        [NUnit.Framework.CategoryAttribute("smoketest")]
         public virtual void AccessToARoomPage_RepresentativeParticipantAttemptsToProceedToNextPageWithoutProvidingAnswer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Access To A Room Page - Representative participant attempts to proceed to next pa" +
                     "ge without providing answer", null, new string[] {
                         "VIH-4432",
-                        "WIP_Rep"});
+                        "smoketest"});
 #line 27
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();

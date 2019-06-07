@@ -23,7 +23,7 @@ Scenario: Access To A Room Page - Individual participant attempts to proceed to 
 	When Individual attempts to proceed without selecting an answer
 	Then 1 error should be displayed
 
-@VIH-4432 @WIP_Rep
+@VIH-4432 @smoketest
 Scenario: Access To A Room Page - Representative participant attempts to proceed to next page without providing answer
 	Given Representative participant is on 'access to a room rep' page
 	When provides answer as Yes
