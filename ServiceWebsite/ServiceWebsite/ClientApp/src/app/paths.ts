@@ -1,5 +1,5 @@
 export const Paths = {
-    Home: 'home',
+    Root: '',
     PrivacyPolicy: 'privacy-policy',
     Error: 'error',
     PageNotFound: 'page-not-found',

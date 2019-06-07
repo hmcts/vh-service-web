@@ -12,9 +12,11 @@ import { RepresentativeJourneyFactory } from './representative-journey.factory';
 import { RepresentativeJourney } from './representative-journey';
 import { RepresentativeSuitabilityService } from './services/representative-suitability.service';
 import { RepresentativeJourneyStepComponentBindings } from './services/representative-journey-component-bindings';
-import { RepresentativeJourneyRoutingListenerService } from './services/representative-journey-routing-listener.service';
+import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
+
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
+import { HearingService, HearingApiService } from './services/hearing.service';
 
 // components
 import { AboutVideoHearingsComponent } from './pages/about-video-hearings/about-video-hearings.component';
@@ -30,6 +32,7 @@ import { AboutYourComputerComponent } from './pages/about-your-computer/about-yo
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { PleaseContactUsComponent } from './pages/please-contact-us/please-contact-us.component';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
+import { CachedHearingService } from './services/cached-hearing.service';
 
 @NgModule({
   declarations: [
@@ -60,12 +63,14 @@ import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-
   providers: [
     { provide: RepresentativeSuitabilityModel, useFactory: RepresentativeSuitabilityModelFactory },
     { provide: JOURNEY_FACTORY, useClass: RepresentativeJourneyFactory, multi: true },
+    { provide: HearingService, useFactory: (service: HearingService) => new CachedHearingService(service), deps: [ HearingApiService ] },
+    HearingApiService,
     RepresentativeJourney,
     RepresentativeSuitabilityService,
     RepresentativeJourneyStepComponentBindings,
-    RepresentativeJourneyRoutingListenerService,
+    JourneyRoutingListenerService,
     RepresentativeSuitabilityService,
-    RepresentativeStepsOrderFactory
+    RepresentativeStepsOrderFactory,
   ]
 })
 export class RepresentativeJourneyModule {

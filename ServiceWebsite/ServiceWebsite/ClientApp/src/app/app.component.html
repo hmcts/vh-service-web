@@ -4,9 +4,8 @@
   <app-header [loggedIn]="loggedIn"></app-header>
 
   <div class="govuk-width-container vh-content">
-
-    <main class="govuk-main-wrapper" [ngClass]="{'pad-unactivated-router': padUnactivatedRouter}" id="main-content" role="main">
-      <router-outlet (activate)="padUnactivatedRouter = false"></router-outlet>
+    <main class="govuk-main-wrapper" id="main-content" role="main">
+      <router-outlet *ngIf="initialized"></router-outlet>
     </main>
   </div>
 </div>
