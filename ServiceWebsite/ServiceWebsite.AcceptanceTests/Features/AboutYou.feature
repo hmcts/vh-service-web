@@ -39,4 +39,5 @@ Scenario: Representative participant provides additional information for video h
 	Given Representative participant is on 'about you' page
 	When provides additional information 'ABC'
 	And proceeds to next page
-	Then Individual should be on 'interpreter' screen
+	Then Representative should be on 'access to a suitable room' screen
+	

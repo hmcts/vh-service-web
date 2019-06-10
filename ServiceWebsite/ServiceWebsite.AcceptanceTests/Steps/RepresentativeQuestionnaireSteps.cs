@@ -59,6 +59,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "about your client":
                     _aboutYourClient.Validate();
                     break;
+                case "access to a suitable room":
+                    _accessToRoom.Validate();
+                    break;
             }
         }
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)

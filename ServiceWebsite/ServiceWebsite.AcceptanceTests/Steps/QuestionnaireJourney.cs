@@ -51,8 +51,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             CurrentPage.Continue();
         }
 
-        [When(@"Individual provides additional information '(.*)'")]
-        [When(@"Individual provides additional information containing a two character length '(.*)'")]
+        [When(@"provides additional information '(.*)'")]
+        [When(@"provides additional information containing a two character length '(.*)'")]
         private void WhenIndividualProvidesAdditionalInformationContainingLessThanCharacters(string detail)
         {
             CurrentPage.SelectYes(detail);
