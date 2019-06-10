@@ -66,7 +66,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _hearingSuitability.Continue();
                     _currentPage = _yourComputer;
                     break;
-                    
+                case "about your computer":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    _hearingSuitability.Continue();
+                    NavigateToDecisionPage(_yourComputer);
+                    _currentPage = _aboutYourComputer;
+                    break;
 
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
@@ -82,6 +90,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "access to a suitable room":
                     _accessToRoom.Validate();
+                    break;
+                case "questionnaire completed":
+                    _questionnaireCompleted.Validate();
                     break;
             }
         }
