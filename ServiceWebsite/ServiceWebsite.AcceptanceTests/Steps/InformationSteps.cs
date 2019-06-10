@@ -19,6 +19,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly LoginSteps _loginSteps;
         private readonly VideoContentPage _participantView;
         private readonly JourneyStepPage _helpTheCourtDecide;
+        private readonly JourneyStepPage _aboutVideoHearing;
+        private readonly JourneyStepPage _aboutYouAndYourClient;
+        private readonly JourneyStepPage _aboutYou;
 
         public InformationSteps(BrowserContext browserContext, LoginSteps loginSteps, UseCameraMicrophone useCameraMicrophone)
         {
@@ -32,6 +35,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _mediaError = new Page(browserContext, PageUri.MediaErrorPage);
             _participantView = new VideoContentPage(browserContext, PageUri.ParticipantViewPage);
             _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage);
+            _aboutVideoHearing = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutVideoHearings);
+            _aboutYou = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYou);
+            _aboutYouAndYourClient = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYouAndYourClient);
         }
 
         [Given(@"(.*) participant proceeds to camera and microphone page")]
@@ -80,9 +86,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         public void InformationScreen(string participant)
         {
-            GivenIndividualParticipantProceedsToCameraAndMicrophonePage(participant);
-            WhenCameraAndMicrophoneAreSwitchedOn();
-            ThenIndividualParticipantShouldBeAbleToViewInformationVideo();
+            switch (participant)
+            {
+                case "Individual":
+                    GivenIndividualParticipantProceedsToCameraAndMicrophonePage(participant);
+                    WhenCameraAndMicrophoneAreSwitchedOn();
+                    ThenIndividualParticipantShouldBeAbleToViewInformationVideo();
+                    break;
+                case "Representative":
+                    _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
+                    _aboutVideoHearing.Continue();
+                    _aboutYouAndYourClient.Continue();
+                    break;
+            }            
         }
     }
 }

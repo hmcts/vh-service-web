@@ -1,18 +1,76 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl" i18n="@@aboutYourComputer_h1">
+    <h1 class="govuk-heading-xl" i18n="@@aboutYourComputer_rep_h1">
       About your computer
     </h1>
-
-    <div class="mt-20">
-      <input class="govuk-button" (click)="yes()" value="yes" type="submit" />
-      <input class="govuk-button" (click)="no()" value="no" type="submit" />
-      <input class="govuk-button" (click)="notsure()" value="not sure" type="submit" />
-      <br />
-      <button class="govuk-button" (click)="continue()" i18n="@@aboutYourComputer_btn_continue" id="continue"
-        type="button">
-        Continue
-      </button>
+    <div>
+      <app-hearing-details-header></app-hearing-details-header>
     </div>
+    <form [formGroup]="form" (ngSubmit)="continue()">
+
+      <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+        <div class="govuk-fieldset">
+          <div *ngIf="isFormInvalid">
+            <span class="govuk-error-message" id="error-message" i18n="@@aboutYourComputer_rep_span_1">
+              Please answer this question
+            </span>
+          </div>
+
+          <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@aboutYourComputer_rep_p_1">
+            Most laptops have a camera and microphone built in but not all desktops computers do. Does your computer have a camera and microphone?
+          </p>
+
+          <div class="govuk-form-group">
+            <div class="govuk-fieldset fieldset-margin">
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-notSure" type="radio"
+                         [value]="hasAccessToCamera.NotSure">
+                  <label class="govuk-label govuk-radios__label" for="choice-notSure"
+                         i18n="@@aboutYourComputer_rep_label_1">
+                    I'm not sure
+                  </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
+                         [value]="hasAccessToCamera.Yes">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYourComputer_rep_label_2">
+                    Yes
+                  </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
+                         [value]="hasAccessToCamera.No">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYourComputer_rep_label_3">
+                    No
+                  </label>
+                </div>
+                <div *ngIf="choice.value === hasAccessToCamera.No" class="vh-border">
+                  <p class="govuk-body vh-left" i18n="@@aboutYourComputer_rep_p_2">The laptop or desktop computer will need a camera and microphone for you to take part in a video hearing.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vh-top-20">
+        <app-show-details i18n-bind-detailsTitle="@@aboutYourComputer_detailsTitle"
+                          bind-detailsTitle="'What happens if I\'m not sure?'" i18-bind-textArray="@@aboutYourComputer_rep_textArray"
+                          bind-textArray="['That\'s fine. You\'ll have the chance to find out later by watching an interactive video.']">
+        </app-show-details>
+      </div>
+
+      <div class="vh-top-20">
+        <button class="govuk-button" (click)="continue()" i18n="@@aboutYourComputer_rep_journey_btn_continue" id="continue"
+                type="button">
+          Continue
+        </button>
+      </div>
+    </form>
+    <app-contact-us></app-contact-us>
+
   </div>
 </div>
+
