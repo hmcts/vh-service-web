@@ -29,7 +29,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _errorMessage.ValidateErrorMessage(errorCounter);
         }
 
-        [When(@"Individual provides answer as (.*)")]
         [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
@@ -44,9 +43,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             }
         }
 
-        [When(@"Individual attempts to proceed without selecting an answer")]
-        [When(@"Individual proceeds to next page")]
-        [When(@"Individual attempts to proceed without providing additional information")]
+        [When(@"attempts to proceed without selecting an answer")]
+        [When(@"attempts to proceed without providing additional information")]
         [When(@"proceeds to next page")]
         private void WhenIndividualAttemptsToProceedWithoutProvidingAdditionalInformation()
         {
