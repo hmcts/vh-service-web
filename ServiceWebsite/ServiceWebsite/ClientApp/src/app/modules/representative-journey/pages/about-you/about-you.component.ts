@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
+import { RepresentativeJourney } from '../../representative-journey';
+import {
+  SuitabilityChoiceTextboxPageBaseComponent
+ } from '../../../base-journey/components/suitability-choice-textbox-page-base.component';
 
 @Component({
   selector: 'app-about-you',
   templateUrl: './about-you.component.html'
 })
-export class AboutYouComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
+/* export class AboutYouComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
   readonly textInput = new FormControl('');
 
   ngOnInit() {
@@ -46,5 +50,26 @@ export class AboutYouComponent extends SuitabilityChoicePageBaseComponent implem
   protected bindModel(): void {
     this.model.aboutYou.answer = this.choice.value;
     this.model.aboutYou.notes = this.choice.value ? this.textInput.value : null;
+  }
+} */
+
+export class AboutYouComponent
+  extends SuitabilityChoiceTextboxPageBaseComponent<RepresentativeJourney> implements OnInit {
+
+  constructor(journey: RepresentativeJourney) {
+    super(journey);
+  }
+
+  ngOnInit() {
+    this.form.addControl('textInput', this.textInput);
+
+    super.ngOnInit();
+    this.choice.setValue(this.journey.model.aboutYou.answer);
+    this.textInput.setValue(this.journey.model.aboutYou.notes);
+  }
+
+  protected bindModel(): void {
+    this.journey.model.aboutYou.answer = this.choice.value;
+    this.journey.model.aboutYou.notes = this.choice.value ? this.textInput.value : null;
   }
 }

@@ -23,9 +23,10 @@
           </p>
 
           <ul class="govuk-list govuk-list--bullet">
-              <li i18n="@@aboutYou_listItem_1">are you hard of hearing or deaf?</li>
-              <li i18n="@@aboutYou_listItem_2">are you blind or partially sighted?</li>
-              <li i18n="@@aboutYou_listItem_3">are there any other factors that might make communicating by video difficult?</li>
+            <li i18n="@@aboutYou_listItem_1">are you hard of hearing or deaf?</li>
+            <li i18n="@@aboutYou_listItem_2">are you partially sighted or blind?</li>
+            <li i18n="@@aboutYou_listItem_3">are there any other factors that might make communicating by video
+              difficult?</li>
           </ul>
 
           <div class="govuk-form-group">
@@ -33,8 +34,7 @@
               <div class="govuk-radios">
 
                 <div class="govuk-radios__item">
-                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
-                         [value]="true">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true">
                   <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYou_label_1">
                     Yes
                   </label>
@@ -42,21 +42,20 @@
                 <div [ngClass]="isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
                   <div class="form-group textarea-top-margin" *ngIf="choice.value">
                     <div>
-                      <label class="govuk-label" i18n="@@aboutYou_label_1">
-                        Please tell us more about that
-                      </label>
                       <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYou_span_2">
-                        Please type in the box
+                        Please complete this section
                       </span>
+                      <label class="govuk-label" id="more-detail-hint" i18n="@@aboutYou_label_1">
+                        Please provide more information
+                      </label>
                     </div>
-                    <textarea formControlName="textInput" aria-label="option-yes" class="txtMore vh-text-width" id="details" rows="5" cols="80"
-                              [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
+                    <textarea formControlName="textInput" aria-describedby="more-detail-hint" class="txtMore vh-text-width"
+                      id="details" rows="5" cols="80" [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
                   </div>
                 </div>
 
                 <div class="govuk-radios__item">
-                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
-                         [value]="false">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false">
                   <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYou_label_2">
                     No
                   </label>
@@ -68,8 +67,7 @@
       </div>
 
       <div class="mt-20">
-        <button class="govuk-button" (click)="continue()" i18n="@@aboutYou_btn_continue" id="continue"
-          type="button">Continue</button>
+        <button class="govuk-button" (click)="continue()" i18n="@@aboutYou_btn_continue" id="continue" type="button">Continue</button>
       </div>
     </form>
     <app-contact-us></app-contact-us>

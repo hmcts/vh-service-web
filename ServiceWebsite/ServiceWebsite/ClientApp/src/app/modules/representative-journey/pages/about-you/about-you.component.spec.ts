@@ -1,15 +1,17 @@
 import { AboutYouComponent } from './about-you.component';
 import {
-  ConfigureTestBedForPageComponent,
-  SuitabilityChoicePageBaseFixture
-} from '../../components/suitability-choice-page-base.component.spec';
+  ConfigureTestBedForTextboxPageComponent
+} from 'src/app/modules/base-journey/components/suitability-choice-textbox-page-base.component.spec';
+import {
+  SuitabilityChoiceTextboxPageBaseFixture
+} from 'src/app/modules/base-journey/components/suitability-choice-page-base.component.spec';
 
 describe('AboutYouComponent', () => {
-  let fixture: SuitabilityChoicePageBaseFixture<AboutYouComponent>;
+  let fixture: SuitabilityChoiceTextboxPageBaseFixture<AboutYouComponent>;
   let component: AboutYouComponent;
 
   beforeEach(() => {
-    fixture = ConfigureTestBedForPageComponent(AboutYouComponent);
+    fixture = ConfigureTestBedForTextboxPageComponent(AboutYouComponent);
     component = fixture.component;
     fixture.detectChanges();
   });
@@ -66,8 +68,8 @@ describe('AboutYouComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.model.aboutYou.answer).toBe(true);
-    expect(component.model.aboutYou.notes).toBe('notes');
+    expect(component.journey.model.aboutYou.answer).toBe(true);
+    expect(component.journey.model.aboutYou.notes).toBe('notes');
   });
 
   it('should bind notes as null on selecting no', () => {
@@ -77,7 +79,7 @@ describe('AboutYouComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.model.aboutYou.answer).toBe(false);
-    expect(component.model.aboutYou.notes).toBeNull();
+    expect(component.journey.model.aboutYou.answer).toBe(false);
+    expect(component.journey.model.aboutYou.notes).toBeNull();
   });
 });
