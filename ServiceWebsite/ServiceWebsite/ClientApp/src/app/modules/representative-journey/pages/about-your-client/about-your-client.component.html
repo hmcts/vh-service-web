@@ -47,11 +47,11 @@
                       <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYourClient_span_2">
                         Please complete this section
                       </span>
-                      <label class="govuk-label" i18n="@@aboutYourClient_label_1">
+                      <label class="govuk-label" id="more-detail-hint" i18n="@@aboutYourClient_label_1">
                         Please provide more information
                       </label>
                     </div>
-                    <textarea formControlName="textInput" aria-label="details" class="txtMore vh-text-width"
+                    <textarea formControlName="textInput" aria-label="more-detail-hint" class="txtMore vh-text-width"
                       id="details" rows="5" cols="80"
                       [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
                   </div>
