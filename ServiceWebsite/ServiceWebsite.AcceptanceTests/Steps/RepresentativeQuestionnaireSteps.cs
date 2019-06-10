@@ -15,7 +15,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _aboutYou;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _aboutYourClient;
-
+        private readonly DecisionJourney _clientAttendance;
+        private readonly DecisionJourney _hearingSuitability;
+        private readonly DecisionJourney _yourComputer;
+        private readonly DecisionJourney _aboutYourComputer;
+        private readonly DecisionJourney _questionnaireCompleted;
+        private readonly DecisionJourney _thankYou;
+        
         public RepresentativeQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
             _information = information;
@@ -24,6 +30,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutYou = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYou);
             _accessToRoom = new DecisionJourney(browserContext, RepresentativePageUrl.AccessToRoom);
             _aboutYourClient = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourClient);
+            _clientAttendance = new DecisionJourney(browserContext, RepresentativePageUrl.ClientAttendance);
+            _hearingSuitability = new DecisionJourney(browserContext, RepresentativePageUrl.HearingSuitability);
+            _yourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.YourComputerRep);
+            _aboutYourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourComputerRep);
+            _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
+            _thankYou = new DecisionJourney(browserContext, RepresentativePageUrl.ThankYouRep);
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -46,7 +58,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_aboutYou);
                     _currentPage = _accessToRoom;
                     break;
+                case "your computer":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    _hearingSuitability.Continue();
+                    _currentPage = _yourComputer;
+                    break;
                     
+
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
         }
@@ -66,7 +87,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
         {
-            return false;
+            return (decisionJourneyPage == _yourComputer ||
+                   decisionJourneyPage == _aboutYourComputer ||
+                   decisionJourneyPage == _accessToRoom);
         }
     }
 }
