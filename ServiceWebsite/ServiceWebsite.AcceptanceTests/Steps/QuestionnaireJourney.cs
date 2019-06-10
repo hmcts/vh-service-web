@@ -44,6 +44,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             }
         }
 
+        [When(@"Participant attempts to proceed without selecting an answer")]
         [When(@"Individual attempts to proceed without selecting an answer")]
         [When(@"Individual proceeds to next page")]
         [When(@"Individual attempts to proceed without providing additional information")]
