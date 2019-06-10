@@ -38,12 +38,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             switch (page)
             {
-                case "about video hearings":
-                    _aboutVideoHearings.Validate();
-                    _currentPage = _aboutVideoHearings;
+                case "about you":
+                    _aboutYou.Validate();
+                    _currentPage = _aboutYou;
                     break;
                 case "access to a room rep":
-                    _aboutYou.Continue();
+                    NavigateToDecisionPage(_aboutYou);
                     _currentPage = _accessToRoom;
                     break;
                     
@@ -59,7 +59,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "about your client":
                     _aboutYourClient.Validate();
                     break;
+                case "access to a suitable room":
+                    _accessToRoom.Validate();
+                    break;
             }
+        }
+        protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
+        {
+            return false;
         }
     }
 }
