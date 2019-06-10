@@ -18,8 +18,8 @@ namespace ServiceWebsite.AcceptanceTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Individual Answers About You Question")]
-    public partial class IndividualAnswersAboutYouQuestionFeature
+    [NUnit.Framework.DescriptionAttribute("Participant Answers About You Question")]
+    public partial class ParticipantAnswersAboutYouQuestionFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual Answers About You Question", "\tAs an Individual Participant\r\n\tI want to be able to tell the court if there is a" +
-                    "ny reason I don\'t think  am suitable\r\n\tSo that the court can make an informed de" +
-                    "cision based on my circumstances", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participant Answers About You Question", "\tAs an Participant\r\n\tI want to be able to tell the court if there is any reason I" +
+                    " don\'t think  am suitable\r\n\tSo that the court can make an informed decision base" +
+                    "d on my circumstances", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -98,8 +98,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 13
  testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 14
- testRunner.When("Individual provides additional information containing a two character length \'AB\'" +
-                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("provides additional information containing a two character length \'AB\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
@@ -125,10 +124,68 @@ this.ScenarioInitialize(scenarioInfo);
 #line 20
  testRunner.Given("Individual participant is on \'about you\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 21
- testRunner.When("Individual provides additional information \'ABC\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("provides additional information \'ABC\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 22
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
+ testRunner.Then("Individual should be on \'interpreter\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Representative participant attempts to proceed to next page without providing ans" +
+            "wer on About You page")]
+        [NUnit.Framework.CategoryAttribute("VIH-4430")]
+        public virtual void RepresentativeParticipantAttemptsToProceedToNextPageWithoutProvidingAnswerOnAboutYouPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant attempts to proceed to next page without providing ans" +
+                    "wer on About You page", null, new string[] {
+                        "VIH-4430"});
+#line 26
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 27
+ testRunner.Given("Representative participant is on \'about you\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 28
+ testRunner.When("attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+ testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 30
+ testRunner.When("provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
+ testRunner.And("attempts to proceed without providing additional information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 32
+ testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 33
+ testRunner.When("provides additional information containing a two character length \'AB\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+ testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 35
+ testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Representative participant provides additional information for video hearing suit" +
+            "ability")]
+        [NUnit.Framework.CategoryAttribute("VIH-4332")]
+        public virtual void RepresentativeParticipantProvidesAdditionalInformationForVideoHearingSuitability()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant provides additional information for video hearing suit" +
+                    "ability", null, new string[] {
+                        "VIH-4332"});
+#line 38
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 39
+ testRunner.Given("Representative participant is on \'about you\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 40
+ testRunner.When("provides additional information \'ABC\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+ testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 42
  testRunner.Then("Individual should be on \'interpreter\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
