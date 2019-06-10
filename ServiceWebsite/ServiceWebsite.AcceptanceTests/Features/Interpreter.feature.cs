@@ -84,7 +84,7 @@ namespace ServiceWebsite.AcceptanceTests.Features
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 8
- testRunner.Given("\'Individual\' participant is on \'interpreter\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Individual participant is on \'interpreter\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.When("Individual attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
@@ -106,7 +106,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 14
- testRunner.Given("\'Individual\' participant is on \'interpreter\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Individual participant is on \'interpreter\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 15
  testRunner.When("Individual provides answer as No", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16

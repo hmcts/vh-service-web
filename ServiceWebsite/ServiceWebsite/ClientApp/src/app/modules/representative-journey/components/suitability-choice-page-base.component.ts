@@ -6,14 +6,8 @@ import { RepresentativeJourney } from '../representative-journey';
 import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
 
 @Injectable()
-export abstract class SuitabilityChoicePageBaseComponent extends GenericSuitabilityChoicePageBaseComponent {
-  constructor(private journey: RepresentativeJourney) {
-    super();
-  }
-
-  protected onFormAccepted() {
-    this.journey.next();
-  }
+export abstract class SuitabilityChoicePageBaseComponent
+  extends GenericSuitabilityChoicePageBaseComponent<RepresentativeJourney> {
 
   get model(): RepresentativeSuitabilityModel {
     return this.journey.model;

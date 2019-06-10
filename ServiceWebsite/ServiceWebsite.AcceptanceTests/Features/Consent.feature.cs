@@ -82,7 +82,7 @@ namespace ServiceWebsite.AcceptanceTests.Features
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 9
- testRunner.Given("\'Individual\' participant is on \'consent\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Individual participant is on \'consent\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 10
  testRunner.When("Individual provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
@@ -106,7 +106,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 16
- testRunner.Given("\'Individual\' participant is on \'consent\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Individual participant is on \'consent\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 17
  testRunner.When("Individual attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 18
@@ -139,7 +139,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 28
- testRunner.Given("\'Individual\' participant is on \'consent\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Individual participant is on \'consent\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 29
  testRunner.When("Individual provides additional information for not consenting to video hearing as" +
                     " \'ABC\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

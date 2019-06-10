@@ -5,27 +5,27 @@
 
 @smoketest @VIH-4335
 Scenario: Individual participant computer has no camera and microphone
-	Given 'Individual' participant is on 'about your computer' page
+	Given Individual participant is on 'about your computer' page
 	When Individual provides answer as No
 	And Individual proceeds to next page
 	Then Individual should be on 'thank you' screen
 
  @VIH-4335
 Scenario: Individual participant computer has both camera and microphone
-	Given 'Individual' participant is on 'about your computer' page	
+	Given Individual participant is on 'about your computer' page	
 	When Individual provides answer as Yes
 	And Individual proceeds to next page
 	Then Individual should be on 'your internet connection' screen
 
 @VIH-4335
 Scenario: Individual participant not sure about computer having camera and microphone
-	Given 'Individual' participant is on 'about your computer' page	
+	Given Individual participant is on 'about your computer' page	
 	When Individual provides answer as NotSure
 	And Individual proceeds to next page
 	Then Individual should be on 'your internet connection' screen
 
 @VIH-4335
 Scenario: Your computer Page - Individual participant attempts to proceed to next page without providing answer
-	Given 'Individual' participant is on 'about your computer' page
+	Given Individual participant is on 'about your computer' page
 	When Individual attempts to proceed without selecting an answer
 	Then 1 error should be displayed
