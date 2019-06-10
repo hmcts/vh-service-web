@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
+import { IndividualJourney } from '../../individual-journey';
 
 @Component({
   selector: 'app-consent',
@@ -13,6 +14,10 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
   readonly textInputYes = new FormControl({ value: '', disabled: true });
   readonly textInputNo = new FormControl({ value: '', disabled: true });
   noSelected = false;
+
+  constructor(journey: IndividualJourney) {
+    super(journey);
+  }
 
   ngOnInit() {
     this.form.addControl('textInputYes', this.textInputYes);
@@ -60,7 +65,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     this.textInputYes.setValue('');
   }
 
-   get isTextInputNoInvalid(): boolean {
+  get isTextInputNoInvalid(): boolean {
     return this.textInputNo.invalid && this.submitted;
   }
 
