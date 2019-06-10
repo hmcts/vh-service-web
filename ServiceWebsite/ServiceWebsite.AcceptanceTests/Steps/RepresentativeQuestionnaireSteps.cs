@@ -44,7 +44,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "access to a room rep":
                     _aboutYou.Continue();
-                    //NavigateToDecisionPage(_aboutYou);
                     _currentPage = _accessToRoom;
                     break;
                     
