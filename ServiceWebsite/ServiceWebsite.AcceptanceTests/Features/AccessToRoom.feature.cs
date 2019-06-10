@@ -18,8 +18,8 @@ namespace ServiceWebsite.AcceptanceTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Individual answers \'A quiet room\' question")]
-    public partial class IndividualAnswersAQuietRoomQuestionFeature
+    [NUnit.Framework.DescriptionAttribute("Participant answers \'A quiet room\' question")]
+    public partial class ParticipantAnswersAQuietRoomQuestionFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual answers \'A quiet room\' question", "\tAs an Individual Participant\t\r\n\tI want to let the court know whether I have acce" +
-                    "ss to a suitable room or not\r\n\tSo that the court can decide whether a video hear" +
-                    "ing is not suitable for me", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participant answers \'A quiet room\' question", "\tAs a Participant\t\r\n\tI want to let the court know whether I have access to a suit" +
+                    "able room or not\r\n\tSo that the court can decide whether a video hearing is not s" +
+                    "uitable for me", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -84,9 +84,9 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.Given("Individual participant is on \'access to a room\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("Individual provides answer as No", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("provides answer as No", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.And("Individual proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
  testRunner.Then("Individual should be on \'consent\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -106,9 +106,9 @@ this.ScenarioInitialize(scenarioInfo);
 #line 15
  testRunner.Given("Individual participant is on \'access to a room\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
- testRunner.When("Individual provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 17
- testRunner.And("Individual proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 18
  testRunner.Then("Individual should be on \'consent\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -130,7 +130,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 22
  testRunner.Given("Individual participant is on \'access to a room\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
- testRunner.When("Individual attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
  testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -141,23 +141,65 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Access To A Room Page - Representative participant attempts to proceed to next pa" +
             "ge without providing answer")]
         [NUnit.Framework.CategoryAttribute("VIH-4432")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         public virtual void AccessToARoomPage_RepresentativeParticipantAttemptsToProceedToNextPageWithoutProvidingAnswer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Access To A Room Page - Representative participant attempts to proceed to next pa" +
                     "ge without providing answer", null, new string[] {
-                        "VIH-4432",
-                        "smoketest"});
+                        "VIH-4432"});
 #line 27
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 28
  testRunner.Given("Representative participant is on \'access to a room rep\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 29
- testRunner.When("provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 30
+ testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Representative participant has access to a room at the time of hearing")]
+        [NUnit.Framework.CategoryAttribute("VIH-4432")]
+        [NUnit.Framework.CategoryAttribute("smoketest")]
+        public virtual void RepresentativeParticipantHasAccessToARoomAtTheTimeOfHearing()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant has access to a room at the time of hearing", null, new string[] {
+                        "VIH-4432",
+                        "smoketest"});
+#line 34
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 35
+ testRunner.Given("Representative participant is on \'access to a room rep\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 36
+ testRunner.When("provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 31
+#line 38
+ testRunner.Then("Representative should be on \'consent\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Representative participant does not have access to a room at the time of hearing")]
+        [NUnit.Framework.CategoryAttribute("VIH-4432")]
+        public virtual void RepresentativeParticipantDoesNotHaveAccessToARoomAtTheTimeOfHearing()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant does not have access to a room at the time of hearing", null, new string[] {
+                        "VIH-4432"});
+#line 41
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 42
+ testRunner.Given("Representative participant is on \'access to a room rep\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 43
+ testRunner.When("provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 44
+ testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
  testRunner.Then("Representative should be on \'consent\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
