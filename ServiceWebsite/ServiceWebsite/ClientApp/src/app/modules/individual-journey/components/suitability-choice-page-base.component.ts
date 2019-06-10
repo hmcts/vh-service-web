@@ -6,14 +6,8 @@ import { IndividualJourney } from '../individual-journey';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 
 @Injectable()
-export abstract class SuitabilityChoicePageBaseComponent extends GenericSuitabilityChoicePageBaseComponent {
-  constructor(private journey: IndividualJourney) {
-    super();
-  }
-
-  protected onFormAccepted() {
-    this.journey.next();
-  }
+export abstract class SuitabilityChoicePageBaseComponent
+  extends GenericSuitabilityChoicePageBaseComponent<IndividualJourney> {
 
   get model(): IndividualSuitabilityModel {
     return this.journey.model;
