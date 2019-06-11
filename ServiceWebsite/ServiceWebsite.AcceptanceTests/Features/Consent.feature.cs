@@ -94,14 +94,24 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Individual participant attempts to proceed to next page without providing answer " +
-            "on consent page")]
-        [NUnit.Framework.CategoryAttribute("VIH-4338")]
-        public virtual void IndividualParticipantAttemptsToProceedToNextPageWithoutProvidingAnswerOnConsentPage()
+        [NUnit.Framework.DescriptionAttribute("Individual participae without providing answer on consent page")]
+        [NUnit.Framework.CategoryAttribute("VIH-4338nt")]
+        [NUnit.Framework.CategoryAttribute("attempts")]
+        [NUnit.Framework.CategoryAttribute("to")]
+        [NUnit.Framework.CategoryAttribute("proceed")]
+        [NUnit.Framework.CategoryAttribute("to")]
+        [NUnit.Framework.CategoryAttribute("next")]
+        [NUnit.Framework.CategoryAttribute("pag")]
+        public virtual void IndividualParticipaeWithoutProvidingAnswerOnConsentPage()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant attempts to proceed to next page without providing answer " +
-                    "on consent page", null, new string[] {
-                        "VIH-4338"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participae without providing answer on consent page", null, new string[] {
+                        "VIH-4338nt",
+                        "attempts",
+                        "to",
+                        "proceed",
+                        "to",
+                        "next",
+                        "pag"});
 #line 15
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -116,13 +126,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 20
  testRunner.And("attempts to proceed without providing additional information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 21
- testRunner.Then("2 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("1 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 22
  testRunner.When("provides additional information containing a two character length \'AB\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
- testRunner.Then("2 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("1 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
