@@ -1,8 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { Type, DebugElement } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
-import { JourneyBase } from '../journey-base';
 
 class SuitabilityChoicePageBaseFixture<T> {
   readonly fixture: ComponentFixture<T>;
