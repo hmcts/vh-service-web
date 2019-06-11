@@ -1,4 +1,4 @@
-import { SuitabilityChoiceComponentFixture } from './../../../base-journey/components/suitability-choice-page-base.component.spec';
+import { SuitabilityChoiceComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import { AboutYourClientComponent } from './about-your-client.component';
 import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/component-test-bed.spec';
 

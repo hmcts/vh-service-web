@@ -5,7 +5,7 @@ import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-ba
 import {
   SuitabilityChoiceComponentFixture,
   ChoicePageTests
-} from '../../base-journey/components/suitability-choice-page-base.component.spec';
+} from '../../base-journey/components/suitability-choice-component-fixture.spec';
 
 /**
  * Base test for any yes/no true/false radio button screen
