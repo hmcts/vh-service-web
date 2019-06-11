@@ -13,5 +13,6 @@
         public const string AboutYourComputerRep = "/about-your-computer-rep";
         public const string QuestionnaireCompleted = "/questionnaire-completed";
         public const string ThankYouRep = "/thank-you-rep";
+        public const string PleaseContactUs = "/contact-us-rep";
     }
 }

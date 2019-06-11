@@ -21,7 +21,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _aboutYourComputer;
         private readonly DecisionJourney _questionnaireCompleted;
         private readonly DecisionJourney _thankYou;
-        
+        private readonly Page _pleaseContactUs;
+
         public RepresentativeQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
             _information = information;
@@ -36,6 +37,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutYourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourComputerRep);
             _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
             _thankYou = new DecisionJourney(browserContext, RepresentativePageUrl.ThankYouRep);
+            _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -111,6 +113,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "questionnaire completed":
                     _questionnaireCompleted.Validate();
+                    _currentPage = _questionnaireCompleted;
+                    _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
+                    break;
+                case "please contact us":
+                    _pleaseContactUs.Validate();
                     break;
             }
         }
