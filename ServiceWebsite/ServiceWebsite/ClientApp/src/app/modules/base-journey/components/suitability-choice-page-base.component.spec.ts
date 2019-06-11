@@ -36,6 +36,42 @@ class SuitabilityChoicePageBaseFixture
   }
 }
 
+export interface FixtureMethods {
+  debugElement: DebugElement;
+  detectChanges(): void;
+}
+
+export class SuitabilityChoiceComponentFixture  {
+  constructor(private fixture: FixtureMethods) {}
+
+  detectChanges(): void {
+    this.fixture.detectChanges();
+  }
+
+  radioBoxIsClicked(id: string) {
+    const radioButton = this.debugElementByCss(id);
+    radioButton.nativeElement.click();
+    this.fixture.detectChanges();
+  }
+
+  submitIsClicked() {
+    const continueButton = this.debugElementByCss('.govuk-button');
+    continueButton.nativeElement.click();
+    this.fixture.detectChanges();
+  }
+
+  debugElementByCss(css: string): DebugElement {
+    return this.fixture.debugElement.query(By.css(css));
+  }
+}
+
+// export class SuitabilityChoiceTestCases {
+//   cannotProceedUntilChoiceIsSelected<T>(fixture: ComponentFixture<T>) {
+    
+//   }
+// }
+
+
 /**
  * Base test for any yes/no true/false radio button screen
  * Tests so that the html is bound in such a way that the user cannot proceed before selecting one choice.
@@ -71,37 +107,35 @@ const cannotProceedUntilChoiceIsSelected =
 
 export {
   SuitabilityChoicePageBaseFixture,
-  cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
+  //cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
 };
 
 class SuitabilityChoiceTextboxPageBaseFixture
   <T extends SuitabilityChoiceTextboxPageBaseComponent<JourneyBase>> {
   readonly fixture: ComponentFixture<T>;
   readonly component: T;
+  private readonly testFixture: SuitabilityChoiceComponentFixture;
 
   constructor(fixture: ComponentFixture<T>) {
     this.fixture = fixture;
     this.component = fixture.componentInstance;
+    this.testFixture = new SuitabilityChoiceComponentFixture(fixture);
   }
 
   detectChanges(): void {
-    this.fixture.detectChanges();
+    this.testFixture.detectChanges();
   }
 
   radioBoxIsClicked(id: string) {
-    const radioButton = this.debugElementByCss(id);
-    radioButton.nativeElement.click();
-    this.fixture.detectChanges();
+    this.testFixture.radioBoxIsClicked(id);
   }
 
   submitIsClicked() {
-    const continueButton = this.debugElementByCss('.govuk-button');
-    continueButton.nativeElement.click();
-    this.fixture.detectChanges();
+    this.testFixture.submitIsClicked();
   }
 
   debugElementByCss(css: string): DebugElement {
-    return this.fixture.debugElement.query(By.css(css));
+    return this.testFixture.debugElementByCss(css);
   }
 }
 
