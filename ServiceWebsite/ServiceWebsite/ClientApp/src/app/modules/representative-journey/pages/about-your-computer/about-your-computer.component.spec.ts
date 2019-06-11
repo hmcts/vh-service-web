@@ -11,7 +11,7 @@ describe('AboutYourComputerComponent', () => {
     const fixture = CannotProceeedUntilChoiceIsSelected(AboutYourComputerComponent);
 
     // and value is bound
-    expect(fixture.component.model.camera).toBe(0);
+    expect(fixture.componentInstance.model.camera).toBe(0);
   });
 
   describe('AboutYourComputerComponent features', () => {

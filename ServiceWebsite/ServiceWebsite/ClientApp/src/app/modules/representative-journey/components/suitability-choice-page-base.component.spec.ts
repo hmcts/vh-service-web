@@ -1,3 +1,4 @@
+import { ComponentFixture } from '@angular/core/testing';
 import { ConfigureTestBedFor } from '../../representative-journey/pages/representative-base-component/component-test-bed.spec';
 import { Type } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
@@ -21,11 +22,11 @@ const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
  */
 const cannotProceedUntilChoiceIsSelected =
   <T extends SuitabilityChoicePageBaseComponent>(component: Type<T>):
-    SuitabilityChoicePageBaseFixture<T> => {
+    ComponentFixture<T> => {
       const fixture = configureTestBedFor(component);
       const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture.fixture);
       new ChoicePageTests(choiceComponentFixture, fixture.component).cannotProceedUntilChoiceIsSelected();
-      return fixture;
+      return fixture.fixture;
   };
 
 export {
