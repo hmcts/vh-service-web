@@ -1,30 +1,52 @@
 import { MutableRepresentativeSuitabilityModel } from './../../mutable-representative-suitability.model';
-import { CommonModule } from '@angular/common';
-import { TestBed, ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
-import { Type, Component, Input } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
+import { Type, Component } from '@angular/core';
 
-import { Localisation } from 'src/app/modules/shared/localisation';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from '../../representative-steps-order.factory';
-
-
-@Component({ selector: 'app-contact-us', template: '' })
-export class StubContactUsComponent { }
-
-@Component({ selector: 'app-show-details', template: '' })
-export class StubShowDetailsComponent {
-  @Input()
-  detailsTitle: string;
-
-  @Input()
-  textArray: Array<string> = [];
-}
+import { ComponentTestBedConfiguration, JourneyComponentTestBed } from 'src/app/modules/base-journey/components/journey-component-test-bed';
 
 @Component({ selector: 'app-hearing-details-header', template: ''})
 export class StubHearingDetailsHeaderComponent {}
+
+export interface RepresentativeComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
+  journey?: RepresentativeJourney;
+}
+
+export class RepresentativeJourneyStubs {
+  public static get default(): RepresentativeJourney {
+      // Journey with initialised model, so that it is accessible in steeps
+    const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
+    const journey = new RepresentativeJourney(representativeStepsOrderFactory);
+    const journeyModel = new MutableRepresentativeSuitabilityModel();
+
+    journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+    journey.forSuitabilityAnswers([journeyModel]);
+    return journey;
+  }
+}
+
+export class RepresentativeJourneyComponentTestBed {
+  static createComponent<TComponent>(config: RepresentativeComponentTestBedConfiguration<TComponent>): ComponentFixture<TComponent> {
+    return new JourneyComponentTestBed()
+      .createComponent({
+        component: config.component,
+        declarations: [
+          StubHearingDetailsHeaderComponent,
+          ...(config.declarations || [])
+        ],
+        providers: [
+          { provide: RepresentativeSuitabilityModel, useClass: MutableRepresentativeSuitabilityModel },
+          { provide: RepresentativeJourney, useValue: config.journey || RepresentativeJourneyStubs.default },
+          ...(config.providers || [])
+        ],
+        imports: config.imports
+      });
+  }
+}
+
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -32,27 +54,22 @@ export class StubHearingDetailsHeaderComponent {}
  * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
  */
 const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
-  // Journey with initialised model, so that it is accessible in steeps
-  const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
-  const journey = new RepresentativeJourney(representativeStepsOrderFactory);
-  const journeyModel = new MutableRepresentativeSuitabilityModel();
-
-  journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
-  journey.forSuitabilityAnswers([journeyModel]);
-
   const config: TestModuleMetadata = {
-    declarations: [component, StubContactUsComponent, StubShowDetailsComponent, StubHearingDetailsHeaderComponent],
-    imports: [CommonModule, ReactiveFormsModule],
-    providers: [
-      { provide: RepresentativeSuitabilityModel, useClass: MutableRepresentativeSuitabilityModel },
-      { provide: RepresentativeJourney, useValue: journey },
-    ]
+    declarations: [],
+    imports: [],
+    providers: []
   };
+
   if (customiseConfiguration) {
     customiseConfiguration(config);
   }
-  TestBed.configureTestingModule(config).compileComponents();
-  return TestBed.createComponent(component);
+
+  return RepresentativeJourneyComponentTestBed.createComponent({
+    component: component,
+    declarations: config.declarations,
+    imports: config.imports,
+    providers: config.providers
+  });
 };
 
 /**
