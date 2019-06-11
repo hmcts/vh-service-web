@@ -101,6 +101,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PleaseContactUs.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\ThankYou.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ThankYou.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\YourClientsAttendance.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -183,6 +188,10 @@
     <SpecFlowFeatureFiles Update="Features\PleaseContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PleaseContactUs.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\ThankYou.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ThankYou.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\YourClientsAttendance.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

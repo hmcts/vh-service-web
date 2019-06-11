@@ -20,7 +20,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourComputer;
         private readonly DecisionJourney _aboutYourComputer;
         private readonly DecisionJourney _questionnaireCompleted;
-        private readonly DecisionJourney _thankYou;
+        private readonly Page _thankYou;
         private readonly Page _pleaseContactUs;
 
         public RepresentativeQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
@@ -36,7 +36,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.YourComputerRep);
             _aboutYourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourComputerRep);
             _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
-            _thankYou = new DecisionJourney(browserContext, RepresentativePageUrl.ThankYouRep);
+            _thankYou = new Page(browserContext, RepresentativePageUrl.ThankYouRep);
             _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
         }
         
@@ -111,13 +111,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "hearing suitability":
                     _hearingSuitability.Validate();
                     break;
+                case "about your computer":
+                    _aboutYourComputer.Validate();
+                    _scenarioContext.Set<DecisionJourney>(_aboutYourComputer, "CurrentPage");
+                    break;
                 case "questionnaire completed":
                     _questionnaireCompleted.Validate();
-                    _currentPage = _questionnaireCompleted;
-                    _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
+                    _scenarioContext.Set<DecisionJourney>(_questionnaireCompleted, "CurrentPage");
                     break;
                 case "please contact us":
                     _pleaseContactUs.Validate();
+                    break;
+                case "thank you":
+                    _thankYou.Validate();
                     break;
             }
         }
