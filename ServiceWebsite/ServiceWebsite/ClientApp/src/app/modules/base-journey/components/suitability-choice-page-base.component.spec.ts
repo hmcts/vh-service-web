@@ -107,7 +107,7 @@ const cannotProceedUntilChoiceIsSelected =
 
 export {
   SuitabilityChoicePageBaseFixture,
-  //cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
+  cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
 };
 
 class SuitabilityChoiceTextboxPageBaseFixture
@@ -139,40 +139,6 @@ class SuitabilityChoiceTextboxPageBaseFixture
   }
 }
 
-/**
- * Base test for any yes/no true/false radio button screen
- * Tests so that the html is bound in such a way that the user cannot proceed before selecting one choice.
- * Generalising the test in one place such as with this, allows us to ensure that all pages follow a similar pattern.
- * @param component The component to be tested.
- */
-const cannotProceedUntilTextboxChoiceIsSelected =
-  <T extends SuitabilityChoiceTextboxPageBaseComponent<JourneyBase>>(fixture: SuitabilityChoiceTextboxPageBaseFixture<T>,
-    component: Type<T>, customiseConfiguration?: Function):
-    SuitabilityChoiceTextboxPageBaseFixture<T> => {
-    // when
-    fixture.submitIsClicked();
-
-    // then
-    expect(fixture.component.isFormInvalid).toBeTruthy();
-
-    // expect form to be erronous
-    const formContainer = fixture.debugElementByCss('#form-container');
-    expect(formContainer.classes['govuk-form-group--error']).toBeTruthy();
-
-    // and error message to be displayed
-    const errorMessage = fixture.debugElementByCss('#error-message');
-    expect(errorMessage.nativeElement).toBeTruthy();
-
-    // when selecting a radio button
-    fixture.radioBoxIsClicked('#choice-yes');
-
-    // then
-    fixture.submitIsClicked();
-
-    return fixture;
-  };
-
 export {
   SuitabilityChoiceTextboxPageBaseFixture,
-  cannotProceedUntilTextboxChoiceIsSelected as CannotProceeedUntilTextboxChoiceIsSelected
 };
