@@ -30,6 +30,5 @@ const cannotProceedUntilChoiceIsSelected =
   };
 
 export {
-  configureTestBedFor as ConfigureTestBedForPageComponent,
   cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
 };
