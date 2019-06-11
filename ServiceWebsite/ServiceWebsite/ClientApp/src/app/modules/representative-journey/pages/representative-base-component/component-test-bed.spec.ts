@@ -6,7 +6,10 @@ import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from '../../representative-steps-order.factory';
-import { ComponentTestBedConfiguration, JourneyComponentTestBed } from 'src/app/modules/base-journey/components/journey-component-test-bed';
+import {
+  ComponentTestBedConfiguration,
+  JourneyComponentTestBed
+} from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 
 @Component({ selector: 'app-hearing-details-header', template: ''})
 export class StubHearingDetailsHeaderComponent {}
