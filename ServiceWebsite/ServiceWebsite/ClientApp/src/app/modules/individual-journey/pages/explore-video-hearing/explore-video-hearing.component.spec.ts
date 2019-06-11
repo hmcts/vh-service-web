@@ -1,4 +1,4 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
+import { CanCreateComponent } from '../individual-base-component/individual-component-test-bed.spec';
 import { ExploreVideoHearingComponent } from './explore-video-hearing.component';
 import { DeviceType } from '../../services/device-type';
 import { TestModuleMetadata } from '@angular/core/testing';
