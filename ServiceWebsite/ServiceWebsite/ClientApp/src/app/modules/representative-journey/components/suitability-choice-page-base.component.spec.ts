@@ -27,6 +27,5 @@ const cannotProceedUntilChoiceIsSelected =
 
 export {
   configureTestBedFor as ConfigureTestBedForPageComponent,
-  // SuitabilityChoicePageBaseFixture,
   cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
 };
