@@ -64,13 +64,6 @@ export class SuitabilityChoiceComponentFixture  {
   }
 }
 
-// export class SuitabilityChoiceTestCases {
-//   cannotProceedUntilChoiceIsSelected<T>(fixture: ComponentFixture<T>) {
-    
-//   }
-// }
-
-
 /**
  * Base test for any yes/no true/false radio button screen
  * Tests so that the html is bound in such a way that the user cannot proceed before selecting one choice.

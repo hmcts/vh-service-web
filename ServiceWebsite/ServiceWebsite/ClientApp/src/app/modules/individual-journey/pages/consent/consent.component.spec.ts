@@ -1,16 +1,15 @@
-import {
-  ConfigureTestBedForPageComponent,
-  SuitabilityChoicePageBaseFixture
-} from '../../components/suitability-choice-page-base.component.spec';
+import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-page-base.component.spec';
 import { ConsentComponent } from './consent.component';
+import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 
 describe('ConsentComponent', () => {
-  let fixture: SuitabilityChoicePageBaseFixture<ConsentComponent>;
+  let fixture: SuitabilityChoiceComponentFixture;
   let component: ConsentComponent;
 
   beforeEach(() => {
-    fixture = ConfigureTestBedForPageComponent(ConsentComponent);
-    component = fixture.component;
+    const componentFixture = IndividualJourneyComponentTestBed.createComponent({component: ConsentComponent});
+    fixture = new SuitabilityChoiceComponentFixture(componentFixture);
+    component = componentFixture.componentInstance;
     fixture.detectChanges();
   });
 
