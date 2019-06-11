@@ -1,4 +1,4 @@
-import { CanCreateComponent } from '../../pages/individual-base-component/component-test-bed.spec';
+import { CanCreateComponent } from '../../pages/individual-base-component/individual-component-test-bed.spec';
 import { Type, Component, Input } from '@angular/core';
 import { TestModuleMetadata } from '@angular/core/testing';
 import { VideoUrlService } from '../../services/video-url.service';

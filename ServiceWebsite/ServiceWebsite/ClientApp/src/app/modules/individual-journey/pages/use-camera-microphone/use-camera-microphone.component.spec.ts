@@ -1,5 +1,5 @@
 import { UseCameraMicrophoneComponent } from './use-camera-microphone.component';
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
+import { CanCreateComponent } from '../individual-base-component/individual-component-test-bed.spec';
 import { TestModuleMetadata } from '@angular/core/testing';
 import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
