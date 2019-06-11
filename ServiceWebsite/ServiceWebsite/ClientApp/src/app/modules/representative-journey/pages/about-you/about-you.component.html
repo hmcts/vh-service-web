@@ -6,7 +6,8 @@
 
     <form [formGroup]="form" (ngSubmit)="continue()">
 
-      <div id="form-container" [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+      <div id="form-container"
+        [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <div class="govuk-fieldset">
           <div *ngIf="isFormInvalid && !isTextInputInvalid">
             <span class="govuk-error-message" i18n="@@rep_aboutYou_span_1">
@@ -34,7 +35,8 @@
               <div class="govuk-radios">
 
                 <div class="govuk-radios__item">
-                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
+                    [value]="true">
                   <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@rep_aboutYou_label_1">
                     Yes
                   </label>
@@ -45,17 +47,20 @@
                       <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@rep_aboutYou_span_2">
                         Please complete this section
                       </span>
-                      <label class="govuk-label" id="more-detail-hint" i18n="@@rep_aboutYou_label_1">
+                      <label for="details" id="more-details" class="govuk-label" i18n="@@rep_aboutYou_label_1">
                         Please provide more information
                       </label>
                     </div>
-                    <textarea formControlName="textInput" aria-label="more-detail-hint" class="txtMore vh-text-width"
-                      id="details" rows="5" cols="80" [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
+                    <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
+                      [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
+                      aria-describedby="more-details">
+                      </textarea>
                   </div>
                 </div>
 
                 <div class="govuk-radios__item">
-                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false">
+                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
+                    [value]="false">
                   <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@rep_aboutYou_label_2">
                     No
                   </label>
@@ -67,7 +72,8 @@
       </div>
 
       <div class="mt-20">
-        <button class="govuk-button" (click)="continue()" i18n="@@rep_aboutYou_btn_continue" id="continue" type="button">Continue</button>
+        <button class="govuk-button" (click)="continue()" i18n="@@rep_aboutYou_btn_continue" id="continue"
+          type="button">Continue</button>
       </div>
     </form>
     <app-contact-us></app-contact-us>
