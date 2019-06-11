@@ -10,6 +10,7 @@ import { IndividualJourney } from '../../individual-journey';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
 import { DeviceType } from '../../services/device-type';
+import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 
 @Component({ selector: 'app-contact-us', template: '' })
 export class StubContactUsComponent { }
@@ -43,6 +44,7 @@ const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Fun
     declarations: [component, StubContactUsComponent, StubShowDetailsComponent],
     imports: [CommonModule, ReactiveFormsModule],
     providers: [
+      { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
       { provide: Localisation, useClass: IndividualLocalisation },
       { provide: IndividualJourney, useValue: journey },
     ]

@@ -6,7 +6,8 @@
 
     <form [formGroup]="form" (ngSubmit)="continue()">
 
-      <div id="form-container" [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+      <div id="form-container"
+        [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <div class="govuk-fieldset">
           <div *ngIf="isFormInvalid && !isTextInputInvalid">
             <span class="govuk-error-message" i18n="@@aboutYou_span_1">
@@ -15,7 +16,8 @@
           </div>
 
           <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@aboutYou_p_1">
-              Is there anything you’d like the court to take into account when it decides which type of hearing will be suitable?
+            Is there anything you’d like the court to take into account when it decides which type of hearing will be
+            suitable?
           </p>
 
           <p class="govuk-body govuk-!-margin-bottom-1" i18n="@@aboutYou_p_2">
@@ -23,11 +25,12 @@
           </p>
 
           <ul class="govuk-list govuk-list--bullet">
-              <li i18n="@@aboutYou_listItem_1">are you hard of hearing or deaf?</li>
-              <li i18n="@@aboutYou_listItem_2">are you blind or partially sighted?</li>
-              <li i18n="@@aboutYou_listItem_3">do you have a learning disability or sometimes struggle to understand everyday things?</li>
-              <li i18n="@@aboutYou_listItem_4">do you have mobility issues that make it difficult to travel?</li>
-              <li i18n="@@aboutYou_listItem_5">something else?</li>
+            <li i18n="@@aboutYou_listItem_1">are you hard of hearing or deaf?</li>
+            <li i18n="@@aboutYou_listItem_2">are you blind or partially sighted?</li>
+            <li i18n="@@aboutYou_listItem_3">do you have a learning disability or sometimes struggle to understand
+              everyday things?</li>
+            <li i18n="@@aboutYou_listItem_4">do you have mobility issues that make it difficult to travel?</li>
+            <li i18n="@@aboutYou_listItem_5">something else?</li>
           </ul>
 
           <div class="govuk-form-group">
@@ -36,7 +39,7 @@
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
-                         [value]="true">
+                    [value]="true">
                   <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYou_label_1">
                     Yes
                   </label>
@@ -44,21 +47,23 @@
                 <div [ngClass]="isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
                   <div class="form-group textarea-top-margin" *ngIf="choice.value">
                     <div>
-                      <label class="govuk-label" i18n="@@aboutYou_label_1">
-                        Please tell us more about that
-                      </label>
                       <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYou_span_2">
-                        Please type in the box
+                        Please complete this section
                       </span>
+                      <label for="details" id="more-details" class="govuk-label" i18n="@@aboutYou_label_1">
+                        Please provide more information
+                      </label>
+                      <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5"
+                        cols="80" [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
+                        aria-describedby="more-details">
+                      </textarea>
                     </div>
-                    <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
-                              [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"></textarea>
                   </div>
                 </div>
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
-                         [value]="false">
+                    [value]="false">
                   <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYou_label_2">
                     No
                   </label>

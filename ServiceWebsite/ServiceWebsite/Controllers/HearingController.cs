@@ -1,13 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using ServiceWebsite.Common;
+using ServiceWebsite.Domain;
+using ServiceWebsite.Models;
 using ServiceWebsite.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ServiceWebsite.Controllers
 {
+    [Produces("application/json")]
     [Route("/api/hearings/")]
     [Authorize]
     public class HearingsController : Controller
@@ -18,22 +22,45 @@ namespace ServiceWebsite.Controllers
         {
             _hearings = participants;
         }
-
-        [HttpGet("next")]
-        public async Task<IActionResult> GetNextHearing()
+        
+        /// <summary>
+        /// Return details for a hearing booked for the current user
+        /// </summary>
+        /// <param name="id">Id of the hearing to get details for</param>
+        [HttpGet("{id}")]
+        [SwaggerOperation(OperationId="GetHearingById")]
+        [ProducesResponseType(typeof(HearingDetailsResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetHearing(Guid id)
         {
-            var hearings = await _hearings.GetHearingsFor(User.Identity.Name);
-            var hearing = hearings.FirstOrDefault();
-            if (hearing == null) {
-                return NotFound($"No upcoming hearings for user [{User.Identity.Name}]");
-            }
-
-            var settings = new JsonSerializerSettings
+            try
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
+                var hearing = await _hearings.GetHearingFor(User.Identity.Name, id);
+                var response = MapDetails(hearing);
+                return Ok(response);
+            }
+            catch (NotFoundException e)
+            {
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing hearing for user", e, User);
+                return NotFound($"No hearing with id '{id}' found for user");
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                ApplicationLogger.TraceException(TraceCategories.Authorization, "Not participant of hearing", e, User);
+                return new UnauthorizedObjectResult($"User is not a participant of hearing with id '{id}'");
+            }
+        }
 
-            return Json(hearing,settings);
+        private static HearingDetailsResponse MapDetails(Hearing hearing)
+        {
+            return new HearingDetailsResponse
+            {
+                CaseName = hearing.CaseName,
+                CaseNumber = hearing.CaseNumber,
+                CaseType = hearing.CaseType,
+                HearingType = hearing.HearingType,
+                ScheduledDateTime = hearing.ScheduledDateTime
+            };
         }
     }
 }

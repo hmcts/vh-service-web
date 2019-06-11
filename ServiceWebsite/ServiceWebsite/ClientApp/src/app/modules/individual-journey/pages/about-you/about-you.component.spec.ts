@@ -1,15 +1,51 @@
 import { AboutYouComponent } from './about-you.component';
 import {
-  ConfigureTestBedForPageComponent,
-  SuitabilityChoicePageBaseFixture
-} from '../../components/suitability-choice-page-base.component.spec';
+  ConfigureTestBedForTextboxPageComponent
+} from 'src/app/modules/base-journey/components/suitability-choice-textbox-page-base.component.spec';
+import {
+  SuitabilityChoiceTextboxPageBaseFixture
+} from 'src/app/modules/base-journey/components/suitability-choice-page-base.component.spec';
+import { TestModuleMetadata } from '@angular/core/testing';
+import { IndividualJourney } from '../../individual-journey';
+import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
+import { DeviceType } from '../../services/device-type';
+import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
+import { Hearing } from 'src/app/modules/base-journey/participant-suitability.model';
 
 describe('AboutYouComponent', () => {
-  let fixture: SuitabilityChoicePageBaseFixture<AboutYouComponent>;
+  let fixture: SuitabilityChoiceTextboxPageBaseFixture<AboutYouComponent>;
   let component: AboutYouComponent;
 
+  const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+  const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
+  const journey = new IndividualJourney(individualStepsOrderFactory);
+  const journeyModel = new MutableIndividualSuitabilityModel();
+
+
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const dayAfterTomorrow = new Date();
+  dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
+
+  const getModelForHearing = (id: string, scheduledDateTime: Date) => {
+    const model = new MutableIndividualSuitabilityModel();
+    model.hearing = new Hearing(id, scheduledDateTime);
+    return model;
+  };
+
+  const suitabilityAnswers = {
+    oneUpcomingHearing: [
+      getModelForHearing('upcoming hearing id', tomorrow)
+    ]
+  };
+
   beforeEach(() => {
-    fixture = ConfigureTestBedForPageComponent(AboutYouComponent);
+    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
+    fixture = ConfigureTestBedForTextboxPageComponent(AboutYouComponent,
+      (configuration: TestModuleMetadata) => {
+        configuration.providers.push({ provide: IndividualJourney, useValue: journey });
+      });
     component = fixture.component;
     fixture.detectChanges();
   });
@@ -66,8 +102,8 @@ describe('AboutYouComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.model.aboutYou.answer).toBe(true);
-    expect(component.model.aboutYou.notes).toBe('notes');
+    expect(component.journey.model.aboutYou.answer).toBe(true);
+    expect(component.journey.model.aboutYou.notes).toBe('notes');
   });
 
   it('should bind notes as null on selecting no', () => {
@@ -77,7 +113,7 @@ describe('AboutYouComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.model.aboutYou.answer).toBe(false);
-    expect(component.model.aboutYou.notes).toBeNull();
+    expect(component.journey.model.aboutYou.answer).toBe(false);
+    expect(component.journey.model.aboutYou.notes).toBeNull();
   });
 });

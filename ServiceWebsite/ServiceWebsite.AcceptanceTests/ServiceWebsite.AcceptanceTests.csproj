@@ -99,6 +99,12 @@
     <Compile Update="Steps\ContactUsSteps.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Steps\IndividualQuestionnaireSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Steps\RepresentativeQuestionnaireSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Steps\YourComputerSteps.cs">
       <SubType>Code</SubType>
     </Compile>

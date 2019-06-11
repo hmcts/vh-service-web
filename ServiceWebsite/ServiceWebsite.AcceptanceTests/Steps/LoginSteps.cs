@@ -43,6 +43,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _loginPage.Logon(appSecrets.Representative, password);
                     _scenarioContext.Add("Username", appSecrets.Representative);
                     break;
+                case "Person":
+                    _loginPage.Logon(appSecrets.Person, password);
+                    _scenarioContext.Add("Username", appSecrets.Person);
+                    break;
             }
             _scenarioContext.Add("Participant", participant);
         }
@@ -51,15 +55,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _loginPage.SignInTitle();
         }
-        [Then(@"Representative should be unauthorised")]
-        public void ThenRepresentativeShouldBeUnauthorised()
-        {
-            ValidatePage("/error");
-        }
 
         private void ValidatePage(string url)
         {
-            if (string.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(url))
             {
                 _browserContext.Retry(() =>
                 {
