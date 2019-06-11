@@ -3,7 +3,6 @@ import { Type, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
 import { JourneyBase } from '../journey-base';
-import { SuitabilityChoiceTextboxPageBaseComponent } from './suitability-choice-textbox-page-base.component';
 
 class SuitabilityChoicePageBaseFixture
   <T extends SuitabilityChoicePageBaseComponent<JourneyBase>> {
@@ -108,37 +107,4 @@ const cannotProceedUntilChoiceIsSelected =
 export {
   SuitabilityChoicePageBaseFixture,
   cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
-};
-
-class SuitabilityChoiceTextboxPageBaseFixture
-  <T extends SuitabilityChoiceTextboxPageBaseComponent<JourneyBase>> {
-  readonly fixture: ComponentFixture<T>;
-  readonly component: T;
-  private readonly testFixture: SuitabilityChoiceComponentFixture;
-
-  constructor(fixture: ComponentFixture<T>) {
-    this.fixture = fixture;
-    this.component = fixture.componentInstance;
-    this.testFixture = new SuitabilityChoiceComponentFixture(fixture);
-  }
-
-  detectChanges(): void {
-    this.testFixture.detectChanges();
-  }
-
-  radioBoxIsClicked(id: string) {
-    this.testFixture.radioBoxIsClicked(id);
-  }
-
-  submitIsClicked() {
-    this.testFixture.submitIsClicked();
-  }
-
-  debugElementByCss(css: string): DebugElement {
-    return this.testFixture.debugElementByCss(css);
-  }
-}
-
-export {
-  SuitabilityChoiceTextboxPageBaseFixture,
 };
