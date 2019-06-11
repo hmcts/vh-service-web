@@ -1,36 +1,5 @@
-import { ComponentFixture } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-
-class SuitabilityChoicePageBaseFixture<T> {
-  readonly fixture: ComponentFixture<T>;
-  readonly component: T;
-
-  constructor(fixture: ComponentFixture<T>) {
-    this.fixture = fixture;
-    this.component = fixture.componentInstance;
-  }
-
-  detectChanges(): void {
-    this.fixture.detectChanges();
-  }
-
-  radioBoxIsClicked(id: string) {
-    const radioButton = this.debugElementByCss(id);
-    radioButton.nativeElement.click();
-    this.fixture.detectChanges();
-  }
-
-  submitIsClicked() {
-    const continueButton = this.debugElementByCss('.govuk-button');
-    continueButton.nativeElement.click();
-    this.fixture.detectChanges();
-  }
-
-  debugElementByCss(css: string): DebugElement {
-    return this.fixture.debugElement.query(By.css(css));
-  }
-}
 
 export interface FixtureMethods {
   debugElement: DebugElement;
@@ -93,7 +62,3 @@ export class ChoicePageTests {
     this.fixture.submitIsClicked();
   }
 }
-
-export {
-  SuitabilityChoicePageBaseFixture,
-};

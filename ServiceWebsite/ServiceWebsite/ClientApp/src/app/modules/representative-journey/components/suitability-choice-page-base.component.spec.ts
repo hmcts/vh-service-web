@@ -1,18 +1,13 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { ConfigureTestBedFor } from '../../representative-journey/pages/representative-base-component/component-test-bed.spec';
+import {
+  RepresentativeJourneyComponentTestBed
+} from '../../representative-journey/pages/representative-base-component/component-test-bed.spec';
 import { Type } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
 import {
-  SuitabilityChoicePageBaseFixture,
   SuitabilityChoiceComponentFixture,
   ChoicePageTests
 } from '../../base-journey/components/suitability-choice-page-base.component.spec';
-
-const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
-  (component: Type<T>, customiseConfiguration?: Function): SuitabilityChoicePageBaseFixture<T> => {
-  const fixture = ConfigureTestBedFor(component, customiseConfiguration);
-  return new SuitabilityChoicePageBaseFixture(fixture);
-};
 
 /**
  * Base test for any yes/no true/false radio button screen
@@ -23,10 +18,10 @@ const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
 const cannotProceedUntilChoiceIsSelected =
   <T extends SuitabilityChoicePageBaseComponent>(component: Type<T>):
     ComponentFixture<T> => {
-      const fixture = configureTestBedFor(component);
-      const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture.fixture);
-      new ChoicePageTests(choiceComponentFixture, fixture.component).cannotProceedUntilChoiceIsSelected();
-      return fixture.fixture;
+      const fixture = RepresentativeJourneyComponentTestBed.createComponent({component: component});
+      const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);
+      new ChoicePageTests(choiceComponentFixture, fixture.componentInstance).cannotProceedUntilChoiceIsSelected();
+      return fixture;
   };
 
 export {
