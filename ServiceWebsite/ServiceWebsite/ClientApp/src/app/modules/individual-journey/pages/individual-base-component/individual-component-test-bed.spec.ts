@@ -9,7 +9,10 @@ import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
 import { DeviceType } from '../../services/device-type';
 import { IndividualSuitabilityModel } from '../../individual-suitability.model';
-import { JourneyComponentTestBed, ComponentTestBedConfiguration } from 'src/app/modules/base-journey/components/journey-component-test-bed';
+import {
+  JourneyComponentTestBed,
+  ComponentTestBedConfiguration
+} from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 
 export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: IndividualJourney;
