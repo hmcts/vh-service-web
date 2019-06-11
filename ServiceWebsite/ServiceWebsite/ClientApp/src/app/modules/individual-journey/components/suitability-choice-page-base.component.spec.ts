@@ -1,4 +1,4 @@
-import { ConfigureTestBedFor } from '../../individual-journey/pages/individual-base-component/component-test-bed.spec';
+import { ConfigureTestBedFor } from '../pages/individual-base-component/individual-component-test-bed.spec';
 import { Type } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
 import {

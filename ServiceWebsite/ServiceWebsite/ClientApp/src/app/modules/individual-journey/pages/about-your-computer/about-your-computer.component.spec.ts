@@ -1,5 +1,5 @@
 import { AboutYourComputerComponent } from './about-your-computer.component';
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
+import { CanCreateComponent } from '../individual-base-component/individual-component-test-bed.spec';
 import { CannotProceeedUntilChoiceIsSelected } from '../../components/suitability-choice-page-base.component.spec';
 
 describe('AboutYourComputerComponent', () => {
