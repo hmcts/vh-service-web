@@ -118,8 +118,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 21
  testRunner.Then("2 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 22
- testRunner.When("Individual provides additional information containing a two character length \'AB\'" +
-                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("provides additional information containing a two character length \'AB\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24

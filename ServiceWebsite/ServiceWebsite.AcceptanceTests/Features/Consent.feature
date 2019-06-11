@@ -19,7 +19,7 @@ Scenario: Individual participant attempts to proceed to next page without provid
 	When provides answer as No
 	And attempts to proceed without providing additional information
 	Then 2 errors should be displayed
-	When Individual provides additional information containing a two character length 'AB'
+	When provides additional information containing a two character length 'AB'
 	And proceeds to next page
 	Then 2 errors should be displayed
 
