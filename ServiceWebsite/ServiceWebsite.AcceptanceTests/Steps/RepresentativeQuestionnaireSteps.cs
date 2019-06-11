@@ -54,6 +54,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _aboutYou.Validate();
                     _currentPage = _aboutYou;
                     break;
+                case "about your client":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    _currentPage = _aboutYourClient;
+                    break;
                 case "access to a room rep":
                     NavigateToDecisionPage(_aboutYou);
                     _currentPage = _accessToRoom;
@@ -66,8 +71,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _hearingSuitability.Continue();
                     _currentPage = _yourComputer;
                     break;
-                    
-
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
         }
@@ -83,6 +86,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "access to a suitable room":
                     _accessToRoom.Validate();
                     break;
+                case "client attendance":
+                    _clientAttendance.Validate();
+                    break;
+
             }
         }
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)

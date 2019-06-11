@@ -45,6 +45,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutYou.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\AboutYourClient.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutYourClient.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\AboutYourComputer.feature.cs">
       <DependentUpon>AboutYouComputer.feature</DependentUpon>
     </Compile>
@@ -123,6 +128,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\AboutYourClient.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AboutYourClient.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYourComputer.feature">
       <LastGenOutput>AboutYourComputer.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
