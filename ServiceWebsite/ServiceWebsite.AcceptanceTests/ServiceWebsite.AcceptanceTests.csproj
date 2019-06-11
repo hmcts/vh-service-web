@@ -96,6 +96,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AccessToRoom.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\YourClientsAttendance.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>YourClientsAttendance.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\YourComputer.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -169,6 +174,10 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
       <LastGenOutput>AccessToRoom.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\YourClientsAttendance.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>YourClientsAttendance.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\YourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
