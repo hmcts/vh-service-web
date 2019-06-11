@@ -1,4 +1,4 @@
-import { CanCreateComponent } from '../individual-base-component/component-test-bed.spec';
+import { CanCreateComponent } from '../individual-base-component/individual-component-test-bed.spec';
 import { ThankYouComponent } from './thank-you.component';
 import { ConfigureTestBedForPageComponent } from '../../components/suitability-choice-page-base.component.spec';
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';

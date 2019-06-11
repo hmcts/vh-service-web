@@ -1,29 +1,30 @@
-import { MutableRepresentativeSuitabilityModel } from './../../mutable-representative-suitability.model';
+import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
-import { Type, Component } from '@angular/core';
+import { Type } from '@angular/core';
 
-import { RepresentativeJourney } from '../../representative-journey';
-import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
+import { IndividualLocalisation } from '../../services/individual-localisation';
+import { Localisation } from 'src/app/modules/shared/localisation';
+import { IndividualJourney } from '../../individual-journey';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
-import { RepresentativeStepsOrderFactory } from '../../representative-steps-order.factory';
+import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
+import { DeviceType } from '../../services/device-type';
+import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 import {
-  ComponentTestBedConfiguration,
-  JourneyComponentTestBed
+  JourneyComponentTestBed,
+  ComponentTestBedConfiguration
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 
-@Component({ selector: 'app-hearing-details-header', template: ''})
-export class StubHearingDetailsHeaderComponent {}
-
-export interface RepresentativeComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
-  journey?: RepresentativeJourney;
+export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
+  journey?: IndividualJourney;
 }
 
-export class RepresentativeJourneyStubs {
-  public static get default(): RepresentativeJourney {
-      // Journey with initialised model, so that it is accessible in steeps
-    const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
-    const journey = new RepresentativeJourney(representativeStepsOrderFactory);
-    const journeyModel = new MutableRepresentativeSuitabilityModel();
+export class IndividualJourneyStubs {
+  public static get default(): IndividualJourney {
+    const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+    const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
+    deviceType.isMobile.and.returnValue(false);
+    const journey = new IndividualJourney(individualStepsOrderFactory);
+    const journeyModel = new MutableIndividualSuitabilityModel();
 
     journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
     journey.forSuitabilityAnswers([journeyModel]);
@@ -31,25 +32,22 @@ export class RepresentativeJourneyStubs {
   }
 }
 
-export class RepresentativeJourneyComponentTestBed {
-  static createComponent<TComponent>(config: RepresentativeComponentTestBedConfiguration<TComponent>): ComponentFixture<TComponent> {
+export class IndividualJourneyComponentTestBed {
+  static createComponent<TComponent>(config: IndividualComponentTestBedConfiguration<TComponent>): ComponentFixture<TComponent> {
     return new JourneyComponentTestBed()
       .createComponent({
         component: config.component,
-        declarations: [
-          StubHearingDetailsHeaderComponent,
-          ...(config.declarations || [])
-        ],
+        declarations: config.declarations,
         providers: [
-          { provide: RepresentativeSuitabilityModel, useClass: MutableRepresentativeSuitabilityModel },
-          { provide: RepresentativeJourney, useValue: config.journey || RepresentativeJourneyStubs.default },
+          { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
+          { provide: Localisation, useClass: IndividualLocalisation },
+          { provide: IndividualJourney, useValue: config.journey || IndividualJourneyStubs.default },
           ...(config.providers || [])
         ],
         imports: config.imports
       });
   }
 }
-
 
 /**
  * Helper to configure the testbed for any derivatives of the view base component.
@@ -67,7 +65,7 @@ const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Fun
     customiseConfiguration(config);
   }
 
-  return RepresentativeJourneyComponentTestBed.createComponent({
+  return IndividualJourneyComponentTestBed.createComponent({
     component: component,
     declarations: config.declarations,
     imports: config.imports,
