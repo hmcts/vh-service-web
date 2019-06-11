@@ -16,7 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _aboutYourClient;
         private readonly DecisionJourney _clientAttendance;
-        private readonly DecisionJourney _hearingSuitability;
+        private readonly JourneyStepPage _hearingSuitability;
         private readonly DecisionJourney _yourComputer;
         private readonly DecisionJourney _aboutYourComputer;
         private readonly DecisionJourney _questionnaireCompleted;
@@ -31,7 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _accessToRoom = new DecisionJourney(browserContext, RepresentativePageUrl.AccessToRoom);
             _aboutYourClient = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourClient);
             _clientAttendance = new DecisionJourney(browserContext, RepresentativePageUrl.ClientAttendance);
-            _hearingSuitability = new DecisionJourney(browserContext, RepresentativePageUrl.HearingSuitability);
+            _hearingSuitability = new JourneyStepPage(browserContext, RepresentativePageUrl.HearingSuitability);
             _yourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.YourComputerRep);
             _aboutYourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourComputerRep);
             _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
@@ -54,6 +54,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _aboutYou.Validate();
                     _currentPage = _aboutYou;
                     break;
+                case "about your client":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    _currentPage = _aboutYourClient;
+                    break;
+                case "client attendance":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    _currentPage = _clientAttendance;
+                    break;
                 case "access to a room rep":
                     NavigateToDecisionPage(_aboutYou);
                     _currentPage = _accessToRoom;
@@ -75,6 +86,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_yourComputer);
                     _currentPage = _aboutYourComputer;
                     break;
+                    
 
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
@@ -90,6 +102,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "access to a suitable room":
                     _accessToRoom.Validate();
+                    break;
+                case "client attendance":
+                    _clientAttendance.Validate();
+                    break;
+                case "hearing suitability":
+                    _hearingSuitability.Validate();
                     break;
                 case "questionnaire completed":
                     _questionnaireCompleted.Validate();
