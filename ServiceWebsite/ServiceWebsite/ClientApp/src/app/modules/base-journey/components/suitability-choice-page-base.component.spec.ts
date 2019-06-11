@@ -4,8 +4,7 @@ import { By } from '@angular/platform-browser';
 import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
 import { JourneyBase } from '../journey-base';
 
-class SuitabilityChoicePageBaseFixture
-  <T extends SuitabilityChoicePageBaseComponent<JourneyBase>> {
+class SuitabilityChoicePageBaseFixture<T> {
   readonly fixture: ComponentFixture<T>;
   readonly component: T;
 
@@ -40,6 +39,10 @@ export interface FixtureMethods {
   detectChanges(): void;
 }
 
+export interface ChoiceFormComponent {
+  readonly isFormInvalid: boolean;
+}
+
 export class SuitabilityChoiceComponentFixture  {
   constructor(private fixture: FixtureMethods) {}
 
@@ -64,40 +67,35 @@ export class SuitabilityChoiceComponentFixture  {
   }
 }
 
-/**
- * Base test for any yes/no true/false radio button screen
- * Tests so that the html is bound in such a way that the user cannot proceed before selecting one choice.
- * Generalising the test in one place such as with this, allows us to ensure that all pages follow a similar pattern.
- * @param component The component to be tested.
- */
-const cannotProceedUntilChoiceIsSelected =
-  <T extends SuitabilityChoicePageBaseComponent<JourneyBase>>(fixture: SuitabilityChoicePageBaseFixture<T>,
-    component: Type<T>, customiseConfiguration?: Function):
-    SuitabilityChoicePageBaseFixture<T> => {
+export class ChoicePageTests {
+  constructor(
+    private fixture: SuitabilityChoiceComponentFixture,
+    private component: ChoiceFormComponent
+  ) {}
+
+  cannotProceedUntilChoiceIsSelected(): void {
     // when
-    fixture.submitIsClicked();
+    this.fixture.submitIsClicked();
 
     // then
-    expect(fixture.component.isFormInvalid).toBeTruthy();
+    expect(this.component.isFormInvalid).toBeTruthy();
 
     // expect form to be erronous
-    const formContainer = fixture.debugElementByCss('#form-container');
+    const formContainer = this.fixture.debugElementByCss('#form-container');
     expect(formContainer.classes['govuk-form-group--error']).toBeTruthy();
 
     // and error message to be displayed
-    const errorMessage = fixture.debugElementByCss('#error-message');
+    const errorMessage = this.fixture.debugElementByCss('#error-message');
     expect(errorMessage.nativeElement).toBeTruthy();
 
     // when selecting a radio button
-    fixture.radioBoxIsClicked('#choice-yes');
+    this.fixture.radioBoxIsClicked('#choice-yes');
 
     // then
-    fixture.submitIsClicked();
-
-    return fixture;
-  };
+    this.fixture.submitIsClicked();
+  }
+}
 
 export {
   SuitabilityChoicePageBaseFixture,
-  cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
 };

@@ -1,8 +1,11 @@
 import { HearingSuitabilityComponent } from './hearing-suitability.component';
-import { CanCreateComponent } from '../representative-base-component/component-test-bed.spec';
+import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/component-test-bed.spec';
 
 describe('HearingSuitabilityComponent', () => {
   it('can be created', () => {
-    CanCreateComponent(HearingSuitabilityComponent);
+    const fixture = RepresentativeJourneyComponentTestBed.createComponent({
+      component: HearingSuitabilityComponent
+    });
+    expect(fixture).toBeTruthy();
   });
 });
