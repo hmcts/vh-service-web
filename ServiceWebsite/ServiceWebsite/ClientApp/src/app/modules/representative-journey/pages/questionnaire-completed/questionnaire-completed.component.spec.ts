@@ -1,4 +1,4 @@
-import { RepresentativeJourneyComponentTestBed } from './../representative-base-component/component-test-bed.spec';
+import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/representative-journey-component-test-bed.spec';
 import { QuestionnaireCompletedComponent } from './questionnaire-completed.component';
 
 describe('QuestionnaireCompletedComponent', () => {

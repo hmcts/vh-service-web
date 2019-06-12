@@ -1,6 +1,6 @@
 import { CommonTests } from './../../../base-journey/components/suitability-choice-component-fixture.spec';
 import { AccessToRoomComponent } from './access-to-room.component';
-import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/component-test-bed.spec';
+import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/representative-journey-component-test-bed.spec';
 
 describe('AccessToRoomComponent for representative', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {

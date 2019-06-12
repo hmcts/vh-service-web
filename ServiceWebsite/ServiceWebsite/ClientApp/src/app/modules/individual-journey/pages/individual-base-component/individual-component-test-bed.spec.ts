@@ -1,6 +1,5 @@
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
-import { ComponentFixture, TestModuleMetadata } from '@angular/core/testing';
-import { Type } from '@angular/core';
+import { ComponentFixture } from '@angular/core/testing';
 
 import { IndividualLocalisation } from '../../services/individual-localisation';
 import { Localisation } from 'src/app/modules/shared/localisation';
@@ -52,42 +51,3 @@ export class IndividualJourneyComponentTestBed {
       });
   }
 }
-
-/**
- * Helper to configure the testbed for any derivatives of the view base component.
- * @param component The type of component to prepare test bed for
- * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
- */
-const configureTestBedFor = <T>(component: Type<T>, customiseConfiguration?: Function): ComponentFixture<T> => {
-  const config: TestModuleMetadata = {
-    declarations: [],
-    imports: [],
-    providers: []
-  };
-
-  if (customiseConfiguration) {
-    customiseConfiguration(config);
-  }
-
-  return IndividualJourneyComponentTestBed.createComponent({
-    component: component,
-    declarations: config.declarations,
-    imports: config.imports,
-    providers: config.providers
-  });
-};
-
-/**
- * Helper method to quickly test if the component can be created, setting up a test bed and everything.
- * @param component The component type to create.
- * @param customiseConfiguration A method to override any configuration required with, will be given the `TestModuleData` as a parameter
- */
-const canCreate = <T>(component: Type<T>, customiseConfiguration?: Function): void => {
-  const fixture = configureTestBedFor(component, customiseConfiguration);
-  fixture.detectChanges();
-  expect(fixture.componentInstance).toBeTruthy();
-};
-
-export {
-  canCreate as CanCreateComponent
-};

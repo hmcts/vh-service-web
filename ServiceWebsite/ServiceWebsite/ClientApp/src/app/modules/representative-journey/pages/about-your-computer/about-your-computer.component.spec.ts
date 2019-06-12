@@ -3,7 +3,7 @@ import { AboutYourComputerComponent } from './about-your-computer.component';
 import {
   RepresentativeJourneyStubs,
   RepresentativeJourneyComponentTestBed
-} from '../representative-base-component/component-test-bed.spec';
+} from '../representative-base-component/representative-journey-component-test-bed.spec';
 
 describe('AboutYourComputerComponent', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
