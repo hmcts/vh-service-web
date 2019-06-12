@@ -88,4 +88,6 @@ const canCreate = <T>(component: Type<T>, customiseConfiguration?: Function): vo
   expect(fixture.componentInstance).toBeTruthy();
 };
 
-export { configureTestBedFor as ConfigureTestBedFor, canCreate as CanCreateComponent };
+export {
+  canCreate as CanCreateComponent
+};

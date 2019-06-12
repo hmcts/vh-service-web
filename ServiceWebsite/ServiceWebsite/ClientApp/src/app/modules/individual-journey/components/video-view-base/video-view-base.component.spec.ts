@@ -1,6 +1,5 @@
-import { CanCreateComponent } from '../../pages/individual-base-component/individual-component-test-bed.spec';
+import { IndividualJourneyComponentTestBed } from '../../pages/individual-base-component/individual-component-test-bed.spec';
 import { Type, Component, Input } from '@angular/core';
-import { TestModuleMetadata } from '@angular/core/testing';
 import { VideoUrlService } from '../../services/video-url.service';
 import { Config } from '../../../shared/models/config';
 import { Logger } from 'src/app/services/logger';
@@ -23,18 +22,24 @@ class StubVideoViewComponent {
 }
 const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
 
+
 const canCreateVideoViewBaseComponent = <T>(component: Type<T>): void => {
-  CanCreateComponent(component, (configuration: TestModuleMetadata) => {
-    configuration.providers.push(
+  const fixture = IndividualJourneyComponentTestBed.createComponent({
+    component: component,
+    providers: [
       { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['getVideoFileUrlerror']) },
       { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']) },
       { provide: Config, useValue: {} },
       { provide: MediaService, useClass: UserMediaService },
-      { provide: DeviceType, useValue: deviceType },
-    );
-    configuration.declarations.push(StubVideoViewComponent);
-    configuration.declarations.push(UserCameraViewComponent);
+      { provide: DeviceType, useValue: deviceType }
+    ],
+    declarations: [
+      StubVideoViewComponent,
+      UserCameraViewComponent
+    ]
   });
+  fixture.detectChanges();
+  expect(fixture.componentInstance).toBeTruthy();
 };
 
 describe('functionality', () => {
