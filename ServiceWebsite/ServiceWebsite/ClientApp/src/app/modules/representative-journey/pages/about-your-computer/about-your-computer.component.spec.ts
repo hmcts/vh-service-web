@@ -1,5 +1,4 @@
 import { AboutYourComputerComponent } from './about-your-computer.component';
-import { CanCreateComponent } from '../representative-base-component/component-test-bed.spec';
 import { CannotProceeedUntilChoiceIsSelected } from '../../components/suitability-choice-page-base.component.spec';
 
 import { RepresentativeJourney } from '../../representative-journey';
@@ -8,9 +7,6 @@ import { MutableRepresentativeSuitabilityModel } from '../../mutable-representat
 import { Hearing } from '../../../base-journey/participant-suitability.model';
 
 describe('AboutYourComputerComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(AboutYourComputerComponent);
-  });
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
     const fixture = CannotProceeedUntilChoiceIsSelected(AboutYourComputerComponent);
 

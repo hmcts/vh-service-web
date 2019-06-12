@@ -8,11 +8,7 @@ import { TestModuleMetadata } from '@angular/core/testing';
 
 describe('YourComputerComponent', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
-    const fixture = CannotProceeedUntilChoiceIsSelected(YourComputerComponent,
-      (configuration: TestModuleMetadata) => {
-        configuration.declarations.push(LongDatetimePipe);
-      }
-    );
+    const fixture = CannotProceeedUntilChoiceIsSelected(YourComputerComponent);
     // and value is bound
     expect(fixture.component.model.computer).toBe(true);
   });
