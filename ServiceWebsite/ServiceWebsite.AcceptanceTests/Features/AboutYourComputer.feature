@@ -30,9 +30,6 @@ Scenario: Your computer Page - Individual participant attempts to proceed to nex
 	When attempts to proceed without selecting an answer
 	Then 1 error should be displayed
 
-
-
-
 @smoketest @VIH-4334
 Scenario: Representative participant computer has no camera and microphone
 	Given Representative participant is on 'about your computer' page
