@@ -7,6 +7,6 @@ describe('ClientAttendanceComponent for representative', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
     const fixture = CannotProceeedUntilChoiceIsSelected(ClientAttendanceComponent);
     // and value is bound
-    expect(fixture.component.model.clientAttendance).toBe(true);
+    expect(fixture.componentInstance.model.clientAttendance).toBe(true);
   });
 });

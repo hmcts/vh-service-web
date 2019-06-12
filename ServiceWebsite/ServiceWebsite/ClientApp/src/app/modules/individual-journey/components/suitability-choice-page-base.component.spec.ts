@@ -1,17 +1,11 @@
-import { ConfigureTestBedFor } from '../pages/individual-base-component/individual-component-test-bed.spec';
+import { ComponentFixture } from '@angular/core/testing';
+import { IndividualJourneyComponentTestBed } from '../pages/individual-base-component/individual-component-test-bed.spec';
 import { Type } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
 import {
-  SuitabilityChoicePageBaseFixture,
   SuitabilityChoiceComponentFixture,
   ChoicePageTests
-} from '../../base-journey/components/suitability-choice-page-base.component.spec';
-
-const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
-  (component: Type<T>, customiseConfiguration?: Function): SuitabilityChoicePageBaseFixture<T> => {
-  const fixture = ConfigureTestBedFor(component, customiseConfiguration);
-  return new SuitabilityChoicePageBaseFixture(fixture);
-};
+} from '../../base-journey/components/suitability-choice-component-fixture.spec';
 
 /**
  * Base test for any yes/no true/false radio button screen
@@ -21,15 +15,13 @@ const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
  */
 const cannotProceedUntilChoiceIsSelected =
   <T extends SuitabilityChoicePageBaseComponent>(component: Type<T>):
-    SuitabilityChoicePageBaseFixture<T> => {
-    const fixture = configureTestBedFor(component);
-    const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture.fixture);
-    new ChoicePageTests(choiceComponentFixture, fixture.component).cannotProceedUntilChoiceIsSelected();
+    ComponentFixture<T> => {
+    const fixture = IndividualJourneyComponentTestBed.createComponent({component: component});
+    const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);
+    new ChoicePageTests(choiceComponentFixture, fixture.componentInstance).cannotProceedUntilChoiceIsSelected();
     return fixture;
   };
 
 export {
-  configureTestBedFor as ConfigureTestBedForPageComponent,
-  SuitabilityChoicePageBaseFixture,
   cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
 };
