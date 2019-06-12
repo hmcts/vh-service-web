@@ -1,4 +1,3 @@
-import { JourneyStepComponentBindings } from './../../../individual-journey/services/journey-component-bindings';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-page-base.component.spec';
 import { RepresentativeJourneyComponentTestBed } from './../representative-base-component/component-test-bed.spec';
 import { HearingSuitabilityComponent } from './hearing-suitability.component';
