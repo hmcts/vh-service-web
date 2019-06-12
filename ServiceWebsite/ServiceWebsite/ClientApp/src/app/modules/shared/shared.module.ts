@@ -18,7 +18,7 @@ import { ProfileService } from '../../services/profile.service';
 import { PageTrackerService } from '../../services/page-tracker.service';
 import { WindowRef } from './window-ref';
 import { LongDatetimePipe } from './date-time.pipe';
-import { AppBooleanHumanViewPipe } from './boolean.pipe';
+import { AppYesNoPipe } from './boolean.pipe';
 
 @NgModule({
   imports: [
@@ -37,7 +37,7 @@ import { AppBooleanHumanViewPipe } from './boolean.pipe';
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
-    AppBooleanHumanViewPipe
+    AppYesNoPipe
   ],
   providers: [
     ProfileService,
@@ -53,7 +53,7 @@ import { AppBooleanHumanViewPipe } from './boolean.pipe';
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
-    AppBooleanHumanViewPipe
+    AppYesNoPipe
   ]
 })
 export class SharedModule { }

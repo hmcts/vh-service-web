@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'appBooleanHumanView'
+  name: 'appYesNo'
 })
 
-export class AppBooleanHumanViewPipe implements PipeTransform {
+export class AppYesNoPipe implements PipeTransform {
   transform(value: any, args?: any): any {
 
     if (value !== undefined && value !== null) {
       return value ? 'Yes' : 'No';
     }
 
-    return '';
+    throw new Error(`Unexpected bool value: ${value}`);
   }
 }
