@@ -1,18 +1,18 @@
 import { AboutYouComponent } from './about-you.component';
+
 import {
-  ConfigureTestBedForTextboxPageComponent
-} from 'src/app/modules/base-journey/components/suitability-choice-textbox-page-base.component.spec';
-import {
-  SuitabilityChoiceTextboxPageBaseFixture
+  SuitabilityChoiceComponentFixture
 } from 'src/app/modules/base-journey/components/suitability-choice-page-base.component.spec';
+import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/component-test-bed.spec';
 
 describe('AboutYouComponent', () => {
-  let fixture: SuitabilityChoiceTextboxPageBaseFixture<AboutYouComponent>;
+  let fixture: SuitabilityChoiceComponentFixture;
   let component: AboutYouComponent;
 
   beforeEach(() => {
-    fixture = ConfigureTestBedForTextboxPageComponent(AboutYouComponent);
-    component = fixture.component;
+    const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({component: AboutYouComponent});
+    fixture = new SuitabilityChoiceComponentFixture(componentFixture);
+    component = componentFixture.componentInstance;
     fixture.detectChanges();
   });
 

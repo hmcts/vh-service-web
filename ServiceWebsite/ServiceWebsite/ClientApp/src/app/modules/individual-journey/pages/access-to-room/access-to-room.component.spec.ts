@@ -8,11 +8,7 @@ import { AccessToRoomComponent } from './access-to-room.component';
 
 describe('AccessToRoomComponent', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
-    const fixture = CannotProceeedUntilChoiceIsSelected(AccessToRoomComponent,
-      (configuration: TestModuleMetadata) => {
-        configuration.declarations.push(LongDatetimePipe);
-      }
-    );
+    const fixture = CannotProceeedUntilChoiceIsSelected(AccessToRoomComponent);
     // and value is bound
     expect(fixture.component.model.room).toBe(true);
   });
