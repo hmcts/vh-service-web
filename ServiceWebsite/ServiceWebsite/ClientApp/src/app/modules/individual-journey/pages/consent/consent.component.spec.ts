@@ -1,4 +1,4 @@
-import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-page-base.component.spec';
+import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { ConsentComponent } from './consent.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 
