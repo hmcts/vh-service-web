@@ -1,12 +1,8 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { Type, DebugElement } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
-import { JourneyBase } from '../journey-base';
-import { SuitabilityChoiceTextboxPageBaseComponent } from './suitability-choice-textbox-page-base.component';
 
-class SuitabilityChoicePageBaseFixture
-  <T extends SuitabilityChoicePageBaseComponent<JourneyBase>> {
+class SuitabilityChoicePageBaseFixture<T> {
   readonly fixture: ComponentFixture<T>;
   readonly component: T;
 
@@ -36,109 +32,68 @@ class SuitabilityChoicePageBaseFixture
   }
 }
 
-/**
- * Base test for any yes/no true/false radio button screen
- * Tests so that the html is bound in such a way that the user cannot proceed before selecting one choice.
- * Generalising the test in one place such as with this, allows us to ensure that all pages follow a similar pattern.
- * @param component The component to be tested.
- */
-const cannotProceedUntilChoiceIsSelected =
-  <T extends SuitabilityChoicePageBaseComponent<JourneyBase>>(fixture: SuitabilityChoicePageBaseFixture<T>,
-    component: Type<T>, customiseConfiguration?: Function):
-    SuitabilityChoicePageBaseFixture<T> => {
+export interface FixtureMethods {
+  debugElement: DebugElement;
+  detectChanges(): void;
+}
+
+export interface ChoiceFormComponent {
+  readonly isFormInvalid: boolean;
+}
+
+export class SuitabilityChoiceComponentFixture  {
+  constructor(private fixture: FixtureMethods) {}
+
+  detectChanges(): void {
+    this.fixture.detectChanges();
+  }
+
+  radioBoxIsClicked(id: string) {
+    const radioButton = this.debugElementByCss(id);
+    radioButton.nativeElement.click();
+    this.fixture.detectChanges();
+  }
+
+  submitIsClicked() {
+    const continueButton = this.debugElementByCss('.govuk-button');
+    continueButton.nativeElement.click();
+    this.fixture.detectChanges();
+  }
+
+  debugElementByCss(css: string): DebugElement {
+    return this.fixture.debugElement.query(By.css(css));
+  }
+}
+
+export class ChoicePageTests {
+  constructor(
+    private fixture: SuitabilityChoiceComponentFixture,
+    private component: ChoiceFormComponent
+  ) {}
+
+  cannotProceedUntilChoiceIsSelected(): void {
     // when
-    fixture.submitIsClicked();
+    this.fixture.submitIsClicked();
 
     // then
-    expect(fixture.component.isFormInvalid).toBeTruthy();
+    expect(this.component.isFormInvalid).toBeTruthy();
 
     // expect form to be erronous
-    const formContainer = fixture.debugElementByCss('#form-container');
+    const formContainer = this.fixture.debugElementByCss('#form-container');
     expect(formContainer.classes['govuk-form-group--error']).toBeTruthy();
 
     // and error message to be displayed
-    const errorMessage = fixture.debugElementByCss('#error-message');
+    const errorMessage = this.fixture.debugElementByCss('#error-message');
     expect(errorMessage.nativeElement).toBeTruthy();
 
     // when selecting a radio button
-    fixture.radioBoxIsClicked('#choice-yes');
+    this.fixture.radioBoxIsClicked('#choice-yes');
 
     // then
-    fixture.submitIsClicked();
-
-    return fixture;
-  };
+    this.fixture.submitIsClicked();
+  }
+}
 
 export {
   SuitabilityChoicePageBaseFixture,
-  cannotProceedUntilChoiceIsSelected as CannotProceeedUntilChoiceIsSelected
-};
-
-class SuitabilityChoiceTextboxPageBaseFixture
-  <T extends SuitabilityChoiceTextboxPageBaseComponent<JourneyBase>> {
-  readonly fixture: ComponentFixture<T>;
-  readonly component: T;
-
-  constructor(fixture: ComponentFixture<T>) {
-    this.fixture = fixture;
-    this.component = fixture.componentInstance;
-  }
-
-  detectChanges(): void {
-    this.fixture.detectChanges();
-  }
-
-  radioBoxIsClicked(id: string) {
-    const radioButton = this.debugElementByCss(id);
-    radioButton.nativeElement.click();
-    this.fixture.detectChanges();
-  }
-
-  submitIsClicked() {
-    const continueButton = this.debugElementByCss('.govuk-button');
-    continueButton.nativeElement.click();
-    this.fixture.detectChanges();
-  }
-
-  debugElementByCss(css: string): DebugElement {
-    return this.fixture.debugElement.query(By.css(css));
-  }
-}
-
-/**
- * Base test for any yes/no true/false radio button screen
- * Tests so that the html is bound in such a way that the user cannot proceed before selecting one choice.
- * Generalising the test in one place such as with this, allows us to ensure that all pages follow a similar pattern.
- * @param component The component to be tested.
- */
-const cannotProceedUntilTextboxChoiceIsSelected =
-  <T extends SuitabilityChoiceTextboxPageBaseComponent<JourneyBase>>(fixture: SuitabilityChoiceTextboxPageBaseFixture<T>,
-    component: Type<T>, customiseConfiguration?: Function):
-    SuitabilityChoiceTextboxPageBaseFixture<T> => {
-    // when
-    fixture.submitIsClicked();
-
-    // then
-    expect(fixture.component.isFormInvalid).toBeTruthy();
-
-    // expect form to be erronous
-    const formContainer = fixture.debugElementByCss('#form-container');
-    expect(formContainer.classes['govuk-form-group--error']).toBeTruthy();
-
-    // and error message to be displayed
-    const errorMessage = fixture.debugElementByCss('#error-message');
-    expect(errorMessage.nativeElement).toBeTruthy();
-
-    // when selecting a radio button
-    fixture.radioBoxIsClicked('#choice-yes');
-
-    // then
-    fixture.submitIsClicked();
-
-    return fixture;
-  };
-
-export {
-  SuitabilityChoiceTextboxPageBaseFixture,
-  cannotProceedUntilTextboxChoiceIsSelected as CannotProceeedUntilTextboxChoiceIsSelected
 };

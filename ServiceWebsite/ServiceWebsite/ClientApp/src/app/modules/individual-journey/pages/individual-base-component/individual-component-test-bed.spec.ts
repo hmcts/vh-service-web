@@ -13,6 +13,7 @@ import {
   JourneyComponentTestBed,
   ComponentTestBedConfiguration
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
+import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
 
 export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: IndividualJourney;
@@ -37,7 +38,10 @@ export class IndividualJourneyComponentTestBed {
     return new JourneyComponentTestBed()
       .createComponent({
         component: config.component,
-        declarations: config.declarations,
+        declarations: [
+          LongDatetimePipe,
+          ...(config.declarations || [])
+        ],
         providers: [
           { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
           { provide: Localisation, useClass: IndividualLocalisation },
