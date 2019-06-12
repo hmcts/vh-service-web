@@ -170,16 +170,16 @@ this.ScenarioInitialize(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant computer has no camera and microphone", null, new string[] {
                         "smoketest",
                         "VIH-4334"});
-#line 37
+#line 34
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 38
+#line 35
  testRunner.Given("Representative participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 39
+#line 36
  testRunner.When("provides answer as No", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 40
+#line 37
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 41
+#line 38
  testRunner.Then("Representative should be on \'questionnaire completed\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -192,16 +192,16 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant computer has both camera and microphone", null, new string[] {
                         "VIH-4334"});
-#line 44
+#line 41
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 45
+#line 42
  testRunner.Given("Representative participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 46
+#line 43
  testRunner.When("provides answer as Yes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 47
+#line 44
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 48
+#line 45
  testRunner.Then("Representative should be on \'questionnaire completed\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -214,16 +214,16 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant not sure about computer having camera and microphone", null, new string[] {
                         "VIH-4334"});
-#line 51
+#line 48
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 52
+#line 49
  testRunner.Given("Representative participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 53
+#line 50
  testRunner.When("provides answer as NotSure", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 54
+#line 51
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 55
+#line 52
  testRunner.Then("Representative should be on \'questionnaire completed\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -238,14 +238,14 @@ this.ScenarioInitialize(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Your computer Page - Representative participant attempts to proceed to next page " +
                     "without providing answer", null, new string[] {
                         "VIH-4334"});
-#line 58
+#line 55
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 59
+#line 56
  testRunner.Given("Representative participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 60
+#line 57
  testRunner.When("attempts to proceed without selecting an answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 61
+#line 58
  testRunner.Then("1 error should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

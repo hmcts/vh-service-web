@@ -3,7 +3,9 @@
     <h1 class="govuk-heading-xl" i18n="@@rep_aboutYou_h1">
       About you (the legal representative)
     </h1>
-
+    <div>
+      <app-hearing-details-header></app-hearing-details-header>
+    </div>
     <form [formGroup]="form" (ngSubmit)="continue()">
 
       <div id="form-container"
