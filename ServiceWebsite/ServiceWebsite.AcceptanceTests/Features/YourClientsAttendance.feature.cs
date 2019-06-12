@@ -97,13 +97,13 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant provides additional information for video hearing suit" +
-            "ability on about your client page")]
+            "ability on about your client\'s attendance page")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4441")]
-        public virtual void RepresentativeParticipantProvidesAdditionalInformationForVideoHearingSuitabilityOnAboutYourClientPage()
+        public virtual void RepresentativeParticipantProvidesAdditionalInformationForVideoHearingSuitabilityOnAboutYourClientsAttendancePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant provides additional information for video hearing suit" +
-                    "ability on about your client page", null, new string[] {
+                    "ability on about your client\'s attendance page", null, new string[] {
                         "smoketest",
                         "VIH-4441"});
 #line 13

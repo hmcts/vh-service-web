@@ -16,7 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _aboutYourClient;
         private readonly DecisionJourney _clientAttendance;
-        private readonly JourneyStepPage _hearingSuitability;
+        private readonly DecisionJourney _hearingSuitability;
         private readonly DecisionJourney _yourComputer;
         private readonly DecisionJourney _aboutYourComputer;
         private readonly DecisionJourney _questionnaireCompleted;
@@ -31,7 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _accessToRoom = new DecisionJourney(browserContext, RepresentativePageUrl.AccessToRoom);
             _aboutYourClient = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourClient);
             _clientAttendance = new DecisionJourney(browserContext, RepresentativePageUrl.ClientAttendance);
-            _hearingSuitability = new JourneyStepPage(browserContext, RepresentativePageUrl.HearingSuitability);
+            _hearingSuitability = new DecisionJourney(browserContext, RepresentativePageUrl.HearingSuitability);
             _yourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.YourComputerRep);
             _aboutYourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourComputerRep);
             _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
@@ -74,7 +74,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_accessToRoom);
                     NavigateToDecisionPage(_aboutYourClient);
                     NavigateToDecisionPage(_clientAttendance);
-                    _hearingSuitability.Continue();
+                    NavigateToDecisionPage(_hearingSuitability);
                     _currentPage = _yourComputer;
                     break;
                 case "about your computer":
@@ -82,7 +82,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_accessToRoom);
                     NavigateToDecisionPage(_aboutYourClient);
                     NavigateToDecisionPage(_clientAttendance);
-                    _hearingSuitability.Continue();
+                    NavigateToDecisionPage(_hearingSuitability);
                     NavigateToDecisionPage(_yourComputer);
                     _currentPage = _aboutYourComputer;
                     break;
