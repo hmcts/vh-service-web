@@ -12,11 +12,11 @@
 #	When proceeds to next page
 #	Then Representative should be on 'please contact us' screen
 #
-@smoketest @VIH-4563
-Scenario: Representative participants computer does not have camera or microphone
-	Given Representative participant is on 'about your computer' page
-	When provides answer as No
-	And proceeds to next page
-	Then Representative should be on 'questionnaire completed' screen
-	When proceeds to next page
-	Then Representative should be on 'please contact us' screen
+#@smoketest @VIH-4563
+#Scenario: Representative participants computer does not have camera or microphone
+#	Given Representative participant is on 'about your computer' page
+#	When provides answer as No
+#	And proceeds to next page
+#	Then Representative should be on 'questionnaire completed' screen
+#	When proceeds to next page
+#	Then Representative should be on 'please contact us' screen

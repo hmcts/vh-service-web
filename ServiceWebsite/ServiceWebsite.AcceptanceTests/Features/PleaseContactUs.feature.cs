@@ -70,34 +70,6 @@ namespace ServiceWebsite.AcceptanceTests.Features
         {
             testRunner.CollectScenarioErrors();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Representative participants computer does not have camera or microphone")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
-        [NUnit.Framework.CategoryAttribute("VIH-4563")]
-        public virtual void RepresentativeParticipantsComputerDoesNotHaveCameraOrMicrophone()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participants computer does not have camera or microphone", null, new string[] {
-                        "smoketest",
-                        "VIH-4563"});
-#line 16
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
-#line 17
- testRunner.Given("Representative participant is on \'about your computer\' page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
- testRunner.When("provides answer as No", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 19
- testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
- testRunner.Then("Representative should be on \'questionnaire completed\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 21
- testRunner.When("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
- testRunner.Then("Representative should be on \'please contact us\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore
