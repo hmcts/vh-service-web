@@ -6,6 +6,6 @@ describe('InterpreterComponent', () => {
     const fixture = CannotProceeedUntilChoiceIsSelected(InterpreterComponent);
 
     // and value is bound
-    expect(fixture.component.model.interpreter).toBe(true);
+    expect(fixture.componentInstance.model.interpreter).toBe(true);
   });
 });

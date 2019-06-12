@@ -7,7 +7,7 @@ describe('AccessToRoomComponent for representative', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
     const fixture = CannotProceeedUntilChoiceIsSelected(AccessToRoomComponent);
     // and value is bound
-    expect(fixture.component.model.room).toBe(true);
+    expect(fixture.componentInstance.model.room).toBe(true);
   });
 });
 
