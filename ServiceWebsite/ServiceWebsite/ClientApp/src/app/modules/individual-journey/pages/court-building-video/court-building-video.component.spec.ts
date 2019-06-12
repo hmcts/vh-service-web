@@ -1,5 +1,5 @@
 import { CourtBuildingVideoComponent } from './court-building-video.component';
-import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-base.component.spec';
+import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-component-test-bed.spec';
 
 describe('CourtBuildingVideoComponent', () => {
   it('can be created', (() => {

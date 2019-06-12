@@ -4,15 +4,14 @@ import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
 import { async } from '@angular/core/testing';
-import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-base.component.spec';
 import { DeviceType } from '../../services/device-type';
-import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
+import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-component-test-bed.spec';
+import { IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 
 describe('ParticipantViewComponent', () => {
   const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
   const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-  const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
 
   it('can be created', async(() => {
     const fixture = VideoViewComponentTestBed.createComponent(ParticipantViewComponent);
@@ -22,11 +21,12 @@ describe('ParticipantViewComponent', () => {
 
   describe('functionality', () => {
     let component: ParticipantViewComponent;
+    let journey: IndividualJourney;
     const mediaStream = new MediaStream();
 
     beforeEach(() => {
+      journey = IndividualJourneyStubs.default;
       deviceType.isMobile.and.returnValue(false);
-      const journey = new IndividualJourney(individualStepsOrderFactory);
       component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
     });
@@ -49,7 +49,6 @@ describe('ParticipantViewComponent', () => {
     });
     it('should detect that device is a mobile phone and not use media', async() => {
       deviceType.isMobile.and.returnValue(true);
-      const journey = new IndividualJourney(individualStepsOrderFactory);
       component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
 
