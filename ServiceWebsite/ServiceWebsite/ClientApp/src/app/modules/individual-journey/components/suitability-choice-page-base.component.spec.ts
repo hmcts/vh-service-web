@@ -2,8 +2,9 @@ import { ConfigureTestBedFor } from '../pages/individual-base-component/individu
 import { Type } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from './suitability-choice-page-base.component';
 import {
-  CannotProceeedUntilChoiceIsSelected as cannotProceedUntilChoiceIsSelectedBase,
-  SuitabilityChoicePageBaseFixture
+  SuitabilityChoicePageBaseFixture,
+  SuitabilityChoiceComponentFixture,
+  ChoicePageTests
 } from '../../base-journey/components/suitability-choice-page-base.component.spec';
 
 const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
@@ -19,10 +20,12 @@ const configureTestBedFor = <T extends SuitabilityChoicePageBaseComponent>
  * @param component The component to be tested.
  */
 const cannotProceedUntilChoiceIsSelected =
-  <T extends SuitabilityChoicePageBaseComponent>(component: Type<T>, customiseConfiguration?: Function):
+  <T extends SuitabilityChoicePageBaseComponent>(component: Type<T>):
     SuitabilityChoicePageBaseFixture<T> => {
-    const fixture = configureTestBedFor(component, customiseConfiguration);
-    return cannotProceedUntilChoiceIsSelectedBase(fixture, component);
+    const fixture = configureTestBedFor(component);
+    const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture.fixture);
+    new ChoicePageTests(choiceComponentFixture, fixture.component).cannotProceedUntilChoiceIsSelected();
+    return fixture;
   };
 
 export {
