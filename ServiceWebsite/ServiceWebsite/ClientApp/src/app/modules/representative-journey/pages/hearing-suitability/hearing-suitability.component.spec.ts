@@ -1,6 +1,6 @@
-import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-page-base.component.spec';
 import { RepresentativeJourneyComponentTestBed } from './../representative-base-component/component-test-bed.spec';
 import { HearingSuitabilityComponent } from './hearing-suitability.component';
+import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 describe('HearingSuitabilityComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
