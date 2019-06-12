@@ -4,7 +4,7 @@ import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
 import { async } from '@angular/core/testing';
-import { CanCreateVideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component.spec';
+import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-base.component.spec';
 import { DeviceType } from '../../services/device-type';
 import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
 
@@ -15,7 +15,9 @@ describe('ParticipantViewComponent', () => {
   const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
 
   it('can be created', async(() => {
-    CanCreateVideoViewBaseComponent(ParticipantViewComponent);
+    const fixture = VideoViewComponentTestBed.createComponent(ParticipantViewComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
   }));
 
   describe('functionality', () => {

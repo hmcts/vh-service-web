@@ -1,8 +1,10 @@
 import { CourtBuildingVideoComponent } from './court-building-video.component';
-import { CanCreateVideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component.spec';
+import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-base.component.spec';
 
 describe('CourtBuildingVideoComponent', () => {
   it('can be created', (() => {
-    CanCreateVideoViewBaseComponent(CourtBuildingVideoComponent);
+    const fixture = VideoViewComponentTestBed.createComponent(CourtBuildingVideoComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
   }));
 });
