@@ -1,3 +1,4 @@
+import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 
@@ -43,6 +44,7 @@ export class IndividualJourneyStubs {
     deviceType.isMobile.and.returnValue(false);
     const journey = new IndividualJourney(individualStepsOrderFactory);
     journey.forSuitabilityAnswers([ IndividualJourneyStubs.model ]);
+    journey.startAt(IndividualJourneySteps.AboutHearings);
     return journey;
   }
 
