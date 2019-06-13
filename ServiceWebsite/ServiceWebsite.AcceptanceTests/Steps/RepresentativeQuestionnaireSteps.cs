@@ -67,6 +67,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_aboutYourClient);
                     _currentPage = _clientAttendance;
                     break;
+                case "hearing suitability":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    _currentPage = _hearingSuitability;
+                    break;
                 case "access to a room rep":
                     NavigateToDecisionPage(_aboutYou);
                     _currentPage = _accessToRoom;
@@ -110,6 +117,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "hearing suitability":
                     _hearingSuitability.Validate();
+                    break;
+                case "your computer":
+                    _yourComputer.Validate();
                     break;
                 case "about your computer":
                     _aboutYourComputer.Validate();

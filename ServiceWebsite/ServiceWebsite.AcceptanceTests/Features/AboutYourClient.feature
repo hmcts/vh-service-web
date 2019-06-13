@@ -1,6 +1,6 @@
 ﻿Feature: Representative Answers About Your Client Question
 	As a Participant
-	I want to be able to tell the court if there is anythis that could affect client's ability to take part in video hearing
+	I want to be able to tell the court if there is anything that could affect client's ability to take part in video hearing
 	So that the court can make an informed decision based on my circumstances
 
 @smoketest @VIH-4440
