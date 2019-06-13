@@ -29,9 +29,9 @@ namespace ServiceWebsite.Controllers
         /// <returns></returns>
         [HttpPut("{hearingId}")]
         [SwaggerOperation(OperationId = "UpdateSuitabilityAnswers")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> UpdateSuitabilityAnswers(Guid hearingId, [FromBody]List<HearingSuitabilityAnswer> answers)
         {
           await Task.Yield();
