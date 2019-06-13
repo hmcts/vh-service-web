@@ -24,12 +24,10 @@ export class CommonIndividualComponentTests {
     const journey = jasmine.createSpyObj<IndividualJourney>(['next']);
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: config.component,
-      providers: [
-        { provide: IndividualJourney, journey },
-        ...(config.providers || [])
-      ],
+      providers: config.providers,
       imports: config.imports,
-      declarations: config.declarations
+      declarations: config.declarations,
+      journey: journey
     });
 
     fixture.detectChanges();
