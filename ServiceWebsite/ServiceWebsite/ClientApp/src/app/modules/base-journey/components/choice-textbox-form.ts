@@ -1,5 +1,5 @@
 import { ChoiceForm } from './choice-form';
-import { FormControl, Validators, FormsModule } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ValidateForWhiteSpace } from '../../shared/validators/whitespace-validator';
 
 export class ChoiceTextboxForm extends ChoiceForm {
