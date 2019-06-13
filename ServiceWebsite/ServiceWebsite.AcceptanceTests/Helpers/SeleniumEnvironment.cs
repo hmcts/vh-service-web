@@ -68,7 +68,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     caps.SetCapability("platformName", "iOS");
                     caps.SetCapability("browserName", "Safari");
                     break;
-                default:
+                case TargetBrowser.Firefox:
                     if (!BlockCameraAndMic)
                     {
                         var profile = new FirefoxProfile();
