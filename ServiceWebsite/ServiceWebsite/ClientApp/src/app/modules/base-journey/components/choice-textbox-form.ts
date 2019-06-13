@@ -8,7 +8,7 @@ export class ChoiceTextboxForm extends ChoiceForm {
 
     constructor() {
       super();
-      this.form.addControl('textInput', this.textInput);
+      this.formGroup.addControl('textInput', this.textInput);
 
       this.choice.valueChanges.subscribe(value => {
         if (value) {
@@ -21,7 +21,7 @@ export class ChoiceTextboxForm extends ChoiceForm {
 
         // calling these will update the forms validity based on the changed validators
         this.textInput.updateValueAndValidity();
-        this.form.updateValueAndValidity();
+        this.formGroup.updateValueAndValidity();
 
         // if we've tried submitting without and answer select an answer that has another required field
         // we want to treat this as "a new form", the user hasn't seen these fields so we need to treat the

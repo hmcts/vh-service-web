@@ -1,6 +1,5 @@
+import { ChoiceForm } from './../../../base-journey/components/choice-form';
 import { Component, OnInit } from '@angular/core';
-import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 import { IndividualJourney } from '../../individual-journey';
 
 @Component({
@@ -8,17 +7,19 @@ import { IndividualJourney } from '../../individual-journey';
   templateUrl: './interpreter.component.html',
   styles: []
 })
-export class InterpreterComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
+export class InterpreterComponent implements OnInit {
 
-  constructor(journey: IndividualJourney) {
-    super(journey);
-  }
+  readonly form = new ChoiceForm();
+
+  constructor(private journey: IndividualJourney) {}
 
   ngOnInit() {
-    this.choice.setValue(this.model.interpreter);
+    this.form.choice.setValue(this.journey.model.interpreter);
+    this.form.submitted.subscribe(() => this.bindModel());
   }
 
   protected bindModel() {
-    this.model.interpreter = this.choice.value;
+    this.journey.model.interpreter = this.form.choice.value;
+    this.journey.next();
   }
 }

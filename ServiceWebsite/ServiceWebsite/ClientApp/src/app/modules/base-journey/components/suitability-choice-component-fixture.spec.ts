@@ -1,3 +1,4 @@
+import { ChoiceForm } from './choice-form';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -6,8 +7,12 @@ export interface FixtureMethods {
   detectChanges(): void;
 }
 
+export interface HasChoiceFormComponent {
+  readonly form: ChoiceForm;
+}
+
 export interface ChoiceFormComponent {
-  readonly isFormInvalid: boolean;
+  readonly isInvalid: boolean;
 }
 
 export class ContinuableComponentFixture {
@@ -57,7 +62,7 @@ export class ChoicePageTests {
     this.fixture.submitIsClicked();
 
     // then
-    expect(this.component.isFormInvalid).toBeTruthy();
+    expect(this.component.isInvalid).toBeTruthy();
 
     // expect form to be erronous
     const formContainer = this.fixture.debugElementByCss('#form-container');

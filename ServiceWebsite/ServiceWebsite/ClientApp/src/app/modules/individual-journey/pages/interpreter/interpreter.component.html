@@ -3,10 +3,10 @@
     Getting an interpreter
   </h1>
 </div>
-<form [formGroup]="form" (ngSubmit)="continue()">
-  <div id="form-container" class="govuk-form-group" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+<form [formGroup]="form.formGroup" (ngSubmit)="form.submit()">
+  <div id="form-container" class="govuk-form-group" [ngClass]="form.isInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
-    <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@interpreter_span_1">
+    <span id="error-message" class="govuk-error-message" *ngIf="form.isInvalid" i18n="@@interpreter_span_1">
       Please answer this question
     </span>
 
@@ -42,7 +42,7 @@
     i18-bind-textArray="@@interpreter_textArray" bind-textArray="['For most types of hearing, you’ll need to find and pay for an interpreter yourself. For some types of hearing, the court may provide an interpreter for free of charge.  &lt;a href=&quot;https://www.gov.uk//get-interpreter-at-court-or-tribunal/&quot;class=&quot;govuk-link govuk-link--no-visited-state &quot;  target=&quot;_blank&quot;&gt;Find out more about getting an interpreter&lt;/a&gt;.']">
   </app-show-details>
 
-  <button class="govuk-button" (click)="continue()" i18n="@@interpreter_btn_continue" id="continue" type="button">Continue</button>
+  <button class="govuk-button" (click)="form.submit()" i18n="@@interpreter_btn_continue" id="continue" type="button">Continue</button>
 </form>
 
 <app-contact-us></app-contact-us>

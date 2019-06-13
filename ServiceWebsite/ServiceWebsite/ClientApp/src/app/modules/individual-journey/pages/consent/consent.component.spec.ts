@@ -18,7 +18,7 @@ describe('ConsentComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.isInvalid).toBeTruthy();
 
     // expect form to display error class
     const formContainer = fixture.debugElementByCss('#form-container');
@@ -32,13 +32,13 @@ describe('ConsentComponent', () => {
   it('should clear error when selecting no', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-no');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.isInvalid).toBeFalsy();
   });
 
   it('should clear error when selecting yes after having submitted', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.isInvalid).toBeFalsy();
   });
 
   it('should enable text field when selecting yes', () => {
@@ -59,7 +59,7 @@ describe('ConsentComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.isInvalid).toBeFalsy();
     const textfield = fixture.debugElementByCss('#details-yes');
     expect(textfield.classes['govuk-textarea--error']).toBeFalsy();
   });
@@ -70,7 +70,7 @@ describe('ConsentComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.isInvalid).toBeTruthy();
     const textfield = fixture.debugElementByCss('#details-no');
     expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
   });

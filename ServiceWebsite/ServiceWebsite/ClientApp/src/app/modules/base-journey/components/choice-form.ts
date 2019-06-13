@@ -8,18 +8,18 @@ export class ChoiceForm {
 
     protected formSubmitted = false;
 
-    readonly form = new FormGroup({
+    readonly formGroup = new FormGroup({
         choice: this.choice
     });
 
-    get isFormInvalid(): boolean {
-        return this.form.invalid && this.formSubmitted;
+    get isInvalid(): boolean {
+        return this.formGroup.invalid && this.formSubmitted;
     }
 
     submit() {
         this.formSubmitted = true;
 
-        if (this.form.invalid) {
+        if (this.formGroup.invalid) {
             return;
         }
 

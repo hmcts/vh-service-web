@@ -1,30 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { RepresentativeJourney } from '../../representative-journey';
-import {
-  SuitabilityChoiceTextboxPageBaseComponent
-} from '../../../base-journey/components/suitability-choice-textbox-page-base.component';
+import { ChoiceTextboxFormComponentBase } from 'src/app/modules/base-journey/components/choice-textbox-form-component-base';
 
 @Component({
   selector: 'app-about-your-client',
   templateUrl: './about-your-client.component.html',
   styles: []
 })
-export class AboutYourClientComponent
-  extends SuitabilityChoiceTextboxPageBaseComponent<RepresentativeJourney> implements OnInit {
+export class AboutYourClientComponent extends ChoiceTextboxFormComponentBase implements OnInit {
+
+  readonly journey: RepresentativeJourney;
 
   constructor(journey: RepresentativeJourney) {
-    super(journey);
+    super();
+    this.journey =  journey;
   }
 
   ngOnInit() {
-    this.form.addControl('textInput', this.textInput);
-
     super.ngOnInit();
     this.choice.setValue(this.journey.model.aboutYourClient.answer);
     this.textInput.setValue(this.journey.model.aboutYourClient.notes);
   }
 
-  protected bindModel(): void {
+  protected bind(): void {
     this.journey.model.aboutYourClient.answer = this.choice.value;
     this.journey.model.aboutYourClient.notes = this.choice.value ? this.textInput.value : null;
   }

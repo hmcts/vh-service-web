@@ -42,11 +42,21 @@ export class IndividualJourneyStubs {
     const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
     deviceType.isMobile.and.returnValue(false);
     const journey = new IndividualJourney(individualStepsOrderFactory);
-    const journeyModel = new MutableIndividualSuitabilityModel();
-
-    journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
-    journey.forSuitabilityAnswers([journeyModel]);
+    journey.forSuitabilityAnswers([ IndividualJourneyStubs.model ]);
     return journey;
+  }
+
+  public static get model(): IndividualSuitabilityModel {
+    const journeyModel = new MutableIndividualSuitabilityModel();
+    journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+    return journeyModel;
+  }
+
+  public static get journeySpy(): jasmine.SpyObj<IndividualJourney> {
+    return {
+      model: IndividualJourneyStubs.model,
+      ...jasmine.createSpyObj<IndividualJourney>(['next'])
+    } as jasmine.SpyObj<IndividualJourney>;
   }
 }
 

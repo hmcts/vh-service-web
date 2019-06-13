@@ -5,9 +5,9 @@
 </div>
 <form [formGroup]="form" (ngSubmit)="continue()">
   <div id="form-container" class="govuk-form-group"
-    [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+    [ngClass]="isInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
-    <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid"  i18n="@@yourComputer_span_1">
+    <span id="error-message" class="govuk-error-message" *ngIf="isInvalid"  i18n="@@yourComputer_span_1">
       Please answer this question
     </span>
 

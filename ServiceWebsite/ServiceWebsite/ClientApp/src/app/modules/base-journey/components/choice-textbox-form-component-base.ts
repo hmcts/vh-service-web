@@ -4,24 +4,24 @@ import { OnInit } from '@angular/core';
 
 export abstract class ChoiceTextboxFormComponentBase implements OnInit {
 
-    protected textboxForm = new ChoiceTextboxForm();
+    protected choiceForm = new ChoiceTextboxForm();
 
-    get form(): FormGroup { return this.textboxForm.form; }
+    get form(): FormGroup { return this.choiceForm.formGroup; }
 
-    get choice(): FormControl { return this.textboxForm.choice; }
+    get choice(): FormControl { return this.choiceForm.choice; }
 
-    get textInput(): FormControl { return this.textboxForm.textInput; }
+    get textInput(): FormControl { return this.choiceForm.textInput; }
 
-    get isFormInvalid(): boolean { return this.textboxForm.isFormInvalid; }
+    get isInvalid(): boolean { return this.choiceForm.isInvalid; }
 
-    get isTextInputInvalid(): boolean { return this.textboxForm.isTextInputInvalid; }
+    get isTextInputInvalid(): boolean { return this.choiceForm.isTextInputInvalid; }
 
     ngOnInit(): void {
-        this.textboxForm.submitted.subscribe(() => this.bind());
+        this.choiceForm.submitted.subscribe(() => this.bind());
     }
 
     continue(): void {
-        this.textboxForm.submit();
+        this.choiceForm.submit();
     }
 
     protected abstract bind(): void;

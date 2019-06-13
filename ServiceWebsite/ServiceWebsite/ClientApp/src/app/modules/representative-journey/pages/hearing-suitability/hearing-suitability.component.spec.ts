@@ -20,7 +20,7 @@ describe('HearingSuitabilityComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.isInvalid).toBeTruthy();
 
     // expect form to display error class
     const formContainer = fixture.debugElementByCss('#form-container');
@@ -34,18 +34,18 @@ describe('HearingSuitabilityComponent', () => {
   it('should clear error when selecting no', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-no');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.isInvalid).toBeFalsy();
   });
 
   it('should clear error when selecting yes after having submitted', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.isInvalid).toBeFalsy();
   });
 
   it('should display text field when selecting yes', () => {
     fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.isInvalid).toBeFalsy();
   });
 
   it('should be invalid if submitting without having entered any text', () => {
@@ -54,7 +54,7 @@ describe('HearingSuitabilityComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.isInvalid).toBeTruthy();
     const textfield = fixture.debugElementByCss('#details');
     expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
   });
