@@ -3,12 +3,138 @@
     <h1 class="govuk-heading-xl" i18n="@@questionnaireCompleted_h1">
       Questionnaire completed
     </h1>
+    <div>
+      <app-hearing-details-header></app-hearing-details-header>
+    </div>
+    <div>
+      <p class="govuk-body" i18n="@@questionnaireCompleted_p_summary">
+        Here's a summary of the information you've provided.
+      </p>
+    </div>
+
+    <h2 class="govuk-heading-m" i18n="@@questionnaireCompleted_h2_question_title1">
+      About you
+    </h2>
+    <table class="govuk-table bottom-border">
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td i18n="@@questionnaireCompleted_td_question_1">
+          Is there anything that could affect your ability to take part in a video hearing?
+        </td>
+        <td class="text-align-right">
+          <strong>{{ model.aboutYou.answer | appYesNo }}</strong>
+        </td>
+      </tr>
+      <tr *ngIf="model.aboutYou.answer">
+        <td colspan="2">
+          <span class="govuk-caption-m">{{model.aboutYou.notes}}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2 class="govuk-heading-m" i18n="@@questionnaireCompleted_h2_question_title2">
+      About your location
+    </h2>
+    <table class="govuk-table bottom-border">
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td i18n="@@questionnaireCompleted_td_question_2">
+          Will you have access to a quiet, private room where you can access the internet?
+        </td>
+        <td class="text-align-right">
+          <strong>{{ model.room | appYesNo }}</strong>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2 class="govuk-heading-m" i18n="@@questionnaireCompleted_h2_question_title3">
+      About your client
+    </h2>
+    <table class="govuk-table bottom-border">
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td i18n="@@questionnaireCompleted_td_question_3">
+          Is there anything that could affect your client's ability to take part in a video hearing?
+        </td>
+        <td class="text-align-right">
+          <strong>{{ model.aboutYourClient.answer | appYesNo }}</strong>
+        </td>
+      </tr>
+      <tr *ngIf="model.aboutYourClient.answer">
+        <td colspan="2">
+          <span class="govuk-caption-m">{{model.aboutYourClient.notes}}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2 class="govuk-heading-m" i18n="@@questionnaireCompleted_h2_question_title4">
+      About the hearing
+    </h2>
+    <table class="govuk-table bottom-border">
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td i18n="@@questionnaireCompleted_td_question_4">
+          Based on your knowledge of this case and your client, do you believe there is anything that makes this hearing
+          unsuitable for video?
+        </td>
+        <td class="text-align-right">
+          <strong>{{ model.hearingSuitability.answer | appYesNo }}</strong>
+        </td>
+      </tr>
+      <tr *ngIf="model.hearingSuitability.answer">
+        <td colspan="2">
+          <span class="govuk-caption-m">{{model.hearingSuitability.notes}}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2 class="govuk-heading-m" i18n="@@questionnaireCompleted_h2_question_title5">
+      About your equipment
+    </h2>
+    <table class="govuk-table bottom-border">
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell" i18n="@@questionnaireCompleted_td_question_5">
+          Will you have access to a laptop or desktop computer (not a tablet, not a mobile phone)?
+        </td>
+        <td class="govuk-table__cell text-align-right">
+          <strong>{{ model.computer | appYesNo }}</strong>
+        </td>
+      </tr>
+      <tr class="govuk-table__row">
+        <td i18n="@@questionnaireCompleted_td_question_6">
+          Does your computer have a camera and microphone?
+        </td>
+        <td class="text-align-right">
+          <strong>{{ GetCameraAnswer() }}</strong>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p class="govuk-body" style="margin-top:60px;" i18n="@@questionnaireCompleted_p_closing_text">
+      These details will now be reviewed by the court. If you need to
+      change any of the answers you've given please call the video hearings officer using the contact details below.
+    </p>
+
+    <div>
+      <img src="/assets/images/printer.png" style="width:16px; margin-right:10px;" alt="">
+      <a class="govuk-link" href="#" style="font-size:18px;" i18n="@@questionnaireCompleted_a_print_text">
+        Print my answers
+      </a>
+    </div>
 
     <div class="mt-20">
       <button class="govuk-button" (click)="continue()" i18n="@@questionnaireCompleted_btn_continue" id="continue"
-        type="button">
+              type="button">
         Continue
       </button>
     </div>
   </div>
 </div>
+
+<app-contact-us></app-contact-us>
