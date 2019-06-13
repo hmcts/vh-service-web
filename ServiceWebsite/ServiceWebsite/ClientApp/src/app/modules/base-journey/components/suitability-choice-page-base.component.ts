@@ -20,7 +20,7 @@ export abstract class SuitabilityChoicePageBaseComponent<TJourneyType extends Jo
     this.journey.next();
   }
 
-  get isInvalid(): boolean {
+  get isFormInvalid(): boolean {
     return this.form.invalid && this.submitted;
   }
 

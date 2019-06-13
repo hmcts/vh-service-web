@@ -9,9 +9,9 @@
       <form [formGroup]="form" (ngSubmit)="continue()">
   
         <div id="form-container"
-          [ngClass]="isInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+          [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
           <div class="govuk-fieldset">
-            <div *ngIf="isInvalid && !isTextInputInvalid">
+            <div *ngIf="isFormInvalid && !isTextInputInvalid">
               <span class="govuk-error-message" i18n="@@hearingSuitability_span_1">
                 Please answer this question
               </span>

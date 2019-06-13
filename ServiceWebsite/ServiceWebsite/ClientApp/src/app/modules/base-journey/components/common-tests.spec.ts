@@ -9,8 +9,8 @@ import { ComponentFixture } from '@angular/core/testing';
 class HasChoiceFormWrapper implements ChoiceFormComponent {
     constructor(private component: HasChoiceFormComponent) {}
 
-    get isInvalid(): boolean {
-        return this.component.form.isInvalid;
+    get isFormInvalid(): boolean {
+        return this.component.form.isFormInvalid;
     }
 }
 

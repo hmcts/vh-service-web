@@ -12,7 +12,7 @@ export abstract class ChoiceTextboxFormComponentBase implements OnInit {
 
     get textInput(): FormControl { return this.choiceForm.textInput; }
 
-    get isInvalid(): boolean { return this.choiceForm.isInvalid; }
+    get isFormInvalid(): boolean { return this.choiceForm.isFormInvalid; }
 
     get isTextInputInvalid(): boolean { return this.choiceForm.isTextInputInvalid; }
 

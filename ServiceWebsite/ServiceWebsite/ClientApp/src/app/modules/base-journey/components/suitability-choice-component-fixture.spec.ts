@@ -12,7 +12,7 @@ export interface HasChoiceFormComponent {
 }
 
 export interface ChoiceFormComponent {
-  readonly isInvalid: boolean;
+  readonly isFormInvalid: boolean;
 }
 
 export class ContinuableComponentFixture {
@@ -62,7 +62,7 @@ export class ChoicePageTests {
     this.fixture.submitIsClicked();
 
     // then
-    expect(this.component.isInvalid).toBeTruthy();
+    expect(this.component.isFormInvalid).toBeTruthy();
 
     // expect form to be erronous
     const formContainer = this.fixture.debugElementByCss('#form-container');

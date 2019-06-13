@@ -12,7 +12,7 @@ export class ChoiceForm {
         choice: this.choice
     });
 
-    get isInvalid(): boolean {
+    get isFormInvalid(): boolean {
         return this.formGroup.invalid && this.formSubmitted;
     }
 
