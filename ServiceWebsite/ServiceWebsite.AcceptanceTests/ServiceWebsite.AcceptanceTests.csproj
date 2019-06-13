@@ -68,6 +68,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ContactUs.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\HearingSuitability.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HearingSuitability.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\IndividualInformationVideo.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -162,6 +167,10 @@
     <SpecFlowFeatureFiles Update="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\HearingSuitability.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>HearingSuitability.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
