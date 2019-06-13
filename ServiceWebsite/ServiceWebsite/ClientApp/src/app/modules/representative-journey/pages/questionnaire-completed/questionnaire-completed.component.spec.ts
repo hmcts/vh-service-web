@@ -1,7 +1,7 @@
-import {RepresentativeJourneyComponentTestBed} from './../representative-base-component/component-test-bed.spec';
-import {QuestionnaireCompletedComponent} from './questionnaire-completed.component';
-import {AppYesNoPipe} from '../../../shared/boolean.pipe';
-import {HasAccessToCamera} from '../../../base-journey/participant-suitability.model';
+import { QuestionnaireCompletedComponent } from './questionnaire-completed.component';
+import { AppYesNoPipe } from '../../../shared/boolean.pipe';
+import { HasAccessToCamera } from '../../../base-journey/participant-suitability.model';
+import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/representative-journey-component-test-bed.spec';
 
 describe('QuestionnaireCompletedComponent', () => {
   it('can be created', () => {

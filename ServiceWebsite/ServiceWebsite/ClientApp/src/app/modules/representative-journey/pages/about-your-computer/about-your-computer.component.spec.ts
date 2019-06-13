@@ -1,37 +1,26 @@
+import { CommonTests } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { AboutYourComputerComponent } from './about-your-computer.component';
-import { CannotProceeedUntilChoiceIsSelected } from '../../components/suitability-choice-page-base.component.spec';
-
-import { RepresentativeJourney } from '../../representative-journey';
-import { RepresentativeStepsOrderFactory } from '../../representative-steps-order.factory';
-import { MutableRepresentativeSuitabilityModel } from '../../mutable-representative-suitability.model';
-import { Hearing } from '../../../base-journey/participant-suitability.model';
+import {
+  RepresentativeJourneyStubs,
+  RepresentativeJourneyComponentTestBed
+} from '../representative-base-component/representative-journey-component-test-bed.spec';
 
 describe('AboutYourComputerComponent', () => {
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
-    const fixture = CannotProceeedUntilChoiceIsSelected(AboutYourComputerComponent);
+    const fixture = RepresentativeJourneyComponentTestBed.createComponent({
+      component: AboutYourComputerComponent
+    });
+
+    CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
 
     // and value is bound
     expect(fixture.componentInstance.model.camera).toBe(0);
   });
 
-  describe('AboutYourComputerComponent features', () => {
-    const stepsOrderFactory = new RepresentativeStepsOrderFactory();
-    const hearing = new Hearing();
-    const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 2);
-    hearing.scheduleDateTime = tomorrow;
-    const model = new MutableRepresentativeSuitabilityModel();
-    model.hearing = hearing;
-    const listModel = [model];
-    const journey = new RepresentativeJourney(stepsOrderFactory);
-    journey.forSuitabilityAnswers(listModel);
-
-    it('should initialize choice value', () => {
-      const component = new AboutYourComputerComponent(journey);
-      component.model.camera = 1;
-      component.ngOnInit();
-      expect(component.model.camera).toBe(1);
-    });
+  it('should initialize choice value', () => {
+    const component = new AboutYourComputerComponent(RepresentativeJourneyStubs.default);
+    component.model.camera = 1;
+    component.ngOnInit();
+    expect(component.model.camera).toBe(1);
   });
 });

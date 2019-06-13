@@ -3,7 +3,7 @@ import { AboutYouComponent } from './about-you.component';
 import {
   SuitabilityChoiceComponentFixture
 } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
-import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/component-test-bed.spec';
+import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/representative-journey-component-test-bed.spec';
 
 describe('AboutYouComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;

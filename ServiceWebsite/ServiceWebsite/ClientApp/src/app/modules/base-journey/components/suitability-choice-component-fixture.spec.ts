@@ -1,5 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { ComponentFixture } from '@angular/core/testing';
 
 export interface FixtureMethods {
   debugElement: DebugElement;
@@ -60,5 +61,12 @@ export class ChoicePageTests {
 
     // then
     this.fixture.submitIsClicked();
+  }
+}
+
+export class CommonTests {
+  static cannotProceedUntilChoiceIsSelected<T extends ChoiceFormComponent>(fixture: ComponentFixture<T>): void {
+    const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);
+    new ChoicePageTests(choiceComponentFixture, fixture.componentInstance).cannotProceedUntilChoiceIsSelected();
   }
 }
