@@ -7,10 +7,6 @@ export interface FixtureMethods {
   detectChanges(): void;
 }
 
-export interface HasChoiceFormComponent {
-  readonly form: ChoiceForm;
-}
-
 export interface ChoiceFormComponent {
   readonly isFormInvalid: boolean;
 }
