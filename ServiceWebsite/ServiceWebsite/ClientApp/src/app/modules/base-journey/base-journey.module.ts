@@ -1,3 +1,4 @@
+import { ChoiceTextboxComponent } from './components/choice-textbox.component';
 import { JourneySelector } from 'src/app/modules/base-journey/services/journey.selector';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,9 @@ import { BaseJourneyRoutingModule } from './base-journey-routing.module';
   providers: [
     JourneySelector
   ],
+  declarations: [
+    ChoiceTextboxComponent
+  ],
   imports: [
     // angular
     CommonModule,
@@ -22,6 +26,9 @@ import { BaseJourneyRoutingModule } from './base-journey-routing.module';
     SharedModule,
     BaseJourneyRoutingModule,
   ],
+  exports: [
+    ChoiceTextboxComponent
+  ]
 })
 export class BaseJourneyModule {
 }
