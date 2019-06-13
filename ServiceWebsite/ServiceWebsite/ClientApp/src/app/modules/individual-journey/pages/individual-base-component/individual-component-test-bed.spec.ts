@@ -13,9 +13,29 @@ import {
   ComponentTestBedConfiguration
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
+import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: IndividualJourney;
+}
+
+export class CommonIndividualComponentTests {
+  static continuesWhenButtonIsPressed<TComponent>(config: ComponentTestBedConfiguration<TComponent>) {
+    const journey = jasmine.createSpyObj<IndividualJourney>(['next']);
+    const fixture = IndividualJourneyComponentTestBed.createComponent({
+      component: config.component,
+      providers: [
+        { provide: IndividualJourney, journey },
+        ...(config.providers || [])
+      ],
+      imports: config.imports,
+      declarations: config.declarations
+    });
+
+    fixture.detectChanges();
+    new ContinuableComponentFixture(fixture).submitIsClicked();
+    expect(journey.next).toHaveBeenCalled();
+  }
 }
 
 export class IndividualJourneyStubs {

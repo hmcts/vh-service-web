@@ -1,6 +1,5 @@
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ComponentFixture } from '@angular/core/testing';
 
 export interface FixtureMethods {
   debugElement: DebugElement;
@@ -11,7 +10,21 @@ export interface ChoiceFormComponent {
   readonly isFormInvalid: boolean;
 }
 
-export class SuitabilityChoiceComponentFixture  {
+export class ContinuableComponentFixture {
+  constructor(private fixture: FixtureMethods) {}
+
+  debugElementByCss(css: string): DebugElement {
+    return this.fixture.debugElement.query(By.css(css));
+  }
+
+  submitIsClicked() {
+    const continueButton = this.debugElementByCss('.govuk-button');
+    continueButton.nativeElement.click();
+    this.fixture.detectChanges();
+  }
+}
+
+export class SuitabilityChoiceComponentFixture {
   constructor(private fixture: FixtureMethods) {}
 
   detectChanges(): void {
@@ -25,9 +38,7 @@ export class SuitabilityChoiceComponentFixture  {
   }
 
   submitIsClicked() {
-    const continueButton = this.debugElementByCss('.govuk-button');
-    continueButton.nativeElement.click();
-    this.fixture.detectChanges();
+    new ContinuableComponentFixture(this.fixture).submitIsClicked();
   }
 
   debugElementByCss(css: string): DebugElement {
@@ -61,12 +72,5 @@ export class ChoicePageTests {
 
     // then
     this.fixture.submitIsClicked();
-  }
-}
-
-export class CommonTests {
-  static cannotProceedUntilChoiceIsSelected<T extends ChoiceFormComponent>(fixture: ComponentFixture<T>): void {
-    const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);
-    new ChoicePageTests(choiceComponentFixture, fixture.componentInstance).cannotProceedUntilChoiceIsSelected();
   }
 }
