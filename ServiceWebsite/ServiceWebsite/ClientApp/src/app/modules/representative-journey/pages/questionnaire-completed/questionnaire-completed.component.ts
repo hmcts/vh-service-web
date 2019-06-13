@@ -8,8 +8,16 @@ import {HasAccessToCamera} from '../../../base-journey/participant-suitability.m
   styleUrls: ['./questionnaire-completed.component.css']
 })
 export class QuestionnaireCompletedComponent extends RepresentativeBaseComponent {
-  GetCameraAnswer(): boolean {
-    return this.model.camera === HasAccessToCamera.Yes;
+  private hasCameraDescriptionMap = new Map<HasAccessToCamera, string>([
+    [HasAccessToCamera.Yes, 'Yes'],
+    [HasAccessToCamera.No, 'No'],
+    [HasAccessToCamera.NotSure, 'Not Sure']
+  ]);
+
+  GetCameraAnswer(): string {
+    const enumMappedValue = this.hasCameraDescriptionMap.get(this.model.camera);
+
+    return enumMappedValue === undefined ? HasAccessToCamera[this.model.camera] : enumMappedValue;
   }
 }
 
