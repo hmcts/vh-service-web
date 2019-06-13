@@ -3,6 +3,6 @@ import { HelpTheCourtDecideComponent } from './help-the-court-decide.component';
 
 describe('HelpTheCourtDecideComponent', () => {
   it('can proceed when clicking next', () => {
-    CommonIndividualComponentTests.continuesWhenButtonIsPressed({ component: HelpTheCourtDecideComponent })
+    CommonIndividualComponentTests.continuesWhenButtonIsPressed({ component: HelpTheCourtDecideComponent });
   });
 });

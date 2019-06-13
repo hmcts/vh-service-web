@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RepresentativeJourney } from '../../representative-journey'
+import { RepresentativeJourney } from '../../representative-journey';
 import { ChoiceTextboxForm } from 'src/app/modules/base-journey/components/choice-textbox-form';
 
 @Component({
