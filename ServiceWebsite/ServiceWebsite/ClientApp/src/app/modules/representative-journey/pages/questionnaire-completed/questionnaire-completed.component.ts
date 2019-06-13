@@ -11,7 +11,7 @@ export class QuestionnaireCompletedComponent extends RepresentativeBaseComponent
   private hasCameraDescriptionMap = new Map<HasAccessToCamera, string>([
     [HasAccessToCamera.Yes, 'Yes'],
     [HasAccessToCamera.No, 'No'],
-    [HasAccessToCamera.NotSure, 'Not Sure']
+    [HasAccessToCamera.NotSure, 'I\'m not sure']
   ]);
 
   GetCameraAnswer(): string {

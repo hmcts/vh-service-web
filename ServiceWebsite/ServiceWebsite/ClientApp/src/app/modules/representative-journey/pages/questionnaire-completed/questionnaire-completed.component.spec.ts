@@ -12,7 +12,7 @@ describe('QuestionnaireCompletedComponent', () => {
     expect(fixture).toBeTruthy();
   });
 
-  it('gets the camera answer values', () => {
+  it('gets the camera answer values which are mapped', () => {
     const fixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: QuestionnaireCompletedComponent,
       declarations: [AppYesNoPipe]
@@ -25,6 +25,16 @@ describe('QuestionnaireCompletedComponent', () => {
     expect(fixture.componentInstance.GetCameraAnswer()).toBe('No');
 
     fixture.componentInstance.model.camera = HasAccessToCamera.NotSure;
-    expect(fixture.componentInstance.GetCameraAnswer()).toBe('Not Sure');
+    expect(fixture.componentInstance.GetCameraAnswer()).toBe('I\'m not sure');
+  });
+
+  it('gets the camera answer values which are not mapped', () => {
+    const fixture = RepresentativeJourneyComponentTestBed.createComponent({
+      component: QuestionnaireCompletedComponent,
+      declarations: [AppYesNoPipe]
+    });
+
+    fixture.componentInstance.model.camera = 999;
+    expect(fixture.componentInstance.GetCameraAnswer()).toBeUndefined();
   });
 });
