@@ -11,7 +11,9 @@ using ServiceWebsite.BookingsAPI.Client;
 using Swashbuckle.AspNetCore.Swagger;
 using ServiceWebsite.Security;
 using ServiceWebsite.Services;
-using ServiceWebsite.Swagger;
+using ServiceWebsite.
+    
+    ;
 using ServiceWebsite.UserAPI.Client;
 using ServiceWebsite.Configuration;
 

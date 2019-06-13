@@ -1,6 +1,6 @@
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
-import { AboutYouComponent } from './about-you.component';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { AboutYouComponent } from './about-you.component';
 
 describe('AboutYouComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
