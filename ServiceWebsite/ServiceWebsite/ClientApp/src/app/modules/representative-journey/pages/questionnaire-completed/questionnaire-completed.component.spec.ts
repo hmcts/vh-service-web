@@ -2,7 +2,7 @@ import { QuestionnaireCompletedComponent } from './questionnaire-completed.compo
 import { AppYesNoPipe } from '../../../shared/boolean.pipe';
 import { HasAccessToCamera } from '../../../base-journey/participant-suitability.model';
 import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/representative-journey-component-test-bed.spec';
-import {PrintService} from '../../../../services/print.service';
+import { PrintService } from '../../../../services/print.service';
 
 describe('QuestionnaireCompletedComponent', () => {
   it('can be created', () => {
