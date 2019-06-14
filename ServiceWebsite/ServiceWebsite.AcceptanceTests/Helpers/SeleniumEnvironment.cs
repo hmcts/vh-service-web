@@ -72,7 +72,8 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     if (!BlockCameraAndMic)
                     {
                         var profile = new FirefoxProfile();
-                        profile.SetPreference("use-fake-ui-for-media-stream", true);
+                        profile.SetPreference("media.navigator.streams.fake", true);
+                        profile.SetPreference("media.navigator.permission.disabled", true);
                         caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
                     }
                     caps.SetCapability("browserName", "Firefox");
