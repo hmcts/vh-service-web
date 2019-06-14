@@ -4,7 +4,7 @@ import { ApiClient } from './../../../services/clients/api-client';
 import { of } from 'rxjs';
 
 describe('SuitabilityService', () => {
-    const client = jasmine.createSpyObj<ApiClient>(['getUserSuitabilityAnswers']);
+  const client = jasmine.createSpyObj<ApiClient>(['getUserSuitabilityAnswers', 'updateSuitabilityAnswers']);
     const service = new SuitabilityService(client);
 
     it('maps responses from api', async () => {
@@ -20,5 +20,11 @@ describe('SuitabilityService', () => {
         const result = await service.getAllSuitabilityAnswers();
         expect(result.length).toBe(1);
         expect(result[0].hearing.id).toBe('123');
-    });
+  });
+
+  it('submits answers to api', async () => {
+    const result = await service.updateSuitabilityAnswers('123', []);
+    expect(client.updateSuitabilityAnswers).toHaveBeenCalled();
+  });
+
 });
