@@ -24,12 +24,22 @@ export class RepresentativeJourneyStubs {
       // Journey with initialised model, so that it is accessible in steeps
     const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
     const journey = new RepresentativeJourney(representativeStepsOrderFactory);
-    const journeyModel = new MutableRepresentativeSuitabilityModel();
-
-    journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
-    journey.forSuitabilityAnswers([journeyModel]);
+    journey.forSuitabilityAnswers([ RepresentativeJourneyStubs.model ]);
     journey.startAt(RepresentativeJourneySteps.AboutVideoHearings);
     return journey;
+  }
+
+  public static get model(): RepresentativeSuitabilityModel {
+    const model = new MutableRepresentativeSuitabilityModel();
+    model.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+    return model;
+  }
+
+  public static get journeySpy(): jasmine.SpyObj<RepresentativeJourney> {
+    return {
+      model: RepresentativeJourneyStubs.model,
+      ...jasmine.createSpyObj<RepresentativeJourney>(['next'])
+    } as jasmine.SpyObj<RepresentativeJourney>;
   }
 }
 

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from './../shared/shared.module';
+import { BaseJourneyModule } from './../base-journey/base-journey.module';
 import { RepresentativeJourneyRoutingModule } from './representative-journey-routing.module';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
 
@@ -58,6 +59,7 @@ import { CachedHearingService } from './services/cached-hearing.service';
 
     // app
     SharedModule,
+    BaseJourneyModule,
     RepresentativeJourneyRoutingModule,
   ],
   providers: [
