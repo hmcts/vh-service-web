@@ -11,12 +11,16 @@ export class PrintService {
     const printContent = elementId ? document.getElementById(elementId).innerHTML : originalContent;
     document.body.innerHTML = printContent;
 
+    print();
+
+    document.body.innerHTML = originalContent;
+  }
+
+  print() {
     try {
       document.execCommand('print', false, null);
     } catch (e) {
       window.print();
     }
-
-    document.body.innerHTML = originalContent;
   }
 }
