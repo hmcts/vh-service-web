@@ -1,7 +1,7 @@
 import { AccessToRoomComponent } from './access-to-room.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { ComponentFixture } from '@angular/core/testing';
-import { CommonTests } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
 
 describe('AccessToRoomComponent', () => {
   let fixture: ComponentFixture<AccessToRoomComponent>;

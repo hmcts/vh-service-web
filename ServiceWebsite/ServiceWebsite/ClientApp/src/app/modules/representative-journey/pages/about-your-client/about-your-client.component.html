@@ -6,77 +6,21 @@
 
     <app-hearing-details-header></app-hearing-details-header>
 
-    <form [formGroup]="form" (ngSubmit)="continue()">
+    <app-choice-textbox [suitabilityAnswer]="journey.model.aboutYourClient" (submitted)="journey.next()">
+      <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@aboutYourClient_p_1">Is there anything that could affect
+        your client's ability to take part in a video hearing?
+      </p>
 
-      <div id="form-container"
-        [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
-        <div class="govuk-fieldset">
-          <div *ngIf="isFormInvalid && !isTextInputInvalid">
-            <span class="govuk-error-message" i18n="@@aboutYourClient_span_1">
-              Please answer this question
-            </span>
-          </div>
-          <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@aboutYourClient_p_1">Is there anything that could affect
-            your client's ability to take part in a video hearing?
-          </p>
+      <p class="govuk-body govuk-!-margin-bottom-4" i18n="@@aboutYourClient_p_2">For example: </p>
 
-          <p class="govuk-body govuk-!-margin-bottom-4" i18n="@@aboutYourClient_p_2">For example: </p>
-
-          <ul class="govuk-list govuk-list--bullet">
-            <li i18n="@@aboutYourClient_ul_li_1">are they hard of hearing or deaf?</li>
-            <li i18n="@@aboutYourClient_ul_li_2">are they blind or partially sighted?</li>
-            <li i18n="@@aboutYourClient_ul_li_3">do they have mobility issues that make it difficult to travel?</li>
-            <li i18n="@@aboutYourClient_ul_li_4">are there any other factors that might make communicating by video
-              difficult for your client?</li>
-          </ul>
-
-          <div class="govuk-form-group">
-            <div class="govuk-fieldset fieldset-margin">
-              <div class="govuk-radios">
-
-                <div class="govuk-radios__item">
-                  <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
-                    [value]="true">
-                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYourClient_label_1">
-                    Yes
-                  </label>
-                </div>
-                <div [ngClass]="isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
-                  <div class="form-group textarea-top-margin" *ngIf="choice.value">
-                    <div>
-                      <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@aboutYourClient_span_2">
-                        Please complete this section
-                      </span>
-                      <label for="details" id="more-details" class="govuk-label" i18n="@@aboutYourClient_label_1">
-                        Please provide more information
-                      </label>
-                    </div>
-                    <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
-                      [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
-                      aria-describedby="more-details">
-                    </textarea>
-                  </div>
-                </div>
-
-                <div class="govuk-radios__item">
-                  <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
-                    [value]="false">
-                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYourClient_label_2">
-                    No
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-20">
-        <button class="govuk-button" (click)="continue()" i18n="@@aboutYourClient_btn_continue" id="continue"
-          type="button">
-          Continue
-        </button>
-      </div>
-    </form>
+      <ul class="govuk-list govuk-list--bullet">
+        <li i18n="@@aboutYourClient_ul_li_1">are they hard of hearing or deaf?</li>
+        <li i18n="@@aboutYourClient_ul_li_2">are they blind or partially sighted?</li>
+        <li i18n="@@aboutYourClient_ul_li_3">do they have mobility issues that make it difficult to travel?</li>
+        <li i18n="@@aboutYourClient_ul_li_4">are there any other factors that might make communicating by video
+          difficult for your client?</li>
+      </ul>
+    </app-choice-textbox>
     <app-contact-us></app-contact-us>
   </div>
 </div>

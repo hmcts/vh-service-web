@@ -6,78 +6,21 @@
       <div>
         <app-hearing-details-header></app-hearing-details-header>
       </div>
-      <form [formGroup]="form" (ngSubmit)="continue()">
-  
-        <div id="form-container"
-          [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
-          <div class="govuk-fieldset">
-            <div *ngIf="isFormInvalid && !isTextInputInvalid">
-              <span class="govuk-error-message" i18n="@@hearingSuitability_span_1">
-                Please answer this question
-              </span>
-            </div>
-            <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@hearingSuitability_p_1">Based on your knowledge of this
-              case and your client, do you believe there is anything that makes this hearing unsuitable for video? For
-              example:
-            </p>
-  
-            <ul class="govuk-list govuk-list--bullet">
-              <li i18n="@@hearingSuitability_ul_li_1">the case may be particularly complex</li>
-              <li i18n="@@hearingSuitability_ul_li_2">those present may be required to consult many physical documents
-                during the hearing</li>
-              <li i18n="@@hearingSuitability_ul_li_3">someone else may be attending on your behalf</li>
-              <li i18n="@@hearingSuitability_ul_li_4">there may be something else you wish to draw to the court’s
-                attention</li>
-            </ul>
-  
-            <div class="govuk-form-group">
-              <div class="govuk-fieldset fieldset-margin">
-                <div class="govuk-radios">
-  
-                  <div class="govuk-radios__item">
-                    <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
-                      [value]="true">
-                    <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@hearingSuitability_label_1">
-                      Yes
-                    </label>
-                  </div>
-                  <div [ngClass]="isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
-                    <div class="form-group textarea-top-margin" *ngIf="choice.value">
-                      <div>
-                        <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@hearingSuitability_span_2">
-                          Please complete this section
-                        </span>
-                        <label for="details" id="more-details" class="govuk-label" i18n="@@hearingSuitability_label_1">
-                          Please provide more information
-                        </label>
-                      </div>
-                      <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
-                        [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
-                        aria-describedby="more-details">
-                      </textarea>
-                    </div>
-                  </div>
-  
-                  <div class="govuk-radios__item">
-                    <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
-                      [value]="false">
-                    <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@hearingSuitability_label_2">
-                      No
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <div class="mt-20">
-          <button class="govuk-button" (click)="continue()" i18n="@@hearingSuitability_btn_continue" id="continue"
-            type="button">
-            Continue
-          </button>
-        </div>
-      </form>
+      <app-choice-textbox [suitabilityAnswer]="journey.model.hearingSuitability" (submitted)="journey.next()">
+        <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@hearingSuitability_p_1">Based on your knowledge of this
+          case and your client, do you believe there is anything that makes this hearing unsuitable for video? For
+          example:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li i18n="@@hearingSuitability_ul_li_1">the case may be particularly complex</li>
+          <li i18n="@@hearingSuitability_ul_li_2">those present may be required to consult many physical documents
+            during the hearing</li>
+          <li i18n="@@hearingSuitability_ul_li_3">someone else may be attending on your behalf</li>
+          <li i18n="@@hearingSuitability_ul_li_4">there may be something else you wish to draw to the court’s
+            attention</li>
+        </ul>
+      </app-choice-textbox>
       <app-contact-us></app-contact-us>
     </div>
   </div>
