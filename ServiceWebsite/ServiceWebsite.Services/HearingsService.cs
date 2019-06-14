@@ -43,7 +43,33 @@ namespace ServiceWebsite.Services
         {
             return response.Participants.Any(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
-        
+
+        public async Task<Guid?> GetParticipantIdByUserName(string username, Guid id)
+        {
+            try
+            {
+                var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(id);
+                var participant = hearingResponse.Participants.First(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+                if (participant == null)
+                {
+                    throw new UnauthorizedAccessException($"User is not participant of hearing: {id}");
+                }
+                return participant.Id;
+            }
+            catch (BookingsApiException e)
+            {
+                if (e.StatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException($"Could not find hearing with id: {id}");
+                }
+
+                throw;
+            }
+
+        }
+
+
         private static Hearing Map(HearingDetailsResponse response)
         {
             var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.Value) ?? response.Cases.First();
@@ -55,6 +81,11 @@ namespace ServiceWebsite.Services
                 response.Case_type_name,
                 response.Hearing_type_name
             );
+        }
+
+        private static Participant MapParticipant(ParticipantResponse response)
+        {
+
         }
     }
 }

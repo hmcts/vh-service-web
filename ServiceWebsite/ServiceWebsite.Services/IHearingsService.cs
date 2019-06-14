@@ -7,5 +7,6 @@ namespace ServiceWebsite.Services
     public interface IHearingsService
     {
         Task<Hearing> GetHearingFor(string username, Guid id);
+        Task<Guid?> GetParticipantId(string username, Guid id);
     }
 }
