@@ -1,4 +1,4 @@
-import { CommonTests } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
 import { AboutYourComputerComponent } from './about-your-computer.component';
 import {
   RepresentativeJourneyStubs,

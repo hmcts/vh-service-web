@@ -1,19 +1,28 @@
 import { IndividualJourneyComponentTestBed, IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 import { ExploreVideoHearingComponent } from './explore-video-hearing.component';
 import { DeviceType } from '../../services/device-type';
+import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { IndividualJourney } from '../../individual-journey';
 
 const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
 
 describe('ExploreVideoHearingComponent', () => {
-  const journey = IndividualJourneyStubs.default;
+  let journey: IndividualJourney;
 
-  it('can be created', () => {
+  beforeEach(() => {
+    journey = jasmine.createSpyObj<IndividualJourney>(['next']);
+  });
+
+  it('can proceed on pressing continue', () => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: ExploreVideoHearingComponent,
-      providers: [ { provide: DeviceType, useValue: deviceType }]
+      providers: [ { provide: DeviceType, useValue: deviceType }],
+      journey: journey
     });
-    fixture.detectChanges();
-    expect(fixture.componentInstance).toBeTruthy();
+
+    const test = new ContinuableComponentFixture(fixture);
+    test.submitIsClicked();
+    expect(journey.next).toHaveBeenCalled();
   });
 
   it('should detect device is mobile phone', () => {

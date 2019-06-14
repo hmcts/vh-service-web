@@ -20,7 +20,7 @@ describe('AboutYourClientComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.form.isFormInvalid).toBeTruthy();
 
     // expect form to display error class
     const formContainer = fixture.debugElementByCss('#form-container');
@@ -34,18 +34,18 @@ describe('AboutYourClientComponent', () => {
   it('should clear error when selecting no', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-no');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.form.isFormInvalid).toBeFalsy();
   });
 
   it('should clear error when selecting yes after having submitted', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.form.isFormInvalid).toBeFalsy();
   });
 
   it('should display text field when selecting yes', () => {
     fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.form.isFormInvalid).toBeFalsy();
   });
 
   it('should be invalid if submitting without having entered any text', () => {
@@ -54,7 +54,7 @@ describe('AboutYourClientComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.form.isFormInvalid).toBeTruthy();
     const textfield = fixture.debugElementByCss('#details-yes');
     expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
   });
@@ -62,7 +62,7 @@ describe('AboutYourClientComponent', () => {
   it('should bind value and notes to model on submit', () => {
     // when
     fixture.radioBoxIsClicked('#choice-yes');
-    component.textInput.setValue('notes');
+    component.form.textInput.setValue('notes');
     fixture.detectChanges();
     fixture.submitIsClicked();
 

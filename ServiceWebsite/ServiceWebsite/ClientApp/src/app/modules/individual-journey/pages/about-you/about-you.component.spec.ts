@@ -1,6 +1,6 @@
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
-import { AboutYouComponent } from './about-you.component';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { AboutYouComponent } from './about-you.component';
 
 describe('AboutYouComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -13,6 +13,7 @@ describe('AboutYouComponent', () => {
     component = componentFixture.componentInstance;
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.detectChanges();
+    component.ngOnInit();
 
     component = componentFixture.componentInstance;
     fixture.detectChanges();
@@ -23,7 +24,7 @@ describe('AboutYouComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.form.isFormInvalid).toBeTruthy();
 
     // expect form to display error class
     const formContainer = fixture.debugElementByCss('#form-container');
@@ -37,18 +38,18 @@ describe('AboutYouComponent', () => {
   it('should clear error when selecting no', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-no');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.form.isFormInvalid).toBeFalsy();
   });
 
   it('should clear error when selecting yes after having submitted', () => {
     fixture.submitIsClicked();
     fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.form.isFormInvalid).toBeFalsy();
   });
 
   it('should display text field when selecting yes', () => {
     fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
+    expect(component.form.isFormInvalid).toBeFalsy();
   });
 
   it('should be invalid if submitting without having entered any text', () => {
@@ -57,7 +58,7 @@ describe('AboutYouComponent', () => {
     fixture.submitIsClicked();
 
     // then
-    expect(component.isFormInvalid).toBeTruthy();
+    expect(component.form.isFormInvalid).toBeTruthy();
     const textfield = fixture.debugElementByCss('#details-yes');
     expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
   });
@@ -65,7 +66,7 @@ describe('AboutYouComponent', () => {
   it('should bind value and notes to model on submit', () => {
     // when
     fixture.radioBoxIsClicked('#choice-yes');
-    component.textInput.setValue('notes');
+    component.form.textInput.setValue('notes');
     fixture.detectChanges();
     fixture.submitIsClicked();
 
