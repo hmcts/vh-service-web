@@ -74,7 +74,7 @@ describe('ChoiceTextboxComponent', () => {
 
     // then
     expect(component.form.isFormInvalid).toBeTruthy();
-    const textfield = testFixture.debugElementByCss('#details');
+    const textfield = testFixture.debugElementByCss('#details-yes');
     expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
   });
 
