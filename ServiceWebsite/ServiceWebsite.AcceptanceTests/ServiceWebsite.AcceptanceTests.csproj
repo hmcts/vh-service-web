@@ -45,6 +45,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutYou.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\AboutYourClient.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutYourClient.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\AboutYourComputer.feature.cs">
       <DependentUpon>AboutYouComputer.feature</DependentUpon>
     </Compile>
@@ -62,6 +67,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ContactUs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\HearingSuitability.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HearingSuitability.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\IndividualInformationVideo.feature.cs">
       <DesignTime>True</DesignTime>
@@ -91,12 +101,33 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AccessToRoom.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\PleaseContactUs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PleaseContactUs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\ThankYou.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ThankYou.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\YourClientsAttendance.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>YourClientsAttendance.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\YourComputer.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>YourComputer.feature</DependentUpon>
     </Compile>
     <Compile Update="Steps\ContactUsSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Steps\IndividualQuestionnaireSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Steps\RepresentativeQuestionnaireSteps.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Steps\YourComputerSteps.cs">
@@ -119,6 +150,7 @@
   <ItemGroup>
     <SpecFlowFeatureFiles Update="Features\AboutYourClient.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AboutYourClient.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYourComputer.feature">
       <LastGenOutput>AboutYourComputer.feature.cs</LastGenOutput>
@@ -138,6 +170,7 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\HearingSuitability.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>HearingSuitability.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -163,12 +196,15 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\PleaseContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PleaseContactUs.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ThankYou.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\YourClientsAttendance.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>YourClientsAttendance.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\YourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
