@@ -41,16 +41,24 @@ namespace ServiceWebsite.Controllers
         {
             if (hearingId == Guid.Empty)
             {
-                return BadRequest(ModelState);
+                return new BadRequestResult();
             }
             try
             {
-                var hearingParticipantId = await _hearingService.GetParticipantId(User.Identity.Name, hearingId);
+                var participantId = await _hearingService.GetParticipantId(User.Identity.Name, hearingId);
 
-                var paricipantid = hearingParticipantId ?? Guid.Empty;
+                
+                foreach(HearingSuitabilityAnswer answer in answers)
+                {
+                    bool isValid = RegExValidators.ValidateForCapsAndUnderscore(answer.QuestionKey);
+                    if(!isValid)
+                    {
+                        return new BadRequestResult();
+                    }
+                }
 
                 var suitabilityAnswers = MapAnswers(answers);
-                await _participantService.UpdateSuitabilityAnswers(hearingId, paricipantid, suitabilityAnswers);
+                await _participantService.UpdateSuitabilityAnswers(hearingId, participantId, suitabilityAnswers);
 
                 return Ok();
             }

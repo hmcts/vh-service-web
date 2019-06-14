@@ -44,18 +44,25 @@ namespace ServiceWebsite.Services
             return response.Participants.Any(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<Guid?> GetParticipantIdByUserName(string username, Guid id)
+        public async Task<Guid> GetParticipantId(string username, Guid id)
         {
             try
             {
                 var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(id);
                 var participant = hearingResponse.Participants.First(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
-                if (participant == null)
+                if (participant == null )
                 {
                     throw new UnauthorizedAccessException($"User is not participant of hearing: {id}");
                 }
-                return participant.Id;
+
+                var participantId = participant.Id ?? Guid.Empty;
+
+                if(participantId.Equals(Guid.Empty))
+                {
+                    throw new UnauthorizedAccessException($"User is not participant of hearing: {id}");
+                }
+                return participantId;
             }
             catch (BookingsApiException e)
             {
@@ -83,9 +90,5 @@ namespace ServiceWebsite.Services
             );
         }
 
-        private static Participant MapParticipant(ParticipantResponse response)
-        {
-
-        }
-    }
+      }
 }
