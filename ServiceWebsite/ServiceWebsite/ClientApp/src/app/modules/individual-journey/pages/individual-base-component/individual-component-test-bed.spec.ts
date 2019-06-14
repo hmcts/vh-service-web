@@ -1,3 +1,4 @@
+import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 
@@ -13,9 +14,27 @@ import {
   ComponentTestBedConfiguration
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
+import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: IndividualJourney;
+}
+
+export class CommonIndividualComponentTests {
+  static continuesWhenButtonIsPressed<TComponent>(config: ComponentTestBedConfiguration<TComponent>) {
+    const journey = jasmine.createSpyObj<IndividualJourney>(['next']);
+    const fixture = IndividualJourneyComponentTestBed.createComponent({
+      component: config.component,
+      providers: config.providers,
+      imports: config.imports,
+      declarations: config.declarations,
+      journey: journey
+    });
+
+    fixture.detectChanges();
+    new ContinuableComponentFixture(fixture).submitIsClicked();
+    expect(journey.next).toHaveBeenCalled();
+  }
 }
 
 export class IndividualJourneyStubs {
@@ -24,11 +43,22 @@ export class IndividualJourneyStubs {
     const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
     deviceType.isMobile.and.returnValue(false);
     const journey = new IndividualJourney(individualStepsOrderFactory);
-    const journeyModel = new MutableIndividualSuitabilityModel();
-
-    journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
-    journey.forSuitabilityAnswers([journeyModel]);
+    journey.forSuitabilityAnswers([ IndividualJourneyStubs.model ]);
+    journey.startAt(IndividualJourneySteps.AboutHearings);
     return journey;
+  }
+
+  public static get model(): IndividualSuitabilityModel {
+    const journeyModel = new MutableIndividualSuitabilityModel();
+    journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+    return journeyModel;
+  }
+
+  public static get journeySpy(): jasmine.SpyObj<IndividualJourney> {
+    return {
+      model: IndividualJourneyStubs.model,
+      ...jasmine.createSpyObj<IndividualJourney>(['next'])
+    } as jasmine.SpyObj<IndividualJourney>;
   }
 }
 

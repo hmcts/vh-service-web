@@ -6,12 +6,12 @@
       <div>
         <app-hearing-details-header></app-hearing-details-header>
       </div>
-      <form [formGroup]="form" (ngSubmit)="continue()">
+      <form [formGroup]="form.formGroup" (ngSubmit)="form.submit()">
   
         <div id="form-container"
-          [ngClass]="isFormInvalid && !isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
+          [ngClass]="form.isFormInvalid && !form.isTextInputInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
           <div class="govuk-fieldset">
-            <div *ngIf="isFormInvalid && !isTextInputInvalid">
+            <div *ngIf="form.isFormInvalid && !form.isTextInputInvalid">
               <span class="govuk-error-message" i18n="@@hearingSuitability_span_1">
                 Please answer this question
               </span>
@@ -41,10 +41,10 @@
                       Yes
                     </label>
                   </div>
-                  <div [ngClass]="isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
-                    <div class="form-group textarea-top-margin" *ngIf="choice.value">
+                  <div [ngClass]="form.isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
+                    <div class="form-group textarea-top-margin" *ngIf="form.choice.value">
                       <div>
-                        <span *ngIf="isTextInputInvalid" class="govuk-error-message" i18n="@@hearingSuitability_span_2">
+                        <span *ngIf="form.isTextInputInvalid" class="govuk-error-message" i18n="@@hearingSuitability_span_2">
                           Please complete this section
                         </span>
                         <label for="details" id="more-details" class="govuk-label" i18n="@@hearingSuitability_label_1">
@@ -52,7 +52,7 @@
                         </label>
                       </div>
                       <textarea formControlName="textInput" class="txtMore vh-text-width" id="details" rows="5" cols="80"
-                        [ngClass]="isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
+                        [ngClass]="form.isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
                         aria-describedby="more-details">
                       </textarea>
                     </div>
@@ -72,7 +72,7 @@
         </div>
   
         <div class="mt-20">
-          <button class="govuk-button" (click)="continue()" i18n="@@hearingSuitability_btn_continue" id="continue"
+          <button class="govuk-button" (click)="form.submit()" i18n="@@hearingSuitability_btn_continue" id="continue"
             type="button">
             Continue
           </button>

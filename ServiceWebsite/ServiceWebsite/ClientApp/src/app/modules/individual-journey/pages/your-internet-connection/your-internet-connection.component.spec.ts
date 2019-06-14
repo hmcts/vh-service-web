@@ -1,4 +1,4 @@
-import { CommonTests } from './../../../base-journey/components/suitability-choice-component-fixture.spec';
+import { CommonTests } from './../../../base-journey/components/common-tests.spec';
 import { YourInternetConnectionComponent } from './your-internet-connection.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 

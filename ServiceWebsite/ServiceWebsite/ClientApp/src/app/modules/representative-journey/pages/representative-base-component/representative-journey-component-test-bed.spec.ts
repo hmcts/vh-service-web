@@ -10,6 +10,7 @@ import {
   ComponentTestBedConfiguration,
   JourneyComponentTestBed
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({ selector: 'app-hearing-details-header', template: ''})
 export class StubHearingDetailsHeaderComponent {}
@@ -27,6 +28,7 @@ export class RepresentativeJourneyStubs {
 
     journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
     journey.forSuitabilityAnswers([journeyModel]);
+    journey.startAt(RepresentativeJourneySteps.AboutVideoHearings);
     return journey;
   }
 }

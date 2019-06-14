@@ -8,6 +8,7 @@ import { UserMediaService } from '../../services/user-media.service';
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
 import { Type, Component, Input } from '@angular/core';
 import { VideoUrlService } from '../../services/video-url.service';
+import { IndividualJourney } from '../../individual-journey';
 
 @Component({
     selector: 'app-video-view',
@@ -20,7 +21,7 @@ import { VideoUrlService } from '../../services/video-url.service';
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
 
   export class VideoViewComponentTestBed {
-    static createComponent<TComponent>(component: Type<TComponent>): ComponentFixture<TComponent> {
+    static createComponent<TComponent>(component: Type<TComponent>, journey?: IndividualJourney): ComponentFixture<TComponent> {
       return IndividualJourneyComponentTestBed.createComponent({
         component: component,
         providers: [
@@ -28,12 +29,13 @@ import { VideoUrlService } from '../../services/video-url.service';
           { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']) },
           { provide: Config, useValue: {} },
           { provide: MediaService, useClass: UserMediaService },
-          { provide: DeviceType, useValue: deviceType }
+          { provide: DeviceType, useValue: deviceType },
         ],
         declarations: [
           StubVideoViewComponent,
           UserCameraViewComponent
-        ]
+        ],
+        journey: journey
       });
     }
   }
