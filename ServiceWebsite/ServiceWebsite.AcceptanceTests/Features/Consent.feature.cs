@@ -95,23 +95,11 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Individual participae without providing answer on consent page")]
-        [NUnit.Framework.CategoryAttribute("VIH-4338nt")]
-        [NUnit.Framework.CategoryAttribute("attempts")]
-        [NUnit.Framework.CategoryAttribute("to")]
-        [NUnit.Framework.CategoryAttribute("proceed")]
-        [NUnit.Framework.CategoryAttribute("to")]
-        [NUnit.Framework.CategoryAttribute("next")]
-        [NUnit.Framework.CategoryAttribute("pag")]
+        [NUnit.Framework.CategoryAttribute("VIH-4338")]
         public virtual void IndividualParticipaeWithoutProvidingAnswerOnConsentPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participae without providing answer on consent page", null, new string[] {
-                        "VIH-4338nt",
-                        "attempts",
-                        "to",
-                        "proceed",
-                        "to",
-                        "next",
-                        "pag"});
+                        "VIH-4338"});
 #line 15
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
