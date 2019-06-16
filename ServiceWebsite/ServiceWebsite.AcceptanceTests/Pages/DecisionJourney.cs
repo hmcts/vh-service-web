@@ -18,7 +18,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public void SelectYes(string detail)
         {
             SelectYes();
-            SetMethods.InputValue(detail, By.Id("details"), BrowserContext);
+            SetMethods.InputValue(detail, By.Id("details-yes"), BrowserContext);
         }
         public void SelectNo()
         {

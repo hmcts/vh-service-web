@@ -1,15 +1,18 @@
 import { AboutYourComputerComponent } from './about-your-computer.component';
-import { CanCreateComponent } from '../individual-base-component/individual-component-test-bed.spec';
-import { CannotProceeedUntilChoiceIsSelected } from '../../components/suitability-choice-page-base.component.spec';
+import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
+import {
+  SuitabilityChoiceComponentFixture,
+  ChoicePageTests
+} from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 describe('AboutYourComputerComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(AboutYourComputerComponent);
-  });
   it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
-    const fixture = CannotProceeedUntilChoiceIsSelected(AboutYourComputerComponent);
+    const fixture = IndividualJourneyComponentTestBed.createComponent({component: AboutYourComputerComponent});
+    const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);
+    const choicePageTests = new ChoicePageTests(choiceComponentFixture, fixture.componentInstance);
+    choicePageTests.cannotProceedUntilChoiceIsSelected();
 
     // and value is bound
-    expect(fixture.component.model.camera).toBe(0);
+    expect(fixture.componentInstance.model.camera).toBe(0);
   });
 });

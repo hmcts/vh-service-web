@@ -1,8 +1,9 @@
+import { RepresentativeJourneyComponentTestBed } from '../representative-base-component/representative-journey-component-test-bed.spec';
 import { PleaseContactUsComponent } from './please-contact-us.component';
-import { CanCreateComponent } from '../representative-base-component/component-test-bed.spec';
 
 describe('PleaseContactUsComponent', () => {
   it('can be created', () => {
-    CanCreateComponent(PleaseContactUsComponent);
+    const fixture = RepresentativeJourneyComponentTestBed.createComponent({component: PleaseContactUsComponent});
+    expect(fixture).toBeTruthy();
   });
 });

@@ -94,13 +94,11 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Individual participant attempts to proceed to next page without providing answer " +
-            "on consent page")]
+        [NUnit.Framework.DescriptionAttribute("Individual participae without providing answer on consent page")]
         [NUnit.Framework.CategoryAttribute("VIH-4338")]
-        public virtual void IndividualParticipantAttemptsToProceedToNextPageWithoutProvidingAnswerOnConsentPage()
+        public virtual void IndividualParticipaeWithoutProvidingAnswerOnConsentPage()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant attempts to proceed to next page without providing answer " +
-                    "on consent page", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participae without providing answer on consent page", null, new string[] {
                         "VIH-4338"});
 #line 15
 this.ScenarioInitialize(scenarioInfo);
@@ -116,13 +114,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 20
  testRunner.And("attempts to proceed without providing additional information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 21
- testRunner.Then("2 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("1 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 22
  testRunner.When("provides additional information containing a two character length \'AB\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
  testRunner.And("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
- testRunner.Then("2 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("1 errors should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
