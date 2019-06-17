@@ -71,9 +71,11 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 case TargetBrowser.Firefox:
                     if (!BlockCameraAndMic)
                     {
-                        var profile = new FirefoxProfile();
-                        profile.SetPreference("media.navigator.streams.fake", true);
-                        profile.SetPreference("media.navigator.permission.disabled", true);
+                        var profile = new Dictionary<string, object>
+                        {
+                            ["args"] = new List<string>
+                            { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "media.navigator.streams.fake"}
+                        };
                         caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
                     }
                     caps.SetCapability("browserName", "Firefox");
