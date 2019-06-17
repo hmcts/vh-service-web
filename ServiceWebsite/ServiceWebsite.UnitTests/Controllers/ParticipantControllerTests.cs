@@ -64,7 +64,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             // given service throws()
             _hearingService.Setup(x => x.GetParticipantId(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
 
-            var result = (OkResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
+            var result = (NoContentResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             Assert.AreEqual(204, result.StatusCode);
         }
 

@@ -60,7 +60,7 @@ namespace ServiceWebsite.Controllers
                 var suitabilityAnswers = MapAnswers(answers);
                 await _participantService.UpdateSuitabilityAnswers(hearingId, participantId, suitabilityAnswers);
 
-                return Ok();
+                return NoContent();
             }
             catch (NotFoundException e)
             {
