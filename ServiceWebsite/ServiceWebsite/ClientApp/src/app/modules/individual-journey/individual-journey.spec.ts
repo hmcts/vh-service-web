@@ -123,10 +123,10 @@ describe('IndividualJourney', () => {
   });
 
   it(`should continue to ${Steps.ThankYou} if individual has no access to a camera or microphone`, () => {
-    givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
+    givenUserIsAtStep(Steps.AboutYourComputer);
     journey.model.camera = HasAccessToCamera.No;
     journey.next();
-    expectDropOffToThankYouFrom(Steps.AccessToCameraAndMicrophone);
+    expectDropOffToThankYouFrom(Steps.AboutYourComputer);
   });
 
   it(`should continue to ${Steps.ThankYou} if individual has no access to an internet connection`, () => {
