@@ -23,12 +23,12 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     this.form.addControl('textInputYes', this.textInputYes);
     this.form.addControl('textInputNo', this.textInputNo);
 
-/*     this.choice.setValue(this.model.consent.answer);
+    this.choice.setValue(this.model.consent.answer);
     if (this.model.consent.answer === true) {
       this.textInputYes.setValue(this.model.consent.notes);
     } else {
       this.textInputNo.setValue(this.model.consent.notes);
-    } */
+    }
 
     this.choice.valueChanges.subscribe(value => {
       if (value) {
