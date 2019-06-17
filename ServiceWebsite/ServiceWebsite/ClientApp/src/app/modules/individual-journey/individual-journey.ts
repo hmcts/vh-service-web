@@ -184,6 +184,6 @@ export class IndividualJourney extends JourneyBase {
     let answers: HearingSuitabilityAnswer[];
     answers = mapper.mapToRequest(this.model);
     console.log(answers);
-    const result = await this.suitabilityService.updateSuitabilityAnswers(this.model.hearing.id, answers);
+    await this.suitabilityService.updateSuitabilityAnswers(this.model.hearing.id, answers);
   }
 }
