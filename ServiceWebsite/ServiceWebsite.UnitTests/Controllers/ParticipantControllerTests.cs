@@ -25,7 +25,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         {
             _hearingService = new Mock<IHearingsService>();
             _participantService = new Mock<IParticipantService>();
-            _controller = new ParticipantController(_hearingService.Object, _participantService.Object;);
+            _controller = new ParticipantController(_hearingService.Object, _participantService.Object);
             _controller.MockUserIdentity(Username);
         }
 
