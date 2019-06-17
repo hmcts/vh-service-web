@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -59,12 +60,31 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_ok_if_suitability_answers_updated_successfully()
+        public async Task should_return_badrequest_if_question_key_format_is_incorrect()
         {
-            // given service throws()
+            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "incorrect_key", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
             _hearingService.Setup(x => x.GetParticipantId(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
 
-            var result = (NoContentResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
+            var result = (BadRequestResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
+            Assert.AreEqual(400, result.StatusCode);
+        }
+
+        [Test]
+        public async Task should_return_badrequest_if_answers_length_is_zero()
+        {
+           _hearingService.Setup(x => x.GetParticipantId(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
+
+            var result = (BadRequestResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
+            Assert.AreEqual(400, result.StatusCode);
+        }
+
+        [Test]
+        public async Task should_return_ok_if_suitability_answers_updated_successfully()
+        {
+            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
+            _hearingService.Setup(x => x.GetParticipantId(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
+
+            var result = (NoContentResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
             Assert.AreEqual(204, result.StatusCode);
         }
 

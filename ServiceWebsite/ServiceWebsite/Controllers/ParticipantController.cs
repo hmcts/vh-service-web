@@ -46,14 +46,20 @@ namespace ServiceWebsite.Controllers
             try
             {
                 var participantId = await _hearingService.GetParticipantId(User.Identity.Name, hearingId);
-
                 
-                foreach(HearingSuitabilityAnswer answer in answers)
+                if (answers.Count == 0)
                 {
-                    bool isValid = RegExValidators.ValidateForCapsAndUnderscore(answer.QuestionKey);
-                    if(!isValid)
+                    return new BadRequestResult();
+                }
+                else
+                {
+                    foreach (HearingSuitabilityAnswer answer in answers)
                     {
-                        return new BadRequestResult();
+                        bool isValid = RegExValidators.ValidateForCapsAndUnderscore(answer.QuestionKey);
+                        if (!isValid)
+                        {
+                            return new BadRequestResult();
+                        }
                     }
                 }
 
