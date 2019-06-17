@@ -44,11 +44,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             _hearingService.Setup(x => x.GetParticipantId(Username, _hearingId))
                 .ThrowsAsync(new NotFoundException("message"));
             var result = (NotFoundObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
-           // var result = await _controller.UpdateSuitabilityAnswers(Guid.Empty, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
-            //var result = (NotFoundObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId,);
             Assert.AreEqual($"No hearing with id '{_hearingId}' found for user", result.Value);
-            // var noContentResult = (NoContentResult)result;
-            //Assert.AreEqual(204, noContentResult.StatusCode);
         }
 
         [Test]
@@ -61,7 +57,6 @@ namespace ServiceWebsite.UnitTests.Controllers
             var result = (UnauthorizedObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             Assert.AreEqual(result.Value, $"User is not a participant of hearing with id '{_hearingId}'");
         }
-
 
         [Test]
         public async Task should_return_ok_if_suitability_answers_updated_successfully()
