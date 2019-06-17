@@ -11,7 +11,7 @@ Scenario: Individual participant consents to video hearing
 	When proceeds to next page
 	Then Individual should be on 'thank you' screen
 
-@VIH-4338nt attempts to proceed to next pag
+@VIH-4338
 Scenario: Individual participae without providing answer on consent page
 	Given Individual participant is on 'consent' page
 	When attempts to proceed without selecting an answer
