@@ -45,6 +45,50 @@ export abstract class ParticipantModelMapper {
         answer.answer = value === 'true';
         answer.notes = notes;
         return answer;
-    }
+  }
 
+  public addSuitabilityAnswer(modelAnswer: SuitabilityAnswer, key: string, answers: HearingSuitabilityAnswer[]) {
+    if (modelAnswer !== undefined) {
+      answers.push(this.createHearingSuitabilityAnswer(key, modelAnswer.answer, modelAnswer.notes));
+    }
+  }
+
+  public addBooleanAnswer(modelAnswer: boolean, key: string, answers: HearingSuitabilityAnswer[]) {
+    if (modelAnswer !== undefined) {
+      answers.push(this.createHearingSuitabilityAnswer(key, modelAnswer, null));
+    }
+  }
+
+  public addAnswerForCamera(modelAnswer: HasAccessToCamera, key: string, answers: HearingSuitabilityAnswer[]) {
+    if (modelAnswer !== undefined) {
+      var answer = new HearingSuitabilityAnswer();
+      answer.question_key = key;
+      answer.answer = this.getAccessToCameraAnswer(modelAnswer);
+      answers.push(answer);
+    }
+  }
+
+  private createHearingSuitabilityAnswer(key: string, answer: boolean, extendedAnswer: string): HearingSuitabilityAnswer{
+    var hearingSuitabilityAnswer = new HearingSuitabilityAnswer();
+    hearingSuitabilityAnswer.question_key = key;
+    hearingSuitabilityAnswer.answer = answer ? 'Yes' : 'No';
+    if (extendedAnswer !== null) {
+      hearingSuitabilityAnswer.extended_answer = extendedAnswer;
+    }
+    return hearingSuitabilityAnswer;
+  }
+
+  private getAccessToCameraAnswer(accessToCamera: HasAccessToCamera) {
+    switch (accessToCamera) {
+      case HasAccessToCamera.Yes:
+        return 'Yes';
+      case HasAccessToCamera.No:
+        return 'No';
+      case HasAccessToCamera.NotSure:
+        return 'Not sure';
+      default:
+        throw new Error(`Unexpected answer to computer question: ${accessToCamera}`);
+    }
+  }
+  
 }
