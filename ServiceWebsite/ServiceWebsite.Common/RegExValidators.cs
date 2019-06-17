@@ -14,7 +14,7 @@ namespace ServiceWebsite.Common
             Regex regex = new Regex(strRegex, RegexOptions.None);
             Match match = regex.Match(key);
 
-           return match.Success;
+            return match.Success;
         }
     }
 }

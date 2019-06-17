@@ -89,7 +89,19 @@ namespace ServiceWebsite.UnitTests
             // the exception is rethrown
             Assert.ThrowsAsync<BookingsApiException>(() => _hearingService.GetHearingFor("username", _hearingId));
         }
-        
+
+        [Test]
+        public void should_rethrow_general_api_exception_when_get_participant_id_called()
+        {
+            // given
+            var serverErrorException = new BookingsApiException("msg", 500, "resp", null, null);
+            _apiClient.Setup(x => x.GetHearingDetailsByIdAsync(_hearingId))
+                .ThrowsAsync(serverErrorException);
+
+            // the exception is rethrown
+            Assert.ThrowsAsync<BookingsApiException>(() => _hearingService.GetParticipantId("username", _hearingId));
+        }
+
         [Test]
         public void should_unauthorized_if_user_is_not_participant()
         {
