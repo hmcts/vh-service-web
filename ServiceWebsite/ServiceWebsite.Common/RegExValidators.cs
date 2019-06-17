@@ -9,7 +9,7 @@ namespace ServiceWebsite.Common
     {
         public static bool ValidateForCapsAndUnderscore(string key)
         {
-            string strRegex = @"(?<base>[A-Z]+(?:_[A-Z]+)+))";
+            string strRegex = @"(?<base>[A-Z]+(?:_[A-Z]+)+)";
             Regex regexObj = new Regex(strRegex, RegexOptions.Multiline);
             return regexObj.IsMatch(strRegex);
         }
