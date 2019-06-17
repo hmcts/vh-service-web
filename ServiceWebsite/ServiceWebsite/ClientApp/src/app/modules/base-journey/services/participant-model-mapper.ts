@@ -48,7 +48,7 @@ export abstract class ParticipantModelMapper {
   }
 
   public addSuitabilityAnswer(modelAnswer: SuitabilityAnswer, key: string, answers: HearingSuitabilityAnswer[]) {
-    if (modelAnswer !== undefined) {
+    if (modelAnswer.answer !== undefined) {
       answers.push(this.createHearingSuitabilityAnswer(key, modelAnswer.answer, modelAnswer.notes));
     }
   }
@@ -61,15 +61,15 @@ export abstract class ParticipantModelMapper {
 
   public addAnswerForCamera(modelAnswer: HasAccessToCamera, key: string, answers: HearingSuitabilityAnswer[]) {
     if (modelAnswer !== undefined) {
-      var answer = new HearingSuitabilityAnswer();
+      const answer = new HearingSuitabilityAnswer();
       answer.question_key = key;
       answer.answer = this.getAccessToCameraAnswer(modelAnswer);
       answers.push(answer);
     }
   }
 
-  private createHearingSuitabilityAnswer(key: string, answer: boolean, extendedAnswer: string): HearingSuitabilityAnswer{
-    var hearingSuitabilityAnswer = new HearingSuitabilityAnswer();
+  private createHearingSuitabilityAnswer(key: string, answer: boolean, extendedAnswer: string): HearingSuitabilityAnswer {
+    const hearingSuitabilityAnswer = new HearingSuitabilityAnswer();
     hearingSuitabilityAnswer.question_key = key;
     hearingSuitabilityAnswer.answer = answer ? 'Yes' : 'No';
     if (extendedAnswer !== null) {
@@ -90,5 +90,4 @@ export abstract class ParticipantModelMapper {
         throw new Error(`Unexpected answer to computer question: ${accessToCamera}`);
     }
   }
-  
 }

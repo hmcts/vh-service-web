@@ -38,7 +38,7 @@ export class IndividualModelMapper extends ParticipantModelMapper {
       this.addBooleanAnswer(model.room, IndividualQuestionKeys.Room, answers);
       this.addBooleanAnswer(model.interpreter, IndividualQuestionKeys.Interpreter, answers);
       this.addBooleanAnswer(model.computer, IndividualQuestionKeys.Computer, answers);
-      this.addAnswerForCamera(model.camera, IndividualQuestionKeys.AboutYou, answers);
+      this.addAnswerForCamera(model.camera, IndividualQuestionKeys.Camera, answers);
       return answers;
     }
 }
