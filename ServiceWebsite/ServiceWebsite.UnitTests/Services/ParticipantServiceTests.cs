@@ -46,5 +46,18 @@ namespace ServiceWebsite.UnitTests.Services
             _bookingsApiClient = new Mock<IBookingsApiClient>();
             _participantService = new ParticipantService(_bookingsApiClient.Object);
         }
+
+        [Test]
+        public async Task should_throw_notfound_exception_when_hearing_not_found()
+        {
+               
+            var serverErrorException = new BookingsApiException("msg", 500, "resp", null, null);
+            _bookingsApiClient.Setup(x => x.UpdateSuitabilityAnswersAsync(_hearingId, _participantId, new List<SuitabilityAnswersRequest>())).ThrowsAsync(serverErrorException);
+
+            // the exception is rethrown
+            Assert.ThrowsAsync<BookingsApiException>(() => _participantService.UpdateSuitabilityAnswers(_hearingId, _participantId, new List<SuitabilityAnswer>()));
+            
+            
+        }
     }
 }
