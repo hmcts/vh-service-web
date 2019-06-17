@@ -1,3 +1,4 @@
+import { ChoiceForm } from './choice-form';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -10,7 +11,21 @@ export interface ChoiceFormComponent {
   readonly isFormInvalid: boolean;
 }
 
-export class SuitabilityChoiceComponentFixture  {
+export class ContinuableComponentFixture {
+  constructor(private fixture: FixtureMethods) {}
+
+  debugElementByCss(css: string): DebugElement {
+    return this.fixture.debugElement.query(By.css(css));
+  }
+
+  submitIsClicked() {
+    const continueButton = this.debugElementByCss('.govuk-button');
+    continueButton.nativeElement.click();
+    this.fixture.detectChanges();
+  }
+}
+
+export class SuitabilityChoiceComponentFixture {
   constructor(private fixture: FixtureMethods) {}
 
   detectChanges(): void {
@@ -24,9 +39,7 @@ export class SuitabilityChoiceComponentFixture  {
   }
 
   submitIsClicked() {
-    const continueButton = this.debugElementByCss('.govuk-button');
-    continueButton.nativeElement.click();
-    this.fixture.detectChanges();
+    new ContinuableComponentFixture(this.fixture).submitIsClicked();
   }
 
   debugElementByCss(css: string): DebugElement {

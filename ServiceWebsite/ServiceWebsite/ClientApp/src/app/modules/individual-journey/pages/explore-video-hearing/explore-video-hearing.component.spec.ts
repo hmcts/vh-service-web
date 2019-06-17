@@ -1,31 +1,39 @@
-import { CanCreateComponent } from '../individual-base-component/individual-component-test-bed.spec';
+import { IndividualJourneyComponentTestBed, IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 import { ExploreVideoHearingComponent } from './explore-video-hearing.component';
 import { DeviceType } from '../../services/device-type';
-import { TestModuleMetadata } from '@angular/core/testing';
-import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
+import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { IndividualJourney } from '../../individual-journey';
 
 const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
 
 describe('ExploreVideoHearingComponent', () => {
-  it('can be created', () => {
-    CanCreateComponent(ExploreVideoHearingComponent, (configuration: TestModuleMetadata) => {
-      configuration.providers.push({ provide: DeviceType, useValue: deviceType });
+  let journey: IndividualJourney;
+
+  beforeEach(() => {
+    journey = jasmine.createSpyObj<IndividualJourney>(['next']);
+  });
+
+  it('can proceed on pressing continue', () => {
+    const fixture = IndividualJourneyComponentTestBed.createComponent({
+      component: ExploreVideoHearingComponent,
+      providers: [ { provide: DeviceType, useValue: deviceType }],
+      journey: journey
     });
+
+    const test = new ContinuableComponentFixture(fixture);
+    test.submitIsClicked();
+    expect(journey.next).toHaveBeenCalled();
   });
 
   it('should detect device is mobile phone', () => {
     deviceType.isMobile.and.returnValue(true);
-    const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
-    const journey = new IndividualJourney(individualStepsOrderFactory);
     const component = new ExploreVideoHearingComponent(journey, deviceType);
 
     expect(component.isMobile).toBeTruthy();
   });
+
   it('should detect device is not mobile phone', () => {
     deviceType.isMobile.and.returnValue(false);
-    const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
-    const journey = new IndividualJourney(individualStepsOrderFactory);
     const component = new ExploreVideoHearingComponent(journey, deviceType);
 
     expect(component.isMobile).toBeFalsy();

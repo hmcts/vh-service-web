@@ -1,84 +1,35 @@
-import { RepresentativeJourneyComponentTestBed } from './../representative-base-component/component-test-bed.spec';
+import { SuitabilityChoiceComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
+import {
+  RepresentativeJourneyComponentTestBed,
+  RepresentativeJourneyStubs
+} from '../representative-base-component/representative-journey-component-test-bed.spec';
+import { RepresentativeJourney } from '../../representative-journey';
+import { ChoiceTextboxComponent } from 'src/app/modules/base-journey/components/choice-textbox.component';
 import { HearingSuitabilityComponent } from './hearing-suitability.component';
-import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 describe('HearingSuitabilityComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
   let component: HearingSuitabilityComponent;
+  let journey: jasmine.SpyObj<RepresentativeJourney>;
 
   beforeEach(() => {
+    journey = RepresentativeJourneyStubs.journeySpy;
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
-      component: HearingSuitabilityComponent
+      component: HearingSuitabilityComponent,
+      declarations: [
+        ChoiceTextboxComponent
+      ],
+      journey: journey
     });
-    fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     component = componentFixture.componentInstance;
+    fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.detectChanges();
   });
 
-  it('cannot proceed to next step before selecting a choice', () => {
-    // when
-    fixture.submitIsClicked();
-
-    // then
-    expect(component.isFormInvalid).toBeTruthy();
-
-    // expect form to display error class
-    const formContainer = fixture.debugElementByCss('#form-container');
-    expect(formContainer.classes['govuk-form-group--error']).toBeTruthy();
-
-    // and error message to be displayed
-    const errorMessage = fixture.debugElementByCss('#form-container .govuk-error-message');
-    expect(errorMessage.nativeElement).toBeTruthy();
-  });
-
-  it('should clear error when selecting no', () => {
-    fixture.submitIsClicked();
+  it('binds values and goes to next step after selecting choice and choosing continue', () => {
     fixture.radioBoxIsClicked('#choice-no');
-    expect(component.isFormInvalid).toBeFalsy();
-  });
-
-  it('should clear error when selecting yes after having submitted', () => {
     fixture.submitIsClicked();
-    fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
-  });
-
-  it('should display text field when selecting yes', () => {
-    fixture.radioBoxIsClicked('#choice-yes');
-    expect(component.isFormInvalid).toBeFalsy();
-  });
-
-  it('should be invalid if submitting without having entered any text', () => {
-    // when
-    fixture.radioBoxIsClicked('#choice-yes');
-    fixture.submitIsClicked();
-
-    // then
-    expect(component.isFormInvalid).toBeTruthy();
-    const textfield = fixture.debugElementByCss('#details');
-    expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
-  });
-
-  it('should bind value and notes to model on submit', () => {
-    // when
-    fixture.radioBoxIsClicked('#choice-yes');
-    component.textInput.setValue('notes');
-    fixture.detectChanges();
-    fixture.submitIsClicked();
-
-    // then
-    expect(component.journey.model.hearingSuitability.answer).toBe(true);
-    expect(component.journey.model.hearingSuitability.notes).toBe('notes');
-  });
-
-  it('should bind notes as null on selecting no', () => {
-    // when
-    fixture.radioBoxIsClicked('#choice-no');
-    fixture.detectChanges();
-    fixture.submitIsClicked();
-
-    // then
-    expect(component.journey.model.hearingSuitability.answer).toBe(false);
-    expect(component.journey.model.hearingSuitability.notes).toBeNull();
+    expect(journey.model.hearingSuitability.answer).toBe(false);
+    expect(journey.next).toHaveBeenCalled();
   });
 });
