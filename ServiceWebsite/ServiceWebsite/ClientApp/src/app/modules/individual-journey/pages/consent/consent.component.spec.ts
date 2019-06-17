@@ -7,7 +7,7 @@ describe('ConsentComponent', () => {
   let component: ConsentComponent;
 
   beforeEach(() => {
-    const componentFixture = IndividualJourneyComponentTestBed.createComponent({component: ConsentComponent});
+    const componentFixture = IndividualJourneyComponentTestBed.createComponent({ component: ConsentComponent });
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     component = componentFixture.componentInstance;
     fixture.detectChanges();
@@ -97,6 +97,16 @@ describe('ConsentComponent', () => {
     // then
     expect(component.model.consent.answer).toBe(false);
     expect(component.model.consent.notes).toBe('notes');
+  });
+
+  it('should bind value and notes to the data controls onInit', () => {
+    // when
+    component.model.consent.answer = true;
+    component.model.consent.notes = 'notes';
+    component.ngOnInit();
+
+    // then
+    expect(component.textInputYes.value).toBe('notes');
   });
 });
 

@@ -100,7 +100,6 @@ export class IndividualJourney extends JourneyBase {
       this.submit();
       nextStep = IndividualJourneySteps.ThankYou;
     }
-    console.log(this.model);
     this.goto(nextStep);
   }
 
@@ -183,7 +182,6 @@ export class IndividualJourney extends JourneyBase {
     const mapper = new IndividualModelMapper();
     let answers: HearingSuitabilityAnswer[];
     answers = mapper.mapToRequest(this.model);
-    console.log(answers);
     await this.suitabilityService.updateSuitabilityAnswers(this.model.hearing.id, answers);
   }
 }
