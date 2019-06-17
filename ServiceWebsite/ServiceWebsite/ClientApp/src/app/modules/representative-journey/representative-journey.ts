@@ -5,18 +5,16 @@ import { RepresentativeStepsOrderFactory } from './representative-steps-order.fa
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
+import {SessionStorage} from '../shared/services/session-storage';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
-
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
-
   stepOrder: Array<JourneyStep>;
-
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
-
   private currentModel: RepresentativeSuitabilityModel;
+  private cache = new SessionStorage<RepresentativeSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
 
   private isDone: boolean;
   private isSelfTestDone: boolean;
@@ -51,6 +49,12 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   startAt(step: JourneyStep) {
+    const cachedModel = this.cache.get();
+    console.log('**CACHE ' + JSON.stringify(cachedModel));
+    if (cachedModel !== null) {
+      this.initialiseModel(cachedModel);
+    }
+
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
@@ -80,6 +84,7 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   next() {
+    this.cache.set(this.model);
     this.assertInitialised();
     this.assertEntered();
 
@@ -156,5 +161,9 @@ export class RepresentativeJourney extends JourneyBase {
     if (this.currentStep === RepresentativeJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
     }
+  }
+
+  private initialiseModel(model: RepresentativeSuitabilityModel) {
+    this.currentModel = model;
   }
 }

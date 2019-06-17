@@ -9,8 +9,8 @@ const RepresentativeUserType = 'Representative';
 
 @Injectable()
 export class RepresentativeJourneyFactory implements JourneyFactory {
-    private journey: RepresentativeJourney;
-    private  bindings: RepresentativeJourneyStepComponentBindings;
+    private readonly journey: RepresentativeJourney;
+    private readonly bindings: RepresentativeJourneyStepComponentBindings;
     constructor(journey: RepresentativeJourney,
         private suitabilityService: RepresentativeSuitabilityService,
         bindings: RepresentativeJourneyStepComponentBindings,
