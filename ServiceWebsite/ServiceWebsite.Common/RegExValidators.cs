@@ -9,9 +9,12 @@ namespace ServiceWebsite.Common
     {
         public static bool ValidateForCapsAndUnderscore(string key)
         {
-            string strRegex = @"([A-Z]+(?:_[A-Z]+)+)";
-            Regex regexObj = new Regex(strRegex, RegexOptions.Multiline);
-            return regexObj.IsMatch(strRegex);
+            string strRegex = @"\b[A-Z]+(?:_[A-Z]+)+\b";
+
+            Regex regex = new Regex(strRegex, RegexOptions.None);
+            Match match = regex.Match(key);
+
+           return match.Success;
         }
     }
 }

@@ -82,6 +82,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         public async Task should_return_ok_if_suitability_answers_updated_successfully()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
+
             _hearingService.Setup(x => x.GetParticipantId(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
 
             var result = (NoContentResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
