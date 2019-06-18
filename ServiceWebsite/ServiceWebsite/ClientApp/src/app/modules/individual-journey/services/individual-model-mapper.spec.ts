@@ -169,24 +169,24 @@ describe('IndividualModelMapper', () => {
       answer: undefined,
       notes: undefined
     };
-    //Set any of the suitability answer type (aboutYou or consent) to undefined
+    // Set any of the suitability answer type (aboutYou or consent) to undefined
     answerModel.aboutYou = suitability;
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
     let requestAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
     expect(requestAnswersList.length).toBe(6);
     expect(requestAnswer).toBeUndefined();
 
-    //Set boolean value to undefined
+    // Set boolean value to undefined
     answerModel.computer = undefined;
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
     requestAnswer = requestAnswersList.find(a => a.question_key === Keys.Computer);
     expect(requestAnswer).toBeUndefined();
 
-    //Set camera answer to undefined
+    // Set camera answer to undefined
     answerModel.camera = undefined;
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
     requestAnswer = requestAnswersList.find(a => a.question_key === Keys.Computer);
-    expect(requestAnswer).toBeUndefined;
+    expect(requestAnswer).toBeUndefined();
 
   });
 
@@ -199,7 +199,6 @@ describe('IndividualModelMapper', () => {
     answerModel.aboutYou = suitability;
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-    
     expect(requestAnswersList[0].question_key).toBe(Keys.AboutYou);
     expect(requestAnswersList[0].answer).toBe('Yes');
     expect(requestAnswersList[0].extended_answer).toBe('About you Notes');
