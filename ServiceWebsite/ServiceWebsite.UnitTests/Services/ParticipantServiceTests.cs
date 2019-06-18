@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
@@ -24,6 +25,7 @@ namespace ServiceWebsite.UnitTests.Services
         private readonly Guid _participantId;
         
         private readonly List<SuitabilityAnswer> _answers;
+        private readonly List<SuitabilityAnswersRequest> _answerRequests;
 
         public ParticipantServiceTests()
         {
@@ -37,6 +39,12 @@ namespace ServiceWebsite.UnitTests.Services
                 ExtendedAnswer = "Extended answer"
             } };
 
+            _answerRequests = new List<SuitabilityAnswersRequest> { new SuitabilityAnswersRequest()
+            {
+                Key = "TEST_QUESTION",
+                Answer = "Answer",
+                Extended_answer = "Extended answer"
+            }};
 
         }
 
@@ -48,16 +56,24 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_throw_notfound_exception_when_hearing_not_found()
+        public void Should_throw_notfound_exception_when_hearing_not_found()
         {
-               
+
             var serverErrorException = new BookingsApiException("msg", 500, "resp", null, null);
             _bookingsApiClient.Setup(x => x.UpdateSuitabilityAnswersAsync(_hearingId, _participantId, new List<SuitabilityAnswersRequest>())).ThrowsAsync(serverErrorException);
 
             // the exception is rethrown
-            Assert.ThrowsAsync<BookingsApiException>(() => _participantService.UpdateSuitabilityAnswers(_hearingId, _participantId, new List<SuitabilityAnswer>()));
-            
-            
+            Assert.ThrowsAsync<BookingsApiException>(async() => await _participantService.UpdateSuitabilityAnswers(_hearingId, _participantId, new List<SuitabilityAnswer>()));
+        }
+
+        [Test]
+        public async Task Should_update_suitability_answersAsync()
+        {
+            _bookingsApiClient.Setup(x => x.UpdateSuitabilityAnswersAsync(_hearingId, _participantId, _answerRequests)).Callback(() => { }).Returns(Task.CompletedTask);
+            await _participantService.UpdateSuitabilityAnswers(_hearingId, _participantId, _answers);
+            _bookingsApiClient.Verify(x => x.UpdateSuitabilityAnswersAsync(_hearingId, _participantId, It.IsAny<IEnumerable<SuitabilityAnswersRequest>>()),
+                Times.Once);
+
         }
     }
 }
