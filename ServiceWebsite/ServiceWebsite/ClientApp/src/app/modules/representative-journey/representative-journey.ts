@@ -20,6 +20,7 @@ export class RepresentativeJourney extends JourneyBase {
 
   private isDone: boolean;
   private isSelfTestDone: boolean;
+  private isSubmitted: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
     super();
@@ -96,6 +97,7 @@ export class RepresentativeJourney extends JourneyBase {
       if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
         nextStep = RepresentativeJourneySteps.ContactUs;
       } else {
+        this.submit();
         nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
       }
     }
@@ -104,6 +106,7 @@ export class RepresentativeJourney extends JourneyBase {
       if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
         nextStep = RepresentativeJourneySteps.ContactUs;
       } else {
+        this.submit();
         nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
       }
     }
@@ -156,5 +159,10 @@ export class RepresentativeJourney extends JourneyBase {
     if (this.currentStep === RepresentativeJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
     }
+  }
+
+  private async submit() {
+    // call the save service
+    this.isSubmitted = true;
   }
 }
