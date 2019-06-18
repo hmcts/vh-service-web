@@ -146,16 +146,17 @@ describe('IndividualModelMapper', () => {
     });
 
   it('should map all the answers to request object', () => {
-      requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-      expect(requestAnswersList.length).toBeGreaterThan(0);
-      expect(requestAnswersList.length).toBe(7);
-      expect(requestAnswersList[0].question_key).toBe(Keys.AboutYou);
-      expect(requestAnswersList[1].question_key).toBe(Keys.Consent);
-      expect(requestAnswersList[2].question_key).toBe(Keys.Internet);
-      expect(requestAnswersList[3].question_key).toBe(Keys.Room);
-      expect(requestAnswersList[4].question_key).toBe(Keys.Interpreter);
-      expect(requestAnswersList[5].question_key).toBe(Keys.Computer);
-      expect(requestAnswersList[6].question_key).toBe(Keys.Camera);
+    requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
+    expect(requestAnswersList.length).toBeGreaterThan(0);
+    expect(requestAnswersList.length).toBe(7);
+
+    const listofKeys = [Keys.AboutYou, Keys.Consent, Keys.Internet, Keys.Room,
+    Keys.Interpreter, Keys.Computer, Keys.Camera];
+    
+    for (let i = 0; i < listofKeys.length; ++i) {
+      let answer = requestAnswersList.find(a => a.question_key === listofKeys[i]);
+      expect(answer).not.toBeNull();
+    }
   });
 
   it('should map all undefined answers to request object', () => {
@@ -199,9 +200,10 @@ describe('IndividualModelMapper', () => {
     answerModel.aboutYou = suitability;
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-    expect(requestAnswersList[0].question_key).toBe(Keys.AboutYou);
-    expect(requestAnswersList[0].answer).toBe('Yes');
-    expect(requestAnswersList[0].extended_answer).toBe('About you Notes');
+    let aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
+    expect(aboutYouAnswer.question_key).toBe(Keys.AboutYou);
+    expect(aboutYouAnswer.answer).toBe('Yes');
+    expect(aboutYouAnswer.extended_answer).toBe('About you Notes');
   });
 
   it('should map about you answer of No to request object', () => {
@@ -214,9 +216,10 @@ describe('IndividualModelMapper', () => {
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
 
-    expect(requestAnswersList[0].question_key).toBe(Keys.AboutYou);
-    expect(requestAnswersList[0].answer).toBe('No');
-    expect(requestAnswersList[0].extended_answer).toBe(undefined);
+    let aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
+    expect(aboutYouAnswer.question_key).toBe(Keys.AboutYou);
+    expect(aboutYouAnswer.answer).toBe('No');
+    expect(aboutYouAnswer.extended_answer).toBe(undefined);
   });
 
   it('should map computer camera and microphone answer to request object', () => {
@@ -226,9 +229,10 @@ describe('IndividualModelMapper', () => {
     for (let i = 0; i < expected.length; ++i) {
       answerModel.camera = expected[i];
       requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-      expect(requestAnswersList[6].question_key).toBe(Keys.Camera);
-      expect(requestAnswersList[6].answer).toBe(values[i]);
-      expect(requestAnswersList[6].extended_answer).toBe(undefined);
+      let cameraAnswer = requestAnswersList.find(a => a.question_key === Keys.Camera);
+      expect(cameraAnswer.question_key).toBe(Keys.Camera);
+      expect(cameraAnswer.answer).toBe(values[i]);
+      expect(cameraAnswer.extended_answer).toBe(undefined);
     }
   });
 
@@ -239,19 +243,7 @@ describe('IndividualModelMapper', () => {
     answerModel.computer = false;
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-
-    expect(requestAnswersList[2].question_key).toBe(Keys.Internet);
-    expect(requestAnswersList[2].answer).toBe('No');
-    expect(requestAnswersList[2].extended_answer).toBe(undefined);
-    expect(requestAnswersList[3].question_key).toBe(Keys.Room);
-    expect(requestAnswersList[3].answer).toBe('No');
-    expect(requestAnswersList[3].extended_answer).toBe(undefined);
-    expect(requestAnswersList[4].question_key).toBe(Keys.Interpreter);
-    expect(requestAnswersList[4].answer).toBe('No');
-    expect(requestAnswersList[4].extended_answer).toBe(undefined);
-    expect(requestAnswersList[5].question_key).toBe(Keys.Computer);
-    expect(requestAnswersList[5].answer).toBe('No');
-    expect(requestAnswersList[5].extended_answer).toBe(undefined);
+    validateBooleanExpectation(requestAnswersList, 'No');
   });
 
   it('should map boolean Yes value to request object', () => {
@@ -261,19 +253,30 @@ describe('IndividualModelMapper', () => {
     answerModel.computer = true;
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-
-    expect(requestAnswersList[2].question_key).toBe(Keys.Internet);
-    expect(requestAnswersList[2].answer).toBe('Yes');
-    expect(requestAnswersList[2].extended_answer).toBe(undefined);
-    expect(requestAnswersList[3].question_key).toBe(Keys.Room);
-    expect(requestAnswersList[3].answer).toBe('Yes');
-    expect(requestAnswersList[3].extended_answer).toBe(undefined);
-    expect(requestAnswersList[4].question_key).toBe(Keys.Interpreter);
-    expect(requestAnswersList[4].answer).toBe('Yes');
-    expect(requestAnswersList[4].extended_answer).toBe(undefined);
-    expect(requestAnswersList[5].question_key).toBe(Keys.Computer);
-    expect(requestAnswersList[5].answer).toBe('Yes');
-    expect(requestAnswersList[5].extended_answer).toBe(undefined);
+    validateBooleanExpectation(requestAnswersList, 'Yes');
   });
 
+  const validateBooleanExpectation = (requestAnswersList: HearingSuitabilityAnswer[], toBe: string) => {
+    let internetAnswer = requestAnswersList.find(a => a.question_key === Keys.Internet);
+    expect(internetAnswer.question_key).toBe(Keys.Internet);
+    expect(internetAnswer.answer).toBe(toBe);
+    expect(internetAnswer.extended_answer).toBe(undefined);
+
+    let roomAnswer = requestAnswersList.find(a => a.question_key === Keys.Room);
+    expect(roomAnswer.question_key).toBe(Keys.Room);
+    expect(roomAnswer.answer).toBe(toBe);
+    expect(roomAnswer.extended_answer).toBe(undefined);
+
+    let interpreterAnswer = requestAnswersList.find(a => a.question_key === Keys.Interpreter);
+    expect(interpreterAnswer.question_key).toBe(Keys.Interpreter);
+    expect(interpreterAnswer.answer).toBe(toBe);
+    expect(interpreterAnswer.extended_answer).toBe(undefined);
+
+    let computerAnswer = requestAnswersList.find(a => a.question_key === Keys.Computer);
+    expect(computerAnswer.question_key).toBe(Keys.Computer);
+    expect(computerAnswer.answer).toBe(toBe);
+    expect(computerAnswer.extended_answer).toBe(undefined);
+  };
+
 });
+
