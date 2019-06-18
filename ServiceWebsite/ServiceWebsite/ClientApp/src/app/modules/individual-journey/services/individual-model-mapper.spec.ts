@@ -152,9 +152,9 @@ describe('IndividualModelMapper', () => {
 
     const listofKeys = [Keys.AboutYou, Keys.Consent, Keys.Internet, Keys.Room,
     Keys.Interpreter, Keys.Computer, Keys.Camera];
-    
+
     for (let i = 0; i < listofKeys.length; ++i) {
-      let answer = requestAnswersList.find(a => a.question_key === listofKeys[i]);
+      const answer = requestAnswersList.find(a => a.question_key === listofKeys[i]);
       expect(answer).not.toBeNull();
     }
   });
@@ -200,7 +200,7 @@ describe('IndividualModelMapper', () => {
     answerModel.aboutYou = suitability;
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-    let aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
+    const aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
     expect(aboutYouAnswer.question_key).toBe(Keys.AboutYou);
     expect(aboutYouAnswer.answer).toBe('Yes');
     expect(aboutYouAnswer.extended_answer).toBe('About you Notes');
@@ -216,7 +216,7 @@ describe('IndividualModelMapper', () => {
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
 
-    let aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
+    const aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
     expect(aboutYouAnswer.question_key).toBe(Keys.AboutYou);
     expect(aboutYouAnswer.answer).toBe('No');
     expect(aboutYouAnswer.extended_answer).toBe(undefined);
@@ -229,7 +229,7 @@ describe('IndividualModelMapper', () => {
     for (let i = 0; i < expected.length; ++i) {
       answerModel.camera = expected[i];
       requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-      let cameraAnswer = requestAnswersList.find(a => a.question_key === Keys.Camera);
+      const cameraAnswer = requestAnswersList.find(a => a.question_key === Keys.Camera);
       expect(cameraAnswer.question_key).toBe(Keys.Camera);
       expect(cameraAnswer.answer).toBe(values[i]);
       expect(cameraAnswer.extended_answer).toBe(undefined);
@@ -256,23 +256,23 @@ describe('IndividualModelMapper', () => {
     validateBooleanExpectation(requestAnswersList, 'Yes');
   });
 
-  const validateBooleanExpectation = (requestAnswersList: HearingSuitabilityAnswer[], toBe: string) => {
-    let internetAnswer = requestAnswersList.find(a => a.question_key === Keys.Internet);
+  const validateBooleanExpectation = (requestAnswers: HearingSuitabilityAnswer[], toBe: string) => {
+    const internetAnswer = requestAnswers.find(a => a.question_key === Keys.Internet);
     expect(internetAnswer.question_key).toBe(Keys.Internet);
     expect(internetAnswer.answer).toBe(toBe);
     expect(internetAnswer.extended_answer).toBe(undefined);
 
-    let roomAnswer = requestAnswersList.find(a => a.question_key === Keys.Room);
+    const roomAnswer = requestAnswers.find(a => a.question_key === Keys.Room);
     expect(roomAnswer.question_key).toBe(Keys.Room);
     expect(roomAnswer.answer).toBe(toBe);
     expect(roomAnswer.extended_answer).toBe(undefined);
 
-    let interpreterAnswer = requestAnswersList.find(a => a.question_key === Keys.Interpreter);
+    const interpreterAnswer = requestAnswers.find(a => a.question_key === Keys.Interpreter);
     expect(interpreterAnswer.question_key).toBe(Keys.Interpreter);
     expect(interpreterAnswer.answer).toBe(toBe);
     expect(interpreterAnswer.extended_answer).toBe(undefined);
 
-    let computerAnswer = requestAnswersList.find(a => a.question_key === Keys.Computer);
+    const computerAnswer = requestAnswers.find(a => a.question_key === Keys.Computer);
     expect(computerAnswer.question_key).toBe(Keys.Computer);
     expect(computerAnswer.answer).toBe(toBe);
     expect(computerAnswer.extended_answer).toBe(undefined);
