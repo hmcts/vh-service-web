@@ -44,11 +44,11 @@ namespace ServiceWebsite.Services
             return response.Participants.Any(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<Guid> GetParticipantId(string username, Guid id)
+        public async Task<Guid> GetParticipantIdAsync(string username, Guid hearingId)
         {
             try
             {
-                var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(id);
+                var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(hearingId);
                 var participant = hearingResponse.Participants.First(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
                 if (participant == null )
