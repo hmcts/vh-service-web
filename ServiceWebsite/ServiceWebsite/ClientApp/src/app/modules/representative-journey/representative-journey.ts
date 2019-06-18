@@ -5,7 +5,6 @@ import { RepresentativeStepsOrderFactory } from './representative-steps-order.fa
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
-import {SessionStorage} from '../shared/services/session-storage';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
@@ -14,7 +13,6 @@ export class RepresentativeJourney extends JourneyBase {
   stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
-  private modelCache = new SessionStorage<RepresentativeSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
 
   private isDone: boolean;
   private isSelfTestDone: boolean;
@@ -49,11 +47,6 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   startAt(step: JourneyStep) {
-    const cachedModel = this.modelCache.get();
-    if (cachedModel !== null) {
-      this.initialiseModel(cachedModel);
-    }
-
     this.assertInitialised();
 
     if (this.isDone) {
@@ -84,7 +77,6 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   next() {
-    this.modelCache.set(this.model);
     this.assertInitialised();
     this.assertEntered();
 
