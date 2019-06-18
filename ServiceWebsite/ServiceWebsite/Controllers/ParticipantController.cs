@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,8 @@ namespace ServiceWebsite.Controllers
     {
         private readonly IHearingsService _hearingService;
         private readonly IParticipantService _participantService;
+        private static readonly string strRegex = @"\b[A-Z]+(?:_[A-Z]+)+\b";
+        private static readonly Regex validAnswerKeyRegex = new Regex(strRegex, RegexOptions.Compiled);
         public ParticipantController(IHearingsService hearingsService, IParticipantService participantService)
         {
             _hearingService = hearingsService;
@@ -55,7 +58,7 @@ namespace ServiceWebsite.Controllers
                 {
                     foreach (HearingSuitabilityAnswer answer in answers)
                     {
-                        bool isValid = RegExValidators.ValidateForCapsAndUnderscore(answer.QuestionKey);
+                        bool isValid = ValidateAnswerKey(answer.QuestionKey);
                         if (!isValid)
                         {
                             return new BadRequestResult();
@@ -93,6 +96,13 @@ namespace ServiceWebsite.Controllers
                 });
             }
             return suitabilityAnswers;
+        }
+
+        private bool ValidateAnswerKey(string answerKey)
+        {
+            Match match = validAnswerKeyRegex.Match(answerKey);
+
+            return match.Success;
         }
 
     }
