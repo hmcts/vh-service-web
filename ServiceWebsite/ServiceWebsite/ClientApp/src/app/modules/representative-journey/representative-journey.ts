@@ -14,7 +14,7 @@ export class RepresentativeJourney extends JourneyBase {
   stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
-  private cache = new SessionStorage<RepresentativeSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
+  private modelCache = new SessionStorage<RepresentativeSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
 
   private isDone: boolean;
   private isSelfTestDone: boolean;
@@ -49,13 +49,13 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   startAt(step: JourneyStep) {
-    const cachedModel = this.cache.get();
-    console.log('**CACHE ' + JSON.stringify(cachedModel));
+    const cachedModel = this.modelCache.get();
     if (cachedModel !== null) {
       this.initialiseModel(cachedModel);
     }
 
     this.assertInitialised();
+
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
     } else {
@@ -84,7 +84,7 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   next() {
-    this.cache.set(this.model);
+    this.modelCache.set(this.model);
     this.assertInitialised();
     this.assertEntered();
 
