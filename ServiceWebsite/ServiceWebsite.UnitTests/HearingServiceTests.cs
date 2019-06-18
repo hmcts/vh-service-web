@@ -123,7 +123,7 @@ namespace ServiceWebsite.UnitTests
         public async Task should_return_participant_id_should_return_a_mapped_hearing_for_hearing_with_user_as_participant()
         {
             GivenApiHasResponseWithCase(_case);
-            var participantid = await _hearingService.GetParticipantId(Username, _hearingId);
+            var participantid = await _hearingService.GetParticipantIdAsync(Username, _hearingId);
             Assert.AreNotEqual(participantid, Guid.Empty);
         }
 
