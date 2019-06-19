@@ -21,10 +21,11 @@ export class IndividualJourney extends JourneyBase {
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
 
   private currentModel: IndividualSuitabilityModel;
-  private currentSubmitModel: MutableIndividualSuitabilityModel = new MutableIndividualSuitabilityModel();
 
   private isDone: boolean;
   private isSubmitted: boolean;
+
+  private stepsWithAnswers: Array<MutableIndividualSuitabilityModelWithStep> = []
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory, private suitabilityService: SuitabilityService) {
     super();
@@ -77,29 +78,33 @@ export class IndividualJourney extends JourneyBase {
     }
 
     let nextStep = this.stepOrder[currentStep + 1];
+    this.updateSubmitModelWithStep(currentStep);
 
     // access to a computer.
     if (this.model.computer === false) {
-      this.updateSubmitModel(currentStep);
-      this.submit();
+      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      modelToSave.model.computer = false;
+      this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // access to a camera and microphone.
     if (this.model.camera === HasAccessToCamera.No) {
-      this.updateSubmitModel(currentStep);
-      this.submit();
+      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      modelToSave.model.camera = HasAccessToCamera.No;
+      this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // access to the internet.
     if (this.model.internet === false) {
-      this.updateSubmitModel(currentStep);
-      this.submit();
+      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      modelToSave.model.internet = false;
+      this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // consent.
     if (this.model.consent.answer === true || this.model.consent.answer === false) {
-      this.updateSubmitModel(currentStep);
-      this.submit();
+      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     this.goto(nextStep);
@@ -153,38 +158,34 @@ export class IndividualJourney extends JourneyBase {
     }
   }
 
-  private updateSubmitModel(step: number): void {
-    switch (step) {
-      case 10: {
-        this.model.camera = undefined;
-        this.model.internet = undefined;
-        this.model.room = undefined;
-        this.model.consent = new SuitabilityAnswer();
-        break;
-      }
-      case 11: {
-        this.model.internet = undefined;
-        this.model.room = undefined;
-        this.model.consent = new SuitabilityAnswer();
-        break;
-      }
-      case 12: {
-        this.model.room = undefined;
-        this.model.consent = new SuitabilityAnswer();
-        break;
-      }
-      default: {
-        console.log('not an exit step, do nothing');
-        break;
-      }
-    }
-  }
-
-  private async submit() {
+  private async submit(model: MutableIndividualSuitabilityModel) {
     const mapper = new IndividualModelMapper();
     let answers: HearingSuitabilityAnswer[];
-    answers = mapper.mapToRequest(this.model);
+    answers = mapper.mapToRequest(model);
     await this.suitabilityService.updateSuitabilityAnswers(this.model.hearing.id, answers);
     this.isSubmitted = true;
   }
+
+  private updateSubmitModelWithStep(step: number): void {
+
+    let currentStepWithAnswer = new MutableIndividualSuitabilityModelWithStep();
+
+    currentStepWithAnswer.step = step;
+    currentStepWithAnswer.model = new MutableIndividualSuitabilityModel();
+    currentStepWithAnswer.model.aboutYou = this.model.aboutYou !== undefined ? this.model.aboutYou : new SuitabilityAnswer();
+    currentStepWithAnswer.model.camera = this.model.camera !== undefined ? this.model.camera : undefined;
+    currentStepWithAnswer.model.computer = this.model.computer !== undefined ? this.model.computer : undefined;
+    currentStepWithAnswer.model.consent = this.model.consent !== undefined ? this.model.consent : new SuitabilityAnswer();
+    currentStepWithAnswer.model.internet = this.model.internet !== undefined ? this.model.internet : undefined;
+    currentStepWithAnswer.model.interpreter = this.model.interpreter !== undefined ? this.model.interpreter : undefined;
+    currentStepWithAnswer.model.room = this.model.room !== undefined ? this.model.room : undefined;
+
+    this.stepsWithAnswers.push(currentStepWithAnswer);
+    console.log(this.stepsWithAnswers);
+  }
+}
+
+export class MutableIndividualSuitabilityModelWithStep {
+  step: number;
+  model: MutableIndividualSuitabilityModel;
 }
