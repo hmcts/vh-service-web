@@ -3,8 +3,12 @@ import { JourneyBase } from '../base-journey/journey-base';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
-import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
+import { HasAccessToCamera, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
+import { SuitabilityService } from './services/suitability.service';
+import { IndividualModelMapper } from './services/individual-model-mapper';
+import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -17,11 +21,12 @@ export class IndividualJourney extends JourneyBase {
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
 
   private currentModel: IndividualSuitabilityModel;
+  private currentSubmitModel: MutableIndividualSuitabilityModel = new MutableIndividualSuitabilityModel();
 
   private isDone: boolean;
   private isSubmitted: boolean;
 
-  constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory) {
+  constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory, private suitabilityService: SuitabilityService) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.individualStepsOrderFactory.stepOrder();
@@ -75,21 +80,25 @@ export class IndividualJourney extends JourneyBase {
 
     // access to a computer.
     if (this.model.computer === false) {
+      this.updateSubmitModel(currentStep);
       this.submit();
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // access to a camera and microphone.
     if (this.model.camera === HasAccessToCamera.No) {
+      this.updateSubmitModel(currentStep);
       this.submit();
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // access to the internet.
     if (this.model.internet === false) {
+      this.updateSubmitModel(currentStep);
       this.submit();
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // consent.
     if (this.model.consent.answer === true || this.model.consent.answer === false) {
+      this.updateSubmitModel(currentStep);
       this.submit();
       nextStep = IndividualJourneySteps.ThankYou;
     }
@@ -144,8 +153,38 @@ export class IndividualJourney extends JourneyBase {
     }
   }
 
+  private updateSubmitModel(step: number): void {
+    switch (step) {
+      case 10: {
+        this.model.camera = undefined;
+        this.model.internet = undefined;
+        this.model.room = undefined;
+        this.model.consent = new SuitabilityAnswer();
+        break;
+      }
+      case 11: {
+        this.model.internet = undefined;
+        this.model.room = undefined;
+        this.model.consent = new SuitabilityAnswer();
+        break;
+      }
+      case 12: {
+        this.model.room = undefined;
+        this.model.consent = new SuitabilityAnswer();
+        break;
+      }
+      default: {
+        console.log('not an exit step, do nothing');
+        break;
+      }
+    }
+  }
+
   private async submit() {
-    // call the save service
+    const mapper = new IndividualModelMapper();
+    let answers: HearingSuitabilityAnswer[];
+    answers = mapper.mapToRequest(this.model);
+    await this.suitabilityService.updateSuitabilityAnswers(this.model.hearing.id, answers);
     this.isSubmitted = true;
   }
 }

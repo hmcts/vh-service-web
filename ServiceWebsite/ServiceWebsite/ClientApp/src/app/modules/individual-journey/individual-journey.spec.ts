@@ -5,6 +5,7 @@ import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
 import { DeviceType } from './services/device-type';
 import { JourneyStep } from '../base-journey/journey-step';
+import { SuitabilityService } from './services/suitability.service';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -15,6 +16,8 @@ dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 describe('IndividualJourney', () => {
   let journey: IndividualJourney;
   let redirected: JourneyStep;
+  let suitabilityService: jasmine.SpyObj<SuitabilityService>;
+  suitabilityService = jasmine.createSpyObj<SuitabilityService>(['updateSuitabilityAnswers']);
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableIndividualSuitabilityModel();
@@ -59,7 +62,7 @@ describe('IndividualJourney', () => {
 
   beforeEach(() => {
     redirected = null;
-    journey = new IndividualJourney(individualStepsOrderFactory);
+    journey = new IndividualJourney(individualStepsOrderFactory, suitabilityService);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
@@ -120,10 +123,10 @@ describe('IndividualJourney', () => {
   });
 
   it(`should continue to ${Steps.ThankYou} if individual has no access to a camera or microphone`, () => {
-    givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
+    givenUserIsAtStep(Steps.AboutYourComputer);
     journey.model.camera = HasAccessToCamera.No;
     journey.next();
-    expect(redirected).toBe(Steps.ThankYou);
+    expectDropOffToThankYouFrom(Steps.AboutYourComputer);
   });
 
   it(`should continue to ${Steps.ThankYou} if individual has no access to an internet connection`, () => {
@@ -182,7 +185,7 @@ describe('IndividualJourney', () => {
 
   it('should throw exception if trying to enter or proceed journey without having been initialised', () => {
     // given a journey that's not been initialised
-    const uninitialisedJourney = new IndividualJourney(individualStepsOrderFactory);
+    const uninitialisedJourney = new IndividualJourney(individualStepsOrderFactory, suitabilityService);
     const expectedError = 'Journey must be initialised with suitability answers';
     expect(() => uninitialisedJourney.jumpTo(Steps.HearingAsParticipant)).toThrowError(expectedError);
     expect(() => uninitialisedJourney.next()).toThrowError(expectedError);
