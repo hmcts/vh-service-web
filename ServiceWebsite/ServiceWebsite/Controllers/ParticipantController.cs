@@ -49,6 +49,11 @@ namespace ServiceWebsite.Controllers
             try
             {
                 var participantId = await _hearingService.GetParticipantIdAsync(User.Identity.Name, hearingId);
+
+                if (!participantId.HasValue || participantId == Guid.Empty)
+                {
+                    return new UnauthorizedObjectResult($"User is not a participant of hearing with id '{hearingId}'");
+                }
                 
                 if (answers.Count == 0)
                 {
@@ -67,7 +72,7 @@ namespace ServiceWebsite.Controllers
                 }
 
                 var suitabilityAnswers = MapAnswers(answers);
-                await _participantService.UpdateSuitabilityAnswers(hearingId, participantId, suitabilityAnswers);
+                await _participantService.UpdateSuitabilityAnswers(hearingId, participantId.Value, suitabilityAnswers);
 
                 return NoContent();
             }

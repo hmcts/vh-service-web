@@ -52,9 +52,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         public async Task should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
         {
             // given service throws
-            _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId))
-                .ThrowsAsync(new UnauthorizedAccessException("msg"));
-
+            _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).Returns(Task.FromResult((Guid?)Guid.Empty));
             var result = (UnauthorizedObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             Assert.AreEqual(result.Value, $"User is not a participant of hearing with id '{_hearingId}'");
         }
@@ -63,7 +61,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         public async Task should_return_badrequest_if_question_key_format_is_incorrect()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "incorrect_key", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
-            _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
+            _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).Returns(Task.FromResult((Guid?)Guid.NewGuid()));
 
             var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
             Assert.AreEqual(400, result.StatusCode);
@@ -72,7 +70,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task should_return_badrequest_if_answers_length_is_zero()
         {
-           _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
+           _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).Returns(Task.FromResult((Guid?)Guid.NewGuid()));
 
             var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             Assert.AreEqual(400, result.StatusCode);
@@ -83,7 +81,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
 
-            _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).Returns(Task.FromResult(Guid.NewGuid()));
+            _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).Returns(Task.FromResult((Guid?)Guid.NewGuid()));
 
             var result = (NoContentResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
             Assert.AreEqual(204, result.StatusCode);

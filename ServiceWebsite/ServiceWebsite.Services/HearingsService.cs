@@ -44,14 +44,19 @@ namespace ServiceWebsite.Services
             return response.Participants.Any(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<Guid> GetParticipantIdAsync(string username, Guid hearingId)
+        public async Task<Guid?> GetParticipantIdAsync(string username, Guid hearingId)
         {
             try
             {
                 var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(hearingId);
                 var participant = hearingResponse.Participants.FirstOrDefault(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
-                var participantId = participant.Id ?? Guid.Empty;
+                if(participant==null)
+                {
+                    return Guid.Empty;
+                }
+
+                var participantId = participant.Id;
 
                 return participantId;
             }
