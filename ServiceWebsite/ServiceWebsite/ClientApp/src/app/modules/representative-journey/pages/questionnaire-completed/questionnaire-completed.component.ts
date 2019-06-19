@@ -19,6 +19,7 @@ export class QuestionnaireCompletedComponent extends RepresentativeBaseComponent
 
   constructor(journey: RepresentativeJourney, private printService: PrintService) {
     super(journey);
+    console.log(this.model.clientAttendance);
   }
 
   getCameraAnswer(): string {
