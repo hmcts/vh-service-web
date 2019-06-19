@@ -159,7 +159,6 @@ export class IndividualJourney extends JourneyBase {
   }
 
   private async submit(model: MutableIndividualSuitabilityModel) {
-    console.log(model);
     const mapper = new IndividualModelMapper();
     let answers: HearingSuitabilityAnswer[];
     answers = mapper.mapToRequest(model);
@@ -171,8 +170,9 @@ export class IndividualJourney extends JourneyBase {
 
     // do not add again if the step already exists in the array.
     const stepExists = this.stepsWithAnswers.find(m => m.step === step);
-    if (stepExists !== null) { return; }
-
+    if (stepExists !== undefined) {
+      return;
+    }
     const currentStepWithAnswer = new MutableIndividualSuitabilityModelWithStep();
 
     currentStepWithAnswer.step = step;
@@ -186,7 +186,6 @@ export class IndividualJourney extends JourneyBase {
     currentStepWithAnswer.model.room = this.model.room !== undefined ? this.model.room : undefined;
 
     this.stepsWithAnswers.push(currentStepWithAnswer);
-    console.log(this.stepsWithAnswers);
   }
 }
 
