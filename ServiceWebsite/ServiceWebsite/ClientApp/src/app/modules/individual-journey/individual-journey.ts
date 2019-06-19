@@ -9,6 +9,8 @@ import { MutableIndividualSuitabilityModel } from './mutable-individual-suitabil
 import { SuitabilityService } from './services/suitability.service';
 import { IndividualModelMapper } from './services/individual-model-mapper';
 import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
+import { MutableIndividualSuitabilityModelWithStep } from './mutable-individual-suitability-with-steps.model';
+import { SubmitService } from './services/submit.service';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -27,7 +29,8 @@ export class IndividualJourney extends JourneyBase {
 
   private stepsWithAnswers: Array<MutableIndividualSuitabilityModelWithStep> = [];
 
-  constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory, private suitabilityService: SuitabilityService) {
+  constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
+    private submitService: SubmitService) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.individualStepsOrderFactory.stepOrder();
@@ -158,11 +161,8 @@ export class IndividualJourney extends JourneyBase {
     }
   }
 
-  private async submit(model: MutableIndividualSuitabilityModel) {
-    const mapper = new IndividualModelMapper();
-    let answers: HearingSuitabilityAnswer[];
-    answers = mapper.mapToRequest(model);
-    await this.suitabilityService.updateSuitabilityAnswers(this.model.hearing.id, answers);
+  submit(model: MutableIndividualSuitabilityModel) {
+    this.submitService.submit(model);
     this.isSubmitted = true;
   }
 
@@ -184,12 +184,8 @@ export class IndividualJourney extends JourneyBase {
     currentStepWithAnswer.model.internet = this.model.internet !== undefined ? this.model.internet : undefined;
     currentStepWithAnswer.model.interpreter = this.model.interpreter !== undefined ? this.model.interpreter : undefined;
     currentStepWithAnswer.model.room = this.model.room !== undefined ? this.model.room : undefined;
+    currentStepWithAnswer.model.hearing = this.model.hearing;
 
     this.stepsWithAnswers.push(currentStepWithAnswer);
   }
-}
-
-export class MutableIndividualSuitabilityModelWithStep {
-  step: number;
-  model: MutableIndividualSuitabilityModel;
 }

@@ -31,6 +31,7 @@ import { VideoViewComponent } from './components/video-view/video-view.component
 // directives/pipes
 import { SuitabilityService } from './services/suitability.service';
 import { VideoUrlService } from './services/video-url.service';
+import { SubmitService } from './services/submit.service';
 
 @NgModule({
   imports: [
@@ -60,7 +61,7 @@ import { VideoUrlService } from './services/video-url.service';
     SuitabilityService,
     JourneyStepComponentBindings,
     JourneyRoutingListenerService,
-    SuitabilityService,
+    SubmitService,
     IndividualStepsOrderFactory
   ]
  })
