@@ -171,7 +171,7 @@ export class IndividualJourney extends JourneyBase {
 
     // do not add again if the step already exists in the array.
     const stepExists = this.stepsWithAnswers.find(m => m.step === step);
-    if (stepExists !== null) return;
+    if (stepExists !== null) { return; }
 
     const currentStepWithAnswer = new MutableIndividualSuitabilityModelWithStep();
 
