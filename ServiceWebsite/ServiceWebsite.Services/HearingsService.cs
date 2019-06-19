@@ -53,25 +53,21 @@ namespace ServiceWebsite.Services
 
                 if (participant == null )
                 {
-                    throw new UnauthorizedAccessException($"User is not participant of hearing: {id}");
+                    throw new UnauthorizedAccessException($"User is not participant of hearing: {hearingId}");
                 }
 
                 var participantId = participant.Id ?? Guid.Empty;
 
-                if(participantId.Equals(Guid.Empty))
-                {
-                    throw new UnauthorizedAccessException($"User is not participant of hearing: {id}");
-                }
                 return participantId;
             }
             catch (BookingsApiException e)
             {
                 if (e.StatusCode == (int)HttpStatusCode.NotFound)
                 {
-                    throw new NotFoundException($"Could not find hearing with id: {id}");
+                    throw new NotFoundException($"Could not find hearing with id: {hearingId}");
                 }
 
-                throw;
+                throw ;
             }
 
         }
