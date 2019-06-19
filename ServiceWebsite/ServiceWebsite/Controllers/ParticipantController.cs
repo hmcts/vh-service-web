@@ -48,7 +48,7 @@ namespace ServiceWebsite.Controllers
             }
             try
             {
-                var participantId = await _hearingService.GetParticipantId(User.Identity.Name, hearingId);
+                var participantId = await _hearingService.GetParticipantIdAsync(User.Identity.Name, hearingId);
                 
                 if (answers.Count == 0)
                 {
