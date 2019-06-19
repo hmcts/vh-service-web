@@ -25,7 +25,7 @@ export class IndividualJourney extends JourneyBase {
   private isDone: boolean;
   private isSubmitted: boolean;
 
-  private stepsWithAnswers: Array<MutableIndividualSuitabilityModelWithStep> = []
+  private stepsWithAnswers: Array<MutableIndividualSuitabilityModelWithStep> = [];
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory, private suitabilityService: SuitabilityService) {
     super();
@@ -82,28 +82,28 @@ export class IndividualJourney extends JourneyBase {
 
     // access to a computer.
     if (this.model.computer === false) {
-      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
       modelToSave.model.computer = false;
       this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // access to a camera and microphone.
     if (this.model.camera === HasAccessToCamera.No) {
-      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
       modelToSave.model.camera = HasAccessToCamera.No;
       this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // access to the internet.
     if (this.model.internet === false) {
-      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
       modelToSave.model.internet = false;
       this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     // consent.
     if (this.model.consent.answer === true || this.model.consent.answer === false) {
-      let modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
+      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
       this.submit(modelToSave.model);
       nextStep = IndividualJourneySteps.ThankYou;
     }
@@ -168,7 +168,7 @@ export class IndividualJourney extends JourneyBase {
 
   private updateSubmitModelWithStep(step: number): void {
 
-    let currentStepWithAnswer = new MutableIndividualSuitabilityModelWithStep();
+    const currentStepWithAnswer = new MutableIndividualSuitabilityModelWithStep();
 
     currentStepWithAnswer.step = step;
     currentStepWithAnswer.model = new MutableIndividualSuitabilityModel();
