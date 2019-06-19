@@ -56,9 +56,7 @@ namespace ServiceWebsite.Services
                     return Guid.Empty;
                 }
 
-                var participantId = participant.Id;
-
-                return participantId;
+                return participant.Id;
             }
             catch (BookingsApiException e)
             {
