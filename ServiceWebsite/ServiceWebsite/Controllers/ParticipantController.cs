@@ -73,8 +73,8 @@ namespace ServiceWebsite.Controllers
             }
             catch (NotFoundException e)
             {
-                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing hearing for user", e, User);
-                return NotFound($"No hearing with id '{hearingId}' found for user");
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, e.Message, e, User);
+                return NotFound(e.Message);
             }
             catch (UnauthorizedAccessException e)
             {

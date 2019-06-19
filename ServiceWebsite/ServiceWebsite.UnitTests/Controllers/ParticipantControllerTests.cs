@@ -45,7 +45,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId))
                 .ThrowsAsync(new NotFoundException("message"));
             var result = (NotFoundObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
-            Assert.AreEqual($"No hearing with id '{_hearingId}' found for user", result.Value);
+            Assert.AreEqual($"message", result.Value);
         }
 
         [Test]
