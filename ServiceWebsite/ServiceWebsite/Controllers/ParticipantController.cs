@@ -46,6 +46,23 @@ namespace ServiceWebsite.Controllers
             {
                 return new BadRequestObjectResult($"Please provide a valid hearing id");
             }
+
+            if (answers.Count == 0)
+            {
+                return new BadRequestObjectResult($"Please provide valid answers");
+            }
+            else
+            {
+                foreach (HearingSuitabilityAnswer answer in answers)
+                {
+                    bool isValid = ValidateAnswerKey(answer.QuestionKey);
+                    if (!isValid)
+                    {
+                        return new BadRequestObjectResult($"Please provide a valid answer key");
+                    }
+                }
+            }
+
             try
             {
                 var participantId = await _hearingService.GetParticipantIdAsync(User.Identity.Name, hearingId);
@@ -54,23 +71,7 @@ namespace ServiceWebsite.Controllers
                 {
                     return new UnauthorizedObjectResult($"User is not a participant of hearing with id '{hearingId}'");
                 }
-                
-                if (answers.Count == 0)
-                {
-                    return new BadRequestObjectResult($"Please provide valid answers");
-                }
-                else
-                {
-                    foreach (HearingSuitabilityAnswer answer in answers)
-                    {
-                        bool isValid = ValidateAnswerKey(answer.QuestionKey);
-                        if (!isValid)
-                        {
-                            return new BadRequestObjectResult($"Please provide a valid answer key");
-                        }
-                    }
-                }
-
+        
                 var suitabilityAnswers = MapAnswers(answers);
                 await _participantService.UpdateSuitabilityAnswers(hearingId, participantId.Value, suitabilityAnswers);
 
