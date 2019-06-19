@@ -22,13 +22,13 @@ namespace ServiceWebsite.Controllers
         {
             _hearings = participants;
         }
-        
+
         /// <summary>
         /// Return details for a hearing booked for the current user
         /// </summary>
         /// <param name="id">Id of the hearing to get details for</param>
         [HttpGet("{id}")]
-        [SwaggerOperation(OperationId="GetHearingById")]
+        [SwaggerOperation(OperationId = "GetHearingById")]
         [ProducesResponseType(typeof(HearingDetailsResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetHearing(Guid id)
