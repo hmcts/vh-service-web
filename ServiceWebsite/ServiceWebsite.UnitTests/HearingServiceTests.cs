@@ -100,7 +100,7 @@ namespace ServiceWebsite.UnitTests
                 .ThrowsAsync(serverErrorException);
 
             // the exception is rethrown
-            Assert.ThrowsAsync<BookingsApiException>(() => _hearingService.GetParticipantId("username", _hearingId));
+            Assert.ThrowsAsync<BookingsApiException>(() => _hearingService.GetParticipantIdAsync("username", _hearingId));
         }
 
         [Test]
