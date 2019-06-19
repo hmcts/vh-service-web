@@ -44,7 +44,7 @@ namespace ServiceWebsite.Controllers
         {
             if (hearingId == Guid.Empty)
             {
-                return new BadRequestResult();
+                return new BadRequestObjectResult($"Please provide a valid {nameof(hearingId)}");
             }
             try
             {
@@ -52,7 +52,7 @@ namespace ServiceWebsite.Controllers
                 
                 if (answers.Count == 0)
                 {
-                    return new BadRequestResult();
+                    return new BadRequestObjectResult($"Please provide a valid answers");
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace ServiceWebsite.Controllers
                         bool isValid = ValidateAnswerKey(answer.QuestionKey);
                         if (!isValid)
                         {
-                            return new BadRequestResult();
+                            return new BadRequestObjectResult($"Please provide a valid answer key {nameof(answer.QuestionKey)}");
                         }
                     }
                 }
