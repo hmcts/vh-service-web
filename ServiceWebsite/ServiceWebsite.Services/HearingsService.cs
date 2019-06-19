@@ -43,7 +43,34 @@ namespace ServiceWebsite.Services
         {
             return response.Participants.Any(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
-        
+
+        public async Task<Guid?> GetParticipantIdAsync(string username, Guid hearingId)
+        {
+            try
+            {
+                var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(hearingId);
+                var participant = hearingResponse.Participants.FirstOrDefault(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+                if(participant==null)
+                {
+                    return new Guid?();
+                }
+
+                return participant.Id;
+            }
+            catch (BookingsApiException e)
+            {
+                if (e.StatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException($"Could not find hearing with id: {hearingId}");
+                }
+
+                throw ;
+            }
+
+        }
+
+
         private static Hearing Map(HearingDetailsResponse response)
         {
             var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case.Value) ?? response.Cases.First();
@@ -56,5 +83,6 @@ namespace ServiceWebsite.Services
                 response.Hearing_type_name
             );
         }
-    }
+
+      }
 }
