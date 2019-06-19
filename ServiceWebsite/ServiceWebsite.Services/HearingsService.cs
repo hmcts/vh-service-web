@@ -49,12 +49,7 @@ namespace ServiceWebsite.Services
             try
             {
                 var hearingResponse = await _bookingsApiClient.GetHearingDetailsByIdAsync(hearingId);
-                var participant = hearingResponse.Participants.First(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
-
-                if (participant == null )
-                {
-                    throw new UnauthorizedAccessException($"User is not participant of hearing: {hearingId}");
-                }
+                var participant = hearingResponse.Participants.FirstOrDefault(p => p.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
                 var participantId = participant.Id ?? Guid.Empty;
 
