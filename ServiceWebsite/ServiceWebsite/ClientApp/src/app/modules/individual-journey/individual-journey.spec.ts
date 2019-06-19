@@ -5,7 +5,7 @@ import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
 import { DeviceType } from './services/device-type';
 import { JourneyStep } from '../base-journey/journey-step';
-import { SuitabilityService } from './services/suitability.service';
+import { SubmitService } from './services/submit.service';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -16,8 +16,8 @@ dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 describe('IndividualJourney', () => {
   let journey: IndividualJourney;
   let redirected: JourneyStep;
-  let suitabilityService: jasmine.SpyObj<SuitabilityService>;
-  suitabilityService = jasmine.createSpyObj<SuitabilityService>(['updateSuitabilityAnswers']);
+  let submitService: jasmine.SpyObj<SubmitService>;
+  submitService = jasmine.createSpyObj<SubmitService>(['submit']);
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableIndividualSuitabilityModel();
@@ -62,7 +62,7 @@ describe('IndividualJourney', () => {
 
   beforeEach(() => {
     redirected = null;
-    journey = new IndividualJourney(individualStepsOrderFactory, suitabilityService);
+    journey = new IndividualJourney(individualStepsOrderFactory, submitService);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
@@ -185,7 +185,7 @@ describe('IndividualJourney', () => {
 
   it('should throw exception if trying to enter or proceed journey without having been initialised', () => {
     // given a journey that's not been initialised
-    const uninitialisedJourney = new IndividualJourney(individualStepsOrderFactory, suitabilityService);
+    const uninitialisedJourney = new IndividualJourney(individualStepsOrderFactory, submitService);
     const expectedError = 'Journey must be initialised with suitability answers';
     expect(() => uninitialisedJourney.jumpTo(Steps.HearingAsParticipant)).toThrowError(expectedError);
     expect(() => uninitialisedJourney.next()).toThrowError(expectedError);
