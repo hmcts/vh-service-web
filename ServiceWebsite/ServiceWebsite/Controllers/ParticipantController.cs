@@ -44,20 +44,20 @@ namespace ServiceWebsite.Controllers
         {
             if (hearingId == Guid.Empty)
             {
-                return new BadRequestObjectResult($"Please provide a valid {nameof(hearingId)}");
+                return new BadRequestObjectResult($"Please provide a valid hearing id");
             }
             try
             {
                 var participantId = await _hearingService.GetParticipantIdAsync(User.Identity.Name, hearingId);
 
-                if (!participantId.HasValue || participantId == Guid.Empty)
+                if (!participantId.HasValue)
                 {
                     return new UnauthorizedObjectResult($"User is not a participant of hearing with id '{hearingId}'");
                 }
                 
                 if (answers.Count == 0)
                 {
-                    return new BadRequestObjectResult($"Please provide a valid answers");
+                    return new BadRequestObjectResult($"Please provide valid answers");
                 }
                 else
                 {
@@ -66,7 +66,7 @@ namespace ServiceWebsite.Controllers
                         bool isValid = ValidateAnswerKey(answer.QuestionKey);
                         if (!isValid)
                         {
-                            return new BadRequestObjectResult($"Please provide a valid answer key {nameof(answer.QuestionKey)}");
+                            return new BadRequestObjectResult($"Please provide a valid answer key");
                         }
                     }
                 }

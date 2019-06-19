@@ -53,7 +53,7 @@ namespace ServiceWebsite.Services
 
                 if(participant==null)
                 {
-                    return Guid.Empty;
+                    return new Guid?();
                 }
 
                 return participant.Id;
