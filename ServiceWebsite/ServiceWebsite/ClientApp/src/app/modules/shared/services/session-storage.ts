@@ -6,7 +6,7 @@ export class SessionStorage<TType> {
      */
     get(): TType {
         const cached = sessionStorage.getItem(this.storageKey);
-        if (!cached) {
+        if (!cached || cached === undefined || cached === 'undefined') {
             return null;
         }
 
