@@ -16,6 +16,7 @@ namespace ServiceWebsite.UnitTests
 
         private const string Username = "username";
         private readonly Guid _hearingId = Guid.NewGuid();
+        private readonly Guid participantId = Guid.NewGuid();
         private readonly DateTime _scheduledDateTime = new DateTime(2019, 02, 03, 14, 15, 0);
         private const string HearingType = "hearingType";
         private const string CaseType = "caseType";
@@ -89,7 +90,19 @@ namespace ServiceWebsite.UnitTests
             // the exception is rethrown
             Assert.ThrowsAsync<BookingsApiException>(() => _hearingService.GetHearingFor("username", _hearingId));
         }
-        
+
+        [Test]
+        public void should_rethrow_general_api_exception_when_get_participant_id_called()
+        {
+            // given
+            var serverErrorException = new BookingsApiException("msg", 500, "resp", null, null);
+            _apiClient.Setup(x => x.GetHearingDetailsByIdAsync(_hearingId))
+                .ThrowsAsync(serverErrorException);
+
+            // the exception is rethrown
+            Assert.ThrowsAsync<BookingsApiException>(() => _hearingService.GetParticipantIdAsync("username", _hearingId));
+        }
+
         [Test]
         public void should_unauthorized_if_user_is_not_participant()
         {
@@ -106,6 +119,14 @@ namespace ServiceWebsite.UnitTests
             Assert.ThrowsAsync<UnauthorizedAccessException>(() => _hearingService.GetHearingFor("username", _hearingId));
         }
 
+        [Test]
+        public async Task should_return_participant_id_should_return_a_mapped_hearing_for_hearing_with_user_as_participant()
+        {
+            GivenApiHasResponseWithCase(_case);
+            var participantid = await _hearingService.GetParticipantIdAsync(Username, _hearingId);
+            Assert.AreNotEqual(participantid, Guid.Empty);
+        }
+
         private void GivenApiHasResponseWithCase(CaseResponse caseResponse)
         {
             GivenApiHasResponse(new HearingDetailsResponse
@@ -116,7 +137,7 @@ namespace ServiceWebsite.UnitTests
                 Hearing_type_name = HearingType,
                 Participants = new List<ParticipantResponse>
                 {
-                    new ParticipantResponse { Username = Username }
+                    new ParticipantResponse { Username = Username, Id = participantId }
                 },
                 Cases = new List<CaseResponse> { caseResponse }
             });

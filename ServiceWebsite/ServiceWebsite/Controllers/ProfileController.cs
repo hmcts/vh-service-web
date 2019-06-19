@@ -10,7 +10,6 @@ namespace ServiceWebsite.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        // private readonly IParticipantService _participantService;
         private readonly IUserApiClient _userApiClient;
 
         public ProfileController(IUserApiClient userApiClient)
