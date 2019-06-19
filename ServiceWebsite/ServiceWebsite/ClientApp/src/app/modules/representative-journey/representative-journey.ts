@@ -9,13 +9,18 @@ import { JourneyStep } from '../base-journey/journey-step';
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
+
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
+
   stepOrder: Array<JourneyStep>;
+
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
+
   private currentModel: RepresentativeSuitabilityModel;
 
   private isDone: boolean;
   private isSelfTestDone: boolean;
+  private isSubmitted: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
     super();
@@ -48,7 +53,6 @@ export class RepresentativeJourney extends JourneyBase {
 
   startAt(step: JourneyStep) {
     this.assertInitialised();
-
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
     } else {
@@ -93,6 +97,7 @@ export class RepresentativeJourney extends JourneyBase {
       if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
         nextStep = RepresentativeJourneySteps.ContactUs;
       } else {
+        this.submit();
         nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
       }
     }
@@ -101,6 +106,7 @@ export class RepresentativeJourney extends JourneyBase {
       if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
         nextStep = RepresentativeJourneySteps.ContactUs;
       } else {
+        this.submit();
         nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
       }
     }
@@ -155,7 +161,8 @@ export class RepresentativeJourney extends JourneyBase {
     }
   }
 
-  private initialiseModel(model: RepresentativeSuitabilityModel) {
-    this.currentModel = model;
+  private async submit() {
+    // call the save service
+    this.isSubmitted = true;
   }
 }
