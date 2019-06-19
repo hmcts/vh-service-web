@@ -54,19 +54,27 @@
     </h2>
     <table class="govuk-table bottom-border">
       <tbody class="govuk-table__body">
-      <tr class="govuk-table__row">
-        <td i18n="@@questionnaireCompleted_td_question_3">
-          Is there anything that could affect your client's ability to take part in a video hearing?
-        </td>
-        <td class="text-align-right">
-          <strong>{{ model.aboutYourClient.answer | appYesNo }}</strong>
-        </td>
-      </tr>
-      <tr *ngIf="model.aboutYourClient.answer">
-        <td colspan="2">
-          <span class="govuk-caption-m">{{model.aboutYourClient.notes}}</span>
-        </td>
-      </tr>
+        <tr class="govuk-table__row">
+          <td i18n="@@questionnaireCompleted_td_question_3">
+            Is there anything that could affect your client's ability to take part in a video hearing?
+          </td>
+          <td class="text-align-right">
+            <strong>{{ model.aboutYourClient.answer | appYesNo }}</strong>
+          </td>
+        </tr>
+        <tr *ngIf="model.aboutYourClient.answer">
+          <td colspan="2">
+            <span class="govuk-caption-m">{{model.aboutYourClient.notes}}</span>
+          </td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td i18n="@@questionnaireCompleted_td_question_4">
+            Will your client be attending the hearing?
+          </td>
+          <td class="text-align-right">
+            <strong>{{ model.clientAttendance | appYesNo }}</strong>
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -76,7 +84,7 @@
     <table class="govuk-table bottom-border">
       <tbody class="govuk-table__body">
       <tr class="govuk-table__row">
-        <td i18n="@@questionnaireCompleted_td_question_4">
+        <td i18n="@@questionnaireCompleted_td_question_5">
           Based on your knowledge of this case and your client, do you believe there is anything that makes this hearing
           unsuitable for video?
         </td>
@@ -98,7 +106,7 @@
     <table class="govuk-table bottom-border">
       <tbody class="govuk-table__body">
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell" i18n="@@questionnaireCompleted_td_question_5">
+        <td class="govuk-table__cell" i18n="@@questionnaireCompleted_td_question_6">
           Will you have access to a laptop or desktop computer (not a tablet, not a mobile phone)?
         </td>
         <td class="govuk-table__cell text-align-right">
@@ -106,7 +114,7 @@
         </td>
       </tr>
       <tr class="govuk-table__row">
-        <td i18n="@@questionnaireCompleted_td_question_6">
+        <td i18n="@@questionnaireCompleted_td_question_7">
           Does your computer have a camera and microphone?
         </td>
         <td class="text-align-right">
