@@ -7,8 +7,7 @@ import { SuitabilityService } from './suitability.service';
 @Injectable()
 export class SubmitService {
 
-  constructor(private suitabilityService: SuitabilityService) {
-  }
+  constructor(private suitabilityService: SuitabilityService) { }
 
   async submit(model: MutableIndividualSuitabilityModel) {
     const answers: HearingSuitabilityAnswer[] = new IndividualModelMapper().mapToRequest(model);
