@@ -6,9 +6,6 @@ import { IndividualJourneySteps } from './individual-journey-steps';
 import { HasAccessToCamera, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
-import { SuitabilityService } from './services/suitability.service';
-import { IndividualModelMapper } from './services/individual-model-mapper';
-import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableIndividualSuitabilityModelWithStep } from './mutable-individual-suitability-with-steps.model';
 import { SubmitService } from './services/submit.service';
 
