@@ -40,4 +40,5 @@ Scenario: Representative participant provides additional information for video h
 	When provides additional information 'ABC'
 	And proceeds to next page
 	Then Representative should be on 'access to a suitable room' screen
+
 	
