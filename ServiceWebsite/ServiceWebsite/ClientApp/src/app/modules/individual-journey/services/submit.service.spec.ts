@@ -71,7 +71,7 @@ describe('SubmitService', () => {
   });
   it('should clear the answers after the drop off point - access to computer', () => {
     model.computer = false;
-    const saveModel = submitService.updateSubmitModel(10, model);
+    const saveModel = submitService.getSubmitModel(10, model);
 
     expect(saveModel.camera).toBe(undefined);
     expect(saveModel.internet).toBe(undefined);
@@ -83,7 +83,7 @@ describe('SubmitService', () => {
   it('should clear the answers after the drop off point - access to camera', () => {
     model.computer = true;
     model.camera = HasAccessToCamera.No;
-    const saveModel = submitService.updateSubmitModel(11, model);
+    const saveModel = submitService.getSubmitModel(11, model);
 
     expect(saveModel.internet).toBe(undefined);
     expect(saveModel.room).toBe(undefined);
@@ -94,7 +94,7 @@ describe('SubmitService', () => {
     model.computer = true;
     model.camera = HasAccessToCamera.No;
     model.internet = false;
-    const saveModel = submitService.updateSubmitModel(12, model);
+    const saveModel = submitService.getSubmitModel(12, model);
 
     expect(saveModel.room).toBe(undefined);
     expect(saveModel.consent.answer).toBe(undefined);

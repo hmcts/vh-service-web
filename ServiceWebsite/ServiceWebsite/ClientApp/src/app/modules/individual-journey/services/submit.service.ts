@@ -12,7 +12,7 @@ export class SubmitService {
   constructor(private suitabilityService: SuitabilityService) { }
 
   async submit(step: number, model: IndividualSuitabilityModel) {
-    const saveModel = this.updateSubmitModel(step, model);
+    const saveModel = this.getSubmitModel(step, model);
     const answers: HearingSuitabilityAnswer[] = new IndividualModelMapper().mapToRequest(saveModel);
     await this.suitabilityService.updateSuitabilityAnswers(model.hearing.id, answers);
   }
@@ -37,7 +37,7 @@ export class SubmitService {
     return false;
   }
 
-  updateSubmitModel(step: number, model: IndividualSuitabilityModel): IndividualSuitabilityModel {
+  getSubmitModel(step: number, model: IndividualSuitabilityModel): IndividualSuitabilityModel {
     const modelToSave = model.clone();
     switch (step) {
       case 10: {
