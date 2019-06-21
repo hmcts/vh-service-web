@@ -68,11 +68,14 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     caps.SetCapability("platformName", "iOS");
                     caps.SetCapability("browserName", "Safari");
                     break;
-                default:
+                case TargetBrowser.Firefox:
                     if (!BlockCameraAndMic)
                     {
-                        var profile = new FirefoxProfile();
-                        profile.SetPreference("use-fake-ui-for-media-stream", true);
+                        var profile = new Dictionary<string, object>
+                        {
+                            ["args"] = new List<string>
+                            { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "media.navigator.streams.fake"}
+                        };
                         caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
                     }
                     caps.SetCapability("browserName", "Firefox");
