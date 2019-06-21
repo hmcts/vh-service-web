@@ -61,4 +61,9 @@ describe('SubmitService', () => {
     const result = submitService.isDropOffPoint(8, model);
     expect(result).toBe(true);
   });
+  it('should submit answers after consent page', () => {
+    model.consent.answer = false;
+    const result = submitService.isDropOffPoint(14, model);
+    expect(result).toBe(true);
+  });
 });
