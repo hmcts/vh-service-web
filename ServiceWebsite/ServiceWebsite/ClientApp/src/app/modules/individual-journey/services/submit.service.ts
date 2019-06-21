@@ -11,8 +11,9 @@ export class SubmitService {
 
   constructor(private suitabilityService: SuitabilityService) { }
 
-  async submit(model: IndividualSuitabilityModel) {
-    const answers: HearingSuitabilityAnswer[] = new IndividualModelMapper().mapToRequest(model);
+  async submit(step: number, model: IndividualSuitabilityModel) {
+    const saveModel = this.updateSubmitModel(step, model);
+    const answers: HearingSuitabilityAnswer[] = new IndividualModelMapper().mapToRequest(saveModel);
     await this.suitabilityService.updateSuitabilityAnswers(model.hearing.id, answers);
   }
 
@@ -36,9 +37,8 @@ export class SubmitService {
     return false;
   }
 
-  updateSubmitModel(step: number, model: IndividualSuitabilityModel): MutableIndividualSuitabilityModel {
-    let modelToSave = new MutableIndividualSuitabilityModel();
-    modelToSave = model;
+  updateSubmitModel(step: number, model: IndividualSuitabilityModel): IndividualSuitabilityModel {
+    const modelToSave = model.clone();
     switch (step) {
       case 10: {
         modelToSave.camera = undefined;

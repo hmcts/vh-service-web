@@ -76,11 +76,7 @@ export class IndividualJourney extends JourneyBase {
     let nextStep = this.stepOrder[currentStep + 1];
 
     if (this.submitService.isDropOffPoint(this.model)) {
-      // update the model to set the answers in case browserback was clicked and the answers were changed.
-      let saveModel: MutableIndividualSuitabilityModel;
-      saveModel = this.submitService.updateSubmitModel(currentStep, this.model);
-      // save the updated model.
-      this.submitService.submit(saveModel);
+      this.submitService.submit(currentStep, this.model);
       this.isSubmitted = true;
       nextStep = IndividualJourneySteps.ThankYou;
     }

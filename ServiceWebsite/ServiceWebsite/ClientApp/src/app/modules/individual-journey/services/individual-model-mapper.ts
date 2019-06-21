@@ -1,4 +1,4 @@
-import { SuitabilityAnswer, HasAccessToCamera, Hearing } from '../../base-journey/participant-suitability.model';
+import { Hearing } from '../../base-journey/participant-suitability.model';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
@@ -30,7 +30,7 @@ export class IndividualModelMapper extends ParticipantModelMapper {
         return model;
     }
 
-    mapToRequest(model: MutableIndividualSuitabilityModel): HearingSuitabilityAnswer[] {
+    mapToRequest(model: IndividualSuitabilityModel): HearingSuitabilityAnswer[] {
       const answers: HearingSuitabilityAnswer[] = [];
       this.addSuitabilityAnswer(model.aboutYou, IndividualQuestionKeys.AboutYou, answers);
       this.addSuitabilityAnswer(model.consent, IndividualQuestionKeys.Consent, answers);

@@ -22,7 +22,7 @@ describe('SubmitService', () => {
   });
 
   it('should call the suitability service to submit answers', async () => {
-    await submitService.submit(model);
+    await submitService.submit(10, model);
     expect(suitabilityService.updateSuitabilityAnswers).toHaveBeenCalled();
   });
 

@@ -1,4 +1,9 @@
 export class SuitabilityAnswer {
+    constructor(answer?: boolean, notes?: string) {
+        this.answer = answer;
+        this.notes = notes;
+    }
+
     answer: boolean;
     notes: string;
 }
