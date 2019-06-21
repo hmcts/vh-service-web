@@ -152,12 +152,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
             foreach (var expectedResponse in reponses)
             {
-                var displayedAnswer = GetMethods.GetText(By.XPath($"//td[@id='{expectedResponse.QuestionKey}']/strong"), _browserContext);
+                var displayedAnswer = GetMethods.GetText(By.CssSelector($"#{expectedResponse.QuestionKey} strong"), _browserContext);
                 displayedAnswer.Should().Be(expectedResponse.Answer.ToString());
 
                 if(!string.IsNullOrEmpty(expectedResponse.Details?.Trim()))
                 {
-                    var displayedNotes = GetMethods.GetText(By.XPath($"//td[@id='{expectedResponse.QuestionKey}_Notes']/span"), _browserContext);
+                    var displayedNotes = GetMethods.GetText(By.CssSelector($"#{expectedResponse.QuestionKey}_Notes span"), _browserContext);
                     displayedNotes.Should().Be(expectedResponse.Details.ToString());
                 }
             }
