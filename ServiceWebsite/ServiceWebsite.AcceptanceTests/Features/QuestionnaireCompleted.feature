@@ -8,7 +8,7 @@ Scenario: Representative views question completed page
 	Given Representative participant starts the questionnaire
 	When provides answer
 	 | page					| answer	   | details			| 
-     | about you			| Yes		   | I am partially deaf   |
+	 | about you			| Yes		   | I am partially deaf   |
 	 | access to a suitable room | Yes		   ||
 	 | about your client	| Yes		   | mobility issues     |
 	 | client attendance	| Yes		   ||
