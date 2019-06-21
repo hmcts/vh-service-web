@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { SessionStorage } from '../../shared/services/session-storage';
-import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
 import { Hearing } from '../../base-journey/participant-suitability.model';
-import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
+import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
+import { IndividualSuitabilityModel } from '../individual-suitability.model';
 
 @Injectable()
-export class RepresentativeJourneyService {
-  private readonly cache: SessionStorage<RepresentativeSuitabilityModel>;
+export class IndividualJourneyService {
+  private readonly cache: SessionStorage<IndividualSuitabilityModel>;
 
   constructor() {
-    this.cache = new SessionStorage<RepresentativeSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
+    this.cache = new SessionStorage<IndividualSuitabilityModel>('INDIVIDUALJOURNEY_MODEL');
   }
 
-  get(): RepresentativeSuitabilityModel {
+  get(): IndividualSuitabilityModel {
     const response = this.cache.get();
 
     if (response === null) { return null; }
@@ -22,12 +22,12 @@ export class RepresentativeJourneyService {
       the problem is that this returned object from that cache looses any methods available on the class.
       In this case the "isUpcoming()" was not available
     */
-    const model = new MutableRepresentativeSuitabilityModel();
+    const model = new MutableIndividualSuitabilityModel()
     model.hearing = new Hearing(response.hearing.id, new Date(response.hearing.scheduleDateTime));
     model.aboutYou = response.aboutYou;
-    model.aboutYourClient = response.aboutYourClient;
-    model.clientAttendance = response.clientAttendance;
-    model.hearingSuitability = response.hearingSuitability;
+    model.consent = response.consent;
+    model.internet = response.internet;
+    model.interpreter = response.interpreter;
     model.room = response.room;
     model.camera = response.camera;
     model.computer = response.computer;
@@ -35,7 +35,7 @@ export class RepresentativeJourneyService {
     return model;
   }
 
-  set(model: RepresentativeSuitabilityModel): void {
+  set(model: IndividualSuitabilityModel): void {
     this.cache.set(model);
   }
 }
