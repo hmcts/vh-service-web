@@ -14,7 +14,7 @@ export class SuitabilityService {
     return responses.map(suitability => this.mapper.map(suitability));
   }
 
-  async updateSuitabilityAnswers(hearingId: string, answers: HearingSuitabilityAnswer[]) {
+  async updateSuitabilityAnswers(hearingId: string, answers: HearingSuitabilityAnswer[]): Promise<void> {
     const response = await this.client.updateSuitabilityAnswers(hearingId, answers).toPromise();
     return response;
   }

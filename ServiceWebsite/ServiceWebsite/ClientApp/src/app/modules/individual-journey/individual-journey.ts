@@ -78,33 +78,9 @@ export class IndividualJourney extends JourneyBase {
     }
 
     let nextStep = this.stepOrder[currentStep + 1];
-    this.updateSubmitModelWithStep(currentStep);
 
-    // access to a computer.
-    if (this.model.computer === false) {
-      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
-      modelToSave.model.computer = false;
-      this.submit(modelToSave.model);
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-    // access to a camera and microphone.
-    if (this.model.camera === HasAccessToCamera.No) {
-      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
-      modelToSave.model.camera = HasAccessToCamera.No;
-      this.submit(modelToSave.model);
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-    // access to the internet.
-    if (this.model.internet === false) {
-      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
-      modelToSave.model.internet = false;
-      this.submit(modelToSave.model);
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-    // consent.
-    if (this.model.consent.answer === true || this.model.consent.answer === false) {
-      const modelToSave = this.stepsWithAnswers.find(m => m.step === currentStep);
-      this.submit(modelToSave.model);
+    if (this.submitService.isDropOffPoint(currentStep, this.model)) {
+      this.isSubmitted = true;
       nextStep = IndividualJourneySteps.ThankYou;
     }
     this.goto(nextStep);
@@ -156,33 +132,5 @@ export class IndividualJourney extends JourneyBase {
     if (this.currentStep === IndividualJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
     }
-  }
-
-  submit(model: MutableIndividualSuitabilityModel) {
-    this.submitService.submit(model);
-    this.isSubmitted = true;
-  }
-
-  private updateSubmitModelWithStep(step: number): void {
-
-    // do not add again if the step already exists in the array.
-    const stepExists = this.stepsWithAnswers.find(m => m.step === step);
-    if (stepExists !== undefined) {
-      return;
-    }
-    const currentStepWithAnswer = new MutableIndividualSuitabilityModelWithStep();
-
-    currentStepWithAnswer.step = step;
-    currentStepWithAnswer.model = new MutableIndividualSuitabilityModel();
-    currentStepWithAnswer.model.aboutYou = this.model.aboutYou !== undefined ? this.model.aboutYou : new SuitabilityAnswer();
-    currentStepWithAnswer.model.camera = this.model.camera !== undefined ? this.model.camera : undefined;
-    currentStepWithAnswer.model.computer = this.model.computer !== undefined ? this.model.computer : undefined;
-    currentStepWithAnswer.model.consent = this.model.consent !== undefined ? this.model.consent : new SuitabilityAnswer();
-    currentStepWithAnswer.model.internet = this.model.internet !== undefined ? this.model.internet : undefined;
-    currentStepWithAnswer.model.interpreter = this.model.interpreter !== undefined ? this.model.interpreter : undefined;
-    currentStepWithAnswer.model.room = this.model.room !== undefined ? this.model.room : undefined;
-    currentStepWithAnswer.model.hearing = this.model.hearing;
-
-    this.stepsWithAnswers.push(currentStepWithAnswer);
   }
 }
