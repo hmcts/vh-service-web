@@ -17,7 +17,7 @@ describe('IndividualJourney', () => {
   let journey: IndividualJourney;
   let redirected: JourneyStep;
   let submitService: jasmine.SpyObj<SubmitService>;
-  submitService = jasmine.createSpyObj<SubmitService>(['submit']);
+  submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableIndividualSuitabilityModel();
