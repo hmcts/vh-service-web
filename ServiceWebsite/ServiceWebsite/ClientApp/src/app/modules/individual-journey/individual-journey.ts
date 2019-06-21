@@ -3,8 +3,9 @@ import { JourneyBase } from '../base-journey/journey-base';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
-import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -21,7 +22,8 @@ export class IndividualJourney extends JourneyBase {
   private isDone: boolean;
   private isSubmitted: boolean;
 
-  constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory) {
+  constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
+    private submitService: SubmitService) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.individualStepsOrderFactory.stepOrder();
@@ -73,24 +75,13 @@ export class IndividualJourney extends JourneyBase {
 
     let nextStep = this.stepOrder[currentStep + 1];
 
-    // access to a computer.
-    if (this.model.computer === false) {
-      this.submit();
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-    // access to a camera and microphone.
-    if (this.model.camera === HasAccessToCamera.No) {
-      this.submit();
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-    // access to the internet.
-    if (this.model.internet === false) {
-      this.submit();
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-    // consent.
-    if (this.model.consent.answer === true || this.model.consent.answer === false) {
-      this.submit();
+    if (this.submitService.isDropOffPoint(this.model)) {
+      // update the model to set the answers in case browserback was clicked and the answers were changed.
+      let saveModel: MutableIndividualSuitabilityModel;
+      saveModel = this.submitService.updateSubmitModel(currentStep, this.model);
+      // save the updated model.
+      this.submitService.submit(saveModel);
+      this.isSubmitted = true;
       nextStep = IndividualJourneySteps.ThankYou;
     }
     this.goto(nextStep);
@@ -142,10 +133,5 @@ export class IndividualJourney extends JourneyBase {
     if (this.currentStep === IndividualJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
     }
-  }
-
-  private async submit() {
-    // call the save service
-    this.isSubmitted = true;
   }
 }

@@ -32,6 +32,7 @@ import { VideoViewComponent } from './components/video-view/video-view.component
 import { SuitabilityService } from './services/suitability.service';
 import { VideoUrlService } from './services/video-url.service';
 import {IndividualJourneyService} from './services/individual-journey.service';
+import { SubmitService } from './services/submit.service';
 
 @NgModule({
   imports: [
@@ -61,7 +62,7 @@ import {IndividualJourneyService} from './services/individual-journey.service';
     SuitabilityService,
     JourneyStepComponentBindings,
     JourneyRoutingListenerService,
-    SuitabilityService,
+    SubmitService,
     IndividualStepsOrderFactory,
     IndividualJourneyService
   ]
