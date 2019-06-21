@@ -1,6 +1,6 @@
 import { SubmitService } from './submit.service';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
-import { Hearing } from '../../base-journey/participant-suitability.model';
+import { Hearing, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
 import { SuitabilityService } from './suitability.service';
 
 describe('SubmitService', () => {
@@ -27,6 +27,7 @@ describe('SubmitService', () => {
   });
 
   it('should clear the answers after the drop off point - access to computer', () => {
+    model.computer = false;
     const result = submitService.isDropOffPoint(10, model);
     expect(result).toBe(true);
 
@@ -38,6 +39,7 @@ describe('SubmitService', () => {
 
   });
   it('should clear the answers after the drop off point - access to camera', () => {
+    model.camera = HasAccessToCamera.No;
     const result = submitService.isDropOffPoint(11, model);
     expect(result).toBe(true);
 
@@ -47,11 +49,16 @@ describe('SubmitService', () => {
     expect(model.consent.notes).toBe(undefined);
   });
   it('should clear the answers after the drop off point - access to internet', () => {
+    model.internet = false;
     const result = submitService.isDropOffPoint(12, model);
     expect(result).toBe(true);
 
     expect(model.room).toBe(undefined);
     expect(model.consent.answer).toBe(undefined);
     expect(model.consent.notes).toBe(undefined);
+  });
+  it('should not clear any answers if its not a drop off point', () => {
+    const result = submitService.isDropOffPoint(8, model);
+    expect(result).toBe(true);
   });
 });
