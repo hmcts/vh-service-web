@@ -14,7 +14,7 @@ describe('SubmitService', () => {
     model.aboutYou.notes = 'notes';
     model.interpreter = false;
     model.computer = true;
-    model.camera = 1;
+    model.camera = HasAccessToCamera.Yes;
     model.internet = true;
     model.room = true;
     model.consent.answer = true;
@@ -39,6 +39,7 @@ describe('SubmitService', () => {
 
   });
   it('should clear the answers after the drop off point - access to camera', () => {
+    model.computer = true;
     model.camera = HasAccessToCamera.No;
     const result = submitService.isDropOffPoint(11, model);
     expect(result).toBe(true);
@@ -49,6 +50,8 @@ describe('SubmitService', () => {
     expect(model.consent.notes).toBe(undefined);
   });
   it('should clear the answers after the drop off point - access to internet', () => {
+    model.computer = true;
+    model.camera = HasAccessToCamera.Yes;
     model.internet = false;
     const result = submitService.isDropOffPoint(12, model);
     expect(result).toBe(true);
@@ -62,7 +65,7 @@ describe('SubmitService', () => {
     expect(result).toBe(true);
   });
   it('should submit answers after consent page', () => {
-    model.consent.answer = false;
+    model.consent.answer = true;
     const result = submitService.isDropOffPoint(14, model);
     expect(result).toBe(true);
   });
