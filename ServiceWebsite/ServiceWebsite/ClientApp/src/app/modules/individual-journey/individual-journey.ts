@@ -20,6 +20,7 @@ export class IndividualJourney extends JourneyBase {
   private currentModel: IndividualSuitabilityModel;
 
   private isDone: boolean;
+  private isSubmitted: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
     private submitService: SubmitService) {
@@ -80,6 +81,7 @@ export class IndividualJourney extends JourneyBase {
       saveModel = this.submitService.updateSubmitModel(currentStep, this.model);
       // save the updated model.
       this.submitService.submit(saveModel);
+      this.isSubmitted = true;
       nextStep = IndividualJourneySteps.ThankYou;
     }
     this.goto(nextStep);
