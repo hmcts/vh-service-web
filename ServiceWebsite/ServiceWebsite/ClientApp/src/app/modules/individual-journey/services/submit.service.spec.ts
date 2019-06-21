@@ -35,5 +35,23 @@ describe('SubmitService', () => {
     expect(model.room).toBe(undefined);
     expect(model.consent.answer).toBe(undefined);
     expect(model.consent.notes).toBe(undefined);
+
+  });
+  it('should clear the answers after the drop off point - access to camera', () => {
+    const result = submitService.isDropOffPoint(11, model);
+    expect(result).toBe(true);
+
+    expect(model.internet).toBe(undefined);
+    expect(model.room).toBe(undefined);
+    expect(model.consent.answer).toBe(undefined);
+    expect(model.consent.notes).toBe(undefined);
+  });
+  it('should clear the answers after the drop off point - access to internet', () => {
+    const result = submitService.isDropOffPoint(12, model);
+    expect(result).toBe(true);
+
+    expect(model.room).toBe(undefined);
+    expect(model.consent.answer).toBe(undefined);
+    expect(model.consent.notes).toBe(undefined);
   });
 });
