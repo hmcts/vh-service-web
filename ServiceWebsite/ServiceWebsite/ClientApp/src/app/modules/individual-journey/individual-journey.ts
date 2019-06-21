@@ -5,6 +5,7 @@ import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -73,7 +74,12 @@ export class IndividualJourney extends JourneyBase {
 
     let nextStep = this.stepOrder[currentStep + 1];
 
-    if (this.submitService.isDropOffPoint(currentStep, this.model)) {
+    if (this.submitService.isDropOffPoint(this.model)) {
+      // update the model to set the answers in case browserback was clicked and the answers were changed.
+      let saveModel: MutableIndividualSuitabilityModel;
+      saveModel = this.submitService.updateSubmitModel(currentStep, this.model);
+      // save the updated model.
+      this.submitService.submit(saveModel);
       nextStep = IndividualJourneySteps.ThankYou;
     }
     this.goto(nextStep);

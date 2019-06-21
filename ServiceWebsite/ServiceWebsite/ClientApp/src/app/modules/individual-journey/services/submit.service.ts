@@ -4,6 +4,7 @@ import { IndividualModelMapper } from './individual-model-mapper';
 import { SuitabilityService } from './suitability.service';
 import { SuitabilityAnswer, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
+import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
 
 @Injectable()
 export class SubmitService {
@@ -15,54 +16,48 @@ export class SubmitService {
     await this.suitabilityService.updateSuitabilityAnswers(model.hearing.id, answers);
   }
 
-  isDropOffPoint(step: number, model: IndividualSuitabilityModel): boolean {
+  isDropOffPoint(model: IndividualSuitabilityModel): boolean {
     // check access to a computer.
     if (model.computer === false) {
-      this.updateSubmitModel(step, model);
-      this.submit(model);
       return true;
     }
     // check access to a camera and microphone.
     if (model.camera === HasAccessToCamera.No) {
-      this.updateSubmitModel(step, model);
-      this.submit(model);
       return true;
     }
     // check access to the internet.
     if (model.internet === false) {
-      this.updateSubmitModel(step, model);
-      this.submit(model);
       return true;
     }
     // save after consent.
     if (model.consent.answer === true || model.consent.answer === false) {
-      this.updateSubmitModel(step, model);
-      this.submit(model);
       return true;
     }
     return false;
   }
 
-  private updateSubmitModel(step: number, model: IndividualSuitabilityModel): void {
+  updateSubmitModel(step: number, model: IndividualSuitabilityModel): MutableIndividualSuitabilityModel {
+    let modelToSave = new MutableIndividualSuitabilityModel();
+    modelToSave = model;
     switch (step) {
       case 10: {
-        model.camera = undefined;
-        model.internet = undefined;
-        model.room = undefined;
-        model.consent = new SuitabilityAnswer();
+        modelToSave.camera = undefined;
+        modelToSave.internet = undefined;
+        modelToSave.room = undefined;
+        modelToSave.consent = new SuitabilityAnswer();
 
         break;
       }
       case 11: {
-        model.internet = undefined;
-        model.room = undefined;
-        model.consent = new SuitabilityAnswer();
+        modelToSave.internet = undefined;
+        modelToSave.room = undefined;
+        modelToSave.consent = new SuitabilityAnswer();
 
         break;
       }
       case 12: {
-        model.room = undefined;
-        model.consent = new SuitabilityAnswer();
+        modelToSave.room = undefined;
+        modelToSave.consent = new SuitabilityAnswer();
 
         break;
       }
@@ -71,5 +66,6 @@ export class SubmitService {
         break;
       }
     }
+    return modelToSave;
   }
 }
