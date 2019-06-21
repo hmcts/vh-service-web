@@ -3,6 +3,8 @@ import { RepresentativeBaseComponent } from '../representative-base-component/re
 import { HasAccessToCamera } from '../../../base-journey/participant-suitability.model';
 import { PrintService } from '../../../../services/print.service';
 import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeQuestionKeys as Keys } from '../../services/representative-model-mapper';
+
 
 @Component({
   selector: 'app-questionnaire-completed',
@@ -31,5 +33,10 @@ export class QuestionnaireCompletedComponent extends RepresentativeBaseComponent
     this.printService.print();
     return false;
   }
+
+  get keys(): any {
+    return Keys;
+  }
+
 }
 
