@@ -22,7 +22,7 @@ export class IndividualJourneyService {
       the problem is that this returned object from that cache looses any methods available on the class.
       In this case the "isUpcoming()" was not available
     */
-    const model = new MutableIndividualSuitabilityModel()
+    const model = new MutableIndividualSuitabilityModel();
     model.hearing = new Hearing(response.hearing.id, new Date(response.hearing.scheduleDateTime));
     model.aboutYou = response.aboutYou;
     model.consent = response.consent;
