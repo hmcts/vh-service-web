@@ -3,10 +3,7 @@ import { JourneyBase } from '../base-journey/journey-base';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
-import { HasAccessToCamera, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
-import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
-import { MutableIndividualSuitabilityModelWithStep } from './mutable-individual-suitability-with-steps.model';
 import { SubmitService } from './services/submit.service';
 
 @Injectable()
@@ -22,9 +19,6 @@ export class IndividualJourney extends JourneyBase {
   private currentModel: IndividualSuitabilityModel;
 
   private isDone: boolean;
-  private isSubmitted: boolean;
-
-  private stepsWithAnswers: Array<MutableIndividualSuitabilityModelWithStep> = [];
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
     private submitService: SubmitService) {
@@ -80,7 +74,6 @@ export class IndividualJourney extends JourneyBase {
     let nextStep = this.stepOrder[currentStep + 1];
 
     if (this.submitService.isDropOffPoint(currentStep, this.model)) {
-      this.isSubmitted = true;
       nextStep = IndividualJourneySteps.ThankYou;
     }
     this.goto(nextStep);
