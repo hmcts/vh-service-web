@@ -1,4 +1,4 @@
-import { HearingSuitabilityResponse } from 'src/app/services/clients/api-client';
+import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { SuitabilityService } from './suitability.service';
 import { ApiClient } from './../../../services/clients/api-client';
 import { of } from 'rxjs';
@@ -22,8 +22,8 @@ describe('SuitabilityService', () => {
     expect(result[0].hearing.id).toBe('123');
   });
 
-  it('submits answers to api', async () => {
-    const result = await service.updateSuitabilityAnswers('123', []);
+  it('submits answers to api', () => {
+    const result = service.updateSuitabilityAnswers('123', []);
     expect(client.updateSuitabilityAnswers).toHaveBeenCalled();
   });
 });

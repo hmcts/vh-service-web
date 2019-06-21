@@ -21,7 +21,7 @@ namespace ServiceWebsite.Controllers
     {
         private readonly IHearingsService _hearingService;
         private readonly IParticipantService _participantService;
-        private static readonly string strRegex = @"\b[A-Z]+(?:_[A-Z]+)+\b";
+        private static readonly string strRegex = @"(\b[A-Z]+(?:_[A-Z]+)+\b)|(\b[A-Z]+\b)";
         private static readonly Regex validAnswerKeyRegex = new Regex(strRegex, RegexOptions.Compiled);
         public ParticipantController(IHearingsService hearingsService, IParticipantService participantService)
         {
