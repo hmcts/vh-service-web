@@ -153,14 +153,29 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             foreach (var expectedResponse in reponses)
             {
                 var displayedAnswer = GetMethods.GetText(By.CssSelector($"#{expectedResponse.QuestionKey} strong"), _browserContext);
-                displayedAnswer.Should().Be(expectedResponse.Answer.ToString());
-
+                if(expectedResponse.Answer == AnswerType.NotSure)
+                {
+                    displayedAnswer.Should().Be("I'm not sure");
+                }
+                else
+                {
+                    displayedAnswer.Should().Be(expectedResponse.Answer.ToString());
+                }
+                
                 if(!string.IsNullOrEmpty(expectedResponse.Details?.Trim()))
                 {
                     var displayedNotes = GetMethods.GetText(By.CssSelector($"#{expectedResponse.QuestionKey}_Notes span"), _browserContext);
                     displayedNotes.Should().Be(expectedResponse.Details.ToString());
                 }
             }
+        }
+
+        [Then(@"a link with text '(.*)' to print the answers should be visible")]
+        public void ThenNeedToBeAbleToPrintTheAnswer(string linkText)
+        {
+            var printLink = _browserContext.NgDriver.FindElement(By.Id("print_questionnaire"));
+            printLink.Displayed.Should().BeTrue();
+            printLink.Text.Trim().Should().Be(linkText);
         }
 
 
