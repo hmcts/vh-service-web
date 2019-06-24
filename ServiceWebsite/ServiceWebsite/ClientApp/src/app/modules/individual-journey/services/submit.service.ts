@@ -5,6 +5,8 @@ import { SuitabilityService } from './suitability.service';
 import { SuitabilityAnswer, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
+import { JourneyStep } from '../../base-journey/journey-step';
+import { IndividualJourneySteps } from '../individual-journey-steps';
 
 @Injectable()
 export class SubmitService {
@@ -36,36 +38,26 @@ export class SubmitService {
     return false;
   }
 
-  updateSubmitModel(step: number, model: IndividualSuitabilityModel): MutableIndividualSuitabilityModel {
+  updateSubmitModel(step: JourneyStep, model: IndividualSuitabilityModel): MutableIndividualSuitabilityModel {
     let modelToSave = new MutableIndividualSuitabilityModel();
     modelToSave = model;
-    switch (step) {
-      case 10: {
+
+    if (step === IndividualJourneySteps.AccessToComputer) {
         modelToSave.camera = undefined;
         modelToSave.internet = undefined;
         modelToSave.room = undefined;
         modelToSave.consent = new SuitabilityAnswer();
-
-        break;
-      }
-      case 11: {
+    } else if (step === IndividualJourneySteps.AccessToCameraAndMicrophone) {
         modelToSave.internet = undefined;
         modelToSave.room = undefined;
         modelToSave.consent = new SuitabilityAnswer();
-
-        break;
-      }
-      case 12: {
+    } else if (step === IndividualJourneySteps.YourInternetConnection) {
         modelToSave.room = undefined;
         modelToSave.consent = new SuitabilityAnswer();
-
-        break;
-      }
-      default: {
-        console.log('not an exit step, do nothing');
-        break;
-      }
     }
+
+    // for any other step the model need not be updated
+
     return modelToSave;
   }
 }

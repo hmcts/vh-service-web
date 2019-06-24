@@ -2,6 +2,7 @@ import { SubmitService } from './submit.service';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
 import { Hearing, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
 import { SuitabilityService } from './suitability.service';
+import { IndividualJourneySteps } from '../individual-journey-steps';
 
 describe('SubmitService', () => {
   const suitabilityService = jasmine.createSpyObj<SuitabilityService>(['updateSuitabilityAnswers']);
@@ -71,7 +72,7 @@ describe('SubmitService', () => {
   });
   it('should clear the answers after the drop off point - access to computer', () => {
     model.computer = false;
-    const saveModel = submitService.updateSubmitModel(10, model);
+    const saveModel = submitService.updateSubmitModel(IndividualJourneySteps.AccessToComputer, model);
 
     expect(saveModel.camera).toBe(undefined);
     expect(saveModel.internet).toBe(undefined);
@@ -83,7 +84,7 @@ describe('SubmitService', () => {
   it('should clear the answers after the drop off point - access to camera', () => {
     model.computer = true;
     model.camera = HasAccessToCamera.No;
-    const saveModel = submitService.updateSubmitModel(11, model);
+    const saveModel = submitService.updateSubmitModel(IndividualJourneySteps.AccessToCameraAndMicrophone, model);
 
     expect(saveModel.internet).toBe(undefined);
     expect(saveModel.room).toBe(undefined);
@@ -94,7 +95,7 @@ describe('SubmitService', () => {
     model.computer = true;
     model.camera = HasAccessToCamera.No;
     model.internet = false;
-    const saveModel = submitService.updateSubmitModel(12, model);
+    const saveModel = submitService.updateSubmitModel(IndividualJourneySteps.YourInternetConnection, model);
 
     expect(saveModel.room).toBe(undefined);
     expect(saveModel.consent.answer).toBe(undefined);
