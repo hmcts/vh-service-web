@@ -4,7 +4,7 @@
 	So that I can print a copy for my records
 
 @smoketest @VIH-4443
-Scenario: Representative views question completed page
+Scenario: Representative views questionnaire completed page for a client who is not suitable for a video hearing
 	Given Representative participant starts the questionnaire
 	When provides answer
 	 | page                      | answer | details                |
@@ -22,7 +22,7 @@ Scenario: Representative views question completed page
 	Then Representative should be on 'thank you' screen
 
 @VIH-4443
-Scenario: Representative views question completed page no
+Scenario: Representative views questionnaire completed page for a client who is suitable for a video hearing
 	Given Representative participant starts the questionnaire
 	When provides answer
 	 | page                      | answer  |

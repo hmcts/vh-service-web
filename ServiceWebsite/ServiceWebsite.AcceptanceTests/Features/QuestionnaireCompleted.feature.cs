@@ -71,12 +71,14 @@ namespace ServiceWebsite.AcceptanceTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Representative views question completed page")]
+        [NUnit.Framework.DescriptionAttribute("Representative views questionnaire completed page for a client who is not suitabl" +
+            "e for a video hearing")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4443")]
-        public virtual void RepresentativeViewsQuestionCompletedPage()
+        public virtual void RepresentativeViewsQuestionnaireCompletedPageForAClientWhoIsNotSuitableForAVideoHearing()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative views question completed page", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative views questionnaire completed page for a client who is not suitabl" +
+                    "e for a video hearing", null, new string[] {
                         "smoketest",
                         "VIH-4443"});
 #line 7
@@ -132,11 +134,13 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Representative views question completed page no")]
+        [NUnit.Framework.DescriptionAttribute("Representative views questionnaire completed page for a client who is suitable fo" +
+            "r a video hearing")]
         [NUnit.Framework.CategoryAttribute("VIH-4443")]
-        public virtual void RepresentativeViewsQuestionCompletedPageNo()
+        public virtual void RepresentativeViewsQuestionnaireCompletedPageForAClientWhoIsSuitableForAVideoHearing()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative views question completed page no", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative views questionnaire completed page for a client who is suitable fo" +
+                    "r a video hearing", null, new string[] {
                         "VIH-4443"});
 #line 25
 this.ScenarioInitialize(scenarioInfo);
