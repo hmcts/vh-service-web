@@ -16,4 +16,5 @@ export class MutableIndividualSuitabilityModel extends IndividualSuitabilityMode
     aboutYou: SuitabilityAnswer;
     consent: SuitabilityAnswer;
     hearing: Hearing;
+    isDone: boolean;
 }

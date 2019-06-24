@@ -35,7 +35,7 @@ export class IndividualJourney extends JourneyBase {
 
   forSuitabilityAnswers(suitabilityAnswers: IndividualSuitabilityModel[]) {
     const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
-    if (upcoming.length === 0) {
+    if (upcoming[0].isDone) {
       this.isDone = true;
       return;
     }

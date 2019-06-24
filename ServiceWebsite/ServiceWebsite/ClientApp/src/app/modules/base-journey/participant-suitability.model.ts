@@ -18,6 +18,7 @@ export abstract class ParticipantSuitabilityModel {
     computer: boolean;
     room: boolean;
     hearing: Hearing;
+    isDone: boolean;
 
     isUpcoming(): boolean {
         const now = new Date();

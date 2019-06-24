@@ -27,18 +27,20 @@ export class IndividualModelMapper extends ParticipantModelMapper {
         model.interpreter = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Interpreter);
         model.computer = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Computer);
         model.camera = this.mapComputerCamera(response.answers);
+
+        model.isDone = response.answers.length > 0;
         return model;
     }
 
     mapToRequest(model: MutableIndividualSuitabilityModel): HearingSuitabilityAnswer[] {
-      const answers: HearingSuitabilityAnswer[] = [];
-      this.addSuitabilityAnswer(model.aboutYou, IndividualQuestionKeys.AboutYou, answers);
-      this.addSuitabilityAnswer(model.consent, IndividualQuestionKeys.Consent, answers);
-      this.addBooleanAnswer(model.internet, IndividualQuestionKeys.Internet, answers);
-      this.addBooleanAnswer(model.room, IndividualQuestionKeys.Room, answers);
-      this.addBooleanAnswer(model.interpreter, IndividualQuestionKeys.Interpreter, answers);
-      this.addBooleanAnswer(model.computer, IndividualQuestionKeys.Computer, answers);
-      this.addAnswerForCamera(model.camera, IndividualQuestionKeys.Camera, answers);
-      return answers;
+        const answers: HearingSuitabilityAnswer[] = [];
+        this.addSuitabilityAnswer(model.aboutYou, IndividualQuestionKeys.AboutYou, answers);
+        this.addSuitabilityAnswer(model.consent, IndividualQuestionKeys.Consent, answers);
+        this.addBooleanAnswer(model.internet, IndividualQuestionKeys.Internet, answers);
+        this.addBooleanAnswer(model.room, IndividualQuestionKeys.Room, answers);
+        this.addBooleanAnswer(model.interpreter, IndividualQuestionKeys.Interpreter, answers);
+        this.addBooleanAnswer(model.computer, IndividualQuestionKeys.Computer, answers);
+        this.addAnswerForCamera(model.camera, IndividualQuestionKeys.Camera, answers);
+        return answers;
     }
 }
