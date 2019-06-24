@@ -130,6 +130,59 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Representative views question completed page no")]
+        [NUnit.Framework.CategoryAttribute("VIH-4443")]
+        public virtual void RepresentativeViewsQuestionCompletedPageNo()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative views question completed page no", null, new string[] {
+                        "VIH-4443"});
+#line 25
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 26
+ testRunner.Given("Representative participant starts the questionnaire", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "page",
+                        "answer"});
+            table2.AddRow(new string[] {
+                        "about you",
+                        "No"});
+            table2.AddRow(new string[] {
+                        "access to a suitable room",
+                        "Yes"});
+            table2.AddRow(new string[] {
+                        "about your client",
+                        "No"});
+            table2.AddRow(new string[] {
+                        "client attendance",
+                        "No"});
+            table2.AddRow(new string[] {
+                        "hearing suitability",
+                        "No"});
+            table2.AddRow(new string[] {
+                        "your computer",
+                        "Yes"});
+            table2.AddRow(new string[] {
+                        "about your computer",
+                        "NotSure"});
+#line 27
+ testRunner.When("provides answer", ((string)(null)), table2, "When ");
+#line 37
+ testRunner.Then("Representative should be on \'questionnaire completed\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 38
+ testRunner.And("all the answers should match", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+ testRunner.And("a link with text \'Print my answers\' to print the answers should be visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 40
+ testRunner.When("proceeds to next page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+ testRunner.Then("Representative should be on \'thank you\' screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
