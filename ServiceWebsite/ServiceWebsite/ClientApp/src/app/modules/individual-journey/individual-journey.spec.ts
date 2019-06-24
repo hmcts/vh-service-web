@@ -6,6 +6,7 @@ import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './indiv
 import { DeviceType } from './services/device-type';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
+import { of } from 'rxjs';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -34,6 +35,7 @@ describe('IndividualJourney', () => {
     model.internet = true;
     model.interpreter = false;
     model.room = true;
+    model.isDone = true;
     return model;
   };
 
@@ -167,6 +169,12 @@ describe('IndividualJourney', () => {
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
+  it('should goto video app if there are no upcoming hearings', () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted);
+    journey.jumpTo(Steps.AboutHearings);
+    expect(redirected).toBe(Steps.GotoVideoApp);
+  });
+
   it('should stay where it is if trying to enter at the current step', () => {
     const currentStep = redirected;
     redirected = null;
@@ -193,5 +201,12 @@ describe('IndividualJourney', () => {
 
   it('should throw an exception if proceeding without having entered the journey', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
+  });
+
+  it('it should check for drop off points when next is clicked', () => {
+    givenUserIsAtStep(Steps.YourInternetConnection);
+    journey.model.internet = false;
+    journey.next();
+    expect(submitService.isDropOffPoint).toHaveBeenCalled();
   });
 });
