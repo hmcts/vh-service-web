@@ -35,11 +35,11 @@ Scenario: Representative participant has access to a room at the time of hearing
 	Given Representative participant is on 'access to a suitable room' page
 	When provides answer as Yes
 	And proceeds to next page
-	Then Representative should be on 'consent' screen
+	Then Representative should be on 'about your client' screen
 
 @VIH-4432
 Scenario: Representative participant does not have access to a room at the time of hearing
 	Given Representative participant is on 'access to a suitable room' page
-	When provides answer as Yes
+	When provides answer as No
 	And proceeds to next page
-	Then Representative should be on 'consent' screen
+	Then Representative should be on 'about your client' screen
