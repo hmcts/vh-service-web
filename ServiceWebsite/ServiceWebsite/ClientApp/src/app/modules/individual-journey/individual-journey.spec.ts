@@ -201,11 +201,4 @@ describe('IndividualJourney', () => {
   it('should throw an exception if proceeding without having entered the journey', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
   });
-
-  it('it should check for drop off points when next is clicked', () => {
-    givenUserIsAtStep(Steps.YourInternetConnection);
-    journey.model.internet = false;
-    journey.next();
-    expect(submitService.isDropOffPoint).toHaveBeenCalled();
-  });
 });
