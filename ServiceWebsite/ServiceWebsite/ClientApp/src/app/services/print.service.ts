@@ -18,7 +18,11 @@ export class PrintService {
 
   print() {
     try {
-      document.execCommand('print', false, null);
+      if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
+        window.print();
+      } else {
+        document.execCommand('print', false, null);
+      }
     } catch (e) {
       window.print();
     }
