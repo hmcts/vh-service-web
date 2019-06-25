@@ -20,7 +20,6 @@ export class RepresentativeJourney extends JourneyBase {
 
   private isDone: boolean;
   private isSelfTestDone: boolean;
-  private isSubmitted: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
     super();

@@ -1,31 +1,27 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
-import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
-import { IndividualJourneySteps } from './individual-journey-steps';
-import { JourneyStep } from '../base-journey/journey-step';
-import { SubmitService } from './services/submit.service';
-import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
+import {EventEmitter, Injectable} from '@angular/core';
+import {JourneyBase} from '../base-journey/journey-base';
+import {IndividualSuitabilityModel} from './individual-suitability.model';
+import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
+import {IndividualJourneySteps} from './individual-journey-steps';
+import {JourneyStep} from '../base-journey/journey-step';
+import {SubmitService} from './services/submit.service';
+import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
   static readonly initialStep = IndividualJourneySteps.AboutHearings;
-
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
-
   stepOrder: Array<JourneyStep>;
-
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
-
   private currentModel: IndividualSuitabilityModel;
-
   private isDone: boolean;
-  private isSubmitted: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
     private submitService: SubmitService) {
     super();
-    this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
+    this.redirect.subscribe((step: JourneyStep) => {
+      this.currentStep = step;
+    });
     this.stepOrder = this.individualStepsOrderFactory.stepOrder();
   }
 
@@ -72,6 +68,8 @@ export class IndividualJourney extends JourneyBase {
     if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
       throw new Error('Missing transition for step: ' + this.currentStep);
     }
+
+    this.redirectIfSubmitted();
 
     let nextStep = this.stepOrder[currentStep + 1];
 
@@ -132,6 +130,12 @@ export class IndividualJourney extends JourneyBase {
   private assertEntered() {
     if (this.currentStep === IndividualJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
+    }
+  }
+
+  private redirectIfSubmitted() {
+    if (this.isSubmitted) {
+      this.goto(IndividualJourneySteps.ThankYou);
     }
   }
 }
