@@ -39,14 +39,16 @@ export class IndividualJourney extends JourneyBase {
       this.isDone = true;
       return;
     }
-    if (upcoming[0].isDone) {
-      this.isDone = true;
-      return;
-    }
 
     // sort upcoming on date and pick the earliest
     upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
     this.currentModel = upcoming[0];
+
+    // exit if the questionnaire is completed.
+    if (upcoming[0].isDone) {
+      this.isDone = true;
+      return;
+    }
   }
 
   startAt(step: JourneyStep) {

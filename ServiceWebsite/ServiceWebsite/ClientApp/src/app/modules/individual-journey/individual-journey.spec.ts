@@ -6,7 +6,6 @@ import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './indiv
 import { DeviceType } from './services/device-type';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
-import { of } from 'rxjs';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
