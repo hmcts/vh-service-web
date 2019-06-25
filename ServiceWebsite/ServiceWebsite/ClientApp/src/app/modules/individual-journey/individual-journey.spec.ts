@@ -168,7 +168,7 @@ describe('IndividualJourney', () => {
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
-  it('should goto video app if there are no upcoming hearings', () => {
+  it('should goto video app if the questionnaire is completed for the hearing', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted);
     journey.jumpTo(Steps.AboutHearings);
     expect(redirected).toBe(Steps.GotoVideoApp);
