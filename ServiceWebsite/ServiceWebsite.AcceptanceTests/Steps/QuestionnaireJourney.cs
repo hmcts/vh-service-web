@@ -32,15 +32,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
-            switch (answer)
-            {
-                case AnswerType.Yes: CurrentPage.SelectYes();
-                    break;
-                case AnswerType.No: CurrentPage.SelectNo();
-                    break;
-                case AnswerType.NotSure: CurrentPage.SelectNotSure();
-                    break;
-            }
+            SelectAnswer(CurrentPage, answer);
         }
 
         [When(@"attempts to proceed without selecting an answer")]
@@ -82,6 +74,22 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             get
             {
                 return _scenarioContext.Get<DecisionJourney>("CurrentPage");
+            }
+        }
+
+        protected void SelectAnswer(DecisionJourney page, AnswerType answer)
+        {
+            switch (answer)
+            {
+                case AnswerType.Yes:
+                    page.SelectYes();
+                    break;
+                case AnswerType.No:
+                    page.SelectNo();
+                    break;
+                case AnswerType.NotSure:
+                    page.SelectNotSure();
+                    break;
             }
         }
     }

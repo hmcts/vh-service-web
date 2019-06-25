@@ -21,12 +21,12 @@
         <td i18n="@@questionnaireCompleted_td_question_1">
           Is there anything that could affect your ability to take part in a video hearing?
         </td>
-        <td class="text-align-right">
+        <td id="ABOUT_YOU" class="text-align-right">
           <strong>{{ model.aboutYou.answer | appYesNo }}</strong>
         </td>
       </tr>
       <tr *ngIf="model.aboutYou.answer">
-        <td colspan="2">
+        <td colspan="2" id="ABOUT_YOU_Notes">
           <span class="govuk-caption-m">{{model.aboutYou.notes}}</span>
         </td>
       </tr>
@@ -42,7 +42,7 @@
         <td i18n="@@questionnaireCompleted_td_question_2">
           Will you have access to a quiet, private room where you can access the internet?
         </td>
-        <td class="text-align-right">
+        <td id="ROOM" class="text-align-right">
           <strong>{{ model.room | appYesNo }}</strong>
         </td>
       </tr>
@@ -58,12 +58,12 @@
           <td i18n="@@questionnaireCompleted_td_question_3">
             Is there anything that could affect your client's ability to take part in a video hearing?
           </td>
-          <td class="text-align-right">
+          <td id="ABOUT_YOUR_CLIENT" class="text-align-right">
             <strong>{{ model.aboutYourClient.answer | appYesNo }}</strong>
           </td>
         </tr>
         <tr *ngIf="model.aboutYourClient.answer">
-          <td colspan="2">
+          <td id="ABOUT_YOUR_CLIENT_Notes" colspan="2">
             <span class="govuk-caption-m">{{model.aboutYourClient.notes}}</span>
           </td>
         </tr>
@@ -71,7 +71,7 @@
           <td i18n="@@questionnaireCompleted_td_question_4">
             Will your client be attending the hearing?
           </td>
-          <td class="text-align-right">
+          <td id="CLIENT_ATTENDANCE" class="text-align-right">
             <strong>{{ model.clientAttendance | appYesNo }}</strong>
           </td>
         </tr>
@@ -88,12 +88,12 @@
           Based on your knowledge of this case and your client, do you believe there is anything that makes this hearing
           unsuitable for video?
         </td>
-        <td class="text-align-right">
+        <td id="HEARING_SUITABILITY" class="text-align-right">
           <strong>{{ model.hearingSuitability.answer | appYesNo }}</strong>
         </td>
       </tr>
       <tr *ngIf="model.hearingSuitability.answer">
-        <td colspan="2">
+        <td colspan="2" id="HEARING_SUITABILITY_Notes">
           <span class="govuk-caption-m">{{model.hearingSuitability.notes}}</span>
         </td>
       </tr>
@@ -109,7 +109,7 @@
         <td class="govuk-table__cell" i18n="@@questionnaireCompleted_td_question_6">
           Will you have access to a laptop or desktop computer (not a tablet, not a mobile phone)?
         </td>
-        <td class="govuk-table__cell text-align-right">
+        <td id="COMPUTER" class="govuk-table__cell text-align-right">
           <strong>{{ model.computer | appYesNo }}</strong>
         </td>
       </tr>
@@ -117,7 +117,7 @@
         <td i18n="@@questionnaireCompleted_td_question_7">
           Does your computer have a camera and microphone?
         </td>
-        <td class="text-align-right">
+        <td id="HAS_ACCESS_TO_CAMERA" class="text-align-right">
           <strong>{{ getCameraAnswer() }}</strong>
         </td>
       </tr>
@@ -131,7 +131,7 @@
 
     <div>
       <img src="/assets/images/printer.png" style="width:16px; margin-right:10px;" alt="">
-      <a class="govuk-link" href="#" style="font-size:18px;" i18n="@@questionnaireCompleted_a_print_text"
+      <a id="print_questionnaire" class="govuk-link" href="#" style="font-size:18px;" i18n="@@questionnaireCompleted_a_print_text"
          (click)="print()">
         Print my answers
       </a>
