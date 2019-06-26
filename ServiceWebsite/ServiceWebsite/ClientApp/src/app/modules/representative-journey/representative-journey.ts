@@ -5,6 +5,8 @@ import { RepresentativeStepsOrderFactory } from './representative-steps-order.fa
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
+import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
@@ -22,7 +24,7 @@ export class RepresentativeJourney extends JourneyBase {
   private isSelfTestDone: boolean;
   private isSubmitted: boolean;
 
-  constructor(private stepsFactory: RepresentativeStepsOrderFactory) {
+  constructor(private stepsFactory: RepresentativeStepsOrderFactory, private submitService: SubmitService) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.stepsFactory.stepOrder();
@@ -91,23 +93,19 @@ export class RepresentativeJourney extends JourneyBase {
 
     let nextStep = this.stepOrder[currentStep + 1];
 
-    // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
-    // access to a computer.
-    if (this.model.computer === false) {
-      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
-        nextStep = RepresentativeJourneySteps.ContactUs;
-      } else {
-        this.submit();
-        nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
-      }
+    if (this.submitService.isDropOffPoint(this.model) && !this.isSubmitted) {
+      // update the model to set the answers in case browserback was clicked and the answers were changed.
+      let saveModel: MutableRepresentativeSuitabilityModel;
+      saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
+      // save the updated model.
+      this.submitService.submit(saveModel);
+      this.isSubmitted = true;
+      nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
     }
-    // access to a camera and microphone.
-    if (this.model.camera === HasAccessToCamera.No) {
-      if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
+    // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
+    if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
+      if (this.model.computer === false || this.model.camera === HasAccessToCamera.No) {
         nextStep = RepresentativeJourneySteps.ContactUs;
-      } else {
-        this.submit();
-        nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
       }
     }
     this.goto(nextStep);

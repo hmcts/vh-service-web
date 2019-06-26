@@ -35,6 +35,7 @@ import { PleaseContactUsComponent } from './pages/please-contact-us/please-conta
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 import { CachedHearingService } from './services/cached-hearing.service';
 import {RepresentativeJourneyService} from './services/representative.journey.service';
+import { SubmitService } from './services/submit.service';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {RepresentativeJourneyService} from './services/representative.journey.se
     JourneyRoutingListenerService,
     RepresentativeSuitabilityService,
     RepresentativeStepsOrderFactory,
-    RepresentativeJourneyService
+    RepresentativeJourneyService,
+    SubmitService
   ]
 })
 export class RepresentativeJourneyModule {

@@ -4,6 +4,7 @@ import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitabil
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps as Steps, RepresentativeJourneySteps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -14,6 +15,9 @@ dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 describe('RepresentativeJourney', () => {
   let journey: RepresentativeJourney;
   let redirected: JourneyStep;
+  let submitService: jasmine.SpyObj<SubmitService>;
+  submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
+
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableRepresentativeSuitabilityModel();
@@ -56,7 +60,7 @@ describe('RepresentativeJourney', () => {
 
   beforeEach(() => {
     redirected = null;
-    journey = new RepresentativeJourney(representativeStepsOrderFactory);
+    journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
@@ -184,7 +188,7 @@ describe('RepresentativeJourney', () => {
 
   it('should throw exception if trying to enter or proceed journey without having been initialised', () => {
     // given a journey that's not been initialised
-    const uninitialisedJourney = new RepresentativeJourney(representativeStepsOrderFactory);
+    const uninitialisedJourney = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
     const expectedError = 'Journey must be initialised with suitability answers';
     expect(() => uninitialisedJourney.jumpTo(Steps.ClientAttendance)).toThrowError(expectedError);
     expect(() => uninitialisedJourney.next()).toThrowError(expectedError);
