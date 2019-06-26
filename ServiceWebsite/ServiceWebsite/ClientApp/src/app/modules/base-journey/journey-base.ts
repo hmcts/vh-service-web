@@ -1,10 +1,10 @@
-import { EventEmitter } from '@angular/core';
-import { JourneyStep } from './journey-step';
+import {EventEmitter} from '@angular/core';
+import {JourneyStep} from './journey-step';
 
 export abstract class JourneyBase {
     readonly redirect: EventEmitter<JourneyStep>;
 
-    /**
+  /**
      * Fails the current step, navigating to a failure drop off point or error page
      */
     abstract fail(): void;
