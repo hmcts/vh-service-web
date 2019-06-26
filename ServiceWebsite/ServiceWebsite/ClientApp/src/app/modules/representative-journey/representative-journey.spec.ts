@@ -2,7 +2,7 @@ import { MutableRepresentativeSuitabilityModel } from './mutable-representative-
 import { RepresentativeJourney } from './representative-journey';
 import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
-import { RepresentativeJourneySteps as Steps, RepresentativeJourneySteps } from './representative-journey-steps';
+import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 
 const tomorrow = new Date();
@@ -192,5 +192,20 @@ describe('RepresentativeJourney', () => {
 
   it('should throw an exception if proceeding without having entered the journey', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
+  });
+
+  it(`should continue to ${Steps.QuestionnaireCompleted} if individual has already submitted`, () => {
+    givenUserIsAtStep(Steps.AboutVideoHearings);
+    journey.isSubmitted = true;
+    journey.next();
+    expect(redirected).toBe(Steps.QuestionnaireCompleted);
+  });
+
+  it(`should continue to ${Steps.AboutYouAndYourClient} if individual has not submitted`, () => {
+    givenUserIsAtStep(Steps.AboutVideoHearings);
+    journey.model.computer = true;
+    journey.model.camera = HasAccessToCamera.Yes;
+    journey.next();
+    expect(redirected).toBe(Steps.AboutYouAndYourClient);
   });
 });

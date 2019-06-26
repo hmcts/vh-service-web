@@ -69,7 +69,10 @@ export class IndividualJourney extends JourneyBase {
       throw new Error('Missing transition for step: ' + this.currentStep);
     }
 
-    this.redirectIfSubmitted();
+    if (this.isSubmitted) {
+      this.goto(IndividualJourneySteps.ThankYou);
+      return;
+    }
 
     let nextStep = this.stepOrder[currentStep + 1];
 
@@ -82,6 +85,7 @@ export class IndividualJourney extends JourneyBase {
       this.isSubmitted = true;
       nextStep = IndividualJourneySteps.ThankYou;
     }
+
     this.goto(nextStep);
   }
 
@@ -130,12 +134,6 @@ export class IndividualJourney extends JourneyBase {
   private assertEntered() {
     if (this.currentStep === IndividualJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
-    }
-  }
-
-  private redirectIfSubmitted() {
-    if (this.isSubmitted) {
-      this.goto(IndividualJourneySteps.ThankYou);
     }
   }
 }

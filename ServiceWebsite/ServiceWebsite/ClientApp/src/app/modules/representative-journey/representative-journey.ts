@@ -83,7 +83,10 @@ export class RepresentativeJourney extends JourneyBase {
       throw new Error('Missing transition for step: ' + this.currentStep);
     }
 
-    this.redirectIfSubmitted();
+    if (this.isSubmitted) {
+      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
+      return;
+    }
 
     let nextStep = this.stepOrder[currentStep + 1];
 
@@ -160,11 +163,5 @@ export class RepresentativeJourney extends JourneyBase {
   private async submit() {
     // call the save service
     this.isSubmitted = true;
-  }
-
-  private redirectIfSubmitted() {
-    if (this.isSubmitted) {
-      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
-    }
   }
 }

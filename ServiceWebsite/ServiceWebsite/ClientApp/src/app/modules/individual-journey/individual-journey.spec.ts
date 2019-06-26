@@ -194,4 +194,20 @@ describe('IndividualJourney', () => {
   it('should throw an exception if proceeding without having entered the journey', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
   });
+
+  it(`should continue to ${Steps.ThankYou} if individual has already submitted`, () => {
+    givenUserIsAtStep(Steps.YourInternetConnection);
+    journey.model.internet = false;
+    journey.isSubmitted = true;
+    journey.next();
+    expect(redirected).toBe(Steps.ThankYou);
+  });
+
+  it(`should continue to ${Steps.AccessToRoom} if individual has not submitted`, () => {
+    givenUserIsAtStep(Steps.YourInternetConnection);
+    journey.model.internet = false;
+    journey.isSubmitted = false;
+    journey.next();
+    expect(redirected).toBe(Steps.AccessToRoom);
+  });
 });
