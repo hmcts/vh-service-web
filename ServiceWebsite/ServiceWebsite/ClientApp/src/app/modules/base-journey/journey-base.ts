@@ -3,7 +3,6 @@ import {JourneyStep} from './journey-step';
 
 export abstract class JourneyBase {
     readonly redirect: EventEmitter<JourneyStep>;
-    isSubmitted: boolean;
 
   /**
      * Fails the current step, navigating to a failure drop off point or error page

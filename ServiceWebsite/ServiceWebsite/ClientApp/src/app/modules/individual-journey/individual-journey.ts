@@ -15,6 +15,7 @@ export class IndividualJourney extends JourneyBase {
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
   private currentModel: IndividualSuitabilityModel;
   private isDone: boolean;
+  private isSubmitted: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
     private submitService: SubmitService) {
