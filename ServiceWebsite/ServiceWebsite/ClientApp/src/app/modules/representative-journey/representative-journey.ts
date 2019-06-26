@@ -9,15 +9,10 @@ import { JourneyStep } from '../base-journey/journey-step';
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
-
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
-
   stepOrder: Array<JourneyStep>;
-
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
-
   private currentModel: RepresentativeSuitabilityModel;
-
   private isDone: boolean;
   private isSelfTestDone: boolean;
   private isSubmitted: boolean;
@@ -87,6 +82,11 @@ export class RepresentativeJourney extends JourneyBase {
     const currentStep = this.stepOrder.indexOf(this.currentStep);
     if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
       throw new Error('Missing transition for step: ' + this.currentStep);
+    }
+
+    if (this.isSubmitted) {
+      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
+      return;
     }
 
     let nextStep = this.stepOrder[currentStep + 1];
