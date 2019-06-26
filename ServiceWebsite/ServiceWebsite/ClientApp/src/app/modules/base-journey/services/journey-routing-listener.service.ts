@@ -46,7 +46,7 @@ export class JourneyRoutingListenerService {
         }
     }
 
-    private   getRouteFromUrl(url: string): string {
+    private getRouteFromUrl(url: string): string {
         // trim leading slash
         return url.replace(/^\//, '');
     }

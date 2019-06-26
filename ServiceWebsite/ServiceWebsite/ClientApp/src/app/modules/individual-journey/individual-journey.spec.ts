@@ -1,11 +1,11 @@
-import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
-import { IndividualJourney } from './individual-journey';
-import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
-import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
-import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
-import { DeviceType } from './services/device-type';
-import { JourneyStep } from '../base-journey/journey-step';
-import { SubmitService } from './services/submit.service';
+import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
+import {IndividualJourney} from './individual-journey';
+import {HasAccessToCamera, Hearing} from '../base-journey/participant-suitability.model';
+import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
+import {IndividualJourneySteps as Steps, IndividualJourneySteps} from './individual-journey-steps';
+import {DeviceType} from './services/device-type';
+import {JourneyStep} from '../base-journey/journey-step';
+import {SubmitService} from './services/submit.service';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -193,5 +193,32 @@ describe('IndividualJourney', () => {
 
   it('should throw an exception if proceeding without having entered the journey', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
+  });
+
+  it(`should continue to ${Steps.ThankYou} if individual has already submitted`, () => {
+    givenUserIsAtStep(Steps.YourInternetConnection);
+    submitService.isDropOffPoint.and.returnValue(true);
+    journey.next();
+    expect(redirected).toBe(Steps.ThankYou);
+
+    journey.redirect.emit(Steps.YourInternetConnection);
+    expect(redirected).toBe(Steps.YourInternetConnection);
+
+    submitService.isDropOffPoint.and.returnValue(false);
+    journey.next();
+    expect(redirected).toBe(Steps.ThankYou);
+  });
+
+  it(`should continue to ${Steps.AccessToRoom} if individual has not submitted`, () => {
+    givenUserIsAtStep(Steps.YourInternetConnection);
+    submitService.isDropOffPoint.and.returnValue(false);
+    journey.next();
+    expect(redirected).toBe(Steps.AccessToRoom);
+
+    journey.redirect.emit(Steps.YourInternetConnection);
+    expect(redirected).toBe(Steps.YourInternetConnection);
+
+    journey.next();
+    expect(redirected).toBe(Steps.AccessToRoom);
   });
 });
