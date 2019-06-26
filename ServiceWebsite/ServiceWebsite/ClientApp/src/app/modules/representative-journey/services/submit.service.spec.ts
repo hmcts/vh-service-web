@@ -44,6 +44,6 @@ describe('SubmitService', () => {
     const saveModel = submitService.updateSubmitModel(RepresentativeJourneySteps.AccessToComputer, model);
 
     expect(saveModel.camera).toBe(undefined);
-   
+
   });
 });

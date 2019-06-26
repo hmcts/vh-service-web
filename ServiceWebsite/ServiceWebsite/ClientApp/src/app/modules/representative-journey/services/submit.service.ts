@@ -36,7 +36,7 @@ export class SubmitService {
 
     if (step === RepresentativeJourneySteps.AccessToComputer) {
         modelToSave.camera = undefined;
-    } 
+    }
 
     // for any other step the model need not be updated
 
