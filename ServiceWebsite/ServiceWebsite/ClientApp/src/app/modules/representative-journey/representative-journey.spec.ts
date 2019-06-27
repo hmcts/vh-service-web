@@ -200,37 +200,39 @@ describe('RepresentativeJourney', () => {
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if individual has already submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
-    journey.model.computer = false;
+    submitService.isDropOffPoint.and.returnValue(true);
     journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
 
     journey.redirect.emit(Steps.AboutVideoHearings);
     expect(redirected).toBe(Steps.AboutVideoHearings);
 
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
   });
 
   it(`should continue to ${Steps.AboutYouAndYourClient} if individual has not submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
-    journey.model.computer = true;
-    journey.model.camera = HasAccessToCamera.Yes;
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.AboutYouAndYourClient);
 
     journey.redirect.emit(Steps.AboutVideoHearings);
     expect(redirected).toBe(Steps.AboutVideoHearings);
 
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.AboutYouAndYourClient);
   });
 
   it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if individual has submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
-    journey.model.computer = false;
+    submitService.isDropOffPoint.and.returnValue(true);
     journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
 
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.ContactUs);
   });
