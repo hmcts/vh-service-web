@@ -29,17 +29,4 @@ export class SubmitService {
     }
     return false;
   }
-
-  updateSubmitModel(step: JourneyStep, model: RepresentativeSuitabilityModel): MutableRepresentativeSuitabilityModel {
-    let modelToSave = new MutableRepresentativeSuitabilityModel();
-    modelToSave = model;
-
-    if (step === RepresentativeJourneySteps.AccessToComputer) {
-        modelToSave.camera = undefined;
-    }
-
-    // for any other step the model need not be updated
-
-    return modelToSave;
-  }
 }

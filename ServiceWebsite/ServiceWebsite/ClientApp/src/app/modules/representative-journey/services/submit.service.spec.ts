@@ -45,11 +45,4 @@ describe('SubmitService', () => {
     const result = submitService.isDropOffPoint(model);
     expect(result).toBe(false);
   });
-  it('should clear the answers after the drop off point - access to computer', () => {
-    model.computer = false;
-    const saveModel = submitService.updateSubmitModel(RepresentativeJourneySteps.AccessToComputer, model);
-
-    expect(saveModel.camera).toBe(undefined);
-
-  });
 });

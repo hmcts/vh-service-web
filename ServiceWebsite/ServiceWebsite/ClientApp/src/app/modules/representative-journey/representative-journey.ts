@@ -90,10 +90,7 @@ export class RepresentativeJourney extends JourneyBase {
 
     if (this.submitService.isDropOffPoint(this.model) && !this.isSubmitted) {
       // update the model to set the answers in case browserback was clicked and the answers were changed.
-      let saveModel: MutableRepresentativeSuitabilityModel;
-      saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
-      // save the updated model.
-      this.submitService.submit(saveModel);
+      this.submitService.submit(this.model);
       this.isSubmitted = true;
       nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
     }
