@@ -1,9 +1,10 @@
-import {MutableRepresentativeSuitabilityModel} from './mutable-representative-suitability.model';
-import {RepresentativeJourney} from './representative-journey';
-import {HasAccessToCamera, Hearing} from '../base-journey/participant-suitability.model';
-import {RepresentativeStepsOrderFactory} from './representative-steps-order.factory';
-import {RepresentativeJourneySteps as Steps} from './representative-journey-steps';
-import {JourneyStep} from '../base-journey/journey-step';
+import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
+import { RepresentativeJourney } from './representative-journey';
+import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
+import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
+import { RepresentativeJourneySteps as Steps, RepresentativeJourneySteps } from './representative-journey-steps';
+import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -14,6 +15,9 @@ dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 describe('RepresentativeJourney', () => {
   let journey: RepresentativeJourney;
   let redirected: JourneyStep;
+  let submitService: jasmine.SpyObj<SubmitService>;
+  submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
+
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableRepresentativeSuitabilityModel();
@@ -56,7 +60,7 @@ describe('RepresentativeJourney', () => {
 
   beforeEach(() => {
     redirected = null;
-    journey = new RepresentativeJourney(representativeStepsOrderFactory);
+    journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
@@ -124,7 +128,7 @@ describe('RepresentativeJourney', () => {
     givenUserIsAtStep(Steps.AboutYourComputer);
     journey.model.camera = HasAccessToCamera.No;
     journey.next();
-    expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
+    expectDropOffToQuestionnaireCompletedFrom(Steps.AboutYourComputer);
   });
   it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
     givenUserIsAtStep(Steps.QuestionnaireCompleted);
@@ -184,7 +188,7 @@ describe('RepresentativeJourney', () => {
 
   it('should throw exception if trying to enter or proceed journey without having been initialised', () => {
     // given a journey that's not been initialised
-    const uninitialisedJourney = new RepresentativeJourney(representativeStepsOrderFactory);
+    const uninitialisedJourney = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
     const expectedError = 'Journey must be initialised with suitability answers';
     expect(() => uninitialisedJourney.jumpTo(Steps.ClientAttendance)).toThrowError(expectedError);
     expect(() => uninitialisedJourney.next()).toThrowError(expectedError);
@@ -194,39 +198,41 @@ describe('RepresentativeJourney', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
   });
 
-  it(`should continue to ${Steps.QuestionnaireCompleted} if individual has already submitted`, () => {
+  it(`should continue to ${Steps.QuestionnaireCompleted} if representative has already submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
-    journey.model.computer = false;
+    submitService.isDropOffPoint.and.returnValue(true);
     journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
 
     journey.redirect.emit(Steps.AboutVideoHearings);
     expect(redirected).toBe(Steps.AboutVideoHearings);
 
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
   });
 
-  it(`should continue to ${Steps.AboutYouAndYourClient} if individual has not submitted`, () => {
+  it(`should continue to ${Steps.AboutYouAndYourClient} if representative has not submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
-    journey.model.computer = true;
-    journey.model.camera = HasAccessToCamera.Yes;
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.AboutYouAndYourClient);
 
     journey.redirect.emit(Steps.AboutVideoHearings);
     expect(redirected).toBe(Steps.AboutVideoHearings);
 
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.AboutYouAndYourClient);
   });
 
-  it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if individual has submitted`, () => {
+  it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if representative has submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
-    journey.model.computer = false;
+    submitService.isDropOffPoint.and.returnValue(true);
     journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
 
+    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.ContactUs);
   });

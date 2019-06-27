@@ -1,6 +1,6 @@
 import { Hearing } from '../../base-journey/participant-suitability.model';
 import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
-import { HearingSuitabilityResponse } from 'src/app/services/clients/api-client';
+import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
 import { ParticipantModelMapper } from '../../base-journey/services/participant-model-mapper';
 
@@ -29,5 +29,17 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
         model.computer = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.Computer);
         return model;
     }
+
+    mapToRequest(model: MutableRepresentativeSuitabilityModel): HearingSuitabilityAnswer[] {
+        const answers: HearingSuitabilityAnswer[] = [];
+        this.addSuitabilityAnswer(model.aboutYou, RepresentativeQuestionKeys.AboutYou, answers);
+        this.addSuitabilityAnswer(model.aboutYourClient, RepresentativeQuestionKeys.AboutYourClient, answers);
+        this.addBooleanAnswer(model.clientAttendance, RepresentativeQuestionKeys.ClientAttendance, answers);
+        this.addSuitabilityAnswer(model.hearingSuitability, RepresentativeQuestionKeys.HearingSuitability, answers);
+        this.addBooleanAnswer(model.room, RepresentativeQuestionKeys.Room, answers);
+        this.addBooleanAnswer(model.computer, RepresentativeQuestionKeys.Computer, answers);
+        this.addAnswerForCamera(model.camera, RepresentativeQuestionKeys.Camera, answers);
+        return answers;
+      }
 
 }
