@@ -15,7 +15,6 @@ export class RepresentativeSuitabilityService {
     }
 
     async updateSuitabilityAnswers(hearingId: string, answers: HearingSuitabilityAnswer[]): Promise<void> {
-        const response = await this.client.updateSuitabilityAnswers(hearingId, answers).toPromise();
-        return response;
-      }
+        return await this.client.updateSuitabilityAnswers(hearingId, answers).toPromise();
+    }
 }
