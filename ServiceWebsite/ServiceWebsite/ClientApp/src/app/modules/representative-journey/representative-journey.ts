@@ -84,11 +84,6 @@ export class RepresentativeJourney extends JourneyBase {
       throw new Error('Missing transition for step: ' + this.currentStep);
     }
 
-    if (this.isSubmitted) {
-      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
-      return;
-    }
-
     let nextStep = this.stepOrder[currentStep + 1];
 
     // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
@@ -110,6 +105,12 @@ export class RepresentativeJourney extends JourneyBase {
         nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
       }
     }
+
+    if (this.isSubmitted && nextStep !== RepresentativeJourneySteps.ContactUs) {
+      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
+      return;
+    }
+
     this.goto(nextStep);
   }
 
