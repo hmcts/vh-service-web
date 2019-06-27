@@ -220,4 +220,14 @@ describe('RepresentativeJourney', () => {
     journey.next();
     expect(redirected).toBe(Steps.AboutYouAndYourClient);
   });
+
+  it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if individual has submitted`, () => {
+    givenUserIsAtStep(Steps.AboutVideoHearings);
+    journey.model.computer = false;
+    journey.next();
+    expect(redirected).toBe(Steps.QuestionnaireCompleted);
+
+    journey.next();
+    expect(redirected).toBe(Steps.ContactUs);
+  });
 });
