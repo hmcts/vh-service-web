@@ -39,6 +39,12 @@ describe('SubmitService', () => {
     const result = submitService.isDropOffPoint(model);
     expect(result).toBe(true);
   });
+  it('should return false when at a stpe- access to camera - is - yes', () => {
+    model.computer = true;
+    model.camera = HasAccessToCamera.Yes;
+    const result = submitService.isDropOffPoint(model);
+    expect(result).toBe(false);
+  });
   it('should clear the answers after the drop off point - access to computer', () => {
     model.computer = false;
     const saveModel = submitService.updateSubmitModel(RepresentativeJourneySteps.AccessToComputer, model);
