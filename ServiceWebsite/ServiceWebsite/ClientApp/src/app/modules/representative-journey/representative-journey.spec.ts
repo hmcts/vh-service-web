@@ -128,7 +128,7 @@ describe('RepresentativeJourney', () => {
     givenUserIsAtStep(Steps.AboutYourComputer);
     journey.model.camera = HasAccessToCamera.No;
     journey.next();
-    expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
+    expectDropOffToQuestionnaireCompletedFrom(Steps.AboutYourComputer);
   });
   it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
     givenUserIsAtStep(Steps.QuestionnaireCompleted);
