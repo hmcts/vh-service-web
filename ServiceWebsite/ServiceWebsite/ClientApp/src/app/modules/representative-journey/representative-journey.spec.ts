@@ -198,7 +198,7 @@ describe('RepresentativeJourney', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
   });
 
-  it(`should continue to ${Steps.QuestionnaireCompleted} if individual has already submitted`, () => {
+  it(`should continue to ${Steps.QuestionnaireCompleted} if representative has already submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
     submitService.isDropOffPoint.and.returnValue(true);
     journey.next();
@@ -212,7 +212,7 @@ describe('RepresentativeJourney', () => {
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
   });
 
-  it(`should continue to ${Steps.AboutYouAndYourClient} if individual has not submitted`, () => {
+  it(`should continue to ${Steps.AboutYouAndYourClient} if representative has not submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
     submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
@@ -226,7 +226,7 @@ describe('RepresentativeJourney', () => {
     expect(redirected).toBe(Steps.AboutYouAndYourClient);
   });
 
-  it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if individual has submitted`, () => {
+  it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if representative has submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
     submitService.isDropOffPoint.and.returnValue(true);
     journey.next();
