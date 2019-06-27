@@ -45,9 +45,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         [When(@"provides additional information '(.*)'")]
         [When(@"provides additional information containing a two character length '(.*)'")]
-        private void WhenIndividualProvidesAdditionalInformationContainingLessThanCharacters(string detail)
+        private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharacters(string detail)
         {
             CurrentPage.SelectYes(detail);
+        }
+
+        [When(@"provides additional information containing a two character length '(.*)' for No answer")]
+        private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharactersForNoAnswer(string detail)
+        {
+            CurrentPage.SelectNo(detail);
         }
 
         protected void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)

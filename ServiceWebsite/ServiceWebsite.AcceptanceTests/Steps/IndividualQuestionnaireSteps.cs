@@ -132,7 +132,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"Individual provides additional information for not consenting to video hearing as '(.*)'")]
         public void WhenIndividualProvidesAdditionalInformationForNotConsentingToVideoHearingAs(string detail)
         {
-            _aboutYou.SelectYes(detail);
+            _aboutYou.SelectNo(detail);
         }
 
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
