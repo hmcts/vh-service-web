@@ -67,9 +67,8 @@ export class RepresentativeJourney extends JourneyBase {
       && model.clientAttendance !== undefined
       && model.hearingSuitability.answer !== undefined
       && model.room !== undefined
-      && model.computer !== undefined
-      && model.camera !== undefined;
-  }
+      && model.computer !== undefined;
+    }
 
   private goto(step: JourneyStep) {
     if (this.currentStep !== step) {
