@@ -1,12 +1,13 @@
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { AdalService } from 'adal-angular4';
 import { Config } from './modules/shared/models/config';
 import { HeaderComponent } from './modules/shared/header/header.component';
 import { WindowRef } from './modules/shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild(HeaderComponent)
   header: HeaderComponent;
+  pageUrl: string;
 
   constructor(
     private router: Router,
@@ -27,11 +29,14 @@ export class AppComponent implements OnInit {
     private window: WindowRef,
     private profileService: ProfileService,
     private journeySelector: JourneySelector,
-    pageTracker: PageTrackerService
+    pageTracker: PageTrackerService, location: Location, 
   ) {
     this.loggedIn = false;
     this.initAuthentication();
     pageTracker.trackNavigation(router);
+    this.router.events.filter(e => e instanceof NavigationEnd).subscribe((event: RouterEvent) => {
+     this.pageUrl = location.path();
+    });
   }
 
   private initAuthentication() {
