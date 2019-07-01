@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
 
 @Component({
@@ -6,5 +6,10 @@ import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.
   templateUrl: './second-page.component.html',
   styles: []
 })
-export class SecondPageComponent extends SelfTestBaseComponent {
+export class SecondPageComponent extends SelfTestBaseComponent implements OnInit {
+
+  ngOnInit(): void {
+    console.log('******* Second Page');
+    super.ngOnInit();
+  }
 }

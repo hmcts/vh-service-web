@@ -9,8 +9,8 @@ export class SelfTestJourneyStepComponentBindings extends ParticipantJourneyStep
 
   constructor() {
     super();
-    this.bindings.set(Steps.First, Paths.FirstPage);
-    this.bindings.set(Steps.Second, Paths.SecondPage);
-    this.bindings.set(Steps.Dropout, Paths.DropoutPage);
+    this.bindings.set(Steps.First, Paths.First);
+    this.bindings.set(Steps.Second, Paths.Second);
+    this.bindings.set(Steps.Dropout, Paths.Dropout);
   }
 }

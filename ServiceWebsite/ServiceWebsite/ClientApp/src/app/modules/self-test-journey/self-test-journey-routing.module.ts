@@ -6,9 +6,9 @@ import {SecondPageComponent} from './pages/second-page/second-page.component';
 import {DropoutPageComponent} from './pages/dropout-page/dropout-page.component';
 
 const routes: Routes = [
-  { path: Paths.FirstPage, component: FirstPageComponent },
-  { path: Paths.SecondPage, component: SecondPageComponent },
-  { path: Paths.DropoutPage, component: DropoutPageComponent },
+  { path: Paths.First, component: FirstPageComponent },
+  { path: Paths.Second, component: SecondPageComponent },
+  { path: Paths.Dropout, component: DropoutPageComponent },
 ];
 
 export const Components = [
@@ -25,4 +25,4 @@ export const Components = [
     RouterModule.forChild(routes)
   ],
 })
-export class SelfTestRoutingModule { }
+export class SelfTestJourneyRoutingModule { }

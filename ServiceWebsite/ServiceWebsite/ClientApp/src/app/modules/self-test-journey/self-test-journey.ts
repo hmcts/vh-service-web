@@ -7,10 +7,10 @@ import {JourneyStep} from '../base-journey/journey-step';
 
 @Injectable()
 export class SelfTestJourney extends JourneyBase {
-  static readonly initialStep = SelfTestJourneySteps.First;
+  static readonly initialStep = SelfTestJourneySteps.AboutHearings;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   stepOrder: Array<JourneyStep>;
-  private currentStep: JourneyStep = SelfTestJourneySteps.First;
+  private currentStep: JourneyStep = SelfTestJourneySteps.NotStarted;
   private currentModel: SelfTestModel;
   private isDone: boolean;
   private isSubmitted: boolean;
@@ -74,5 +74,6 @@ export class SelfTestJourney extends JourneyBase {
   }
 
   startAt(step: JourneyStep): void {
+    this.goto(step);
   }
 }

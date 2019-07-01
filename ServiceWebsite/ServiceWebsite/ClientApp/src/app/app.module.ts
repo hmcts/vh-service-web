@@ -38,7 +38,7 @@ import { BaseJourneyModule } from './modules/base-journey/base-journey.module';
 import { SecurityModule } from './modules/security/security.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { SERVICE_WEB_API_BASE_URL } from './services/clients/api-client';
-import {SelfTestModule} from './modules/self-test-journey/self-test.module';
+import {SelfTestJourneyModule} from './modules/self-test-journey/self-test-journey.module';
 
 export function initConfiguration(configService: ConfigService): Function {
   return () => configService.load();
@@ -65,9 +65,9 @@ export function initConfiguration(configService: ConfigService): Function {
     BaseJourneyModule,
     IndividualJourneyModule,
     RepresentativeJourneyModule,
+    SelfTestJourneyModule,
     AppRoutingModule,
     SharedModule,
-    SelfTestModule,
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: initConfiguration, deps: [ConfigService], multi: true },

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import {BaseJourneyModule} from '../base-journey/base-journey.module';
 import {NgModule} from '@angular/core';
-import {Components, SelfTestRoutingModule} from './self-test-routing.module';
+import {Components, SelfTestJourneyRoutingModule} from './self-test-journey-routing.module';
 import {Localisation} from '../shared/localisation';
 import {IndividualLocalisation} from '../individual-journey/services/individual-localisation';
 import {JOURNEY_FACTORY} from '../base-journey/services/journey.selector';
@@ -25,7 +25,7 @@ import {SelfTestModel} from './self-test.model';
     // app
     SharedModule,
     BaseJourneyModule,
-    SelfTestRoutingModule
+    SelfTestJourneyRoutingModule
   ],
   declarations: [
     ...Components
@@ -42,5 +42,5 @@ import {SelfTestModel} from './self-test.model';
   ]
 })
 
-export class SelfTestModule {
+export class SelfTestJourneyModule {
 }

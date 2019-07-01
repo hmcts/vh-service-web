@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
 
 @Component({
@@ -6,5 +6,10 @@ import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.
   templateUrl: './dropout-page.component.html',
   styles: []
 })
-export class DropoutPageComponent extends SelfTestBaseComponent {
+export class DropoutPageComponent extends SelfTestBaseComponent implements OnInit {
+
+  ngOnInit(): void {
+    console.log('******* Dropout Page');
+    super.ngOnInit();
+  }
 }

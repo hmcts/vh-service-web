@@ -5,7 +5,7 @@ import { JourneyRoutingListenerService } from '../base-journey/services/journey-
 import { SelfTestJourneyStepComponentBindings } from './self-test-journey-component-bindings';
 import {SelfTestJourneyService} from './self-test-journey.service';
 
-const IndividualUserType = 'Individual';
+const UserType = 'xxx';
 
 @Injectable()
 export class SelfTestJourneyFactory implements JourneyFactory {
@@ -30,6 +30,6 @@ export class SelfTestJourneyFactory implements JourneyFactory {
   }
 
   handles(userType: string): boolean {
-    return userType === IndividualUserType;
+    return userType === UserType;
   }
 }
