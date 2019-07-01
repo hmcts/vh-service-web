@@ -9,6 +9,28 @@ export enum HasAccessToCamera {
     NotSure
 }
 
+export class SelfTestAnswers {
+    constructor(answers?: {
+        seeAndHearClearly?: boolean,
+        sameComputer?: boolean,
+        cameraWorking?: boolean,
+        microphoneWorking?: boolean
+    }) {
+        if (answers) {
+            this.seeAndHearClearly = answers.seeAndHearClearly;
+            this.sameComputer = answers.sameComputer;
+            this.cameraWorking = answers.cameraWorking;
+            this.microphoneWorking = answers.microphoneWorking;
+        }
+    }
+
+    seeAndHearClearly: boolean;
+    sameComputer: boolean;
+    cameraWorking: boolean;
+    microphoneWorking: boolean;
+}
+
+
 /**
  * Exposes the basic properties of the suitability model.
  */
@@ -17,6 +39,9 @@ export abstract class ParticipantSuitabilityModel {
     camera: HasAccessToCamera;
     computer: boolean;
     room: boolean;
+
+    selfTest: SelfTestAnswers;
+
     hearing: Hearing;
 
     isUpcoming(): boolean {
