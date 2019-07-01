@@ -11,9 +11,10 @@ import {
   JourneyComponentTestBed
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
+import { SubmitService } from '../../services/submit.service';
 
-@Component({ selector: 'app-hearing-details-header', template: ''})
-export class StubHearingDetailsHeaderComponent {}
+@Component({ selector: 'app-hearing-details-header', template: '' })
+export class StubHearingDetailsHeaderComponent { }
 
 export interface RepresentativeComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: RepresentativeJourney;
@@ -21,10 +22,12 @@ export interface RepresentativeComponentTestBedConfiguration<TComponent> extends
 
 export class RepresentativeJourneyStubs {
   public static get default(): RepresentativeJourney {
-      // Journey with initialised model, so that it is accessible in steeps
+    // Journey with initialised model, so that it is accessible in steeps
     const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
-    const journey = new RepresentativeJourney(representativeStepsOrderFactory);
-    journey.forSuitabilityAnswers([ RepresentativeJourneyStubs.model ]);
+    let submitService: jasmine.SpyObj<SubmitService>;
+    submitService = jasmine.createSpyObj<SubmitService>(['submit']);
+    const journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
+    journey.forSuitabilityAnswers([RepresentativeJourneyStubs.model]);
     journey.startAt(RepresentativeJourneySteps.AboutVideoHearings);
     return journey;
   }
