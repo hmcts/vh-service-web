@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     private window: WindowRef,
     private profileService: ProfileService,
     private journeySelector: JourneySelector,
-    pageTracker: PageTrackerService, location: Location, 
+    pageTracker: PageTrackerService, location: Location,
   ) {
     this.loggedIn = false;
     this.initAuthentication();
