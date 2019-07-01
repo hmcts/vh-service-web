@@ -7,7 +7,6 @@ import { Config } from './modules/shared/models/config';
 import { HeaderComponent } from './modules/shared/header/header.component';
 import { WindowRef } from './modules/shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -29,13 +28,13 @@ export class AppComponent implements OnInit {
     private window: WindowRef,
     private profileService: ProfileService,
     private journeySelector: JourneySelector,
-    pageTracker: PageTrackerService, location: Location,
+    pageTracker: PageTrackerService
   ) {
     this.loggedIn = false;
     this.initAuthentication();
     pageTracker.trackNavigation(router);
     this.router.events.filter(e => e instanceof NavigationEnd).subscribe((event: RouterEvent) => {
-     this.pageUrl = location.path();
+     this.pageUrl = router.url;
     });
   }
 
