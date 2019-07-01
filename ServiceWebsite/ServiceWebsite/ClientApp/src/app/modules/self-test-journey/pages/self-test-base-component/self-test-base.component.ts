@@ -1,20 +1,24 @@
-import { OnInit, Injectable } from '@angular/core';
+import {OnInit, Injectable} from '@angular/core';
+import {SelfTestJourney} from '../../self-test-journey';
+import {SelfTestModel} from '../../self-test.model';
 
 @Injectable()
 export abstract class SelfTestBaseComponent implements OnInit {
-    constructor() {}
+  constructor(private journey: SelfTestJourney) {
+  }
 
-    ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-    fail(): void {
+  fail(): void {
+    this.journey.fail();
+  }
 
-    }
+  continue(): void {
+    this.journey.next();
+  }
 
-    continue(): void {
-
-    }
-
-    get model(): any {
-      return '';
-    }
+  get model(): SelfTestModel {
+    return this.journey.model;
+  }
 }

@@ -2,7 +2,7 @@ import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.fa
 import { SelfTestJourney } from './self-test-journey';
 import { Injectable } from '@angular/core';
 import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
-import { JourneyStepComponentBindings } from './journey-component-bindings';
+import { SelfTestJourneyStepComponentBindings } from './self-test-journey-component-bindings';
 import {SelfTestJourneyService} from './self-test-journey.service';
 
 const IndividualUserType = 'Individual';
@@ -11,10 +11,10 @@ const IndividualUserType = 'Individual';
 export class SelfTestJourneyFactory implements JourneyFactory {
 
   private readonly journey: SelfTestJourney;
-  private readonly bindings: JourneyStepComponentBindings;
+  private readonly bindings: SelfTestJourneyStepComponentBindings;
 
   constructor(journey: SelfTestJourney,
-              bindings: JourneyStepComponentBindings,
+              bindings: SelfTestJourneyStepComponentBindings,
               private journeyRoutingListenerService: JourneyRoutingListenerService,
               private selfTestJourneyService: SelfTestJourneyService) {
     this.journey = journey;

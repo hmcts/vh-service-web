@@ -3,7 +3,7 @@ import {Paths} from './paths';
 import {JourneyStep} from '../base-journey/journey-step';
 import {ParticipantJourneyStepComponentBindings} from '../base-journey/services/participant-journey-component-bindings';
 
-export class JourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
+export class SelfTestJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
   readonly bindings = new Map<JourneyStep, string>();
   readonly initialStep = Steps.First;
 

@@ -1,4 +1,4 @@
-import { IndividualJourneySteps } from './../../individual-journey-steps';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 
@@ -7,7 +7,7 @@ import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
-import { DeviceType } from '../../services/device-type';
+import { DeviceType } from '../../../base-journey/services/device-type';
 import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 import {
   JourneyComponentTestBed,
