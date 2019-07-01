@@ -13,11 +13,13 @@ export class SelfTestStepsOrderFactory {
   stepOrder(): JourneyStep[] {
     if (this.deviceType.isMobile()) {
       return [
-        SelfTestJourneySteps.First
+        SelfTestJourneySteps.First,
+        SelfTestJourneySteps.Dropout
       ];
     } else {
       return [
-        SelfTestJourneySteps.First
+        SelfTestJourneySteps.First,
+        SelfTestJourneySteps.Dropout
       ];
     }
   }

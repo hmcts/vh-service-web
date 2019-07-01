@@ -3,5 +3,6 @@ import { ParticipantJourneySteps } from '../base-journey/participant-journey-ste
 
 export class SelfTestJourneySteps extends ParticipantJourneySteps {
   static readonly  First = new JourneyStep('First');
+  static readonly  Second = new JourneyStep('Second');
   static readonly  Dropout = new JourneyStep('Dropout');
 }

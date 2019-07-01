@@ -1,3 +1,5 @@
 export const Paths = {
-    TestPage: 'test-page',
+    FirstPage: 'first-page',
+    SecondPage: 'second-page',
+    DropoutPage: 'dropout-page',
 };
