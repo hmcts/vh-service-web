@@ -236,4 +236,12 @@ describe('RepresentativeJourney', () => {
     journey.next();
     expect(redirected).toBe(Steps.ContactUs);
   });
+
+  it(`should call SubmitService Submit if representative has yes camera`, () => {
+    givenUserIsAtStep(Steps.AboutYourComputer);
+    journey.model.camera = HasAccessToCamera.Yes;
+    journey.next();
+    expect(submitService.submit).toHaveBeenCalled();
+    expect(redirected).toBe(Steps.QuestionnaireCompleted);
+  });
 });

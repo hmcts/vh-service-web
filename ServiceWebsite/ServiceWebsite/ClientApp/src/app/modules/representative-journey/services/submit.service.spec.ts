@@ -39,10 +39,10 @@ describe('SubmitService', () => {
     const result = submitService.isDropOffPoint(model);
     expect(result).toBe(true);
   });
-  it('should return false when at a stpe- access to camera - is - yes', () => {
+  it('should return true when at a stpe- access to camera - is - yes', () => {
     model.computer = true;
     model.camera = HasAccessToCamera.Yes;
     const result = submitService.isDropOffPoint(model);
-    expect(result).toBe(false);
+    expect(result).toBe(true);
   });
 });

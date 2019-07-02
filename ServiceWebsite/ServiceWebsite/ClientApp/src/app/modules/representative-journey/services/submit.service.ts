@@ -24,7 +24,7 @@ export class SubmitService {
       return true;
     }
     // check access to a camera and microphone.
-    if (model.camera === HasAccessToCamera.No) {
+    if (model.camera === HasAccessToCamera.No || model.camera === HasAccessToCamera.Yes || model.camera === HasAccessToCamera.NotSure) {
       return true;
     }
     return false;
