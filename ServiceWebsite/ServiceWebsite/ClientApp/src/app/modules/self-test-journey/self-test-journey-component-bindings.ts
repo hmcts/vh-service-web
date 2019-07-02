@@ -5,11 +5,11 @@ import {ParticipantJourneyStepComponentBindings} from '../base-journey/services/
 
 export class SelfTestJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
   readonly bindings = new Map<JourneyStep, string>();
-  readonly initialStep = Steps.First;
+  readonly initialStep = Steps.SelfTest;
 
   constructor() {
     super();
-    this.bindings.set(Steps.First, Paths.First);
+    this.bindings.set(Steps.SelfTest, Paths.SelfTest);
     this.bindings.set(Steps.Second, Paths.Second);
     this.bindings.set(Steps.Dropout, Paths.Dropout);
   }

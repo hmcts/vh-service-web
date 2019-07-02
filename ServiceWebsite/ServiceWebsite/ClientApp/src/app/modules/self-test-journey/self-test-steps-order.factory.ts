@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DeviceType } from '../../modules/base-journey/services/device-type';
+import { DeviceType } from '../base-journey/services/device-type';
 import { SelfTestJourneySteps } from './self-test-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 
@@ -13,13 +13,13 @@ export class SelfTestStepsOrderFactory {
   stepOrder(): JourneyStep[] {
     if (this.deviceType.isMobile()) {
       return [
-        SelfTestJourneySteps.First,
+        SelfTestJourneySteps.SelfTest,
         SelfTestJourneySteps.Second,
         SelfTestJourneySteps.Dropout
       ];
     } else {
       return [
-        SelfTestJourneySteps.First,
+        SelfTestJourneySteps.SelfTest,
         SelfTestJourneySteps.Second,
         SelfTestJourneySteps.Dropout
       ];

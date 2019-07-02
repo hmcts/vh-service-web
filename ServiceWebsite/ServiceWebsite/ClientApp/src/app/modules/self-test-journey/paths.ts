@@ -1,5 +1,5 @@
 export const Paths = {
-    First: 'first-page',
+    SelfTest: 'self-test',
     Second: 'second-page',
     Dropout: 'dropout-page',
 };
