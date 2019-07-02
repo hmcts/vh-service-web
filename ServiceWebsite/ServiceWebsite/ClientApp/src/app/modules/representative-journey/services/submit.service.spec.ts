@@ -45,4 +45,11 @@ describe('SubmitService', () => {
     const result = submitService.isDropOffPoint(model);
     expect(result).toBe(true);
   });
+
+  it('should return true when at a stpe- access to camera - is - Not Sure', () => {
+    model.computer = true;
+    model.camera = HasAccessToCamera.NotSure;
+    const result = submitService.isDropOffPoint(model);
+    expect(result).toBe(true);
+  });
 });
