@@ -1,6 +1,6 @@
 import { BlobVideoStorageService } from './blob-video-storage.service';
 import { BlobStorageService } from './blob-storage.service';
-import { DeviceType } from './device-type';
+import { DeviceType } from '../../base-journey/services/device-type';
 import { Config } from '../../shared/models/config';
 import { VideoFiles } from './video-files';
 

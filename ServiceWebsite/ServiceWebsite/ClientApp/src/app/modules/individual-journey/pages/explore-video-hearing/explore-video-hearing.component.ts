@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
-import { DeviceType } from '../../services/device-type';
+import { DeviceType } from '../../../base-journey/services/device-type';
 import { IndividualJourney } from '../../individual-journey';
 
 @Component({

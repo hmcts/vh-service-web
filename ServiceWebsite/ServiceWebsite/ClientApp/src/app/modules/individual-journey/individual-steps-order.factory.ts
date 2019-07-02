@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DeviceType } from '../../modules/individual-journey/services/device-type';
+import { DeviceType } from '../base-journey/services/device-type';
 import { IndividualJourneySteps } from '../individual-journey/individual-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 

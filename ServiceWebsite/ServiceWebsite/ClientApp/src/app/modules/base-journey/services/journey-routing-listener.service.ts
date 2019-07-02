@@ -60,11 +60,17 @@ export class JourneyRoutingListenerService {
         // if the user presses back button
         this.router.events
           .filter(event => event instanceof ResolveEnd)
-          .subscribe((event: ResolveEnd) => this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects)));
+          .subscribe((event: ResolveEnd) => {
+            this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects));
+          });
 
         const currentRoute = this.getRouteFromUrl(this.router.url);
         const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
-        this.journey.redirect.subscribe((step: JourneyStep) => this.gotoStep(step));
+
+        this.journey.redirect.subscribe((step: JourneyStep) => {
+          this.gotoStep(step);
+        });
+
         if (journeyStep !== null) {
             this.journey.startAt(journeyStep);
         }

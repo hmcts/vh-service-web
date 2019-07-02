@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { VideoUrlService } from './video-url.service';
 import { BlobStorageService } from './blob-storage.service';
 import { VideoFiles } from './video-files';
-import { DeviceType } from './device-type';
+import { DeviceType } from '../../base-journey/services/device-type';
 
 @Injectable({
   providedIn: 'root'
