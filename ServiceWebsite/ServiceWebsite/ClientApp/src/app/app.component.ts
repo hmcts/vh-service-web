@@ -19,8 +19,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild(HeaderComponent)
   header: HeaderComponent;
-  pageUrl: string;
-
+  
   constructor(
     private router: Router,
     private adalService: AdalService,

@@ -20,7 +20,7 @@ const routes =
     { path: 'sub-component2', component: Mock2Component }
   ];
 
-describe('FooterComponent',
+describe('BetaBannerComponent',
   () => {
     let component: BetaBannerComponent;
     let fixture: ComponentFixture<BetaBannerComponent>;
@@ -48,11 +48,6 @@ describe('FooterComponent',
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
-
-    it('should create',
-      () => {
-        expect(component).toBeTruthy();
-      });
 
     it('navigate to sub-component1 should see sub-component1 in router url',
       fakeAsync(() => {
