@@ -16,14 +16,20 @@ export class SelfTestStepsOrderFactory {
         SelfTestJourneySteps.SameComputer,
         SelfTestJourneySteps.SignInOtherComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
-        SelfTestJourneySteps.SelfTest
+        SelfTestJourneySteps.SelfTest,
+        SelfTestJourneySteps.CameraWorking,
+        SelfTestJourneySteps.MicrophoneWorking,
+        SelfTestJourneySteps.SeeAndHearVideo,
       ];
     } else {
       return [
         SelfTestJourneySteps.SameComputer,
         SelfTestJourneySteps.SignInOtherComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
-        SelfTestJourneySteps.SelfTest
+        SelfTestJourneySteps.SelfTest,
+        SelfTestJourneySteps.CameraWorking,
+        SelfTestJourneySteps.MicrophoneWorking,
+        SelfTestJourneySteps.SeeAndHearVideo,
       ];
     }
   }

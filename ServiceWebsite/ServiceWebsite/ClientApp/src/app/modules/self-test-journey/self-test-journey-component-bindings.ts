@@ -13,6 +13,9 @@ export class SelfTestJourneyStepComponentBindings extends ParticipantJourneyStep
     this.bindings.set(Steps.SignInOtherComputer, Paths.SignInOtherComputer);
     this.bindings.set(Steps.UseCameraAndMicrophoneAgain, Paths.UseCameraAndMicrophoneAgain);
     this.bindings.set(Steps.SelfTest, Paths.SelfTest);
+    this.bindings.set(Steps.CameraWorking, Paths.CameraWorking);
+    this.bindings.set(Steps.MicrophoneWorking, Paths.MicrophoneWorking);
+    this.bindings.set(Steps.SeeAndHearVideo, Paths.SeeAndHearVideo);
 
   }
 }
