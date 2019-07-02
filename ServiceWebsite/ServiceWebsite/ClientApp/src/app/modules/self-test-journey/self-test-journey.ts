@@ -21,6 +21,9 @@ export class SelfTestJourney extends JourneyBase {
       this.currentStep = step;
     });
     this.stepOrder = this.selfTestStepsFactory.stepOrder();
+
+    // temporary
+    this.currentModel = {} as ParticipantSuitabilityModel;
   }
 
   /**
