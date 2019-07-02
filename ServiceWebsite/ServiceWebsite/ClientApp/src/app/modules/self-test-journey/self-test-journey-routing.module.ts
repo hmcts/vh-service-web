@@ -3,18 +3,18 @@ import {RouterModule, Routes} from '@angular/router';
 import {Paths} from './paths';
 import {SelfTestComponent} from './pages/self-test/self-test.component';
 import {UseCameraMicrophoneAgainComponent} from './pages/use-camera-microphone-again/use-camera-microphone-again.component';
-import {DropoutPageComponent} from './pages/dropout-page/dropout-page.component';
+import {SameComputerComponent} from './pages/same-computer/same-computer.component';
 
 const routes: Routes = [
-  {path: Paths.SelfTest, component: SelfTestComponent},
+  {path: Paths.SameComputer, component: SameComputerComponent},
   {path: Paths.UseCameraAndMicrophoneAgain, component: UseCameraMicrophoneAgainComponent},
-  {path: Paths.Dropout, component: DropoutPageComponent},
+  {path: Paths.SelfTest, component: SelfTestComponent},
 ];
 
 export const Components = [
-  SelfTestComponent,
+  SameComputerComponent,
   UseCameraMicrophoneAgainComponent,
-  DropoutPageComponent,
+  SelfTestComponent
 ];
 
 @NgModule({

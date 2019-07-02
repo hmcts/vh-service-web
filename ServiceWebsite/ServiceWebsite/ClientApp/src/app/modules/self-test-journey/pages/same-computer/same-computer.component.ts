@@ -2,14 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
 
 @Component({
-  selector: 'app-dropout-page',
-  templateUrl: './dropout-page.component.html',
+  selector: 'app-same-computer',
+  templateUrl: './same-computer.component.html',
   styles: []
 })
-export class DropoutPageComponent extends SelfTestBaseComponent implements OnInit {
+export class SameComputerComponent extends SelfTestBaseComponent implements OnInit {
 
   ngOnInit(): void {
-    console.log('******* Dropout Page');
     super.ngOnInit();
   }
 }

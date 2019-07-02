@@ -7,7 +7,7 @@ import {JourneyStep} from '../base-journey/journey-step';
 
 @Injectable()
 export class SelfTestJourney extends JourneyBase {
-  static readonly initialStep = SelfTestJourneySteps.UseCameraAndMicrophoneAgain;
+  static readonly initialStep = SelfTestJourneySteps.SameComputer;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = SelfTestJourneySteps.NotStarted;
@@ -55,7 +55,7 @@ export class SelfTestJourney extends JourneyBase {
 
   fail() {
     const dropoutToThankYouFrom = [
-      SelfTestJourneySteps.Dropout
+      SelfTestJourneySteps.SameComputer
     ];
 
     if (dropoutToThankYouFrom.includes(this.currentStep)) {

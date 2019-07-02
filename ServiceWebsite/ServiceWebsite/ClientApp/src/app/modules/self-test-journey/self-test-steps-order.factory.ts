@@ -13,15 +13,15 @@ export class SelfTestStepsOrderFactory {
   stepOrder(): JourneyStep[] {
     if (this.deviceType.isMobile()) {
       return [
-        SelfTestJourneySteps.SelfTest,
+        SelfTestJourneySteps.SameComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
-        SelfTestJourneySteps.Dropout
+        SelfTestJourneySteps.SelfTest
       ];
     } else {
       return [
-        SelfTestJourneySteps.SelfTest,
+        SelfTestJourneySteps.SameComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
-        SelfTestJourneySteps.Dropout
+        SelfTestJourneySteps.SelfTest
       ];
     }
   }

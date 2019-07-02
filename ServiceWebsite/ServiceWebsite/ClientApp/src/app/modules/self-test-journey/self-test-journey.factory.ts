@@ -1,4 +1,4 @@
-import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
+import { JourneyFactory } from '../base-journey/services/journey.factory';
 import { SelfTestJourney } from './self-test-journey';
 import { Injectable } from '@angular/core';
 import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';

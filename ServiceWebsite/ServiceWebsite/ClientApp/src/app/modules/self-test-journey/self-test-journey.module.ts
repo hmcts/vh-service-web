@@ -5,7 +5,7 @@ import {BaseJourneyModule} from '../base-journey/base-journey.module';
 import {NgModule} from '@angular/core';
 import {Components, SelfTestJourneyRoutingModule} from './self-test-journey-routing.module';
 import {Localisation} from '../shared/localisation';
-import {IndividualLocalisation} from '../individual-journey/services/individual-localisation';
+import {SelfTestLocalisation} from './services/self-test-localisation';
 import {JOURNEY_FACTORY} from '../base-journey/services/journey.selector';
 import {JourneyRoutingListenerService} from '../base-journey/services/journey-routing-listener.service';
 import {SelfTestJourneyService} from './self-test-journey.service';
@@ -31,9 +31,9 @@ import {SelfTestModel} from './self-test.model';
     ...Components
   ],
   providers: [
-    { provide: Localisation, useClass: IndividualLocalisation },
-    { provide: SelfTestModel, useFactory: SelfTestModel },
-    { provide: JOURNEY_FACTORY, useClass: SelfTestJourneyFactory, multi: true },
+    {provide: Localisation, useClass: SelfTestLocalisation},
+    {provide: SelfTestModel, useFactory: SelfTestModel},
+    {provide: JOURNEY_FACTORY, useClass: SelfTestJourneyFactory, multi: true},
     SelfTestJourney,
     SelfTestJourneyStepComponentBindings,
     JourneyRoutingListenerService,
