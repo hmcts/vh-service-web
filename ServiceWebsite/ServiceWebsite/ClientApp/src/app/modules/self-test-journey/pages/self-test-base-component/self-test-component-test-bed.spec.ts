@@ -1,5 +1,4 @@
 import {SelfTestJourneySteps} from '../../self-test-journey-steps';
-import {SelfTestModel} from '../../self-test.model';
 import {ComponentFixture} from '@angular/core/testing';
 import {SelfTestJourney} from '../../self-test-journey';
 import {SelfTestStepsOrderFactory} from '../../self-test-steps-order.factory';
@@ -11,6 +10,7 @@ import {
 import {ContinuableComponentFixture} from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import {Localisation} from '../../../shared/localisation';
 import {IndividualLocalisation} from '../../../individual-journey/services/individual-localisation';
+import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 
 export interface SelfTestComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: SelfTestJourney;
@@ -42,19 +42,6 @@ export class SelfTestJourneyStubs {
     journey.startAt(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
     return journey;
   }
-
-  public static get model(): SelfTestModel {
-    const journeyModel = new SelfTestModel();
-    journeyModel.internet = true;
-    return journeyModel;
-  }
-
-  public static get journeySpy(): jasmine.SpyObj<SelfTestJourney> {
-    return {
-      model: SelfTestJourneyStubs.model,
-      ...jasmine.createSpyObj<SelfTestJourney>(['next'])
-    } as jasmine.SpyObj<SelfTestJourney>;
-  }
 }
 
 export class SelfTestJourneyComponentTestBed {
@@ -66,7 +53,6 @@ export class SelfTestJourneyComponentTestBed {
           ...(config.declarations || [])
         ],
         providers: [
-          {provide: SelfTestModel, useClass: SelfTestModel},
           { provide: Localisation, useClass: IndividualLocalisation },
           {provide: SelfTestJourney, useValue: config.journey || SelfTestJourneyStubs.default},
           ...(config.providers || [])

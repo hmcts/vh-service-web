@@ -1,6 +1,6 @@
 import {OnInit, Injectable} from '@angular/core';
 import {SelfTestJourney} from '../../self-test-journey';
-import {SelfTestModel} from '../../self-test.model';
+import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 
 @Injectable()
 export abstract class SelfTestBaseComponent implements OnInit {
@@ -18,7 +18,7 @@ export abstract class SelfTestBaseComponent implements OnInit {
     this.journey.next();
   }
 
-  get model(): SelfTestModel {
+  get model(): ParticipantSuitabilityModel {
     return this.journey.model;
   }
 }

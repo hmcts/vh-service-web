@@ -1,9 +1,9 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {JourneyBase} from '../base-journey/journey-base';
-import {SelfTestModel} from './self-test.model';
 import {SelfTestStepsOrderFactory} from './self-test-steps-order.factory';
 import {SelfTestJourneySteps} from './self-test-journey-steps';
 import {JourneyStep} from '../base-journey/journey-step';
+import {ParticipantSuitabilityModel} from '../base-journey/participant-suitability.model';
 
 @Injectable()
 export class SelfTestJourney extends JourneyBase {
@@ -11,7 +11,7 @@ export class SelfTestJourney extends JourneyBase {
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = SelfTestJourneySteps.NotStarted;
-  private currentModel: SelfTestModel;
+  private currentModel: ParticipantSuitabilityModel;
   private isDone: boolean;
   private isSubmitted: boolean;
 
@@ -27,7 +27,7 @@ export class SelfTestJourney extends JourneyBase {
     return this.currentStep;
   }
 
-  get model(): SelfTestModel {
+  get model(): ParticipantSuitabilityModel {
     return this.currentModel;
   }
 
