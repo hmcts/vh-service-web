@@ -4,13 +4,13 @@ import {
 } from '../../../shared/crest-blue-panel/crest-blue-panel.component';
 import {SelfTestJourney} from '../../self-test-journey';
 import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
-import {SignInOtherComputerComponent} from './sign-in-other-computer.component';
+import {CameraWorkingComponent} from './camera-working.component';
 
-describe('SignInOtherComputerComponent', () => {
+describe('CameraWorkingComponent', () => {
   it('can continue', () => {
     const journey = jasmine.createSpyObj<SelfTestJourney>(['next']);
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
-      component: SignInOtherComputerComponent,
+      component: CameraWorkingComponent,
       declarations: [CrestBluePanelComponent],
       providers: [{provide: SelfTestJourney, useValue: journey}]
     });
