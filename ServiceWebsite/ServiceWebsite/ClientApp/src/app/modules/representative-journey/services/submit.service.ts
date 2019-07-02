@@ -19,14 +19,9 @@ export class SubmitService {
   }
 
   isDropOffPoint(model: RepresentativeSuitabilityModel): boolean {
-    // check access to a computer.
-    if (model.computer === false) {
-      return true;
-    }
-    // check access to a camera and microphone.
-    if (model.camera === HasAccessToCamera.No || model.camera === HasAccessToCamera.Yes || model.camera === HasAccessToCamera.NotSure) {
-      return true;
-    }
-    return false;
+
+    return (model.computer === false || model.camera === HasAccessToCamera.No ||
+      model.camera === HasAccessToCamera.Yes || model.camera === HasAccessToCamera.NotSure);
+
   }
 }
