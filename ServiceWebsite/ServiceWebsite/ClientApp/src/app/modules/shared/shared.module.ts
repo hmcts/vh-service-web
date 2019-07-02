@@ -12,6 +12,7 @@ import { ErrorFooterComponent } from './error-footer/error-footer.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { CrestBluePanelComponent } from './crest-blue-panel/crest-blue-panel.component';
+import { BetaBannerComponent} from './beta-banner/beta-banner.component';
 
 // services
 import { ProfileService } from '../../services/profile.service';
@@ -37,7 +38,8 @@ import { AppYesNoPipe } from './boolean.pipe';
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
-    AppYesNoPipe
+    AppYesNoPipe,
+    BetaBannerComponent
   ],
   providers: [
     ProfileService,
@@ -53,7 +55,8 @@ import { AppYesNoPipe } from './boolean.pipe';
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
-    AppYesNoPipe
+    AppYesNoPipe,
+    BetaBannerComponent
   ]
 })
 export class SharedModule { }
