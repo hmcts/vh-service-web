@@ -1,7 +1,7 @@
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { Router} from '@angular/router';
 import { AdalService } from 'adal-angular4';
 import { Config } from './modules/shared/models/config';
 import { HeaderComponent } from './modules/shared/header/header.component';
@@ -33,9 +33,6 @@ export class AppComponent implements OnInit {
     this.loggedIn = false;
     this.initAuthentication();
     pageTracker.trackNavigation(router);
-    this.router.events.filter(e => e instanceof NavigationEnd).subscribe((event: RouterEvent) => {
-     this.pageUrl = router.url;
-    });
   }
 
   private initAuthentication() {
