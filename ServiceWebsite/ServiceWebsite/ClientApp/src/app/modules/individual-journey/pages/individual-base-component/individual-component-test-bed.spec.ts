@@ -2,8 +2,6 @@ import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 
-import { IndividualLocalisation } from '../../services/individual-localisation';
-import { Localisation } from 'src/app/modules/shared/localisation';
 import { IndividualJourney } from '../../individual-journey';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
@@ -76,7 +74,6 @@ export class IndividualJourneyComponentTestBed {
         ],
         providers: [
           { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
-          { provide: Localisation, useClass: IndividualLocalisation },
           { provide: IndividualJourney, useValue: config.journey || IndividualJourneyStubs.default },
           ...(config.providers || [])
         ],
