@@ -1,6 +1,6 @@
-import { IndividualJourneyComponentTestBed, IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
+import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { ExploreVideoHearingComponent } from './explore-video-hearing.component';
-import { DeviceType } from '../../services/device-type';
+import { DeviceType } from '../../../base-journey/services/device-type';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { IndividualJourney } from '../../individual-journey';
 

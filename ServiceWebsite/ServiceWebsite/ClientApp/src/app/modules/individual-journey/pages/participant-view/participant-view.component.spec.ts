@@ -4,7 +4,7 @@ import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
 import { async } from '@angular/core/testing';
-import { DeviceType } from '../../services/device-type';
+import { DeviceType } from '../../../base-journey/services/device-type';
 import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-component-test-bed.spec';
 import { IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 

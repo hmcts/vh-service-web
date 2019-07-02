@@ -1,4 +1,4 @@
-import { ChoiceTextboxComponent } from './../../../base-journey/components/choice-textbox.component';
+import { ChoiceTextboxComponent } from '../../../base-journey/components/choice-textbox.component';
 import { IndividualJourneyComponentTestBed, IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { AboutYouComponent } from './about-you.component';

@@ -5,7 +5,7 @@ import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';
 import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
 import { VideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component';
-import { DeviceType } from '../../services/device-type';
+import { DeviceType } from '../../../base-journey/services/device-type';
 
 @Component({
   selector: 'app-participant-view',
