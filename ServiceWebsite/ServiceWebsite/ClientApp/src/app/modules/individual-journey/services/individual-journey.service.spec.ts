@@ -1,3 +1,4 @@
+import { SelfTestAnswers } from './../../base-journey/participant-suitability.model';
 import { IndividualJourneyService } from './individual-journey.service';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
 import { HasAccessToCamera, Hearing, SuitabilityAnswer } from '../../base-journey/participant-suitability.model';
@@ -27,6 +28,13 @@ describe('representative.journey.service', () => {
     model.room = true;
     model.camera = HasAccessToCamera.NotSure;
     model.computer = true;
+
+    model.selfTest = new SelfTestAnswers({
+      seeAndHearClearly: true,
+      cameraWorking: false,
+      sameComputer: true,
+      microphoneWorking: false
+    });
 
     individualJourneyService.set(model);
 
