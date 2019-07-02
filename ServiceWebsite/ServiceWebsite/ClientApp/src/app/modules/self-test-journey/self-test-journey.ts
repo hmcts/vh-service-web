@@ -7,7 +7,7 @@ import {JourneyStep} from '../base-journey/journey-step';
 
 @Injectable()
 export class SelfTestJourney extends JourneyBase {
-  static readonly initialStep = SelfTestJourneySteps.AboutHearings;
+  static readonly initialStep = SelfTestJourneySteps.UseCameraAndMicrophoneAgain;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = SelfTestJourneySteps.NotStarted;

@@ -1,5 +1,5 @@
 export const Paths = {
     SelfTest: 'self-test',
-    Second: 'second-page',
+    UseCameraAndMicrophoneAgain: 'use-camera-microphone-again',
     Dropout: 'dropout-page',
 };

@@ -3,6 +3,6 @@ import { ParticipantJourneySteps } from '../base-journey/participant-journey-ste
 
 export class SelfTestJourneySteps extends ParticipantJourneySteps {
   static readonly SelfTest = new JourneyStep('SelfTest');
-  static readonly Second = new JourneyStep('Second');
+  static readonly UseCameraAndMicrophoneAgain = new JourneyStep('UseCameraAndMicrophoneAgain');
   static readonly Dropout = new JourneyStep('Dropout');
 }

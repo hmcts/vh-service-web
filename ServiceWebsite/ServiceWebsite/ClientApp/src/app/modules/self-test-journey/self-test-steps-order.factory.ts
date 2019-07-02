@@ -14,13 +14,13 @@ export class SelfTestStepsOrderFactory {
     if (this.deviceType.isMobile()) {
       return [
         SelfTestJourneySteps.SelfTest,
-        SelfTestJourneySteps.Second,
+        SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
         SelfTestJourneySteps.Dropout
       ];
     } else {
       return [
         SelfTestJourneySteps.SelfTest,
-        SelfTestJourneySteps.Second,
+        SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
         SelfTestJourneySteps.Dropout
       ];
     }
