@@ -7,20 +7,28 @@ import {ParticipantSuitabilityModel} from '../base-journey/participant-suitabili
 
 @Injectable()
 export class SelfTestJourney extends JourneyBase {
+
   static readonly initialStep = SelfTestJourneySteps.SameComputer;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = SelfTestJourneySteps.NotStarted;
   private currentModel: ParticipantSuitabilityModel;
-  private isDone: boolean;
   private isSubmitted: boolean;
 
-  constructor(private individualStepsOrderFactory: SelfTestStepsOrderFactory) {
+  constructor(private selfTestStepsFactory: SelfTestStepsOrderFactory) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
       this.currentStep = step;
     });
-    this.stepOrder = this.individualStepsOrderFactory.stepOrder();
+    this.stepOrder = this.selfTestStepsFactory.stepOrder();
+  }
+
+  /**
+   * this is a temporary function which breaks encapsulation
+   * DO NOT MERGE
+   */
+  setModel(model: ParticipantSuitabilityModel) {
+    this.currentModel = model;
   }
 
   get step(): SelfTestJourneySteps {
@@ -72,7 +80,7 @@ export class SelfTestJourney extends JourneyBase {
   }
 
   jumpTo(position: JourneyStep) {
-    if (this.isDone) {
+    if (this.isDone()) {
       this.goto(SelfTestJourneySteps.GotoVideoApp);
     } else {
       this.currentStep = position;
@@ -80,6 +88,21 @@ export class SelfTestJourney extends JourneyBase {
   }
 
   startAt(step: JourneyStep): void {
+    if (this.isDone()) {
+      this.goto(SelfTestJourneySteps.GotoVideoApp);
+      return;
+    }
     this.goto(step);
+  }
+
+  isDone(): boolean {
+    if (!this.model.selfTest) {
+      return false;
+    }
+    const selfTest = this.model.selfTest;
+    return selfTest.cameraWorking === true
+      && selfTest.microphoneWorking === true
+      && selfTest.sameComputer === true
+      && selfTest.seeAndHearClearly === true;
   }
 }
