@@ -14,12 +14,14 @@ export class SelfTestStepsOrderFactory {
     if (this.deviceType.isMobile()) {
       return [
         SelfTestJourneySteps.SameComputer,
+        SelfTestJourneySteps.SignInOtherComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
         SelfTestJourneySteps.SelfTest
       ];
     } else {
       return [
         SelfTestJourneySteps.SameComputer,
+        SelfTestJourneySteps.SignInOtherComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
         SelfTestJourneySteps.SelfTest
       ];

@@ -58,8 +58,14 @@ export class SelfTestJourney extends JourneyBase {
       SelfTestJourneySteps.SameComputer
     ];
 
+    const dropoutToSignInOtherComputer = [
+      SelfTestJourneySteps.SameComputer
+    ];
+
     if (dropoutToThankYouFrom.includes(this.currentStep)) {
       this.goto(SelfTestJourneySteps.ThankYou);
+    } else if (dropoutToSignInOtherComputer.includes(this.currentStep)) {
+      this.goto(SelfTestJourneySteps.SignInOtherComputer);
     } else {
       throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
     }

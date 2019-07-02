@@ -4,5 +4,6 @@ import { ParticipantJourneySteps } from '../base-journey/participant-journey-ste
 export class SelfTestJourneySteps extends ParticipantJourneySteps {
   static readonly UseCameraAndMicrophoneAgain = new JourneyStep('UseCameraAndMicrophoneAgain');
   static readonly SameComputer = new JourneyStep('SameComputer');
+  static readonly SignInOtherComputer = new JourneyStep('SignInOtherComputer');
   static readonly SelfTest = new JourneyStep('SelfTest');
 }
