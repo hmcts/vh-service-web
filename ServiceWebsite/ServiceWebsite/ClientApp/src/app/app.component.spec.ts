@@ -19,6 +19,9 @@ export class FooterStubComponent { }
 @Component({ selector: 'router-outlet', template: '' })
 export class RouterOutletStubComponent { }
 
+@Component({ selector: 'app-beta-banner', template: '' })
+export class BetaBannerStubComponent { }
+
 describe('AppComponent', () => {
 
   const config = {};
@@ -53,6 +56,7 @@ describe('AppComponent', () => {
         FooterStubComponent,
         RouterOutletStubComponent,
         HeaderComponent,
+        BetaBannerStubComponent
       ],
       providers:
         [
@@ -96,4 +100,5 @@ describe('AppComponent', () => {
 
     expect(journeySelector.beginFor).toHaveBeenCalledWith('role');
   });
+
 });
