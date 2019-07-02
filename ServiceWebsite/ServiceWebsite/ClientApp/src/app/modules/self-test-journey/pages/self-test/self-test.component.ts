@@ -9,7 +9,6 @@ import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.
 export class SelfTestComponent extends SelfTestBaseComponent implements OnInit {
 
   ngOnInit(): void {
-    console.log('******* SelfTest Page');
     super.ngOnInit();
   }
 }

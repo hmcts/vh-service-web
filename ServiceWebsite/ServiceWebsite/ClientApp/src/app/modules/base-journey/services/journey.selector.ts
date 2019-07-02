@@ -8,7 +8,7 @@ export class JourneySelector {
     constructor(@Inject(JOURNEY_FACTORY) private factories: JourneyFactory[]) {}
 
     beginFor(userType: string): Promise<void> {
-        const factory = this.factories.filter(j => j.handles('xxx'));
+        const factory = this.factories.filter(j => j.handles(userType));
         if (factory.length === 0) {
             throw new Error(`Found no journeys matching user type: ${userType}`);
         } else if (factory.length > 1) {

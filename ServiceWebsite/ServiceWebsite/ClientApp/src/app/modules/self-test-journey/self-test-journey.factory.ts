@@ -5,7 +5,7 @@ import { JourneyRoutingListenerService } from '../base-journey/services/journey-
 import { SelfTestJourneyStepComponentBindings } from './self-test-journey-component-bindings';
 import {SelfTestJourneyService} from './self-test-journey.service';
 
-const UserType = 'xxx';
+const UserType = '';
 
 @Injectable()
 export class SelfTestJourneyFactory implements JourneyFactory {

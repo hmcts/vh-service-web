@@ -1,6 +1,6 @@
 import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
-import { DeviceType } from './services/device-type';
+import { DeviceType } from '../base-journey/services/device-type';
 
 describe('IndividualStepsOrderFactory, device is laptop', () => {
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
