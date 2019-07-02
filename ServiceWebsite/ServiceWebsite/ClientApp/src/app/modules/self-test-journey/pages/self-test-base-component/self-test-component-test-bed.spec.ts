@@ -8,9 +8,6 @@ import {
   ComponentTestBedConfiguration
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 import {ContinuableComponentFixture} from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
-import {Localisation} from '../../../shared/localisation';
-import {IndividualLocalisation} from '../../../individual-journey/services/individual-localisation';
-import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 
 export interface SelfTestComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: SelfTestJourney;
@@ -53,7 +50,6 @@ export class SelfTestJourneyComponentTestBed {
           ...(config.declarations || [])
         ],
         providers: [
-          { provide: Localisation, useClass: IndividualLocalisation },
           {provide: SelfTestJourney, useValue: config.journey || SelfTestJourneyStubs.default},
           ...(config.providers || [])
         ],

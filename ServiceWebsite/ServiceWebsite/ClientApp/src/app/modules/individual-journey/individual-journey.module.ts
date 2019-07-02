@@ -8,8 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { IndividualJourneyRoutingModule, Components } from './individual-journey-routing.module';
 
 // services
-import { Localisation } from 'src/app/modules/shared/localisation';
-import { IndividualLocalisation } from './services/individual-localisation';
 import { MediaService } from './services/media.service';
 import { UserMediaService } from './services/user-media.service';
 import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
@@ -52,7 +50,6 @@ import { SubmitService } from './services/submit.service';
     VideoViewComponent,
   ],
   providers: [
-    { provide: Localisation, useClass: IndividualLocalisation },
     { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
     { provide: MediaService, useClass: UserMediaService },
     { provide: JOURNEY_FACTORY, useClass: IndividualJourneyFactory, multi: true },
