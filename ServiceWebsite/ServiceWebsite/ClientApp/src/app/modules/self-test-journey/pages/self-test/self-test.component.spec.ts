@@ -6,11 +6,11 @@ import {ContinuableComponentFixture} from '../../../base-journey/components/suit
 
 describe('SelfTestComponent', () => {
   it('can continue', () => {
-    const journey = jasmine.createSpyObj<SelfTestJourney>(['next', 'startAt']);
+    const journey = jasmine.createSpyObj<SelfTestJourney>(['next']);
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: SelfTestComponent,
-      journey: journey,
-      declarations: [ CrestBluePanelComponent ]
+      declarations: [ CrestBluePanelComponent ],
+      providers: [ { provide: SelfTestJourney, useValue: journey } ]
     });
 
     fixture.detectChanges();

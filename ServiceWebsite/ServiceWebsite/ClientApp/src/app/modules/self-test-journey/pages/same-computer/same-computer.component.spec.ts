@@ -8,11 +8,11 @@ import {SameComputerComponent} from './same-computer.component';
 
 describe('SameComputerComponent', () => {
   it('can continue', () => {
-    const journey = jasmine.createSpyObj<SelfTestJourney>(['next', 'startAt']);
+    const journey = jasmine.createSpyObj<SelfTestJourney>(['next']);
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: SameComputerComponent,
-      journey: journey,
-      declarations: [CrestBluePanelComponent]
+      declarations: [CrestBluePanelComponent],
+      providers: [{provide: SelfTestJourney, useValue: journey}]
     });
 
     fixture.detectChanges();
