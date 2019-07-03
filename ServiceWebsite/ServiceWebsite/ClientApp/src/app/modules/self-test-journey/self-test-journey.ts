@@ -84,9 +84,6 @@ export class SelfTestJourney {
   }
 
   isDone(): boolean {
-    if (!this.model.selfTest) {
-      return false;
-    }
     const selfTest = this.model.selfTest;
     return selfTest.cameraWorking === true
       && selfTest.microphoneWorking === true

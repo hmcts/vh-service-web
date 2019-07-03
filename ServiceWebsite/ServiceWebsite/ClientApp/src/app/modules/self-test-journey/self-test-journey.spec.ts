@@ -119,4 +119,10 @@ describe('SelfTestJourney', () => {
     journey.startAt(ParticipantJourneySteps.AboutYourComputer);
     expect(() => journey.next()).toThrowError(`Current step 'AboutYourComputer' is not part of the self test`);
   });
+
+  it('should redirect to videoapp if done', () => {
+    givenSelfTestAnswers(selfTestAnswers.done);
+    journey.jumpTo(SelfTestJourneySteps.SelfTest);
+    expect(redirectedTo).toBe(ParticipantJourneySteps.GotoVideoApp);
+  });
 });
