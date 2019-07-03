@@ -6,17 +6,17 @@ import { ParticipantSuitabilityModel, SelfTestAnswers } from '../base-journey/pa
 import { SelfTestJourneySteps } from './self-test-journey-steps';
 
 describe('SelfTestJourney', () => {
-  let journey:  SelfTestJourney;
-  let model: ParticipantSuitabilityModel;
-  let stepsFactory: SelfTestStepsOrderFactory;
-
-  let redirectedTo: JourneyStep;
-
   const deviceTypeDesktop = {
     isMobile: () => false,
     isTablet: () => false,
     isDesktop: () => true
   } as DeviceType;
+
+  let journey:  SelfTestJourney;
+  let model: ParticipantSuitabilityModel;
+  let stepsFactory = new SelfTestStepsOrderFactory(deviceTypeDesktop);
+
+  let redirectedTo: JourneyStep;
 
   const selfTestAnswers = {
     allPositive: new SelfTestAnswers({
@@ -33,18 +33,13 @@ describe('SelfTestJourney', () => {
     })
   };
 
-  beforeEach(() => {
-    stepsFactory = new SelfTestStepsOrderFactory(deviceTypeDesktop);
-    journey = new SelfTestJourney(stepsFactory);
-    journey.redirect.subscribe((step: JourneyStep) => redirectedTo = step);
-  });
-
   const givenSelfTestAnswers = (answers: SelfTestAnswers) => {
     model = {
       selfTest: answers
     } as ParticipantSuitabilityModel;
 
-    journey.setModel(model);
+    journey = new SelfTestJourney(model, stepsFactory);
+    journey.redirect.subscribe((step: JourneyStep) => redirectedTo = step);
   };
 
   const nextStepIs = (step: JourneyStep) => {
