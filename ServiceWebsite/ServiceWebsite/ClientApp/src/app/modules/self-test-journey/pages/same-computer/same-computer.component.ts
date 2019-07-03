@@ -1,14 +1,23 @@
 import {Component, OnInit} from '@angular/core';
-import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
+import {SelfTestSuitabilityChoicePageBaseComponent} from '../../components/self-test-suitability-choice-page-base.component';
+import {SelfTestJourney} from '../../self-test-journey';
 
 @Component({
   selector: 'app-same-computer',
   templateUrl: './same-computer.component.html',
   styles: []
 })
-export class SameComputerComponent extends SelfTestBaseComponent implements OnInit {
+export class SameComputerComponent extends SelfTestSuitabilityChoicePageBaseComponent implements OnInit {
+
+  constructor(journey: SelfTestJourney) {
+    super(journey);
+  }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    this.choice.setValue(this.model.selfTest.sameComputer);
+  }
+
+  protected bindModel(): void {
+    this.model.selfTest.sameComputer = this.choice.value;
   }
 }

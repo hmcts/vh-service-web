@@ -1,9 +1,46 @@
-<app-crest-blue-panel>
-  <h1 class="govuk-heading-l text-white" i18n="@@aboutHearing_h1_1">same-computer</h1>
+<div>
+  <h1 class="govuk-heading-xl" i18n="@@same_computer_h1">
+    Same Computer
+  </h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="continue()">
+  <div id="form-container" class="govuk-form-group" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
-  <button type="button" i18n="@@CHANGE_btn_next" class="govuk-button vh-button-white" (click)="continue()"
-    id="continue">
-    Next
-  </button>
-</app-crest-blue-panel>
+    <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@same_computer_span_1">
+      Please answer this question
+    </span>
+
+    <div>
+      <p class="govuk-body" i18n="@@same_computer_p_1">Same computer</p>
+      <p class="govuk-body" i18n="@@same_computer_p_2">same_computer</p>
+    </div>
+
+    <div class="govuk-fieldset">
+      <div class="govuk-radios" data-module="radios">
+        <div class="govuk-radios__item">
+          <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true"
+                 data-aria-controls="conditional-how-contacted-conditional">
+          <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@same_computer_choice_yes">
+            Yes
+          </label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false"
+                 data-aria-controls="conditional-how-contacted">
+          <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@same_computer_choice_no">
+            No
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <app-show-details i18n-bind-detailsTitle="@@same_computer_detailsTitle" bind-detailsTitle="'same_computer'"
+                    i18-bind-textArray="@@same_computer_textArray" bind-textArray="['same_computer']">
+  </app-show-details>
+
+  <button class="govuk-button" (click)="continue()" i18n="@@same_computer_btn_continue" id="continue" type="button">Continue</button>
+</form>
+
 <app-contact-us></app-contact-us>
