@@ -87,7 +87,7 @@ export class RepresentativeJourney extends JourneyBase {
 
     let nextStep = this.stepOrder[currentStep + 1];
 
-    if (this.submitService.isDropOffPoint(this.model) && !this.isSubmitted) {
+    if (this.isDropOffPoint() && !this.isSubmitted) {
       // update the model to set the answers in case browserback was clicked and the answers were changed.
       this.submitService.submit(this.model);
       this.isSubmitted = true;
@@ -101,6 +101,10 @@ export class RepresentativeJourney extends JourneyBase {
     }
 
     this.goto(nextStep);
+  }
+
+  private isDropOffPoint(): boolean {
+    return (this.model.computer === false || this.model.camera !== undefined);
   }
 
   fail() {

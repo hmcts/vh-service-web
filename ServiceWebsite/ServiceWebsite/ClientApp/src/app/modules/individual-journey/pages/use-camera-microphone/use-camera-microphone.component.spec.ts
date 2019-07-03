@@ -2,14 +2,21 @@ import { UseCameraMicrophoneComponent } from './use-camera-microphone.component'
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualSuitabilityModel } from '../../individual-suitability.model';
+import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 
 describe('UseCameraMicrophoneComponent', () => {
   let mediaService: jasmine.SpyObj<MediaService>;
   let individualJourney: jasmine.SpyObj<IndividualJourney>;
+  let model: IndividualSuitabilityModel;
 
   beforeEach(() => {
+    model = new MutableIndividualSuitabilityModel();
     mediaService = jasmine.createSpyObj<MediaService>(['requestAccess']);
-    individualJourney = jasmine.createSpyObj<IndividualJourney>(['next', 'fail']);
+    individualJourney = {
+      model: model,
+      ...jasmine.createSpyObj<IndividualJourney>(['next', 'fail'])
+    } as jasmine.SpyObj<IndividualJourney>;
   });
 
   it('can be created', () => {
@@ -21,10 +28,11 @@ describe('UseCameraMicrophoneComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should call fail when access denied', async () => {
+  it('should proceed with access denied on failure', async () => {
     mediaService.requestAccess.and.returnValue(Promise.resolve(false));
     const component = new UseCameraMicrophoneComponent(individualJourney, mediaService);
     await component.switchOnMedia();
-    expect(individualJourney.fail).toHaveBeenCalled();
+    expect(individualJourney.next).toHaveBeenCalled();
+    expect(model.mediaAccepted).toBe(false);
   });
 });

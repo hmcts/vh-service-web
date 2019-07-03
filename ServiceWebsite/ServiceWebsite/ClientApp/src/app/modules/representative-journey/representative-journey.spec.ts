@@ -1,3 +1,4 @@
+import { AboutYouAndYourClientComponent } from './pages/about-you-and-your-client/about-you-and-your-client.component';
 import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
 import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
@@ -17,7 +18,6 @@ describe('RepresentativeJourney', () => {
   let redirected: JourneyStep;
   let submitService: jasmine.SpyObj<SubmitService>;
   submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
-
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableRepresentativeSuitabilityModel();
@@ -103,7 +103,7 @@ describe('RepresentativeJourney', () => {
 
   const expectDropOffToQuestionnaireCompletedFrom = (s: JourneyStep) => {
     givenUserIsAtStep(s);
-    whenFailingTheStep();
+    journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
   };
   const expectDropOffToContactUsFrom = (s: JourneyStep) => {
@@ -113,27 +113,22 @@ describe('RepresentativeJourney', () => {
   };
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
-    givenUserIsAtStep(Steps.AccessToComputer);
     journey.model.computer = false;
-    journey.next();
     expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
   });
+
   it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
-    givenUserIsAtStep(Steps.QuestionnaireCompleted);
     journey.model.computer = false;
-    journey.next();
     expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
   });
+
   it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
-    givenUserIsAtStep(Steps.AboutYourComputer);
     journey.model.camera = HasAccessToCamera.No;
-    journey.next();
     expectDropOffToQuestionnaireCompletedFrom(Steps.AboutYourComputer);
   });
+
   it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
-    givenUserIsAtStep(Steps.QuestionnaireCompleted);
     journey.model.camera = HasAccessToCamera.No;
-    journey.next();
     expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
   });
 
@@ -200,7 +195,7 @@ describe('RepresentativeJourney', () => {
 
   it(`should continue to ${Steps.AboutYouAndYourClient} if representative has not submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
-    submitService.isDropOffPoint.and.returnValue(false);
+    journey.model.aboutYourClient.answer = false;
     journey.next();
     expect(redirected).toBe(Steps.AboutYouAndYourClient);
 

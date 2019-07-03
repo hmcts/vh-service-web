@@ -8,6 +8,7 @@ export class MutableIndividualSuitabilityModel extends IndividualSuitabilityMode
         this.consent = new SuitabilityAnswer();
     }
 
+    mediaAccepted: boolean;
     camera: HasAccessToCamera;
     computer: boolean;
     internet: boolean;
