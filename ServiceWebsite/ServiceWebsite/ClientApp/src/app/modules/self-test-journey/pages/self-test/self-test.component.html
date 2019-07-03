@@ -1,9 +1,13 @@
-<app-crest-blue-panel>
-  <h1 class="govuk-heading-l text-white" i18n="@@aboutHearing_h1_1">Self Test</h1>
+<div>
+  <h1 class="govuk-heading-l text-white" i18n="@@self_test_h1_1">Self Test Video</h1>
+</div>
 
-  <button type="button" i18n="@@CHANGE_btn_next" class="govuk-button vh-button-white" (click)="continue()"
-    id="continue">
-    Next
-  </button>
-</app-crest-blue-panel>
+<button type="button" i18n="@@self_test_btn_next" class="govuk-button vh-button-white" (click)="continue()"
+        id="continue">
+  Next
+</button>
+<button type="button" i18n="@@self_test_btn_replay" class="govuk-button vh-button-white" (click)="replayVideo()"
+        id="replay">
+  Replay Video
+</button>
 <app-contact-us></app-contact-us>

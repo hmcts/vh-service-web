@@ -1,9 +1,9 @@
-<app-crest-blue-panel>
-  <h1 class="govuk-heading-l text-white" i18n="@@aboutHearing_h1_1">use-camera-microphone-again</h1>
+<div>
+  <h1 class="govuk-heading-l text-white" i18n="@@use_camera_microphone_again_h1_1">use_camera_microphone_again</h1>
+</div>
 
-  <button type="button" i18n="@@CHANGE_btn_next" class="govuk-button vh-button-white" (click)="continue()"
-    id="continue">
-    Next
-  </button>
-</app-crest-blue-panel>
+<button type="button" i18n="@@use_camera_microphone_again_btn_next" class="govuk-button vh-button-white" (click)="switchOnCameraAndMicrophone()"
+        id="switchon">
+  Switch on
+</button>
 <app-contact-us></app-contact-us>

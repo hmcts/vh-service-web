@@ -1,15 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {SelfTestSuitabilityChoicePageBaseComponent} from '../../components/self-test-suitability-choice-page-base.component';
-import {SelfTestJourney} from '../../self-test-journey';
+import {
+  SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
+} from '../../../base-journey/components/suitability-choice-page-base.component';
+import {JourneyBase} from '../../../base-journey/journey-base';
+import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 
 @Component({
   selector: 'app-same-computer',
   templateUrl: './same-computer.component.html',
   styles: []
 })
-export class SameComputerComponent extends SelfTestSuitabilityChoicePageBaseComponent implements OnInit {
+export class SameComputerComponent extends GenericSuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
-  constructor(journey: SelfTestJourney) {
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
     super(journey);
   }
 
