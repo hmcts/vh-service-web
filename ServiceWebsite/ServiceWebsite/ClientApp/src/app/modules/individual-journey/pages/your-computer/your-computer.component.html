@@ -3,7 +3,7 @@
     Your computer
   </h1>
 </div>
-<form [formGroup]="form" (ngSubmit)="continue()">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <div id="form-container" class="govuk-form-group"
     [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
@@ -52,7 +52,7 @@
     bind-textArray="['Don’t worry. You’ll have the chance to check that a video hearing will work on your computer. You can do this by watching a short video and confirming how well you could see and hear. This check is very simple and you don’t need to be an experienced computer user to do it.']">
   </app-show-details>
 
-  <button class="govuk-button" (click)="continue()" i18n="@@yourComputer_btn_continue" id="continue"
+  <button class="govuk-button" (click)="submit()" i18n="@@yourComputer_btn_continue" id="continue"
     type="button">Continue</button>
 </form>
 <app-contact-us></app-contact-us>

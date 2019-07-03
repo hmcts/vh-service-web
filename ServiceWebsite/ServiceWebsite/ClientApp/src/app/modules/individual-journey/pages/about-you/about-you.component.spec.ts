@@ -3,6 +3,7 @@ import { IndividualJourneyComponentTestBed, IndividualJourneyStubs } from '../in
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { AboutYouComponent } from './about-you.component';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 describe('AboutYouComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -23,10 +24,10 @@ describe('AboutYouComponent', () => {
     fixture.detectChanges();
   });
 
-  it('binds values and goes to next step after selecting choice and choosing continue', () => {
+  it('binds values and goes to interpreter after selecting choice and choosing continue', () => {
     fixture.radioBoxIsClicked('#choice-no');
     fixture.submitIsClicked();
     expect(journey.model.aboutYou.answer).toBe(false);
-    expect(journey.next).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.Interpreter);
   });
 });

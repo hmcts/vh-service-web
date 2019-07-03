@@ -74,7 +74,7 @@ export class IndividualJourneyStubs {
   public static get journeySpy(): jasmine.SpyObj<IndividualJourney> {
     return {
       model: IndividualJourneyStubs.model,
-      ...jasmine.createSpyObj<IndividualJourney>(['next'])
+      ...jasmine.createSpyObj<IndividualJourney>(['next', 'goto'])
     } as jasmine.SpyObj<IndividualJourney>;
   }
 }
@@ -89,7 +89,6 @@ export class IndividualJourneyComponentTestBed {
           ...(config.declarations || [])
         ],
         providers: [
-          { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
           { provide: IndividualJourney, useValue: config.journey || IndividualJourneyStubs.default },
           ...(config.providers || [])
         ],

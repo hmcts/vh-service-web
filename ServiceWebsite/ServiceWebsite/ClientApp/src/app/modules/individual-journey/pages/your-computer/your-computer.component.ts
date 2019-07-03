@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 @Component({
   selector: 'app-your-computer',
@@ -21,5 +22,11 @@ export class YourComputerComponent extends SuitabilityChoicePageBaseComponent im
 
   protected bindModel() {
     this.model.computer = this.choice.value;
+  }
+
+  submit() {
+    if (this.trySubmit()) {
+      this.journey.goto(IndividualJourneySteps.AboutYourComputer);
+    }
   }
 }
