@@ -55,7 +55,7 @@ export class IndividualJourney extends JourneyBase {
     return this.currentModel;
   }
 
-  private goto(step: JourneyStep) {
+  goto(step: JourneyStep) {
     if (this.currentStep !== step) {
       this.redirect.emit(step);
     }

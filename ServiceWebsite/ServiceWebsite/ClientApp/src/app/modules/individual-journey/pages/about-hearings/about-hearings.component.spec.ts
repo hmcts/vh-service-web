@@ -7,7 +7,7 @@ import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 describe('AboutHearingsComponent', () => {
   it(`should continue to ${IndividualJourneySteps.DifferentHearingTypes}`, () => {
-    const journey = jasmine.createSpyObj<IndividualJourney>(['jumpTo']);
+    const journey = jasmine.createSpyObj<IndividualJourney>(['goto']);
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: AboutHearingsComponent,
       declarations: [ CrestBluePanelComponent ],
@@ -16,6 +16,6 @@ describe('AboutHearingsComponent', () => {
 
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.jumpTo).toHaveBeenCalledWith(IndividualJourneySteps.DifferentHearingTypes);
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.DifferentHearingTypes);
   });
 });

@@ -10,6 +10,6 @@ export class AboutHearingsComponent {
   constructor(private journey: IndividualJourney) {}
 
   continue() {
-    this.journey.jumpTo(IndividualJourneySteps.DifferentHearingTypes);
+    this.journey.goto(IndividualJourneySteps.DifferentHearingTypes);
   }
 }
