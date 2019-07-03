@@ -107,23 +107,6 @@ export class RepresentativeJourney extends JourneyBase {
       this.model.camera === HasAccessToCamera.Yes || this.model.camera === HasAccessToCamera.NotSure);
   }
 
-  fail() {
-    const dropoutToQuestionnaireCompletedFrom = [
-      RepresentativeJourneySteps.AccessToComputer,
-      RepresentativeJourneySteps.AboutYourComputer,
-    ];
-
-    const dropoutToContactUsFrom = [
-      RepresentativeJourneySteps.QuestionnaireCompleted
-    ];
-
-    if (dropoutToQuestionnaireCompletedFrom.includes(this.currentStep)) {
-      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
-    } else {
-      throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
-    }
-  }
-
   /**
    * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
    * @param position The step to jump to

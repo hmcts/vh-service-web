@@ -10,10 +10,6 @@ export abstract class SelfTestBaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  fail(): void {
-    this.journey.fail();
-  }
-
   continue(): void {
     this.journey.next();
   }

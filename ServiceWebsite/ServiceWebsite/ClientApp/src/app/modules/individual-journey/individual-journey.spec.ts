@@ -39,22 +39,22 @@ describe('IndividualJourney', () => {
 
   // helper test data
   const suitabilityAnswers = {
-    oneUpcomingHearing: [
+    oneUpcomingHearing: () => [
       getModelForHearing('upcoming hearing id', tomorrow)
     ],
-    twoUpcomingHearings: [
+    twoUpcomingHearings: () => [
       getModelForHearing('later upcoming hearing id', dayAfterTomorrow),
       getModelForHearing('earlier upcoming hearing id', tomorrow)
     ],
-    alreadyCompleted: [
+    alreadyCompleted: () => [
       getCompletedModel('completed hearing id')
     ],
-    completedAndUpcoming: [
+    completedAndUpcoming: () => [
       getModelForHearing('upcoming hearing id', tomorrow),
       getCompletedModel('completed hearing id'),
       getModelForHearing('another upcoming hearing id', tomorrow)
     ],
-    noUpcomingHearings: []
+    noUpcomingHearings: () => []
   };
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
   const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
@@ -63,7 +63,7 @@ describe('IndividualJourney', () => {
   beforeEach(() => {
     redirected = null;
     journey = new IndividualJourney(individualStepsOrderFactory, submitService);
-    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
+    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
   });
@@ -144,8 +144,8 @@ describe('IndividualJourney', () => {
 
   it(`should continue to ${Steps.MediaAccessError} if failing ${Steps.AccessToCameraAndMicrophone}`, () => {
     givenUserIsAtStep(Steps.AccessToCameraAndMicrophone);
-
-    whenFailingTheStep();
+    journey.model.mediaAccepted = false;
+    journey.next();
     expect(redirected).toBe(Steps.MediaAccessError);
   });
 
@@ -162,7 +162,7 @@ describe('IndividualJourney', () => {
   });
 
   it('should goto video app if there are no upcoming hearings', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
+    journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
     journey.jumpTo(Steps.AboutHearings);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
@@ -179,7 +179,7 @@ describe('IndividualJourney', () => {
   });
 
   it('should run the story for the first upcoming hearing', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings);
+    journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings());
     expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');
   });
 
