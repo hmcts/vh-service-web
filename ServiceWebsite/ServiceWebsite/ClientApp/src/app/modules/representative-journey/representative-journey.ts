@@ -100,11 +100,6 @@ export class RepresentativeJourney extends JourneyBase {
       }
     }
 
-    if (this.isSubmitted && nextStep !== RepresentativeJourneySteps.ContactUs) {
-      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
-      return;
-    }
-
     this.goto(nextStep);
   }
 
