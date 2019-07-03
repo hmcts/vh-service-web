@@ -14,7 +14,6 @@ export class SelfTestStepsOrderFactory {
     if (this.deviceType.isMobile()) {
       return [
         SelfTestJourneySteps.SameComputer,
-        SelfTestJourneySteps.SignInOtherComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
         SelfTestJourneySteps.SelfTest,
         SelfTestJourneySteps.CameraWorking,
@@ -24,7 +23,6 @@ export class SelfTestStepsOrderFactory {
     } else {
       return [
         SelfTestJourneySteps.SameComputer,
-        SelfTestJourneySteps.SignInOtherComputer,
         SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
         SelfTestJourneySteps.SelfTest,
         SelfTestJourneySteps.CameraWorking,

@@ -50,8 +50,11 @@ export class SelfTestJourney extends JourneyBase {
 
   next() {
     const currentStep = this.stepOrder.indexOf(this.currentStep);
-    if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + this.currentStep);
+    if  (currentStep < 0) {
+      throw new Error(`Current step '${this.currentStep}' is not part of the self test`);
+    }
+    if (currentStep === this.stepOrder.length - 1) {
+      throw new Error(`Cannot proceed past last step '${this.stepOrder[this.stepOrder.length - 1]}'`);
     }
 
     if (this.isSubmitted) {
