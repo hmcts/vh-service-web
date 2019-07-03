@@ -2,7 +2,6 @@ import { SubmitService } from './submit.service';
 import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
 import { Hearing, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
 import { RepresentativeSuitabilityService } from './representative-suitability.service';
-import { RepresentativeJourneySteps } from '../representative-journey-steps';
 
 describe('SubmitService', () => {
   const suitabilityService = jasmine.createSpyObj<RepresentativeSuitabilityService>(['updateSuitabilityAnswers']);
@@ -27,29 +26,4 @@ describe('SubmitService', () => {
     await submitService.submit(model);
     expect(suitabilityService.updateSuitabilityAnswers).toHaveBeenCalled();
   });
-
-  // it('should return true when at a drop off step - access to computer', () => {
-  //   model.computer = false;
-  //   const result = submitService.isDropOffPoint(model);
-  //   expect(result).toBe(true);
-  // });
-  // it('should return true when at a drop off step - access to camera', () => {
-  //   model.computer = true;
-  //   model.camera = HasAccessToCamera.No;
-  //   const result = submitService.isDropOffPoint(model);
-  //   expect(result).toBe(true);
-  // });
-  // it('should return true when at a stpe- access to camera - is - yes', () => {
-  //   model.computer = true;
-  //   model.camera = HasAccessToCamera.Yes;
-  //   const result = submitService.isDropOffPoint(model);
-  //   expect(result).toBe(true);
-  // });
-
-  // it('should return true when at a stpe- access to camera - is - Not Sure', () => {
-  //   model.computer = true;
-  //   model.camera = HasAccessToCamera.NotSure;
-  //   const result = submitService.isDropOffPoint(model);
-  //   expect(result).toBe(true);
-  // });
 });

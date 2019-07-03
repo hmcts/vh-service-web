@@ -6,7 +6,6 @@ import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
-import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
