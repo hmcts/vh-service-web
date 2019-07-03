@@ -88,12 +88,6 @@ describe('SelfTestJourney', () => {
     nextStepIs(SelfTestJourneySteps.SeeAndHearVideo);
   });
 
-  it('should raise exception if proceeding past last step', () => {
-    givenSelfTestAnswers(selfTestAnswers.lastAnswerRemaining);
-    journey.startAt(SelfTestJourneySteps.SeeAndHearVideo);
-    expect(() => journey.next()).toThrowError(`Cannot proceed past last step '${SelfTestJourneySteps.SeeAndHearVideo}'`);
-  });
-
   it('should redirect to video web if self-test is completed', ()  => {
     givenSelfTestAnswers(selfTestAnswers.done);
 
@@ -105,5 +99,24 @@ describe('SelfTestJourney', () => {
       // then redirects
       expect(redirectedTo).toBe(ParticipantJourneySteps.GotoVideoApp);
     }
+  });
+
+  it(`should submit and go to thank you after finishing the journey`, () => {
+    givenSelfTestAnswers(selfTestAnswers.lastAnswerRemaining);
+    let submittedModel: ParticipantSuitabilityModel;
+    journey.submit.subscribe((submitted: ParticipantSuitabilityModel) => submittedModel = submitted);
+
+    journey.startAt(SelfTestJourneySteps.SeeAndHearVideo);
+    journey.model.selfTest.seeAndHearClearly = true;
+    journey.next();
+
+    expect(submittedModel.selfTest.seeAndHearClearly).toBe(true);
+    expect(redirectedTo).toBe(ParticipantJourneySteps.ThankYou);
+  });
+
+  it('should fail if trying to proceed from an unknown step', () => {
+    givenSelfTestAnswers(selfTestAnswers.none);
+    journey.startAt(ParticipantJourneySteps.AboutYourComputer);
+    expect(() => journey.next()).toThrowError(`Current step 'AboutYourComputer' is not part of the self test`);
   });
 });

@@ -12,7 +12,7 @@ export class SelfTestJourney {
   stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = ParticipantJourneySteps.NotStarted;
   private currentModel: ParticipantSuitabilityModel;
-  private isSubmitted: boolean;
+  readonly submit: EventEmitter<ParticipantSuitabilityModel> = new EventEmitter();
 
   constructor(participantModel: ParticipantSuitabilityModel, private stepsFactory: SelfTestStepsOrderFactory) {
     this.redirect.subscribe((step: JourneyStep) => {
@@ -41,8 +41,12 @@ export class SelfTestJourney {
     if  (currentStep < 0) {
       throw new Error(`Current step '${this.currentStep}' is not part of the self test`);
     }
-    if (currentStep === this.stepOrder.length - 1) {
-      throw new Error(`Cannot proceed past last step '${this.stepOrder[this.stepOrder.length - 1]}'`);
+
+    if (this.isLastStep(currentStep)) {
+      // do submission
+      this.submit.emit(this.model);
+      this.goto(ParticipantJourneySteps.ThankYou);
+      return;
     }
 
     if (this.notOnSameDevice()) {
@@ -50,14 +54,13 @@ export class SelfTestJourney {
       return;
     }
 
-    if (this.isSubmitted) {
-      this.goto(ParticipantJourneySteps.ThankYou);
-      return;
-    }
-
     const nextStep = this.stepOrder[currentStep + 1];
 
     this.goto(nextStep);
+  }
+
+  private isLastStep(index: number): boolean {
+    return index === this.stepOrder.length - 1;
   }
 
   private notOnSameDevice(): boolean {
