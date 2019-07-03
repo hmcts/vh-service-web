@@ -3,6 +3,7 @@ import {SelfTestStepsOrderFactory} from './self-test-steps-order.factory';
 import {SelfTestJourneySteps} from './self-test-journey-steps';
 import {JourneyStep} from '../base-journey/journey-step';
 import {ParticipantSuitabilityModel} from '../base-journey/participant-suitability.model';
+import { ngDevModeResetPerfCounters } from '@angular/core/src/render3/ng_dev_mode';
 
 @Injectable()
 export class SelfTestJourney {
@@ -44,6 +45,11 @@ export class SelfTestJourney {
       throw new Error(`Cannot proceed past last step '${this.stepOrder[this.stepOrder.length - 1]}'`);
     }
 
+    if (this.notOnSameDevice()) {
+      this.goto(SelfTestJourneySteps.SignInOtherComputer);
+      return;
+    }
+
     if (this.isSubmitted) {
       this.goto(SelfTestJourneySteps.ThankYou);
       return;
@@ -52,6 +58,10 @@ export class SelfTestJourney {
     const nextStep = this.stepOrder[currentStep + 1];
 
     this.goto(nextStep);
+  }
+
+  private notOnSameDevice(): boolean {
+    return this.model.selfTest.sameComputer === false;
   }
 
   jumpTo(position: JourneyStep) {

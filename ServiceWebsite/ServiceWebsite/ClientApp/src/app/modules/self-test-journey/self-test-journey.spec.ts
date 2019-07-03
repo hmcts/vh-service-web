@@ -1,3 +1,5 @@
+import { SignInOtherComputerComponent } from './pages/sign-in-other-computer/sign-in-other-computer.component';
+import { SelfTestComponentTestBedConfiguration } from './pages/self-test-base-component/self-test-component-test-bed.spec';
 import { JourneyStep } from './../base-journey/journey-step';
 import { SelfTestJourney } from './self-test-journey';
 import { SelfTestStepsOrderFactory } from './self-test-steps-order.factory';
@@ -72,7 +74,12 @@ describe('SelfTestJourney', () => {
   });
 
   it(`should go to '${SelfTestJourneySteps.SignInOtherComputer}' if on not on same device as hearing will be done on`, () => {
-
+    givenSelfTestAnswers(new SelfTestAnswers({
+      sameComputer: false
+    }));
+    journey.startAt(SelfTestJourneySteps.SameComputer);
+    journey.next();
+    expect(redirectedTo).toBe(SelfTestJourneySteps.SignInOtherComputer);
   });
 
   it('should follow happy path if all answers are positive', () => {
