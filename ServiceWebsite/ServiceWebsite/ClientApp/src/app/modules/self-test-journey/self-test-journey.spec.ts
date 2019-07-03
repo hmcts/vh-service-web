@@ -7,12 +7,6 @@ import { SelfTestJourneySteps } from './self-test-journey-steps';
 import { ParticipantJourneySteps } from '../base-journey/participant-journey-steps';
 
 describe('SelfTestJourney', () => {
-  const deviceMobile = {
-    isMobile: () => true,
-    isTablet: () => false,
-    isDesktop: () => false
-  } as DeviceType;
-
   const deviceDesktop = {
     isMobile: () => false,
     isTablet: () => false,
@@ -55,8 +49,10 @@ describe('SelfTestJourney', () => {
     journey.redirect.subscribe((step: JourneyStep) => redirectedTo = step);
   };
 
-  const givenDeviceIs = (deviceType: DeviceType) => {
-    stepsFactory = new SelfTestStepsOrderFactory(deviceType);
+  const givenDeviceIsMobile = () => {
+    stepsFactory = new SelfTestStepsOrderFactory({
+      isMobile: () => true
+    } as DeviceType);
   };
 
   const nextStepIs = (step: JourneyStep) => {
@@ -65,7 +61,7 @@ describe('SelfTestJourney', () => {
   };
 
   it(`should go to '${SelfTestJourneySteps.SignInOtherComputer}' if on mobile device`, () => {
-    givenDeviceIs(deviceMobile);
+    givenDeviceIsMobile();
     givenSelfTestAnswers(selfTestAnswers.none);
     journey.startAt(SelfTestJourneySteps.SameComputer);
     journey.next();
