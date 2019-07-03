@@ -1,15 +1,13 @@
 import { VideoUrlService } from '../../services/video-url.service';
 import { VideoViewBaseComponent } from './video-view-base.component';
 import { VideoFiles } from '../../services/video-files';
-import { IndividualJourneyStubs } from '../../pages/individual-base-component/individual-component-test-bed.spec';
 
 describe('functionality', () => {
   let component: VideoViewBaseComponent;
   const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
 
   beforeEach(() => {
-    const journey = IndividualJourneyStubs.default;
-    component = new VideoViewBaseComponent(journey, videoUrlService, VideoFiles.BeforeTheDay_Court);
+    component = new VideoViewBaseComponent(videoUrlService, VideoFiles.BeforeTheDay_Court);
   });
 
   it('should set the video source when initialized', () => {

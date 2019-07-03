@@ -1,3 +1,4 @@
+import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { Component, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from '../../services/media.service';
@@ -20,9 +21,9 @@ export class ParticipantViewComponent extends VideoViewBaseComponent implements 
   stream: MediaStream;
   isMobile = false;
 
-  constructor(journey: IndividualJourney, private userMediaService: MediaService,
+  constructor(private journey: IndividualJourney, private userMediaService: MediaService,
     videoUrlService: VideoUrlService, private deviceType: DeviceType) {
-    super(journey, videoUrlService, VideoFiles.BeforeTheDay_ParticipantView);
+    super(videoUrlService, VideoFiles.BeforeTheDay_ParticipantView);
     this.isMobile = this.deviceType.isMobile();
   }
 
@@ -35,5 +36,9 @@ export class ParticipantViewComponent extends VideoViewBaseComponent implements 
 
   ngOnDestroy() {
     this.userMediaService.stopStream();
+  }
+
+  continue() {
+    this.journey.goto(IndividualJourneySteps.HelpTheCourtDecide);
   }
 }
