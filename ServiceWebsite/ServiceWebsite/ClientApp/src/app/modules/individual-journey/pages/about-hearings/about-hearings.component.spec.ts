@@ -3,10 +3,11 @@ import { CrestBluePanelComponent } from 'src/app/modules/shared/crest-blue-panel
 import { AboutHearingsComponent } from './about-hearings.component';
 import { IndividualJourney } from '../../individual-journey';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 describe('AboutHearingsComponent', () => {
-  it('can continue', () => {
-    const journey = jasmine.createSpyObj<IndividualJourney>(['next']);
+  it(`should continue to ${IndividualJourneySteps.DifferentHearingTypes}`, () => {
+    const journey = jasmine.createSpyObj<IndividualJourney>(['jumpTo']);
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: AboutHearingsComponent,
       declarations: [ CrestBluePanelComponent ],
@@ -15,6 +16,6 @@ describe('AboutHearingsComponent', () => {
 
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.next).toHaveBeenCalled();
+    expect(journey.jumpTo).toHaveBeenCalledWith(IndividualJourneySteps.DifferentHearingTypes);
   });
 });
