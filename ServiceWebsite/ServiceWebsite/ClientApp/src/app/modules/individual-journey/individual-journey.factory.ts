@@ -1,3 +1,4 @@
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { SuitabilityService } from './services/suitability.service';
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 import { IndividualJourney } from './individual-journey';
@@ -6,6 +7,7 @@ import { JourneyRoutingListenerService } from '../base-journey/services/journey-
 import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 import {IndividualJourneyService} from './services/individual-journey.service';
 import {IndividualSuitabilityModel} from './individual-suitability.model';
+import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
 
 const IndividualUserType = 'Individual';
 
@@ -24,7 +26,7 @@ export class IndividualJourneyFactory implements JourneyFactory {
             this.bindings = bindings;
     }
 
-    async begin(): Promise<void> {
+    async begin(): Promise<JourneyBase> {
       this.journey.redirect.subscribe(() =>
       this.individualJourneyService.set(this.journey.model));
 
@@ -39,10 +41,14 @@ export class IndividualJourneyFactory implements JourneyFactory {
 
       this.journey.forSuitabilityAnswers(models);
       this.journeyRoutingListenerService.initialise(this.bindings, this.journey);
-      return Promise.resolve();
+      return Promise.resolve(this.journey);
     }
 
     handles(userType: string): boolean {
         return userType === IndividualUserType;
+    }
+
+    getModel(): ParticipantSuitabilityModel {
+      return this.journey.model;
     }
 }

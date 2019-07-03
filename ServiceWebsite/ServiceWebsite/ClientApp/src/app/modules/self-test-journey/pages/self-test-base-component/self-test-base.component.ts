@@ -1,10 +1,10 @@
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import {OnInit, Injectable} from '@angular/core';
-import {SelfTestJourney} from '../../self-test-journey';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 
 @Injectable()
 export abstract class SelfTestBaseComponent implements OnInit {
-  constructor(private journey: SelfTestJourney) {
+  constructor(private journey: JourneyBase, private suitabilityModel: ParticipantSuitabilityModel) {
   }
 
   ngOnInit(): void {
@@ -19,6 +19,6 @@ export abstract class SelfTestBaseComponent implements OnInit {
   }
 
   get model(): ParticipantSuitabilityModel {
-    return this.journey.model;
+    return this.suitabilityModel;
   }
 }
