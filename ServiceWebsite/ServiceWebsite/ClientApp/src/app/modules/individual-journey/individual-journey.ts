@@ -77,6 +77,11 @@ export class IndividualJourney extends JourneyBase {
 
     let nextStep = this.stepOrder[currentStep + 1];
 
+    if (this.cannotAccessCamera()) {
+      this.goto(IndividualJourneySteps.MediaAccessError);
+      return;
+    }
+
     if (this.submitService.isDropOffPoint(this.model)) {
       // update the model to set the answers in case browserback was clicked and the answers were changed.
       let saveModel: MutableIndividualSuitabilityModel;
@@ -88,6 +93,10 @@ export class IndividualJourney extends JourneyBase {
     }
 
     this.goto(nextStep);
+  }
+
+  private cannotAccessCamera(): boolean {
+    return this.model.mediaAccepted !== undefined && this.model.mediaAccepted === false;
   }
 
   fail() {

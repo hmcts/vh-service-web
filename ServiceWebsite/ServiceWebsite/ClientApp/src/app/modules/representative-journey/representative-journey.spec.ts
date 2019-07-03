@@ -1,9 +1,8 @@
-import { YourComputerComponent } from './../individual-journey/pages/your-computer/your-computer.component';
 import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
 import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
-import { RepresentativeJourneySteps as Steps, RepresentativeJourneySteps } from './representative-journey-steps';
+import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 
@@ -18,7 +17,6 @@ describe('RepresentativeJourney', () => {
   let redirected: JourneyStep;
   let submitService: jasmine.SpyObj<SubmitService>;
   submitService = jasmine.createSpyObj<SubmitService>(['submit', 'updateSubmitModel']);
-
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableRepresentativeSuitabilityModel();
@@ -71,10 +69,6 @@ describe('RepresentativeJourney', () => {
     journey.next();
   };
 
-  const whenFailingTheStep = () => {
-    journey.fail();
-  };
-
   const givenUserIsAtStep = (s: JourneyStep) => {
     journey.jumpTo(s);
   };
@@ -104,7 +98,7 @@ describe('RepresentativeJourney', () => {
 
   const expectDropOffToQuestionnaireCompletedFrom = (s: JourneyStep) => {
     givenUserIsAtStep(s);
-    whenFailingTheStep();
+    journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
   };
   const expectDropOffToContactUsFrom = (s: JourneyStep) => {
@@ -134,12 +128,6 @@ describe('RepresentativeJourney', () => {
   it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
     journey.model.camera = HasAccessToCamera.No;
     expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
-  });
-
-  it('should raise an error on unexpected failure transition', () => {
-    givenUserIsAtStep(Steps.AboutVideoHearings);
-    expect(() => whenFailingTheStep())
-      .toThrowError(`Missing/unexpected failure for step: ${Steps.AboutVideoHearings}`);
   });
 
   it('should raise an error on missing transition', () => {

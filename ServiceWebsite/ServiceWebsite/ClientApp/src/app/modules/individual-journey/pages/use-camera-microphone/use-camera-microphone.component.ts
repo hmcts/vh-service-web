@@ -17,7 +17,8 @@ export class UseCameraMicrophoneComponent extends IndividualBaseComponent {
   async switchOnMedia() {
     this.mediaAccepted = await this.mediaAccess.requestAccess();
     if (!this.mediaAccepted) {
-      this.fail();
+      this.model.mediaAccepted = false;
+      this.continue();
     }
   }
 }

@@ -8,10 +8,6 @@ export abstract class RepresentativeBaseComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    fail(): void {
-        this.journey.fail();
-    }
-
     continue(): void {
         this.journey.next();
     }
