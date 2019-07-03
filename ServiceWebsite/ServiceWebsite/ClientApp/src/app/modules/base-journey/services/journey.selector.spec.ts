@@ -1,6 +1,9 @@
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 import { JourneySelector, JOURNEY_FACTORY } from './journey.selector';
 import { TestBed } from '@angular/core/testing';
+import { ExploreCourtBuildingComponent } from '../../individual-journey/pages/explore-court-building/explore-court-building.component';
+import { ParticipantSuitabilityModel } from '../participant-suitability.model';
 
 describe('JourneySelector', () => {
     let selector: JourneySelector;
@@ -10,7 +13,7 @@ describe('JourneySelector', () => {
         const duplicateJourneyFactory = jasmine.createSpyObj<JourneyFactory>(['handles', 'begin']);
         duplicateJourneyFactory.handles.and.callFake((userType: string) => userType === 'duplicate');
 
-        properJourneyFactory = jasmine.createSpyObj<JourneyFactory>(['handles', 'begin']);
+        properJourneyFactory = jasmine.createSpyObj<JourneyFactory>(['handles', 'begin', 'getModel']);
         properJourneyFactory.handles.and.callFake((userType: string) => userType === 'proper');
 
         TestBed.configureTestingModule({
@@ -53,5 +56,24 @@ describe('JourneySelector', () => {
     it('should return journey for user type', async () => {
         await selector.beginFor('proper');
         expect(properJourneyFactory.begin).toHaveBeenCalled();
+    });
+
+    it('cannot return journey or model before being started', () => {
+        expect(() => selector.getModel()).toThrowError('Journey has not been started yet');
+        expect(() => selector.getJourney()).toThrowError('Journey has not been started yet');
+    });
+
+    it('can retrieve current journey and model after beginning', async () => {
+        const fakeJourney = jasmine.createSpyObj<JourneyBase>(['next']);
+        const fakeModel = {} as ParticipantSuitabilityModel;
+        properJourneyFactory.getModel.and.returnValue(fakeModel);
+        properJourneyFactory.begin.and.returnValue(Promise.resolve(fakeJourney));
+
+        await selector.beginFor('proper');
+        const actualJourney = selector.getJourney();
+        const actualModel = selector.getModel();
+
+        expect(actualJourney).toBe(fakeJourney);
+        expect(actualModel).toBe(fakeModel);
     });
 });

@@ -37,4 +37,8 @@ describe('RepresentativeJourneyFactory', () => {
   it('handles representative users', () => {
     expect(factory.handles('Representative')).toBeTruthy();
   });
+
+  it('returns the journey model', () => {
+    expect(factory.getModel()).toBe(journey.model);
+  });
 });

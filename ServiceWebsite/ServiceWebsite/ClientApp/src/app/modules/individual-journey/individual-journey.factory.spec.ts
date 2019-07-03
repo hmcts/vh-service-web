@@ -36,4 +36,8 @@ describe('IndividualJourneyFactory', () => {
     it('handles individual users', () => {
         expect(factory.handles('Individual')).toBeTruthy();
     });
+
+    it('returns the journey model', () => {
+      expect(factory.getModel()).toBe(journey.model);
+    });
 });

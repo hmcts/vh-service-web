@@ -28,7 +28,7 @@ import {SelfTestJourney} from './self-test-journey';
     SelfTestJourney,
     SelfTestJourneyStepComponentBindings,
     JourneyRoutingListenerService,
-    SelfTestStepsOrderFactory,
+    SelfTestStepsOrderFactory
   ]
 })
 
