@@ -6,13 +6,19 @@ import { ParticipantSuitabilityModel, SelfTestAnswers } from '../base-journey/pa
 import { SelfTestJourneySteps } from './self-test-journey-steps';
 
 describe('SelfTestJourney', () => {
-  const deviceTypeDesktop = {
+  const deviceMobile = {
+    isMobile: () => true,
+    isTablet: () => false,
+    isDesktop: () => false
+  } as DeviceType;
+
+  const deviceDesktop = {
     isMobile: () => false,
     isTablet: () => false,
     isDesktop: () => true
   } as DeviceType;
 
-  const stepsFactory = new SelfTestStepsOrderFactory(deviceTypeDesktop);
+  let stepsFactory: SelfTestStepsOrderFactory;
 
   let journey:  SelfTestJourney;
   let model: ParticipantSuitabilityModel;
@@ -31,8 +37,13 @@ describe('SelfTestJourney', () => {
       cameraWorking:  true,
       sameComputer: true,
       microphoneWorking: true
-    })
+    }),
+    none: new SelfTestAnswers({})
   };
+
+  beforeEach(() => {
+    stepsFactory = new SelfTestStepsOrderFactory(deviceDesktop);
+  });
 
   const givenSelfTestAnswers = (answers: SelfTestAnswers) => {
     model = {
@@ -43,10 +54,26 @@ describe('SelfTestJourney', () => {
     journey.redirect.subscribe((step: JourneyStep) => redirectedTo = step);
   };
 
+  const givenDeviceIs = (deviceType: DeviceType) => {
+    stepsFactory = new SelfTestStepsOrderFactory(deviceType);
+  };
+
   const nextStepIs = (step: JourneyStep) => {
     journey.next();
     expect(redirectedTo).toBe(step);
   };
+
+  it(`should go to '${SelfTestJourneySteps.SignInOtherComputer}' if on mobile device`, () => {
+    givenDeviceIs(deviceMobile);
+    givenSelfTestAnswers(selfTestAnswers.none);
+    journey.startAt(SelfTestJourneySteps.SameComputer);
+    journey.next();
+    expect(redirectedTo).toBe(SelfTestJourneySteps.SignInOtherComputer);
+  });
+
+  it(`should go to '${SelfTestJourneySteps.SignInOtherComputer}' if on not on same device as hearing will be done on`, () => {
+
+  });
 
   it('should follow happy path if all answers are positive', () => {
     givenSelfTestAnswers(selfTestAnswers.lastAnswerRemaining);

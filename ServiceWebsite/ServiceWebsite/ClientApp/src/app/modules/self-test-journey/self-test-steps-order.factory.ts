@@ -14,11 +14,7 @@ export class SelfTestStepsOrderFactory {
     if (this.deviceType.isMobile()) {
       return [
         SelfTestJourneySteps.SameComputer,
-        SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
-        SelfTestJourneySteps.SelfTest,
-        SelfTestJourneySteps.CameraWorking,
-        SelfTestJourneySteps.MicrophoneWorking,
-        SelfTestJourneySteps.SeeAndHearVideo,
+        SelfTestJourneySteps.SignInOtherComputer
       ];
     } else {
       return [
