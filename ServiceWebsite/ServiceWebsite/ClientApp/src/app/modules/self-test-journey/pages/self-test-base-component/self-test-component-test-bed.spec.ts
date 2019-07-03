@@ -1,3 +1,4 @@
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import {SelfTestJourneySteps} from '../../self-test-journey-steps';
 import {ComponentFixture} from '@angular/core/testing';
 import {SelfTestJourney} from '../../self-test-journey';
@@ -8,12 +9,11 @@ import {
   ComponentTestBedConfiguration
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 import {ContinuableComponentFixture} from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
-import {Localisation} from '../../../shared/localisation';
-import {IndividualLocalisation} from '../../../individual-journey/services/individual-localisation';
-import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+import { ParticipantSuitabilityModel, SelfTestAnswers } from 'src/app/modules/base-journey/participant-suitability.model';
 
 export interface SelfTestComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
-  journey?: SelfTestJourney;
+  journey?: JourneyBase;
+  model?: ParticipantSuitabilityModel;
 }
 
 export class CommonSelfTestComponentTests {
@@ -38,7 +38,8 @@ export class SelfTestJourneyStubs {
     const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
     const stepsOrderFactory = new SelfTestStepsOrderFactory(deviceType);
     deviceType.isMobile.and.returnValue(false);
-    const journey = new SelfTestJourney(stepsOrderFactory);
+    const model = { selfTest: new SelfTestAnswers() } as ParticipantSuitabilityModel;
+    const journey = new SelfTestJourney(model, stepsOrderFactory);
     journey.startAt(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
     return journey;
   }
@@ -46,6 +47,7 @@ export class SelfTestJourneyStubs {
 
 export class SelfTestJourneyComponentTestBed {
   static createComponent<TComponent>(config: SelfTestComponentTestBedConfiguration<TComponent>): ComponentFixture<TComponent> {
+    const defaultJourney = SelfTestJourneyStubs.default;
     return new JourneyComponentTestBed()
       .createComponent({
         component: config.component,
@@ -53,8 +55,8 @@ export class SelfTestJourneyComponentTestBed {
           ...(config.declarations || [])
         ],
         providers: [
-          { provide: Localisation, useClass: IndividualLocalisation },
-          {provide: SelfTestJourney, useValue: config.journey || SelfTestJourneyStubs.default},
+          { provide: JourneyBase, useValue: config.journey || defaultJourney },
+          { provide: ParticipantSuitabilityModel, useValue: config.model || defaultJourney.model },
           ...(config.providers || [])
         ],
         imports: config.imports
