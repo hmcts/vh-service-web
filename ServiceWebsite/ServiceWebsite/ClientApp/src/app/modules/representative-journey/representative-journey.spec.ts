@@ -197,7 +197,7 @@ describe('RepresentativeJourney', () => {
   it('should throw an exception if proceeding without having entered the journey', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
   });
-  
+
   it(`should continue to ${Steps.AboutYouAndYourClient} if representative has not submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
     submitService.isDropOffPoint.and.returnValue(false);
