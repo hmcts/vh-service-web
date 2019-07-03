@@ -1,11 +1,10 @@
-import { SignInOtherComputerComponent } from './pages/sign-in-other-computer/sign-in-other-computer.component';
-import { SelfTestComponentTestBedConfiguration } from './pages/self-test-base-component/self-test-component-test-bed.spec';
 import { JourneyStep } from './../base-journey/journey-step';
 import { SelfTestJourney } from './self-test-journey';
 import { SelfTestStepsOrderFactory } from './self-test-steps-order.factory';
 import { DeviceType } from '../base-journey/services/device-type';
 import { ParticipantSuitabilityModel, SelfTestAnswers } from '../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from './self-test-journey-steps';
+import { ParticipantJourneySteps } from '../base-journey/participant-journey-steps';
 
 describe('SelfTestJourney', () => {
   const deviceMobile = {
@@ -108,7 +107,7 @@ describe('SelfTestJourney', () => {
       journey.startAt(step);
 
       // then redirects
-      expect(redirectedTo).toBe(SelfTestJourneySteps.GotoVideoApp);
+      expect(redirectedTo).toBe(ParticipantJourneySteps.GotoVideoApp);
     }
   });
 });

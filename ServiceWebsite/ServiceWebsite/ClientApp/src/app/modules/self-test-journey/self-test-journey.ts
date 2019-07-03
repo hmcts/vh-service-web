@@ -1,16 +1,16 @@
+import { ParticipantJourneySteps } from './../base-journey/participant-journey-steps';
 import {EventEmitter, Injectable} from '@angular/core';
 import {SelfTestStepsOrderFactory} from './self-test-steps-order.factory';
 import {SelfTestJourneySteps} from './self-test-journey-steps';
 import {JourneyStep} from '../base-journey/journey-step';
 import {ParticipantSuitabilityModel} from '../base-journey/participant-suitability.model';
-import { ngDevModeResetPerfCounters } from '@angular/core/src/render3/ng_dev_mode';
 
 @Injectable()
 export class SelfTestJourney {
   static readonly initialStep = SelfTestJourneySteps.SameComputer;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   stepOrder: Array<JourneyStep>;
-  private currentStep: JourneyStep = SelfTestJourneySteps.NotStarted;
+  private currentStep: JourneyStep = ParticipantJourneySteps.NotStarted;
   private currentModel: ParticipantSuitabilityModel;
   private isSubmitted: boolean;
 
@@ -51,7 +51,7 @@ export class SelfTestJourney {
     }
 
     if (this.isSubmitted) {
-      this.goto(SelfTestJourneySteps.ThankYou);
+      this.goto(ParticipantJourneySteps.ThankYou);
       return;
     }
 
@@ -66,7 +66,7 @@ export class SelfTestJourney {
 
   jumpTo(position: JourneyStep) {
     if (this.isDone()) {
-      this.goto(SelfTestJourneySteps.GotoVideoApp);
+      this.goto(ParticipantJourneySteps.GotoVideoApp);
     } else {
       this.currentStep = position;
     }
@@ -74,7 +74,7 @@ export class SelfTestJourney {
 
   startAt(step: JourneyStep): void {
     if (this.isDone()) {
-      this.goto(SelfTestJourneySteps.GotoVideoApp);
+      this.goto(ParticipantJourneySteps.GotoVideoApp);
       return;
     }
     this.goto(step);
