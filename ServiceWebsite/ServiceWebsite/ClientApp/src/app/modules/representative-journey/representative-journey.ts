@@ -6,7 +6,6 @@ import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
-import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
@@ -103,25 +102,9 @@ export class RepresentativeJourney extends JourneyBase {
     this.goto(nextStep);
   }
 
-  private isDropOffPoint(): boolean {
-    return (this.model.computer === false || this.model.camera !== undefined);
-  }
-
-  fail() {
-    const dropoutToQuestionnaireCompletedFrom = [
-      RepresentativeJourneySteps.AccessToComputer,
-      RepresentativeJourneySteps.AboutYourComputer,
-    ];
-
-    const dropoutToContactUsFrom = [
-      RepresentativeJourneySteps.QuestionnaireCompleted
-    ];
-
-    if (dropoutToQuestionnaireCompletedFrom.includes(this.currentStep)) {
-      this.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
-    } else {
-      throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
-    }
+  isDropOffPoint(): boolean {
+    return (this.model.computer === false || this.model.camera === HasAccessToCamera.No ||
+      this.model.camera === HasAccessToCamera.Yes || this.model.camera === HasAccessToCamera.NotSure);
   }
 
   /**

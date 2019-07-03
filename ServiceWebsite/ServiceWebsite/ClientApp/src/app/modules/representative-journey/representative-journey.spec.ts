@@ -1,9 +1,8 @@
-import { AboutYouAndYourClientComponent } from './pages/about-you-and-your-client/about-you-and-your-client.component';
 import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
 import { HasAccessToCamera, Hearing } from '../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
-import { RepresentativeJourneySteps as Steps, RepresentativeJourneySteps } from './representative-journey-steps';
+import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 
@@ -17,7 +16,7 @@ describe('RepresentativeJourney', () => {
   let journey: RepresentativeJourney;
   let redirected: JourneyStep;
   let submitService: jasmine.SpyObj<SubmitService>;
-  submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
+  submitService = jasmine.createSpyObj<SubmitService>(['submit', 'updateSubmitModel']);
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableRepresentativeSuitabilityModel();
@@ -70,10 +69,6 @@ describe('RepresentativeJourney', () => {
     journey.next();
   };
 
-  const whenFailingTheStep = () => {
-    journey.fail();
-  };
-
   const givenUserIsAtStep = (s: JourneyStep) => {
     journey.jumpTo(s);
   };
@@ -122,20 +117,17 @@ describe('RepresentativeJourney', () => {
     expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
   });
 
-  it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
-    journey.model.camera = HasAccessToCamera.No;
-    expectDropOffToQuestionnaireCompletedFrom(Steps.AboutYourComputer);
+  it(`should continue to ${Steps.QuestionnaireCompleted} if answered representative has answered question about camera`, () => {
+    for (const answer of [ HasAccessToCamera.No, HasAccessToCamera.Yes, HasAccessToCamera.No ]) {
+      journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
+      journey.model.camera = answer;
+      expectDropOffToQuestionnaireCompletedFrom(Steps.AboutYourComputer);
+    }
   });
 
   it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
     journey.model.camera = HasAccessToCamera.No;
     expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
-  });
-
-  it('should raise an error on unexpected failure transition', () => {
-    givenUserIsAtStep(Steps.AboutVideoHearings);
-    expect(() => whenFailingTheStep())
-      .toThrowError(`Missing/unexpected failure for step: ${Steps.AboutVideoHearings}`);
   });
 
   it('should raise an error on missing transition', () => {
@@ -193,27 +185,13 @@ describe('RepresentativeJourney', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
   });
 
-  it(`should continue to ${Steps.AboutYouAndYourClient} if representative has not submitted`, () => {
-    givenUserIsAtStep(Steps.AboutVideoHearings);
-    journey.model.aboutYourClient.answer = false;
-    journey.next();
-    expect(redirected).toBe(Steps.AboutYouAndYourClient);
-
-    journey.redirect.emit(Steps.AboutVideoHearings);
-    expect(redirected).toBe(Steps.AboutVideoHearings);
-
-    submitService.isDropOffPoint.and.returnValue(false);
-    journey.next();
-    expect(redirected).toBe(Steps.AboutYouAndYourClient);
-  });
-
   it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if representative has submitted`, () => {
-    givenUserIsAtStep(Steps.AboutVideoHearings);
-    submitService.isDropOffPoint.and.returnValue(true);
+    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
+    givenUserIsAtStep(Steps.AboutYourComputer);
+    journey.model.computer = false;
     journey.next();
     expect(redirected).toBe(Steps.QuestionnaireCompleted);
 
-    submitService.isDropOffPoint.and.returnValue(false);
     journey.next();
     expect(redirected).toBe(Steps.ContactUs);
   });
