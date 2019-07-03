@@ -21,7 +21,7 @@ describe('SelfTestJourney', () => {
   let redirectedTo: JourneyStep;
 
   const selfTestAnswers = {
-    allPositive: new SelfTestAnswers({
+    done: new SelfTestAnswers({
       seeAndHearClearly: true,
       cameraWorking:  true,
       sameComputer: true,
@@ -95,7 +95,7 @@ describe('SelfTestJourney', () => {
   });
 
   it('should redirect to video web if self-test is completed', ()  => {
-    givenSelfTestAnswers(selfTestAnswers.allPositive);
+    givenSelfTestAnswers(selfTestAnswers.done);
 
     // for any self test  step
     for (const step of stepsFactory.stepOrder()) {
