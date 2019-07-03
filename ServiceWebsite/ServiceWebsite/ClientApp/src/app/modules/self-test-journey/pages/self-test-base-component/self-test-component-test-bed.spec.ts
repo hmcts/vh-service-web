@@ -18,7 +18,7 @@ export interface SelfTestComponentTestBedConfiguration<TComponent> extends Compo
 
 export class CommonSelfTestComponentTests {
   static continuesWhenButtonIsPressed<TComponent>(config: ComponentTestBedConfiguration<TComponent>) {
-    const journey = jasmine.createSpyObj<SelfTestJourney>(['next']);
+    const journey = jasmine.createSpyObj<JourneyBase>(['next']);
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: config.component,
       providers: config.providers,
