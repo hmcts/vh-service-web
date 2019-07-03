@@ -25,10 +25,16 @@ export class JourneySelector {
     }
 
     getJourney(): JourneyBase {
+        if (!this.currentJourney) {
+            throw new Error('Journey has not been started yet');
+        }
         return this.currentJourney;
     }
 
     getModel(): ParticipantSuitabilityModel {
+        if (!this.currentFactory) {
+            throw new Error('Journey has not been started yet');
+        }
         return this.currentFactory.getModel();
     }
 }
