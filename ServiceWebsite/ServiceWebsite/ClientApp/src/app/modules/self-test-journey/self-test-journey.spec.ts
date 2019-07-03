@@ -4,8 +4,6 @@ import { SelfTestStepsOrderFactory } from './self-test-steps-order.factory';
 import { DeviceType } from '../base-journey/services/device-type';
 import { ParticipantSuitabilityModel, SelfTestAnswers } from '../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from './self-test-journey-steps';
-import { IndividualJourney } from '../individual-journey/individual-journey';
-import { IndividualJourneySteps } from '../individual-journey/individual-journey-steps';
 
 describe('SelfTestJourney', () => {
   let journey:  SelfTestJourney;
