@@ -4,7 +4,8 @@ import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 @Component({
   selector: 'app-about-hearings',
-  templateUrl: './about-hearings.component.html'
+  templateUrl: './about-hearings.component.html',
+  styles: []
 })
 export class AboutHearingsComponent {
   constructor(private journey: IndividualJourney) {}
