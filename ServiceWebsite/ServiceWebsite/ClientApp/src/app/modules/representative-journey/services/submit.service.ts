@@ -18,10 +18,10 @@ export class SubmitService {
     await this.suitabilityService.updateSuitabilityAnswers(model.hearing.id, answers);
   }
 
-  isDropOffPoint(model: RepresentativeSuitabilityModel): boolean {
+  // isDropOffPoint(model: RepresentativeSuitabilityModel): boolean {
 
-    return (model.computer === false || model.camera === HasAccessToCamera.No ||
-      model.camera === HasAccessToCamera.Yes || model.camera === HasAccessToCamera.NotSure);
+  //   return (model.computer === false || model.camera === HasAccessToCamera.No ||
+  //     model.camera === HasAccessToCamera.Yes || model.camera === HasAccessToCamera.NotSure);
 
-  }
+  // }
 }
