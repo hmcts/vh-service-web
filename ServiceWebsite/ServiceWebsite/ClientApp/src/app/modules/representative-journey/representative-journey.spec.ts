@@ -197,21 +197,7 @@ describe('RepresentativeJourney', () => {
   it('should throw an exception if proceeding without having entered the journey', () => {
     expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
   });
-
-  it(`should continue to ${Steps.QuestionnaireCompleted} if representative has already submitted`, () => {
-    givenUserIsAtStep(Steps.AboutVideoHearings);
-    submitService.isDropOffPoint.and.returnValue(true);
-    journey.next();
-    expect(redirected).toBe(Steps.QuestionnaireCompleted);
-
-    journey.redirect.emit(Steps.AboutVideoHearings);
-    expect(redirected).toBe(Steps.AboutVideoHearings);
-
-    submitService.isDropOffPoint.and.returnValue(false);
-    journey.next();
-    expect(redirected).toBe(Steps.QuestionnaireCompleted);
-  });
-
+  
   it(`should continue to ${Steps.AboutYouAndYourClient} if representative has not submitted`, () => {
     givenUserIsAtStep(Steps.AboutVideoHearings);
     submitService.isDropOffPoint.and.returnValue(false);
