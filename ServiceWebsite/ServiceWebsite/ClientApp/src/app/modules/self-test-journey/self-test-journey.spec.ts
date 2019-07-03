@@ -12,9 +12,10 @@ describe('SelfTestJourney', () => {
     isDesktop: () => true
   } as DeviceType;
 
+  const stepsFactory = new SelfTestStepsOrderFactory(deviceTypeDesktop);
+
   let journey:  SelfTestJourney;
   let model: ParticipantSuitabilityModel;
-  let stepsFactory = new SelfTestStepsOrderFactory(deviceTypeDesktop);
 
   let redirectedTo: JourneyStep;
 
