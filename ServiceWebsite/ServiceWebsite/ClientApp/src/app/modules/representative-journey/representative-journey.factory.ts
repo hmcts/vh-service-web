@@ -1,3 +1,4 @@
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import {RepresentativeSuitabilityService} from './services/representative-suitability.service';
 import {JourneyFactory} from 'src/app/modules/base-journey/services/journey.factory';
 import {RepresentativeJourney} from './representative-journey';
@@ -6,6 +7,7 @@ import {JourneyRoutingListenerService} from '../base-journey/services/journey-ro
 import {RepresentativeJourneyStepComponentBindings} from './services/representative-journey-component-bindings';
 import {RepresentativeSuitabilityModel} from './representative-suitability.model';
 import {RepresentativeJourneyService} from './services/representative.journey.service';
+import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
 
 const RepresentativeUserType = 'Representative';
 
@@ -23,7 +25,7 @@ export class RepresentativeJourneyFactory implements JourneyFactory {
     this.bindings = bindings;
   }
 
-  async begin(): Promise<void> {
+  async begin(): Promise<JourneyBase> {
     this.journey.redirect.subscribe(() =>
       this.representativeJourneyService.set(this.journey.model));
 
@@ -38,10 +40,14 @@ export class RepresentativeJourneyFactory implements JourneyFactory {
 
     this.journey.forSuitabilityAnswers(models);
     this.journeyRoutingListenerService.initialise(this.bindings, this.journey);
-    return Promise.resolve();
+    return Promise.resolve(this.journey);
   }
 
   handles(userType: string): boolean {
     return userType === RepresentativeUserType;
+  }
+
+  getModel(): ParticipantSuitabilityModel {
+    return this.journey.model;
   }
 }
