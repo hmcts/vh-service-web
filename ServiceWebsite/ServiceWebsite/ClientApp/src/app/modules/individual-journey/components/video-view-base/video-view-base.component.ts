@@ -6,11 +6,10 @@ import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';
 
 @Injectable()
-export class VideoViewBaseComponent extends IndividualBaseComponent implements OnInit {
+export class VideoViewBaseComponent implements OnInit {
 
-  constructor(journey: IndividualJourney, private videoUrlService: VideoUrlService,
+  constructor(private videoUrlService: VideoUrlService,
     private videoFile: VideoFiles) {
-    super(journey);
   }
 
   @ViewChild(VideoViewComponent)

@@ -12,10 +12,6 @@ export abstract class IndividualBaseComponent implements OnInit {
         this.journey.fail();
     }
 
-    continue(): void {
-        this.journey.next();
-    }
-
     get model(): IndividualSuitabilityModel {
         return this.journey.model;
     }

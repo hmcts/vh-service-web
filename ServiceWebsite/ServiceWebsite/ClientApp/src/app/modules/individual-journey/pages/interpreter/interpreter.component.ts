@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 @Component({
   selector: 'app-interpreter',
@@ -20,5 +21,11 @@ export class InterpreterComponent extends SuitabilityChoicePageBaseComponent imp
 
   protected bindModel() {
     this.model.interpreter = this.choice.value;
+  }
+
+  submit() {
+    if (this.trySubmit()) {
+      this.journey.goto(IndividualJourneySteps.AccessToComputer);
+    }
   }
 }

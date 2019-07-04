@@ -1,3 +1,5 @@
+import { JourneyStep } from './../../../base-journey/journey-step';
+import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
 import { ParticipantViewComponent } from './participant-view.component';
 import { MediaService } from '../../services/media.service';
@@ -29,6 +31,13 @@ describe('ParticipantViewComponent', () => {
       deviceType.isMobile.and.returnValue(false);
       component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
+    });
+
+    it(`should continue to ${IndividualJourneySteps.HelpTheCourtDecide} when pressing continue`, () => {
+      let redirectedTo: JourneyStep;
+      journey.redirect.subscribe((step: JourneyStep) => redirectedTo = step);
+      component.continue();
+      expect(redirectedTo).toBe(IndividualJourneySteps.HelpTheCourtDecide);
     });
 
     it('should set the video source to a media stream when initialized', async () => {
