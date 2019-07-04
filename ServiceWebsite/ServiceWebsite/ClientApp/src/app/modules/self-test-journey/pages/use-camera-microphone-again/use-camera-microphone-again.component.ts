@@ -8,10 +8,10 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
   templateUrl: './use-camera-microphone-again.component.html',
   styles: []
 })
-export class UseCameraMicrophoneAgainComponent  {
+export class UseCameraMicrophoneAgainComponent implements OnInit {
 
   constructor(private journey: JourneyBase) {
-    
+
   }
 
   ngOnInit(): void {
