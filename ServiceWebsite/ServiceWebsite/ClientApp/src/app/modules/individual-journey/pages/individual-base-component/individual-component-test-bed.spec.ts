@@ -1,3 +1,4 @@
+import { JourneyStep } from './../../../base-journey/journey-step';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
@@ -34,6 +35,21 @@ export class CommonIndividualComponentTests {
     new ContinuableComponentFixture(fixture).submitIsClicked();
     expect(journey.next).toHaveBeenCalled();
   }
+
+  static goesToStepWhenButtonIsPressed<TComponent>(step: JourneyStep, config: ComponentTestBedConfiguration<TComponent>) {
+    const journey = jasmine.createSpyObj<IndividualJourney>(['goto']);
+    const fixture = IndividualJourneyComponentTestBed.createComponent({
+      component: config.component,
+      providers: config.providers,
+      imports: config.imports,
+      declarations: config.declarations,
+      journey: journey
+    });
+
+    fixture.detectChanges();
+    new ContinuableComponentFixture(fixture).submitIsClicked();
+    expect(journey.goto).toHaveBeenCalledWith(step);
+  }
 }
 
 export class IndividualJourneyStubs {
@@ -58,7 +74,7 @@ export class IndividualJourneyStubs {
   public static get journeySpy(): jasmine.SpyObj<IndividualJourney> {
     return {
       model: IndividualJourneyStubs.model,
-      ...jasmine.createSpyObj<IndividualJourney>(['next'])
+      ...jasmine.createSpyObj<IndividualJourney>(['next', 'goto', 'submitQuestionnaire'])
     } as jasmine.SpyObj<IndividualJourney>;
   }
 }
@@ -73,7 +89,6 @@ export class IndividualJourneyComponentTestBed {
           ...(config.declarations || [])
         ],
         providers: [
-          { provide: IndividualSuitabilityModel, useClass: MutableIndividualSuitabilityModel },
           { provide: IndividualJourney, useValue: config.journey || IndividualJourneyStubs.default },
           ...(config.providers || [])
         ],

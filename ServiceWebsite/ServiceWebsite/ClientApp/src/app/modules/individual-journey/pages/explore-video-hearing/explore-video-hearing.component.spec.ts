@@ -1,41 +1,38 @@
+import { ComponentFixture } from '@angular/core/testing';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { ExploreVideoHearingComponent } from './explore-video-hearing.component';
 import { DeviceType } from '../../../base-journey/services/device-type';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { IndividualJourney } from '../../individual-journey';
-
-const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 describe('ExploreVideoHearingComponent', () => {
   let journey: IndividualJourney;
+  let fixture: ComponentFixture<ExploreVideoHearingComponent>;
+  let deviceType: jasmine.SpyObj<DeviceType>;
 
   beforeEach(() => {
-    journey = jasmine.createSpyObj<IndividualJourney>(['next']);
-  });
+    journey = jasmine.createSpyObj<IndividualJourney>(['goto']);
+    deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
 
-  it('can proceed on pressing continue', () => {
-    const fixture = IndividualJourneyComponentTestBed.createComponent({
+    fixture = IndividualJourneyComponentTestBed.createComponent({
       component: ExploreVideoHearingComponent,
       providers: [ { provide: DeviceType, useValue: deviceType }],
       journey: journey
     });
+  });
 
+  it(`goes straight to ${IndividualJourneySteps.HearingAsParticipant} on mobile`, () => {
+    deviceType.isMobile.and.returnValue(true);
     const test = new ContinuableComponentFixture(fixture);
     test.submitIsClicked();
-    expect(journey.next).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.HearingAsParticipant);
   });
 
-  it('should detect device is mobile phone', () => {
-    deviceType.isMobile.and.returnValue(true);
-    const component = new ExploreVideoHearingComponent(journey, deviceType);
-
-    expect(component.isMobile).toBeTruthy();
-  });
-
-  it('should detect device is not mobile phone', () => {
+  it(`goes to ${IndividualJourneySteps.AccessToCameraAndMicrophone} on desktop`, () => {
     deviceType.isMobile.and.returnValue(false);
-    const component = new ExploreVideoHearingComponent(journey, deviceType);
-
-    expect(component.isMobile).toBeFalsy();
+    const test = new ContinuableComponentFixture(fixture);
+    test.submitIsClicked();
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.AccessToCameraAndMicrophone);
   });
 });

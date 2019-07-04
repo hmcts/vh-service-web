@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 @Component({
   selector: 'app-consent',
@@ -76,13 +77,16 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     return this.textInputNo.invalid && this.submitted;
   }
 
-  continue() {
-    this.textInputYes.markAsTouched();
-    super.continue();
-  }
-
   protected bindModel(): void {
     this.model.consent.answer = this.choice.value;
     this.model.consent.notes = this.choice.value ? this.textInputYes.value : this.textInputNo.value;
+  }
+
+  async submit(): Promise<void> {
+    this.textInputYes.markAsTouched();
+    if (this.trySubmit()) {
+      await this.journey.submitQuestionnaire();
+      this.journey.goto(IndividualJourneySteps.ThankYou);
+    }
   }
 }

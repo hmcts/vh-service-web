@@ -4,7 +4,7 @@
       A quiet, private room
     </h1>
 
-    <form [formGroup]="form" (ngSubmit)="continue()">
+    <form [formGroup]="form" (ngSubmit)="submit()">
 
       <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <div class="govuk-fieldset">
@@ -63,7 +63,7 @@
       </div>
 
       <div class="mt-20">
-        <button class="govuk-button" (click)="continue()" i18n="@@accessRoom_btn_continue" id="continue"
+        <button class="govuk-button" (click)="submit()" i18n="@@accessRoom_btn_continue" id="continue"
                 type="button">
           Continue
         </button>

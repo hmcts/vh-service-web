@@ -24,15 +24,21 @@ export abstract class SuitabilityChoicePageBaseComponent<TJourneyType extends Jo
     return this.form.invalid && this.submitted;
   }
 
-  continue() {
+  trySubmit(): boolean {
     this.submitted = true;
 
     if (this.form.invalid) {
-      return;
+      return false;
     }
 
     this.bindModel();
-    this.onFormAccepted();
+    return true;
+  }
+
+  continue() {
+    if (this.trySubmit()) {
+      this.onFormAccepted();
+    }
   }
 
   /**

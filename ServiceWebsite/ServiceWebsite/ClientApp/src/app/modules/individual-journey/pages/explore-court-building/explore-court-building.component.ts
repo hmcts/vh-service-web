@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
+import { IndividualJourney } from '../../individual-journey';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 @Component({
   selector: 'app-explore-court-building',
   templateUrl: './explore-court-building.component.html',
   styles: []
 })
-export class ExploreCourtBuildingComponent extends IndividualBaseComponent {
+export class ExploreCourtBuildingComponent {
+  constructor(private journey: IndividualJourney) {}
+
+  continue() {
+    this.journey.goto(IndividualJourneySteps.CourtInformationVideo);
+  }
 }
