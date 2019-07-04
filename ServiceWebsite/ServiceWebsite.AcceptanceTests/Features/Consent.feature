@@ -4,7 +4,7 @@
 	I want to let the court know whether I consent to a video hearing or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4338
+@smoketest @VIH-4338
 Scenario: Individual participant consents to video hearing
 	Given Individual participant is on 'consent' page
 	When provides answer as Yes
