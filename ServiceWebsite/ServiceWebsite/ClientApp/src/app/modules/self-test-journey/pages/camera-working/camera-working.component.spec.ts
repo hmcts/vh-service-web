@@ -5,10 +5,11 @@ import {
 } from '../../../shared/crest-blue-panel/crest-blue-panel.component';
 import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import {CameraWorkingComponent} from './camera-working.component';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 describe('CameraWorkingComponent', () => {
-  it('can continue', () => {
-    const journey = jasmine.createSpyObj<JourneyBase>(['next']);
+  it(`goes to ${SelfTestJourneySteps.SeeAndHearVideo} on continuing`, () => {
+    const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: CameraWorkingComponent,
       declarations: [CrestBluePanelComponent],
@@ -17,6 +18,6 @@ describe('CameraWorkingComponent', () => {
 
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.next).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SeeAndHearVideo);
   });
 });
