@@ -1,5 +1,5 @@
 import { IndividualJourney } from './../../individual-journey';
-import { Component } from '@angular/core'
+import { Component } from '@angular/core';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 @Component({
