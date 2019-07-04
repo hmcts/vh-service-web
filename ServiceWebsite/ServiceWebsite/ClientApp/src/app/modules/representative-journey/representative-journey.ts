@@ -69,10 +69,14 @@ export class RepresentativeJourney extends JourneyBase {
       && model.computer !== undefined;
     }
 
-  private goto(step: JourneyStep) {
+  goto(step: JourneyStep) {
     if (this.currentStep !== step) {
       this.redirect.emit(step);
     }
+  }
+
+  submitQuestionnaire(): Promise<void> {
+    return Promise.resolve();
   }
 
   next() {

@@ -1,14 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
+import { ParticipantJourneySteps } from './../../../base-journey/participant-journey-steps';
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-see-and-hear-video',
   templateUrl: './see-and-hear-video.component.html',
   styles: []
 })
-export class SeeAndHearVideoComponent extends SelfTestBaseComponent implements OnInit {
+export class SeeAndHearVideoComponent {
+  constructor(private journey: JourneyBase) { }
 
-  ngOnInit(): void {
-    super.ngOnInit();
+  async continue(): Promise<void> {
+    await this.journey.submitQuestionnaire();
+    this.journey.goto(ParticipantJourneySteps.ThankYou);
   }
 }

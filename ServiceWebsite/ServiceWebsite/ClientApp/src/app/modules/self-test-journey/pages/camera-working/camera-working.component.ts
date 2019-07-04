@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
+import { Component } from '@angular/core';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
   selector: 'app-camera-working',
   templateUrl: './camera-working.component.html',
   styles: []
 })
-export class CameraWorkingComponent extends SelfTestBaseComponent implements OnInit {
+export class CameraWorkingComponent {
+  constructor(private journey: JourneyBase) { }
 
-  ngOnInit(): void {
-    super.ngOnInit();
+  continue() {
+    this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
   }
 }

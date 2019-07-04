@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DeviceType } from '../base-journey/services/device-type';
 import { IndividualJourneySteps } from '../individual-journey/individual-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 
 @Injectable()
@@ -46,6 +47,12 @@ export class IndividualStepsOrderFactory {
         IndividualJourneySteps.YourInternetConnection,
         IndividualJourneySteps.AccessToRoom,
         IndividualJourneySteps.Consent,
+        SelfTestJourneySteps.SameComputer,
+        SelfTestJourneySteps.UseCameraAndMicrophoneAgain,
+        SelfTestJourneySteps.SelfTest,
+        SelfTestJourneySteps.CameraWorking,
+        SelfTestJourneySteps.MicrophoneWorking,
+        SelfTestJourneySteps.SeeAndHearVideo,
         IndividualJourneySteps.ThankYou
       ];
     }
