@@ -10,22 +10,23 @@ import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 describe('QuestionnaireCompletedComponent', () => {
-  it(`goes to ${RepresentativeJourneySteps} when pressing contiinue`, () => {
+  it(`goes to ${RepresentativeJourneySteps} when pressing continue`, () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
 
     // because values are being bound they must be set
     journey.model.camera = HasAccessToCamera.Yes;
     journey.model.computer = true;
     journey.model.room = true;
+    journey.model.clientAttendance = false;
     journey.model.aboutYou.answer = true;
     journey.model.aboutYourClient.answer = true;
-    journey.model.clientAttendance = false;
     journey.model.hearingSuitability.answer = false;
 
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: QuestionnaireCompletedComponent,
       declarations: [AppYesNoPipe],
-      providers: [PrintService]
+      providers: [PrintService],
+      journey: journey
     });
 
     const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
