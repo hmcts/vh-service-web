@@ -4,6 +4,8 @@ import {
 } from '../../../base-journey/components/suitability-choice-page-base.component';
 import {JourneyBase} from '../../../base-journey/journey-base';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+
 
 @Component({
   selector: 'app-microphone-working',
@@ -22,5 +24,9 @@ export class MicrophoneWorkingComponent extends GenericSuitabilityChoicePageBase
 
   protected bindModel(): void {
     this.model.selfTest.microphoneWorking = this.choice.value;
+  }
+
+  continue() {
+    this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
   }
 }

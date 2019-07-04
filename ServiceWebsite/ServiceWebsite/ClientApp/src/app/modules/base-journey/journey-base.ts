@@ -17,4 +17,7 @@ export abstract class JourneyBase {
 
     abstract startAt(step: JourneyStep): void;
 
+    abstract goto(step: JourneyStep): void;
+
+    abstract submitQuestionnaire(): Promise<void>;
 }

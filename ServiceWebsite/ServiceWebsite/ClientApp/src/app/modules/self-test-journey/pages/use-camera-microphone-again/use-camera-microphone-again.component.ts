@@ -1,19 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
-} from '../../../base-journey/components/suitability-choice-page-base.component';
 import {JourneyBase} from '../../../base-journey/journey-base';
-import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
   selector: 'app-use-camera-microphone-again',
   templateUrl: './use-camera-microphone-again.component.html',
   styles: []
 })
-export class UseCameraMicrophoneAgainComponent extends GenericSuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+export class UseCameraMicrophoneAgainComponent  {
 
-  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
-    super(journey);
+  constructor(private journey: JourneyBase) {
+    
   }
 
   ngOnInit(): void {
@@ -23,5 +21,9 @@ export class UseCameraMicrophoneAgainComponent extends GenericSuitabilityChoiceP
   }
 
   switchOnCameraAndMicrophone(): void {
+  }
+
+  continue() {
+    this.journey.goto(SelfTestJourneySteps.SelfTest);
   }
 }

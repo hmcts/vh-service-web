@@ -5,6 +5,7 @@ import { JourneyRoutingListenerService } from '../base-journey/services/journey-
 import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 import {IndividualJourneyService} from './services/individual-journey.service';
 import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
+import { SelfTestJourneyStepComponentBindings } from '../self-test-journey/self-test-journey-component-bindings';
 
 describe('IndividualJourneyFactory', () => {
     let suitabilityService: jasmine.SpyObj<SuitabilityService>;
@@ -12,7 +13,7 @@ describe('IndividualJourneyFactory', () => {
     let individualJourneyService: jasmine.SpyObj<IndividualJourneyService>;
     let journey: jasmine.SpyObj<IndividualJourney>;
     let factory: IndividualJourneyFactory;
-    const bindings = new JourneyStepComponentBindings();
+    const bindings = new JourneyStepComponentBindings(new SelfTestJourneyStepComponentBindings());
 
     beforeEach(() => {
       suitabilityService = jasmine.createSpyObj<SuitabilityService>(['getAllSuitabilityAnswers']);

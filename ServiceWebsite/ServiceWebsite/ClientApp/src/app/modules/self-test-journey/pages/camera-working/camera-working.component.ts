@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
 } from '../../../base-journey/components/suitability-choice-page-base.component';
-import {JourneyBase} from '../../../base-journey/journey-base';
-import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+import { JourneyBase } from '../../../base-journey/journey-base';
+import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
   selector: 'app-camera-working',
@@ -22,5 +23,9 @@ export class CameraWorkingComponent extends GenericSuitabilityChoicePageBaseComp
 
   protected bindModel(): void {
     this.model.selfTest.cameraWorking = this.choice.value;
+  }
+
+  continue() {
+    this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
   }
 }

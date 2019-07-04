@@ -4,6 +4,7 @@ import { SuitabilityChoicePageBaseComponent } from '../../components/suitability
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
 @Component({
   selector: 'app-consent',
@@ -86,7 +87,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     this.textInputYes.markAsTouched();
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
-      this.journey.goto(IndividualJourneySteps.ThankYou);
+      this.journey.goto(SelfTestJourneySteps.SameComputer);
     }
   }
 }

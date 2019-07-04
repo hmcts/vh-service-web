@@ -4,6 +4,7 @@ import {
 } from '../../../base-journey/components/suitability-choice-page-base.component';
 import {JourneyBase} from '../../../base-journey/journey-base';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
   selector: 'app-self-test',
@@ -23,5 +24,9 @@ export class SelfTestComponent extends GenericSuitabilityChoicePageBaseComponent
   }
 
   replayVideo(): void {
+  }
+
+  continue() {
+    this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 }

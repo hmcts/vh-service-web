@@ -6,6 +6,7 @@ import {IndividualJourneySteps as Steps} from './individual-journey-steps';
 import {DeviceType} from '../base-journey/services/device-type';
 import {JourneyStep} from '../base-journey/journey-step';
 import {SubmitService} from './services/submit.service';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -104,6 +105,14 @@ describe('IndividualJourney', () => {
     nextStepIs(Steps.YourInternetConnection);
     nextStepIs(Steps.AccessToRoom);
     nextStepIs(Steps.Consent);
+
+    // self test
+    nextStepIs(SelfTestJourneySteps.SameComputer);
+    nextStepIs(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+    nextStepIs(SelfTestJourneySteps.SelfTest);
+    nextStepIs(SelfTestJourneySteps.CameraWorking);
+    nextStepIs(SelfTestJourneySteps.MicrophoneWorking);
+    nextStepIs(SelfTestJourneySteps.SeeAndHearVideo);
 
     // this last step is pending change, will proceed to self test in the future
     nextStepIs(Steps.ThankYou);
