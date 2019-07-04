@@ -19,5 +19,8 @@
         public const string YourInternetConnectionPage = "/your-internet-connection";
         public const string AccessToARoomPage = "/access-to-a-room";
         public const string ConsentPage = "/consent";
+
+        //After submission of answers
+        public const string SameComputer= "/same-computer";
     }
 }
