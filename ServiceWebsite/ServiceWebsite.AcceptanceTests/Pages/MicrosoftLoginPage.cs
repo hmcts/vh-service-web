@@ -28,7 +28,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             NextButton();
             EnterPassword(password);
             SignInButton();
-            DontStaySignedIn();
         }
 
         public void EnterUsername(string username)
