@@ -35,6 +35,26 @@ describe('QuestionnaireCompletedComponent', () => {
     expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.ThankYou);
   });
 
+  it(`should go to ${RepresentativeJourneySteps.ContactUs} if not having computer`, () => {
+    const journey = RepresentativeJourneyStubs.journeySpy;
+    const printService = jasmine.createSpyObj<PrintService>(['print']);
+    const component = new QuestionnaireCompletedComponent(journey, printService);
+
+    journey.model.computer = false;
+    component.continue();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.ContactUs);
+  });
+
+  it(`should go to ${RepresentativeJourneySteps.ContactUs} if not having camera`, () => {
+    const journey = RepresentativeJourneyStubs.journeySpy;
+    const printService = jasmine.createSpyObj<PrintService>(['print']);
+    const component = new QuestionnaireCompletedComponent(journey, printService);
+
+    journey.model.camera = HasAccessToCamera.No;
+    component.continue();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.ContactUs);
+  });
+
   it('gets the camera answer values which are mapped', () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
     const fixture = RepresentativeJourneyComponentTestBed.createComponent({

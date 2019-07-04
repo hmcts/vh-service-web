@@ -35,8 +35,16 @@ export class QuestionnaireCompletedComponent {
     return false;
   }
 
+  private hasCameraAndComputer(): boolean {
+    return this.model.camera !== HasAccessToCamera.No && this.model.computer === true;
+  }
+
   continue() {
-    this.journey.goto(RepresentativeJourneySteps.ThankYou);
+    if (this.hasCameraAndComputer()) {
+      this.journey.goto(RepresentativeJourneySteps.ThankYou);
+    } else {
+      this.journey.goto(RepresentativeJourneySteps.ContactUs);
+    }
   }
 }
 
