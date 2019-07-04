@@ -1,20 +1,28 @@
 import { AccessToRoomComponent } from './access-to-room.component';
-import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
+import { IndividualJourneyComponentTestBed, IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 import { ComponentFixture } from '@angular/core/testing';
 import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { IndividualJourney } from '../../individual-journey';
 
 describe('AccessToRoomComponent', () => {
   let fixture: ComponentFixture<AccessToRoomComponent>;
+  let journey: IndividualJourney;
 
   beforeEach(() => {
-    fixture = IndividualJourneyComponentTestBed.createComponent({component: AccessToRoomComponent});
+    journey = IndividualJourneyStubs.journeySpy;
+    fixture = IndividualJourneyComponentTestBed.createComponent({
+      component: AccessToRoomComponent,
+      journey: journey
+    });
   });
 
-  it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
+  it(`cannot proceed to next step until pressing choice, then goes to ${IndividualJourneySteps.Consent}`, () => {
     CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
 
     // and value is bound
     expect(fixture.componentInstance.model.room).toBe(true);
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.Consent);
   });
 
   it('should contain the scheduled date on init', () => {

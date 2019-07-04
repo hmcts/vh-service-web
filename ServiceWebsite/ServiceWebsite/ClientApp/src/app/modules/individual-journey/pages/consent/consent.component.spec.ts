@@ -1,13 +1,22 @@
+import { IndividualJourneyStubs } from './../individual-base-component/individual-component-test-bed.spec';
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { ConsentComponent } from './consent.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { IndividualJourney } from '../../individual-journey';
 
 describe('ConsentComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
   let component: ConsentComponent;
+  let journey: jasmine.SpyObj<IndividualJourney>;
 
   beforeEach(() => {
-    const componentFixture = IndividualJourneyComponentTestBed.createComponent({component: ConsentComponent});
+    journey = IndividualJourneyStubs.journeySpy;
+    const componentFixture = IndividualJourneyComponentTestBed.createComponent({
+      component: ConsentComponent,
+      journey: journey
+    });
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     component = componentFixture.componentInstance;
     fixture.detectChanges();
@@ -107,6 +116,17 @@ describe('ConsentComponent', () => {
 
      // then
     expect(component.textInputYes.value).toBe('notes');
+  });
+
+  it(`should submit questionnaire and go to ${IndividualJourneySteps.ThankYou} on submitting`, async () => {
+    component.ngOnInit();
+    component.choice.setValue(true);
+    component.textInputYes.setValue('comments');
+
+    await component.submit();
+
+    expect(journey.submitQuestionnaire).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.ThankYou);
   });
 });
 

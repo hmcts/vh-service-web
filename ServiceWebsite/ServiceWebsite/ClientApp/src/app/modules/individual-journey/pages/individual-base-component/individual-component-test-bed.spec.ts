@@ -74,7 +74,7 @@ export class IndividualJourneyStubs {
   public static get journeySpy(): jasmine.SpyObj<IndividualJourney> {
     return {
       model: IndividualJourneyStubs.model,
-      ...jasmine.createSpyObj<IndividualJourney>(['next', 'goto'])
+      ...jasmine.createSpyObj<IndividualJourney>(['next', 'goto', 'submitQuestionnaire'])
     } as jasmine.SpyObj<IndividualJourney>;
   }
 }

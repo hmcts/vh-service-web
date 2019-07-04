@@ -83,7 +83,6 @@ export class IndividualJourney extends JourneyBase {
     }
 
     if (this.submitService.isDropOffPoint(this.model)) {
-      // update the model to set the answers in case browserback was clicked and the answers were changed.
       let saveModel: MutableIndividualSuitabilityModel;
       saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
       // save the updated model.
@@ -127,6 +126,14 @@ export class IndividualJourney extends JourneyBase {
     } else {
       this.currentStep = position;
     }
+  }
+
+  async submitQuestionnaire(): Promise<void> {
+    let saveModel: MutableIndividualSuitabilityModel;
+    saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
+    // save the updated model.
+    await this.submitService.submit(saveModel);
+    this.isSubmitted = true;
   }
 
   /**

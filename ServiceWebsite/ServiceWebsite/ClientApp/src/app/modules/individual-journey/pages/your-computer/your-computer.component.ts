@@ -24,8 +24,15 @@ export class YourComputerComponent extends SuitabilityChoicePageBaseComponent im
     this.model.computer = this.choice.value;
   }
 
-  submit() {
-    if (this.trySubmit()) {
+  async submit(): Promise<void> {
+    if (!this.trySubmit()) {
+      return;
+    }
+
+    if (this.model.computer === false) {
+      this.journey.submitQuestionnaire();
+      this.journey.goto(IndividualJourneySteps.ThankYou);
+    } else {
       this.journey.goto(IndividualJourneySteps.AboutYourComputer);
     }
   }

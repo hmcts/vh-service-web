@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { IndividualJourney } from '../../individual-journey';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 @Component({
   selector: 'app-your-internet-connection',
@@ -19,5 +20,18 @@ export class YourInternetConnectionComponent extends SuitabilityChoicePageBaseCo
 
   protected bindModel() {
     this.model.internet = this.choice.value;
+  }
+
+  async submit(): Promise<void> {
+    if (!this.trySubmit()) {
+      return;
+    }
+
+    if (this.model.internet === false) {
+      await this.journey.submitQuestionnaire();
+      this.journey.goto(IndividualJourneySteps.ThankYou);
+    } else {
+      this.journey.goto(IndividualJourneySteps.AccessToRoom);
+    }
   }
 }
