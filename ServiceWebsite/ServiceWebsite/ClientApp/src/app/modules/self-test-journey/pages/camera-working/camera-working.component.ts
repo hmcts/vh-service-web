@@ -28,4 +28,8 @@ export class CameraWorkingComponent extends GenericSuitabilityChoicePageBaseComp
   continue() {
     this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
   }
+
+  checkEquipment() {
+    this.journey.goto(SelfTestJourneySteps.SelfTest);
+   }
 }

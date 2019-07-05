@@ -29,4 +29,8 @@ export class MicrophoneWorkingComponent extends GenericSuitabilityChoicePageBase
   continue() {
     this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
   }
+
+  checkEquipment() {
+    this.journey.goto(SelfTestJourneySteps.SelfTest);
+   }
 }
