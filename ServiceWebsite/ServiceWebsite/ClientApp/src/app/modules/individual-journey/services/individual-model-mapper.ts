@@ -1,3 +1,4 @@
+import { SelfTestAnswers } from './../../base-journey/participant-suitability.model';
 import { SuitabilityAnswer, HasAccessToCamera, Hearing } from '../../base-journey/participant-suitability.model';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
@@ -27,6 +28,7 @@ export class IndividualModelMapper extends ParticipantModelMapper {
         model.interpreter = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Interpreter);
         model.computer = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Computer);
         model.camera = this.mapComputerCamera(response.answers);
+        model.selfTest = new SelfTestAnswers();
         return model;
     }
 
