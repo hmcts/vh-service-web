@@ -1,11 +1,22 @@
 import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
-import { SuitabilityAnswer, HasAccessToCamera } from '../participant-suitability.model';
+import {SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers, ParticipantSuitabilityModel} from '../participant-suitability.model';
+import {SelfTestQuestionKeys} from '../../individual-journey/services/individual-model-mapper';
 
 export const ParticipantQuestionKeys = {
     Camera: 'CAMERA_MICROPHONE'
 };
 
 export abstract class ParticipantModelMapper {
+
+    protected MapSelfTestAnswers(model: ParticipantSuitabilityModel, answers: HearingSuitabilityAnswer[]): SelfTestAnswers {
+      const selfTestAnswers = new SelfTestAnswers();
+      selfTestAnswers.sameComputer = this.mapBooleanValue(answers, SelfTestQuestionKeys.SameComputer);
+      selfTestAnswers.cameraWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeYourself);
+      selfTestAnswers.microphoneWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.Microphone);
+      selfTestAnswers.seeAndHearClearly = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeHearClearly);
+
+      return selfTestAnswers;
+    }
 
     public mapBooleanValue(answers: HearingSuitabilityAnswer[], key: string) {
         const answer = answers.find(a => a.question_key === key);
