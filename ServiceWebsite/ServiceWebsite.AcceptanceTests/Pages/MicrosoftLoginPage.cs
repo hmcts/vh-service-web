@@ -28,7 +28,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             NextButton();
             EnterPassword(password);
             SignInButton();
-            DontStaySignedIn();
         }
 
         public void EnterUsername(string username)
@@ -48,7 +47,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         
         public void NextButton() => _context.NgDriver.WaitUntilElementVisible(_next).Click();
         public void SignInButton() => _context.NgDriver.WaitUntilElementVisible(_signIn).Click();
-        public void DontStaySignedIn() => _context.NgDriver.WaitUntilElementVisible(_noButton).Click();
         public void SignInTitle()
         {
             _context.Retry(() => _context.NgDriver.Title.Trim().Should().Be("Video hearings"));

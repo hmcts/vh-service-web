@@ -19,6 +19,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourInternetConnection;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
+        private readonly JourneyStepPage _sameComputer;
 
         public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
@@ -30,6 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
+            _sameComputer = new JourneyStepPage(browserContext, PageUri.SameComputer);
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -125,6 +127,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "consent":
                     _consent.Validate();
+                    break;
+                case "same computer":
+                    _sameComputer.Validate();
                     break;
             }
         }
