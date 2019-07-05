@@ -1,5 +1,9 @@
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {
+  SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
+} from '../../../base-journey/components/suitability-choice-page-base.component';
+import { JourneyBase } from '../../../base-journey/journey-base';
+import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
@@ -7,8 +11,19 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
   templateUrl: './camera-working.component.html',
   styles: []
 })
-export class CameraWorkingComponent {
-  constructor(private journey: JourneyBase) { }
+export class CameraWorkingComponent extends GenericSuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
+    super(journey);
+  }
+
+  ngOnInit(): void {
+    this.choice.setValue(this.model.selfTest.cameraWorking);
+  }
+
+  protected bindModel(): void {
+    this.model.selfTest.cameraWorking = this.choice.value;
+  }
 
   continue() {
     this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);

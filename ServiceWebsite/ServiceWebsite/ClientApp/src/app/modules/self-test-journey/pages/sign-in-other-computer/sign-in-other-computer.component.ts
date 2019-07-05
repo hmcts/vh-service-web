@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sign-in-other-computer',
-  templateUrl: './sign-in-other-computer.component.html',
-  styles: []
+  templateUrl: './sign-in-other-computer.component.html'
 })
-export class SignInOtherComputerComponent {}
+export class SignInOtherComputerComponent { }

@@ -1,3 +1,4 @@
+import { SelfTestAnswers } from './../../base-journey/participant-suitability.model';
 import { Hearing } from '../../base-journey/participant-suitability.model';
 import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
@@ -27,6 +28,7 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
         model.room = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.Room);
         model.camera = this.mapComputerCamera(response.answers);
         model.computer = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.Computer);
+        model.selfTest = new SelfTestAnswers();
         return model;
     }
 
