@@ -12,7 +12,6 @@ import { By } from '@angular/platform-browser';
 
 describe('SeeAndHearVideoComponent', () => {
   let fixture;
-  let component;
   let journey;
   beforeEach(() => {
     journey = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
@@ -22,10 +21,10 @@ describe('SeeAndHearVideoComponent', () => {
       journey: journey
     });
   });
- 
+
 
   it(`submits and goes to ${ParticipantJourneySteps.ThankYou} on continuing`, async () => {
-    
+
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
 
@@ -40,9 +39,9 @@ describe('SeeAndHearVideoComponent', () => {
     fixture.detectChanges();
     const checkYourEquipmentButton = this.fixture.debugElement.query(By.css('#checkYourEquipment'));
     checkYourEquipmentButton.nativeElement.click();
-   
+
     fixture.detectChanges();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
-   
+
   });
 });
