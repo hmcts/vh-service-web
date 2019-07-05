@@ -163,12 +163,10 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant computer has no camera and microphone")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4334")]
         public virtual void RepresentativeParticipantComputerHasNoCameraAndMicrophone()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant computer has no camera and microphone", null, new string[] {
-                        "smoketest",
                         "VIH-4334"});
 #line 34
 this.ScenarioInitialize(scenarioInfo);

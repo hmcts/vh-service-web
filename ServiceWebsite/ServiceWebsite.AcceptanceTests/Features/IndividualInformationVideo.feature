@@ -3,7 +3,7 @@
 	I want to view more information about video hearings
 	So that I can see what a video hearing is like from a Participant's point of view
 
-@smoketest @WIP_Test @BlockCameraAndMic
+@WIP_Test @BlockCameraAndMic
 Scenario: Individual user blocks Camera and microphone
 	Given Individual participant proceeds to camera and microphone page
 	When Camera and Microphone are not switched on

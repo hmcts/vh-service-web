@@ -74,13 +74,11 @@ namespace ServiceWebsite.AcceptanceTests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant attempts to proceed to next page without selecting an " +
             "answer on Your Client\'s Attendance page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4441")]
         public virtual void RepresentativeParticipantAttemptsToProceedToNextPageWithoutSelectingAnAnswerOnYourClientsAttendancePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant attempts to proceed to next page without selecting an " +
                     "answer on Your Client\'s Attendance page", null, new string[] {
-                        "smoketest",
                         "VIH-4441"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
@@ -98,13 +96,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant provides additional information for video hearing suit" +
             "ability on Your Client\'s Attendance page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4441")]
         public virtual void RepresentativeParticipantProvidesAdditionalInformationForVideoHearingSuitabilityOnYourClientsAttendancePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant provides additional information for video hearing suit" +
                     "ability on Your Client\'s Attendance page", null, new string[] {
-                        "smoketest",
                         "VIH-4441"});
 #line 13
 this.ScenarioInitialize(scenarioInfo);

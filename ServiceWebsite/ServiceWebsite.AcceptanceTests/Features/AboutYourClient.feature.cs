@@ -74,13 +74,11 @@ namespace ServiceWebsite.AcceptanceTests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant attempts to proceed to next page without providing ans" +
             "wer on About Your Client page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4440")]
         public virtual void RepresentativeParticipantAttemptsToProceedToNextPageWithoutProvidingAnswerOnAboutYourClientPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant attempts to proceed to next page without providing ans" +
                     "wer on About Your Client page", null, new string[] {
-                        "smoketest",
                         "VIH-4440"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
@@ -110,13 +108,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant provides additional information for video hearing suit" +
             "ability on about your client page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4440")]
         public virtual void RepresentativeParticipantProvidesAdditionalInformationForVideoHearingSuitabilityOnAboutYourClientPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant provides additional information for video hearing suit" +
                     "ability on about your client page", null, new string[] {
-                        "smoketest",
                         "VIH-4440"});
 #line 19
 this.ScenarioInitialize(scenarioInfo);

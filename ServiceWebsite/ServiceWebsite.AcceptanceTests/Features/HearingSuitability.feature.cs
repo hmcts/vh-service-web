@@ -74,13 +74,11 @@ namespace ServiceWebsite.AcceptanceTests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant attempts to proceed to next page without providing ans" +
             "wer on Hearing suitability page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4442")]
         public virtual void RepresentativeParticipantAttemptsToProceedToNextPageWithoutProvidingAnswerOnHearingSuitabilityPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant attempts to proceed to next page without providing ans" +
                     "wer on Hearing suitability page", null, new string[] {
-                        "smoketest",
                         "VIH-4442"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
@@ -110,13 +108,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant provides additional information for video hearing suit" +
             "ability on Hearing suitability page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4442")]
         public virtual void RepresentativeParticipantProvidesAdditionalInformationForVideoHearingSuitabilityOnHearingSuitabilityPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant provides additional information for video hearing suit" +
                     "ability on Hearing suitability page", null, new string[] {
-                        "smoketest",
                         "VIH-4442"});
 #line 19
 this.ScenarioInitialize(scenarioInfo);
@@ -136,13 +132,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant believes video hearing is suitable on Hearing suitabil" +
             "ity page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4442")]
         public virtual void RepresentativeParticipantBelievesVideoHearingIsSuitableOnHearingSuitabilityPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant believes video hearing is suitable on Hearing suitabil" +
                     "ity page", null, new string[] {
-                        "smoketest",
                         "VIH-4442"});
 #line 26
 this.ScenarioInitialize(scenarioInfo);

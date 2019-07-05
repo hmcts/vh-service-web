@@ -162,12 +162,10 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Representative participant has access to a room at the time of hearing")]
         [NUnit.Framework.CategoryAttribute("VIH-4432")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         public virtual void RepresentativeParticipantHasAccessToARoomAtTheTimeOfHearing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Representative participant has access to a room at the time of hearing", null, new string[] {
-                        "VIH-4432",
-                        "smoketest"});
+                        "VIH-4432"});
 #line 34
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();

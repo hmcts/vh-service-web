@@ -73,13 +73,11 @@ namespace ServiceWebsite.AcceptanceTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Individual user blocks Camera and microphone")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("WIP_Test")]
         [NUnit.Framework.CategoryAttribute("BlockCameraAndMic")]
         public virtual void IndividualUserBlocksCameraAndMicrophone()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual user blocks Camera and microphone", null, new string[] {
-                        "smoketest",
                         "WIP_Test",
                         "BlockCameraAndMic"});
 #line 7
