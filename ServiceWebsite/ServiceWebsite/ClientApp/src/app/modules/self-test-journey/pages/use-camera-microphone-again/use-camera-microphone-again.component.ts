@@ -17,9 +17,6 @@ export class UseCameraMicrophoneAgainComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  protected bindModel(): void {
-  }
-
   switchOnCameraAndMicrophone(): void {
   }
 
