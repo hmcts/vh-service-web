@@ -37,10 +37,8 @@ describe('SeeAndHearVideoComponent', () => {
 
   it(`redirects to ${SelfTestJourneySteps.SelfTest} on clicking on check your equipment again`,  () => {
     fixture.detectChanges();
-    const checkYourEquipmentButton = this.fixture.debugElement.query(By.css('#checkYourEquipment'));
+    const checkYourEquipmentButton = fixture.debugElement.query(By.css('#checkYourEquipment'));
     checkYourEquipmentButton.nativeElement.click();
-
-    fixture.detectChanges();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
 
   });
