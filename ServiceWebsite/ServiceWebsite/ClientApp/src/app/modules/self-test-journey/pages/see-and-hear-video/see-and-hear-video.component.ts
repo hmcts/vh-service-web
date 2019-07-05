@@ -5,6 +5,7 @@ import {
 import {JourneyBase} from '../../../base-journey/journey-base';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 import { ParticipantJourneySteps } from './../../../base-journey/participant-journey-steps';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
   selector: 'app-see-and-hear-video',
@@ -27,5 +28,9 @@ export class SeeAndHearVideoComponent extends GenericSuitabilityChoicePageBaseCo
   async continue(): Promise<void> {
     await this.journey.submitQuestionnaire();
     this.journey.goto(ParticipantJourneySteps.ThankYou);
+  }
+
+checkEquipment() {
+   this.journey.goto(SelfTestJourneySteps.SelfTest);
   }
 }

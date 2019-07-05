@@ -7,16 +7,25 @@ import {
 import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import {SeeAndHearVideoComponent} from './see-and-hear-video.component';
 import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participant-journey-steps';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { By } from '@angular/platform-browser';
 
 describe('SeeAndHearVideoComponent', () => {
-  it(`submits and goes to ${ParticipantJourneySteps.ThankYou} on continuing`, async () => {
-    const journey = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
-    const fixture = SelfTestJourneyComponentTestBed.createComponent({
+  let fixture;
+  let component;
+  let journey;
+  beforeEach(() => {
+    journey = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+    fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: SeeAndHearVideoComponent,
       declarations: [CrestBluePanelComponent],
       journey: journey
     });
+  });
+ 
 
+  it(`submits and goes to ${ParticipantJourneySteps.ThankYou} on continuing`, async () => {
+    
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
 
@@ -25,5 +34,15 @@ describe('SeeAndHearVideoComponent', () => {
 
     expect(journey.goto).toHaveBeenCalledWith(ParticipantJourneySteps.ThankYou);
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
+  });
+
+  it(`redirects to ${SelfTestJourneySteps.SelfTest} on clicking on check your equipment again`,  () => {
+    fixture.detectChanges();
+    const checkYourEquipmentButton = this.fixture.debugElement.query(By.css('#checkYourEquipment'));
+    checkYourEquipmentButton.nativeElement.click();
+   
+    fixture.detectChanges();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
+   
   });
 });
