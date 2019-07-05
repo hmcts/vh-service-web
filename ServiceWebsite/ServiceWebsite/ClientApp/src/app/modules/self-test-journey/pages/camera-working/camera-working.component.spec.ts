@@ -5,14 +5,26 @@ import {MutableIndividualSuitabilityModel} from '../../../individual-journey/mut
 import {SelfTestAnswers} from '../../../base-journey/participant-suitability.model';
 
 describe('CameraWorkingComponent', () => {
-it(`should submit and go to ${SelfTestJourneySteps.MicrophoneWorking}`, async () => {
-    const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-    const model = new MutableIndividualSuitabilityModel();
-    model.selfTest = new SelfTestAnswers();
+  let journey: jasmine.SpyObj<JourneyBase>;
+  let model: MutableIndividualSuitabilityModel;
 
+  beforeEach(() => {
+    journey = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+    model = new MutableIndividualSuitabilityModel();
+    model.selfTest = new SelfTestAnswers();
+  });
+
+  it(`should submit and go to ${SelfTestJourneySteps.MicrophoneWorking}`, async () => {
     const component = new CameraWorkingComponent(journey, model);
     component.choice.setValue(true);
     await component.submit();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.MicrophoneWorking);
+  });
+
+  it(`redirects to ${SelfTestJourneySteps.SelfTest} on clicking on check your equipment again`,  async () => {
+    const component = new CameraWorkingComponent(journey, model);
+    await component.checkEquipment();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
+    expect(journey.submitQuestionnaire).not.toHaveBeenCalled();
   });
 });

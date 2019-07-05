@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { RepresentativeBaseComponent } from '../representative-base-component/representative-base.component';
 import { HasAccessToCamera } from '../../../base-journey/participant-suitability.model';
 import { PrintService } from '../../../../services/print.service';
 import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
+import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 
 @Component({
   selector: 'app-questionnaire-completed',
@@ -10,16 +11,14 @@ import { RepresentativeJourney } from '../../representative-journey';
   styleUrls: ['./questionnaire-completed.component.css']
 })
 
-export class QuestionnaireCompletedComponent extends RepresentativeBaseComponent {
+export class QuestionnaireCompletedComponent {
   private hasCameraDescriptionMap = new Map<HasAccessToCamera, string>([
     [HasAccessToCamera.Yes, 'Yes'],
     [HasAccessToCamera.No, 'No'],
     [HasAccessToCamera.NotSure, 'I\'m not sure']
   ]);
 
-  constructor(journey: RepresentativeJourney, private printService: PrintService) {
-    super(journey);
-  }
+  constructor(private journey: RepresentativeJourney, private printService: PrintService) {}
 
   getCameraAnswer(): string {
     const enumMappedValue = this.hasCameraDescriptionMap.get(this.model.camera);
@@ -27,9 +26,25 @@ export class QuestionnaireCompletedComponent extends RepresentativeBaseComponent
     return enumMappedValue === undefined ? HasAccessToCamera[this.model.camera] : enumMappedValue;
   }
 
+  get model(): RepresentativeSuitabilityModel {
+    return this.journey.model;
+  }
+
   print(): boolean {
     this.printService.print();
     return false;
+  }
+
+  private hasCameraAndComputer(): boolean {
+    return this.model.camera !== HasAccessToCamera.No && this.model.computer === true;
+  }
+
+  continue() {
+    if (this.hasCameraAndComputer()) {
+      this.journey.goto(RepresentativeJourneySteps.ThankYou);
+    } else {
+      this.journey.goto(RepresentativeJourneySteps.ContactUs);
+    }
   }
 }
 

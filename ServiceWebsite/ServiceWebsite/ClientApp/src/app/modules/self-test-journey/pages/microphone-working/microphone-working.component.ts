@@ -31,4 +31,8 @@ export class MicrophoneWorkingComponent extends SuitabilityChoicePageBaseCompone
 
     this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
   }
+
+  checkEquipment() {
+    this.journey.goto(SelfTestJourneySteps.SelfTest);
+   }
 }
