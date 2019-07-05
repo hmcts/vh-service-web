@@ -1,4 +1,4 @@
-import { SelfTestAnswers } from './../../base-journey/participant-suitability.model';
+import { SelfTestAnswers } from '../../base-journey/participant-suitability.model';
 import { Hearing } from '../../base-journey/participant-suitability.model';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';

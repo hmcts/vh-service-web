@@ -30,7 +30,6 @@ export class SeeAndHearVideoComponent extends SuitabilityChoicePageBaseComponent
     }
 
     await this.journey.submitQuestionnaire();
-    // TODO: Add in logic to go to redo self test
     this.journey.goto(ParticipantJourneySteps.ThankYou);
   }
 
