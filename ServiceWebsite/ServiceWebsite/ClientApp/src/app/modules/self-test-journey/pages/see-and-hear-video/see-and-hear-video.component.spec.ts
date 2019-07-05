@@ -1,4 +1,4 @@
-import { fakeAsync } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import {SelfTestJourneyComponentTestBed} from '../self-test-base-component/self-test-component-test-bed.spec';
 import {
@@ -11,8 +11,9 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { By } from '@angular/platform-browser';
 
 describe('SeeAndHearVideoComponent', () => {
-  let fixture;
-  let journey;
+  let fixture: ComponentFixture<SeeAndHearVideoComponent>;
+  let journey: jasmine.SpyObj<JourneyBase>;
+
   beforeEach(() => {
     journey = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
     fixture = SelfTestJourneyComponentTestBed.createComponent({
@@ -22,9 +23,7 @@ describe('SeeAndHearVideoComponent', () => {
     });
   });
 
-
   it(`submits and goes to ${ParticipantJourneySteps.ThankYou} on continuing`, async () => {
-
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
 
@@ -40,6 +39,5 @@ describe('SeeAndHearVideoComponent', () => {
     const checkYourEquipmentButton = fixture.debugElement.query(By.css('#checkYourEquipment'));
     checkYourEquipmentButton.nativeElement.click();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
-
   });
 });
