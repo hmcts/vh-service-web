@@ -3,6 +3,7 @@ import {
   SuitabilityChoicePageBaseComponent
 } from 'src/app/modules/representative-journey/components/suitability-choice-page-base.component';
 import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
   selector: 'app-your-computer',
@@ -21,5 +22,18 @@ export class YourComputerComponent extends SuitabilityChoicePageBaseComponent im
 
   protected bindModel(): void {
     this.model.computer = this.choice.value;
+  }
+
+  async submit(): Promise<void> {
+    if (!this.trySubmit()) {
+      return;
+    }
+
+    if (this.model.computer) {
+      this.journey.goto(RepresentativeJourneySteps.AboutYourComputer);
+    } else {
+      await this.journey.submitQuestionnaire();
+      this.journey.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
+    }
   }
 }

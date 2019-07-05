@@ -6,6 +6,7 @@ import {
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
 import { RepresentativeJourney } from '../../representative-journey';
 import { ChoiceTextboxComponent } from 'src/app/modules/base-journey/components/choice-textbox.component';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 describe('AboutYourClientComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -26,10 +27,10 @@ describe('AboutYourClientComponent', () => {
     fixture.detectChanges();
   });
 
-  it('binds values and goes to next step after selecting choice and choosing continue', () => {
+  it(`binds values and goes to ${RepresentativeJourneySteps.ClientAttendance} after selecting choice and choosing continue`, () => {
     fixture.radioBoxIsClicked('#choice-no');
     fixture.submitIsClicked();
     expect(journey.model.aboutYourClient.answer).toBe(false);
-    expect(journey.next).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.ClientAttendance);
   });
 });
