@@ -3,7 +3,7 @@
 	I want to be able to tell the court if client's will be attending
 	So that the court can make an informed decision based on my circumstances
 
-@smoketest @VIH-4441
+@VIH-4441
 Scenario: Representative participant attempts to proceed to next page without selecting an answer on Your Client's Attendance page
 	Given Representative participant is on 'client attendance' page
 	When attempts to proceed without selecting an answer
