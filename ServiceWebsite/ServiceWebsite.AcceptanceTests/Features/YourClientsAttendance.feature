@@ -9,7 +9,7 @@ Scenario: Representative participant attempts to proceed to next page without se
 	When attempts to proceed without selecting an answer
 	Then 1 error should be displayed
 
-@smoketest @VIH-4441
+@VIH-4441
 Scenario: Representative participant provides additional information for video hearing suitability on Your Client's Attendance page
 	Given Representative participant is on 'client attendance' page
 	When provides answer as Yes
