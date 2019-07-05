@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
-} from '../../../base-journey/components/suitability-choice-page-base.component';
+import { SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
 import {JourneyBase} from '../../../base-journey/journey-base';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
-import { ParticipantJourneySteps } from './../../../base-journey/participant-journey-steps';
+import { ParticipantJourneySteps } from '../../../base-journey/participant-journey-steps';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
@@ -12,7 +10,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
   templateUrl: './see-and-hear-video.component.html',
   styles: []
 })
-export class SeeAndHearVideoComponent extends GenericSuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+export class SeeAndHearVideoComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
   constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
     super(journey);
@@ -25,12 +23,18 @@ export class SeeAndHearVideoComponent extends GenericSuitabilityChoicePageBaseCo
   protected bindModel(): void {
     this.model.selfTest.seeAndHearClearly = this.choice.value;
   }
-  async continue(): Promise<void> {
+
+  async submit(): Promise<void> {
+    if (!this.trySubmit()) {
+      return;
+    }
+
     await this.journey.submitQuestionnaire();
+    // TODO: Add in logic to go to redo self test
     this.journey.goto(ParticipantJourneySteps.ThankYou);
   }
 
-checkEquipment() {
-   this.journey.goto(SelfTestJourneySteps.SelfTest);
+  checkEquipment() {
+    this.journey.goto(SelfTestJourneySteps.SelfTest);
   }
 }

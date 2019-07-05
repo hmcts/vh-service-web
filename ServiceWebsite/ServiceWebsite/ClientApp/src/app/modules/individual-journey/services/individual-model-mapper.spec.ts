@@ -1,5 +1,5 @@
-import { SuitabilityAnswer, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
-import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from './../../../services/clients/api-client';
+import {SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from '../../../services/clients/api-client';
 import { IndividualModelMapper, IndividualQuestionKeys as Keys } from './individual-model-mapper';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
@@ -66,6 +66,7 @@ describe('IndividualModelMapper', () => {
       answerModel.room = true;
       answerModel.camera = HasAccessToCamera.Yes;
       answerModel.consent = suitability;
+      answerModel.selfTest = new SelfTestAnswers();
 
     });
 
@@ -113,7 +114,7 @@ describe('IndividualModelMapper', () => {
         expect(model.consent.answer).toBeFalsy();
     });
 
-    it('should map all yes/no answers', () => {
+    it('should map all answers', () => {
         givenAnswerIs(Keys.AboutYou, 'true');
         givenAnswerIs(Keys.Consent, 'true');
         givenAnswerIs(Keys.Internet, 'true');
@@ -161,6 +162,7 @@ describe('IndividualModelMapper', () => {
 
   it('should map all undefined answers to request object', () => {
     answerModel = new MutableIndividualSuitabilityModel();
+    answerModel.selfTest = new SelfTestAnswers();
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
     expect(requestAnswersList.length).toBe(0);
   });
@@ -191,7 +193,7 @@ describe('IndividualModelMapper', () => {
 
   });
 
-  it('should map about you answer of Yes with notes to request object', () => {
+  it('should map about you answer with notes to request object', () => {
 
     const suitability: SuitabilityAnswer = {
       answer: true,
@@ -202,7 +204,7 @@ describe('IndividualModelMapper', () => {
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
     const aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
     expect(aboutYouAnswer.question_key).toBe(Keys.AboutYou);
-    expect(aboutYouAnswer.answer).toBe('Yes');
+    expect(aboutYouAnswer.answer).toBe('true');
     expect(aboutYouAnswer.extended_answer).toBe('About you Notes');
   });
 
@@ -218,7 +220,7 @@ describe('IndividualModelMapper', () => {
 
     const aboutYouAnswer = requestAnswersList.find(a => a.question_key === Keys.AboutYou);
     expect(aboutYouAnswer.question_key).toBe(Keys.AboutYou);
-    expect(aboutYouAnswer.answer).toBe('No');
+    expect(aboutYouAnswer.answer).toBe('false');
     expect(aboutYouAnswer.extended_answer).toBe(undefined);
   });
 
@@ -243,17 +245,17 @@ describe('IndividualModelMapper', () => {
     answerModel.computer = false;
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-    validateBooleanExpectation(requestAnswersList, 'No');
+    validateBooleanExpectation(requestAnswersList, 'false');
   });
 
-  it('should map boolean Yes value to request object', () => {
+  it('should map boolean value to request object', () => {
     answerModel.internet = true;
     answerModel.room = true;
     answerModel.interpreter = true;
     answerModel.computer = true;
 
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
-    validateBooleanExpectation(requestAnswersList, 'Yes');
+    validateBooleanExpectation(requestAnswersList, 'true');
   });
 
   const validateBooleanExpectation = (requestAnswers: HearingSuitabilityAnswer[], toBe: string) => {

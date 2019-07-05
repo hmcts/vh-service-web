@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
-} from '../../../base-journey/components/suitability-choice-page-base.component';
+import { SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
 import {JourneyBase} from '../../../base-journey/journey-base';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
@@ -12,7 +10,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
   templateUrl: './microphone-working.component.html',
   styles: []
 })
-export class MicrophoneWorkingComponent extends GenericSuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+export class MicrophoneWorkingComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
   constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
     super(journey);
@@ -26,7 +24,11 @@ export class MicrophoneWorkingComponent extends GenericSuitabilityChoicePageBase
     this.model.selfTest.microphoneWorking = this.choice.value;
   }
 
-  continue() {
+  async submit(): Promise<void> {
+    if (!this.trySubmit()) {
+      return;
+    }
+
     this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
   }
 }

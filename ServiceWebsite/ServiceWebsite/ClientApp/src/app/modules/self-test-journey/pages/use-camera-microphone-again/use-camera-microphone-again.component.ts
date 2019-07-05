@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {JourneyBase} from '../../../base-journey/journey-base';
-
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({

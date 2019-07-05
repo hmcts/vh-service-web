@@ -1,23 +1,18 @@
 import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-import {SelfTestJourneyComponentTestBed} from '../self-test-base-component/self-test-component-test-bed.spec';
-import {
-  CrestBluePanelComponent
-} from '../../../shared/crest-blue-panel/crest-blue-panel.component';
-import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import {CameraWorkingComponent} from './camera-working.component';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import {MutableIndividualSuitabilityModel} from '../../../individual-journey/mutable-individual-suitability.model';
+import {SelfTestAnswers} from '../../../base-journey/participant-suitability.model';
 
 describe('CameraWorkingComponent', () => {
-  it(`goes to ${SelfTestJourneySteps.SeeAndHearVideo} on continuing`, () => {
+it(`should submit and go to ${SelfTestJourneySteps.MicrophoneWorking}`, async () => {
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-    const fixture = SelfTestJourneyComponentTestBed.createComponent({
-      component: CameraWorkingComponent,
-      declarations: [CrestBluePanelComponent],
-      journey: journey
-    });
+    const model = new MutableIndividualSuitabilityModel();
+    model.selfTest = new SelfTestAnswers();
 
-    fixture.detectChanges();
-    new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SeeAndHearVideo);
+    const component = new CameraWorkingComponent(journey, model);
+    component.choice.setValue(true);
+    await component.submit();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.MicrophoneWorking);
   });
 });

@@ -3,7 +3,7 @@
     Same Computer
   </h1>
 </div>
-<form [formGroup]="form" (ngSubmit)="continue()">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <div id="form-container" class="govuk-form-group" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
     <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@microphone_working_span_1">
@@ -40,7 +40,7 @@
                     i18-bind-textArray="@@microphone_working_textArray" bind-textArray="['microphone_working']">
   </app-show-details>
 
-  <button class="govuk-button" (click)="continue()" i18n="@@microphone_working_btn_continue" id="continue" type="button">Continue</button>
+  <button class="govuk-button" (click)="submit()" i18n="@@microphone_working_btn_continue" id="continue" type="button">Continue</button>
 </form>
 
 <app-contact-us></app-contact-us>

@@ -1,23 +1,18 @@
 import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-import { SelfTestJourneyComponentTestBed } from '../self-test-base-component/self-test-component-test-bed.spec';
-import {
-  CrestBluePanelComponent
-} from '../../../shared/crest-blue-panel/crest-blue-panel.component';
-import { ContinuableComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import { SameComputerComponent } from './same-computer.component';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import {HasAccessToCamera, SelfTestAnswers} from '../../../base-journey/participant-suitability.model';
+import {MutableIndividualSuitabilityModel} from '../../../individual-journey/mutable-individual-suitability.model';
 
 describe('SameComputerComponent', () => {
-  it(`goes to ${SelfTestJourneySteps.UseCameraAndMicrophoneAgain} if not on mobile device`, () => {
+  it(`should submit and go to ${SelfTestJourneySteps.UseCameraAndMicrophoneAgain} if answering yes`, async () => {
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-    const fixture = SelfTestJourneyComponentTestBed.createComponent({
-      component: SameComputerComponent,
-      declarations: [CrestBluePanelComponent],
-      journey: journey
-    });
+    const model = new MutableIndividualSuitabilityModel();
+    model.selfTest = new SelfTestAnswers();
 
-    fixture.detectChanges();
-    new ContinuableComponentFixture(fixture).submitIsClicked();
+    const component = new SameComputerComponent(journey, model);
+    component.choice.setValue(true);
+    await component.submit();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
   });
 });

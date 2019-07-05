@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  SuitabilityChoicePageBaseComponent as GenericSuitabilityChoicePageBaseComponent
-} from '../../../base-journey/components/suitability-choice-page-base.component';
+import { SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
 import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
@@ -11,7 +9,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
   templateUrl: './same-computer.component.html',
   styles: []
 })
-export class SameComputerComponent extends GenericSuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
   constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
     super(journey);
@@ -24,7 +22,11 @@ export class SameComputerComponent extends GenericSuitabilityChoicePageBaseCompo
   protected bindModel(): void {
     this.model.selfTest.sameComputer = this.choice.value;
   }
-  continue() {
+
+  async submit(): Promise<void> {
+    if (!this.trySubmit()) {
+      return;
+    }
     // TODO: Add in logic to go to SelfTestJourneySteps.SignInOtherComputer
     this.journey.goto(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
   }
