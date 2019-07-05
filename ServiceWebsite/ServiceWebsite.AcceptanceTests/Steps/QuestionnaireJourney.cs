@@ -2,6 +2,7 @@
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
+using Gherkin.Ast;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -98,5 +99,20 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
             }
         }
+
+        [Given(@"As a participant I have already submitted my questionnaire")]
+        public void GivenAsAParticipantIHaveAlreadySubmittedMyQuestionnaire()
+        {
+            var test = "Do Something";
+            //ScenarioContext.Current.Pending();
+        }
+
+        [When(@"I start my self-start journey")]
+        public void WhenIStartMySelf_StartJourney()
+        {
+            var test = "Do Something";
+            //ScenarioContext.Current.Pending();
+        }
+
     }
 }

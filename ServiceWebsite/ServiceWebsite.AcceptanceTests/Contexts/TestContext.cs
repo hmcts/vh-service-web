@@ -13,6 +13,8 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
         public string BaseUrl { get; set; }
         public string Json { get; set; }
         public string HearingId { get; set; }
+        public string IndividualParticipantId { get; set; }
+        public string RepresentativeParticipantId { get; set; }
         public UserAccount TestUserSecrets { get; set; }
         public SecuritySettings AzureAd { get; set; }
         public string WebsiteUrl { get; set; }
@@ -31,6 +33,14 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
         public RestRequest Post(string path, object requestBody)
         {
             var request = new RestRequest(path, Method.POST);
+            request.AddParameter("Application/json", ApiRequestHelper.SerialiseRequestToSnakeCaseJson(requestBody),
+                ParameterType.RequestBody);
+            return request;
+        }
+
+        public RestRequest Put(string path, object requestBody)
+        {
+            var request = new RestRequest(path, Method.PUT);
             request.AddParameter("Application/json", ApiRequestHelper.SerialiseRequestToSnakeCaseJson(requestBody),
                 ParameterType.RequestBody);
             return request;

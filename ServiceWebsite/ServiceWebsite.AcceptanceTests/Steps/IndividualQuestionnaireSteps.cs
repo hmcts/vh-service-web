@@ -3,6 +3,9 @@ using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
 using System;
 using TechTalk.SpecFlow;
+using ServiceWebsite.AcceptanceTests.Contexts;
+using ServiceWebsite.BookingsAPI.Client;
+using System.Collections.Generic;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -20,8 +23,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
         private readonly JourneyStepPage _sameComputer;
+        private readonly JourneyStepPage _useCameraMicroPhone;
+        private readonly JourneyStepPage _selfTest;
+        private readonly TestContext _testContext;
 
-        public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
+        public IndividualQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
@@ -32,6 +38,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
             _sameComputer = new JourneyStepPage(browserContext, PageUri.SameComputer);
+            _useCameraMicroPhone = new JourneyStepPage(browserContext, PageUri.UseCameraMicroPhone);
+            _selfTest = new JourneyStepPage(browserContext, PageUri.SelfTest);
+            _testContext = testContext;
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -139,6 +148,47 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _aboutYou.SelectNo(detail);
         }
+
+        [Given(@"Individual participant completes the questionnaire")]
+        public void GivenIndividualParticipantCompletesTheQuestionnaire()
+        {
+            _information.InformationScreen("Individual");
+            //Navigate all the way to the consent page
+            InitiateJourneySteps("consent");
+            _consent.Continue();
+        }
+        [When(@"answers all the self-test questions")]
+        public void WhenAnswresAllTheSelf_TestQuestions()
+        {
+            // Convert thse into DecisionJourney types if this page has Yes/No questions
+            _sameComputer.Continue();
+            _useCameraMicroPhone.Continue();
+            _selfTest.Continue();
+        }
+
+        [Given(@"Given as a participant I have already submitted my questionnaire but not completed self-test")]
+        public void GivenGivenAsAParticipantIHaveAlreadySubmittedMyQuestionnaireButNotCompletedSelf_Test()
+        {
+            var test = _testContext;
+            //Submit the answers for individual
+            var answerRequestBody = new List<SuitabilityAnswersRequest>();
+            answerRequestBody.Add(new SuitabilityAnswersRequest
+            {
+                Key = "_Key",
+                Answer = "_Answer",
+                Extended_answer = "_ExtendedAnswer"
+            });
+
+            var answerRequest = _testContext.Put($"/hearings/{_testContext.HearingId}/participants/{_testContext.IndividualParticipantId}/suitability-answers", answerRequestBody);
+            var response = _testContext.Client().Execute(answerRequest);
+        }
+
+        [When(@"When I log back into the service")]
+        public void WhenWhenILogBackIntoTheService()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
 
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
         {

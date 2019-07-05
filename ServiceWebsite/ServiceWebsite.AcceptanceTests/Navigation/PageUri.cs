@@ -22,5 +22,7 @@
 
         //After submission of answers
         public const string SameComputer= "/same-computer";
+        public const string UseCameraMicroPhone = "/use-camera-microphone-again";
+        public const string SelfTest = "/self-test";
     }
 }
