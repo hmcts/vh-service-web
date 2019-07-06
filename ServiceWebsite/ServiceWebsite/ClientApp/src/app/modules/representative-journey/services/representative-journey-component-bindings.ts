@@ -4,6 +4,8 @@ import { Paths } from '../../representative-journey/paths';
 import { Paths as AppPaths } from '../../../paths';
 import { JourneyStep } from '../../base-journey/journey-step';
 import { ParticipantJourneyStepComponentBindings } from '../../base-journey/services/participant-journey-component-bindings';
+import { SelfTestJourneyStepComponentBindings } from '../../self-test-journey/self-test-journey-component-bindings';
+
 
 /**
  * Binds journey steps to components
@@ -11,7 +13,7 @@ import { ParticipantJourneyStepComponentBindings } from '../../base-journey/serv
 export class RepresentativeJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
     readonly bindings = new Map<JourneyStep, string>();
     readonly initialStep = Steps.AboutVideoHearings;
-    constructor() {
+    constructor(selfTest: SelfTestJourneyStepComponentBindings) {
         super();
         this.bindings.set(Steps.AboutVideoHearings, Paths.AboutVideoHearings);
         this.bindings.set(Steps.AboutYouAndYourClient, Paths.AboutYouAndYourClient);
