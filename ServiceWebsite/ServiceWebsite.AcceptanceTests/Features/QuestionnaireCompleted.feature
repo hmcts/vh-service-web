@@ -19,7 +19,7 @@ Scenario: Representative views questionnaire completed page for a client who is 
 	Then Representative should be on 'questionnaire completed' screen
 	And all the answers should match
 	When proceeds to next page
-	Then Representative should be on 'thank you' screen
+	Then Representative should be on 'same computer' screen
 
 @VIH-4443
 Scenario: Representative views questionnaire completed page for a client who is suitable for a video hearing
