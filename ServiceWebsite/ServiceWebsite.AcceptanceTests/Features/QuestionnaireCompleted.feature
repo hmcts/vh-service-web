@@ -38,4 +38,4 @@ Scenario: Representative views questionnaire completed page for a client who is 
 	And all the answers should match
 	And a link with text 'Print my answers' to print the answers should be visible
 	When proceeds to next page
-	Then Representative should be on 'thank you' screen
+	Then Representative should be on 'same computer' screen
