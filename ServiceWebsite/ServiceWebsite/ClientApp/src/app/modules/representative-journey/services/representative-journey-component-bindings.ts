@@ -1,15 +1,15 @@
-import { RepresentativeJourney } from '../representative-journey';
 import { RepresentativeJourneySteps as Steps } from '../representative-journey-steps';
 import { Paths } from '../../representative-journey/paths';
-import { Paths as AppPaths } from '../../../paths';
 import { JourneyStep } from '../../base-journey/journey-step';
 import { ParticipantJourneyStepComponentBindings } from '../../base-journey/services/participant-journey-component-bindings';
 import { SelfTestJourneyStepComponentBindings } from '../../self-test-journey/self-test-journey-component-bindings';
+import { Injectable } from '@angular/core';
 
 
 /**
  * Binds journey steps to components
  */
+@Injectable()
 export class RepresentativeJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
     readonly bindings = new Map<JourneyStep, string>();
     readonly initialStep = Steps.AboutVideoHearings;
@@ -27,6 +27,7 @@ export class RepresentativeJourneyStepComponentBindings extends ParticipantJourn
         this.bindings.set(Steps.QuestionnaireCompleted, Paths.QuestionnaireCompleted);
         this.bindings.set(Steps.ContactUs, Paths.ContactUs);
         this.bindings.set(Steps.ThankYou, Paths.ThankYou);
+        selfTest.bindings.forEach((path, step) => this.bindings.set(step, path));
     }
 
 
