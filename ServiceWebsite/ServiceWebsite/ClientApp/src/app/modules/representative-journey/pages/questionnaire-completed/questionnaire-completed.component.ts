@@ -4,6 +4,8 @@ import { PrintService } from '../../../../services/print.service';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
+import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
+
 
 @Component({
   selector: 'app-questionnaire-completed',
@@ -41,7 +43,7 @@ export class QuestionnaireCompletedComponent {
 
   continue() {
     if (this.hasCameraAndComputer()) {
-      this.journey.goto(RepresentativeJourneySteps.ThankYou);
+      this.journey.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.journey.goto(RepresentativeJourneySteps.ContactUs);
     }
