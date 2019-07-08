@@ -1,3 +1,4 @@
+import { HearingSelector } from './../base-journey/hearing-selector';
 import { Logger } from 'src/app/services/logger';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
@@ -43,25 +44,10 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   forSuitabilityAnswers(suitabilityAnswers: RepresentativeSuitabilityModel[]) {
-    const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
-    if (upcoming.length === 0) {
-      const pastHearings = suitabilityAnswers.map(h => h.hearing.id);
-      this.logger.event('Journey done: No upcoming hearings', { pastHearings });
-      this.isDone = true;
-      return;
-    }
-
-    const pending = upcoming.filter(u => !u.isCompleted());
-    if (pending.length === 0) {
-      const submittedHearings = upcoming.map(p => p.hearing.id);
-      this.logger.event('Journey done: All upcoming hearings completed.', { doneHearings: submittedHearings });
-      this.isDone = true;
-      return;
-    }
-
-    // sort upcoming on date and pick the earliest
-    pending.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
-    this.currentModel = pending[0];
+    const isPending = (answers: RepresentativeSuitabilityModel) => !answers.isCompleted();
+    const selector = new HearingSelector(isPending, suitabilityAnswers, this.logger);
+    this.isDone = selector.isDone;
+    this.currentModel = selector.selected;
   }
 
   startAt(step: JourneyStep) {
