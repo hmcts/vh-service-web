@@ -15,27 +15,13 @@ import {
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { SubmitService } from '../../services/submit.service';
+import { TestLogger } from 'src/app/services/logger.spec';
 
 export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: IndividualJourney;
 }
 
 export class CommonIndividualComponentTests {
-  static continuesWhenButtonIsPressed<TComponent>(config: ComponentTestBedConfiguration<TComponent>) {
-    const journey = jasmine.createSpyObj<IndividualJourney>(['next']);
-    const fixture = IndividualJourneyComponentTestBed.createComponent({
-      component: config.component,
-      providers: config.providers,
-      imports: config.imports,
-      declarations: config.declarations,
-      journey: journey
-    });
-
-    fixture.detectChanges();
-    new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.next).toHaveBeenCalled();
-  }
-
   static goesToStepWhenButtonIsPressed<TComponent>(step: JourneyStep, config: ComponentTestBedConfiguration<TComponent>) {
     const journey = jasmine.createSpyObj<IndividualJourney>(['goto']);
     const fixture = IndividualJourneyComponentTestBed.createComponent({
@@ -59,7 +45,7 @@ export class IndividualJourneyStubs {
     deviceType.isMobile.and.returnValue(false);
     let submitService: jasmine.SpyObj<SubmitService>;
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
-    const journey = new IndividualJourney(individualStepsOrderFactory, submitService);
+    const journey = new IndividualJourney(individualStepsOrderFactory, submitService, TestLogger);
     journey.forSuitabilityAnswers([IndividualJourneyStubs.model]);
     journey.startAt(IndividualJourneySteps.AboutHearings);
     return journey;

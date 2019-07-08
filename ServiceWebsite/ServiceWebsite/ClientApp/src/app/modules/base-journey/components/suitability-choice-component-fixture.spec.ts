@@ -1,4 +1,3 @@
-import { ChoiceForm } from './choice-form';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 

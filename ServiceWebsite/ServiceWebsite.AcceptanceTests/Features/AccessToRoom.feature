@@ -30,7 +30,7 @@ Scenario: Access To A Room Page - Representative participant attempts to proceed
 	Then 1 error should be displayed
 
 
-@VIH-4432 @smoketest
+@VIH-4432
 Scenario: Representative participant has access to a room at the time of hearing
 	Given Representative participant is on 'access to a suitable room' page
 	When provides answer as Yes

@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 
 @Component({
   selector: 'app-media-error',
-  templateUrl: './media-error.component.html',
-  styles: []
+  templateUrl: './media-error.component.html'
 })
-export class MediaErrorComponent extends IndividualBaseComponent {
-}
+export class MediaErrorComponent {}

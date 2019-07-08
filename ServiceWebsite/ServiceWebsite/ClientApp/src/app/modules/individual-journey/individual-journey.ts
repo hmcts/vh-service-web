@@ -1,11 +1,13 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {JourneyBase} from '../base-journey/journey-base';
-import {IndividualSuitabilityModel} from './individual-suitability.model';
-import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
-import {IndividualJourneySteps} from './individual-journey-steps';
-import {JourneyStep} from '../base-journey/journey-step';
-import {SubmitService} from './services/submit.service';
-import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
+import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
+import { EventEmitter, Injectable } from '@angular/core';
+import { JourneyBase } from '../base-journey/journey-base';
+import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
+import { IndividualJourneySteps } from './individual-journey-steps';
+import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
+import { Logger } from 'src/app/services/logger';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -15,10 +17,10 @@ export class IndividualJourney extends JourneyBase {
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
   private currentModel: IndividualSuitabilityModel;
   private isDone: boolean;
-  private isSubmitted: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
-    private submitService: SubmitService) {
+    private submitService: SubmitService,
+    private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
       this.currentStep = step;
@@ -33,19 +35,35 @@ export class IndividualJourney extends JourneyBase {
   forSuitabilityAnswers(suitabilityAnswers: IndividualSuitabilityModel[]) {
     const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
     if (upcoming.length === 0) {
+      const pastHearings = suitabilityAnswers.map(h => h.hearing.id);
+      this.logger.event('Journey done: No upcoming hearings', { pastHearings });
+      this.isDone = true;
+      return;
+    }
+
+    // filter out completed hearings
+    const pending = upcoming.filter((answers: IndividualSuitabilityModel) =>
+      answers.selfTest === undefined || !answers.selfTest.isCompleted());
+
+    if (pending.length === 0) {
+      const submittedHearings = upcoming.map(p => p.hearing.id);
+      this.logger.event('Journey done: All upcoming hearings completed.', { doneHearings: submittedHearings });
       this.isDone = true;
       return;
     }
 
     // sort upcoming on date and pick the earliest
-    upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
-    this.currentModel = upcoming[0];
+    pending.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
+    this.currentModel = pending[0];
   }
 
   startAt(step: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+      this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
     }
@@ -61,60 +79,6 @@ export class IndividualJourney extends JourneyBase {
     }
   }
 
-  next() {
-    this.assertInitialised();
-    this.assertEntered();
-
-    const currentStep = this.stepOrder.indexOf(this.currentStep);
-    if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + this.currentStep);
-    }
-
-    if (this.isSubmitted) {
-      this.goto(IndividualJourneySteps.ThankYou);
-      return;
-    }
-
-    let nextStep = this.stepOrder[currentStep + 1];
-
-    if (this.cannotAccessCamera()) {
-      this.goto(IndividualJourneySteps.MediaAccessError);
-      return;
-    }
-
-    if (this.submitService.isDropOffPoint(this.model)) {
-      let saveModel: MutableIndividualSuitabilityModel;
-      saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
-      // save the updated model.
-      this.submitService.submit(saveModel);
-      this.isSubmitted = true;
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-
-    this.goto(nextStep);
-  }
-
-  private cannotAccessCamera(): boolean {
-    return this.model.mediaAccepted !== undefined && this.model.mediaAccepted === false;
-  }
-
-  fail() {
-    const dropoutToThankYouFrom = [
-      IndividualJourneySteps.AccessToComputer,
-      IndividualJourneySteps.AboutYourComputer,
-      IndividualJourneySteps.YourInternetConnection,
-      IndividualJourneySteps.Consent
-    ];
-
-    if (dropoutToThankYouFrom.includes(this.currentStep)) {
-      this.goto(IndividualJourneySteps.ThankYou);
-    } else if (this.currentStep === IndividualJourneySteps.AccessToCameraAndMicrophone) {
-      this.goto(IndividualJourneySteps.MediaAccessError);
-    } else {
-      throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
-    }
-  }
-
   /**
    * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
    * @param position The step to jump to
@@ -123,17 +87,28 @@ export class IndividualJourney extends JourneyBase {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+      const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
+      this.logger.event(`Redirecting user to self-test`, details);
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
     }
   }
 
+  private isSelfTestStep(step: JourneyStep): boolean {
+    // Include thank you as it comes straight after self-test
+    return step === IndividualJourneySteps.ThankYou || SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
+  }
+
+  private isQuestionnaireCompleted(): boolean {
+    return this.currentModel.consent.answer !== undefined;
+  }
+
   async submitQuestionnaire(): Promise<void> {
     let saveModel: MutableIndividualSuitabilityModel;
     saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
-    // save the updated model.
     await this.submitService.submit(saveModel);
-    this.isSubmitted = true;
   }
 
   /**
@@ -146,11 +121,5 @@ export class IndividualJourney extends JourneyBase {
 
     // we've not initialised the journey
     throw new Error('Journey must be initialised with suitability answers');
-  }
-
-  private assertEntered() {
-    if (this.currentStep === IndividualJourneySteps.NotStarted) {
-      throw new Error('Journey must be entered before navigation is allowed');
-    }
   }
 }

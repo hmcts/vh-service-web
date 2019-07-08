@@ -1,22 +1,43 @@
 import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-import {SelfTestJourneyComponentTestBed} from '../self-test-base-component/self-test-component-test-bed.spec';
-import {
-  CrestBluePanelComponent
-} from '../../../shared/crest-blue-panel/crest-blue-panel.component';
-import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
-import {MicrophoneWorkingComponent} from './microphone-working.component';
+import { MicrophoneWorkingComponent } from './microphone-working.component';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
+import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 
 describe('MicrophoneWorkingComponent', () => {
-  it('can continue', () => {
-    const journey = jasmine.createSpyObj<JourneyBase>(['next']);
-    const fixture = SelfTestJourneyComponentTestBed.createComponent({
-      component: MicrophoneWorkingComponent,
-      declarations: [CrestBluePanelComponent],
-      journey: journey
-    });
+  let journey: jasmine.SpyObj<JourneyBase>;
+  let model: MutableIndividualSuitabilityModel;
 
-    fixture.detectChanges();
-    new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.next).toHaveBeenCalled();
+  beforeEach(() => {
+    journey = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+    model = new MutableIndividualSuitabilityModel();
+    model.selfTest = new SelfTestAnswers();
+  });
+
+  it(`should submit and go to ${SelfTestJourneySteps.SeeAndHearVideo}`, async () => {
+    const component = new MicrophoneWorkingComponent(journey, model);
+    component.choice.setValue(true);
+    await component.submit();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SeeAndHearVideo);
+  });
+
+  it(`redirects to ${SelfTestJourneySteps.SelfTest} on clicking on check your equipment again`, async () => {
+    const component = new MicrophoneWorkingComponent(journey, model);
+    await component.checkEquipment();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
+    expect(journey.submitQuestionnaire).not.toHaveBeenCalled();
+  });
+
+  it('should load any previous value', () => {
+    model.selfTest.microphoneWorking = false;
+    const component = new MicrophoneWorkingComponent(journey, model);
+    component.ngOnInit();
+    expect(component.choice.value).toBe(false);
+  });
+
+  it('should not redirect on invalid form', async () => {
+    const component = new MicrophoneWorkingComponent(journey, model);
+    await component.submit();
+    expect(journey.goto).not.toHaveBeenCalled();
   });
 });

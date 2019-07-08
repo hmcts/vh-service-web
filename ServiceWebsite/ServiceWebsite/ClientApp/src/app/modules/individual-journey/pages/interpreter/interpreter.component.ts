@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
 

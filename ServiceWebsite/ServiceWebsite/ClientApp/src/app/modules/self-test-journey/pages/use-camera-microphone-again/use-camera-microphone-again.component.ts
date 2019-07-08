@@ -1,5 +1,5 @@
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {JourneyBase} from '../../../base-journey/journey-base';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
@@ -7,8 +7,17 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
   templateUrl: './use-camera-microphone-again.component.html',
   styles: []
 })
-export class UseCameraMicrophoneAgainComponent {
-  constructor(private journey: JourneyBase) { }
+export class UseCameraMicrophoneAgainComponent implements OnInit {
+
+  constructor(private journey: JourneyBase) {
+
+  }
+
+  ngOnInit(): void {
+  }
+
+  switchOnCameraAndMicrophone(): void {
+  }
 
   continue() {
     this.journey.goto(SelfTestJourneySteps.SelfTest);

@@ -1,3 +1,4 @@
+import { RepresentativeJourneySteps } from './../../representative-journey-steps';
 import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
 import { AboutYourComputerComponent } from './about-your-computer.component';
 import {
@@ -6,15 +7,22 @@ import {
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
 
 describe('AboutYourComputerComponent', () => {
-  it('cannot proceed to next step until pressing choice, after submit value is bound', () => {
+  it(`should go to ${RepresentativeJourneySteps.QuestionnaireCompleted} and have submitted after having selected an option`, async () => {
+    const journey = RepresentativeJourneyStubs.journeySpy;
     const fixture = RepresentativeJourneyComponentTestBed.createComponent({
-      component: AboutYourComputerComponent
+      component: AboutYourComputerComponent,
+      journey: journey
     });
 
     CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
 
+    // need to await async submit
+    await fixture.whenStable();
+
     // and value is bound
     expect(fixture.componentInstance.model.camera).toBe(0);
+    expect(journey.submitQuestionnaire).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.QuestionnaireCompleted);
   });
 
   it('should initialize choice value', () => {

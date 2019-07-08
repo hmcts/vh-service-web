@@ -1,4 +1,4 @@
-import { SuitabilityAnswer, HasAccessToCamera, Hearing } from '../../base-journey/participant-suitability.model';
+import { Hearing } from '../../base-journey/participant-suitability.model';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
@@ -19,7 +19,6 @@ export class IndividualModelMapper extends ParticipantModelMapper {
     map(response: HearingSuitabilityResponse): IndividualSuitabilityModel {
         const model = new MutableIndividualSuitabilityModel();
         model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at);
-        // map the simple ones
         model.aboutYou = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
         model.consent = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.Consent, response.answers);
         model.internet = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Internet);
@@ -27,6 +26,8 @@ export class IndividualModelMapper extends ParticipantModelMapper {
         model.interpreter = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Interpreter);
         model.computer = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Computer);
         model.camera = this.mapComputerCamera(response.answers);
+        model.selfTest = this.mapSelfTestAnswers(response.answers);
+
         return model;
     }
 
@@ -39,6 +40,8 @@ export class IndividualModelMapper extends ParticipantModelMapper {
       this.addBooleanAnswer(model.interpreter, IndividualQuestionKeys.Interpreter, answers);
       this.addBooleanAnswer(model.computer, IndividualQuestionKeys.Computer, answers);
       this.addAnswerForCamera(model.camera, IndividualQuestionKeys.Camera, answers);
+      this.addSelfTestAnswers(model.selfTest, answers);
+
       return answers;
     }
 }

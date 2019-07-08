@@ -1,14 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
+import { SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
+import {JourneyBase} from '../../../base-journey/journey-base';
+import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
   selector: 'app-self-test',
   templateUrl: './self-test.component.html',
   styles: []
 })
-export class SelfTestComponent extends SelfTestBaseComponent implements OnInit {
+export class SelfTestComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
+    super(journey);
+  }
 
   ngOnInit(): void {
-    super.ngOnInit();
+  }
+
+  protected bindModel(): void {
+  }
+
+  replayVideo(): void {
+  }
+
+  continue() {
+    this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 }

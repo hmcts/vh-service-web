@@ -1,22 +1,21 @@
+import { ContactUsComponent } from './../../../shared/contact-us/contact-us.component';
+import { CrestBluePanelComponent } from '../../../shared/crest-blue-panel/crest-blue-panel.component';
+import { SignInOtherComputerComponent } from './sign-in-other-computer.component';
+import { TestBed } from '@angular/core/testing';
 import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-import {SelfTestJourneyComponentTestBed} from '../self-test-base-component/self-test-component-test-bed.spec';
-import {
-  CrestBluePanelComponent
-} from '../../../shared/crest-blue-panel/crest-blue-panel.component';
-import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
-import {SignInOtherComputerComponent} from './sign-in-other-computer.component';
 
 describe('SignInOtherComputerComponent', () => {
-  it('can continue', () => {
-    const journey = jasmine.createSpyObj<JourneyBase>(['next']);
-    const fixture = SelfTestJourneyComponentTestBed.createComponent({
-      component: SignInOtherComputerComponent,
-      declarations: [CrestBluePanelComponent],
-      journey: journey
-    });
+  it('can create component', () => {
+    TestBed.configureTestingModule({
+      declarations: [
+        CrestBluePanelComponent,
+        SignInOtherComputerComponent,
+        ContactUsComponent
+      ],
+    }).compileComponents();
 
+    const fixture = TestBed.createComponent(SignInOtherComputerComponent);
     fixture.detectChanges();
-    new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.next).toHaveBeenCalled();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

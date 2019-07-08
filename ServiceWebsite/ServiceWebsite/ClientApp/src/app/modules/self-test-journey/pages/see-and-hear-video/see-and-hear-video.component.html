@@ -1,9 +1,47 @@
-<app-crest-blue-panel>
-  <h1 class="govuk-heading-l text-white" i18n="@@aboutHearing_h1_1">See And HearVideoComponent</h1>
+<div>
+  <h1 class="govuk-heading-xl" i18n="@@see_and_hear_video_h1">
+    Could you see and hear the video clearly?
+  </h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div id="form-container" class="govuk-form-group"
+    [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
-  <button type="button" i18n="@@CHANGE_btn_next" class="govuk-button vh-button-white" (click)="continue()"
-    id="continue">
-    Next
-  </button>
-</app-crest-blue-panel>
+    <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@see_and_hear_video_span_1">
+      Please answer this question
+    </span>
+
+    <div>
+      <p class="govuk-body" i18n="@@see_and_hear_video_p_1">Could you see and hear the video clearly?</p>
+    </div>
+
+    <div class="govuk-fieldset">
+      <div class="govuk-radios" data-module="radios">
+        <div class="govuk-radios__item">
+          <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true"
+            data-aria-controls="conditional-how-contacted-conditional">
+          <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@see_and_hear_video_choice_yes">
+            Yes
+          </label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false"
+            data-aria-controls="conditional-how-contacted">
+          <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@see_and_hear_video_choice_no">
+            No
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <app-show-details i18n-bind-detailsTitle="@@see_and_hear_video_detailsTitle" bind-detailsTitle="'see_and_hear_video'"
+    i18-bind-textArray="@@see_and_hear_video_textArray" bind-textArray="['see_and_hear_video']">
+  </app-show-details>
+
+  <button class="govuk-button" (click)="submit()" i18n="@@see_and_hear_video_btn_continue" id="continue" type="button">Continue</button>
+  <button class="govuk-button" (click)="checkEquipment()" i18n="@@see_and_hear_video_btn_check_my_equipment" id="checkYourEquipment" type="button">Check my equipment again</button>
+</form>
+
 <app-contact-us></app-contact-us>

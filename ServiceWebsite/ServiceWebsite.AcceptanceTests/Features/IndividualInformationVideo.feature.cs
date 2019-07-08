@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual views information video", "\tAs an Individual Participant\t\r\n\tI want to view more information about video hear" +
-                    "ings\r\n\tSo that I can see what a video hearing is like from a Participant\'s point" +
-                    " of view", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual views information video", "\tAs an Individual Participant\t\n\tI want to view more information about video heari" +
+                    "ngs\n\tSo that I can see what a video hearing is like from a Participant\'s point o" +
+                    "f view", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -73,13 +73,11 @@ namespace ServiceWebsite.AcceptanceTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Individual user blocks Camera and microphone")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("WIP_Test")]
         [NUnit.Framework.CategoryAttribute("BlockCameraAndMic")]
         public virtual void IndividualUserBlocksCameraAndMicrophone()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual user blocks Camera and microphone", null, new string[] {
-                        "smoketest",
                         "WIP_Test",
                         "BlockCameraAndMic"});
 #line 7

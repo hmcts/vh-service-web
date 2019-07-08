@@ -41,7 +41,7 @@ export class RepresentativeJourneyStubs {
   public static get journeySpy(): jasmine.SpyObj<RepresentativeJourney> {
     return {
       model: RepresentativeJourneyStubs.model,
-      ...jasmine.createSpyObj<RepresentativeJourney>(['next'])
+      ...jasmine.createSpyObj<RepresentativeJourney>(['next', 'goto', 'submitQuestionnaire'])
     } as jasmine.SpyObj<RepresentativeJourney>;
   }
 }

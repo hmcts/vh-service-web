@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
   selector: 'app-client-attendance',
@@ -18,5 +19,11 @@ export class ClientAttendanceComponent extends SuitabilityChoicePageBaseComponen
 
   protected bindModel(): void {
     this.model.clientAttendance = this.choice.value;
+  }
+
+  submit() {
+    if (this.trySubmit()) {
+      this.journey.goto(RepresentativeJourneySteps.HearingSuitability);
+    }
   }
 }

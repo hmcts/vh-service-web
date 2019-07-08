@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
-import { RepresentativeBaseComponent } from '../representative-base-component/representative-base.component';
+import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
   selector: 'app-about-video-hearings',
   templateUrl: './about-video-hearings.component.html',
   styleUrls: []
 })
-export class AboutVideoHearingsComponent extends RepresentativeBaseComponent {
+export class AboutVideoHearingsComponent {
+  constructor(private journey: RepresentativeJourney) {}
+
+  continue() {
+    this.journey.goto(RepresentativeJourneySteps.AboutYouAndYourClient);
+  }
 }

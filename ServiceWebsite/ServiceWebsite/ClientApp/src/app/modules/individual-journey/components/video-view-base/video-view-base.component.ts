@@ -1,6 +1,4 @@
 import { Injectable, ViewChild, OnInit } from '@angular/core';
-import { IndividualBaseComponent } from '../../pages/individual-base-component/individual-base.component';
-import { IndividualJourney } from '../../individual-journey';
 import { VideoViewComponent } from '../../components/video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';

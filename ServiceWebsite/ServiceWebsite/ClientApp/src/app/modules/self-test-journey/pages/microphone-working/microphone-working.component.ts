@@ -1,14 +1,38 @@
 import {Component, OnInit} from '@angular/core';
-import {SelfTestBaseComponent} from '../self-test-base-component/self-test-base.component';
+import { SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
+import {JourneyBase} from '../../../base-journey/journey-base';
+import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+
 
 @Component({
   selector: 'app-microphone-working',
   templateUrl: './microphone-working.component.html',
   styles: []
 })
-export class MicrophoneWorkingComponent extends SelfTestBaseComponent implements OnInit {
+export class MicrophoneWorkingComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
+    super(journey);
+  }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    this.choice.setValue(this.model.selfTest.microphoneWorking);
   }
+
+  protected bindModel(): void {
+    this.model.selfTest.microphoneWorking = this.choice.value;
+  }
+
+  async submit(): Promise<void> {
+    if (!this.trySubmit()) {
+      return;
+    }
+
+    this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
+  }
+
+  checkEquipment() {
+    this.journey.goto(SelfTestJourneySteps.SelfTest);
+   }
 }

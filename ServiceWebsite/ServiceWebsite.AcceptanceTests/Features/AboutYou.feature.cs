@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participant Answers About You Question", "\tAs an Participant\r\n\tI want to be able to tell the court if there is any reason I" +
-                    " don\'t think  am suitable\r\n\tSo that the court can make an informed decision base" +
-                    "d on my circumstances", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participant Answers About You Question", "\tAs an Participant\n\tI want to be able to tell the court if there is any reason I " +
+                    "don\'t think  am suitable\n\tSo that the court can make an informed decision based " +
+                    "on my circumstances", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,13 +74,11 @@ namespace ServiceWebsite.AcceptanceTests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Individual participant attempts to proceed to next page without providing answer " +
             "on About You page")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4332")]
         public virtual void IndividualParticipantAttemptsToProceedToNextPageWithoutProvidingAnswerOnAboutYouPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant attempts to proceed to next page without providing answer " +
                     "on About You page", null, new string[] {
-                        "smoketest",
                         "VIH-4332"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
@@ -110,13 +108,11 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Individual participant provides additional information for video hearing suitabil" +
             "ity")]
-        [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.CategoryAttribute("VIH-4332")]
         public virtual void IndividualParticipantProvidesAdditionalInformationForVideoHearingSuitability()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual participant provides additional information for video hearing suitabil" +
                     "ity", null, new string[] {
-                        "smoketest",
                         "VIH-4332"});
 #line 19
 this.ScenarioInitialize(scenarioInfo);

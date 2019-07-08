@@ -1,11 +1,35 @@
 import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
-import { SuitabilityAnswer, HasAccessToCamera } from '../participant-suitability.model';
+import { SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers, ParticipantSuitabilityModel } from '../participant-suitability.model';
 
 export const ParticipantQuestionKeys = {
     Camera: 'CAMERA_MICROPHONE'
 };
 
+export const SelfTestQuestionKeys = {
+  SameComputer: 'KIT_SAME_COMPUTER',
+  SeeYourself: 'KIT_SEE_YOURSELF',
+  Microphone: 'KIT_MICROPHONE',
+  SeeHearClearly: 'KIT_SEE_HEAR_CLEARLY'
+};
+
 export abstract class ParticipantModelMapper {
+
+    protected mapSelfTestAnswers(answers: HearingSuitabilityAnswer[]): SelfTestAnswers {
+      const selfTestAnswers = new SelfTestAnswers();
+      selfTestAnswers.sameComputer = this.mapBooleanValue(answers, SelfTestQuestionKeys.SameComputer);
+      selfTestAnswers.cameraWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeYourself);
+      selfTestAnswers.microphoneWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.Microphone);
+      selfTestAnswers.seeAndHearClearly = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeHearClearly);
+
+      return selfTestAnswers;
+    }
+
+    protected addSelfTestAnswers(selfTestAnswers: SelfTestAnswers, answers: HearingSuitabilityAnswer[]) {
+      this.addBooleanAnswer(selfTestAnswers.sameComputer, SelfTestQuestionKeys.SameComputer, answers);
+      this.addBooleanAnswer(selfTestAnswers.cameraWorking, SelfTestQuestionKeys.SeeYourself, answers);
+      this.addBooleanAnswer(selfTestAnswers.microphoneWorking, SelfTestQuestionKeys.Microphone, answers);
+      this.addBooleanAnswer(selfTestAnswers.seeAndHearClearly, SelfTestQuestionKeys.SeeHearClearly, answers);
+    }
 
     public mapBooleanValue(answers: HearingSuitabilityAnswer[], key: string) {
         const answer = answers.find(a => a.question_key === key);
@@ -71,7 +95,7 @@ export abstract class ParticipantModelMapper {
   private createHearingSuitabilityAnswer(key: string, answer: boolean, extendedAnswer: string): HearingSuitabilityAnswer {
     const hearingSuitabilityAnswer = new HearingSuitabilityAnswer();
     hearingSuitabilityAnswer.question_key = key;
-    hearingSuitabilityAnswer.answer = answer ? 'Yes' : 'No';
+    hearingSuitabilityAnswer.answer = answer.toString();
     if (extendedAnswer !== null) {
       hearingSuitabilityAnswer.extended_answer = extendedAnswer;
     }

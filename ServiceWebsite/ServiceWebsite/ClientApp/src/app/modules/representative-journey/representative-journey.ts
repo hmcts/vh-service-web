@@ -3,7 +3,6 @@ import { JourneyBase } from '../base-journey/journey-base';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps } from './representative-journey-steps';
-import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 
@@ -15,8 +14,6 @@ export class RepresentativeJourney extends JourneyBase {
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
   private isDone: boolean;
-  private isSelfTestDone: boolean;
-  private isSubmitted: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory, private submitService: SubmitService) {
     super();
@@ -75,40 +72,8 @@ export class RepresentativeJourney extends JourneyBase {
     }
   }
 
-  submitQuestionnaire(): Promise<void> {
-    return Promise.resolve();
-  }
-
-  next() {
-    this.assertInitialised();
-    this.assertEntered();
-
-    const currentStep = this.stepOrder.indexOf(this.currentStep);
-    if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + this.currentStep);
-    }
-
-    let nextStep = this.stepOrder[currentStep + 1];
-
-    if (this.isDropOffPoint() && !this.isSubmitted) {
-      // update the model to set the answers in case browserback was clicked and the answers were changed.
-      this.submitService.submit(this.model);
-      this.isSubmitted = true;
-      nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
-    }
-    // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
-    if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
-      if (this.model.computer === false || this.model.camera === HasAccessToCamera.No) {
-        nextStep = RepresentativeJourneySteps.ContactUs;
-      }
-    }
-
-    this.goto(nextStep);
-  }
-
-  isDropOffPoint(): boolean {
-    return (this.model.computer === false || this.model.camera === HasAccessToCamera.No ||
-      this.model.camera === HasAccessToCamera.Yes || this.model.camera === HasAccessToCamera.NotSure);
+  async submitQuestionnaire(): Promise<void> {
+    await this.submitService.submit(this.model);
   }
 
   /**
@@ -140,10 +105,5 @@ export class RepresentativeJourney extends JourneyBase {
     if (this.currentStep === RepresentativeJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
     }
-  }
-
-  private async submit() {
-    // call the save service
-    this.isSubmitted = true;
   }
 }
