@@ -31,9 +31,8 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Contact Us For Help", "As an Individual participant\r\nI want to be provided with a way of viewing contact" +
-                    " details for the video hearing officer\r\nSo that I can contact them if I need hel" +
-                    "p", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Contact Us For Help", "As an Individual participant\nI want to be provided with a way of viewing contact " +
+                    "details for the video hearing officer\nSo that I can contact them if I need help", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

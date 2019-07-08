@@ -36,37 +36,6 @@ export class SelfTestJourney {
     }
   }
 
-  next() {
-    const currentStep = this.stepOrder.indexOf(this.currentStep);
-    if  (currentStep < 0) {
-      throw new Error(`Current step '${this.currentStep}' is not part of the self test`);
-    }
-
-    if (this.isLastStep(currentStep)) {
-      // do submission
-      this.submit.emit(this.model);
-      this.goto(ParticipantJourneySteps.ThankYou);
-      return;
-    }
-
-    if (this.notOnSameDevice()) {
-      this.goto(SelfTestJourneySteps.SignInOtherComputer);
-      return;
-    }
-
-    const nextStep = this.stepOrder[currentStep + 1];
-
-    this.goto(nextStep);
-  }
-
-  private isLastStep(index: number): boolean {
-    return index === this.stepOrder.length - 1;
-  }
-
-  private notOnSameDevice(): boolean {
-    return this.model.selfTest.sameComputer === false;
-  }
-
   jumpTo(position: JourneyStep) {
     if (this.isDone()) {
       this.goto(ParticipantJourneySteps.GotoVideoApp);
