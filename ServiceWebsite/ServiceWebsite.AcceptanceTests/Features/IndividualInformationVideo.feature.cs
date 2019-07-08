@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual views information video", "\tAs an Individual Participant\t\r\n\tI want to view more information about video hear" +
-                    "ings\r\n\tSo that I can see what a video hearing is like from a Participant\'s point" +
-                    " of view", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual views information video", "\tAs an Individual Participant\t\n\tI want to view more information about video heari" +
+                    "ngs\n\tSo that I can see what a video hearing is like from a Participant\'s point o" +
+                    "f view", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

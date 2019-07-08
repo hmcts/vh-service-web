@@ -21,21 +21,6 @@ export interface IndividualComponentTestBedConfiguration<TComponent> extends Com
 }
 
 export class CommonIndividualComponentTests {
-  static continuesWhenButtonIsPressed<TComponent>(config: ComponentTestBedConfiguration<TComponent>) {
-    const journey = jasmine.createSpyObj<IndividualJourney>(['next']);
-    const fixture = IndividualJourneyComponentTestBed.createComponent({
-      component: config.component,
-      providers: config.providers,
-      imports: config.imports,
-      declarations: config.declarations,
-      journey: journey
-    });
-
-    fixture.detectChanges();
-    new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.next).toHaveBeenCalled();
-  }
-
   static goesToStepWhenButtonIsPressed<TComponent>(step: JourneyStep, config: ComponentTestBedConfiguration<TComponent>) {
     const journey = jasmine.createSpyObj<IndividualJourney>(['goto']);
     const fixture = IndividualJourneyComponentTestBed.createComponent({

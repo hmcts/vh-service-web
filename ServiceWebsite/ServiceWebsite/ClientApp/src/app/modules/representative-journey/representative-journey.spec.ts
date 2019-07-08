@@ -5,7 +5,6 @@ import { RepresentativeStepsOrderFactory } from './representative-steps-order.fa
 import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
-import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -66,85 +65,9 @@ describe('RepresentativeJourney', () => {
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
   });
 
-  const whenProceeding = () => {
-    journey.next();
-  };
-
   const givenUserIsAtStep = (s: JourneyStep) => {
     journey.jumpTo(s);
   };
-
-  const nextStepIs = (expectedStep: JourneyStep) => {
-    whenProceeding();
-    expect(redirected).toBe(expectedStep);
-  };
-
-  it('should follow the happy path journey', () => {
-    // given we're starting at the beginning
-    journey.startAt(RepresentativeJourney.initialStep);
-
-    // then the happy path journey would be
-    nextStepIs(Steps.AboutYouAndYourClient);
-    nextStepIs(Steps.AboutYou);
-    nextStepIs(Steps.AccessToRoom);
-    nextStepIs(Steps.AboutYourClient);
-    nextStepIs(Steps.ClientAttendance);
-    nextStepIs(Steps.HearingSuitability);
-    nextStepIs(Steps.AccessToComputer);
-    nextStepIs(Steps.AboutYourComputer);
-    nextStepIs(Steps.QuestionnaireCompleted);
-
-    // self test
-    nextStepIs(SelfTestJourneySteps.SameComputer);
-    nextStepIs(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
-    nextStepIs(SelfTestJourneySteps.SelfTest);
-    nextStepIs(SelfTestJourneySteps.CameraWorking);
-    nextStepIs(SelfTestJourneySteps.MicrophoneWorking);
-    nextStepIs(SelfTestJourneySteps.SeeAndHearVideo);
-
-    // this last step is pending change, will proceed to self test in the future
-    nextStepIs(Steps.ThankYou);
-  });
-
-  const expectDropOffToQuestionnaireCompletedFrom = (s: JourneyStep) => {
-    givenUserIsAtStep(s);
-    journey.next();
-    expect(redirected).toBe(Steps.QuestionnaireCompleted);
-  };
-  const expectDropOffToContactUsFrom = (s: JourneyStep) => {
-    givenUserIsAtStep(s);
-    whenProceeding();
-    expect(redirected).toBe(Steps.ContactUs);
-  };
-
-  it(`should continue to ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
-    journey.model.computer = false;
-    expectDropOffToQuestionnaireCompletedFrom(Steps.AccessToComputer);
-  });
-
-  it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no access to a computer`, () => {
-    journey.model.computer = false;
-    expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
-  });
-
-  it(`should continue to ${Steps.QuestionnaireCompleted} if answered representative has answered question about camera`, () => {
-    for (const answer of [HasAccessToCamera.No, HasAccessToCamera.Yes, HasAccessToCamera.No]) {
-      journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
-      journey.model.camera = answer;
-      expectDropOffToQuestionnaireCompletedFrom(Steps.AboutYourComputer);
-    }
-  });
-
-  it(`should continue to ${Steps.ContactUs} from ${Steps.QuestionnaireCompleted} if representative has no camera`, () => {
-    journey.model.camera = HasAccessToCamera.No;
-    expectDropOffToContactUsFrom(Steps.QuestionnaireCompleted);
-  });
-
-  it('should raise an error on missing transition', () => {
-    givenUserIsAtStep(Steps.ContactUs);
-    expect(() => whenProceeding())
-      .toThrowError(`Missing transition for step: ${Steps.ContactUs}`);
-  });
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
@@ -181,36 +104,5 @@ describe('RepresentativeJourney', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming);
     journey.jumpTo(Steps.AboutVideoHearings);
     expect(redirected).toBe(Steps.GotoVideoApp);
-  });
-
-  it('should throw exception if trying to enter or proceed journey without having been initialised', () => {
-    // given a journey that's not been initialised
-    const uninitialisedJourney = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
-    const expectedError = 'Journey must be initialised with suitability answers';
-    expect(() => uninitialisedJourney.jumpTo(Steps.ClientAttendance)).toThrowError(expectedError);
-    expect(() => uninitialisedJourney.next()).toThrowError(expectedError);
-  });
-
-  it('should throw an exception if proceeding without having entered the journey', () => {
-    expect(() => journey.next()).toThrowError('Journey must be entered before navigation is allowed');
-  });
-
-  it(`should continue to ${Steps.ContactUs} from the ${Steps.QuestionnaireCompleted} page if representative has submitted`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
-    givenUserIsAtStep(Steps.AboutYourComputer);
-    journey.model.computer = false;
-    journey.next();
-    expect(redirected).toBe(Steps.QuestionnaireCompleted);
-
-    journey.next();
-    expect(redirected).toBe(Steps.ContactUs);
-  });
-
-  it(`should call SubmitService Submit if representative has yes camera`, () => {
-    givenUserIsAtStep(Steps.AboutYourComputer);
-    journey.model.camera = HasAccessToCamera.Yes;
-    journey.next();
-    expect(submitService.submit).toHaveBeenCalled();
-    expect(redirected).toBe(Steps.QuestionnaireCompleted);
   });
 });
