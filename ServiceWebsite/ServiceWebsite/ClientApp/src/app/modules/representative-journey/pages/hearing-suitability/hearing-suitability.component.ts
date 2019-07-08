@@ -9,7 +9,11 @@ import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 })
 export class HearingSuitabilityComponent {
 
-  constructor(private journey: RepresentativeJourney) {}
+  journey: RepresentativeJourney;
+
+  constructor(journey: RepresentativeJourney) {
+    this.journey = journey;
+  }
 
   submit() {
     this.journey.goto(RepresentativeJourneySteps.AccessToComputer);
