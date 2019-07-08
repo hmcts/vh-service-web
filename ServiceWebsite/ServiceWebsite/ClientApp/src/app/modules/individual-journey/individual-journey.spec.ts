@@ -3,7 +3,7 @@ import {MutableIndividualSuitabilityModel} from './mutable-individual-suitabilit
 import {IndividualJourney} from './individual-journey';
 import {HasAccessToCamera, Hearing, SelfTestAnswers} from '../base-journey/participant-suitability.model';
 import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
-import {IndividualJourneySteps as Steps} from './individual-journey-steps';
+import {IndividualJourneySteps as Steps, IndividualJourneySteps} from './individual-journey-steps';
 import {DeviceType} from '../base-journey/services/device-type';
 import {JourneyStep} from '../base-journey/journey-step';
 import {SubmitService} from './services/submit.service';
@@ -23,6 +23,7 @@ describe('IndividualJourney', () => {
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
     const model = new MutableIndividualSuitabilityModel();
     model.hearing = new Hearing(id, scheduledDateTime);
+    model.selfTest = new SelfTestAnswers();
     return model;
   };
 
@@ -48,7 +49,7 @@ describe('IndividualJourney', () => {
     const model = getCompletedModel(id, scheduledDateTime);
     model.selfTest = new SelfTestAnswers();
     return model;
-  }
+  };
 
   // helper test data
   const suitabilityAnswers = {
@@ -84,10 +85,6 @@ describe('IndividualJourney', () => {
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
   });
 
-  const givenUserIsAtStep = (s: JourneyStep) => {
-    journey.jumpTo(s);
-  };
-
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
     journey.jumpTo(Steps.AboutHearings);
@@ -95,6 +92,9 @@ describe('IndividualJourney', () => {
   });
 
   it('should stay where it is if trying to enter at the current step', () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
+    journey.startAt(IndividualJourneySteps.AboutHearings);
+
     const currentStep = redirected;
     redirected = null;
 
@@ -105,6 +105,12 @@ describe('IndividualJourney', () => {
     expect(redirected).toBeNull();
   });
 
+  it('should redirect to video app if all upcoming hearings are done', () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
+    journey.startAt(Steps.AboutHearings);
+    expect(redirected).toBe(Steps.GotoVideoApp);
+  });
+
   it('should run the journey for the first upcoming hearing', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings());
     expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');
@@ -113,6 +119,7 @@ describe('IndividualJourney', () => {
   it('should run the journey from start for the first upcoming hearing that is not completed', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
     expect(journey.model.hearing.id).toBe('another upcoming hearing id');
+    console.log(JSON.stringify(journey.model, null, 2));
     journey.startAt(Steps.AboutHearings);
     expect(redirected).toBe(Steps.AboutHearings);
   });

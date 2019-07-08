@@ -1,11 +1,11 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {JourneyBase} from '../base-journey/journey-base';
-import {IndividualSuitabilityModel} from './individual-suitability.model';
-import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
-import {IndividualJourneySteps} from './individual-journey-steps';
-import {JourneyStep} from '../base-journey/journey-step';
-import {SubmitService} from './services/submit.service';
-import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
+import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
+import { EventEmitter, Injectable } from '@angular/core';
+import { JourneyBase } from '../base-journey/journey-base';
+import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
+import { IndividualJourneySteps } from './individual-journey-steps';
+import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 @Injectable()
@@ -17,7 +17,6 @@ export class IndividualJourney extends JourneyBase {
   private currentModel: IndividualSuitabilityModel;
   private isDone: boolean;
   private isSubmitted: boolean;
-  private selfTestPending;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
     private submitService: SubmitService) {
@@ -39,15 +38,26 @@ export class IndividualJourney extends JourneyBase {
       return;
     }
 
+    // filter out completed hearings
+    const pending = upcoming.filter((answers: IndividualSuitabilityModel) =>
+      answers.selfTest === undefined || !answers.selfTest.isCompleted());
+
+    if (pending.length === 0) {
+      this.isDone = true;
+      return;
+    }
+
     // sort upcoming on date and pick the earliest
-    upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
-    this.currentModel = upcoming[0];
+    pending.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
+    this.currentModel = pending[0];
   }
 
   startAt(step: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
     }
@@ -69,13 +79,22 @@ export class IndividualJourney extends JourneyBase {
    */
   jumpTo(position: JourneyStep) {
     this.assertInitialised();
-    if (this.selfTestPending) {
-      this.goto(SelfTestJourneySteps.SameComputer);
-    } else if (this.isDone) {
+    this.assertInitialised();
+    if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
     }
+  }
+
+  private isSelfTestStep(step: JourneyStep): boolean {
+    return SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
+  }
+
+  private isQuestionnaireCompleted(): boolean {
+    return this.currentModel.consent.answer !== undefined;
   }
 
   async submitQuestionnaire(): Promise<void> {

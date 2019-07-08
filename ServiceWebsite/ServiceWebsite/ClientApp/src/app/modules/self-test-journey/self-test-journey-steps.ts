@@ -8,4 +8,16 @@ export class SelfTestJourneySteps {
   static readonly CameraWorking = new JourneyStep('CameraWorking');
   static readonly MicrophoneWorking = new JourneyStep('MicrophoneWorking');
   static readonly SeeAndHearVideo = new JourneyStep('SeeAndHearVideo');
+
+  static GetAll(): JourneyStep[] {
+    return [
+      this.UseCameraAndMicrophoneAgain,
+      this.SameComputer,
+      this.SignInOtherComputer,
+      this.SelfTest,
+      this.CameraWorking,
+      this.MicrophoneWorking,
+      this.SeeAndHearVideo
+    ];
+  }
 }

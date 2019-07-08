@@ -28,6 +28,13 @@ export class SelfTestAnswers {
     sameComputer: boolean;
     cameraWorking: boolean;
     microphoneWorking: boolean;
+
+    isCompleted() {
+        return this.seeAndHearClearly !== undefined
+            && this.sameComputer !== undefined
+            && this.cameraWorking !== undefined
+            && this.microphoneWorking !== undefined;
+    }
 }
 
 
