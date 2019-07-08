@@ -119,12 +119,6 @@ describe('RepresentativeJourney', () => {
     expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');
   });
 
-  it('should redirect fo video app if any suitability answers have been answered', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
-    journey.jumpTo(Steps.AboutVideoHearings);
-    expect(redirected).toBe(Steps.GotoVideoApp);
-  });
-
   it('should run the journey from start for the first upcoming hearing that is not completed', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
     expect(journey.model.hearing.id).toBe('another upcoming hearing id');

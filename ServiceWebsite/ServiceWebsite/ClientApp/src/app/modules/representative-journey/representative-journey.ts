@@ -5,6 +5,8 @@ import { RepresentativeStepsOrderFactory } from './representative-steps-order.fa
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
+import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
@@ -47,23 +49,26 @@ export class RepresentativeJourney extends JourneyBase {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
     }
   }
 
+  private isQuestionnaireCompleted(): boolean {
+    return this.currentModel.computer !== undefined
+      || (this.currentModel.camera === HasAccessToCamera.NotSure || this.currentModel.camera === HasAccessToCamera.Yes);
+  }
+
+  private isSelfTestStep(step: JourneyStep): boolean {
+    // Include thank you as it comes straight after self-test
+    return step === RepresentativeJourneySteps.ThankYou || SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
+  }
+
   get model(): RepresentativeSuitabilityModel {
     return this.currentModel;
   }
-
-  private isSuitabilityAnswersComplete(model: RepresentativeSuitabilityModel): boolean {
-    return model.aboutYou.answer !== undefined
-      && model.aboutYourClient.answer !== undefined
-      && model.clientAttendance !== undefined
-      && model.hearingSuitability.answer !== undefined
-      && model.room !== undefined
-      && model.computer !== undefined;
-    }
 
   goto(step: JourneyStep) {
     if (this.currentStep !== step) {
@@ -83,6 +88,8 @@ export class RepresentativeJourney extends JourneyBase {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
     }
@@ -98,11 +105,5 @@ export class RepresentativeJourney extends JourneyBase {
 
     // we've not initialised the journey
     throw new Error('Journey must be initialised with suitability answers');
-  }
-
-  private assertEntered() {
-    if (this.currentStep === RepresentativeJourneySteps.NotStarted) {
-      throw new Error('Journey must be entered before navigation is allowed');
-    }
   }
 }
