@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
   selector: 'app-hearing-suitability',
@@ -8,9 +9,9 @@ import { RepresentativeJourney } from '../../representative-journey';
 })
 export class HearingSuitabilityComponent {
 
-  readonly journey: RepresentativeJourney;
+  constructor(private journey: RepresentativeJourney) {}
 
-  constructor(journey: RepresentativeJourney) {
-    this.journey = journey;
+  submit() {
+    this.journey.goto(RepresentativeJourneySteps.AccessToComputer);
   }
 }

@@ -6,6 +6,7 @@ import {
 import { RepresentativeJourney } from '../../representative-journey';
 import { ChoiceTextboxComponent } from 'src/app/modules/base-journey/components/choice-textbox.component';
 import { HearingSuitabilityComponent } from './hearing-suitability.component';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 describe('HearingSuitabilityComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -30,6 +31,6 @@ describe('HearingSuitabilityComponent', () => {
     fixture.radioBoxIsClicked('#choice-no');
     fixture.submitIsClicked();
     expect(journey.model.hearingSuitability.answer).toBe(false);
-    expect(journey.next).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AccessToComputer);
   });
 });
