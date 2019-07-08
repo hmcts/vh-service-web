@@ -28,7 +28,7 @@ export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<Jo
     if (!this.trySubmit()) {
       return;
     }
-    
+
     if (!this.model.selfTest.sameComputer || this.deviceType.isMobile()) {
       this.journey.goto(SelfTestJourneySteps.SignInOtherComputer);
     } else {
