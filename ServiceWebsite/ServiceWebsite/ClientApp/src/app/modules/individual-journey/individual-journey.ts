@@ -6,6 +6,7 @@ import {IndividualJourneySteps} from './individual-journey-steps';
 import {JourneyStep} from '../base-journey/journey-step';
 import {SubmitService} from './services/submit.service';
 import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -16,6 +17,7 @@ export class IndividualJourney extends JourneyBase {
   private currentModel: IndividualSuitabilityModel;
   private isDone: boolean;
   private isSubmitted: boolean;
+  private selfTestPending;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
     private submitService: SubmitService) {
@@ -67,7 +69,9 @@ export class IndividualJourney extends JourneyBase {
    */
   jumpTo(position: JourneyStep) {
     this.assertInitialised();
-    if (this.isDone) {
+    if (this.selfTestPending) {
+      this.goto(SelfTestJourneySteps.SameComputer);
+    } else if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
     } else {
       this.currentStep = position;
