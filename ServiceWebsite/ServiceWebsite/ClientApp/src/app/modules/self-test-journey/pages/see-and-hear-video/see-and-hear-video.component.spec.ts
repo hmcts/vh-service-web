@@ -29,4 +29,10 @@ it(`submits and goes to ${ParticipantJourneySteps.ThankYou} on continuing`, asyn
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
     expect(journey.submitQuestionnaire).not.toHaveBeenCalled();
   });
+
+  it('should not redirect on invalid form', async () => {
+    const component = new SeeAndHearVideoComponent(journey, model);
+    await component.submit();
+    expect(journey.goto).not.toHaveBeenCalled();
+  });
 });
