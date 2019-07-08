@@ -1,14 +1,20 @@
 import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
-import {SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers, ParticipantSuitabilityModel} from '../participant-suitability.model';
-import {SelfTestQuestionKeys} from '../../individual-journey/services/individual-model-mapper';
+import { SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers, ParticipantSuitabilityModel } from '../participant-suitability.model';
 
 export const ParticipantQuestionKeys = {
     Camera: 'CAMERA_MICROPHONE'
 };
 
+export const SelfTestQuestionKeys = {
+  SameComputer: 'KIT_SAME_COMPUTER',
+  SeeYourself: 'KIT_SEE_YOURSELF',
+  Microphone: 'KIT_MICROPHONE',
+  SeeHearClearly: 'KIT_SEE_HEAR_CLEARLY'
+};
+
 export abstract class ParticipantModelMapper {
 
-    protected MapSelfTestAnswers(model: ParticipantSuitabilityModel, answers: HearingSuitabilityAnswer[]): SelfTestAnswers {
+    protected mapSelfTestAnswers(answers: HearingSuitabilityAnswer[]): SelfTestAnswers {
       const selfTestAnswers = new SelfTestAnswers();
       selfTestAnswers.sameComputer = this.mapBooleanValue(answers, SelfTestQuestionKeys.SameComputer);
       selfTestAnswers.cameraWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeYourself);
@@ -16,6 +22,13 @@ export abstract class ParticipantModelMapper {
       selfTestAnswers.seeAndHearClearly = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeHearClearly);
 
       return selfTestAnswers;
+    }
+
+    protected addSelfTestAnswers(selfTestAnswers: SelfTestAnswers, answers: HearingSuitabilityAnswer[]) {
+      this.addBooleanAnswer(selfTestAnswers.sameComputer, SelfTestQuestionKeys.SameComputer, answers);
+      this.addBooleanAnswer(selfTestAnswers.cameraWorking, SelfTestQuestionKeys.SeeYourself, answers);
+      this.addBooleanAnswer(selfTestAnswers.microphoneWorking, SelfTestQuestionKeys.Microphone, answers);
+      this.addBooleanAnswer(selfTestAnswers.seeAndHearClearly, SelfTestQuestionKeys.SeeHearClearly, answers);
     }
 
     public mapBooleanValue(answers: HearingSuitabilityAnswer[], key: string) {

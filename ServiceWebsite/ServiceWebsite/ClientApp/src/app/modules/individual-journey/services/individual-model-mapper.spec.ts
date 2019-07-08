@@ -1,8 +1,9 @@
 import {SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from '../../../services/clients/api-client';
-import { IndividualModelMapper, IndividualQuestionKeys, SelfTestQuestionKeys } from './individual-model-mapper';
+import { IndividualModelMapper, IndividualQuestionKeys } from './individual-model-mapper';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
+import { SelfTestQuestionKeys } from '../../base-journey/services/participant-model-mapper';
 
 describe('IndividualModelMapper', () => {
     let serviceResponse: HearingSuitabilityResponse;

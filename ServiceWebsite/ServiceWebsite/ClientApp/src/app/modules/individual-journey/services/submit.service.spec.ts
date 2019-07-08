@@ -21,6 +21,10 @@ describe('SubmitService', () => {
     model.consent.answer = true;
     model.consent.notes = 'consent notes';
     model.selfTest = new SelfTestAnswers();
+    model.selfTest.cameraWorking = true;
+    model.selfTest.microphoneWorking = true;
+    model.selfTest.seeAndHearClearly = true;
+    model.selfTest.sameComputer = true;
   });
 
   it('should call the suitability service to submit answers', async () => {

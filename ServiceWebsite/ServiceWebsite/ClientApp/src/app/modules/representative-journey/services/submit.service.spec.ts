@@ -1,6 +1,6 @@
 import { SubmitService } from './submit.service';
 import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
-import { Hearing, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
+import {Hearing, HasAccessToCamera, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
 import { RepresentativeSuitabilityService } from './representative-suitability.service';
 
 describe('SubmitService', () => {
@@ -20,6 +20,11 @@ describe('SubmitService', () => {
     model.computer = true;
     model.camera = HasAccessToCamera.Yes;
     model.room = true;
+    model.selfTest = new SelfTestAnswers();
+    model.selfTest.cameraWorking = true;
+    model.selfTest.microphoneWorking = true;
+    model.selfTest.seeAndHearClearly = true;
+    model.selfTest.sameComputer = true;
    });
 
   it('should call the suitability service to submit answers', async () => {
