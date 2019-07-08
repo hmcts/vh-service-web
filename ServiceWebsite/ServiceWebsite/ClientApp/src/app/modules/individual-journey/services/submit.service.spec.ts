@@ -1,6 +1,6 @@
 import { SubmitService } from './submit.service';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
-import { Hearing, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
+import {Hearing, HasAccessToCamera, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
 import { SuitabilityService } from './suitability.service';
 import { IndividualJourneySteps } from '../individual-journey-steps';
 
@@ -20,6 +20,7 @@ describe('SubmitService', () => {
     model.room = true;
     model.consent.answer = true;
     model.consent.notes = 'consent notes';
+    model.selfTest = new SelfTestAnswers();
   });
 
   it('should call the suitability service to submit answers', async () => {

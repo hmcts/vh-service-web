@@ -3,7 +3,7 @@
     Check your computer
   </h1>
 </div>
-<form [formGroup]="form" (ngSubmit)="continue()">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <div id="form-container" class="govuk-form-group" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
     <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@same_computer_span_1">
@@ -11,7 +11,7 @@
     </span>
 
     <div>
-      <p class="govuk-body" i18n="@@same_computer_p_1">We need to check that a video hearing wood work on your computer.</p>
+      <p class="govuk-body" i18n="@@same_computer_p_1">We need to check that a video hearing would work on your computer.</p>
       <p class="govuk-body" i18n="@@same_computer_p_2">Is this the same computer you would use for video hearing?</p>
     </div>
 
@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  <button class="govuk-button" (click)="continue()" i18n="@@same_computer_btn_continue" id="continue" type="button">Continue</button>
+  <button class="govuk-button" (click)="submit()" i18n="@@same_computer_btn_continue" id="continue" type="button">Continue</button>
 </form>
 
 <app-contact-us></app-contact-us>

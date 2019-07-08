@@ -71,7 +71,7 @@ export abstract class ParticipantModelMapper {
   private createHearingSuitabilityAnswer(key: string, answer: boolean, extendedAnswer: string): HearingSuitabilityAnswer {
     const hearingSuitabilityAnswer = new HearingSuitabilityAnswer();
     hearingSuitabilityAnswer.question_key = key;
-    hearingSuitabilityAnswer.answer = answer ? 'Yes' : 'No';
+    hearingSuitabilityAnswer.answer = answer.toString();
     if (extendedAnswer !== null) {
       hearingSuitabilityAnswer.extended_answer = extendedAnswer;
     }
