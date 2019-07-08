@@ -46,7 +46,7 @@ export class RepresentativeJourney extends JourneyBase {
       return;
     }
 
-    const pending = upcoming.filter(u => u.selfTest !== undefined && !u.selfTest.isCompleted());
+    const pending = upcoming.filter(u => !u.isCompleted());
     if (pending.length === 0) {
       this.isDone = true;
       return;

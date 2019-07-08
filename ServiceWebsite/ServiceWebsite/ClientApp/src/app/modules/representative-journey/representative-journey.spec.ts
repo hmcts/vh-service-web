@@ -46,6 +46,11 @@ describe('RepresentativeJourney', () => {
     return model;
   };
 
+  const getDroppedOutModel = (id: string) => {
+    const model = getModelForHearing(id, tomorrow);
+    model.computer = false;
+    return model;
+  };
 
   const getOnlyCompletedQuestionnaire = (id: string, scheduledDateTime: Date) => {
     const model = getCompletedModel(id, scheduledDateTime);
@@ -69,6 +74,9 @@ describe('RepresentativeJourney', () => {
       getModelForHearing('upcoming hearing id', dayAfterTomorrow),
       getCompletedModel('completed hearing id'),
       getModelForHearing('another upcoming hearing id', tomorrow)
+    ],
+    droppedOutFromQuestionnaire: () => [
+      getDroppedOutModel('dropped out hearing')
     ],
     withoutSelfTest: () => [
       getOnlyCompletedQuestionnaire('completed questionnaire', tomorrow)
@@ -151,6 +159,13 @@ describe('RepresentativeJourney', () => {
     journey.jumpTo(Steps.ContactUs);
 
     expect(journey.step).toBe(Steps.ContactUs);
+  });
+
+  it(`should redirect to videoapp if having dropped out from questionnaire`, () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.droppedOutFromQuestionnaire());
+    journey.startAt(Steps.AboutVideoHearings);
+
+    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
