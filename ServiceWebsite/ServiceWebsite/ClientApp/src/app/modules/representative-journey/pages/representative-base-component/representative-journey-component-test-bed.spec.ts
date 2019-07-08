@@ -1,3 +1,4 @@
+import { TestLogger } from './../../../../services/logger.spec';
 import { MutableRepresentativeSuitabilityModel } from '../../mutable-representative-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
@@ -26,7 +27,7 @@ export class RepresentativeJourneyStubs {
     const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
     let submitService: jasmine.SpyObj<SubmitService>;
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
-    const journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
+    const journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService, TestLogger);
     journey.forSuitabilityAnswers([RepresentativeJourneyStubs.model]);
     journey.startAt(RepresentativeJourneySteps.AboutVideoHearings);
     return journey;

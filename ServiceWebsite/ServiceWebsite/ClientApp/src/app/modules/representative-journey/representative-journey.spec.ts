@@ -6,6 +6,7 @@ import { RepresentativeJourneySteps as Steps } from './representative-journey-st
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
+import { TestLogger } from 'src/app/services/logger.spec';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -87,7 +88,7 @@ describe('RepresentativeJourney', () => {
 
   beforeEach(() => {
     redirected = null;
-    journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
+    journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService, TestLogger);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);

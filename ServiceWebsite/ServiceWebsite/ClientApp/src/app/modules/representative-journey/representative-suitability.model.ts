@@ -11,6 +11,6 @@ export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabil
 
     isCompleted(): boolean {
         const droppedOff = this.camera === HasAccessToCamera.No || this.computer === false;
-        return droppedOff || (this.selfTest && this.selfTest.isCompleted());
+        return droppedOff || (this.selfTest !== undefined && this.selfTest.isCompleted());
     }
 }

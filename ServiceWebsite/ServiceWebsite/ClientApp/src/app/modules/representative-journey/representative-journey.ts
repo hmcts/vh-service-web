@@ -1,3 +1,4 @@
+import { Logger } from 'src/app/services/logger';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
@@ -6,7 +7,6 @@ import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
-import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
@@ -29,7 +29,10 @@ export class RepresentativeJourney extends JourneyBase {
     RepresentativeJourneySteps.AboutYourComputer
   ];
 
-  constructor(private stepsFactory: RepresentativeStepsOrderFactory, private submitService: SubmitService) {
+  constructor(
+    private stepsFactory: RepresentativeStepsOrderFactory,
+    private submitService: SubmitService,
+    private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
     this.stepOrder = this.stepsFactory.stepOrder();
@@ -42,12 +45,16 @@ export class RepresentativeJourney extends JourneyBase {
   forSuitabilityAnswers(suitabilityAnswers: RepresentativeSuitabilityModel[]) {
     const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
     if (upcoming.length === 0) {
+      const pastHearings = suitabilityAnswers.map(h => h.hearing.id);
+      this.logger.event('Journey done: No upcoming hearings', { pastHearings });
       this.isDone = true;
       return;
     }
 
     const pending = upcoming.filter(u => !u.isCompleted());
     if (pending.length === 0) {
+      const submittedHearings = upcoming.map(p => p.hearing.id);
+      this.logger.event('Journey done: All upcoming hearings completed.', { doneHearings: submittedHearings });
       this.isDone = true;
       return;
     }
@@ -62,6 +69,7 @@ export class RepresentativeJourney extends JourneyBase {
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
     } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
+      this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
       this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
@@ -100,6 +108,8 @@ export class RepresentativeJourney extends JourneyBase {
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
     } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
+      const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
+      this.logger.event(`Redirecting user to self-test`, details);
       this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
