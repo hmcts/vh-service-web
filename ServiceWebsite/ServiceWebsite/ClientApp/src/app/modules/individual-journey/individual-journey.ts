@@ -1,11 +1,13 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {JourneyBase} from '../base-journey/journey-base';
-import {IndividualSuitabilityModel} from './individual-suitability.model';
-import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
-import {IndividualJourneySteps} from './individual-journey-steps';
-import {JourneyStep} from '../base-journey/journey-step';
-import {SubmitService} from './services/submit.service';
-import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
+import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
+import { EventEmitter, Injectable } from '@angular/core';
+import { JourneyBase } from '../base-journey/journey-base';
+import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
+import { IndividualJourneySteps } from './individual-journey-steps';
+import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
+import { Logger } from 'src/app/services/logger';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -17,7 +19,8 @@ export class IndividualJourney extends JourneyBase {
   private isDone: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
-    private submitService: SubmitService) {
+    private submitService: SubmitService,
+    private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
       this.currentStep = step;
@@ -32,19 +35,35 @@ export class IndividualJourney extends JourneyBase {
   forSuitabilityAnswers(suitabilityAnswers: IndividualSuitabilityModel[]) {
     const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
     if (upcoming.length === 0) {
+      const pastHearings = suitabilityAnswers.map(h => h.hearing.id);
+      this.logger.event('Journey done: No upcoming hearings', { pastHearings });
+      this.isDone = true;
+      return;
+    }
+
+    // filter out completed hearings
+    const pending = upcoming.filter((answers: IndividualSuitabilityModel) =>
+      answers.selfTest === undefined || !answers.selfTest.isCompleted());
+
+    if (pending.length === 0) {
+      const submittedHearings = upcoming.map(p => p.hearing.id);
+      this.logger.event('Journey done: All upcoming hearings completed.', { doneHearings: submittedHearings });
       this.isDone = true;
       return;
     }
 
     // sort upcoming on date and pick the earliest
-    upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
-    this.currentModel = upcoming[0];
+    pending.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
+    this.currentModel = pending[0];
   }
 
   startAt(step: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+      this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
     }
@@ -68,9 +87,22 @@ export class IndividualJourney extends JourneyBase {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+      const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
+      this.logger.event(`Redirecting user to self-test`, details);
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
     }
+  }
+
+  private isSelfTestStep(step: JourneyStep): boolean {
+    // Include thank you as it comes straight after self-test
+    return step === IndividualJourneySteps.ThankYou || SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
+  }
+
+  private isQuestionnaireCompleted(): boolean {
+    return this.currentModel.consent.answer !== undefined;
   }
 
   async submitQuestionnaire(): Promise<void> {
@@ -89,11 +121,5 @@ export class IndividualJourney extends JourneyBase {
 
     // we've not initialised the journey
     throw new Error('Journey must be initialised with suitability answers');
-  }
-
-  private assertEntered() {
-    if (this.currentStep === IndividualJourneySteps.NotStarted) {
-      throw new Error('Journey must be entered before navigation is allowed');
-    }
   }
 }
