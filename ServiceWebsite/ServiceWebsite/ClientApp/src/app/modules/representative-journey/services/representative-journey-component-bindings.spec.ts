@@ -2,9 +2,11 @@ import { Paths } from '../paths';
 import { RepresentativeJourneySteps } from '../representative-journey-steps';
 import { RepresentativeJourneyStepComponentBindings } from './representative-journey-component-bindings';
 import { JourneyStep } from '../../base-journey/journey-step';
+import { SelfTestJourneyStepComponentBindings } from '../../self-test-journey/self-test-journey-component-bindings';
 
 describe('RepresentativeJourneyStepComponentBindings', () => {
-    const bindings: RepresentativeJourneyStepComponentBindings = new RepresentativeJourneyStepComponentBindings();
+  const bindings: RepresentativeJourneyStepComponentBindings =
+    new RepresentativeJourneyStepComponentBindings(new SelfTestJourneyStepComponentBindings());
 
     it('returns null if no mapping exists for a path', () => {
         expect(bindings.getJourneyStep('missing-path')).toBeNull();

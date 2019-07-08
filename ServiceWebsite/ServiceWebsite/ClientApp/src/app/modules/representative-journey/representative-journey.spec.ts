@@ -5,6 +5,7 @@ import { RepresentativeStepsOrderFactory } from './representative-steps-order.fa
 import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -92,6 +93,15 @@ describe('RepresentativeJourney', () => {
     nextStepIs(Steps.AccessToComputer);
     nextStepIs(Steps.AboutYourComputer);
     nextStepIs(Steps.QuestionnaireCompleted);
+
+    // self test
+    nextStepIs(SelfTestJourneySteps.SameComputer);
+    nextStepIs(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+    nextStepIs(SelfTestJourneySteps.SelfTest);
+    nextStepIs(SelfTestJourneySteps.CameraWorking);
+    nextStepIs(SelfTestJourneySteps.MicrophoneWorking);
+    nextStepIs(SelfTestJourneySteps.SeeAndHearVideo);
+
     // this last step is pending change, will proceed to self test in the future
     nextStepIs(Steps.ThankYou);
   });
@@ -118,7 +128,7 @@ describe('RepresentativeJourney', () => {
   });
 
   it(`should continue to ${Steps.QuestionnaireCompleted} if answered representative has answered question about camera`, () => {
-    for (const answer of [ HasAccessToCamera.No, HasAccessToCamera.Yes, HasAccessToCamera.No ]) {
+    for (const answer of [HasAccessToCamera.No, HasAccessToCamera.Yes, HasAccessToCamera.No]) {
       journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing);
       journey.model.camera = answer;
       expectDropOffToQuestionnaireCompletedFrom(Steps.AboutYourComputer);

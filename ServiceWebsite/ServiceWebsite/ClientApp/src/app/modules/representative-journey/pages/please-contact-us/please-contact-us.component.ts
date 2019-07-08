@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RepresentativeBaseComponent } from '../representative-base-component/representative-base.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-please-contact-us',
-  templateUrl: './please-contact-us.component.html',
-  styles: []
+  templateUrl: './please-contact-us.component.html'
 })
-export class PleaseContactUsComponent extends RepresentativeBaseComponent {
-
-}
+export class PleaseContactUsComponent {}
