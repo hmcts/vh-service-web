@@ -79,38 +79,6 @@ export class RepresentativeJourney extends JourneyBase {
     return Promise.resolve();
   }
 
-  next() {
-    this.assertInitialised();
-    this.assertEntered();
-
-    const currentStep = this.stepOrder.indexOf(this.currentStep);
-    if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + this.currentStep);
-    }
-
-    let nextStep = this.stepOrder[currentStep + 1];
-
-    if (this.isDropOffPoint() && !this.isSubmitted) {
-      // update the model to set the answers in case browserback was clicked and the answers were changed.
-      this.submitService.submit(this.model);
-      this.isSubmitted = true;
-      nextStep = RepresentativeJourneySteps.QuestionnaireCompleted;
-    }
-    // incase of 'no' response for access to computer and camera navigate to questionnaire completed, contact us
-    if (this.currentStep === RepresentativeJourneySteps.QuestionnaireCompleted) {
-      if (this.model.computer === false || this.model.camera === HasAccessToCamera.No) {
-        nextStep = RepresentativeJourneySteps.ContactUs;
-      }
-    }
-
-    this.goto(nextStep);
-  }
-
-  isDropOffPoint(): boolean {
-    return (this.model.computer === false || this.model.camera === HasAccessToCamera.No ||
-      this.model.camera === HasAccessToCamera.Yes || this.model.camera === HasAccessToCamera.NotSure);
-  }
-
   /**
    * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
    * @param position The step to jump to

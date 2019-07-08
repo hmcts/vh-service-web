@@ -61,60 +61,6 @@ export class IndividualJourney extends JourneyBase {
     }
   }
 
-  next() {
-    this.assertInitialised();
-    this.assertEntered();
-
-    const currentStep = this.stepOrder.indexOf(this.currentStep);
-    if (currentStep < 0 || currentStep === this.stepOrder.length - 1) {
-      throw new Error('Missing transition for step: ' + this.currentStep);
-    }
-
-    if (this.isSubmitted) {
-      this.goto(IndividualJourneySteps.ThankYou);
-      return;
-    }
-
-    let nextStep = this.stepOrder[currentStep + 1];
-
-    if (this.cannotAccessCamera()) {
-      this.goto(IndividualJourneySteps.MediaAccessError);
-      return;
-    }
-
-    if (this.submitService.isDropOffPoint(this.model)) {
-      let saveModel: MutableIndividualSuitabilityModel;
-      saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
-      // save the updated model.
-      this.submitService.submit(saveModel);
-      this.isSubmitted = true;
-      nextStep = IndividualJourneySteps.ThankYou;
-    }
-
-    this.goto(nextStep);
-  }
-
-  private cannotAccessCamera(): boolean {
-    return this.model.mediaAccepted !== undefined && this.model.mediaAccepted === false;
-  }
-
-  fail() {
-    const dropoutToThankYouFrom = [
-      IndividualJourneySteps.AccessToComputer,
-      IndividualJourneySteps.AboutYourComputer,
-      IndividualJourneySteps.YourInternetConnection,
-      IndividualJourneySteps.Consent
-    ];
-
-    if (dropoutToThankYouFrom.includes(this.currentStep)) {
-      this.goto(IndividualJourneySteps.ThankYou);
-    } else if (this.currentStep === IndividualJourneySteps.AccessToCameraAndMicrophone) {
-      this.goto(IndividualJourneySteps.MediaAccessError);
-    } else {
-      throw new Error(`Missing/unexpected failure for step: ${this.currentStep}`);
-    }
-  }
-
   /**
    * Sets the journey to a specific step. This can be used when navigating to a specific step in the journey.
    * @param position The step to jump to
