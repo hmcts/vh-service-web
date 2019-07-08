@@ -7,6 +7,7 @@ import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
+import { Logger } from 'src/app/services/logger';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -19,7 +20,8 @@ export class IndividualJourney extends JourneyBase {
   private isSubmitted: boolean;
 
   constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
-    private submitService: SubmitService) {
+    private submitService: SubmitService,
+    private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
       this.currentStep = step;
@@ -34,6 +36,8 @@ export class IndividualJourney extends JourneyBase {
   forSuitabilityAnswers(suitabilityAnswers: IndividualSuitabilityModel[]) {
     const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
     if (upcoming.length === 0) {
+      const pastHearings = suitabilityAnswers.map(h => h.hearing.id);
+      this.logger.event('Journey done: No upcoming hearings', { pastHearings });
       this.isDone = true;
       return;
     }
@@ -43,6 +47,8 @@ export class IndividualJourney extends JourneyBase {
       answers.selfTest === undefined || !answers.selfTest.isCompleted());
 
     if (pending.length === 0) {
+      const submittedHearings = upcoming.map(p => p.hearing.id);
+      this.logger.event('Journey done: All upcoming hearings completed.', { doneHearings: submittedHearings });
       this.isDone = true;
       return;
     }
@@ -57,6 +63,7 @@ export class IndividualJourney extends JourneyBase {
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
     } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+      this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
       this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
@@ -82,6 +89,8 @@ export class IndividualJourney extends JourneyBase {
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
     } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+      const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
+      this.logger.event(`Redirecting user to self-test`, details);
       this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
@@ -89,7 +98,8 @@ export class IndividualJourney extends JourneyBase {
   }
 
   private isSelfTestStep(step: JourneyStep): boolean {
-    return SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
+    // Include thank you as it comes straight after self-test
+    return step === IndividualJourneySteps.ThankYou || SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
   }
 
   private isQuestionnaireCompleted(): boolean {

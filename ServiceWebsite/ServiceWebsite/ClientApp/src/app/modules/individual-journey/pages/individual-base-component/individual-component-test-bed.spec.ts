@@ -15,6 +15,7 @@ import {
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { SubmitService } from '../../services/submit.service';
+import { TestLogger } from 'src/app/services/logger.spec';
 
 export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: IndividualJourney;
@@ -44,7 +45,7 @@ export class IndividualJourneyStubs {
     deviceType.isMobile.and.returnValue(false);
     let submitService: jasmine.SpyObj<SubmitService>;
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
-    const journey = new IndividualJourney(individualStepsOrderFactory, submitService);
+    const journey = new IndividualJourney(individualStepsOrderFactory, submitService, TestLogger);
     journey.forSuitabilityAnswers([IndividualJourneyStubs.model]);
     journey.startAt(IndividualJourneySteps.AboutHearings);
     return journey;

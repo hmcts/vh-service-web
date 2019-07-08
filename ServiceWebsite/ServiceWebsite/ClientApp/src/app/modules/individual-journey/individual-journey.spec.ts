@@ -1,3 +1,4 @@
+import { ConsoleLogger } from './../../services/console-logger';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
 import {IndividualJourney} from './individual-journey';
@@ -7,6 +8,8 @@ import {IndividualJourneySteps as Steps, IndividualJourneySteps} from './individ
 import {DeviceType} from '../base-journey/services/device-type';
 import {JourneyStep} from '../base-journey/journey-step';
 import {SubmitService} from './services/submit.service';
+import { TestLogger } from 'src/app/services/logger.spec';
+import { tick } from '@angular/core/src/render3';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -79,7 +82,7 @@ describe('IndividualJourney', () => {
 
   beforeEach(() => {
     redirected = null;
-    journey = new IndividualJourney(individualStepsOrderFactory, submitService);
+    journey = new IndividualJourney(individualStepsOrderFactory, submitService, TestLogger);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
@@ -119,7 +122,6 @@ describe('IndividualJourney', () => {
   it('should run the journey from start for the first upcoming hearing that is not completed', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
     expect(journey.model.hearing.id).toBe('another upcoming hearing id');
-    console.log(JSON.stringify(journey.model, null, 2));
     journey.startAt(Steps.AboutHearings);
     expect(redirected).toBe(Steps.AboutHearings);
   });
@@ -141,8 +143,8 @@ describe('IndividualJourney', () => {
     journey.model.selfTest.seeAndHearClearly = true;
 
     // and going to
-    journey.goto(Steps.ThankYou);
+    journey.jumpTo(Steps.ThankYou);
 
-    expect(redirected).toBe(Steps.ThankYou);
+    expect(journey.step).toBe(Steps.ThankYou);
   });
 });
