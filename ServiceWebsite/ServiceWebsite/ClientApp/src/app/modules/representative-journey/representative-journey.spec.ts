@@ -126,25 +126,25 @@ describe('RepresentativeJourney', () => {
     expect(redirected).toBe(Steps.AboutHearings);
   });
 
-  // it(`should enter journey at ${SelfTestJourneySteps.SameComputer} if completed questionnaire but not self-test`, () => {
-  //   journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-  //   journey.jumpTo(Steps.AboutHearings);
-  //   expect(redirected).toBe(SelfTestJourneySteps.SameComputer);
-  // });
+  it(`should enter journey at ${SelfTestJourneySteps.SameComputer} if completed questionnaire but not self-test`, () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
+    journey.jumpTo(Steps.AboutHearings);
+    expect(redirected).toBe(SelfTestJourneySteps.SameComputer);
+  });
 
-  // it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
-  //   journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-  //   journey.startAt(SelfTestJourneySteps.SameComputer);
+  it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
+    journey.startAt(SelfTestJourneySteps.SameComputer);
 
-  //   // when completing self test journey
-  //   journey.model.selfTest.cameraWorking = true;
-  //   journey.model.selfTest.microphoneWorking = true;
-  //   journey.model.selfTest.sameComputer = true;
-  //   journey.model.selfTest.seeAndHearClearly = true;
+    // when completing self test journey
+    journey.model.selfTest.cameraWorking = true;
+    journey.model.selfTest.microphoneWorking = true;
+    journey.model.selfTest.sameComputer = true;
+    journey.model.selfTest.seeAndHearClearly = true;
 
-  //   // and going to
-  //   journey.jumpTo(Steps.ThankYou);
+    // and going to
+    journey.jumpTo(Steps.ThankYou);
 
-  //   expect(journey.step).toBe(Steps.ThankYou);
-  // });
+    expect(journey.step).toBe(Steps.ThankYou);
+  });
 });
