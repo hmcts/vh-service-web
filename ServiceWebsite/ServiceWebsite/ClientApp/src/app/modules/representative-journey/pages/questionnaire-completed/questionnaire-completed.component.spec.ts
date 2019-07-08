@@ -8,6 +8,7 @@ import {
 import { PrintService } from '../../../../services/print.service';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
 describe('QuestionnaireCompletedComponent', () => {
   it(`goes to ${RepresentativeJourneySteps} when pressing continue`, () => {
@@ -32,7 +33,7 @@ describe('QuestionnaireCompletedComponent', () => {
     const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.submitIsClicked();
 
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.ThankYou);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SameComputer);
   });
 
   it(`should go to ${RepresentativeJourneySteps.ContactUs} if not having computer`, () => {

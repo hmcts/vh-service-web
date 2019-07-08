@@ -28,6 +28,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _questionnaireCompleted;
         private readonly Page _thankYou;
         private readonly Page _pleaseContactUs;
+        private readonly JourneyStepPage _sameComputer;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
 
@@ -47,6 +48,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
             _thankYou = new Page(browserContext, RepresentativePageUrl.ThankYouRep);
             _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
+            _sameComputer = new JourneyStepPage(browserContext, PageUri.SameComputer);
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -210,6 +212,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     return _pleaseContactUs;
                 case RepresentativePageNames.ThankYou:
                     return _thankYou;
+                case SelfTestPageNames.SameComputer:
+                    return _sameComputer;
             }
             throw new Exception("Invalid page");
         }

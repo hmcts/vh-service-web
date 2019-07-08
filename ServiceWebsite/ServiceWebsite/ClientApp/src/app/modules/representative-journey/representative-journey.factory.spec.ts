@@ -6,13 +6,14 @@ import {RepresentativeJourneyStepComponentBindings} from './services/representat
 import {RepresentativeJourneyService} from './services/representative.journey.service';
 import {MutableRepresentativeSuitabilityModel} from './mutable-representative-suitability.model';
 import SpyObj = jasmine.SpyObj;
+import { SelfTestJourneyStepComponentBindings } from '../self-test-journey/self-test-journey-component-bindings';
 
 describe('RepresentativeJourneyFactory', () => {
   let suitabilityService: jasmine.SpyObj<RepresentativeSuitabilityService>;
   let routingListener: jasmine.SpyObj<JourneyRoutingListenerService>;
   let journey: jasmine.SpyObj<RepresentativeJourney>;
   let factory: RepresentativeJourneyFactory;
-  const bindings = new RepresentativeJourneyStepComponentBindings();
+  const bindings = new RepresentativeJourneyStepComponentBindings(new SelfTestJourneyStepComponentBindings());
   let representativeJourneyService: SpyObj<RepresentativeJourneyService>;
 
   beforeEach(() => {

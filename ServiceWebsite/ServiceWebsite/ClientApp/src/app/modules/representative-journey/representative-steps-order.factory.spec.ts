@@ -1,5 +1,6 @@
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps } from './representative-journey-steps';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 describe('ReprestativeStepsOrderFactory, device is laptop', () => {
   const component = new RepresentativeStepsOrderFactory();
@@ -10,6 +11,7 @@ describe('ReprestativeStepsOrderFactory, device is laptop', () => {
     expect(stepsInOrder.includes(RepresentativeJourneySteps.AboutVideoHearings)).toBeTruthy();
     expect(stepsInOrder.includes(RepresentativeJourneySteps.AboutYouAndYourClient)).toBeTruthy();
     expect(stepsInOrder.includes(RepresentativeJourneySteps.AboutYou)).toBeTruthy();
+    expect(stepsInOrder.includes(SelfTestJourneySteps.SameComputer)).toBeTruthy();
   });
 });
 
