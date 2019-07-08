@@ -4,6 +4,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
 import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
+import { compileComponentFromMetadata } from '@angular/compiler';
 
 describe('SameComputerComponent', () => {
   let journey: jasmine.SpyObj<JourneyBase>;
@@ -20,6 +21,13 @@ describe('SameComputerComponent', () => {
     component.choice.setValue(true);
     await component.submit();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+  });
+
+  it('should load any previous value', () => {
+    model.selfTest.sameComputer = false;
+    const component = new SameComputerComponent(journey, model);
+    component.ngOnInit();
+    expect(component.choice.value).toBe(false);
   });
 
   it('should not redirect on invalid form', async () => {

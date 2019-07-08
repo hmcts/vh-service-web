@@ -28,6 +28,13 @@ describe('MicrophoneWorkingComponent', () => {
     expect(journey.submitQuestionnaire).not.toHaveBeenCalled();
   });
 
+  it('should load any previous value', () => {
+    model.selfTest.microphoneWorking = false;
+    const component = new MicrophoneWorkingComponent(journey, model);
+    component.ngOnInit();
+    expect(component.choice.value).toBe(false);
+  });
+
   it('should not redirect on invalid form', async () => {
     const component = new MicrophoneWorkingComponent(journey, model);
     await component.submit();
