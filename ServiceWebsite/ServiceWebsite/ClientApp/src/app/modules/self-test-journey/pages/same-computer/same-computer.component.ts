@@ -24,16 +24,12 @@ export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<Jo
     this.model.selfTest.sameComputer = this.choice.value;
   }
 
-  get isMobile(): boolean {
-    return this.deviceType.isMobile();
-  }
-
   async submit(): Promise<void> {
     if (!this.trySubmit()) {
       return;
     }
-    // TODO: Add in logic to go to SelfTestJourneySteps.SignInOtherComputer
-    if (!this.model.selfTest.sameComputer || this.isMobile) {
+    
+    if (!this.model.selfTest.sameComputer || this.deviceType.isMobile()) {
       this.journey.goto(SelfTestJourneySteps.SignInOtherComputer);
     } else {
       this.journey.goto(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
