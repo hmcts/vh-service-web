@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
+import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
 import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 
 @Component({
   selector: 'app-same-computer',
@@ -11,7 +12,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 })
 export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
-  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel, private deviceType: DeviceType) {
     super(journey);
   }
 
@@ -27,7 +28,11 @@ export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<Jo
     if (!this.trySubmit()) {
       return;
     }
-    // TODO: Add in logic to go to SelfTestJourneySteps.SignInOtherComputer
-    this.journey.goto(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+
+    if (!this.model.selfTest.sameComputer || this.deviceType.isMobile()) {
+      this.journey.goto(SelfTestJourneySteps.SignInOtherComputer);
+    } else {
+      this.journey.goto(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+    }
   }
 }
