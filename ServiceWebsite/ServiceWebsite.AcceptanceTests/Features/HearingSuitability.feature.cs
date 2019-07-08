@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Representative Answers Hearing Suitability", "\tAs a Participant\r\n\tI want to be able to tell the court if the type of case is su" +
-                    "itable for a video hearing\r\n\tSo that the court can make an informed decision bas" +
-                    "ed on my circumstances", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Representative Answers Hearing Suitability", "\tAs a Participant\n\tI want to be able to tell the court if the type of case is sui" +
+                    "table for a video hearing\n\tSo that the court can make an informed decision based" +
+                    " on my circumstances", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

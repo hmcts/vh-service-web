@@ -27,6 +27,6 @@ export class AccessToRoomComponent extends SuitabilityChoicePageBaseComponent im
       return;
     }
 
-    this.journey.goto(RepresentativeJourneySteps.AboutYourComputer);
+    this.journey.goto(RepresentativeJourneySteps.AboutYourClient);
   }
 }
