@@ -1,7 +1,8 @@
 import { HasAccessToCamera } from '../../base-journey/participant-suitability.model';
-import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from './../../../services/clients/api-client';
-import { RepresentativeModelMapper, RepresentativeQuestionKeys as Keys } from './representative-model-mapper';
+import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from '../../../services/clients/api-client';
+import { RepresentativeModelMapper, RepresentativeQuestionKeys } from './representative-model-mapper';
 import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
+import { SelfTestQuestionKeys } from '../../base-journey/services/participant-model-mapper';
 
 describe('RepresentativeModelMapper', () => {
     let serviceResponse: HearingSuitabilityResponse;
@@ -13,40 +14,63 @@ describe('RepresentativeModelMapper', () => {
             hearing_scheduled_at: new Date(),
             answers: [
                 new HearingSuitabilityAnswer({
-                    question_key: Keys.AboutYou,
+                    question_key: RepresentativeQuestionKeys.AboutYou,
                     answer: 'true',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                    question_key: Keys.AboutYourClient,
+                    question_key: RepresentativeQuestionKeys.AboutYourClient,
                     answer: 'true',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                    question_key: Keys.ClientAttendance,
+                    question_key: RepresentativeQuestionKeys.ClientAttendance,
                     answer: 'true',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                    question_key: Keys.HearingSuitability,
+                    question_key: RepresentativeQuestionKeys.HearingSuitability,
                     answer: 'true',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                    question_key: Keys.Room,
+                    question_key: RepresentativeQuestionKeys.Room,
                     answer: 'true',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                    question_key: Keys.Camera,
+                    question_key: RepresentativeQuestionKeys.Camera,
                     answer: 'Yes',
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                    question_key: Keys.Computer,
+                    question_key: RepresentativeQuestionKeys.Computer,
                     answer: 'true',
                     extended_answer: ''
                 }),
+                new HearingSuitabilityAnswer({
+                  question_key: SelfTestQuestionKeys.SameComputer,
+                  answer: 'true',
+                  extended_answer: ''
+                })
+                ,
+                new HearingSuitabilityAnswer({
+                  question_key: SelfTestQuestionKeys.SeeYourself,
+                  answer: 'true',
+                  extended_answer: ''
+                })
+                ,
+                new HearingSuitabilityAnswer({
+                  question_key: SelfTestQuestionKeys.Microphone,
+                  answer: 'true',
+                  extended_answer: ''
+                })
+                ,
+                new HearingSuitabilityAnswer({
+                  question_key: SelfTestQuestionKeys.SeeHearClearly,
+                  answer: 'true',
+                  extended_answer: ''
+                })
             ]
         });
     });
@@ -68,38 +92,50 @@ describe('RepresentativeModelMapper', () => {
         const expected = [HasAccessToCamera.Yes, HasAccessToCamera.No, HasAccessToCamera.NotSure];
 
         for (let i = 0; i < expected.length; ++i) {
-            givenAnswerIs(Keys.Camera, values[i]);
+            givenAnswerIs(RepresentativeQuestionKeys.Camera, values[i]);
             whenMappingModel();
             expect(model.camera).toBe(expected[i]);
         }
     });
 
     it('should map boolean values', () => {
-        givenAnswerIs(Keys.ClientAttendance, 'false');
-        givenAnswerIs(Keys.Computer, 'false');
-        givenAnswerIs(Keys.Room, 'false');
+        givenAnswerIs(RepresentativeQuestionKeys.ClientAttendance, 'false');
+        givenAnswerIs(RepresentativeQuestionKeys.Computer, 'false');
+        givenAnswerIs(RepresentativeQuestionKeys.Room, 'false');
+        givenAnswerIs(SelfTestQuestionKeys.SameComputer, 'false');
+        givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'false');
+        givenAnswerIs(SelfTestQuestionKeys.Microphone, 'false');
+        givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'false');
 
         whenMappingModel();
         expect(model.clientAttendance).toBeFalsy();
         expect(model.computer).toBeFalsy();
         expect(model.room).toBeFalsy();
+        expect(model.selfTest.sameComputer).toBeFalsy();
+        expect(model.selfTest.cameraWorking).toBeFalsy();
+        expect(model.selfTest.microphoneWorking).toBeFalsy();
+        expect(model.selfTest.seeAndHearClearly).toBeFalsy();
     });
 
     it('should map false answers', () => {
-        givenAnswerIs(Keys.AboutYou, 'false');
-        givenAnswerIs(Keys.AboutYourClient, 'false');
+        givenAnswerIs(RepresentativeQuestionKeys.AboutYou, 'false');
+        givenAnswerIs(RepresentativeQuestionKeys.AboutYourClient, 'false');
         whenMappingModel();
         expect(model.aboutYou.answer).toBeFalsy();
         expect(model.aboutYourClient.answer).toBeFalsy();
     });
 
-    it('should map all yes/no answers', () => {
-        givenAnswerIs(Keys.AboutYou, 'true');
-        givenAnswerIs(Keys.AboutYourClient, 'true');
-        givenAnswerIs(Keys.HearingSuitability, 'true');
-        givenAnswerIs(Keys.Room, 'true');
-        givenAnswerIs(Keys.Computer, 'true');
-        givenAnswerIs(Keys.ClientAttendance, 'true');
+    it('should map all answers', () => {
+        givenAnswerIs(RepresentativeQuestionKeys.AboutYou, 'true');
+        givenAnswerIs(RepresentativeQuestionKeys.AboutYourClient, 'true');
+        givenAnswerIs(RepresentativeQuestionKeys.HearingSuitability, 'true');
+        givenAnswerIs(RepresentativeQuestionKeys.Room, 'true');
+        givenAnswerIs(RepresentativeQuestionKeys.Computer, 'true');
+        givenAnswerIs(RepresentativeQuestionKeys.ClientAttendance, 'true');
+        givenAnswerIs(SelfTestQuestionKeys.SameComputer, 'true');
+        givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'true');
+        givenAnswerIs(SelfTestQuestionKeys.Microphone, 'true');
+        givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'true');
 
         whenMappingModel();
 
@@ -109,10 +145,14 @@ describe('RepresentativeModelMapper', () => {
         expect(model.room).toBeTruthy();
         expect(model.computer).toBeTruthy();
         expect(model.clientAttendance).toBeTruthy();
+        expect(model.selfTest.sameComputer).toBeTruthy();
+        expect(model.selfTest.cameraWorking).toBeTruthy();
+        expect(model.selfTest.microphoneWorking).toBeTruthy();
+        expect(model.selfTest.seeAndHearClearly).toBeTruthy();
     });
 
     it('should map extended answer', () => {
-        givenExtendedAnswerIs(Keys.AboutYou, 'more information');
+        givenExtendedAnswerIs(RepresentativeQuestionKeys.AboutYou, 'more information');
         whenMappingModel();
         expect(model.aboutYou.notes).toBe('more information');
     });
