@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RepresentativeBaseComponent } from '../representative-base-component/representative-base.component';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 

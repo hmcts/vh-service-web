@@ -1,6 +1,5 @@
 import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { Component } from '@angular/core';
-import { IndividualBaseComponent } from '../individual-base-component/individual-base.component';
 import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 

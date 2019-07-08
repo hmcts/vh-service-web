@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { RepresentativeBaseComponent } from '../representative-base-component/representative-base.component';
 
 @Component({
   selector: 'app-thank-you',
-  templateUrl: './thank-you.component.html',
-  styles: [],
+  templateUrl: './thank-you.component.html'
 })
-export class ThankYouComponent extends RepresentativeBaseComponent {
-}
+export class ThankYouComponent {}
