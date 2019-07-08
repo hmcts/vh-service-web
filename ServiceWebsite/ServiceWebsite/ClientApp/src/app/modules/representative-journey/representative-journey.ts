@@ -3,7 +3,6 @@ import { JourneyBase } from '../base-journey/journey-base';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
 import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps } from './representative-journey-steps';
-import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 
@@ -15,8 +14,6 @@ export class RepresentativeJourney extends JourneyBase {
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
   private isDone: boolean;
-  private isSelfTestDone: boolean;
-  private isSubmitted: boolean;
 
   constructor(private stepsFactory: RepresentativeStepsOrderFactory, private submitService: SubmitService) {
     super();
@@ -75,8 +72,8 @@ export class RepresentativeJourney extends JourneyBase {
     }
   }
 
-  submitQuestionnaire(): Promise<void> {
-    return Promise.resolve();
+  async submitQuestionnaire(): Promise<void> {
+    await this.submitService.submit(this.model);
   }
 
   /**
@@ -108,10 +105,5 @@ export class RepresentativeJourney extends JourneyBase {
     if (this.currentStep === RepresentativeJourneySteps.NotStarted) {
       throw new Error('Journey must be entered before navigation is allowed');
     }
-  }
-
-  private async submit() {
-    // call the save service
-    this.isSubmitted = true;
   }
 }
