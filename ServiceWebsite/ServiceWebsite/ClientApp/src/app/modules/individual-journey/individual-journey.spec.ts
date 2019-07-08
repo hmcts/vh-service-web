@@ -129,4 +129,20 @@ describe('IndividualJourney', () => {
     journey.jumpTo(Steps.AboutHearings);
     expect(redirected).toBe(SelfTestJourneySteps.SameComputer);
   });
+
+  it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
+    journey.startAt(SelfTestJourneySteps.SameComputer);
+
+    // when completing self test journey
+    journey.model.selfTest.cameraWorking = true;
+    journey.model.selfTest.microphoneWorking = true;
+    journey.model.selfTest.sameComputer = true;
+    journey.model.selfTest.seeAndHearClearly = true;
+
+    // and going to
+    journey.goto(Steps.ThankYou);
+
+    expect(redirected).toBe(Steps.ThankYou);
+  });
 });

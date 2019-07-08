@@ -79,7 +79,6 @@ export class IndividualJourney extends JourneyBase {
    */
   jumpTo(position: JourneyStep) {
     this.assertInitialised();
-    this.assertInitialised();
     if (this.isDone) {
       this.goto(IndividualJourneySteps.GotoVideoApp);
     } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
@@ -115,11 +114,5 @@ export class IndividualJourney extends JourneyBase {
 
     // we've not initialised the journey
     throw new Error('Journey must be initialised with suitability answers');
-  }
-
-  private assertEntered() {
-    if (this.currentStep === IndividualJourneySteps.NotStarted) {
-      throw new Error('Journey must be entered before navigation is allowed');
-    }
   }
 }
