@@ -128,8 +128,29 @@ describe('RepresentativeJourney', () => {
 
   it(`should enter journey at ${SelfTestJourneySteps.SameComputer} if completed questionnaire but not self-test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.jumpTo(Steps.AboutHearings);
+    journey.jumpTo(Steps.AboutVideoHearings);
+    expect(journey.step).toBe(SelfTestJourneySteps.SameComputer);
     expect(redirected).toBe(SelfTestJourneySteps.SameComputer);
+  });
+
+  it(`can navigate to ${Steps.QuestionnaireCompleted} after dropping out on ${Steps.AccessToComputer}`, () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
+    journey.startAt(Steps.AccessToComputer);
+
+    journey.model.computer = false;
+    journey.jumpTo(Steps.QuestionnaireCompleted);
+
+    expect(journey.step).toBe(Steps.QuestionnaireCompleted);
+  });
+
+  it(`can navigate to ${Steps.ContactUs} after having seen ${Steps.QuestionnaireCompleted} post dropout`, () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
+    journey.model.computer = false;
+    journey.startAt(Steps.QuestionnaireCompleted);
+
+    journey.jumpTo(Steps.ContactUs);
+
+    expect(journey.step).toBe(Steps.ContactUs);
   });
 
   it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {

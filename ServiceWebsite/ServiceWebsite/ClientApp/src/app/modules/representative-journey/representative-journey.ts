@@ -17,6 +17,18 @@ export class RepresentativeJourney extends JourneyBase {
   private currentModel: RepresentativeSuitabilityModel;
   private isDone: boolean;
 
+  private readonly questionnairePages = [
+    RepresentativeJourneySteps.AboutVideoHearings,
+    RepresentativeJourneySteps.AboutYouAndYourClient,
+    RepresentativeJourneySteps.AboutYou,
+    RepresentativeJourneySteps.AccessToRoom,
+    RepresentativeJourneySteps.AboutYourClient,
+    RepresentativeJourneySteps.ClientAttendance,
+    RepresentativeJourneySteps.HearingSuitability,
+    RepresentativeJourneySteps.AccessToComputer,
+    RepresentativeJourneySteps.AboutYourComputer
+  ];
+
   constructor(private stepsFactory: RepresentativeStepsOrderFactory, private submitService: SubmitService) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
@@ -49,7 +61,7 @@ export class RepresentativeJourney extends JourneyBase {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
-    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+    } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
       this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
@@ -57,13 +69,12 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   private isQuestionnaireCompleted(): boolean {
-    return this.currentModel.computer !== undefined
-      || (this.currentModel.camera === HasAccessToCamera.NotSure || this.currentModel.camera === HasAccessToCamera.Yes);
+    // if we've dropped out on not having access to a computer or if we've answered the camera question which is the last
+    return this.currentModel.computer === false || this.currentModel.camera !== undefined;
   }
 
-  private isSelfTestStep(step: JourneyStep): boolean {
-    // Include thank you as it comes straight after self-test
-    return step === RepresentativeJourneySteps.ThankYou || SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
+  private isQuestionnaireStep(step: JourneyStep): boolean {
+    return this.questionnairePages.indexOf(step) >= 0;
   }
 
   get model(): RepresentativeSuitabilityModel {
@@ -88,7 +99,7 @@ export class RepresentativeJourney extends JourneyBase {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
-    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+    } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
       this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
