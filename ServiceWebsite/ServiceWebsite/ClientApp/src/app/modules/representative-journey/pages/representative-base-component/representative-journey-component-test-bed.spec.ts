@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
-import { Hearing } from '../../../base-journey/participant-suitability.model';
+import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from '../../representative-steps-order.factory';
 import {
   ComponentTestBedConfiguration,
@@ -35,6 +35,7 @@ export class RepresentativeJourneyStubs {
   public static get model(): RepresentativeSuitabilityModel {
     const model = new MutableRepresentativeSuitabilityModel();
     model.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+    model.selfTest = new SelfTestAnswers();
     return model;
   }
 

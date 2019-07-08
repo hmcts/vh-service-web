@@ -32,16 +32,15 @@ export class RepresentativeJourney extends JourneyBase {
       return;
     }
 
-    for (const answers of suitabilityAnswers) {
-      if (this.isSuitabilityAnswersComplete(answers)) {
-        this.isDone = true;
-        return;
-      }
+    const pending = upcoming.filter(u => u.selfTest !== undefined && !u.selfTest.isCompleted());
+    if (pending.length === 0) {
+      this.isDone = true;
+      return;
     }
 
     // sort upcoming on date and pick the earliest
-    upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
-    this.currentModel = upcoming[0];
+    pending.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
+    this.currentModel = pending[0];
   }
 
   startAt(step: JourneyStep) {
