@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
   selector: 'app-access-to-room',
@@ -19,5 +20,13 @@ export class AccessToRoomComponent extends SuitabilityChoicePageBaseComponent im
 
   protected bindModel(): void {
     this.model.room = this.choice.value;
+  }
+
+  submit() {
+    if (!this.trySubmit()) {
+      return;
+    }
+
+    this.journey.goto(RepresentativeJourneySteps.AboutYourComputer);
   }
 }

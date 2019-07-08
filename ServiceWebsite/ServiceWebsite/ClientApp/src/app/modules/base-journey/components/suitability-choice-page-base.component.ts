@@ -16,10 +16,6 @@ export abstract class SuitabilityChoicePageBaseComponent<TJourneyType extends Jo
     this.journey = journey;
   }
 
-  protected onFormAccepted() {
-    this.journey.next();
-  }
-
   get isFormInvalid(): boolean {
     return this.form.invalid && this.submitted;
   }
@@ -33,12 +29,6 @@ export abstract class SuitabilityChoicePageBaseComponent<TJourneyType extends Jo
 
     this.bindModel();
     return true;
-  }
-
-  continue() {
-    if (this.trySubmit()) {
-      this.onFormAccepted();
-    }
   }
 
   /**
