@@ -29,10 +29,16 @@ export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<Jo
       return;
     }
 
-    if (!this.model.selfTest.sameComputer || this.deviceType.isMobile()) {
+    if (!this.model.selfTest.sameComputer) {
       this.journey.goto(SelfTestJourneySteps.SignInOtherComputer);
-    } else {
-      this.journey.goto(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+      return;
     }
+
+    if (this.deviceType.isMobile()) {
+      this.journey.goto(SelfTestJourneySteps.SignInOnComputer);
+      return;
+    }
+
+    this.journey.goto(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
   }
 }
