@@ -116,17 +116,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_yourComputer);
                     _currentPage = _aboutYourComputer;
                     break;
-                case RepresentativePageNames.QuestionnaireCompleted:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    NavigateToDecisionPage(_hearingSuitability);
-                    NavigateToDecisionPage(_yourComputer);
-                    NavigateToDecisionPage(_aboutYourComputer);
-                    _currentPage = _questionnaireCompleted;
-                    break;
-
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
         }
