@@ -15,6 +15,7 @@ Scenario: Representative participant has camera and microphone on laptop or desk
 	When proceeds to next page
 	Then Representative should be on 'same computer' screen
 
+@smoketest @VIH-4578
 Scenario: Representative views thank you page after submitting self test questionnaire completed page for a client who is suitable for a video hearing
 	Given Representative participant starts the questionnaire
 	When provides answer
