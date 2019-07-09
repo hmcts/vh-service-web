@@ -30,10 +30,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly Page _pleaseContactUs;
         private readonly DecisionJourney _sameComputer;
         private readonly DecisionJourney _useCameraAndMicrophone;
-        private readonly Page _selfTest;
+        private readonly DecisionJourney _selfTest;
         private readonly DecisionJourney _cameraWorking;
         private readonly DecisionJourney _microphoneWorking;
-        private readonly Page _seeAndHearVideo;
+        private readonly DecisionJourney _seeAndHearVideo;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
 
@@ -55,10 +55,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
             _sameComputer = new DecisionJourney(browserContext, PageUri.SameComputer);
             _useCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.UseCameraAndMicrophone);
-            _selfTest = new Page(browserContext, PageUri.SelfTest);
+            _selfTest = new DecisionJourney(browserContext, PageUri.SelfTest);
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
             _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
-            _seeAndHearVideo = new Page(browserContext, PageUri.SeeAndHearVideo);
+            _seeAndHearVideo = new DecisionJourney(browserContext, PageUri.SeeAndHearVideo);
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -125,7 +125,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var pageToValidate = GetPage(page);
             pageToValidate.Validate();
-            if(page == "about your computer" || page == "questionnaire completed")
+            if(page == "about your computer"|| 
+                page == "questionnaire completed" || page == "same computer" 
+                || page == "use camera and microphone again"
+                || page == "self test")
             {
                 _scenarioContext.Set<DecisionJourney>((DecisionJourney)pageToValidate, "CurrentPage");
             }
