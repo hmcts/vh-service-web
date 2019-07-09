@@ -28,7 +28,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _questionnaireCompleted;
         private readonly Page _thankYou;
         private readonly Page _pleaseContactUs;
-        private readonly JourneyStepPage _sameComputer;
+        private readonly DecisionJourney _sameComputer;
+        private readonly DecisionJourney _useCameraAndMicrophone;
+        private readonly Page _selfTest;
+        private readonly DecisionJourney _cameraWorking;
+        private readonly DecisionJourney _microphoneWorking;
+        private readonly Page _seeAndHearVideo;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
 
@@ -48,7 +53,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
             _thankYou = new Page(browserContext, RepresentativePageUrl.ThankYouRep);
             _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
-            _sameComputer = new JourneyStepPage(browserContext, PageUri.SameComputer);
+            _sameComputer = new DecisionJourney(browserContext, PageUri.SameComputer);
+            _useCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.UseCameraAndMicrophone);
+            _selfTest = new Page(browserContext, PageUri.SelfTest);
+            _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
+            _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
+            _seeAndHearVideo = new Page(browserContext, PageUri.SeeAndHearVideo);
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -106,7 +116,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_yourComputer);
                     _currentPage = _aboutYourComputer;
                     break;
-                    
+                case RepresentativePageNames.QuestionnaireCompleted:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    NavigateToDecisionPage(_hearingSuitability);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    _currentPage = _questionnaireCompleted;
+                    break;
 
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
@@ -214,6 +233,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     return _thankYou;
                 case SelfTestPageNames.SameComputer:
                     return _sameComputer;
+                case SelfTestPageNames.UseCameraAndMicrophone:
+                    return _useCameraAndMicrophone;
+                case SelfTestPageNames.SelfTest:
+                    return _selfTest;
+                case SelfTestPageNames.CameraWorking:
+                    return _cameraWorking;
+                case SelfTestPageNames.MicrophoneWorking:
+                    return _microphoneWorking;
+                case SelfTestPageNames.SeeAndHearVideo:
+                    return _seeAndHearVideo;
             }
             throw new Exception("Invalid page");
         }
