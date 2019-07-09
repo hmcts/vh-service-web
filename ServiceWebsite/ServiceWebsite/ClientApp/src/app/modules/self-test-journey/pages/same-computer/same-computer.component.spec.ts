@@ -4,7 +4,6 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
 import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
-import { compileComponentFromMetadata } from '@angular/compiler';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 
 describe('SameComputerComponent', () => {
@@ -20,6 +19,21 @@ describe('SameComputerComponent', () => {
 
   });
 
+  it(`should submit and go to ${SelfTestJourneySteps.SignInOtherComputer} if answering no`, async () => {
+    const component = new SameComputerComponent(journey, model, deviceType);
+    component.choice.setValue(false);
+    await component.submit();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SignInOtherComputer);
+  });
+
+  it(`should submit and go to ${SelfTestJourneySteps.SignInOnComputer} if answering yes and device type is mobile`, async () => {
+    deviceType.isMobile.and.returnValue(true);
+    const component = new SameComputerComponent(journey, model, deviceType);
+    component.choice.setValue(true);
+    await component.submit();
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SignInOnComputer);
+  });
+
   it(`should submit and go to ${SelfTestJourneySteps.UseCameraAndMicrophoneAgain}
    if answering yes and device type is not mobile`, async () => {
     deviceType.isMobile.and.returnValue(false);
@@ -27,22 +41,6 @@ describe('SameComputerComponent', () => {
     component.choice.setValue(true);
     await component.submit();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
-  });
-
-  it(`should submit and go to ${SelfTestJourneySteps.SignInOtherComputer} if answering yes and device type is mobile`, async () => {
-    deviceType.isMobile.and.returnValue(true);
-    const component = new SameComputerComponent(journey, model, deviceType);
-    component.choice.setValue(true);
-    await component.submit();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SignInOtherComputer);
-  });
-
-  it(`should submit and go to ${SelfTestJourneySteps.SignInOtherComputer} if answering no`, async () => {
-    deviceType.isMobile.and.returnValue(false);
-    const component = new SameComputerComponent(journey, model, deviceType);
-    component.choice.setValue(false);
-    await component.submit();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SignInOtherComputer);
   });
 
   it('should load any previous value', () => {

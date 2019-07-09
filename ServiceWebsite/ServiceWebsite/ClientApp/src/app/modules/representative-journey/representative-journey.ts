@@ -1,3 +1,5 @@
+import { HearingSelector } from './../base-journey/hearing-selector';
+import { Logger } from 'src/app/services/logger';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
@@ -5,20 +7,31 @@ import { RepresentativeStepsOrderFactory } from './representative-steps-order.fa
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
+import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
-  stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
   private isDone: boolean;
 
-  constructor(private stepsFactory: RepresentativeStepsOrderFactory, private submitService: SubmitService) {
+  private readonly questionnairePages = [
+    RepresentativeJourneySteps.AboutVideoHearings,
+    RepresentativeJourneySteps.AboutYouAndYourClient,
+    RepresentativeJourneySteps.AboutYou,
+    RepresentativeJourneySteps.AccessToRoom,
+    RepresentativeJourneySteps.AboutYourClient,
+    RepresentativeJourneySteps.ClientAttendance,
+    RepresentativeJourneySteps.HearingSuitability,
+    RepresentativeJourneySteps.AccessToComputer,
+    RepresentativeJourneySteps.AboutYourComputer
+  ];
+
+  constructor(private submitService: SubmitService, private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
-    this.stepOrder = this.stepsFactory.stepOrder();
   }
 
   get step(): JourneyStep {
@@ -26,45 +39,36 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   forSuitabilityAnswers(suitabilityAnswers: RepresentativeSuitabilityModel[]) {
-    const upcoming = suitabilityAnswers.filter(hearing => hearing.isUpcoming());
-    if (upcoming.length === 0) {
-      this.isDone = true;
-      return;
-    }
-
-    for (const answers of suitabilityAnswers) {
-      if (this.isSuitabilityAnswersComplete(answers)) {
-        this.isDone = true;
-        return;
-      }
-    }
-
-    // sort upcoming on date and pick the earliest
-    upcoming.sort((u1, u2) => u1.hearing.scheduleDateTime.getTime() - u2.hearing.scheduleDateTime.getTime());
-    this.currentModel = upcoming[0];
+    const isPending = (answers: RepresentativeSuitabilityModel) => !answers.isCompleted();
+    const selector = new HearingSelector(isPending, suitabilityAnswers, this.logger);
+    this.isDone = selector.isDone;
+    this.currentModel = selector.selected;
   }
 
   startAt(step: JourneyStep) {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
+      this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.goto(step);
     }
   }
 
+  private isQuestionnaireCompleted(): boolean {
+    // if we've dropped out on not having access to a computer or if we've answered the camera question which is the last
+    return this.currentModel.computer === false || this.currentModel.camera !== undefined;
+  }
+
+  private isQuestionnaireStep(step: JourneyStep): boolean {
+    return this.questionnairePages.indexOf(step) >= 0;
+  }
+
   get model(): RepresentativeSuitabilityModel {
     return this.currentModel;
   }
-
-  private isSuitabilityAnswersComplete(model: RepresentativeSuitabilityModel): boolean {
-    return model.aboutYou.answer !== undefined
-      && model.aboutYourClient.answer !== undefined
-      && model.clientAttendance !== undefined
-      && model.hearingSuitability.answer !== undefined
-      && model.room !== undefined
-      && model.computer !== undefined;
-    }
 
   goto(step: JourneyStep) {
     if (this.currentStep !== step) {
@@ -84,6 +88,10 @@ export class RepresentativeJourney extends JourneyBase {
     this.assertInitialised();
     if (this.isDone) {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
+    } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
+      const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
+      this.logger.event(`Redirecting user to self-test`, details);
+      this.goto(SelfTestJourneySteps.SameComputer);
     } else {
       this.currentStep = position;
     }
@@ -99,11 +107,5 @@ export class RepresentativeJourney extends JourneyBase {
 
     // we've not initialised the journey
     throw new Error('Journey must be initialised with suitability answers');
-  }
-
-  private assertEntered() {
-    if (this.currentStep === RepresentativeJourneySteps.NotStarted) {
-      throw new Error('Journey must be entered before navigation is allowed');
-    }
   }
 }

@@ -21,5 +21,7 @@ export class LogoutComponent implements OnInit {
     if (this.loggedIn) {
       this.adalSvc.logOut();
     }
+
+    sessionStorage.clear();
   }
 }
