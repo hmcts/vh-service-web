@@ -17,6 +17,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserRefreshesThePage()
         {
             _browserContext.NgDriver.Navigate().Refresh();
+            _browserContext.NgDriver.WaitForAngular();
         }
     }
 }
