@@ -84,11 +84,10 @@ describe('RepresentativeJourney', () => {
     ],
     noUpcomingHearings: []
   };
-  const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
 
   beforeEach(() => {
     redirected = null;
-    journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService, TestLogger);
+    journey = new RepresentativeJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);

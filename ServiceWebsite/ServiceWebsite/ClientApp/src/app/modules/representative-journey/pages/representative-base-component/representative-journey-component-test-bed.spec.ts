@@ -24,10 +24,9 @@ export interface RepresentativeComponentTestBedConfiguration<TComponent> extends
 export class RepresentativeJourneyStubs {
   public static get default(): RepresentativeJourney {
     // Journey with initialised model, so that it is accessible in steeps
-    const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
     let submitService: jasmine.SpyObj<SubmitService>;
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
-    const journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService, TestLogger);
+    const journey = new RepresentativeJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers([RepresentativeJourneyStubs.model]);
     journey.startAt(RepresentativeJourneySteps.AboutVideoHearings);
     return journey;

@@ -13,7 +13,6 @@ import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-ste
 export class RepresentativeJourney extends JourneyBase {
   static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
-  stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
   private isDone: boolean;
@@ -30,13 +29,9 @@ export class RepresentativeJourney extends JourneyBase {
     RepresentativeJourneySteps.AboutYourComputer
   ];
 
-  constructor(
-    private stepsFactory: RepresentativeStepsOrderFactory,
-    private submitService: SubmitService,
-    private logger: Logger) {
+  constructor(private submitService: SubmitService, private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => this.currentStep = step);
-    this.stepOrder = this.stepsFactory.stepOrder();
   }
 
   get step(): JourneyStep {
