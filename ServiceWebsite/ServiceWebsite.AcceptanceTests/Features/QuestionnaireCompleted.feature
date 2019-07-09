@@ -28,7 +28,7 @@ Scenario: Representative refreshes questionnaire completed page after having dro
          | page						 | answer |
          | about you				 | No     |
 		 | access to a suitable room | Yes    |
-		 | about your client         | Yes    |
+		 | about your client         | No     |
 		 | client attendance         | Yes    |
 		 | hearing suitability       | No     |
 		 | your computer             | No     |
