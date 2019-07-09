@@ -1,15 +1,12 @@
-import { ConsoleLogger } from './../../services/console-logger';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
 import {IndividualJourney} from './individual-journey';
 import {HasAccessToCamera, Hearing, SelfTestAnswers} from '../base-journey/participant-suitability.model';
-import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
 import {IndividualJourneySteps as Steps, IndividualJourneySteps} from './individual-journey-steps';
 import {DeviceType} from '../base-journey/services/device-type';
 import {JourneyStep} from '../base-journey/journey-step';
 import {SubmitService} from './services/submit.service';
 import { TestLogger } from 'src/app/services/logger.spec';
-import { tick } from '@angular/core/src/render3';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -77,12 +74,11 @@ describe('IndividualJourney', () => {
     noUpcomingHearings: () => []
   };
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-  const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
   deviceType.isMobile.and.returnValue(false);
 
   beforeEach(() => {
     redirected = null;
-    journey = new IndividualJourney(individualStepsOrderFactory, submitService, TestLogger);
+    journey = new IndividualJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);

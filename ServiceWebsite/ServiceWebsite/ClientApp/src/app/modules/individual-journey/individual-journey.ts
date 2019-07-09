@@ -1,8 +1,7 @@
-import { HearingSelector } from './../base-journey/hearing-selector';
+import { HearingSelector } from '../base-journey/hearing-selector';
 import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 import { IndividualJourneySteps } from './individual-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
@@ -19,14 +18,12 @@ export class IndividualJourney extends JourneyBase {
   private currentModel: IndividualSuitabilityModel;
   private isDone: boolean;
 
-  constructor(private individualStepsOrderFactory: IndividualStepsOrderFactory,
-    private submitService: SubmitService,
+  constructor(private submitService: SubmitService,
     private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
       this.currentStep = step;
     });
-    this.stepOrder = this.individualStepsOrderFactory.stepOrder();
   }
 
   get step(): IndividualJourneySteps {

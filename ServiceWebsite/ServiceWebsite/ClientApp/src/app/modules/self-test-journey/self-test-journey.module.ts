@@ -5,7 +5,6 @@ import {BaseJourneyModule} from '../base-journey/base-journey.module';
 import {NgModule} from '@angular/core';
 import {Components, SelfTestJourneyRoutingModule} from './self-test-journey-routing.module';
 import {JourneyRoutingListenerService} from '../base-journey/services/journey-routing-listener.service';
-import {SelfTestStepsOrderFactory} from './self-test-steps-order.factory';
 import {SelfTestJourneyStepComponentBindings} from './self-test-journey-component-bindings';
 import {SelfTestJourney} from './self-test-journey';
 
@@ -28,7 +27,6 @@ import {SelfTestJourney} from './self-test-journey';
     SelfTestJourney,
     SelfTestJourneyStepComponentBindings,
     JourneyRoutingListenerService,
-    SelfTestStepsOrderFactory
   ]
 })
 
