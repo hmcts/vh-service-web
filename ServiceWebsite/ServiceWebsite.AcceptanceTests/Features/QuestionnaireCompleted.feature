@@ -26,11 +26,11 @@ Scenario: Representative refreshes questionnaire completed page after having dro
 	Given Representative participant starts the questionnaire
 	When provides answer
          | page						 | answer |
-         | about you				 | Yes    |
+         | about you				 | No     |
 		 | access to a suitable room | Yes    |
 		 | about your client         | Yes    |
 		 | client attendance         | Yes    |
-		 | hearing suitability       | Yes    |
+		 | hearing suitability       | No     |
 		 | your computer             | No     |
 	Then Representative should be on 'questionnaire completed' screen
 	And all the answers should match
