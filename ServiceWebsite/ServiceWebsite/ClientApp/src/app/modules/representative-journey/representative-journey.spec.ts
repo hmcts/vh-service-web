@@ -1,7 +1,6 @@
 import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
 import { HasAccessToCamera, Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
-import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';

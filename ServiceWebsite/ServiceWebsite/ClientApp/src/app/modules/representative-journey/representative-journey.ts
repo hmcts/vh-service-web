@@ -1,9 +1,8 @@
-import { HearingSelector } from './../base-journey/hearing-selector';
+import { HearingSelector } from '../base-journey/hearing-selector';
 import { Logger } from 'src/app/services/logger';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
-import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
