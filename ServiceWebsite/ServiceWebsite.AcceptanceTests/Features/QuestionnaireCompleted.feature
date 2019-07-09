@@ -21,6 +21,22 @@ Scenario: Representative views questionnaire completed page for a client who is 
 	When proceeds to next page
 	Then Representative should be on 'same computer' screen
 
+@VIH-4578
+Scenario: Representative refreshes questionnaire completed page after having dropped out due to not having access to a computer
+	Given Representative participant starts the questionnaire
+	When provides answer
+         | page						 | answer |
+         | about you				 | Yes    |
+		 | access to a suitable room | Yes    |
+		 | about your client         | Yes    |
+		 | client attendance         | Yes    |
+		 | hearing suitability       | Yes    |
+		 | your computer             | No     |
+	Then Representative should be on 'questionnaire completed' screen
+	And all the answers should match
+	When the user refreshes the page
+	Then Representative should be on 'questionnaire completed' screen
+
 @VIH-4443
 Scenario: Representative views questionnaire completed page for a client who is suitable for a video hearing
 	Given Representative participant starts the questionnaire
