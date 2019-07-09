@@ -4,6 +4,7 @@ import {Paths} from './paths';
 import {SelfTestComponent} from './pages/self-test/self-test.component';
 import {UseCameraMicrophoneAgainComponent} from './pages/use-camera-microphone-again/use-camera-microphone-again.component';
 import {SameComputerComponent} from './pages/same-computer/same-computer.component';
+import {SignInOnComputerComponent} from './pages/sign-in-on-computer/sign-in-on-computer.component';
 import {SignInOtherComputerComponent} from './pages/sign-in-other-computer/sign-in-other-computer.component';
 import {CameraWorkingComponent} from './pages/camera-working/camera-working.component';
 import {MicrophoneWorkingComponent} from './pages/microphone-working/microphone-working.component';
@@ -12,6 +13,7 @@ import {SeeAndHearVideoComponent} from './pages/see-and-hear-video/see-and-hear-
 const routes: Routes = [
   {path: Paths.SameComputer, component: SameComputerComponent},
   {path: Paths.SignInOtherComputer, component: SignInOtherComputerComponent},
+  {path: Paths.SignInOnComputer, component: SignInOnComputerComponent},
   {path: Paths.UseCameraAndMicrophoneAgain, component: UseCameraMicrophoneAgainComponent},
   {path: Paths.SelfTest, component: SelfTestComponent},
   {path: Paths.CameraWorking, component: CameraWorkingComponent},
@@ -22,6 +24,7 @@ const routes: Routes = [
 export const Components = [
   SameComputerComponent,
   SignInOtherComputerComponent,
+  SignInOnComputerComponent,
   UseCameraMicrophoneAgainComponent,
   SelfTestComponent,
   CameraWorkingComponent,
