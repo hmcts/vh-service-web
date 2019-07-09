@@ -1,4 +1,6 @@
-﻿using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using System;
+using OpenQA.Selenium;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -17,7 +19,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserRefreshesThePage()
         {
             _browserContext.NgDriver.Navigate().Refresh();
-            _browserContext.NgDriver.WaitForAngular();
+            WaitUntilPageIsLoaded();
+        }
+
+        private void WaitUntilPageIsLoaded()
+        {
+            // All pages have a router outlet so when we can find  this element, then the route is loaded
+            try
+            {
+                _browserContext.Retry(() => { _browserContext.NgDriver.FindElement(By.TagName("router-outlet")); });
+            }
+            catch (Exception e)
+            {
+                var url = _browserContext.NgDriver.Url;
+                throw new  TimeoutException($"Timed out waiting for page to load, the expected <router-outlet> element did not appear on current url '{url}'", e);
+            }
         }
     }
 }
