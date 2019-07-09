@@ -1,10 +1,11 @@
+import { TestLogger } from './../../../../services/logger.spec';
 import { MutableRepresentativeSuitabilityModel } from '../../mutable-representative-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
-import { Hearing } from '../../../base-journey/participant-suitability.model';
+import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import { RepresentativeStepsOrderFactory } from '../../representative-steps-order.factory';
 import {
   ComponentTestBedConfiguration,
@@ -23,10 +24,9 @@ export interface RepresentativeComponentTestBedConfiguration<TComponent> extends
 export class RepresentativeJourneyStubs {
   public static get default(): RepresentativeJourney {
     // Journey with initialised model, so that it is accessible in steeps
-    const representativeStepsOrderFactory = new RepresentativeStepsOrderFactory();
     let submitService: jasmine.SpyObj<SubmitService>;
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
-    const journey = new RepresentativeJourney(representativeStepsOrderFactory, submitService);
+    const journey = new RepresentativeJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers([RepresentativeJourneyStubs.model]);
     journey.startAt(RepresentativeJourneySteps.AboutVideoHearings);
     return journey;
@@ -35,6 +35,7 @@ export class RepresentativeJourneyStubs {
   public static get model(): RepresentativeSuitabilityModel {
     const model = new MutableRepresentativeSuitabilityModel();
     model.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
+    model.selfTest = new SelfTestAnswers();
     return model;
   }
 
