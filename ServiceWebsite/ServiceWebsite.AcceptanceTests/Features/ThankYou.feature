@@ -13,4 +13,4 @@ Scenario: Representative participant has camera and microphone on laptop or desk
 	And proceeds to next page
 	Then Representative should be on 'questionnaire completed' screen
 	When proceeds to next page
-	Then Representative should be on 'same computer' screen
+	Then Representative should be on 'check your computer' screen

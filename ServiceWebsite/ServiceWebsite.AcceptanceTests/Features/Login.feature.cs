@@ -31,8 +31,8 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participants Accessing VH-Admin Web", "\tAs an Invidual or Representative\n\tI would like to login to VH-Service Web\n\tSo th" +
-                    "at I can complete suitability Questionnaire", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Participants Accessing VH-Admin Web", "\tAs an Invidual or Representative\r\n\tI would like to login to VH-Service Web\r\n\tSo " +
+                    "that I can complete suitability Questionnaire", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

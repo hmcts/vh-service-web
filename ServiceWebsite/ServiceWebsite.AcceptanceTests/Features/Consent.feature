@@ -9,7 +9,7 @@ Scenario: Individual participant consents to video hearing
 	Given Individual participant is on 'consent' page
 	When provides answer as Yes
 	When proceeds to next page
-	Then Individual should be on 'same computer' screen
+	Then Individual should be on 'check your computer' screen
 
 @VIH-4338
 Scenario: Individual participant without providing answer on consent page
@@ -28,4 +28,4 @@ Scenario: Individual participant does not consent to video hearing
 	Given Individual participant is on 'consent' page	
 	When Individual provides additional information for not consenting to video hearing as 'ABC'
 	And proceeds to next page
-	Then Individual should be on 'same computer' screen
+	Then Individual should be on 'check your computer' screen

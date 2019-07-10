@@ -26,7 +26,7 @@ describe('RepresentativeSuitabilityModel', () => {
         model.selfTest = new SelfTestAnswers({
             cameraWorking: true,
             seeAndHearClearly: true,
-            sameComputer: true,
+            checkYourComputer: true,
             microphoneWorking: true
         });
 

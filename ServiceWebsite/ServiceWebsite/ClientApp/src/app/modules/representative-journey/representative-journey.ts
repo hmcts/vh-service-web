@@ -50,7 +50,7 @@ export class RepresentativeJourney extends JourneyBase {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
     } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
       this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
-      this.goto(SelfTestJourneySteps.SameComputer);
+      this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
       this.goto(step);
     }
@@ -90,7 +90,7 @@ export class RepresentativeJourney extends JourneyBase {
     } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
       const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
       this.logger.event(`Redirecting user to self-test`, details);
-      this.goto(SelfTestJourneySteps.SameComputer);
+      this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
       this.currentStep = position;
     }

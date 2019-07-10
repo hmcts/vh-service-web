@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Representative views Please Contact Us page", "\tAs a Participant\n\tI want to be able to contact the VH admins for further help wh" +
-                    "en my equipment is not suitable for a video hearing\n\tSo that the support team ca" +
-                    "n answer my questions and arrange a suitable hearing", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Representative views Please Contact Us page", "\tAs a Participant\r\n\tI want to be able to contact the VH admins for further help w" +
+                    "hen my equipment is not suitable for a video hearing\r\n\tSo that the support team " +
+                    "can answer my questions and arrange a suitable hearing", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

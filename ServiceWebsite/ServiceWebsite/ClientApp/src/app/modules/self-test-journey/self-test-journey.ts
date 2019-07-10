@@ -6,7 +6,7 @@ import {ParticipantSuitabilityModel} from '../base-journey/participant-suitabili
 
 @Injectable()
 export class SelfTestJourney {
-  static readonly initialStep = SelfTestJourneySteps.SameComputer;
+  static readonly initialStep = SelfTestJourneySteps.CheckYourComputer;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   private currentStep: JourneyStep = ParticipantJourneySteps.NotStarted;
   private readonly currentModel: ParticipantSuitabilityModel;
@@ -53,7 +53,7 @@ export class SelfTestJourney {
     const selfTest = this.model.selfTest;
     return selfTest.cameraWorking === true
       && selfTest.microphoneWorking === true
-      && selfTest.sameComputer === true
+      && selfTest.checkYourComputer === true
       && selfTest.seeAndHearClearly === true;
   }
 }

@@ -4,14 +4,14 @@ import {
   CrestBluePanelComponent
 } from '../../../shared/crest-blue-panel/crest-blue-panel.component';
 import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
-import {UseCameraMicrophoneAgainComponent} from './use-camera-microphone-again.component';
+import {SwitchOnCameraAndMicrophoneComponent} from './switch-on-camera-and-microphone.component';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
-describe('UseCameraMicrophoneAgainComponent', () => {
+describe('SwitchOnCameraAndMicrophoneComponent', () => {
   it(`goes to ${SelfTestJourneySteps.SelfTest} on continuing`, () => {
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
-      component: UseCameraMicrophoneAgainComponent,
+      component: SwitchOnCameraAndMicrophoneComponent,
       declarations: [CrestBluePanelComponent],
       journey: journey
     });
