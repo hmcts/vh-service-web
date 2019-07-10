@@ -13,7 +13,7 @@ Scenario: Representative participant has camera and microphone on laptop or desk
 	And proceeds to next page
 	Then Representative should be on 'questionnaire completed' screen
 	When proceeds to next page
-	Then Representative should be on 'same computer' screen
+	Then Representative should be on 'check your computer' screen
 
 @smoketest @VIH-4578
 Scenario: Representative views thank you page after submitting self test questionnaire completed page for a client who is suitable for a video hearing
@@ -32,7 +32,7 @@ Scenario: Representative views thank you page after submitting self test questio
 	And all the answers should match
 	And a link with text 'Print my answers' to print the answers should be visible
 	When proceeds to next page
-	Then Representative should be on 'same computer' screen
+	Then Representative should be on 'check your computer' screen
 	When provides answer as Yes
 	And proceeds to next page
 	Then Representative should be on 'use camera and microphone again' screen

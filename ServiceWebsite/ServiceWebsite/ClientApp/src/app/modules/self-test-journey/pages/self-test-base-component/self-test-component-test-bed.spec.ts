@@ -20,7 +20,7 @@ export class SelfTestJourneyStubs {
     deviceType.isMobile.and.returnValue(false);
     const model = { selfTest: new SelfTestAnswers() } as ParticipantSuitabilityModel;
     const journey = new SelfTestJourney(model);
-    journey.startAt(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+    journey.startAt(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
     return journey;
   }
 }

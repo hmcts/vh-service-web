@@ -119,7 +119,7 @@ describe('ConsentComponent', () => {
     expect(component.textInputYes.value).toBe('notes');
   });
 
-  it(`should submit questionnaire and go to ${SelfTestJourneySteps.SameComputer} on submitting`, async () => {
+  it(`should submit questionnaire and go to ${SelfTestJourneySteps.CheckYourComputer} on submitting`, async () => {
     component.ngOnInit();
     component.choice.setValue(true);
     component.textInputYes.setValue('comments');
@@ -127,7 +127,7 @@ describe('ConsentComponent', () => {
     await component.submit();
 
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SameComputer);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CheckYourComputer);
   });
 });
 

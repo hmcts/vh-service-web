@@ -3,11 +3,11 @@ import {JourneyBase} from '../../../base-journey/journey-base';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
-  selector: 'app-use-camera-microphone-again',
-  templateUrl: './use-camera-microphone-again.component.html',
+  selector: 'app-switch-on-camera-and-microphone',
+  templateUrl: './switch-on-camera-and-microphone.component.html',
   styles: []
 })
-export class UseCameraMicrophoneAgainComponent implements OnInit {
+export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
 
   constructor(private journey: JourneyBase) {
 

@@ -21,7 +21,7 @@
         public const string ConsentPage = "/consent";
 
         //After submission of answers
-        public const string SameComputer= "/same-computer";
+        public const string CheckYourComputer = "/check-your-computer";
         public const string UseCameraAndMicrophone = "/use-camera-microphone-again";
         public const string SelfTest = "/self-test";
         public const string CameraWorking = "/camera-working";
