@@ -20,6 +20,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
         private readonly JourneyStepPage _sameComputer;
+        private readonly DecisionJourney _useCameraAndMicrophone;
+        private readonly DecisionJourney _selfTest;
+        private readonly DecisionJourney _cameraWorking;
+        private readonly DecisionJourney _microphoneWorking;
+        private readonly DecisionJourney _seeAndHearVideo;
 
         public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
@@ -32,6 +37,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
             _sameComputer = new JourneyStepPage(browserContext, PageUri.SameComputer);
+            _useCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.UseCameraAndMicrophone);
+            _selfTest = new DecisionJourney(browserContext, PageUri.SelfTest);
+            _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
+            _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
+            _seeAndHearVideo = new DecisionJourney(browserContext, PageUri.SeeAndHearVideo);
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -130,6 +140,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "same computer":
                     _sameComputer.Validate();
+                    break;
+                case "use camera and microphone again":
+                    _useCameraAndMicrophone.Validate();
+                    break;
+                case "self test":
+                    _selfTest.Validate();
+                    break;
+                case "camera working":
+                    _cameraWorking.Validate();
+                    break;
+                case "microphone working":
+                    _microphoneWorking.Validate();
+                    break;
+                case "see and hear video":
+                    _seeAndHearVideo.Validate();
                     break;
             }
         }

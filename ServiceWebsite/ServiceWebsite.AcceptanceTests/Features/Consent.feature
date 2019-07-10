@@ -10,6 +10,18 @@ Scenario: Individual participant consents to video hearing
 	When provides answer as Yes
 	When proceeds to next page
 	Then Individual should be on 'same computer' screen
+	When provides answer as Yes
+	And proceeds to next page
+	Then Individual should be on 'use camera and microphone again' screen
+	When proceeds to next page
+	Then Individual should be on 'self test' screen
+	When proceeds to next page
+	And provides answer
+	 | page                      | answer	|
+	 | camera working            | Yes		|
+	 | microphone working		 | Yes		|
+	 | see and hear video        | Yes		|
+	Then Individual should be on 'same computer' screen
 
 @VIH-4338
 Scenario: Individual participant without providing answer on consent page
@@ -29,3 +41,4 @@ Scenario: Individual participant does not consent to video hearing
 	When Individual provides additional information for not consenting to video hearing as 'ABC'
 	And proceeds to next page
 	Then Individual should be on 'same computer' screen
+	
