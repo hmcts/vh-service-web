@@ -6,11 +6,11 @@ import { ParticipantJourneySteps } from '../../../base-journey/participant-journ
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 @Component({
-  selector: 'app-see-and-hear-video',
-  templateUrl: './see-and-hear-video.component.html',
+  selector: 'app-video-working',
+  templateUrl: './video-working.component.html',
   styles: []
 })
-export class SeeAndHearVideoComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+export class VideoWorkingComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
   constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
     super(journey);
@@ -34,6 +34,6 @@ export class SeeAndHearVideoComponent extends SuitabilityChoicePageBaseComponent
   }
 
   checkEquipment() {
-    this.journey.goto(SelfTestJourneySteps.SelfTest);
+    this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
   }
 }

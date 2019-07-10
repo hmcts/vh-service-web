@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
 import { IndividualJourney } from '../../individual-journey';
-import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
 @Component({

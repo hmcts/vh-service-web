@@ -32,6 +32,6 @@ export class CameraWorkingComponent extends SuitabilityChoicePageBaseComponent<J
   }
 
   checkEquipment() {
-    this.journey.goto(SelfTestJourneySteps.SelfTest);
+    this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
    }
 }

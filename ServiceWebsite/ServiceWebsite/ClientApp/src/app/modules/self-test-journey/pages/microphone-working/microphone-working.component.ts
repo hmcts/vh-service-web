@@ -29,10 +29,10 @@ export class MicrophoneWorkingComponent extends SuitabilityChoicePageBaseCompone
       return;
     }
 
-    this.journey.goto(SelfTestJourneySteps.SeeAndHearVideo);
+    this.journey.goto(SelfTestJourneySteps.VideoWorking);
   }
 
   checkEquipment() {
-    this.journey.goto(SelfTestJourneySteps.SelfTest);
+    this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
    }
 }

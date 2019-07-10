@@ -37,7 +37,7 @@ describe('SelfTestJourney', () => {
 
   it('should redirect to videoapp if done', () => {
     givenSelfTestAnswers(selfTestAnswers.done);
-    journey.jumpTo(SelfTestJourneySteps.SelfTest);
+    journey.jumpTo(SelfTestJourneySteps.TestYourEquipment);
     expect(redirectedTo).toBe(ParticipantJourneySteps.GotoVideoApp);
   });
 });
