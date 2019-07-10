@@ -128,7 +128,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "consent":
                     _consent.Validate();
                     break;
-                case "same computer":
+                case "check your computer":
                     _checkYourComputer.Validate();
                     break;
             }

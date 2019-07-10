@@ -19,11 +19,11 @@ describe('CheckYourComputerComponent', () => {
 
   });
 
-  it(`should submit and go to ${SelfTestJourneySteps.SignInOtherComputer} if answering no`, async () => {
+  it(`should submit and go to ${SelfTestJourneySteps.SignBackIn} if answering no`, async () => {
     const component = new CheckYourComputerComponent(journey, model, deviceType);
     component.choice.setValue(false);
     await component.submit();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SignInOtherComputer);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SignBackIn);
   });
 
   it(`should submit and go to ${SelfTestJourneySteps.SignInOnComputer} if answering yes and device type is mobile`, async () => {

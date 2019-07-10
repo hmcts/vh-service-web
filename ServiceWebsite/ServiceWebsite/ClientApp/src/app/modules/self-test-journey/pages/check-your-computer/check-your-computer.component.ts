@@ -30,7 +30,7 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
     }
 
     if (!this.model.selfTest.checkYourComputer) {
-      this.journey.goto(SelfTestJourneySteps.SignInOtherComputer);
+      this.journey.goto(SelfTestJourneySteps.SignBackIn);
       return;
     }
 

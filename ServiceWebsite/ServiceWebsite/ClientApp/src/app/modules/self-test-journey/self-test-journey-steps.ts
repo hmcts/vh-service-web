@@ -3,7 +3,7 @@ import { JourneyStep } from '../base-journey/journey-step';
 export class SelfTestJourneySteps {
   static readonly SwitchOnCameraAndMicrophone = new JourneyStep('SwitchOnCameraAndMicrophone');
   static readonly CheckYourComputer = new JourneyStep('CheckYourComputer');
-  static readonly SignInOtherComputer = new JourneyStep('SignInOtherComputer');
+  static readonly SignBackIn = new JourneyStep('SignBackIn');
   static readonly SignInOnComputer = new JourneyStep('SignInOnComputer');
   static readonly SelfTest = new JourneyStep('SelfTest');
   static readonly CameraWorking = new JourneyStep('CameraWorking');
@@ -14,7 +14,7 @@ export class SelfTestJourneySteps {
     return [
       this.SwitchOnCameraAndMicrophone,
       this.CheckYourComputer,
-      this.SignInOtherComputer,
+      this.SignBackIn,
       this.SignInOnComputer,
       this.SelfTest,
       this.CameraWorking,
