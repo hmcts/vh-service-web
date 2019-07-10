@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual answers \'Your computer\' question", "\tAs an Individual Participant\n\tI want to let the court know whether I have a comp" +
-                    "uter or not\n\tSo that the court can decide whether a video hearing is not suitabl" +
-                    "e for me", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Individual answers \'Your computer\' question", "\tAs an Individual Participant\r\n\tI want to let the court know whether I have a com" +
+                    "puter or not\r\n\tSo that the court can decide whether a video hearing is not suita" +
+                    "ble for me", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

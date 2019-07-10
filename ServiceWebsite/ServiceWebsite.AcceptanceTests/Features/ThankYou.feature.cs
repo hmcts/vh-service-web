@@ -31,9 +31,9 @@ namespace ServiceWebsite.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Representative views Thank You page", "\tAs a Participant\n\tI want to be able to reach end of the questionnaire when I hav" +
-                    "e a computer or laptop with microphone and camera\n\tSo that I can join a video he" +
-                    "aring", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Representative views Thank You page", "\tAs a Participant\r\n\tI want to be able to reach end of the questionnaire when I ha" +
+                    "ve a computer or laptop with microphone and camera\r\n\tSo that I can join a video " +
+                    "hearing", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
