@@ -34,6 +34,6 @@ export class SeeAndHearVideoComponent extends SuitabilityChoicePageBaseComponent
   }
 
   checkEquipment() {
-    this.journey.goto(SelfTestJourneySteps.SelfTest);
+    this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
   }
 }

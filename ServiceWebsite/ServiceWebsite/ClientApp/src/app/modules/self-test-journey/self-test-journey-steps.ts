@@ -5,7 +5,7 @@ export class SelfTestJourneySteps {
   static readonly CheckYourComputer = new JourneyStep('CheckYourComputer');
   static readonly SignBackIn = new JourneyStep('SignBackIn');
   static readonly SignInOnComputer = new JourneyStep('SignInOnComputer');
-  static readonly SelfTest = new JourneyStep('SelfTest');
+  static readonly TestYourEquipment = new JourneyStep('TestYourEquipment');
   static readonly CameraWorking = new JourneyStep('CameraWorking');
   static readonly MicrophoneWorking = new JourneyStep('MicrophoneWorking');
   static readonly SeeAndHearVideo = new JourneyStep('SeeAndHearVideo');
@@ -16,7 +16,7 @@ export class SelfTestJourneySteps {
       this.CheckYourComputer,
       this.SignBackIn,
       this.SignInOnComputer,
-      this.SelfTest,
+      this.TestYourEquipment,
       this.CameraWorking,
       this.MicrophoneWorking,
       this.SeeAndHearVideo

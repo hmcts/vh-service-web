@@ -33,6 +33,6 @@ export class MicrophoneWorkingComponent extends SuitabilityChoicePageBaseCompone
   }
 
   checkEquipment() {
-    this.journey.goto(SelfTestJourneySteps.SelfTest);
+    this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
    }
 }

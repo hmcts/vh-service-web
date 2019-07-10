@@ -21,10 +21,10 @@ describe('MicrophoneWorkingComponent', () => {
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SeeAndHearVideo);
   });
 
-  it(`redirects to ${SelfTestJourneySteps.SelfTest} on clicking on check your equipment again`, async () => {
+  it(`redirects to ${SelfTestJourneySteps.TestYourEquipment} on clicking on check your equipment again`, async () => {
     const component = new MicrophoneWorkingComponent(journey, model);
     await component.checkEquipment();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.TestYourEquipment);
     expect(journey.submitQuestionnaire).not.toHaveBeenCalled();
   });
 

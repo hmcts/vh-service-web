@@ -8,7 +8,7 @@ import {SwitchOnCameraAndMicrophoneComponent} from './switch-on-camera-and-micro
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 
 describe('SwitchOnCameraAndMicrophoneComponent', () => {
-  it(`goes to ${SelfTestJourneySteps.SelfTest} on continuing`, () => {
+  it(`goes to ${SelfTestJourneySteps.TestYourEquipment} on continuing`, () => {
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: SwitchOnCameraAndMicrophoneComponent,
@@ -18,6 +18,6 @@ describe('SwitchOnCameraAndMicrophoneComponent', () => {
 
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SelfTest);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.TestYourEquipment);
   });
 });

@@ -3,7 +3,7 @@ export const Paths = {
   SignInOnComputer: 'sign-in-on-computer',
   SignBackIn: 'sign-back-in',
   SwitchOnCameraAndMicrophone: 'switch-on-camera-and-microphone',
-  SelfTest: 'self-test',
+  TestYourEquipment: 'test-your-equipment',
   CameraWorking: 'camera-working',
   MicrophoneWorking: 'microphone-working',
   SeeAndHearVideo: 'see-and-hear-video',

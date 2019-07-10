@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {Paths} from './paths';
-import {SelfTestComponent} from './pages/self-test/self-test.component';
+import {TestYourEquipmentComponent} from './pages/test-your-equipment/test-your-equipment.component';
 import {SwitchOnCameraAndMicrophoneComponent} from './pages/switch-on-camera-and-microphone/switch-on-camera-and-microphone.component';
 import {CheckYourComputerComponent} from './pages/check-your-computer/check-your-computer.component';
 import {SignInOnComputerComponent} from './pages/sign-in-on-computer/sign-in-on-computer.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: Paths.SignBackIn, component: SignBackInComponent},
   {path: Paths.SignInOnComputer, component: SignInOnComputerComponent},
   {path: Paths.SwitchOnCameraAndMicrophone, component: SwitchOnCameraAndMicrophoneComponent},
-  {path: Paths.SelfTest, component: SelfTestComponent},
+  {path: Paths.TestYourEquipment, component: TestYourEquipmentComponent},
   {path: Paths.CameraWorking, component: CameraWorkingComponent},
   {path: Paths.MicrophoneWorking, component: MicrophoneWorkingComponent},
   {path: Paths.SeeAndHearVideo, component: SeeAndHearVideoComponent},
@@ -26,7 +26,7 @@ export const Components = [
   SignBackInComponent,
   SignInOnComputerComponent,
   SwitchOnCameraAndMicrophoneComponent,
-  SelfTestComponent,
+  TestYourEquipmentComponent,
   CameraWorkingComponent,
   MicrophoneWorkingComponent,
   SeeAndHearVideoComponent
