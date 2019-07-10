@@ -34,13 +34,13 @@ describe('CheckYourComputerComponent', () => {
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SignInOnComputer);
   });
 
-  it(`should submit and go to ${SelfTestJourneySteps.UseCameraAndMicrophoneAgain}
+  it(`should submit and go to ${SelfTestJourneySteps.SwitchOnCameraAndMicrophone}
    if answering yes and device type is not mobile`, async () => {
     deviceType.isMobile.and.returnValue(false);
     const component = new CheckYourComputerComponent(journey, model, deviceType);
     component.choice.setValue(true);
     await component.submit();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
   });
 
   it('should load any previous value', () => {

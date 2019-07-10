@@ -39,6 +39,6 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
       return;
     }
 
-    this.journey.goto(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+    this.journey.goto(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
   }
 }
