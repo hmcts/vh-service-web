@@ -106,7 +106,6 @@ describe('IndividualJourney', () => {
 
   it('should redirect to video app if all upcoming hearings are done', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
-    journey.startAt(Steps.AboutHearings);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 

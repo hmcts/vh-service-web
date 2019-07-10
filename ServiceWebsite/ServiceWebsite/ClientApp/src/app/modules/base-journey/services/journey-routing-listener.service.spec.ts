@@ -68,18 +68,19 @@ describe('JourneyRoutingListenerService', () => {
 
   const givenInitialisedAtStartStep = () => {
     givenCurrentUrlIs('/' + bindings.getRoute(bindings.initialStep));
-    service.initialise(bindings, journey);
+    service.startRouting(bindings, journey);
   };
 
   it('should re-route to start step component if entering on application home', () => {
     givenCurrentUrlIs('/' + AppPaths.Root);
-    service.initialise(bindings, journey);
+    service.startRouting(bindings, journey);
+    service.startJourneyAtCurrentRoute();
     expect(journey.startAt).toHaveBeenCalledWith(bindings.initialStep);
   });
 
   it('should re-route to start step if routed to application home', () => {
     givenCurrentUrlIs('/login');
-    service.initialise(bindings, journey);
+    service.startRouting(bindings, journey);
 
     const rootUrl = `/${AppPaths.Root}`;
     routerEvents.next(new ResolveEnd(0, rootUrl, rootUrl, null));
