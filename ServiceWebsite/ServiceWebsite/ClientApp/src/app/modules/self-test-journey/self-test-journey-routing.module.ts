@@ -8,7 +8,7 @@ import {SignInOnComputerComponent} from './pages/sign-in-on-computer/sign-in-on-
 import {SignBackInComponent} from './pages/sign-back-in/sign-back-in.component';
 import {CameraWorkingComponent} from './pages/camera-working/camera-working.component';
 import {MicrophoneWorkingComponent} from './pages/microphone-working/microphone-working.component';
-import {SeeAndHearVideoComponent} from './pages/see-and-hear-video/see-and-hear-video.component';
+import {VideoWorkingComponent} from './pages/video-working/video-working.component';
 
 const routes: Routes = [
   {path: Paths.CheckYourComputer, component: CheckYourComputerComponent},
@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: Paths.TestYourEquipment, component: TestYourEquipmentComponent},
   {path: Paths.CameraWorking, component: CameraWorkingComponent},
   {path: Paths.MicrophoneWorking, component: MicrophoneWorkingComponent},
-  {path: Paths.SeeAndHearVideo, component: SeeAndHearVideoComponent},
+  {path: Paths.VideoWorking, component: VideoWorkingComponent},
 ];
 
 export const Components = [
@@ -29,7 +29,7 @@ export const Components = [
   TestYourEquipmentComponent,
   CameraWorkingComponent,
   MicrophoneWorkingComponent,
-  SeeAndHearVideoComponent
+  VideoWorkingComponent
 ];
 
 @NgModule({

@@ -6,5 +6,5 @@ export const Paths = {
   TestYourEquipment: 'test-your-equipment',
   CameraWorking: 'camera-working',
   MicrophoneWorking: 'microphone-working',
-  SeeAndHearVideo: 'see-and-hear-video',
+  VideoWorking: 'video-working',
 };

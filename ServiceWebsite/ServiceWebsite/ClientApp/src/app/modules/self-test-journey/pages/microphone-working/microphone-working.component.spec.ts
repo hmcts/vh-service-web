@@ -14,11 +14,11 @@ describe('MicrophoneWorkingComponent', () => {
     model.selfTest = new SelfTestAnswers();
   });
 
-  it(`should submit and go to ${SelfTestJourneySteps.SeeAndHearVideo}`, async () => {
+  it(`should submit and go to ${SelfTestJourneySteps.VideoWorking}`, async () => {
     const component = new MicrophoneWorkingComponent(journey, model);
     component.choice.setValue(true);
     await component.submit();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SeeAndHearVideo);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.VideoWorking);
   });
 
   it(`redirects to ${SelfTestJourneySteps.TestYourEquipment} on clicking on check your equipment again`, async () => {

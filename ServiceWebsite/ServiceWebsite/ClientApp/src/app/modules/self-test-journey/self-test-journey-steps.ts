@@ -8,7 +8,7 @@ export class SelfTestJourneySteps {
   static readonly TestYourEquipment = new JourneyStep('TestYourEquipment');
   static readonly CameraWorking = new JourneyStep('CameraWorking');
   static readonly MicrophoneWorking = new JourneyStep('MicrophoneWorking');
-  static readonly SeeAndHearVideo = new JourneyStep('SeeAndHearVideo');
+  static readonly VideoWorking = new JourneyStep('VideoWorking');
 
   static GetAll(): JourneyStep[] {
     return [
@@ -19,7 +19,7 @@ export class SelfTestJourneySteps {
       this.TestYourEquipment,
       this.CameraWorking,
       this.MicrophoneWorking,
-      this.SeeAndHearVideo
+      this.VideoWorking
     ];
   }
 }
