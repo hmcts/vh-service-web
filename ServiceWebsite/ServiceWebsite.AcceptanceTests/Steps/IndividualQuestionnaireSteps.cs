@@ -19,12 +19,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourInternetConnection;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
-        private readonly JourneyStepPage _sameComputer;
-        private readonly DecisionJourney _useCameraAndMicrophone;
-        private readonly DecisionJourney _selfTest;
+        private readonly JourneyStepPage _checkYourComputer;
+        private readonly DecisionJourney _switchOnCameraAndMicrophone;
+        private readonly DecisionJourney _testYourEquipment;
         private readonly DecisionJourney _cameraWorking;
         private readonly DecisionJourney _microphoneWorking;
-        private readonly DecisionJourney _seeAndHearVideo;
+        private readonly DecisionJourney _videoWorking;
 
         public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
@@ -36,12 +36,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
-            _sameComputer = new JourneyStepPage(browserContext, PageUri.SameComputer);
-            _useCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.UseCameraAndMicrophone);
-            _selfTest = new DecisionJourney(browserContext, PageUri.SelfTest);
+            _checkYourComputer = new JourneyStepPage(browserContext, PageUri.CheckYourComputer);
+            _switchOnCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.SwitchOnCameraAndMicrophone);
+            _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
             _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
-            _seeAndHearVideo = new DecisionJourney(browserContext, PageUri.SeeAndHearVideo);
+            _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -138,14 +138,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "consent":
                     _consent.Validate();
                     break;
-                case "same computer":
-                    _sameComputer.Validate();
+                case "check your computer":
+                    _checkYourComputer.Validate();
                     break;
-                case "use camera and microphone again":
-                    _useCameraAndMicrophone.Validate();
+                case "switch on camera and microphone":
+                    _switchOnCameraAndMicrophone.Validate();
                     break;
-                case "self test":
-                    _selfTest.Validate();
+                case "test your equipment":
+                    _testYourEquipment.Validate();
                     break;
                 case "camera working":
                     _cameraWorking.Validate();
@@ -153,8 +153,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 case "microphone working":
                     _microphoneWorking.Validate();
                     break;
-                case "see and hear video":
-                    _seeAndHearVideo.Validate();
+                case "video working":
+                    _videoWorking.Validate();
                     break;
             }
         }

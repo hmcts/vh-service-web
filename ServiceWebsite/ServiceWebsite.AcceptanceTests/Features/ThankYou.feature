@@ -35,13 +35,13 @@ Scenario: Representative views thank you page after submitting self test questio
 	Then Representative should be on 'check your computer' screen
 	When provides answer as Yes
 	And proceeds to next page
-	Then Representative should be on 'use camera and microphone again' screen
+	Then Representative should be on 'switch on camera and microphone' screen
 	When proceeds to next page
-	Then Representative should be on 'self test' screen
+	Then Representative should be on 'test your equipment' screen
 	When proceeds to next page
 	And provides answer
 	 | page                      | answer	|
 	 | camera working            | Yes		|
 	 | microphone working		 | Yes		|
-	 | see and hear video        | Yes		|
+	 | video working		     | Yes		|
 	Then Representative should be on 'thank you' screen

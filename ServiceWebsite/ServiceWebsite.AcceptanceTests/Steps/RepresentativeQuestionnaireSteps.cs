@@ -28,12 +28,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _questionnaireCompleted;
         private readonly Page _thankYou;
         private readonly Page _pleaseContactUs;
-        private readonly DecisionJourney _sameComputer;
-        private readonly DecisionJourney _useCameraAndMicrophone;
-        private readonly DecisionJourney _selfTest;
+        private readonly DecisionJourney _checkYourComputer;
+        private readonly DecisionJourney _switchOnCameraAndMicrophone;
+        private readonly DecisionJourney _testYourEquipment;
         private readonly DecisionJourney _cameraWorking;
         private readonly DecisionJourney _microphoneWorking;
-        private readonly DecisionJourney _seeAndHearVideo;
+        private readonly DecisionJourney _videoWorking;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
 
@@ -53,12 +53,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
             _thankYou = new Page(browserContext, RepresentativePageUrl.ThankYouRep);
             _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
-            _sameComputer = new DecisionJourney(browserContext, PageUri.SameComputer);
-            _useCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.UseCameraAndMicrophone);
-            _selfTest = new DecisionJourney(browserContext, PageUri.SelfTest);
+            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
+            _switchOnCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.SwitchOnCameraAndMicrophone);
+            _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
             _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
-            _seeAndHearVideo = new DecisionJourney(browserContext, PageUri.SeeAndHearVideo);
+            _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -126,9 +126,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var pageToValidate = GetPage(page);
             pageToValidate.Validate();
             if(page == "about your computer"|| 
-                page == "questionnaire completed" || page == "same computer" 
-                || page == "use camera and microphone again"
-                || page == "self test")
+                page == "questionnaire completed" || page == "check your computer" 
+                || page == "switch on camera and microphone"
+                || page == "test your equipment")
             {
                 _scenarioContext.Set<DecisionJourney>((DecisionJourney)pageToValidate, "CurrentPage");
             }
@@ -223,18 +223,18 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     return _pleaseContactUs;
                 case RepresentativePageNames.ThankYou:
                     return _thankYou;
-                case SelfTestPageNames.SameComputer:
-                    return _sameComputer;
-                case SelfTestPageNames.UseCameraAndMicrophone:
-                    return _useCameraAndMicrophone;
-                case SelfTestPageNames.SelfTest:
-                    return _selfTest;
+                case SelfTestPageNames.CheckYourComputer:
+                    return _checkYourComputer;
+                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
+                    return _switchOnCameraAndMicrophone;
+                case SelfTestPageNames.TestYourEquipment:
+                    return _testYourEquipment;
                 case SelfTestPageNames.CameraWorking:
                     return _cameraWorking;
                 case SelfTestPageNames.MicrophoneWorking:
                     return _microphoneWorking;
-                case SelfTestPageNames.SeeAndHearVideo:
-                    return _seeAndHearVideo;
+                case SelfTestPageNames.VideoWorking:
+                    return _videoWorking;
             }
             throw new Exception("Invalid page");
         }

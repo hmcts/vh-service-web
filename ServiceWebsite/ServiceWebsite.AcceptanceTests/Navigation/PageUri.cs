@@ -22,11 +22,11 @@
 
         //After submission of answers
         public const string CheckYourComputer = "/check-your-computer";
-        public const string UseCameraAndMicrophone = "/use-camera-microphone-again";
-        public const string SelfTest = "/self-test";
+        public const string SwitchOnCameraAndMicrophone = "/switch-on-camera-and-microphone";
+        public const string TestYourEquipment = "/test-your-equipment";
         public const string CameraWorking = "/camera-working";
         public const string MicrophoneWorking = "/microphone-working";
-        public const string SeeAndHearVideo = "/see-and-hear-video";
+        public const string VideoWorking = "/video-working";
 
     }
 }
