@@ -1,11 +1,10 @@
-import { JourneyStep } from './../../../base-journey/journey-step';
+import { JourneyStep } from '../../../base-journey/journey-step';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { IndividualJourney } from '../../individual-journey';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
-import { IndividualStepsOrderFactory } from '../../individual-steps-order.factory';
 import { DeviceType } from '../../../base-journey/services/device-type';
 import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 import {
@@ -41,11 +40,10 @@ export class CommonIndividualComponentTests {
 export class IndividualJourneyStubs {
   public static get default(): IndividualJourney {
     const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-    const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
     deviceType.isMobile.and.returnValue(false);
     let submitService: jasmine.SpyObj<SubmitService>;
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
-    const journey = new IndividualJourney(individualStepsOrderFactory, submitService, TestLogger);
+    const journey = new IndividualJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers([IndividualJourneyStubs.model]);
     journey.startAt(IndividualJourneySteps.AboutHearings);
     return journey;

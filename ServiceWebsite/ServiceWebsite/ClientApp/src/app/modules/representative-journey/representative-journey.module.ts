@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SharedModule } from './../shared/shared.module';
-import { BaseJourneyModule } from './../base-journey/base-journey.module';
+import { SharedModule } from '../shared/shared.module';
+import { BaseJourneyModule } from '../base-journey/base-journey.module';
 import { RepresentativeJourneyRoutingModule } from './representative-journey-routing.module';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
 
@@ -15,7 +15,6 @@ import { RepresentativeSuitabilityService } from './services/representative-suit
 import { RepresentativeJourneyStepComponentBindings } from './services/representative-journey-component-bindings';
 import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
 
-import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
 import { HearingService, HearingApiService } from './services/hearing.service';
 
@@ -74,7 +73,6 @@ import { SubmitService } from './services/submit.service';
     RepresentativeJourneyStepComponentBindings,
     JourneyRoutingListenerService,
     RepresentativeSuitabilityService,
-    RepresentativeStepsOrderFactory,
     RepresentativeJourneyService,
     SubmitService
   ]
