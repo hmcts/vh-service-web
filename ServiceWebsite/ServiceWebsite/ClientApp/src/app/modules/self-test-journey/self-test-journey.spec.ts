@@ -14,13 +14,13 @@ describe('SelfTestJourney', () => {
     done: new SelfTestAnswers({
       seeAndHearClearly: true,
       cameraWorking:  true,
-      sameComputer: true,
+      checkYourComputer: true,
       microphoneWorking: true
     }),
     lastAnswerRemaining: new SelfTestAnswers({
       seeAndHearClearly: undefined,
       cameraWorking:  true,
-      sameComputer: true,
+      checkYourComputer: true,
       microphoneWorking: true
     }),
     none: new SelfTestAnswers({})

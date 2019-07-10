@@ -33,7 +33,7 @@ describe('QuestionnaireCompletedComponent', () => {
     const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.submitIsClicked();
 
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SameComputer);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CheckYourComputer);
   });
 
   it(`should go to ${RepresentativeJourneySteps.ContactUs} if not having computer`, () => {

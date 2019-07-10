@@ -1,11 +1,10 @@
-import { SameComputerComponent } from './../self-test-journey/pages/same-computer/same-computer.component';
 import { SelfTestAnswers } from 'src/app/modules/base-journey/participant-suitability.model';
 describe('ParticipantSuitabilityModel', () => {
     describe('SelfTestAnswers', () => {
         it('is completed once all answers are saved', () => {
             const answers = new SelfTestAnswers({
                 seeAndHearClearly: true,
-                sameComputer: true,
+                checkYourComputer: true,
                 microphoneWorking: true,
                 cameraWorking: true
             });
@@ -16,7 +15,7 @@ describe('ParticipantSuitabilityModel', () => {
         it('is not completed when any question is not asnwers', () => {
             const answers = new SelfTestAnswers({
                 seeAndHearClearly: true,
-                sameComputer: true,
+                checkYourComputer: true,
                 microphoneWorking: true,
                 cameraWorking: true
             });

@@ -6,22 +6,22 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 
 @Component({
-  selector: 'app-same-computer',
-  templateUrl: './same-computer.component.html',
+  selector: 'app-check-your-computer',
+  templateUrl: './check-your-computer.component.html',
   styles: []
 })
-export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+export class CheckYourComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
   constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel, private deviceType: DeviceType) {
     super(journey);
   }
 
   ngOnInit(): void {
-    this.choice.setValue(this.model.selfTest.sameComputer);
+    this.choice.setValue(this.model.selfTest.checkYourComputer);
   }
 
   protected bindModel(): void {
-    this.model.selfTest.sameComputer = this.choice.value;
+    this.model.selfTest.checkYourComputer = this.choice.value;
   }
 
   async submit(): Promise<void> {
@@ -29,7 +29,7 @@ export class SameComputerComponent extends SuitabilityChoicePageBaseComponent<Jo
       return;
     }
 
-    if (!this.model.selfTest.sameComputer) {
+    if (!this.model.selfTest.checkYourComputer) {
       this.journey.goto(SelfTestJourneySteps.SignInOtherComputer);
       return;
     }

@@ -24,7 +24,7 @@ describe('SubmitService', () => {
     model.selfTest.cameraWorking = true;
     model.selfTest.microphoneWorking = true;
     model.selfTest.seeAndHearClearly = true;
-    model.selfTest.sameComputer = true;
+    model.selfTest.checkYourComputer = true;
    });
 
   it('should call the suitability service to submit answers', async () => {

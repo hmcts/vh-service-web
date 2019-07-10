@@ -1,5 +1,5 @@
 export const Paths = {
-  SameComputer: 'same-computer',
+  CheckYourComputer: 'check-your-computer',
   SignInOnComputer: 'sign-in-on-computer',
   SignInOtherComputer: 'sign-in-other-computer',
   UseCameraAndMicrophoneAgain: 'use-camera-microphone-again',

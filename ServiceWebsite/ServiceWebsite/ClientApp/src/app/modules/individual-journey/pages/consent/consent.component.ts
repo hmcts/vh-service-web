@@ -87,7 +87,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     this.textInputYes.markAsTouched();
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
-      this.journey.goto(SelfTestJourneySteps.SameComputer);
+      this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
     }
   }
 }

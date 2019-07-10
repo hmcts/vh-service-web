@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {Paths} from './paths';
 import {SelfTestComponent} from './pages/self-test/self-test.component';
 import {UseCameraMicrophoneAgainComponent} from './pages/use-camera-microphone-again/use-camera-microphone-again.component';
-import {SameComputerComponent} from './pages/same-computer/same-computer.component';
+import {CheckYourComputerComponent} from './pages/check-your-computer/check-your-computer.component';
 import {SignInOnComputerComponent} from './pages/sign-in-on-computer/sign-in-on-computer.component';
 import {SignInOtherComputerComponent} from './pages/sign-in-other-computer/sign-in-other-computer.component';
 import {CameraWorkingComponent} from './pages/camera-working/camera-working.component';
@@ -11,7 +11,7 @@ import {MicrophoneWorkingComponent} from './pages/microphone-working/microphone-
 import {SeeAndHearVideoComponent} from './pages/see-and-hear-video/see-and-hear-video.component';
 
 const routes: Routes = [
-  {path: Paths.SameComputer, component: SameComputerComponent},
+  {path: Paths.CheckYourComputer, component: CheckYourComputerComponent},
   {path: Paths.SignInOtherComputer, component: SignInOtherComputerComponent},
   {path: Paths.SignInOnComputer, component: SignInOnComputerComponent},
   {path: Paths.UseCameraAndMicrophoneAgain, component: UseCameraMicrophoneAgainComponent},
@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 export const Components = [
-  SameComputerComponent,
+  CheckYourComputerComponent,
   SignInOtherComputerComponent,
   SignInOnComputerComponent,
   UseCameraMicrophoneAgainComponent,

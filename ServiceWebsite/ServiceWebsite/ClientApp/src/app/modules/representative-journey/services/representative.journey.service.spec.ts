@@ -32,7 +32,7 @@ describe('representative.journey.service', () => {
 
     model.selfTest = new SelfTestAnswers({
       seeAndHearClearly: false,
-      sameComputer: true,
+      checkYourComputer: true,
       cameraWorking: false,
       microphoneWorking: true
     });
