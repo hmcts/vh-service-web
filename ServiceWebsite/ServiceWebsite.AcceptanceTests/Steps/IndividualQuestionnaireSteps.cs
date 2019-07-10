@@ -19,7 +19,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourInternetConnection;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
-        private readonly JourneyStepPage _checkYourComputer;
+        private readonly DecisionJourney _checkYourComputer;
         private readonly DecisionJourney _switchOnCameraAndMicrophone;
         private readonly DecisionJourney _testYourEquipment;
         private readonly DecisionJourney _cameraWorking;
@@ -36,7 +36,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
-            _checkYourComputer = new JourneyStepPage(browserContext, PageUri.CheckYourComputer);
+            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
             _switchOnCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.SwitchOnCameraAndMicrophone);
             _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
@@ -112,6 +112,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Individual should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
+
             switch (page)
             {
                 case "about you":
@@ -140,23 +141,30 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "check your computer":
                     _checkYourComputer.Validate();
+                    _currentPage = _checkYourComputer;
                     break;
                 case "switch on camera and microphone":
                     _switchOnCameraAndMicrophone.Validate();
+                    _currentPage = _switchOnCameraAndMicrophone;
                     break;
                 case "test your equipment":
                     _testYourEquipment.Validate();
+                    _currentPage = _testYourEquipment;
                     break;
                 case "camera working":
                     _cameraWorking.Validate();
+                    _currentPage = _cameraWorking;
                     break;
                 case "microphone working":
                     _microphoneWorking.Validate();
+                    _currentPage = _microphoneWorking;
                     break;
                 case "video working":
                     _videoWorking.Validate();
+                    _currentPage = _videoWorking;
                     break;
             }
+            _scenarioContext.Set(_currentPage, "CurrentPage");
         }
 
         [When(@"Individual provides additional information for not consenting to video hearing as '(.*)'")]
