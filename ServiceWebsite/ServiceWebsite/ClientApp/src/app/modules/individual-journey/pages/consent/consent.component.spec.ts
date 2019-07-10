@@ -3,7 +3,6 @@ import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { ConsentComponent } from './consent.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
-import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 

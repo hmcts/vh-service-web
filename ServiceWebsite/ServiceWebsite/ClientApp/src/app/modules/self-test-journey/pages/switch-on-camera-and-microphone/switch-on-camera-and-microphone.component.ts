@@ -20,6 +20,6 @@ export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
   }
 
   continue() {
-    this.journey.goto(SelfTestJourneySteps.SelfTest);
+    this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
   }
 }
