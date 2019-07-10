@@ -126,18 +126,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>YourComputer.feature</DependentUpon>
     </Compile>
-    <Compile Update="Steps\ContactUsSteps.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Steps\IndividualQuestionnaireSteps.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Steps\RepresentativeQuestionnaireSteps.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Steps\YourComputerSteps.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Update="Steps\ContactUsSteps.cs" />
+    <Compile Update="Steps\IndividualQuestionnaireSteps.cs" />
+    <Compile Update="Steps\RepresentativeQuestionnaireSteps.cs" />
+    <Compile Update="Steps\YourComputerSteps.cs" />
   </ItemGroup>
 
   <ItemGroup>

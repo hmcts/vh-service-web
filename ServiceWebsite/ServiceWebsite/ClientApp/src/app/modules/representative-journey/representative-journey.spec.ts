@@ -1,7 +1,6 @@
 import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
 import { HasAccessToCamera, Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
-import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
@@ -40,7 +39,7 @@ describe('RepresentativeJourney', () => {
     model.selfTest = new SelfTestAnswers({
       cameraWorking: true,
       seeAndHearClearly: true,
-      sameComputer: true,
+      checkYourComputer: true,
       microphoneWorking: true
     });
 
@@ -134,11 +133,11 @@ describe('RepresentativeJourney', () => {
     expect(redirected).toBe(Steps.AboutHearings);
   });
 
-  it(`should enter journey at ${SelfTestJourneySteps.SameComputer} if completed questionnaire but not self-test`, () => {
+  it(`should enter journey at ${SelfTestJourneySteps.CheckYourComputer} if completed questionnaire but not self-test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
     journey.jumpTo(Steps.AboutVideoHearings);
-    expect(journey.step).toBe(SelfTestJourneySteps.SameComputer);
-    expect(redirected).toBe(SelfTestJourneySteps.SameComputer);
+    expect(journey.step).toBe(SelfTestJourneySteps.CheckYourComputer);
+    expect(redirected).toBe(SelfTestJourneySteps.CheckYourComputer);
   });
 
   it(`can navigate to ${Steps.QuestionnaireCompleted} after dropping out on ${Steps.AccessToComputer}`, () => {
@@ -170,12 +169,12 @@ describe('RepresentativeJourney', () => {
 
   it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.startAt(SelfTestJourneySteps.SameComputer);
+    journey.startAt(SelfTestJourneySteps.CheckYourComputer);
 
     // when completing self test journey
     journey.model.selfTest.cameraWorking = true;
     journey.model.selfTest.microphoneWorking = true;
-    journey.model.selfTest.sameComputer = true;
+    journey.model.selfTest.checkYourComputer = true;
     journey.model.selfTest.seeAndHearClearly = true;
 
     // and going to

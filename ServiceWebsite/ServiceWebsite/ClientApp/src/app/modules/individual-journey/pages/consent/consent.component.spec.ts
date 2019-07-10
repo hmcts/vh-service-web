@@ -3,7 +3,6 @@ import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { ConsentComponent } from './consent.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
-import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
@@ -119,7 +118,7 @@ describe('ConsentComponent', () => {
     expect(component.textInputYes.value).toBe('notes');
   });
 
-  it(`should submit questionnaire and go to ${SelfTestJourneySteps.SameComputer} on submitting`, async () => {
+  it(`should submit questionnaire and go to ${SelfTestJourneySteps.CheckYourComputer} on submitting`, async () => {
     component.ngOnInit();
     component.choice.setValue(true);
     component.textInputYes.setValue('comments');
@@ -127,7 +126,7 @@ describe('ConsentComponent', () => {
     await component.submit();
 
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SameComputer);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CheckYourComputer);
   });
 });
 

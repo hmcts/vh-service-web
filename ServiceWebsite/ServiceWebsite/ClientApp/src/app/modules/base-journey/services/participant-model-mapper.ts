@@ -6,7 +6,7 @@ export const ParticipantQuestionKeys = {
 };
 
 export const SelfTestQuestionKeys = {
-  SameComputer: 'KIT_SAME_COMPUTER',
+  CheckYourComputer: 'KIT_CHECK_YOUR_COMPUTER',
   SeeYourself: 'KIT_SEE_YOURSELF',
   Microphone: 'KIT_MICROPHONE',
   SeeHearClearly: 'KIT_SEE_HEAR_CLEARLY'
@@ -16,7 +16,7 @@ export abstract class ParticipantModelMapper {
 
     protected mapSelfTestAnswers(answers: HearingSuitabilityAnswer[]): SelfTestAnswers {
       const selfTestAnswers = new SelfTestAnswers();
-      selfTestAnswers.sameComputer = this.mapBooleanValue(answers, SelfTestQuestionKeys.SameComputer);
+      selfTestAnswers.checkYourComputer = this.mapBooleanValue(answers, SelfTestQuestionKeys.CheckYourComputer);
       selfTestAnswers.cameraWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeYourself);
       selfTestAnswers.microphoneWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.Microphone);
       selfTestAnswers.seeAndHearClearly = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeHearClearly);
@@ -25,7 +25,7 @@ export abstract class ParticipantModelMapper {
     }
 
     protected addSelfTestAnswers(selfTestAnswers: SelfTestAnswers, answers: HearingSuitabilityAnswer[]) {
-      this.addBooleanAnswer(selfTestAnswers.sameComputer, SelfTestQuestionKeys.SameComputer, answers);
+      this.addBooleanAnswer(selfTestAnswers.checkYourComputer, SelfTestQuestionKeys.CheckYourComputer, answers);
       this.addBooleanAnswer(selfTestAnswers.cameraWorking, SelfTestQuestionKeys.SeeYourself, answers);
       this.addBooleanAnswer(selfTestAnswers.microphoneWorking, SelfTestQuestionKeys.Microphone, answers);
       this.addBooleanAnswer(selfTestAnswers.seeAndHearClearly, SelfTestQuestionKeys.SeeHearClearly, answers);

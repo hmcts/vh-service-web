@@ -1,24 +1,21 @@
-import { ParticipantJourneySteps } from './../base-journey/participant-journey-steps';
+import { ParticipantJourneySteps } from '../base-journey/participant-journey-steps';
 import {EventEmitter, Injectable} from '@angular/core';
-import {SelfTestStepsOrderFactory} from './self-test-steps-order.factory';
 import {SelfTestJourneySteps} from './self-test-journey-steps';
 import {JourneyStep} from '../base-journey/journey-step';
 import {ParticipantSuitabilityModel} from '../base-journey/participant-suitability.model';
 
 @Injectable()
 export class SelfTestJourney {
-  static readonly initialStep = SelfTestJourneySteps.SameComputer;
+  static readonly initialStep = SelfTestJourneySteps.CheckYourComputer;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
-  stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = ParticipantJourneySteps.NotStarted;
-  private currentModel: ParticipantSuitabilityModel;
+  private readonly currentModel: ParticipantSuitabilityModel;
   readonly submit: EventEmitter<ParticipantSuitabilityModel> = new EventEmitter();
 
-  constructor(participantModel: ParticipantSuitabilityModel, private stepsFactory: SelfTestStepsOrderFactory) {
+  constructor(participantModel: ParticipantSuitabilityModel) {
     this.redirect.subscribe((step: JourneyStep) => {
       this.currentStep = step;
     });
-    this.stepOrder = this.stepsFactory.stepOrder();
     this.currentModel = participantModel;
   }
 
@@ -56,7 +53,7 @@ export class SelfTestJourney {
     const selfTest = this.model.selfTest;
     return selfTest.cameraWorking === true
       && selfTest.microphoneWorking === true
-      && selfTest.sameComputer === true
+      && selfTest.checkYourComputer === true
       && selfTest.seeAndHearClearly === true;
   }
 }

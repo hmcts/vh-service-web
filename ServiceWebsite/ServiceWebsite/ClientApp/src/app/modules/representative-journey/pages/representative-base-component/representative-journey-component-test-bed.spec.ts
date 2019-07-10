@@ -1,4 +1,4 @@
-import { TestLogger } from './../../../../services/logger.spec';
+import { TestLogger } from '../../../../services/logger.spec';
 import { MutableRepresentativeSuitabilityModel } from '../../mutable-representative-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
-import { RepresentativeStepsOrderFactory } from '../../representative-steps-order.factory';
 import {
   ComponentTestBedConfiguration,
   JourneyComponentTestBed

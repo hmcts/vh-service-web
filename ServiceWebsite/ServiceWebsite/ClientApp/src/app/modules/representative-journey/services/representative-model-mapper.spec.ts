@@ -49,7 +49,7 @@ describe('RepresentativeModelMapper', () => {
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                  question_key: SelfTestQuestionKeys.SameComputer,
+                  question_key: SelfTestQuestionKeys.CheckYourComputer,
                   answer: 'true',
                   extended_answer: ''
                 })
@@ -102,7 +102,7 @@ describe('RepresentativeModelMapper', () => {
         givenAnswerIs(RepresentativeQuestionKeys.ClientAttendance, 'false');
         givenAnswerIs(RepresentativeQuestionKeys.Computer, 'false');
         givenAnswerIs(RepresentativeQuestionKeys.Room, 'false');
-        givenAnswerIs(SelfTestQuestionKeys.SameComputer, 'false');
+        givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'false');
         givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'false');
         givenAnswerIs(SelfTestQuestionKeys.Microphone, 'false');
         givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'false');
@@ -111,7 +111,7 @@ describe('RepresentativeModelMapper', () => {
         expect(model.clientAttendance).toBeFalsy();
         expect(model.computer).toBeFalsy();
         expect(model.room).toBeFalsy();
-        expect(model.selfTest.sameComputer).toBeFalsy();
+        expect(model.selfTest.checkYourComputer).toBeFalsy();
         expect(model.selfTest.cameraWorking).toBeFalsy();
         expect(model.selfTest.microphoneWorking).toBeFalsy();
         expect(model.selfTest.seeAndHearClearly).toBeFalsy();
@@ -132,7 +132,7 @@ describe('RepresentativeModelMapper', () => {
         givenAnswerIs(RepresentativeQuestionKeys.Room, 'true');
         givenAnswerIs(RepresentativeQuestionKeys.Computer, 'true');
         givenAnswerIs(RepresentativeQuestionKeys.ClientAttendance, 'true');
-        givenAnswerIs(SelfTestQuestionKeys.SameComputer, 'true');
+        givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'true');
         givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'true');
         givenAnswerIs(SelfTestQuestionKeys.Microphone, 'true');
         givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'true');
@@ -145,7 +145,7 @@ describe('RepresentativeModelMapper', () => {
         expect(model.room).toBeTruthy();
         expect(model.computer).toBeTruthy();
         expect(model.clientAttendance).toBeTruthy();
-        expect(model.selfTest.sameComputer).toBeTruthy();
+        expect(model.selfTest.checkYourComputer).toBeTruthy();
         expect(model.selfTest.cameraWorking).toBeTruthy();
         expect(model.selfTest.microphoneWorking).toBeTruthy();
         expect(model.selfTest.seeAndHearClearly).toBeTruthy();

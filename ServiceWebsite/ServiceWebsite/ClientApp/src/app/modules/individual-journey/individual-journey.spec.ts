@@ -1,15 +1,12 @@
-import { ConsoleLogger } from './../../services/console-logger';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
 import {IndividualJourney} from './individual-journey';
 import {HasAccessToCamera, Hearing, SelfTestAnswers} from '../base-journey/participant-suitability.model';
-import {IndividualStepsOrderFactory} from './individual-steps-order.factory';
 import {IndividualJourneySteps as Steps, IndividualJourneySteps} from './individual-journey-steps';
 import {DeviceType} from '../base-journey/services/device-type';
 import {JourneyStep} from '../base-journey/journey-step';
 import {SubmitService} from './services/submit.service';
 import { TestLogger } from 'src/app/services/logger.spec';
-import { tick } from '@angular/core/src/render3';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -41,7 +38,7 @@ describe('IndividualJourney', () => {
     model.room = true;
     model.selfTest = new SelfTestAnswers({
       seeAndHearClearly: true,
-      sameComputer: true,
+      checkYourComputer: true,
       cameraWorking: true,
       microphoneWorking: true
     });
@@ -77,12 +74,11 @@ describe('IndividualJourney', () => {
     noUpcomingHearings: () => []
   };
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-  const individualStepsOrderFactory = new IndividualStepsOrderFactory(deviceType);
   deviceType.isMobile.and.returnValue(false);
 
   beforeEach(() => {
     redirected = null;
-    journey = new IndividualJourney(individualStepsOrderFactory, submitService, TestLogger);
+    journey = new IndividualJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
 
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
@@ -126,20 +122,20 @@ describe('IndividualJourney', () => {
     expect(redirected).toBe(Steps.AboutHearings);
   });
 
-  it(`should enter journey at ${SelfTestJourneySteps.SameComputer} if completed questionnaire but not self-test`, () => {
+  it(`should enter journey at ${SelfTestJourneySteps.CheckYourComputer} if completed questionnaire but not self-test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
     journey.jumpTo(Steps.AboutHearings);
-    expect(redirected).toBe(SelfTestJourneySteps.SameComputer);
+    expect(redirected).toBe(SelfTestJourneySteps.CheckYourComputer);
   });
 
   it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.startAt(SelfTestJourneySteps.SameComputer);
+    journey.startAt(SelfTestJourneySteps.CheckYourComputer);
 
     // when completing self test journey
     journey.model.selfTest.cameraWorking = true;
     journey.model.selfTest.microphoneWorking = true;
-    journey.model.selfTest.sameComputer = true;
+    journey.model.selfTest.checkYourComputer = true;
     journey.model.selfTest.seeAndHearClearly = true;
 
     // and going to

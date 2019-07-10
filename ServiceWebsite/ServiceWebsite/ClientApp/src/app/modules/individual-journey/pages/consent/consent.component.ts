@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
 import { IndividualJourney } from '../../individual-journey';
-import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
 @Component({
@@ -87,7 +86,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     this.textInputYes.markAsTouched();
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
-      this.journey.goto(SelfTestJourneySteps.SameComputer);
+      this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
     }
   }
 }

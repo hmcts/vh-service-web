@@ -12,26 +12,26 @@ export enum HasAccessToCamera {
 export class SelfTestAnswers {
     constructor(answers?: {
         seeAndHearClearly?: boolean,
-        sameComputer?: boolean,
+        checkYourComputer?: boolean,
         cameraWorking?: boolean,
         microphoneWorking?: boolean
     }) {
         if (answers) {
             this.seeAndHearClearly = answers.seeAndHearClearly;
-            this.sameComputer = answers.sameComputer;
+            this.checkYourComputer = answers.checkYourComputer;
             this.cameraWorking = answers.cameraWorking;
             this.microphoneWorking = answers.microphoneWorking;
         }
     }
 
     seeAndHearClearly: boolean;
-    sameComputer: boolean;
+    checkYourComputer: boolean;
     cameraWorking: boolean;
     microphoneWorking: boolean;
 
     isCompleted() {
         return this.seeAndHearClearly !== undefined
-            && this.sameComputer !== undefined
+            && this.checkYourComputer !== undefined
             && this.cameraWorking !== undefined
             && this.microphoneWorking !== undefined;
     }

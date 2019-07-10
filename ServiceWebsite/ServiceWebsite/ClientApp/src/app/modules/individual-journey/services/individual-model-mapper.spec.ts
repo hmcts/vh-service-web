@@ -53,7 +53,7 @@ describe('IndividualModelMapper', () => {
                     extended_answer: ''
                 }),
                 new HearingSuitabilityAnswer({
-                  question_key: SelfTestQuestionKeys.SameComputer,
+                  question_key: SelfTestQuestionKeys.CheckYourComputer,
                   answer: 'true',
                   extended_answer: ''
                 })
@@ -122,7 +122,7 @@ describe('IndividualModelMapper', () => {
         givenAnswerIs(IndividualQuestionKeys.Computer, 'false');
         givenAnswerIs(IndividualQuestionKeys.Internet, 'false');
         givenAnswerIs(IndividualQuestionKeys.Room, 'false');
-        givenAnswerIs(SelfTestQuestionKeys.SameComputer, 'false');
+        givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'false');
         givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'false');
         givenAnswerIs(SelfTestQuestionKeys.Microphone, 'false');
         givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'false');
@@ -132,7 +132,7 @@ describe('IndividualModelMapper', () => {
         expect(model.computer).toBeFalsy();
         expect(model.internet).toBeFalsy();
         expect(model.room).toBeFalsy();
-        expect(model.selfTest.sameComputer).toBeFalsy();
+        expect(model.selfTest.checkYourComputer).toBeFalsy();
         expect(model.selfTest.cameraWorking).toBeFalsy();
         expect(model.selfTest.microphoneWorking).toBeFalsy();
         expect(model.selfTest.seeAndHearClearly).toBeFalsy();
@@ -153,7 +153,7 @@ describe('IndividualModelMapper', () => {
         givenAnswerIs(IndividualQuestionKeys.Room, 'true');
         givenAnswerIs(IndividualQuestionKeys.Computer, 'true');
         givenAnswerIs(IndividualQuestionKeys.Interpreter, 'true');
-        givenAnswerIs(SelfTestQuestionKeys.SameComputer, 'true');
+        givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'true');
         givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'true');
         givenAnswerIs(SelfTestQuestionKeys.Microphone, 'true');
         givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'true');
@@ -166,7 +166,7 @@ describe('IndividualModelMapper', () => {
         expect(model.room).toBeTruthy();
         expect(model.computer).toBeTruthy();
         expect(model.interpreter).toBeTruthy();
-        expect(model.selfTest.sameComputer).toBeTruthy();
+        expect(model.selfTest.checkYourComputer).toBeTruthy();
         expect(model.selfTest.cameraWorking).toBeTruthy();
         expect(model.selfTest.microphoneWorking).toBeTruthy();
         expect(model.selfTest.seeAndHearClearly).toBeTruthy();
@@ -199,7 +199,7 @@ describe('IndividualModelMapper', () => {
       IndividualQuestionKeys.Interpreter,
       IndividualQuestionKeys.Computer,
       IndividualQuestionKeys.Camera,
-      SelfTestQuestionKeys.SameComputer,
+      SelfTestQuestionKeys.CheckYourComputer,
       SelfTestQuestionKeys.SeeYourself,
       SelfTestQuestionKeys.Microphone,
       SelfTestQuestionKeys.SeeHearClearly

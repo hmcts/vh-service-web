@@ -1,9 +1,8 @@
-import { HearingSelector } from './../base-journey/hearing-selector';
+import { HearingSelector } from '../base-journey/hearing-selector';
 import { Logger } from 'src/app/services/logger';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
 import { RepresentativeSuitabilityModel } from './representative-suitability.model';
-import { RepresentativeStepsOrderFactory } from './representative-steps-order.factory';
 import { RepresentativeJourneySteps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
@@ -51,7 +50,7 @@ export class RepresentativeJourney extends JourneyBase {
       this.goto(RepresentativeJourneySteps.GotoVideoApp);
     } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
       this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
-      this.goto(SelfTestJourneySteps.SameComputer);
+      this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
       this.goto(step);
     }
@@ -91,7 +90,7 @@ export class RepresentativeJourney extends JourneyBase {
     } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
       const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
       this.logger.event(`Redirecting user to self-test`, details);
-      this.goto(SelfTestJourneySteps.SameComputer);
+      this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
       this.currentStep = position;
     }

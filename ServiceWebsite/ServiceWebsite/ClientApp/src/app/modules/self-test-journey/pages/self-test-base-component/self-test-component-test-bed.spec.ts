@@ -2,7 +2,6 @@ import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import {SelfTestJourneySteps} from '../../self-test-journey-steps';
 import {ComponentFixture} from '@angular/core/testing';
 import {SelfTestJourney} from '../../self-test-journey';
-import {SelfTestStepsOrderFactory} from '../../self-test-steps-order.factory';
 import {DeviceType} from '../../../base-journey/services/device-type';
 import {
   JourneyComponentTestBed,
@@ -18,11 +17,10 @@ export interface SelfTestComponentTestBedConfiguration<TComponent> extends Compo
 export class SelfTestJourneyStubs {
   public static get default(): SelfTestJourney {
     const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-    const stepsOrderFactory = new SelfTestStepsOrderFactory(deviceType);
     deviceType.isMobile.and.returnValue(false);
     const model = { selfTest: new SelfTestAnswers() } as ParticipantSuitabilityModel;
-    const journey = new SelfTestJourney(model, stepsOrderFactory);
-    journey.startAt(SelfTestJourneySteps.UseCameraAndMicrophoneAgain);
+    const journey = new SelfTestJourney(model);
+    journey.startAt(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
     return journey;
   }
 }

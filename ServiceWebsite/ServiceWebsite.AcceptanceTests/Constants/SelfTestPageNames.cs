@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServiceWebsite.AcceptanceTests.Constants
+﻿namespace ServiceWebsite.AcceptanceTests.Constants
 {
     public class SelfTestPageNames
     {
-        public const string SameComputer = "same computer";
+        public const string CheckYourComputer = "check your computer";
     }
 }

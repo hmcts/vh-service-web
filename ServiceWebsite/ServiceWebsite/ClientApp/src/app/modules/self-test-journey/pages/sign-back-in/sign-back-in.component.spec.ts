@@ -1,20 +1,19 @@
-import { ContactUsComponent } from './../../../shared/contact-us/contact-us.component';
+import { ContactUsComponent } from '../../../shared/contact-us/contact-us.component';
 import { CrestBluePanelComponent } from '../../../shared/crest-blue-panel/crest-blue-panel.component';
-import { SignInOtherComputerComponent } from './sign-in-other-computer.component';
+import { SignBackInComponent } from './sign-back-in.component';
 import { TestBed } from '@angular/core/testing';
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 
-describe('SignInOtherComputerComponent', () => {
+describe('SignBackInComponent', () => {
   it('can create component', () => {
     TestBed.configureTestingModule({
       declarations: [
         CrestBluePanelComponent,
-        SignInOtherComputerComponent,
+        SignBackInComponent,
         ContactUsComponent
       ],
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(SignInOtherComputerComponent);
+    const fixture = TestBed.createComponent(SignBackInComponent);
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
   });

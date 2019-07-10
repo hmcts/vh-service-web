@@ -20,7 +20,6 @@ import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
 import { JOURNEY_FACTORY } from '../base-journey/services/journey.selector';
-import { IndividualStepsOrderFactory } from './individual-steps-order.factory';
 
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
@@ -60,7 +59,6 @@ import { SubmitService } from './services/submit.service';
     JourneyStepComponentBindings,
     JourneyRoutingListenerService,
     SubmitService,
-    IndividualStepsOrderFactory,
     IndividualJourneyService
   ]
  })
