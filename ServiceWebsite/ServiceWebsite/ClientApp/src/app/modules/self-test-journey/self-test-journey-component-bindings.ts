@@ -11,6 +11,7 @@ export class SelfTestJourneyStepComponentBindings extends ParticipantJourneyStep
     super();
     this.bindings.set(Steps.CheckYourComputer, Paths.CheckYourComputer);
     this.bindings.set(Steps.SignBackIn, Paths.SignBackIn);
+    this.bindings.set(Steps.SignInOnComputer, Paths.SignInOnComputer);
     this.bindings.set(Steps.SwitchOnCameraAndMicrophone, Paths.SwitchOnCameraAndMicrophone);
     this.bindings.set(Steps.TestYourEquipment, Paths.TestYourEquipment);
     this.bindings.set(Steps.CameraWorking, Paths.CameraWorking);
