@@ -337,3 +337,6 @@ ASALocalRun/
 .localhistory/
 
 jasmine-tests
+
+# specflow generated feature files (will be created on build)
+*.feature.cs
