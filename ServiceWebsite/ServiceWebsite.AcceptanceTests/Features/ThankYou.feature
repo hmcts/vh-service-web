@@ -1,10 +1,11 @@
 ﻿Feature: Representative views Thank You page
 	As a Participant
 	I want to be able to reach end of the questionnaire when I have a computer or laptop with microphone and camera
+	And also answer all the self test questions
 	So that I can join a video hearing
 
 @smoketest @VIH-4444
-Scenario: Representative participant has camera and microphone on laptop or desktop
+Scenario: Representative participant views thank you page after submitting self test answers
 	Given Representative participant is on 'your computer' page
 	When provides answer as Yes
 	And proceeds to next page
@@ -12,25 +13,6 @@ Scenario: Representative participant has camera and microphone on laptop or desk
 	When provides answer as Yes
 	And proceeds to next page
 	Then Representative should be on 'questionnaire completed' screen
-	When proceeds to next page
-	Then Representative should be on 'check your computer' screen
-
-@smoketest @VIH-4578
-Scenario: Representative views thank you page after submitting self test questionnaire completed page for a client who is suitable for a video hearing
-	Given Representative participant starts the questionnaire
-	When provides answer
-	 | page                      | answer  |
-	 | about you                 | No      |
-	 | access to a suitable room | Yes     |
-	 | about your client         | No     |
-	 | client attendance         | No      |
-	 | hearing suitability       | No      |
-	 | your computer             | Yes     |
-	 | about your computer       | Yes |
-
-	Then Representative should be on 'questionnaire completed' screen
-	And all the answers should match
-	And a link with text 'Print my answers' to print the answers should be visible
 	When proceeds to next page
 	Then Representative should be on 'check your computer' screen
 	When provides answer as Yes
