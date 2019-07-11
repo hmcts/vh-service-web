@@ -5,7 +5,6 @@ import {RepresentativeJourney} from './representative-journey';
 import {Injectable} from '@angular/core';
 import {JourneyRoutingListenerService} from '../base-journey/services/journey-routing-listener.service';
 import {RepresentativeJourneyStepComponentBindings} from './services/representative-journey-component-bindings';
-import {RepresentativeSuitabilityModel} from './representative-suitability.model';
 import {RepresentativeJourneyService} from './services/representative.journey.service';
 import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
 
@@ -29,17 +28,18 @@ export class RepresentativeJourneyFactory implements JourneyFactory {
     this.journey.redirect.subscribe(() =>
       this.representativeJourneyService.set(this.journey.model));
 
-    let models: RepresentativeSuitabilityModel[] = [];
-    const cachedModel = this.representativeJourneyService.get();
+    this.journeyRoutingListenerService.startRouting(this.bindings, this.journey);
 
+    const cachedModel = this.representativeJourneyService.get();
     if (cachedModel === null) {
-      models = await this.suitabilityService.getAllSuitabilityAnswers();
+      const models = await this.suitabilityService.getAllSuitabilityAnswers();
+      this.journey.forSuitabilityAnswers(models);
     } else {
-      models.push(cachedModel);
+      this.journey.continueWithModel(cachedModel);
     }
 
-    this.journey.forSuitabilityAnswers(models);
-    this.journeyRoutingListenerService.initialise(this.bindings, this.journey);
+    this.journeyRoutingListenerService.startJourneyAtCurrentRoute();
+
     return Promise.resolve(this.journey);
   }
 

@@ -39,8 +39,10 @@ export class IndividualJourneyFactory implements JourneyFactory {
         models.push(cachedModel);
       }
 
+      this.journeyRoutingListenerService.startRouting(this.bindings, this.journey);
       this.journey.forSuitabilityAnswers(models);
-      this.journeyRoutingListenerService.initialise(this.bindings, this.journey);
+      this.journeyRoutingListenerService.startJourneyAtCurrentRoute();
+
       return Promise.resolve(this.journey);
     }
 

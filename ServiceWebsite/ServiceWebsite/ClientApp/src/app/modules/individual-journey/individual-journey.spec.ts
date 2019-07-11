@@ -79,14 +79,11 @@ describe('IndividualJourney', () => {
   beforeEach(() => {
     redirected = null;
     journey = new IndividualJourney(submitService, TestLogger);
-    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-
     journey.redirect.subscribe((s: JourneyStep) => redirected = s);
   });
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
-    journey.jumpTo(Steps.AboutHearings);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
@@ -106,7 +103,6 @@ describe('IndividualJourney', () => {
 
   it('should redirect to video app if all upcoming hearings are done', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
-    journey.startAt(Steps.AboutHearings);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 

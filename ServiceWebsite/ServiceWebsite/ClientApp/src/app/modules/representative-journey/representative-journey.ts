@@ -40,15 +40,20 @@ export class RepresentativeJourney extends JourneyBase {
   forSuitabilityAnswers(suitabilityAnswers: RepresentativeSuitabilityModel[]) {
     const isPending = (answers: RepresentativeSuitabilityModel) => !answers.isCompleted();
     const selector = new HearingSelector(isPending, suitabilityAnswers, this.logger);
-    this.isDone = selector.isDone;
-    this.currentModel = selector.selected;
+    if (selector.isDone) {
+      this.redirect.emit(RepresentativeJourneySteps.GotoVideoApp);
+    } else {
+      this.currentModel = selector.selected;
+    }
+  }
+
+  continueWithModel(model: RepresentativeSuitabilityModel) {
+    this.currentModel = model;
   }
 
   startAt(step: JourneyStep) {
     this.assertInitialised();
-    if (this.isDone) {
-      this.goto(RepresentativeJourneySteps.GotoVideoApp);
-    } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
+    if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
       this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
       this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
@@ -85,9 +90,7 @@ export class RepresentativeJourney extends JourneyBase {
    */
   jumpTo(position: JourneyStep) {
     this.assertInitialised();
-    if (this.isDone) {
-      this.goto(RepresentativeJourneySteps.GotoVideoApp);
-    } else if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
+    if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
       const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
       this.logger.event(`Redirecting user to self-test`, details);
       this.goto(SelfTestJourneySteps.CheckYourComputer);
@@ -100,7 +103,7 @@ export class RepresentativeJourney extends JourneyBase {
    * The journey must know if the user has any upcoming hearings and if the suitability has been answered for these.
    */
   private assertInitialised() {
-    if (this.isDone || this.model) {
+    if (this.model) {
       return;
     }
 
