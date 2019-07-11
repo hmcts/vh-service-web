@@ -25,13 +25,14 @@ Scenario: Representative views questionnaire completed page for a client who is 
 Scenario: Representative refreshes questionnaire completed page after having dropped out due to not having access to a computer
 	Given Representative participant starts the questionnaire
 	When provides answer
-         | page						 | answer |
-         | about you				 | No     |
-		 | access to a suitable room | Yes    |
-		 | about your client         | No     |
-		 | client attendance         | Yes    |
-		 | hearing suitability       | No     |
-		 | your computer             | No     |
+     | page                      | answer |
+     | about you                 | No     |
+     | about you                 | No     |
+     | access to a suitable room | Yes    |
+     | about your client         | No     |
+     | client attendance         | Yes    |
+     | hearing suitability       | No     |
+     | your computer             | No     |
 	Then Representative should be on 'questionnaire completed' screen
 	And all the answers should match
 	When the user refreshes the page
