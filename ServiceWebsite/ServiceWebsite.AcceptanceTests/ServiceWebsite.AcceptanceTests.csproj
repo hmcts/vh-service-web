@@ -78,6 +78,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IndividualInformationVideo.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\IndividualThankYou.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IndividualThankYou.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\InternetConnection.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -172,6 +177,10 @@
     <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IndividualInformationVideo.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\IndividualThankYou.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>IndividualThankYou.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\InternetConnection.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
