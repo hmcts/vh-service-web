@@ -25,7 +25,7 @@ describe('RepresentativeJourneyFactory', () => {
       redirect: new EventEmitter,
       ...jasmine.createSpyObj<RepresentativeJourney>(['forSuitabilityAnswers', 'continueWithModel'])
     } as jasmine.SpyObj<RepresentativeJourney>;
-    
+
     representativeJourneyService = jasmine.createSpyObj<RepresentativeJourneyService>('name', ['get', 'set']);
     factory = new RepresentativeJourneyFactory(journey, suitabilityService, bindings, routingListener, representativeJourneyService);
   });
