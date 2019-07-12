@@ -43,3 +43,4 @@ jobs:
     SecretsFilter: $(SecretsFilter)
     solutionType: $(solutionType)
     integrationTestsAppSettingsTransform: $(integrationTestsAppSettingsTransform)
+    nodeVersion: $(nodeVersion)
