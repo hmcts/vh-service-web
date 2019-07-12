@@ -15,7 +15,7 @@ import { DeviceType } from '../../../base-journey/services/device-type';
 })
 export class ParticipantViewComponent extends VideoViewBaseComponent implements AfterContentInit, OnDestroy {
 
-  @ViewChild(UserCameraViewComponent)
+  @ViewChild(UserCameraViewComponent, { static: false })
   userCameraViewComponent: UserCameraViewComponent;
 
   stream: MediaStream;
