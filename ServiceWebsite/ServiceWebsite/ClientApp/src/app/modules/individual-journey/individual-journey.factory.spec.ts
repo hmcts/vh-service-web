@@ -24,7 +24,7 @@ describe('IndividualJourneyFactory', () => {
         redirect: new EventEmitter(),
         ...jasmine.createSpyObj<IndividualJourney>(['forSuitabilityAnswers']),
       } as jasmine.SpyObj<IndividualJourney>;
-      
+
       individualJourneyService = jasmine.createSpyObj<IndividualJourneyService>('name', ['get', 'set']);
       factory = new IndividualJourneyFactory(journey, suitabilityService, bindings, routingListener, individualJourneyService);
     });
