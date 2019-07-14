@@ -27,6 +27,8 @@
         public const string CameraWorking = "/camera-working";
         public const string MicrophoneWorking = "/microphone-working";
         public const string VideoWorking = "/video-working";
+        public const string SignInOncomputer = "/sign-in-on-computer";
+        public const string SignBackIn = "/sign-back-in";
 
     }
 }

@@ -116,6 +116,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QuestionnaireCompleted.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\SelfTetsMobileDropOff.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SelfTetsMobileDropOff.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\ThankYou.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -207,6 +212,10 @@
     <SpecFlowFeatureFiles Update="Features\QuestionnaireCompleted.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>QuestionnaireCompleted.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\SelfTetsMobileDropOff.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SelfTetsMobileDropOff.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

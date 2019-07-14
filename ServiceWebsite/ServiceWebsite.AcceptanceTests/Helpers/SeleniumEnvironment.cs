@@ -16,7 +16,12 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
         private readonly SauceLabsSettings _saucelabsSettings;
         private readonly ScenarioInfo _scenario;
         private readonly TargetBrowser _targetBrowser;
-
+        private const string TabletUserAgent =
+           "Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.25 (KHTML, like Gecko) Version/11.0 Mobile/15A5304j Safari/604.1";
+        private const string MobileUserAgent =
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1";
+        private const string TabletUserAgentFF = "Mozilla / 5.0(iPad; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4";
+        private const string MobileUserAgentFF = "Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4";
         public SeleniumEnvironment(SauceLabsSettings saucelabsSettings, ScenarioInfo scenario, TargetBrowser targetBrowser)
         {
             _saucelabsSettings = saucelabsSettings;
@@ -83,6 +88,20 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     caps.SetCapability("version", "latest");
                     caps.SetCapability("autoAcceptAlerts", true);
                     break;
+                default:
+                    if (TestMobile || TestTablet)
+                    {
+                        var chromeOptions = new Dictionary<string, object>();
+                        var agent = TestMobile ? MobileUserAgent : TabletUserAgent;
+                        Console.WriteLine("Will be running with chrome using user agent: " + agent);
+                        chromeOptions["args"] = new List<string> { "--user-agent=" + agent };
+                        caps.SetCapability(ChromeOptions.Capability, chromeOptions);
+                    }
+
+                    caps.SetCapability("browserName", "Chrome");
+                    caps.SetCapability("platform", "Windows 10");
+                    caps.SetCapability("version", "71.0");
+                    break;
             }
 
             caps.SetCapability("name", _scenario.Title);
@@ -111,6 +130,14 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             {
                 options.SetPreference("media.navigator.streams.fake", true);
             }
+
+            if (TestMobileFF || TestTabletFF)
+            {
+                var agent = TestMobileFF ? MobileUserAgentFF : TabletUserAgentFF;
+                Console.WriteLine("Will be running with fire fox using user agent: " + agent);
+                options.SetPreference("general.useragent.override", agent);
+            }
+
             return new FirefoxDriver(FireFoxDriverPath, options);
         }
 
@@ -124,6 +151,10 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             }
         }
         private bool BlockCameraAndMic => HasTag("BlockCameraAndMic");
+        private bool TestMobile => HasTag("Mobile");
+        private bool TestTablet => HasTag("Tablet");
+        private bool TestMobileFF => HasTag("MobileFF");
+        private bool TestTabletFF => HasTag("TabletFF");
 
         private bool HasTag(string tagName)
         {

@@ -34,6 +34,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _cameraWorking;
         private readonly DecisionJourney _microphoneWorking;
         private readonly DecisionJourney _videoWorking;
+        private readonly Page _signInOnComputer;
+        private readonly Page _signBackIn;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
 
@@ -59,6 +61,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
             _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
             _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
+            _signInOnComputer = new Page(browserContext, PageUri.SignInOncomputer);
+            _signBackIn = new Page(browserContext, PageUri.SignBackIn);
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -115,6 +119,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_hearingSuitability);
                     NavigateToDecisionPage(_yourComputer);
                     _currentPage = _aboutYourComputer;
+                    break;
+                case SelfTestPageNames.CheckYourComputer:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    NavigateToDecisionPage(_hearingSuitability);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    _questionnaireCompleted.Continue();
+                    _currentPage = _checkYourComputer;
                     break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");

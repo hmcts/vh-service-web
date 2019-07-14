@@ -59,6 +59,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         protected void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
         {
             decisionJourneyPage.Validate();
+            
             if (ShouldSelectYes(decisionJourneyPage))
             {                
                 decisionJourneyPage.SelectYes();
