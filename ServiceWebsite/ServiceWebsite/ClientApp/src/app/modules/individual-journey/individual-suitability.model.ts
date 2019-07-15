@@ -7,5 +7,4 @@ export abstract class IndividualSuitabilityModel extends ParticipantSuitabilityM
     internet: boolean;
     interpreter: boolean;
     consent: SuitabilityAnswer;
-    mediaAccepted: boolean;
-}
+  }

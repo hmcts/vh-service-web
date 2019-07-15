@@ -46,7 +46,7 @@ export abstract class ParticipantSuitabilityModel {
     camera: HasAccessToCamera;
     computer: boolean;
     room: boolean;
-
+    mediaAccepted: boolean;
     selfTest: SelfTestAnswers;
 
     hearing: Hearing;

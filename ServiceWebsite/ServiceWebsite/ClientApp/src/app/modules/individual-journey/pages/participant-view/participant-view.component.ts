@@ -1,12 +1,12 @@
 import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { Component, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
-import { MediaService } from '../../services/media.service';
 import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';
 import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
 import { VideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component';
 import { DeviceType } from '../../../base-journey/services/device-type';
+import { MediaService } from 'src/app/services/media.service';
 
 @Component({
   selector: 'app-participant-view',
