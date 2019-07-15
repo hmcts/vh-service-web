@@ -116,6 +116,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QuestionnaireCompleted.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\SelfTestNotSameComputer.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SelfTestNotSameComputer.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\ThankYou.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -207,6 +212,10 @@
     <SpecFlowFeatureFiles Update="Features\QuestionnaireCompleted.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>QuestionnaireCompleted.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\SelfTestNotSameComputer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SelfTestNotSameComputer.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
