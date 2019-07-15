@@ -1,4 +1,5 @@
-﻿using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Constants;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
 using System;
@@ -25,6 +26,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _cameraWorking;
         private readonly DecisionJourney _microphoneWorking;
         private readonly DecisionJourney _videoWorking;
+        private readonly DecisionJourney _signInOnComputer;
+        private readonly DecisionJourney _signBackIn;
 
         public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
@@ -42,6 +45,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
             _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
             _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
+            _signInOnComputer = new DecisionJourney(browserContext, PageUri.SignInOncomputer);
+            _signBackIn = new DecisionJourney(browserContext, PageUri.SignBackIn);
+
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -99,6 +105,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_accessToRoom);
                     _currentPage = _consent;
                     break;
+                case "check your computer":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_consent);
+                    _currentPage = _checkYourComputer;
+                    break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
         }
@@ -138,30 +154,37 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "consent":
                     _consent.Validate();
+                    _currentPage = _consent;
                     break;
-                case "check your computer":
+                case SelfTestPageNames.CheckYourComputer:
                     _checkYourComputer.Validate();
                     _currentPage = _checkYourComputer;
                     break;
-                case "switch on camera and microphone":
+                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
                     _switchOnCameraAndMicrophone.Validate();
                     _currentPage = _switchOnCameraAndMicrophone;
                     break;
-                case "test your equipment":
+                case SelfTestPageNames.TestYourEquipment:
                     _testYourEquipment.Validate();
                     _currentPage = _testYourEquipment;
                     break;
-                case "camera working":
+                case SelfTestPageNames.CameraWorking:
                     _cameraWorking.Validate();
                     _currentPage = _cameraWorking;
                     break;
-                case "microphone working":
+                case SelfTestPageNames.MicrophoneWorking:
                     _microphoneWorking.Validate();
                     _currentPage = _microphoneWorking;
                     break;
-                case "video working":
+                case SelfTestPageNames.VideoWorking:
                     _videoWorking.Validate();
                     _currentPage = _videoWorking;
+                    break;
+                case SelfTestPageNames.SignBackIn:
+                    _currentPage = _signBackIn;
+                    break;
+                case SelfTestPageNames.SignInOncomputer:
+                    _currentPage = _signInOnComputer;
                     break;
             }
             _scenarioContext.Set(_currentPage, "CurrentPage");
@@ -177,7 +200,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             return (decisionJourneyPage == _yourComputer || 
                     decisionJourneyPage == _aboutYourComputer || 
-                    decisionJourneyPage == _yourInternetConnection);
+                    decisionJourneyPage == _yourInternetConnection ||
+                    decisionJourneyPage == _consent);
         }
     }
 }
