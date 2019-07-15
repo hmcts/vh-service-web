@@ -9,3 +9,10 @@ Scenario: Representive participant redirected to "Sign Back In" page when trying
 	When provides answer as No
 	And proceeds to next page
 	Then Representative should be on 'sign back in' screen
+
+@smoketest
+Scenario: Individual participant redirected to "Sign Back In" page when trying to answer self test questionnaire
+	Given Individual participant is on 'check your computer' page
+	When provides answer as No
+	And proceeds to next page
+	Then Individual should be on 'sign back in' screen
