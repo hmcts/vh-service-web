@@ -1,4 +1,5 @@
-﻿using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Constants;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
 using System;
@@ -19,7 +20,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourInternetConnection;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
-        private readonly JourneyStepPage _checkYourComputer;
+        private readonly DecisionJourney _checkYourComputer;
+        private readonly DecisionJourney _switchOnCameraAndMicrophone;
+        private readonly DecisionJourney _testYourEquipment;
+        private readonly DecisionJourney _cameraWorking;
+        private readonly DecisionJourney _microphoneWorking;
+        private readonly DecisionJourney _videoWorking;
+        private readonly DecisionJourney _signInOnComputer;
+        private readonly DecisionJourney _signBackIn;
 
         public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
@@ -31,7 +39,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
-            _checkYourComputer = new JourneyStepPage(browserContext, PageUri.CheckYourComputer);
+            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
+            _switchOnCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.SwitchOnCameraAndMicrophone);
+            _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
+            _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
+            _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
+            _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
+            _signInOnComputer = new DecisionJourney(browserContext, PageUri.SignInOncomputer);
+            _signBackIn = new DecisionJourney(browserContext, PageUri.SignBackIn);
+
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -89,6 +105,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_accessToRoom);
                     _currentPage = _consent;
                     break;
+                case "check your computer":
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_consent);
+                    _currentPage = _checkYourComputer;
+                    break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
         }
@@ -102,6 +128,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Individual should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
+
             switch (page)
             {
                 case "about you":
@@ -127,11 +154,40 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "consent":
                     _consent.Validate();
+                    _currentPage = _consent;
                     break;
-                case "check your computer":
+                case SelfTestPageNames.CheckYourComputer:
                     _checkYourComputer.Validate();
+                    _currentPage = _checkYourComputer;
+                    break;
+                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
+                    _switchOnCameraAndMicrophone.Validate();
+                    _currentPage = _switchOnCameraAndMicrophone;
+                    break;
+                case SelfTestPageNames.TestYourEquipment:
+                    _testYourEquipment.Validate();
+                    _currentPage = _testYourEquipment;
+                    break;
+                case SelfTestPageNames.CameraWorking:
+                    _cameraWorking.Validate();
+                    _currentPage = _cameraWorking;
+                    break;
+                case SelfTestPageNames.MicrophoneWorking:
+                    _microphoneWorking.Validate();
+                    _currentPage = _microphoneWorking;
+                    break;
+                case SelfTestPageNames.VideoWorking:
+                    _videoWorking.Validate();
+                    _currentPage = _videoWorking;
+                    break;
+                case SelfTestPageNames.SignBackIn:
+                    _currentPage = _signBackIn;
+                    break;
+                case SelfTestPageNames.SignInOncomputer:
+                    _currentPage = _signInOnComputer;
                     break;
             }
+            _scenarioContext.Set(_currentPage, "CurrentPage");
         }
 
         [When(@"Individual provides additional information for not consenting to video hearing as '(.*)'")]
@@ -144,7 +200,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             return (decisionJourneyPage == _yourComputer || 
                     decisionJourneyPage == _aboutYourComputer || 
-                    decisionJourneyPage == _yourInternetConnection);
+                    decisionJourneyPage == _yourInternetConnection ||
+                    decisionJourneyPage == _consent);
         }
     }
 }

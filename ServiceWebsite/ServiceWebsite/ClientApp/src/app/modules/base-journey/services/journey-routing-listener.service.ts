@@ -51,7 +51,7 @@ export class JourneyRoutingListenerService {
         return url.replace(/^\//, '');
     }
 
-  initialise(componentBindings: ParticipantJourneyStepComponentBindings, journey: JourneyBase) {
+  startRouting(componentBindings: ParticipantJourneyStepComponentBindings, journey: JourneyBase) {
         this.journey = journey;
         this.componentBindings = componentBindings;
 
@@ -64,12 +64,14 @@ export class JourneyRoutingListenerService {
             this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects));
           });
 
-        const currentRoute = this.getRouteFromUrl(this.router.url);
-        const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
-
         this.journey.redirect.subscribe((step: JourneyStep) => {
           this.gotoStep(step);
         });
+    }
+
+    startJourneyAtCurrentRoute() {
+        const currentRoute = this.getRouteFromUrl(this.router.url);
+        const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
 
         if (journeyStep !== null) {
             this.journey.startAt(journeyStep);

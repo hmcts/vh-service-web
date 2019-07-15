@@ -18,7 +18,7 @@ describe('IndividualJourneyFactory', () => {
     beforeEach(() => {
       suitabilityService = jasmine.createSpyObj<SuitabilityService>(['getAllSuitabilityAnswers']);
       suitabilityService.getAllSuitabilityAnswers.and.returnValue(Promise.resolve([]));
-      routingListener = jasmine.createSpyObj<JourneyRoutingListenerService>(['initialise']);
+      routingListener = jasmine.createSpyObj<JourneyRoutingListenerService>(['startRouting', 'startJourneyAtCurrentRoute']);
       journey = jasmine.createSpyObj<IndividualJourney>('journey', ['forSuitabilityAnswers', 'redirect']);
       journey.redirect.subscribe = function () {
       };
@@ -30,7 +30,8 @@ describe('IndividualJourneyFactory', () => {
       const model = new MutableIndividualSuitabilityModel();
       individualJourneyService.get.and.returnValue(model);
       await factory.begin();
-      expect(routingListener.initialise).toHaveBeenCalled();
+      expect(routingListener.startRouting).toHaveBeenCalled();
+      expect(routingListener.startJourneyAtCurrentRoute).toHaveBeenCalled();
       expect(journey.forSuitabilityAnswers).toHaveBeenCalledWith([model]);
     });
 
