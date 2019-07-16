@@ -15,7 +15,7 @@ export class GuidanceComponent implements OnInit, AfterViewChecked {
   contentIndex: Array<GuidanceModel> = [];
   toPrint = false;
 
-  @ViewChild('contentPoint') public contentPoint: ElementRef;
+  @ViewChild('contentPoint', { static: false }) public contentPoint: ElementRef;
 
   constructor(private guidanceService: GuidanceService,
     private printService: PrintService,
