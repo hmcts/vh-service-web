@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FooterComponent } from './footer.component';
-import 'rxjs/add/operator/filter';
 import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
