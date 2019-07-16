@@ -1,11 +1,14 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Constants;
+using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.BookingsAPI.Client;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -38,8 +41,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly Page _signBackIn;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
+        private readonly TestContext _testContext;
 
-        public RepresentativeQuestionnaireSteps(BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
+        public RepresentativeQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
         {
             _information = information;
             _browserContext = browserContext;
@@ -63,6 +67,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
             _signInOnComputer = new Page(browserContext, PageUri.SignInOncomputer);
             _signBackIn = new Page(browserContext, PageUri.SignBackIn);
+            _testContext = testContext;
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -140,10 +145,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var pageToValidate = GetPage(page);
             pageToValidate.Validate();
-            if(page == "about your computer"|| 
-                page == "questionnaire completed" || page == "check your computer" 
-                || page == "switch on camera and microphone"
-                || page == "test your equipment")
+            if(page == RepresentativePageNames.AboutYourComputer 
+                || page == RepresentativePageNames.QuestionnaireCompleted 
+                || page == SelfTestPageNames.CheckYourComputer
+                || page == SelfTestPageNames.SwitchOnCameraAndMicrophone
+                || page == SelfTestPageNames.TestYourEquipment)
             {
                 _scenarioContext.Set<DecisionJourney>((DecisionJourney)pageToValidate, "CurrentPage");
             }
@@ -196,6 +202,33 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     displayedNotes.Should().Be(expectedResponse.Details.ToString());
                 }
             }
+
+            //Verify the expected data by comparing them against database
+            var request = _testContext.Get($"persons/username/{_testContext.TestUserSecrets.Representative}/suitability-answers");
+            var response = _testContext.Client().Execute(request);
+            var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<List<PersonSuitabilityAnswerResponse>>(response.Content);
+            var answers = model[0].Answers;
+            foreach (var expectedResponse in reponses)
+            {
+                var answer = answers.Single(a => a.Key == expectedResponse.QuestionKey);
+                switch (expectedResponse.Answer)
+                {
+                    case AnswerType.Yes:
+                        answer.Answer.Should().Be(answer.Key == RepresentativeQuestionKeys.AboutYourComputer ? "Yes" : "true");
+                        break;
+                    case AnswerType.No:
+                        answer.Answer.Should().Be(answer.Key == RepresentativeQuestionKeys.AboutYourComputer ? "Yes" : "false");
+                        break;
+                    case AnswerType.NotSure:
+                        answer.Answer.Should().Be("Not sure");
+                        break;
+                }
+                if (!string.IsNullOrEmpty(expectedResponse.Details?.Trim()))
+                {
+                    answer.Extended_answer.Should().Be(expectedResponse.Details.Trim().ToString());
+                }
+            }
+
         }
 
         [Then(@"a link with text '(.*)' to print the answers should be visible")]

@@ -8,6 +8,7 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Models;
 using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Configuration;
+using System.Linq;
 using System.Net;
 using TechTalk.SpecFlow;
 
@@ -47,6 +48,10 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
                 var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);
                 testContext.HearingId = model.Id.ToString();
+                var individual = model.Participants.Single(p => p.Username.Equals(testContext.TestUserSecrets.Individual));
+                testContext.IndividualParticipantId = individual.Id.ToString();
+                var representative = model.Participants.Single(p => p.Username.Equals(testContext.TestUserSecrets.Representative));
+                testContext.RepresentativeParticipantId = representative.Id.ToString();
         }
 
         [AfterScenario(Order = 0)]

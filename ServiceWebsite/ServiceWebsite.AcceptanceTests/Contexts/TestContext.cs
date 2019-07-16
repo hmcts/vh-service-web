@@ -17,7 +17,9 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
         public SecuritySettings AzureAd { get; set; }
         public string WebsiteUrl { get; set; }
         public string VideoAppUrl { get; set; }
-
+        public string IndividualParticipantId { get; set; }
+        public string RepresentativeParticipantId { get; set; }
+        //
         public RestClient Client()
         {
             var client = new RestClient(BaseUrl);
