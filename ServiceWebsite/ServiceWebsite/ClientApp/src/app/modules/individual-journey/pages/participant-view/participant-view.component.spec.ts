@@ -2,13 +2,13 @@ import { JourneyStep } from './../../../base-journey/journey-step';
 import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { UserCameraViewComponent } from './../../components/user-camera-view/user-camera-view.component';
 import { ParticipantViewComponent } from './participant-view.component';
-import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
 import { async } from '@angular/core/testing';
 import { DeviceType } from '../../../base-journey/services/device-type';
 import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-component-test-bed.spec';
 import { IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
+import { MediaService } from 'src/app/services/media.service';
 
 describe('ParticipantViewComponent', () => {
   const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);

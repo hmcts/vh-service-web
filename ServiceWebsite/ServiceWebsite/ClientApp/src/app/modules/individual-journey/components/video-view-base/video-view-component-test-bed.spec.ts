@@ -3,12 +3,12 @@ import { ComponentFixture } from '@angular/core/testing';
 import { IndividualJourneyComponentTestBed } from '../../pages/individual-base-component/individual-component-test-bed.spec';
 import { Config } from '../../../shared/models/config';
 import { Logger } from 'src/app/services/logger';
-import { MediaService } from '../../services/media.service';
-import { UserMediaService } from '../../services/user-media.service';
 import { UserCameraViewComponent } from '../user-camera-view/user-camera-view.component';
 import { Type, Component, Input } from '@angular/core';
 import { VideoUrlService } from '../../services/video-url.service';
 import { IndividualJourney } from '../../individual-journey';
+import { MediaService } from 'src/app/services/media.service';
+import { UserMediaService } from 'src/app/services/user-media.service';
 
 @Component({
     selector: 'app-video-view',
@@ -22,7 +22,7 @@ import { IndividualJourney } from '../../individual-journey';
 
   export class VideoViewComponentTestBed {
     static createComponent<TComponent>(component: Type<TComponent>, journey?: IndividualJourney): ComponentFixture<TComponent> {
-      return IndividualJourneyComponentTestBed.createComponent({
+      return IndividualJourneyComponentTestBed.createComponent({ 
         component: component,
         providers: [
           { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['getVideoFileUrlerror']) },

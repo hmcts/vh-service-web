@@ -11,7 +11,7 @@ import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participan
   styles: []
 })
 export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
-  mediaAccepted = false;
+  mediaSwitchedOn = false;
   constructor(private journey: JourneyBase, private mediaAccess: MediaService, private model: ParticipantSuitabilityModel) {
   }
 
@@ -19,10 +19,11 @@ export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
   }
 
   async switchOnCameraAndMicrophone(): Promise<void> {
-    this.mediaAccepted = await this.mediaAccess.requestAccess();
-    if (!this.mediaAccepted) {
-      this.model.mediaAccepted = false;
-      this.journey.goto(ParticipantJourneySteps.MediaAccessError);
+    console.log(this.mediaSwitchedOn);
+    this.mediaSwitchedOn = await this.mediaAccess.requestAccess();
+    if (!this.mediaSwitchedOn) {
+      this.model.mediaSwitchedOn = false;
+      this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
     }
   }
 
