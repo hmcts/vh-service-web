@@ -253,9 +253,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
             answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
 
-            //var requestUrl = $"/hearings/{_testContext.HearingId}/participants/{_testContext.RepresentativeParticipantId}/suitability-answers";
-            //var answerRequest = _testContext.Put(requestUrl, answerRequestBody);
-            //var response = _testContext.Client().Execute(answerRequest);
             SubmitSuitabilityAnswers(_testContext.RepresentativeParticipantId, answerRequestBody);
         }
 
