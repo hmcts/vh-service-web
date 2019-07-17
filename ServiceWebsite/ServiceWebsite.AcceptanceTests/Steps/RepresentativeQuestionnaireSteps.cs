@@ -43,7 +43,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly BrowserContext _browserContext;
         private readonly TestContext _testContext;
 
-        public RepresentativeQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
+        public RepresentativeQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
             _information = information;
             _browserContext = browserContext;
@@ -143,6 +143,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Representative should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
+
             var pageToValidate = GetPage(page);
             pageToValidate.Validate();
             if(page == RepresentativePageNames.AboutYourComputer 
@@ -239,6 +240,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             printLink.Text.Trim().Should().Be(linkText);
         }
 
+        [Given(@"Representive participant has already submitted questionnaire but not completed self-test")]
+        public void GivenRepresentiveParticipantHasAlreadySubmittedQuestionnaireButNotCompletedSelf_Test()
+        {
+            //Submit the answers for individual
+            var answerRequestBody = new List<SuitabilityAnswersRequest>();
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "true", "I am partially deaf"));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOUR_CLIENT", "true", "mobility issues"));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CLIENT_ATTENDANCE", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("HEARING_SUITABILITY", "true", "insufficient documents"));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ROOM", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
+
+            SubmitSuitabilityAnswers(_testContext.RepresentativeParticipantId, answerRequestBody);
+        }
 
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
         {
