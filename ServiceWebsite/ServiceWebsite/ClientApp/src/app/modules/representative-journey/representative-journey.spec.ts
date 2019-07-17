@@ -162,8 +162,6 @@ describe('RepresentativeJourney', () => {
 
   it(`should redirect to videoapp if having dropped out from questionnaire`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.droppedOutFromQuestionnaire());
-    journey.startAt(Steps.AboutVideoHearings);
-
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 

@@ -1,7 +1,11 @@
-﻿using ServiceWebsite.AcceptanceTests.Helpers;
+﻿using ServiceWebsite.AcceptanceTests.Constants;
+using ServiceWebsite.AcceptanceTests.Contexts;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.BookingsAPI.Client;
 using System;
+using System.Collections.Generic;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -19,9 +23,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _yourInternetConnection;
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
-        private readonly JourneyStepPage _checkYourComputer;
+        private readonly DecisionJourney _checkYourComputer;
+        private readonly DecisionJourney _switchOnCameraAndMicrophone;
+        private readonly DecisionJourney _testYourEquipment;
+        private readonly DecisionJourney _cameraWorking;
+        private readonly DecisionJourney _microphoneWorking;
+        private readonly DecisionJourney _videoWorking;
+        private readonly DecisionJourney _signInOnComputer;
+        private readonly DecisionJourney _signBackIn;
+        private readonly TestContext _testContext;
 
-        public IndividualQuestionnaireSteps(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(browserContext, information, scenarioContext)
+        public IndividualQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
@@ -31,7 +43,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourInternetConnection = new DecisionJourney(browserContext, PageUri.YourInternetConnectionPage);
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
-            _checkYourComputer = new JourneyStepPage(browserContext, PageUri.CheckYourComputer);
+            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
+            _switchOnCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.SwitchOnCameraAndMicrophone);
+            _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
+            _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
+            _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
+            _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
+            _signInOnComputer = new DecisionJourney(browserContext, PageUri.SignInOncomputer);
+            _signBackIn = new DecisionJourney(browserContext, PageUri.SignBackIn);
+            _testContext = testContext;
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -46,33 +66,33 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             switch (page)
             {
-                case "about you":
+                case IndividualPageNames.AboutYou:
                     _aboutYou.Validate();
                     _currentPage = _aboutYou;
                     break;
-                case "interpreter":
+                case IndividualPageNames.Interpreter:
                     NavigateToDecisionPage(_aboutYou);
                     _currentPage = _interpreter;
                     break;
-                case "your computer":
+                case IndividualPageNames.YourComputer:
                     NavigateToDecisionPage(_aboutYou);
                     NavigateToDecisionPage(_interpreter);
                     _currentPage = _yourComputer;
                     break;
-                case "about your computer":
+                case IndividualPageNames.AboutYourComputer:
                     NavigateToDecisionPage(_aboutYou);
                     NavigateToDecisionPage(_interpreter);
                     NavigateToDecisionPage(_yourComputer);
                     _currentPage = _aboutYourComputer;
                     break;
-                case "your internet connection":
+                case IndividualPageNames.YourInternetConnection:
                     NavigateToDecisionPage(_aboutYou);
                     NavigateToDecisionPage(_interpreter);
                     NavigateToDecisionPage(_yourComputer);
                     NavigateToDecisionPage(_aboutYourComputer);
                     _currentPage = _yourInternetConnection;
                     break;
-                case "access to a room":
+                case IndividualPageNames.AccessToARoom:
                     NavigateToDecisionPage(_aboutYou);
                     NavigateToDecisionPage(_interpreter);
                     NavigateToDecisionPage(_yourComputer);
@@ -80,7 +100,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_yourInternetConnection);
                     _currentPage = _accessToRoom;
                     break;
-                case "consent":
+                case IndividualPageNames.Consent:
                     NavigateToDecisionPage(_aboutYou);
                     NavigateToDecisionPage(_interpreter);
                     NavigateToDecisionPage(_yourComputer);
@@ -88,6 +108,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_yourInternetConnection);
                     NavigateToDecisionPage(_accessToRoom);
                     _currentPage = _consent;
+                    break;
+                case SelfTestPageNames.CheckYourComputer:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_consent);
+                    _currentPage = _checkYourComputer;
                     break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
@@ -102,36 +132,66 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Individual should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
+
             switch (page)
             {
-                case "about you":
+                case IndividualPageNames.AboutYou:
                     _aboutYou.Validate();
                     break;
-                case "interpreter":
+                case IndividualPageNames.Interpreter:
                     _interpreter.Validate();
                     break;
-                case "your computer":
+                case IndividualPageNames.YourComputer:
                     _yourComputer.Validate();
                     break;
-                case "thank you":
+                case IndividualPageNames.ThankYou:
                     _thankYou.Validate();
                     break;
-                case "about your computer":
+                case IndividualPageNames.AboutYourComputer:
                     _aboutYourComputer.Validate();
                     break;
-                case "your internet connection":
+                case IndividualPageNames.YourInternetConnection:
                     _yourInternetConnection.Validate();
                     break;
-                case "access to a room":
+                case IndividualPageNames.AccessToARoom:
                     _accessToRoom.Validate();
                     break;
-                case "consent":
+                case IndividualPageNames.Consent:
                     _consent.Validate();
+                    _currentPage = _consent;
                     break;
-                case "check your computer":
+                case SelfTestPageNames.CheckYourComputer:
                     _checkYourComputer.Validate();
+                    _currentPage = _checkYourComputer;
+                    break;
+                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
+                    _switchOnCameraAndMicrophone.Validate();
+                    _currentPage = _switchOnCameraAndMicrophone;
+                    break;
+                case SelfTestPageNames.TestYourEquipment:
+                    _testYourEquipment.Validate();
+                    _currentPage = _testYourEquipment;
+                    break;
+                case SelfTestPageNames.CameraWorking:
+                    _cameraWorking.Validate();
+                    _currentPage = _cameraWorking;
+                    break;
+                case SelfTestPageNames.MicrophoneWorking:
+                    _microphoneWorking.Validate();
+                    _currentPage = _microphoneWorking;
+                    break;
+                case SelfTestPageNames.VideoWorking:
+                    _videoWorking.Validate();
+                    _currentPage = _videoWorking;
+                    break;
+                case SelfTestPageNames.SignBackIn:
+                    _currentPage = _signBackIn;
+                    break;
+                case SelfTestPageNames.SignInOncomputer:
+                    _currentPage = _signInOnComputer;
                     break;
             }
+            _scenarioContext.Set(_currentPage, "CurrentPage");
         }
 
         [When(@"Individual provides additional information for not consenting to video hearing as '(.*)'")]
@@ -140,11 +200,28 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutYou.SelectNo(detail);
         }
 
+        [Given(@"Individual participant has already submitted questionnaire but not completed self-test")]
+        public void GivenIndividualParticipantHasAlreadySubmittedQuestionnaireButNotCompletedSelf_Test()
+        {
+            //Submit the answers for individual
+            var answerRequestBody = new List<SuitabilityAnswersRequest>();
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERPRETER", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ROOM", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERNET", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CONSENT", "true", null));
+
+            SubmitSuitabilityAnswers(_testContext.IndividualParticipantId, answerRequestBody);
+        }
+
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
         {
             return (decisionJourneyPage == _yourComputer || 
                     decisionJourneyPage == _aboutYourComputer || 
-                    decisionJourneyPage == _yourInternetConnection);
+                    decisionJourneyPage == _yourInternetConnection ||
+                    decisionJourneyPage == _consent);
         }
     }
 }

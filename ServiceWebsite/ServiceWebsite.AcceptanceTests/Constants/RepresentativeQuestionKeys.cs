@@ -11,8 +11,7 @@ namespace ServiceWebsite.AcceptanceTests.Constants
         public const string ClientAttendance = "CLIENT_ATTENDANCE";
         public const string HearingSuitability = "HEARING_SUITABILITY";
         public const string AccessToRoom = "ROOM";
-        public const string CameraMicrophone = "CAMERA_MICROPHONE";
         public const string YourComputer = "COMPUTER";
-        public const string AboutYourComputer = "HAS_ACCESS_TO_CAMERA";
+        public const string AboutYourComputer = "CAMERA_MICROPHONE";
     }
 }

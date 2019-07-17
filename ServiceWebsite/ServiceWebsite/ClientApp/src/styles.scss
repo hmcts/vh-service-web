@@ -1,6 +1,6 @@
-@import "node_modules/bootstrap/dist/css/bootstrap.css";
-@import "node_modules/govuk-frontend/all";
-@import "node_modules/@hmcts/frontend/all";
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/govuk-frontend/all";
+@import "../node_modules/@hmcts/frontend/all";
 
 /* Extend default tags with govuk-typography classes */
 h1 {

@@ -7,7 +7,7 @@ import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 })
 export class UserCameraViewComponent {
 
-  @ViewChild('videoBox')
+  @ViewChild('videoBox', { static: true })
   videoBox: ElementRef;
 
   stream: MediaStream;

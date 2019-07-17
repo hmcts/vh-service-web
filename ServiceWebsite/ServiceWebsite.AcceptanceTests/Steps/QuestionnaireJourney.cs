@@ -2,6 +2,10 @@
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
+using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.AcceptanceTests.Contexts;
+using RestSharp;
+using System.Collections.Generic;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -10,15 +14,18 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly InformationSteps _information;
         protected readonly Page _thankYou;
+        private readonly DecisionJourney _checkYourComputer;
         private ErrorMessage _errorMessage;
         public readonly ScenarioContext _scenarioContext;
-
-        public QuestionnaireJourney(BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
+        private readonly TestContext _testContext;
+        public QuestionnaireJourney(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
         {
             _information = information;
             _errorMessage = new ErrorMessage(browserContext);
             _thankYou = new Page(browserContext, PageUri.ThankYouPage);
+            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
             _scenarioContext = scenarioContext;
+            _testContext = testContext;
         }
         
 
@@ -97,6 +104,23 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     page.SelectNotSure();
                     break;
             }
+        }
+
+        protected SuitabilityAnswersRequest CreateSuitabilityAnswersRequest(string key, string answer, string extendedAnswer)
+        {
+            return new SuitabilityAnswersRequest
+            {
+                Key = key,
+                Answer = answer,
+                Extended_answer = extendedAnswer
+            };
+        }
+
+        protected void SubmitSuitabilityAnswers(string participantId, List<SuitabilityAnswersRequest> answerRequestBody)
+        {
+            var requestUrl = $"/hearings/{_testContext.HearingId}/participants/{participantId}/suitability-answers";
+            var answerRequest = _testContext.Put(requestUrl, answerRequestBody);
+            var response = _testContext.Client().Execute(answerRequest);
         }
     }
 }

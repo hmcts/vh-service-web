@@ -6,6 +6,7 @@ import { DocumentRedirectService } from 'src/app/services/document-redirect.serv
 import { JourneyStep } from '../journey-step';
 import { JourneyBase } from '../journey-base';
 import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
+import { filter } from 'rxjs/operators';
 
 /**
  * Connects the routing to the journey
@@ -51,7 +52,7 @@ export class JourneyRoutingListenerService {
         return url.replace(/^\//, '');
     }
 
-  initialise(componentBindings: ParticipantJourneyStepComponentBindings, journey: JourneyBase) {
+  startRouting(componentBindings: ParticipantJourneyStepComponentBindings, journey: JourneyBase) {
         this.journey = journey;
         this.componentBindings = componentBindings;
 
@@ -59,17 +60,19 @@ export class JourneyRoutingListenerService {
         // meaning that it will automagically correct the journey to the right step
         // if the user presses back button
         this.router.events
-          .filter(event => event instanceof ResolveEnd)
+          .pipe(filter(event => event instanceof ResolveEnd))
           .subscribe((event: ResolveEnd) => {
             this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects));
           });
 
-        const currentRoute = this.getRouteFromUrl(this.router.url);
-        const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
-
         this.journey.redirect.subscribe((step: JourneyStep) => {
           this.gotoStep(step);
         });
+    }
+
+    startJourneyAtCurrentRoute() {
+        const currentRoute = this.getRouteFromUrl(this.router.url);
+        const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
 
         if (journeyStep !== null) {
             this.journey.startAt(journeyStep);

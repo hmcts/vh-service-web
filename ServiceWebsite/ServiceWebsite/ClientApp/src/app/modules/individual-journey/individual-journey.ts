@@ -33,15 +33,16 @@ export class IndividualJourney extends JourneyBase {
   forSuitabilityAnswers(suitabilityAnswers: IndividualSuitabilityModel[]) {
     const isPending = (model: IndividualSuitabilityModel) => model.selfTest === undefined || !model.selfTest.isCompleted();
     const selector = new HearingSelector(isPending, suitabilityAnswers, this.logger);
-    this.isDone = selector.isDone;
-    this.currentModel = selector.selected;
+    if (selector.isDone) {
+      this.redirect.emit(IndividualJourneySteps.GotoVideoApp);
+    } else {
+      this.currentModel = selector.selected;
+    }
   }
 
   startAt(step: JourneyStep) {
     this.assertInitialised();
-    if (this.isDone) {
-      this.goto(IndividualJourneySteps.GotoVideoApp);
-    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+    if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
       this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
       this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
@@ -65,9 +66,7 @@ export class IndividualJourney extends JourneyBase {
    */
   jumpTo(position: JourneyStep) {
     this.assertInitialised();
-    if (this.isDone) {
-      this.goto(IndividualJourneySteps.GotoVideoApp);
-    } else if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+    if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
       const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
       this.logger.event(`Redirecting user to self-test`, details);
       this.goto(SelfTestJourneySteps.CheckYourComputer);

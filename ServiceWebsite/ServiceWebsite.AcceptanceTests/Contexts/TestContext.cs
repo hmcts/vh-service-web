@@ -17,7 +17,9 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
         public SecuritySettings AzureAd { get; set; }
         public string WebsiteUrl { get; set; }
         public string VideoAppUrl { get; set; }
-
+        public string IndividualParticipantId { get; set; }
+        public string RepresentativeParticipantId { get; set; }
+        //
         public RestClient Client()
         {
             var client = new RestClient(BaseUrl);
@@ -31,6 +33,14 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
         public RestRequest Post(string path, object requestBody)
         {
             var request = new RestRequest(path, Method.POST);
+            request.AddParameter("Application/json", ApiRequestHelper.SerialiseRequestToSnakeCaseJson(requestBody),
+                ParameterType.RequestBody);
+            return request;
+        }
+
+        public RestRequest Put(string path, object requestBody)
+        {
+            var request = new RestRequest(path, Method.PUT);
             request.AddParameter("Application/json", ApiRequestHelper.SerialiseRequestToSnakeCaseJson(requestBody),
                 ParameterType.RequestBody);
             return request;
