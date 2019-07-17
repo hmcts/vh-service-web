@@ -18,7 +18,8 @@ Scenario: Representative participant views thank you page after submitting self 
 	When provides answer as Yes
 	And proceeds to next page
 	Then Representative should be on 'switch on camera and microphone' screen
-	When proceeds to next page
+	When Media switched on
+	And proceeds to next page
 	Then Representative should be on 'test your equipment' screen
 	When proceeds to next page
 	And provides answer

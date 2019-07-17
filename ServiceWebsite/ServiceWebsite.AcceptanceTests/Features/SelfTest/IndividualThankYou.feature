@@ -13,7 +13,8 @@ Scenario: Individual participant consents to video hearing
 	When provides answer as Yes
 	And proceeds to next page
 	Then Individual should be on 'switch on camera and microphone' screen
-	When proceeds to next page
+	When Media switched on
+	And proceeds to next page
 	Then Individual should be on 'test your equipment' screen
 	When proceeds to next page
 	And provides answer
