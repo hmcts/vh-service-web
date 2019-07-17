@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   loggedIn: boolean;
   initialized: boolean;
 
-  @ViewChild(HeaderComponent)
+  @ViewChild(HeaderComponent, { static: true })
   header: HeaderComponent;
 
   constructor(

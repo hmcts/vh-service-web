@@ -10,7 +10,7 @@ export class VideoViewBaseComponent implements OnInit {
     private videoFile: VideoFiles) {
   }
 
-  @ViewChild(VideoViewComponent)
+  @ViewChild(VideoViewComponent, { static: true })
   videoViewComponent: VideoViewComponent;
 
   videoSource: string;

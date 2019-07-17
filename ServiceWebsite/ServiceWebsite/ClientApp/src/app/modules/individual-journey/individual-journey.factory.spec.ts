@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { SuitabilityService } from './services/suitability.service';
 import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualJourney } from './individual-journey';
@@ -19,9 +20,11 @@ describe('IndividualJourneyFactory', () => {
       suitabilityService = jasmine.createSpyObj<SuitabilityService>(['getAllSuitabilityAnswers']);
       suitabilityService.getAllSuitabilityAnswers.and.returnValue(Promise.resolve([]));
       routingListener = jasmine.createSpyObj<JourneyRoutingListenerService>(['startRouting', 'startJourneyAtCurrentRoute']);
-      journey = jasmine.createSpyObj<IndividualJourney>('journey', ['forSuitabilityAnswers', 'redirect']);
-      journey.redirect.subscribe = function () {
-      };
+      journey = {
+        redirect: new EventEmitter(),
+        ...jasmine.createSpyObj<IndividualJourney>(['forSuitabilityAnswers']),
+      } as jasmine.SpyObj<IndividualJourney>;
+
       individualJourneyService = jasmine.createSpyObj<IndividualJourneyService>('name', ['get', 'set']);
       factory = new IndividualJourneyFactory(journey, suitabilityService, bindings, routingListener, individualJourneyService);
     });
