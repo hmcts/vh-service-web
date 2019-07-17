@@ -14,6 +14,7 @@ using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
 using ServiceWebsite.Security;
+using ServiceWebsite.Security.HashGen;
 
 namespace ServiceWebsite
 {
@@ -69,6 +70,10 @@ namespace ServiceWebsite
             services.Configure<EnvironmentSettings>(options => Configuration.Bind(options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
             services.Configure<EnvironmentSettings>(options => Configuration.Bind("AzureStorage", options));
+
+            var customTokenSettings = Configuration.GetSection("CustomToken").Get<CustomTokenSettings>();
+            services.AddSingleton(customTokenSettings);
+
         }
 
         private void RegisterAuth(IServiceCollection services)

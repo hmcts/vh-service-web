@@ -42,8 +42,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         public void CreateNewHearingRequest(TestContext testContext)
         {
                 var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual,testContext.TestUserSecrets.Representative);
-                testContext.Request = testContext.Post("/hearings", requestBody);
-                testContext.Response = testContext.Client().Execute(testContext.Request);
+                testContext.Request = testContext.Post("/hearings", reqntext.Request);
                 testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
                 var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);
                 testContext.HearingId = model.Id.ToString();
@@ -53,7 +52,8 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         public static void DeleteHearingRequest(TestContext testContext)
         {
             var hearingId = testContext.HearingId;
-            if (!string.IsNullOrEmpty(hearingId))
+            if (!string.IsNullOrEmptyuestBody);
+                testContext.Response = testContext.Client().Execute(testCo(hearingId))
             {
                 testContext.Request = testContext.Delete($"/hearings/{hearingId}");
                 testContext.Response = testContext.Client().Execute(testContext.Request);

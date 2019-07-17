@@ -319,6 +319,68 @@ export class ApiClient {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    getToken(participantId: string): Observable<TokenResponse> {
+        let url_ = this.baseUrl + "/participants/{participantId}/token";
+        if (participantId === undefined || participantId === null)
+            throw new Error("The parameter 'participantId' must be defined.");
+        url_ = url_.replace("{participantId}", encodeURIComponent("" + participantId)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetToken(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetToken(<any>response_);
+                } catch (e) {
+                    return <Observable<TokenResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TokenResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetToken(response: HttpResponseBase): Observable<TokenResponse> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? TokenResponse.fromJS(resultData200) : new TokenResponse();
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TokenResponse>(<any>null);
+    }
 }
 
 /** Details for a hearing */
@@ -495,6 +557,46 @@ export interface IHearingSuitabilityAnswer {
     answer: string | undefined;
     /** Supplementary data to further extend the answer, can be notes or data relating to the answer */
     extended_answer: string | undefined;
+}
+
+export class TokenResponse implements ITokenResponse {
+    expires_on!: string | undefined;
+    token!: string | undefined;
+
+    constructor(data?: ITokenResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.expires_on = data["expires_on"];
+            this.token = data["token"];
+        }
+    }
+
+    static fromJS(data: any): TokenResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new TokenResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["expires_on"] = this.expires_on;
+        data["token"] = this.token;
+        return data; 
+    }
+}
+
+export interface ITokenResponse {
+    expires_on: string | undefined;
+    token: string | undefined;
 }
 
 export class SwaggerException extends Error {

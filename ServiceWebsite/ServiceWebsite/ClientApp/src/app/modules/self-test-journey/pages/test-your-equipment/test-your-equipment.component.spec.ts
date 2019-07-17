@@ -4,14 +4,45 @@ import { CrestBluePanelComponent } from '../../../shared/crest-blue-panel/crest-
 import { TestYourEquipmentComponent } from './test-your-equipment.component';
 import { ContinuableComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { MockLogger } from '../../../../testing/mocks/mock-logger';
+import { Logger } from '../../../../services/logger';
+import { VideoWebService } from '../../services/video-web-service';
+import { UserMediaService } from '../../services/user-media.service';
+import { UserMediaDevice } from '../../models/user-media-device';
+import { Observable,of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { ConfigService } from '../../../../services/config.service';
+
+@Component({
+  selector: 'app-mic-visualiser',
+  template: ''
+})
+class MicVisualiserComponentStub {
+  @Input() stream: MediaStream;
+}
+  
+
 
 describe('TestYourEquipmentComponent', () => {
   it('can continue', () => {
+    const devices: UserMediaDevice[] =[]; 
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
+    const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken']);
+    const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(['connectedDevices']);
+
+    userMediaServiceMock.connectedDevices.and.returnValue(of(devices));
+
+    const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
+
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,
       journey: journey,
-      declarations: [ CrestBluePanelComponent ]
+      declarations: [CrestBluePanelComponent, MicVisualiserComponentStub],
+      providers: [{ provide: Logger, useClass: MockLogger },
+        { provide: VideoWebService, useValue: videoWebServiceMock },
+        { provide: UserMediaService, useValue: userMediaServiceMock },
+        { provide: ConfigService, useValue: configServiceMock }],
     });
 
     fixture.detectChanges();

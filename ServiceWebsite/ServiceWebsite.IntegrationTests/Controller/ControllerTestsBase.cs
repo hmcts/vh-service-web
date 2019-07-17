@@ -2,10 +2,17 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using NUnit.Framework;
+using ServiceWebsite.Configuration;
+using ServiceWebsite.IntegrationTests.Helpers;
+using ServiceWebsite.Security;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
@@ -14,7 +21,8 @@ namespace ServiceWebsite.IntegrationTests.Controller
     {
         private TestServer _server;
         private readonly string _environmentName = "development";
-        
+        private string _bearerToken;
+
         protected ControllerTestsBase()
         {
             if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
@@ -22,7 +30,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
                 _environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             }
         }
-        
+
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
@@ -38,8 +46,23 @@ namespace ServiceWebsite.IntegrationTests.Controller
                     .UseStartup<Startup>();
 
             _server = new TestServer(webHostBuilder);
+            GetClientAccessTokenForApi();
         }
-        
+
+        private void GetClientAccessTokenForApi()
+        {
+            var configRootBuilder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
+
+            var configRoot = configRootBuilder.Build();
+            var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
+            var authContext = new AuthenticationContext(azureAdConfig.Authority);
+            var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
+            _bearerToken = authContext.AcquireTokenAsync(azureAdConfig.VhServiceResourceId, credential).Result.AccessToken;
+        }
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
@@ -50,6 +73,8 @@ namespace ServiceWebsite.IntegrationTests.Controller
         {
             using (var client = _server.CreateClient())
             {
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_bearerToken}");
                 return await client.GetAsync(uri);
             }
         }
