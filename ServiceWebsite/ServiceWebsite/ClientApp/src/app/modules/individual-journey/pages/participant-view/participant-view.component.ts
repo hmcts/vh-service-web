@@ -15,7 +15,7 @@ import { MediaService } from 'src/app/services/media.service';
 })
 export class ParticipantViewComponent extends VideoViewBaseComponent implements AfterContentInit, OnDestroy {
 
-  @ViewChild(UserCameraViewComponent)
+  @ViewChild(UserCameraViewComponent, { static: false })
   userCameraViewComponent: UserCameraViewComponent;
 
   stream: MediaStream;
