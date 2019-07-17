@@ -17,7 +17,7 @@ import { TokenResponse } from '../../../../services/clients/api-client';
   selector: 'app-mic-visualiser',
   template: ''
 })
-class MicVisualiserComponentStub {
+class StubMicVisualiserComponent {
   @Input() stream: MediaStream;
 }
 
@@ -32,7 +32,7 @@ describe('TestYourEquipmentComponent', () => {
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,
       journey: journey,
-      declarations: [CrestBluePanelComponent, MicVisualiserComponentStub],
+      declarations: [CrestBluePanelComponent, StubMicVisualiserComponent],
       providers: [{ provide: Logger, useClass: MockLogger },
       { provide: VideoWebService, useValue: videoWebServiceMock },
         UserMediaService,

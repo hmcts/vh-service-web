@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ApiClient, 
-   TokenResponse,
-} from '../../../services/clients/api-client';
+import { ApiClient, TokenResponse} from '../../../services/clients/api-client';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,5 +13,4 @@ export class VideoWebService {
   getToken(participantId: string): Observable<TokenResponse> {
     return this.apiClient.getToken(participantId);
   }
-
 }

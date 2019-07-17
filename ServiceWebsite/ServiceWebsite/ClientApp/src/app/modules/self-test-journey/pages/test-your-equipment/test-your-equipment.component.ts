@@ -22,7 +22,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   token: TokenResponse;
   pexipAPI: any;
   hasMultipleDevices: boolean;
-  participantId: string = 'b4e1c447-0e97-4bfd-b1d8-006dd28d8428'; // type replace with ParticipantResponse from api-client
+  participantId = 'b4e1c447-0e97-4bfd-b1d8-006dd28d8428';
 
   incomingStream: MediaStream;
   outgoingStream: MediaStream;
@@ -59,7 +59,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   getToken() {
-    this.participantId = 'b4e1c447-0e97-4bfd-b1d8-006dd28d8428'
+    this.participantId = 'b4e1c447-0e97-4bfd-b1d8-006dd28d8428';
     this.videoWebService.getToken(this.participantId).subscribe((token: TokenResponse) => {
       this.token = token;
       this.call();
