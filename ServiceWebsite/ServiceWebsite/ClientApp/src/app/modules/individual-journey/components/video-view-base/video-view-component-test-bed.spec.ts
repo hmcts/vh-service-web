@@ -22,7 +22,7 @@ import { UserMediaService } from 'src/app/services/user-media.service';
 
   export class VideoViewComponentTestBed {
     static createComponent<TComponent>(component: Type<TComponent>, journey?: IndividualJourney): ComponentFixture<TComponent> {
-      return IndividualJourneyComponentTestBed.createComponent({ 
+      return IndividualJourneyComponentTestBed.createComponent({
         component: component,
         providers: [
           { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['getVideoFileUrlerror']) },
