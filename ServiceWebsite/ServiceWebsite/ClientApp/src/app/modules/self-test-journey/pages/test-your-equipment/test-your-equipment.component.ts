@@ -97,7 +97,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.pexipAPI.audio_source = mic.deviceId;
     }
     this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(mic);
-    console.log('MIC ::' + this.preferredMicrophoneStream);
   }
 
   setupPexipClient() {

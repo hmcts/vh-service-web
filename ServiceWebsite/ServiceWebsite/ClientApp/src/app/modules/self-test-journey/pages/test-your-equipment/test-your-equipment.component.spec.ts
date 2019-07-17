@@ -8,11 +8,10 @@ import { MockLogger } from '../../../../testing/mocks/mock-logger';
 import { Logger } from '../../../../services/logger';
 import { VideoWebService } from '../../services/video-web-service';
 import { UserMediaService } from '../../services/user-media.service';
-import { UserMediaDevice } from '../../models/user-media-device';
-import { Observable,of } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import {of } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { ConfigService } from '../../../../services/config.service';
+import { TokenResponse } from '../../../../services/clients/api-client';
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -21,17 +20,12 @@ import { ConfigService } from '../../../../services/config.service';
 class MicVisualiserComponentStub {
   @Input() stream: MediaStream;
 }
-  
-
 
 describe('TestYourEquipmentComponent', () => {
   it('can continue', () => {
-    const devices: UserMediaDevice[] =[]; 
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
     const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken']);
-    const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(['connectedDevices']);
-
-    userMediaServiceMock.connectedDevices.and.returnValue(of(devices));
+    videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 
     const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
 
@@ -40,9 +34,9 @@ describe('TestYourEquipmentComponent', () => {
       journey: journey,
       declarations: [CrestBluePanelComponent, MicVisualiserComponentStub],
       providers: [{ provide: Logger, useClass: MockLogger },
-        { provide: VideoWebService, useValue: videoWebServiceMock },
-        { provide: UserMediaService, useValue: userMediaServiceMock },
-        { provide: ConfigService, useValue: configServiceMock }],
+      { provide: VideoWebService, useValue: videoWebServiceMock },
+        UserMediaService,
+      { provide: ConfigService, useValue: configServiceMock }],
     });
 
     fixture.detectChanges();
