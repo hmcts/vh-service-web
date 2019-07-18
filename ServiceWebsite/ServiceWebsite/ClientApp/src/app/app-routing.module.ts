@@ -6,6 +6,7 @@ import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.co
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { GuidanceComponent } from './pages/guidance/guidance.component';
+import { MediaErrorComponent } from './pages/media-error/media-error.component';
 
 import { Paths } from './paths';
 
@@ -16,6 +17,8 @@ export const routes: Routes = [
   { path: Paths.PageNotFound, component: PageNotFoundComponent },
   { path: Paths.Guidance, component: GuidanceComponent },
   { path: `${Paths.Guidance}/:print`, component: GuidanceComponent },
+  { path: Paths.MediaError, component: MediaErrorComponent },
+  { path: Paths.EquipmentBlocked, component: MediaErrorComponent },
   { path: '**', redirectTo: Paths.PageNotFound, pathMatch: 'full' }
 ];
 

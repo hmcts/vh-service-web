@@ -3,5 +3,7 @@ export const Paths = {
     PrivacyPolicy: 'privacy-policy',
     Error: 'error',
     PageNotFound: 'page-not-found',
-    Guidance: 'guidance'
+    Guidance: 'guidance',
+    MediaError: 'media-error',
+    EquipmentBlocked: 'equipment-blocked'
 };
