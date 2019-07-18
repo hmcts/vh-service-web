@@ -7,4 +7,5 @@ export const Paths = {
   CameraWorking: 'camera-working',
   MicrophoneWorking: 'microphone-working',
   VideoWorking: 'video-working',
+  EquipmentBlocked: 'equipment-blocked'
 };

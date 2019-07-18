@@ -8,5 +8,5 @@ export class ParticipantJourneySteps {
   static readonly  AboutYourComputer = new JourneyStep('AboutYourComputer');
   static readonly  AccessToRoom = new JourneyStep('AccessToRoom');
   static readonly  ThankYou = new JourneyStep('ThankYou');
-  static readonly  GotoVideoApp = new JourneyStep('GotoVideoApp');
+  static readonly GotoVideoApp = new JourneyStep('GotoVideoApp');
 }

@@ -78,11 +78,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IndividualInformationVideo.feature</DependentUpon>
     </Compile>
-    <Compile Update="Features\SelfTest\IndividualThankYou.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IndividualThankYou.feature</DependentUpon>
-    </Compile>
     <Compile Update="Features\InternetConnection.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -116,10 +111,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QuestionnaireCompleted.feature</DependentUpon>
     </Compile>
-    <Compile Update="Features\SelfTest\CheckYourComputer.feature.cs">
+    <Compile Update="Features\SelfTest\IndividualThankYou.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>CheckYourComputer.feature</DependentUpon>
+      <DependentUpon>IndividualThankYou.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\ThankYou.feature.cs">
       <DesignTime>True</DesignTime>
@@ -183,7 +178,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IndividualInformationVideo.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\SelfTest\IndividualThankYou.feature">
+    <SpecFlowFeatureFiles Update="Features\IndividualThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IndividualThankYou.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
@@ -213,9 +208,16 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>QuestionnaireCompleted.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\SelfTestNotSameComputer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SelfTestNotSameComputer.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\CheckYourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CheckYourComputer.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\SelfTest\IndividualThankYou.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>IndividualThankYou.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

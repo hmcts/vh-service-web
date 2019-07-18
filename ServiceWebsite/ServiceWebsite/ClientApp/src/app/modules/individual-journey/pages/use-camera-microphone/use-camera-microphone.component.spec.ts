@@ -1,12 +1,12 @@
 import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { UseCameraMicrophoneComponent } from './use-camera-microphone.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
-import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualSuitabilityModel } from '../../individual-suitability.model';
 import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suitability.model';
 import { By } from '@angular/platform-browser';
 import { tick, fakeAsync } from '@angular/core/testing';
+import { MediaService } from 'src/app/services/media.service';
 
 describe('UseCameraMicrophoneComponent', () => {
   let mediaService: jasmine.SpyObj<MediaService>;

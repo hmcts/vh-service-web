@@ -20,7 +20,6 @@ import { YourInternetConnectionComponent } from './pages/your-internet-connectio
 import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.component';
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
-import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 
 const routes: Routes = [
@@ -39,8 +38,7 @@ const routes: Routes = [
   { path: Paths.YourInternetConnection, component: YourInternetConnectionComponent },
   { path: Paths.AccessToRoom, component: AccessToRoomComponent },
   { path: Paths.Consent, component: ConsentComponent },
-  { path: Paths.ThankYou, component: ThankYouComponent },
-  { path: Paths.MediaError, component: MediaErrorComponent }
+  { path: Paths.ThankYou, component: ThankYouComponent }
 ];
 
 // Export all components loaded so these can be declared in parent module
@@ -61,7 +59,6 @@ export const Components = [
   AccessToRoomComponent,
   ConsentComponent,
   ThankYouComponent,
-  MediaErrorComponent,
   VideoViewComponent
 ];
 

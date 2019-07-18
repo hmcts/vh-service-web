@@ -1,7 +1,7 @@
 import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { Component } from '@angular/core';
-import { MediaService } from '../../services/media.service';
 import { IndividualJourney } from '../../individual-journey';
+import { MediaService } from 'src/app/services/media.service';
 
 @Component({
   selector: 'app-use-camera-microphone',

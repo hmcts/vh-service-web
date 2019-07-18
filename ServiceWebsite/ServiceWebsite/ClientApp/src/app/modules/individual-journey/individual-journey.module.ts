@@ -8,8 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { IndividualJourneyRoutingModule, Components } from './individual-journey-routing.module';
 
 // services
-import { MediaService } from './services/media.service';
-import { UserMediaService } from './services/user-media.service';
 import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
 import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 import { BlobVideoStorageService } from './services/blob-video-storage.service';
@@ -30,6 +28,8 @@ import { SuitabilityService } from './services/suitability.service';
 import { VideoUrlService } from './services/video-url.service';
 import {IndividualJourneyService} from './services/individual-journey.service';
 import { SubmitService } from './services/submit.service';
+import { MediaService } from 'src/app/services/media.service';
+import { UserMediaService } from 'src/app/services/user-media.service';
 
 @NgModule({
   imports: [
