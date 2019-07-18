@@ -29,8 +29,7 @@ export const Components = [
   TestYourEquipmentComponent,
   CameraWorkingComponent,
   MicrophoneWorkingComponent,
-  VideoWorkingComponent,
- // EquipmentBlockedComponent
+  VideoWorkingComponent
 ];
 
 @NgModule({
