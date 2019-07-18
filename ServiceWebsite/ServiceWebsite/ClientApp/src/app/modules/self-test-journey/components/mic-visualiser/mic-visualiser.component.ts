@@ -40,16 +40,18 @@ export class MicVisualiserComponent implements OnInit {
 
     const self = this;
     this.javascriptNode.onaudioprocess = function () {
-      const array = new Uint8Array(self.analyser.frequencyBinCount);
-      self.analyser.getByteFrequencyData(array);
+      if (self.analyser) {
+        const array = new Uint8Array(self.analyser.frequencyBinCount);
+        self.analyser.getByteFrequencyData(array);
 
-      let values = 0;
-      const length = array.length;
-      for (let i = 0; i < length; i++) {
-        values += (array[i]);
+        let values = 0;
+        const length = array.length;
+        for (let i = 0; i < length; i++) {
+          values += (array[i]);
+        }
+        const average = values / length;
+        self.fillMeter(Math.round(average));
       }
-      const average = values / length;
-      self.fillMeter(Math.round(average));
     };
   }
 

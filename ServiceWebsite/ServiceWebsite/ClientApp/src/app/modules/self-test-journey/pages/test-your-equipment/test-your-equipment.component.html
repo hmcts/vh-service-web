@@ -1,19 +1,18 @@
 <div class="govuk-grid-row">
-  <div *ngIf="!displayFeed && !testComplete" class="govuk-grid-column-full">
+  <div *ngIf="!displayFeed && !didTestComplete" class="govuk-grid-column-full">
     <p class="govuk-body-l">Please wait to be connected...</p>
   </div>
   <div *ngIf="displayFeed" class="govuk-grid-column-full">
-    <video *ngIf="streamsActive" id="incomingStream" [srcObject]="incomingStream" autoplay width="100%"
-           height="auto">
+    <video #instream *ngIf="streamsActive" id="incomingStream" [srcObject]="this.incomingStream" autoplay  width="100%">
       Your browser does not support video
     </video>
   </div>
 </div>
-
-<div *ngIf="!testComplete" class="govuk-grid-row">
+ 
+<div *ngIf="!didTestComplete" class="govuk-grid-row">
 
   <div class="govuk-grid-column-one-quarter">
-    <video *ngIf="streamsActive" id="outgoingStream" [muted]="true" [srcObject]="outgoingStream" autoplay
+    <video #outstream *ngIf="streamsActive" id="outgoingStream" [muted]="true" [srcObject]="this.outgoingStream" autoplay
            width="270" height="auto">
       Your browser does not support video
     </video>
@@ -36,11 +35,11 @@
 
 <div>
 
-  <input type="button" i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-9" (click)="continue()" 
-          id="continue-btn" role="button" value="Continue" alt="Continue"/>
- 
+  <input type="button" i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-9" (click)="continue()"
+         id="continue-btn" role="button" value="Continue" alt="Continue" />
+
   <input type="button" i18n="@@test_your_equipment_btn_replay" class="govuk-button grey-btn" (click)="replayVideo()"
-          id="replay-video" value="Re-play the video message"  alt="Re-play the video message" role="button"/>
+         id="replay-video" value="Re-play the video message" alt="Re-play the video message" role="button" />
 
 </div>
 

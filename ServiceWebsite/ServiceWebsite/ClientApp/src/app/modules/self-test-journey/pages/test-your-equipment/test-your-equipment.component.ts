@@ -10,6 +10,7 @@ import { VideoWebService } from '../../services/video-web-service';
 import { ConfigService } from '../../../../services/config.service';
 import { Logger } from '../../../../services/logger';
 import { UserMediaDevice } from '../../models/user-media-device';
+import { ParticipantService } from '../../services/participant.service';
 
 declare var PexRTC: any;
 
@@ -19,16 +20,18 @@ declare var PexRTC: any;
   styles: []
 })
 export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+
   token: TokenResponse;
   pexipAPI: any;
   hasMultipleDevices: boolean;
-  participantId = 'b4e1c447-0e97-4bfd-b1d8-006dd28d8428';
+  participantId: string;
+  pexipNode: string;
 
   incomingStream: MediaStream;
   outgoingStream: MediaStream;
   preferredMicrophoneStream: MediaStream;
 
-  testComplete = false;
+  didTestComplete: boolean;
   testScore: string;
   displayFeed: boolean;
   loadingData: boolean;
@@ -39,14 +42,17 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     private userMediaStreamService: UserMediaStreamService,
     private videoWebService: VideoWebService,
     private configService: ConfigService,
-    private logger: Logger
+    private logger: Logger,
+    private participantService: ParticipantService
   ) {
     super(journey);
+    this.didTestComplete = false;
   }
 
   ngOnInit(): void {
     this.displayFeed = false;
     this.setupSubscribers();
+    this.setConfiguration();
     this.setupPexipClient();
     this.getToken();
   }
@@ -58,8 +64,13 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     });
   }
 
-  getToken() {
-    this.participantId = 'b4e1c447-0e97-4bfd-b1d8-006dd28d8428';
+  async setConfiguration() {
+    const config = await this.configService.load();
+    this.pexipNode = config.pexipSelfTestNodeUri;
+  }
+
+  async getToken() {
+    this.participantId = await this.participantService.getCurrentParticipantId();
     this.videoWebService.getToken(this.participantId).subscribe((token: TokenResponse) => {
       this.token = token;
       this.call();
@@ -71,17 +82,26 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async call() {
-    this.testComplete = false;
+    this.didTestComplete = false;
     this.testScore = null;
-    const config = await this.configService.load();
-    const pexipNode = config.pexipSelfTestNodeUri;
-    const conferenceAlias = 'testcall2';
+    const conferenceAlias = 'testcall1';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
-    this.pexipAPI.makeCall(pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
+    this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
   }
 
   get streamsActive() {
     return this.outgoingStream && this.outgoingStream.active && this.incomingStream && this.incomingStream.active;
+  }
+
+  get streamInActive() {
+    let activeState = false;
+    if (this.incomingStream) {
+      const track = this.incomingStream.getVideoTracks()[0];
+      const state = track.readyState;
+      activeState = state === 'live';
+    }
+
+    return activeState;
   }
 
   async updatePexipAudioVideoSource() {
@@ -118,12 +138,16 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       self.displayFeed = false;
       console.log('Error from pexip. Reason : ' + reason);
       self.logger.error('Error from pexip.', reason);
+      self.didTestComplete = true;
     };
 
     this.pexipAPI.onDisconnect = function (reason) {
       self.displayFeed = false;
       console.log('Disconnected from pexip. Reason : ' + reason);
       self.logger.error('Disconnected from pexip.', reason);
+      if (reason === 'Conference terminated by another participant') {
+        self.didTestComplete = true;
+      }
     };
   }
 
@@ -133,7 +157,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     }
     this.incomingStream = null;
     this.outgoingStream = null;
-    this.testComplete = true;
+    this.didTestComplete = true;
+    this.displayFeed = false;
   }
 
   protected bindModel(): void {
@@ -145,9 +170,11 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   continue() {
-    if (!this.testComplete) {
+    if (!this.didTestComplete) {
       this.disconnect();
     }
+
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
+
 }
