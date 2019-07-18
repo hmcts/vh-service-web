@@ -81,7 +81,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       });
   }
 
-  async call() {
+  call() {
     this.didTestComplete = false;
     this.testScore = null;
     const conferenceAlias = 'testcall1';
@@ -91,17 +91,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   get streamsActive() {
     return this.outgoingStream && this.outgoingStream.active && this.incomingStream && this.incomingStream.active;
-  }
-
-  get streamInActive() {
-    let activeState = false;
-    if (this.incomingStream) {
-      const track = this.incomingStream.getVideoTracks()[0];
-      const state = track.readyState;
-      activeState = state === 'live';
-    }
-
-    return activeState;
   }
 
   async updatePexipAudioVideoSource() {

@@ -30,7 +30,6 @@ namespace ServiceWebsite.UnitTests.Controllers
             var expiresOn = DateTime.UtcNow.AddMinutes(20).ToUniversalTime().ToString("dd.MM.yyyy-H:mmZ");
 
             _service.Setup(x => x.GenerateHash(expiresOn, participantId)).Returns("token string");
-                
 
             var result = (OkObjectResult)_controller.GetToken(Guid.Parse(participantId));
             Assert.IsInstanceOf(typeof(TokenResponse), result.Value);
