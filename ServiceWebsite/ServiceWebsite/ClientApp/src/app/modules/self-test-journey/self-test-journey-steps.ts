@@ -9,6 +9,7 @@ export class SelfTestJourneySteps {
   static readonly CameraWorking = new JourneyStep('CameraWorking');
   static readonly MicrophoneWorking = new JourneyStep('MicrophoneWorking');
   static readonly VideoWorking = new JourneyStep('VideoWorking');
+  static readonly EquipmentBlocked = new JourneyStep('MediaError');
 
   static GetAll(): JourneyStep[] {
     return [
@@ -19,7 +20,8 @@ export class SelfTestJourneySteps {
       this.TestYourEquipment,
       this.CameraWorking,
       this.MicrophoneWorking,
-      this.VideoWorking
+      this.VideoWorking,
+      this.EquipmentBlocked
     ];
   }
 }
