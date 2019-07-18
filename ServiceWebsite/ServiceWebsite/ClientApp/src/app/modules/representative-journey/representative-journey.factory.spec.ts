@@ -7,6 +7,7 @@ import {RepresentativeJourneyService} from './services/representative.journey.se
 import {MutableRepresentativeSuitabilityModel} from './mutable-representative-suitability.model';
 import SpyObj = jasmine.SpyObj;
 import { SelfTestJourneyStepComponentBindings } from '../self-test-journey/self-test-journey-component-bindings';
+import { EventEmitter } from '@angular/core';
 
 describe('RepresentativeJourneyFactory', () => {
   let suitabilityService: jasmine.SpyObj<RepresentativeSuitabilityService>;
@@ -20,9 +21,11 @@ describe('RepresentativeJourneyFactory', () => {
     suitabilityService = jasmine.createSpyObj<RepresentativeSuitabilityService>(['getAllSuitabilityAnswers']);
     suitabilityService.getAllSuitabilityAnswers.and.returnValue(Promise.resolve([]));
     routingListener = jasmine.createSpyObj<JourneyRoutingListenerService>(['startRouting', 'startJourneyAtCurrentRoute']);
-    journey = jasmine.createSpyObj<RepresentativeJourney>(['forSuitabilityAnswers', 'redirect', 'continueWithModel']);
-    journey.redirect.subscribe = function () {
-    };
+    journey = {
+      redirect: new EventEmitter,
+      ...jasmine.createSpyObj<RepresentativeJourney>(['forSuitabilityAnswers', 'continueWithModel'])
+    } as jasmine.SpyObj<RepresentativeJourney>;
+
     representativeJourneyService = jasmine.createSpyObj<RepresentativeJourneyService>('name', ['get', 'set']);
     factory = new RepresentativeJourneyFactory(journey, suitabilityService, bindings, routingListener, representativeJourneyService);
   });

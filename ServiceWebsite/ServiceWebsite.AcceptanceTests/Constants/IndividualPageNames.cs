@@ -11,8 +11,8 @@ namespace ServiceWebsite.AcceptanceTests.Constants
         public const string YourComputer = "your computer";
         public const string ThankYou = "thank you";
         public const string AboutYourComputer = "about your computer";
-        public const string AccessToARoom = "access to a room";
         public const string YourInternetConnection = "your internet connection";
+        public const string AccessToARoom = "access to a room";
         public const string Consent = "consent";
     }
 }

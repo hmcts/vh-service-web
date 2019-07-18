@@ -3,8 +3,9 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 using ServiceWebsite.BookingsAPI.Client;
-using System.Collections.Generic;
 using ServiceWebsite.AcceptanceTests.Contexts;
+using RestSharp;
+using System.Collections.Generic;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -13,6 +14,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly InformationSteps _information;
         protected readonly Page _thankYou;
+        private readonly DecisionJourney _checkYourComputer;
         private ErrorMessage _errorMessage;
         public readonly ScenarioContext _scenarioContext;
         private readonly TestContext _testContext;
@@ -22,6 +24,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _information = information;
             _errorMessage = new ErrorMessage(browserContext);
             _thankYou = new Page(browserContext, PageUri.ThankYouPage);
+            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
             _scenarioContext = scenarioContext;
             _testContext = testContext;
         }
