@@ -38,6 +38,14 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
             return request;
         }
 
+        public RestRequest Put(string path, object requestBody)
+        {
+            var request = new RestRequest(path, Method.PUT);
+            request.AddParameter("Application/json", ApiRequestHelper.SerialiseRequestToSnakeCaseJson(requestBody),
+                ParameterType.RequestBody);
+            return request;
+        }
+
         public RestRequest Delete(string path) => new RestRequest(path, Method.DELETE);
     }
 }

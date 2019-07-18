@@ -3,14 +3,26 @@
 	I am on Check Your computer screen after completing intial questionnaire 
 	So that I can complete self test Questionnaire
 
-@smoketest
-Scenario: Representive participant redirected to "Sign Back In" page when trying to answer self test questionnaire
+@VIH-4577
+Scenario: Representative participant initiates self test journey
+	Given Representative participant has already submitted questionnaire but not completed self-test
+	When 'Representative' logs in with valid credentials
+	Then Representative should be on 'check your computer' screen
+
+@smoketest @VIH-4577
+Scenario: Individual participant initiates self test journey
+	Given Individual participant has already submitted questionnaire but not completed self-test
+	When 'Individual' logs in with valid credentials
+	Then Individual should be on 'check your computer' screen
+	
+@smoketest @VIH-4577
+Scenario: Representative participant redirected to "Sign Back In" page when trying to answer self test questionnaire
 	Given Representative participant is on 'check your computer' page
 	When provides answer as No
 	And proceeds to next page
 	Then Representative should be on 'sign back in' screen
 
-@smoketest
+@smoketest @VIH-4577
 Scenario: Individual participant redirected to "Sign Back In" page when trying to answer self test questionnaire
 	Given Individual participant is on 'check your computer' page
 	When provides answer as No
