@@ -12,6 +12,7 @@ import {of } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { ConfigService } from '../../../../services/config.service';
 import { TokenResponse } from '../../../../services/clients/api-client';
+import { Config } from '../../../shared/models/config';
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -28,6 +29,7 @@ describe('TestYourEquipmentComponent', () => {
     videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 
     const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
+    configServiceMock.load.and.returnValue(of(new Config()));
 
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,

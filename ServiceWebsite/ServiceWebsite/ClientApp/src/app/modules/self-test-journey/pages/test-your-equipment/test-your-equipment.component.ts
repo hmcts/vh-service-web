@@ -86,7 +86,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.testScore = null;
     const conferenceAlias = 'testcall1';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
-    this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
+    if (this.pexipAPI) {
+      this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
+    }
   }
 
   get streamsActive() {
@@ -162,6 +164,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     if (!this.didTestComplete) {
       this.disconnect();
     }
+    this.pexipAPI = null;
 
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
