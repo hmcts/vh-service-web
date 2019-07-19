@@ -42,6 +42,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
         private readonly TestContext _testContext;
+        private string _representativeParticipantId;
 
         public RepresentativeQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
@@ -68,6 +69,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _signInOnComputer = new Page(browserContext, PageUri.SignInOncomputer);
             _signBackIn = new Page(browserContext, PageUri.SignBackIn);
             _testContext = testContext;
+            _representativeParticipantId =  _testContext.RepresentativeParticipantId;
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -143,7 +145,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Representative should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
-
             var pageToValidate = GetPage(page);
             pageToValidate.Validate();
             if(page == RepresentativePageNames.AboutYourComputer 
@@ -240,8 +241,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             printLink.Text.Trim().Should().Be(linkText);
         }
 
-        [Given(@"Representive participant has already submitted questionnaire but not completed self-test")]
-        public void GivenRepresentiveParticipantHasAlreadySubmittedQuestionnaireButNotCompletedSelf_Test()
+        [Given(@"Representative participant has already submitted questionnaire but not completed self-test")]
+        public void GivenRepresentativeParticipantHasAlreadySubmittedQuestionnaireButNotCompletedSelf_Test()
         {
             //Submit the answers for individual
             var answerRequestBody = new List<SuitabilityAnswersRequest>();
@@ -253,9 +254,23 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
             answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
 
-            SubmitSuitabilityAnswers(_testContext.RepresentativeParticipantId, answerRequestBody);
+            SubmitSuitabilityAnswers(_representativeParticipantId, answerRequestBody);
         }
 
+        [Given(@"Representative participant has already submitted questionnaire but drops out")]
+        public void GivenRepresentativeParticipantHasAlreadySubmittedQuestionnaireButDropsOut()
+        {
+            //Submit the answers for individual
+            var answerRequestBody = new List<SuitabilityAnswersRequest>();
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOUR_CLIENT", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CLIENT_ATTENDANCE", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("HEARING_SUITABILITY", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ROOM", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "false", null));
+
+            SubmitSuitabilityAnswers(_representativeParticipantId, answerRequestBody);
+        }
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
         {
             return (decisionJourneyPage == _yourComputer ||
