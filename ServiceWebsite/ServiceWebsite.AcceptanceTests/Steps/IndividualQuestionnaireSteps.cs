@@ -32,6 +32,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _signInOnComputer;
         private readonly DecisionJourney _signBackIn;
         private readonly TestContext _testContext;
+        private string _individualParticipantId;
 
         public IndividualQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
@@ -52,6 +53,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _signInOnComputer = new DecisionJourney(browserContext, PageUri.SignInOncomputer);
             _signBackIn = new DecisionJourney(browserContext, PageUri.SignBackIn);
             _testContext = testContext;
+            _individualParticipantId = _testContext.IndividualParticipantId;
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -213,7 +215,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERNET", "true", null));
             answerRequestBody.Add(CreateSuitabilityAnswersRequest("CONSENT", "true", null));
 
-            SubmitSuitabilityAnswers(_testContext.IndividualParticipantId, answerRequestBody);
+            SubmitSuitabilityAnswers(_individualParticipantId, answerRequestBody);
+        }
+
+        [Given(@"Individual participant has already submitted questionnaire but drops out")]
+        public void GivenIndividualParticipantHasAlreadySubmittedQuestionnaireButDropsOut()
+        {
+            //Submit the answers for individual
+            var answerRequestBody = new List<SuitabilityAnswersRequest>();
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERPRETER", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "false", null));
+            
+            SubmitSuitabilityAnswers(_individualParticipantId, answerRequestBody);
         }
 
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)

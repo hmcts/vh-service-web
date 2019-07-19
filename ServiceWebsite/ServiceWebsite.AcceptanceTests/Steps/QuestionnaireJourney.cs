@@ -18,6 +18,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private ErrorMessage _errorMessage;
         public readonly ScenarioContext _scenarioContext;
         private readonly TestContext _testContext;
+
         public QuestionnaireJourney(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
         {
             _information = information;

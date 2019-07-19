@@ -18,26 +18,6 @@ export class SubmitService {
     await this.suitabilityService.updateSuitabilityAnswers(model.hearing.id, answers);
   }
 
-  isDropOffPoint(model: IndividualSuitabilityModel): boolean {
-    // check access to a computer.
-    if (model.computer === false) {
-      return true;
-    }
-    // check access to a camera and microphone.
-    if (model.camera === HasAccessToCamera.No) {
-      return true;
-    }
-    // check access to the internet.
-    if (model.internet === false) {
-      return true;
-    }
-    // save after consent.
-    if (model.consent.answer === true || model.consent.answer === false) {
-      return true;
-    }
-    return false;
-  }
-
   updateSubmitModel(step: JourneyStep, model: IndividualSuitabilityModel): MutableIndividualSuitabilityModel {
     let modelToSave = new MutableIndividualSuitabilityModel();
     modelToSave = model;
