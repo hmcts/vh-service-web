@@ -138,6 +138,18 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     _questionnaireCompleted.Continue();
                     _currentPage = _checkYourComputer;
                     break;
+                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    NavigateToDecisionPage(_hearingSuitability);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    _questionnaireCompleted.Continue();
+                    NavigateToDecisionPage(_checkYourComputer);
+                   _currentPage = _switchOnCameraAndMicrophone;
+                    break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
         }
@@ -275,7 +287,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             return (decisionJourneyPage == _yourComputer ||
                    decisionJourneyPage == _aboutYourComputer ||
-                   decisionJourneyPage == _accessToRoom);
+                   decisionJourneyPage == _accessToRoom || 
+                   decisionJourneyPage == _checkYourComputer);
         }
 
         private Page GetPage(string page)
