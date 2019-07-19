@@ -66,11 +66,19 @@ namespace ServiceWebsite.IntegrationTests.Controller
             _server.Dispose();
         }
 
-        protected async Task<HttpResponseMessage> SendGetRequestAsync(string uri)
+        protected async Task<HttpResponseMessage> SendGetRequestWithBearerTokenAsync(string uri)
         {
             using (var client = _server.CreateClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_bearerToken}");
+                return await client.GetAsync(uri);
+            }
+        }
+
+        protected async Task<HttpResponseMessage> SendGetRequestAsync(string uri)
+        {
+            using (var client = _server.CreateClient())
+            {
                 return await client.GetAsync(uri);
             }
         }

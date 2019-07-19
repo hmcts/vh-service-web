@@ -14,7 +14,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
         [Test]
         public void Should_get_token_when_requested_with_correct_participantid()
         {
-            var responseMessage = SendGetRequestAsync($"/participants/{Guid.NewGuid()}/token").Result;
+            var responseMessage = SendGetRequestWithBearerTokenAsync($"/participants/{Guid.NewGuid()}/token").Result;
 
             Stream receiveStream = responseMessage.Content.ReadAsStreamAsync().Result;
             StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
@@ -29,7 +29,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
         [Test]
         public void Should_return_bad_request_when_requested_with_incorrect_participantid()
         {
-            var responseMessage = SendGetRequestAsync($"/participants/{Guid.Empty}/token").Result;
+            var responseMessage = SendGetRequestWithBearerTokenAsync($"/participants/{Guid.Empty}/token").Result;
             responseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
