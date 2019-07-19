@@ -23,6 +23,7 @@ describe('MicVisualiserComponent', () => {
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then(function (stream) {
         component.stream = stream;
+        component.ngOnInit();
         fixture.detectChanges();
         expect(fixture.componentInstance).toBeTruthy();
       });
