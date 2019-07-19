@@ -32,5 +32,10 @@ namespace ServiceWebsite.Security
         ///     Base Video Url for videos stored in azure storage
         /// </summary>
         public string BaseVideoUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Pexip node uri for self testing.
+        /// </summary>
+        public string PexipSelfTestNodeUri { get; set; }
     }
 }

@@ -30,7 +30,8 @@ namespace ServiceWebsite.Controllers
                 ClientId = _settings.ClientId,
                 RedirectUri = $"{baseUrl}/login",
                 PostLogoutRedirectUri = $"{baseUrl}/",
-                BaseVideoUrl = _settings.BaseVideoUrl
+                BaseVideoUrl = _settings.BaseVideoUrl,
+                PexipSelfTestNodeUri = _settings.PexipSelfTestNodeUri
             };
 
             return Json(config);

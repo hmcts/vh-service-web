@@ -14,6 +14,7 @@ using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
 using ServiceWebsite.UserAPI.Client;
 using ServiceWebsite.Configuration;
+using ServiceWebsite.Security.HashGen;
 
 namespace ServiceWebsite
 {
@@ -46,6 +47,7 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
+            serviceCollection.AddTransient<IHashGenerator, HashGenerator>();
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;
