@@ -1,6 +1,6 @@
 import { Injectable, } from '@angular/core';
 import { MediaService } from './media.service';
-import { Logger } from '../../../services/logger';
+import { Logger } from '../services/logger';
 
 const browser = <any>navigator;
 browser.mediaDevices.getUserMedia = (browser.mediaDevices.getUserMedia ||

@@ -1,8 +1,40 @@
-<div>
-  <h1 class="govuk-heading-l" i18n="@@switch_on_camera_and_microphone_h1_1">You'll need use your camera and microphone</h1>
+<div class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div *ngIf="!mediaSwitchedOn">
+        <div>
+          <h1 class="govuk-heading-xl" i18n="@@switch_on_camera_and_microphone_h1_1">You'll need to use your camera and microphone</h1>
+        </div>
+        <div>
+          <p class="govuk-body" i18n="@@switch_on_camera_and_microphone_p_1">
+            The next video is interactive, so you'll need to use your camera and microphone.
+          </p>
+        </div>
+        <app-show-details i18n-bind-detailsTitle="@@switch_on_camera_and_microphone_detailsTitle" bind-detailsTitle="'Why do I need to use my camera and microphone?'"
+                          i18-bind-textArray="@@switch_on_camera_and_microphone_textArray" bind-textArray="['Your camera and microphone need to be switched on so you can make sure they’re working properly. Once you’ve finished the check, your camera and microphone will switch off again.']">
+        </app-show-details>
+        <button class="govuk-button" type="button" i18n="@@switch_on_camera_and_microphone_btn_next" class="govuk-button"
+                (click)="switchOnCameraAndMicrophone()" id="switch-on-media">
+          Switch on
+        </button>
+      </div>
+
+      <div *ngIf="mediaSwitchedOn">
+        <div>
+          <h1 class="govuk-heading-xl" i18n="@@switch_on_camera_and_microphone_h1_1">
+            Your camera and microphone are now switched on
+          </h1>
+        </div>
+        <div>
+          <p class="govuk-body" i18n="@@switch_on_camera_and_microphone_p_2">
+            Your camera and microphone are now switched on. You can go ahead and check they are working properly.
+          </p>
+        </div>
+        <button type="button" i18n="@@switch_on_camera_and_microphone_btn_watchVideo" class="govuk-button hmcts-button--primary" (click)="continue()" id="continue">
+          Test equipment
+        </button>
+      </div>
+      <app-contact-us></app-contact-us>
+    </div>
+  </div>
 </div>
-<button class="govuk-button" type="button" i18n="@@switch_on_camera_and_microphone_btn_next" class="govuk-button"
-  (click)="continue()" id="continue">
-  Switch on
-</button>
-<app-contact-us></app-contact-us>

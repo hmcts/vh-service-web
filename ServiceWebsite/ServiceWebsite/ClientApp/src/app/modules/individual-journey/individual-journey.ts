@@ -8,6 +8,7 @@ import { SubmitService } from './services/submit.service';
 import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 import { Logger } from 'src/app/services/logger';
+import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -31,7 +32,7 @@ export class IndividualJourney extends JourneyBase {
   }
 
   forSuitabilityAnswers(suitabilityAnswers: IndividualSuitabilityModel[]) {
-    const isPending = (model: IndividualSuitabilityModel) => model.selfTest === undefined || !model.selfTest.isCompleted();
+    const isPending = (answers: IndividualSuitabilityModel) => !answers.isCompleted();
     const selector = new HearingSelector(isPending, suitabilityAnswers, this.logger);
     if (selector.isDone) {
       this.redirect.emit(IndividualJourneySteps.GotoVideoApp);
