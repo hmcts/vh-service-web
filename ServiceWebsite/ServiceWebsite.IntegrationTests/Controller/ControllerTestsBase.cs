@@ -70,7 +70,6 @@ namespace ServiceWebsite.IntegrationTests.Controller
         {
             using (var client = _server.CreateClient())
             {
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_bearerToken}");
                 return await client.GetAsync(uri);
             }
