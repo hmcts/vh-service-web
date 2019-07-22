@@ -72,6 +72,6 @@ Create a translation source file in the `ServiceWebsite/ClientApp` folder:
 ng xi18n --output-path translate
 ```
 
-It will create folder 'translate' and source file 'messages.xlf'
+It will create folder 'translate' and source file 'messages.xlf' ...
 
 
