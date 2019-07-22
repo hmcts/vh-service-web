@@ -33,12 +33,12 @@ npx nswag run api-ts.nswag
 
 In the `ServiceWebsite.UserAPI.Client` project:
 ```
-npx nswag run user-api-csharp.nswag 
+npx nswag run user-api-csharp.nswag
 ```
 
 In the `ServiceWebsite.BookingsAPI.Client` project:
 ```
-npx nswag run booking-api-csharp.nswag 
+npx nswag run booking-api-csharp.nswag
 ```
 
 # Running accessibility linting
@@ -58,13 +58,13 @@ For attribute:
 ```
 
 For custom inputs/attribute, you have to use the canonical binding form:
-```html      
+```html
 <app-details [detailsTitle]="titleVariable"><app-details>
 ```
 
 Would be:
 ```html
-<app-details bind-detailsTitle="titleVariable" i18n-bind-details="@@detailsTitle><app-details> 
+<app-details bind-detailsTitle="titleVariable" i18n-bind-details="@@detailsTitle><app-details>
 ```
 
 Create a translation source file in the `ServiceWebsite/ClientApp` folder:
@@ -73,9 +73,3 @@ ng xi18n --output-path translate
 ```
 
 It will create folder 'translate' and source file 'messages.xlf'
-
-
-
-
-
-
