@@ -34,6 +34,13 @@ resources:
     endpoint: 'GitHubDevOps'
 
 trigger:
+  branches:
+    include:
+    - master
+  tags:
+    include:
+    - v*
+pr:
   - master
 
 jobs:
