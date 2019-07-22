@@ -1,8 +1,8 @@
 import { Injectable, } from '@angular/core';
-import 'webrtc-adapter';
 import { UserMediaDevice } from '../models/user-media-device';
 import { SessionStorage } from '../../shared/services/session-storage';
 import { BehaviorSubject } from 'rxjs';
+import 'webrtc-adapter';
 
 @Injectable({
   providedIn: 'root',
