@@ -7,6 +7,7 @@ export class Config {
   postLogoutRedirectUri: string;
   redirectUri: string;
   baseVideoUrl: string;
+  pexipSelfTestNodeUri: string;
 
   constructor(videoAppUrl: string = null, appInsightsInstrumentationKey: string = null) {
     this.videoAppUrl = videoAppUrl;
