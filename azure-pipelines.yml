@@ -12,7 +12,7 @@ variables:
   coverletCoverageExclusions: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.UserAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions,[ServiceWebsite.IntegrationTests]*,[ServiceWebsite.UnitTests]*'
   integrationTestsAppSettingsTransform: '
   "AzureAd/Authority":"https://login.microsoftonline.com/$(TenantId)",
-  "AzureAd/ClientId":"$(vh-service-web-appid)",
+  "AzureAd/ClientId":"$(vh-user-api-appid)",
   "AzureAd/ClientSecret":"$(vh-service-web-key)",
   "AzureAd:TenantId":"$(TenantId)",
   "AzureAd:VhServiceResourceId":"$(vh-service-web-appid)", 
@@ -23,7 +23,7 @@ variables:
     '
   vhAzureKeyVault: 'https://vhwebsitepreview.vault.azure.net/' # Used during integration tests
   keyVaultName: vhcoreinfrahtpreview # Used to get secrets for integration tests
-  secretsFilter: 'TenantId,hmac-secret-key,vh-service-web-appid,vh-service-web-key,vh-bookings-api-identifieruris' # filters out secrets returned from key vault
+  secretsFilter: 'TenantId,hmac-secret-key,vh-service-web-appid,vh-service-web-key,vh-bookings-api-identifieruris,vh-user-api-appid' # filters out secrets returned from key vault
 
 # GitHub Repo that contains build templates. Reference https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=vsts#using-other-repositories
 resources:
