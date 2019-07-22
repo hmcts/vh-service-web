@@ -58,7 +58,7 @@ For attribute:
 ```
 
 For custom inputs/attribute, you have to use the canonical binding form:
-```html      
+```html
 <app-details [detailsTitle]="titleVariable"><app-details>
 ```
 
@@ -72,4 +72,4 @@ Create a translation source file in the `ServiceWebsite/ClientApp` folder:
 ng xi18n --output-path translate
 ```
 
-It will create folder 'translate' and source file 'messages.xlf' ...
+It will create folder 'translate' and source file 'messages.xlf'
