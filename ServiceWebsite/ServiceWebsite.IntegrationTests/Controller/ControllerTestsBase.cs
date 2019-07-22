@@ -55,10 +55,11 @@ namespace ServiceWebsite.IntegrationTests.Controller
                 .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
 
             var configRoot = configRootBuilder.Build();
-            var azureAdConfig = Options.Create(configRoot.Get<EnvironmentSettings>()).Value;
+            var envConfig = Options.Create(configRoot.Get<EnvironmentSettings>()).Value;
+            var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
-            var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
-            _bearerToken = authContext.AcquireTokenAsync(azureAdConfig.ClientId, credential).Result.AccessToken;
+            var credential = new ClientCredential(envConfig.ClientId, envConfig.ClientSecret);
+            _bearerToken = authContext.AcquireTokenAsync(envConfig.ClientId, credential).Result.AccessToken;
         }
 
         [OneTimeTearDown]
