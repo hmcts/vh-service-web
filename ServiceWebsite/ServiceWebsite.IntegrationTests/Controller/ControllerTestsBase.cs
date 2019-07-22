@@ -6,6 +6,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using NUnit.Framework;
 using ServiceWebsite.Configuration;
+using ServiceWebsite.Security;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -54,10 +55,10 @@ namespace ServiceWebsite.IntegrationTests.Controller
                 .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
 
             var configRoot = configRootBuilder.Build();
-            var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
+            var azureAdConfig = Options.Create(configRoot.Get<EnvironmentSettings>()).Value;
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
-            _bearerToken = authContext.AcquireTokenAsync(azureAdConfig.VhServiceResourceId, credential).Result.AccessToken;
+            _bearerToken = authContext.AcquireTokenAsync(azureAdConfig.ClientId, credential).Result.AccessToken;
         }
 
         [OneTimeTearDown]
