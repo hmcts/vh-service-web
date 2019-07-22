@@ -19,11 +19,13 @@ variables:
   "VhServices/BookingsApiResourceId":"$(vh-bookings-api-identifieruris)",
   "VhServices:PexipSelfTestNodeUri": "sip.dev.self-test.hearings.hmcts.net",
   "AzureStorage/BaseVideoUrl":"https://vhcoreinfrapreview.blob.core.windows.net/video",
-  "CustomToken/Secret":"$(hmac-secret-key)"
+  "CustomToken/Secret":"$(hmac-secret-key)",
+  "ClientId":"$(vh-service-web-appid)",
+  "ClientSecret":"$(vh-service-web-key)"
     '
   vhAzureKeyVault: 'https://vhwebsitepreview.vault.azure.net/' # Used during integration tests
   keyVaultName: vhcoreinfrahtpreview # Used to get secrets for integration tests
-  secretsFilter: 'TenantId,hmac-secret-key,vh-service-web-appid,vh-service-web-key,vh-bookings-api-identifieruris,vh-user-api-appid' # filters out secrets returned from key vault
+  secretsFilter: 'TenantId,hmac-secret-key,vh-service-web-appid,vh-service-web-key,vh-bookings-api-identifieruris' # filters out secrets returned from key vault
 
 # GitHub Repo that contains build templates. Reference https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=vsts#using-other-repositories
 resources:
