@@ -1,6 +1,6 @@
 # Set variables once
 variables:
-  cleanChekout: 'false'
+  cleanChekout: 'true'
   solutionType: angularDotNetCore # angularDotNetCore, dotNetCore
   apiDirectory: 'ServiceWebsite/ServiceWebsite'
   nodeVersion: 10.16.0
@@ -15,7 +15,7 @@ variables:
   "AzureAd/ClientId":"$(vh-service-web-appid)",
   "AzureAd/ClientSecret":"$(vh-service-web-key)",
   "AzureAd:TenantId":"$(TenantId)",
-  "AzureAd:VhServiceResourceId":"$(vh-service-web-appid)", 
+  "AzureAd:VhServiceResourceId":"$(vh-service-web-appid)",
   "VhServices/BookingsApiResourceId":"$(vh-bookings-api-identifieruris)",
   "VhServices:PexipSelfTestNodeUri": "sip.dev.self-test.hearings.hmcts.net",
   "AzureStorage/BaseVideoUrl":"https://vhcoreinfrapreview.blob.core.windows.net/video",
