@@ -19,6 +19,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
             Stream receiveStream = responseMessage.Content.ReadAsStreamAsync().Result;
             StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
             var json = readStream.ReadToEnd();
+
             var tokenResponse = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<TokenResponse>(json);
 
             responseMessage.StatusCode.Should().Be(HttpStatusCode.OK);
