@@ -26,6 +26,7 @@ export class ConfigService {
     ENVIRONMENT_CONFIG.redirectUri = result.redirect_uri;
     ENVIRONMENT_CONFIG.postLogoutRedirectUri = result.post_logout_redirect_uri;
     ENVIRONMENT_CONFIG.baseVideoUrl = result.base_video_url;
+    ENVIRONMENT_CONFIG.pexipSelfTestNodeUri = result.pexip_self_test_node_uri;
     return Promise.resolve(ENVIRONMENT_CONFIG);
   }
 }
