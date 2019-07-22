@@ -5,7 +5,7 @@ variables:
   apiDirectory: 'ServiceWebsite/ServiceWebsite'
   nodeVersion: 10.16.0
   sonarCloudPrepareExtraProperties: |
-    sonar.exclusions=**/node_modules/**,**/*.spec.ts,*.spec.ts,**/ClientApp/*,**/ClientApp/src/*,**/ClientApp/coverage/**/*
+    sonar.exclusions=**/node_modules/**,**/*.spec.ts,*.spec.ts,**/ClientApp/*,**/ClientApp/src/*,**/ClientApp/coverage/**/*,**/*.js
     sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
     sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts
     sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
@@ -15,12 +15,15 @@ variables:
   "AzureAd/ClientId":"$(vh-service-web-appid)",
   "AzureAd/ClientSecret":"$(vh-service-web-key)",
   "AzureAd:TenantId":"$(TenantId)",
+  "AzureAd:VhServiceResourceId":"$(vh-service-web-appid)", 
   "VhServices/BookingsApiResourceId":"$(vh-bookings-api-identifieruris)",
-  "AzureStorage/BaseVideoUrl":"https://vhcoreinfrapreview.blob.core.windows.net/video"
+  "VhServices:PexipSelfTestNodeUri": "sip.dev.self-test.hearings.hmcts.net",
+  "AzureStorage/BaseVideoUrl":"https://vhcoreinfrapreview.blob.core.windows.net/video",
+  "CustomToken/Secret":"$(hmac-secret-key)"
     '
   vhAzureKeyVault: 'https://vhwebsitepreview.vault.azure.net/' # Used during integration tests
   keyVaultName: vhcoreinfrahtpreview # Used to get secrets for integration tests
-  secretsFilter: 'TenantId,vh-service-web-appid,vh-service-web-key,vh-bookings-api-identifieruris' # filters out secrets returned from key vault
+  secretsFilter: 'TenantId,hmac-secret-key,vh-service-web-appid,vh-service-web-key,vh-bookings-api-identifieruris' # filters out secrets returned from key vault
 
 # GitHub Repo that contains build templates. Reference https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=vsts#using-other-repositories
 resources:
