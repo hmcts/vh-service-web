@@ -38,6 +38,7 @@ describe('TestYourEquipmentComponent', () => {
       providers: [{ provide: Logger, useClass: MockLogger },
       { provide: VideoWebService, useValue: videoWebServiceMock },
         UserMediaService,
+      { provode: Logger, useClass: MockLogger },
       { provide: ConfigService, useValue: configServiceMock }],
     });
 
