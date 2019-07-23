@@ -233,7 +233,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var request = _testContext.Get($"persons/username/{_testContext.TestUserSecrets.Representative}/suitability-answers");
             var response = _testContext.Client().Execute(request);
             var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<List<PersonSuitabilityAnswerResponse>>(response.Content);
-            var answers = model[0].Answers;
+            var answers = model.First(h => h.Hearing_id.ToString() == _testContext.HearingId).Answers;
             foreach (var expectedResponse in reponses)
             {
                 var answer = answers.Single(a => a.Key == expectedResponse.QuestionKey);
