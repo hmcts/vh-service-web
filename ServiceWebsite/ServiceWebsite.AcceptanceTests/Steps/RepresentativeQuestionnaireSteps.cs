@@ -39,12 +39,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _videoWorking;
         private readonly Page _signInOnComputer;
         private readonly Page _signBackIn;
+        private readonly Page _equipmentBlocked;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
         private readonly TestContext _testContext;
         private string _representativeParticipantId;
+        private readonly LoginSteps _loginSteps;
 
-        public RepresentativeQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
+        public RepresentativeQuestionnaireSteps(LoginSteps loginSteps, TestContext testContext, BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
             _information = information;
             _browserContext = browserContext;
@@ -68,8 +70,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
             _signInOnComputer = new Page(browserContext, PageUri.SignInOncomputer);
             _signBackIn = new Page(browserContext, PageUri.SignBackIn);
+            _equipmentBlocked = new Page(browserContext, PageUri.EquipmentBlocked);
             _testContext = testContext;
             _representativeParticipantId =  _testContext.RepresentativeParticipantId;
+            _loginSteps = loginSteps;
         }
         
         [Given(@"Representative participant is on '(.*)' page")]
@@ -79,6 +83,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             InitiateJourneySteps(page);
         }
 
+        [Given(@"Representative participant is on '(.*)' page having submitted questionnaire")]
+        public void GivenRepresentativeParticipantIsOnPageHavingSubmittedQuestionnaire(string page)
+        {
+            SubmitQuestionnaireForPositivePath();
+            _loginSteps.WhenParticipantLogsInWithValidCredentials("Representative");
+            NavigateToDecisionPage(_checkYourComputer);
+            _currentPage = _switchOnCameraAndMicrophone;
+        }
 
         public void InitiateJourneySteps(string page)
         {
@@ -137,6 +149,18 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_aboutYourComputer);
                     _questionnaireCompleted.Continue();
                     _currentPage = _checkYourComputer;
+                    break;
+                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    NavigateToDecisionPage(_hearingSuitability);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    _questionnaireCompleted.Continue();
+                    NavigateToDecisionPage(_checkYourComputer);
+                   _currentPage = _switchOnCameraAndMicrophone;
                     break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
@@ -244,17 +268,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Given(@"Representative participant has already submitted questionnaire but not completed self-test")]
         public void GivenRepresentativeParticipantHasAlreadySubmittedQuestionnaireButNotCompletedSelf_Test()
         {
-            //Submit the answers for individual
-            var answerRequestBody = new List<SuitabilityAnswersRequest>();
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "true", "I am partially deaf"));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOUR_CLIENT", "true", "mobility issues"));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CLIENT_ATTENDANCE", "true", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("HEARING_SUITABILITY", "true", "insufficient documents"));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ROOM", "true", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
-
-            SubmitSuitabilityAnswers(_representativeParticipantId, answerRequestBody);
+            SubmitQuestionnaireForPositivePath();
         }
 
         [Given(@"Representative participant has already submitted questionnaire but drops out")]
@@ -275,7 +289,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             return (decisionJourneyPage == _yourComputer ||
                    decisionJourneyPage == _aboutYourComputer ||
-                   decisionJourneyPage == _accessToRoom);
+                   decisionJourneyPage == _accessToRoom || 
+                   decisionJourneyPage == _checkYourComputer);
         }
 
         private Page GetPage(string page)
@@ -318,8 +333,25 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     return _signBackIn;
                 case SelfTestPageNames.SignInOncomputer:
                     return _signInOnComputer;
+                case SelfTestPageNames.EquipmentBlocked:
+                    return _equipmentBlocked;
             }
             throw new Exception("Invalid page");
+        }
+
+        private void SubmitQuestionnaireForPositivePath()
+        {
+            //Submit the answers for individual
+            var answerRequestBody = new List<SuitabilityAnswersRequest>();
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "true", "I am partially deaf"));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOUR_CLIENT", "true", "mobility issues"));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CLIENT_ATTENDANCE", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("HEARING_SUITABILITY", "true", "insufficient documents"));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ROOM", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
+
+            SubmitSuitabilityAnswers(_representativeParticipantId, answerRequestBody);
         }
     }
 }
