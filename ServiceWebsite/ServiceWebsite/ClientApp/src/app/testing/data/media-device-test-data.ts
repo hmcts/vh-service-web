@@ -14,15 +14,19 @@ export class MediaDeviceTestData {
   }
 
   getListOfSingleCameraAndMicDevices() {
-    const testData: Array<UserMediaDevice> = [];
-    testData.concat(this.getSingleCamera());
-    testData.concat(this.getSingleMicrophone());
+    let testData: Array<UserMediaDevice> = [];
+    testData = testData.concat(this.getSingleCamera());
+    testData = testData.concat(this.getSingleMicrophone());
     return testData;
   }
 
   getSingleCamera(): UserMediaDevice[] {
-    const testData: UserMediaDevice[] = [];
     const device = new UserMediaDevice('camera1', 'camId1', 'videoinput', 'group1');
+    return this.getSingleDevice(device);
+  }
+
+  private getSingleDevice(device: UserMediaDevice): UserMediaDevice[] {
+    const testData: UserMediaDevice[] = [];
     testData.push(device);
     return testData;
   }
@@ -37,10 +41,8 @@ export class MediaDeviceTestData {
   }
 
   getSingleMicrophone(): UserMediaDevice[] {
-    const testData: UserMediaDevice[] = [];
     const device = new UserMediaDevice('mic1', 'micId1', 'audioinput', 'group1');
-    testData.push(device);
-    return testData;
+    return this.getSingleDevice(device);
   }
 
   getListOfMicrophones(): UserMediaDevice[] {

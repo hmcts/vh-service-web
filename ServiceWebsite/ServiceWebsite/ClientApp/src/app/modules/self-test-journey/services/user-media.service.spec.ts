@@ -92,4 +92,17 @@ describe('UserMediaService', () => {
 
     expect(result.deviceId).toBe(cachedDevice.deviceId);
   }));
+  it('should update preferred microphone', inject([UserMediaService], async (service: UserMediaService) => {
+    const cachedDevice = testData.getListOfDevices()[0];
+    service.availableDeviceList = testData.getListOfDevices();
+    service.updatePreferredMicrophone(cachedDevice);
+    expect(service.getPreferredMicrophone()).toBeTruthy();
+  }));
+  it('should update preferred camera', inject([UserMediaService], async (service: UserMediaService) => {
+    const cachedDevice = testData.getListOfDevices()[1];
+    service.availableDeviceList = testData.getListOfDevices();
+    service.updatePreferredCamera(cachedDevice);
+    expect(service.getPreferredCamera()).toBeTruthy();
+  }));
+
 });
