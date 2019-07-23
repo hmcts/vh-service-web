@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
 using ServiceWebsite.Domain;
 using ServiceWebsite.Models;
-using ServiceWebsite.Models.Mappings;
 using ServiceWebsite.Services;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace ServiceWebsite.Controllers
 {
@@ -22,7 +22,7 @@ namespace ServiceWebsite.Controllers
         private readonly IHearingsService _hearingService;
         private readonly IParticipantService _participantService;
         private static readonly string strRegex = @"(\b[A-Z]+(?:_[A-Z]+)+\b)|(\b[A-Z]+\b)";
-        private static readonly Regex validAnswerKeyRegex = new Regex(strRegex, RegexOptions.Compiled);
+        private static readonly Regex ValidAnswerKeyRegex = new Regex(strRegex, RegexOptions.Compiled);
         public ParticipantController(IHearingsService hearingsService, IParticipantService participantService)
         {
             _hearingService = hearingsService;
@@ -51,15 +51,12 @@ namespace ServiceWebsite.Controllers
             {
                 return new BadRequestObjectResult($"Please provide valid answers");
             }
-            else
+
+            foreach (var answer in answers)
             {
-                foreach (HearingSuitabilityAnswer answer in answers)
+                if (!ValidateAnswerKey(answer.QuestionKey))
                 {
-                    bool isValid = ValidateAnswerKey(answer.QuestionKey);
-                    if (!isValid)
-                    {
-                        return new BadRequestObjectResult($"Please provide a valid answer key");
-                    }
+                    return new BadRequestObjectResult($"Please provide a valid answer key");
                 }
             }
 
@@ -71,7 +68,7 @@ namespace ServiceWebsite.Controllers
                 {
                     return new UnauthorizedObjectResult($"User is not a participant of hearing with id '{hearingId}'");
                 }
-        
+
                 var suitabilityAnswers = MapAnswers(answers);
                 await _participantService.UpdateSuitabilityAnswers(hearingId, participantId.Value, suitabilityAnswers);
 
@@ -89,10 +86,41 @@ namespace ServiceWebsite.Controllers
             }
         }
 
-        private List<SuitabilityAnswer> MapAnswers(List<HearingSuitabilityAnswer> answers)
+        [HttpGet("participants/{username}")]
+        [AllowAnonymous] // TODO remove
+        [SwaggerOperation(OperationId = "GetParticipantsByUsername")]
+        [ProducesResponseType(typeof(ParticipantResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        [ProducesResponseType((int) HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetParticipantsByUsername(string username)
         {
-            List<SuitabilityAnswer> suitabilityAnswers = new List<SuitabilityAnswer>();
-            foreach (HearingSuitabilityAnswer answer in answers)
+            if(string.IsNullOrWhiteSpace(username))
+            {
+                ModelState.AddModelError("username", $"The username is invalid: {username}");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var participants = (await _participantService.GetParticipantsByUsernameAsync(username)).ToList();
+
+            if (participants.Count == 0)
+            {
+                return NotFound();
+            }
+
+            var firstParticipant = participants.First();
+
+            return Ok(new ParticipantResponse { Id = firstParticipant.Id, Username = firstParticipant.Username });
+        }
+
+        private static List<SuitabilityAnswer> MapAnswers(IEnumerable<HearingSuitabilityAnswer> answers)
+        {
+            var suitabilityAnswers = new List<SuitabilityAnswer>();
+
+            foreach (var answer in answers)
             {
                 suitabilityAnswers.Add(new SuitabilityAnswer
                 {
@@ -104,11 +132,9 @@ namespace ServiceWebsite.Controllers
             return suitabilityAnswers;
         }
 
-        private bool ValidateAnswerKey(string answerKey)
+        private static bool ValidateAnswerKey(string answerKey)
         {
-            Match match = validAnswerKeyRegex.Match(answerKey);
-
-            return match.Success;
+            return ValidAnswerKeyRegex.Match(answerKey).Success;
         }
 
     }
