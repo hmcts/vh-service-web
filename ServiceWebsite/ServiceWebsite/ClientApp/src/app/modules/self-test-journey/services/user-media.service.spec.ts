@@ -104,5 +104,9 @@ describe('UserMediaService', () => {
     service.updatePreferredCamera(cachedDevice);
     expect(service.getPreferredCamera()).toBeTruthy();
   }));
-
+  it('should update device list from navigator devices', inject([UserMediaService], async (service: UserMediaService) => {
+    await service.updateAvailableDevicesList();
+    expect(service.availableDeviceList).toBeTruthy();
+    expect(service.availableDeviceList.length).toBeGreaterThan(0);
+  }));
 });

@@ -32,10 +32,14 @@ export class MediaDeviceTestData {
   }
 
   getListOfCameras(): UserMediaDevice[] {
-    const testData: UserMediaDevice[] = [];
     const device = new UserMediaDevice('camera1', 'camId1', 'videoinput', 'group1');
     const device2 = new UserMediaDevice('camera2', 'camId2', 'videoinput', 'group2');
-    testData.push(device);
+    return this.getListOf(device, device2);
+  }
+
+  getListOf(device1: UserMediaDevice, device2: UserMediaDevice): UserMediaDevice[] {
+    const testData: UserMediaDevice[] = [];
+    testData.push(device1);
     testData.push(device2);
     return testData;
   }
@@ -46,11 +50,8 @@ export class MediaDeviceTestData {
   }
 
   getListOfMicrophones(): UserMediaDevice[] {
-    const testData: UserMediaDevice[] = [];
     const device = new UserMediaDevice('mic1', 'micId1', 'audioinput', 'group1');
     const device2 = new UserMediaDevice('mic2', 'micId2', 'audioinput', 'group2');
-    testData.push(device);
-    testData.push(device2);
-    return testData;
+    return this.getListOf(device, device2);
   }
 }
