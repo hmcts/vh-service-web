@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using ServiceWebsite.Configuration;
 using ServiceWebsite.Models;
 using ServiceWebsite.Security;
 
@@ -10,10 +11,12 @@ namespace ServiceWebsite.Controllers
     public class ConfigController : Controller
     {
         private readonly EnvironmentSettings _settings;
+        private readonly ServiceSettings _serviceSettings;
 
-        public ConfigController(IOptions<EnvironmentSettings> settings)
+        public ConfigController(IOptions<EnvironmentSettings> settings, IOptions<ServiceSettings> serviceSettings)
         {
             _settings = settings.Value;
+            _serviceSettings = serviceSettings.Value;
         }
 
         [HttpGet]
@@ -30,7 +33,8 @@ namespace ServiceWebsite.Controllers
                 ClientId = _settings.ClientId,
                 RedirectUri = $"{baseUrl}/login",
                 PostLogoutRedirectUri = $"{baseUrl}/",
-                BaseVideoUrl = _settings.BaseVideoUrl
+                BaseVideoUrl = _settings.BaseVideoUrl,
+                PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri
             };
 
             return Json(config);

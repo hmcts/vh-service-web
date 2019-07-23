@@ -22,5 +22,10 @@
         ///     The user api resource id
         /// </summary>
         public string UserApiResourceId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Pexip node uri for self testing.
+        /// </summary>
+        public string PexipSelfTestNodeUri { get; set; }
     }
 }
