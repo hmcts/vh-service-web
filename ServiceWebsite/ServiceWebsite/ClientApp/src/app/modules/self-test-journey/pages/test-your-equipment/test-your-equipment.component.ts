@@ -10,7 +10,6 @@ import { VideoWebService } from '../../services/video-web.service';
 import { ConfigService } from '../../../../services/config.service';
 import { Logger } from '../../../../services/logger';
 import { UserMediaDevice } from '../../models/user-media-device';
-//import { ParticipantService } from '../../services/participant.service';
 
 declare var PexRTC: any;
 
@@ -42,8 +41,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     private userMediaStreamService: UserMediaStreamService,
     private videoWebService: VideoWebService,
     private configService: ConfigService,
-    private logger: Logger,
-    //private participantService: ParticipantService
+    private logger: Logger
   ) {
     super(journey);
     this.didTestComplete = false;
@@ -168,5 +166,4 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
-
 }
