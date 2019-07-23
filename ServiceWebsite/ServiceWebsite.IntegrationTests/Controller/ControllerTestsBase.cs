@@ -1,11 +1,16 @@
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using NUnit.Framework;
+using ServiceWebsite.Configuration;
+using ServiceWebsite.Security;
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.PlatformAbstractions;
-using NUnit.Framework;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
@@ -14,7 +19,8 @@ namespace ServiceWebsite.IntegrationTests.Controller
     {
         private TestServer _server;
         private readonly string _environmentName = "development";
-        
+        private string _bearerToken;
+
         protected ControllerTestsBase()
         {
             if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
@@ -38,12 +44,40 @@ namespace ServiceWebsite.IntegrationTests.Controller
                     .UseStartup<Startup>();
 
             _server = new TestServer(webHostBuilder);
+            GetClientAccessTokenForApi();
         }
-        
+
+        private void GetClientAccessTokenForApi()
+        {
+            var configRootBuilder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
+
+            var configRoot = configRootBuilder.Build();
+            var envConfig = Options.Create(configRoot.Get<EnvironmentSettings>()).Value;
+            var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
+            var authContext = new AuthenticationContext(azureAdConfig.Authority);
+            var credential = new ClientCredential(envConfig.ClientId, envConfig.ClientSecret);
+            if (envConfig.ClientId != null)
+            {
+                _bearerToken = authContext.AcquireTokenAsync(envConfig.ClientId, credential).Result.AccessToken;
+            }
+        }
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
             _server.Dispose();
+        }
+
+        protected async Task<HttpResponseMessage> SendGetRequestWithBearerTokenAsync(string uri)
+        {
+            using (var client = _server.CreateClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_bearerToken}");
+                return await client.GetAsync(uri);
+            }
         }
 
         protected async Task<HttpResponseMessage> SendGetRequestAsync(string uri)
