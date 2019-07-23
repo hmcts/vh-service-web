@@ -136,8 +136,5 @@ namespace ServiceWebsite.Controllers
         {
             return ValidAnswerKeyRegex.Match(answerKey).Success;
         }
-
     }
-
-
 }
