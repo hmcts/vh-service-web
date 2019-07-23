@@ -86,14 +86,15 @@ namespace ServiceWebsite.Controllers
             }
         }
 
-        [HttpGet("participants/{username}")]
+        [HttpGet("participants")]
         [AllowAnonymous] // TODO remove
         [SwaggerOperation(OperationId = "GetParticipantsByUsername")]
         [ProducesResponseType(typeof(ParticipantResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetParticipantsByUsername(string username)
+        public async Task<IActionResult> GetParticipantsByUsername()
         {
+            var username = User.Identity.Name;
             if(string.IsNullOrWhiteSpace(username))
             {
                 ModelState.AddModelError("username", $"The username is invalid: {username}");

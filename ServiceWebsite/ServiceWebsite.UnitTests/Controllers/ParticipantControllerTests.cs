@@ -91,17 +91,17 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task should_return_badrequest_if_username_is_empty()
         {
-            var badRequest1 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername(null);
+            var badRequest1 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername();
             Assert.AreEqual(400, badRequest1.StatusCode);
             Assert.IsAssignableFrom<SerializableError>(badRequest1.Value);
             Assert.True(((SerializableError) badRequest1.Value).ContainsKey("username"));
 
-            var badRequest2 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername("");
+            var badRequest2 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername();
             Assert.AreEqual(400, badRequest2.StatusCode);
             Assert.IsAssignableFrom<SerializableError>(badRequest2.Value);
             Assert.True(((SerializableError)badRequest2.Value).ContainsKey("username"));
 
-            var badRequest3 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername(" ");
+            var badRequest3 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername();
             Assert.AreEqual(400, badRequest3.StatusCode);
             Assert.IsAssignableFrom<SerializableError>(badRequest3.Value);
             Assert.True(((SerializableError)badRequest3.Value).ContainsKey("username"));
@@ -116,7 +116,7 @@ namespace ServiceWebsite.UnitTests.Controllers
                 .Setup(x => x.GetParticipantsByUsernameAsync(username))
                 .ReturnsAsync(Enumerable.Empty<Participant>());
 
-            var result = await _controller.GetParticipantsByUsername(username);
+            var result = await _controller.GetParticipantsByUsername();
 
             Assert.NotNull(result);
             Assert.IsAssignableFrom<NotFoundResult>(result);
@@ -137,7 +137,7 @@ namespace ServiceWebsite.UnitTests.Controllers
                 .Setup(x => x.GetParticipantsByUsernameAsync(username))
                 .ReturnsAsync(participants);
 
-            var result = await _controller.GetParticipantsByUsername(username);
+            var result = await _controller.GetParticipantsByUsername();
 
             Assert.NotNull(result);
             Assert.IsAssignableFrom<OkObjectResult>(result);

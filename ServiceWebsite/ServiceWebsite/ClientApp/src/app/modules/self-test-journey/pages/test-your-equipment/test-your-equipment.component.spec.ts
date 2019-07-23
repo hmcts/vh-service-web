@@ -4,14 +4,41 @@ import { CrestBluePanelComponent } from '../../../shared/crest-blue-panel/crest-
 import { TestYourEquipmentComponent } from './test-your-equipment.component';
 import { ContinuableComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { MockLogger } from '../../../../testing/mocks/mock-logger';
+import { Logger } from '../../../../services/logger';
+import { VideoWebService } from '../../services/video-web.service';
+import { UserMediaService } from '../../services/user-media.service';
+import { of } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { ConfigService } from '../../../../services/config.service';
+import { TokenResponse } from '../../../../services/clients/api-client';
+import { Config } from '../../../shared/models/config';
+
+@Component({
+  selector: 'app-mic-visualiser',
+  template: ''
+})
+class StubMicVisualiserComponent {
+  @Input() stream: MediaStream;
+}
 
 describe('TestYourEquipmentComponent', () => {
   it('can continue', () => {
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
+    const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken']);
+    videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
+
+    const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
+    configServiceMock.load.and.returnValue(of(new Config()));
+
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,
       journey: journey,
-      declarations: [ CrestBluePanelComponent ]
+      declarations: [CrestBluePanelComponent, StubMicVisualiserComponent],
+      providers: [{ provide: Logger, useClass: MockLogger },
+      { provide: VideoWebService, useValue: videoWebServiceMock },
+        UserMediaService,
+      { provide: ConfigService, useValue: configServiceMock }],
     });
 
     fixture.detectChanges();
