@@ -7,7 +7,7 @@ namespace ServiceWebsite.Services
 {
     public interface IParticipantService
     {
-        Task<Participant> FindParticipant(string userEmail);
+        Task<IEnumerable<Participant>> GetParticipantsByUsernameAsync(string username);
         Task UpdateSuitabilityAnswers(Guid hearingId, Guid participantId, List<SuitabilityAnswer> answers);
     }
 }
