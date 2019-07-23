@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using ServiceWebsite.Common;
 using ServiceWebsite.Controllers;
-using ServiceWebsite.Domain;
 using ServiceWebsite.Models;
 using ServiceWebsite.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ServiceWebsite.Domain;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -34,9 +34,9 @@ namespace ServiceWebsite.UnitTests.Controllers
         public async Task should_return_badrequest_if_hearingId_is_empty()
         {
             var result = await _controller.UpdateSuitabilityAnswers(Guid.Empty, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
-            var badRequestresult = (BadRequestObjectResult)result;
-            Assert.AreEqual(400, badRequestresult.StatusCode);
-            Assert.AreEqual(badRequestresult.Value, $"Please provide a valid hearing id");
+            var badRequestObjectResult = (BadRequestObjectResult)result;
+            Assert.AreEqual(400, badRequestObjectResult.StatusCode);
+            Assert.AreEqual(badRequestObjectResult.Value, $"Please provide a valid hearing id");
         }
 
         [Test]
@@ -88,5 +88,63 @@ namespace ServiceWebsite.UnitTests.Controllers
             Assert.AreEqual(204, result.StatusCode);
         }
 
+        [Test]
+        public async Task should_return_badrequest_if_username_is_empty()
+        {
+            var badRequest1 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername(null);
+            Assert.AreEqual(400, badRequest1.StatusCode);
+            Assert.IsAssignableFrom<SerializableError>(badRequest1.Value);
+            Assert.True(((SerializableError) badRequest1.Value).ContainsKey("username"));
+
+            var badRequest2 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername("");
+            Assert.AreEqual(400, badRequest2.StatusCode);
+            Assert.IsAssignableFrom<SerializableError>(badRequest2.Value);
+            Assert.True(((SerializableError)badRequest2.Value).ContainsKey("username"));
+
+            var badRequest3 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername(" ");
+            Assert.AreEqual(400, badRequest3.StatusCode);
+            Assert.IsAssignableFrom<SerializableError>(badRequest3.Value);
+            Assert.True(((SerializableError)badRequest3.Value).ContainsKey("username"));
+        }
+
+        [Test]
+        public async Task should_return_not_found_if_participant_is_found()
+        {
+            const string username = "SomeUsername";
+
+            _participantService
+                .Setup(x => x.GetParticipantsByUsernameAsync(username))
+                .ReturnsAsync(Enumerable.Empty<Participant>());
+
+            var result = await _controller.GetParticipantsByUsername(username);
+
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<NotFoundResult>(result);
+        }
+
+        [Test]
+        public async Task should_return_ok_if_participant_is_found()
+        {
+            const string username = "SomeUsername";
+            var participants = new List<Participant>
+            {
+                new Participant {Id = Guid.NewGuid(), Username = "one"},
+                new Participant {Id = Guid.NewGuid(), Username = "two"},
+                new Participant {Id = Guid.NewGuid(), Username = "three"}
+            };
+
+            _participantService
+                .Setup(x => x.GetParticipantsByUsernameAsync(username))
+                .ReturnsAsync(participants);
+
+            var result = await _controller.GetParticipantsByUsername(username);
+
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<OkObjectResult>(result);
+            var okResult = (OkObjectResult)result;
+            Assert.IsAssignableFrom<ParticipantResponse>(okResult.Value);
+            var response = (ParticipantResponse) okResult.Value;
+            Assert.AreEqual("one", response.Username);
+        }
     }
 }
