@@ -59,7 +59,10 @@ namespace ServiceWebsite.IntegrationTests.Controller
             var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(envConfig.ClientId, envConfig.ClientSecret);
-            _bearerToken = authContext.AcquireTokenAsync(envConfig.ClientId, credential).Result.AccessToken;
+            if (envConfig.ClientId != null)
+            {
+                _bearerToken = authContext.AcquireTokenAsync(envConfig.ClientId, credential).Result.AccessToken;
+            }
         }
 
         [OneTimeTearDown]
