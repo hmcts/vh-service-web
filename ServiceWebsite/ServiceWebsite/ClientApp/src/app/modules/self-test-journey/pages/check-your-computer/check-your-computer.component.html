@@ -32,7 +32,9 @@
             No
           </label>
         </div>
-
+        <div *ngIf="choice.value === false" class="vh-border">
+          <p class="govuk-body vh-left" i18n="@@check_your_computer_rep_p_2">You need to know the camera and microphone are working on the computer you'll be using for the hearing.</p>
+        </div>
       </div>
     </div>
   </div>

@@ -12,14 +12,16 @@ variables:
   coverletCoverageExclusions: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.UserAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions,[ServiceWebsite.IntegrationTests]*,[ServiceWebsite.UnitTests]*'
   integrationTestsAppSettingsTransform: '
   "AzureAd/Authority":"https://login.microsoftonline.com/$(TenantId)",
-  "AzureAd/ClientId":"$(vh-service-web-appid)",
+  "AzureAd/ClientId":"$(vh-user-api-appid)",
   "AzureAd/ClientSecret":"$(vh-service-web-key)",
   "AzureAd:TenantId":"$(TenantId)",
   "AzureAd:VhServiceResourceId":"$(vh-service-web-appid)", 
   "VhServices/BookingsApiResourceId":"$(vh-bookings-api-identifieruris)",
   "VhServices:PexipSelfTestNodeUri": "sip.dev.self-test.hearings.hmcts.net",
   "AzureStorage/BaseVideoUrl":"https://vhcoreinfrapreview.blob.core.windows.net/video",
-  "CustomToken/Secret":"$(hmac-secret-key)"
+  "CustomToken/Secret":"$(hmac-secret-key)",
+  "ClientId":"$(vh-service-web-appid)",
+  "ClientSecret":"$(vh-service-web-key)"
     '
   vhAzureKeyVault: 'https://vhwebsitepreview.vault.azure.net/' # Used during integration tests
   keyVaultName: vhcoreinfrahtpreview # Used to get secrets for integration tests
