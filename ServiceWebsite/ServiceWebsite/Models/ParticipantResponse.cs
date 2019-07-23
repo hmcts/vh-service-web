@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ServiceWebsite.Domain
+namespace ServiceWebsite.Models
 {
-    public class Participant
+    public class ParticipantResponse
     {
         public Guid Id { get; set; }
         public string Username { get; set; }

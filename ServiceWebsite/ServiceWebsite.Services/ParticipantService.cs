@@ -18,15 +18,32 @@ namespace ServiceWebsite.Services
             _bookingsApiClient = bookingsApiClient;
         }
 
-        public async Task<Participant> FindParticipant(string userEmail)
+        public async Task<IEnumerable<Participant>> GetParticipantsByUsernameAsync(string username)
         {
+            try
+            {
+                var participants = await _bookingsApiClient.GetParticipantsByUsernameAsync(username);
 
-            return await Task.FromResult(new Participant(userEmail, Role.Individual));
+                return participants.Select(x => new Participant { Id = x.Id.Value, Username = x.Username });
+            }
+            catch (BookingsApiException e)
+            {
+                if (e.StatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    return Enumerable.Empty<Participant>();
+                }
+
+                throw;
+            }
         }
 
         public async Task UpdateSuitabilityAnswers(Guid hearingId, Guid participantId, List<SuitabilityAnswer> answers)
         {
-            var request = Map(answers);
+            var request = answers.Select(answer => new SuitabilityAnswersRequest
+            {
+                Key = answer.QuestionKey, Answer = answer.Answer, Extended_answer = answer.ExtendedAnswer
+            });
+
             try
             {
                 await _bookingsApiClient.UpdateSuitabilityAnswersAsync(hearingId, participantId, request);
@@ -40,18 +57,5 @@ namespace ServiceWebsite.Services
                 throw;
             }
         }
-
-        private static List<SuitabilityAnswersRequest> Map(List<SuitabilityAnswer> answers)
-        {
-            List<SuitabilityAnswersRequest> answersRequests = new List<SuitabilityAnswersRequest>();
-            foreach (SuitabilityAnswer answer in answers)
-            {
-                answersRequests.Add(new SuitabilityAnswersRequest() { Key = answer.QuestionKey, Answer = answer.Answer, Extended_answer = answer.ExtendedAnswer });
-
-            }
-            return answersRequests;
-        }
-        private DateTime Today => DateTime.UtcNow.Date;
-        private DateTime NextYear => DateTime.Today.AddYears(1).Date;
     }
 }
