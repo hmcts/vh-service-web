@@ -43,7 +43,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Given(@"(.*) participant proceeds to camera and microphone page")]
         public void GivenIndividualParticipantProceedsToCameraAndMicrophonePage(string participant)
         {
-            _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
+            _loginSteps.WhenParticipantLogsInWithValidCredentials(participant);
             ExploreVideoHearing();
         }
 
@@ -94,7 +94,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     ThenIndividualParticipantShouldBeAbleToViewInformationVideo();
                     break;
                 case "Representative":
-                    _loginSteps.WhenIndividualLogsInWithValidCredentials(participant);
+                    _loginSteps.WhenParticipantLogsInWithValidCredentials(participant);
                     _aboutVideoHearing.Continue();
                     _aboutYouAndYourClient.Continue();
                     break;

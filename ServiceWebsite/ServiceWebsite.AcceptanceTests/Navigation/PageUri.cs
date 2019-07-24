@@ -29,6 +29,6 @@
         public const string VideoWorking = "/video-working";
         public const string SignInOncomputer = "/sign-in-on-computer";
         public const string SignBackIn = "/sign-back-in";
-
+        public const string EquipmentBlocked = "/equipment-blocked";
     }
 }

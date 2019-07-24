@@ -1,27 +1,21 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using ServiceWebsite.IntegrationTests.Helpers;
 using ServiceWebsite.Models;
 using System;
-using System.IO;
 using System.Net;
-using System.Text;
+using ServiceWebsite.IntegrationTests.Helper;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
     public class TokenControllerTests : ControllerTestsBase
     {
         [Test]
-        [Ignore("Barer token need to change")]
-        public void Should_get_token_when_requested_with_correct_participantid()
+        public void Should_get_token_when_requested_with_correct_participant_id()
         {
             var responseMessage = SendGetRequestWithBearerTokenAsync($"/participants/{Guid.NewGuid()}/token").Result;
 
-            Stream receiveStream = responseMessage.Content.ReadAsStreamAsync().Result;
-            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-            var json = readStream.ReadToEnd();
-
-            var tokenResponse = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<TokenResponse>(json);
+            var content = responseMessage.Content.ReadAsStringAsync().Result;
+            var tokenResponse = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<TokenResponse>(content);
 
             responseMessage.StatusCode.Should().Be(HttpStatusCode.OK);
             tokenResponse.Should().NotBeNull();
@@ -29,8 +23,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
         }
 
         [Test]
-        [Ignore("Barer token need to change")]
-        public void Should_return_bad_request_when_requested_with_incorrect_participantid()
+        public void Should_return_bad_request_when_requested_with_incorrect_participant_id()
         {
             var responseMessage = SendGetRequestWithBearerTokenAsync($"/participants/{Guid.Empty}/token").Result;
             responseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
