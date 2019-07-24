@@ -14,6 +14,9 @@ import { ConfigService } from '../../../../services/config.service';
 import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
 import { Config } from '../../../shared/models/config';
 import { UserMediaStreamService } from '../../services/user-media-stream.service';
+import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
+import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
+declare var PexRTC: any;
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -23,18 +26,19 @@ class StubMicVisualiserComponent {
   @Input() stream: MediaStream;
 }
 
+const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
+const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId']);
+videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
+videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
+
+const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
+configServiceMock.load.and.returnValue(of(new Config()));
+
+const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic']);
+userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
+
 describe('TestYourEquipmentComponent', () => {
   it('can continue', () => {
-    const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-    const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId']);
-    videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
-    videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
-
-    const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
-    configServiceMock.load.and.returnValue(of(new Config()));
-
-    const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic']);
-    userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
 
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,
@@ -51,5 +55,27 @@ describe('TestYourEquipmentComponent', () => {
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CameraWorking);
+  });
+});
+
+describe('TestYourEquipmentComponent functionality', () => {
+  let journeyObj: jasmine.SpyObj<JourneyBase>;
+  let model: MutableIndividualSuitabilityModel;
+  let component: TestYourEquipmentComponent;
+
+  beforeEach(() => {
+    journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+    model = new MutableIndividualSuitabilityModel();
+    model.selfTest = new SelfTestAnswers();
+    component = new TestYourEquipmentComponent(journeyObj, model,
+      new UserMediaService(), userMediaStreamServiceMock, videoWebServiceMock,
+      configServiceMock, new MockLogger());
+
+  });
+
+  it('should pexip make a call', async () => {
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+    component.call();
+    expect(component.didTestComplete).toBeFalsy();
   });
 });
