@@ -16,6 +16,7 @@ import { Config } from '../../../shared/models/config';
 import { UserMediaStreamService } from '../../services/user-media-stream.service';
 import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
 import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
+import { UserMediaDevice } from '../../models/user-media-device';
 declare var PexRTC: any;
 
 @Component({
@@ -72,7 +73,16 @@ describe('TestYourEquipmentComponent functionality', () => {
       configServiceMock, new MockLogger());
 
   });
+  it('should setup pexip client', async () => {
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+    const defaultDevice = new UserMediaDevice('camera1', 'default', 'videoinput', 'group1');
+    const soundOutput = new UserMediaDevice('audiooutput1', 'audiooutput1', 'audiooutput', 'group1');
 
+    component.userMediaService.updatePreferredCamera(defaultDevice);
+    component.userMediaService.updatePreferredMicrophone(soundOutput);
+    component.ngOnInit();
+    expect(component.didTestComplete).toBeFalsy();
+  });
   it('should pexip make a call', async () => {
     component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     component.call();

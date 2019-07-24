@@ -34,10 +34,11 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   testScore: string;
   displayFeed: boolean;
   loadingData: boolean;
+  userMediaService: UserMediaService;
 
   constructor(journey: JourneyBase,
     private model: ParticipantSuitabilityModel,
-    private userMediaService: UserMediaService,
+    _userMediaService: UserMediaService,
     private userMediaStreamService: UserMediaStreamService,
     private videoWebService: VideoWebService,
     private configService: ConfigService,
@@ -45,6 +46,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   ) {
     super(journey);
     this.didTestComplete = false;
+    this.userMediaService = _userMediaService;
   }
 
   ngOnInit(): void {
