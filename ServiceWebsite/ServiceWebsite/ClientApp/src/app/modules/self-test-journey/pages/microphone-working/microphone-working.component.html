@@ -1,6 +1,6 @@
 <div>
   <h1 class="govuk-heading-xl" i18n="@@microphone_working_h1">
-    Microphone Working?
+    Was your microphone working?
   </h1>
 </div>
 <form [formGroup]="form" (ngSubmit)="submit()">
@@ -11,8 +11,7 @@
     </span>
 
     <div>
-      <p class="govuk-body" i18n="@@microphone_working_p_1">microphone_working</p>
-      <p class="govuk-body" i18n="@@microphone_working_p_2">microphone_working</p>
+      <p class="govuk-body" i18n="@@microphone_working_p_1">Could you see the bar moving when you spoke?</p>
     </div>
 
     <div class="govuk-fieldset">
@@ -36,12 +35,9 @@
       </div>
     </div>
   </div>
-  <app-show-details i18n-bind-detailsTitle="@@microphone_working_detailsTitle" bind-detailsTitle="'microphone_working'"
-                    i18-bind-textArray="@@microphone_working_textArray" bind-textArray="['microphone_working']">
-  </app-show-details>
-
-  <button class="govuk-button" (click)="submit()" i18n="@@microphone_working_btn_continue" id="continue" type="button">Continue</button>
-  <button class="govuk-button" (click)="checkEquipment()" i18n="@@microphone_working_btn_check_my_equipment" id="checkYourEquipment"
+  
+  <button class="govuk-button govuk-!-margin-right-1" (click)="submit()" i18n="@@microphone_working_btn_continue" id="continue" type="button">Continue</button>
+  <button class="govuk-button hmcts-button--secondary" (click)="checkEquipment()" i18n="@@microphone_working_btn_check_my_equipment" id="checkYourEquipment"
   type="button">Check my equipment again</button>
 </form>
 
