@@ -86,25 +86,14 @@ namespace ServiceWebsite.Controllers
             }
         }
 
-        [HttpGet("participants/{username}")]
-        [AllowAnonymous] // TODO remove
-        [SwaggerOperation(OperationId = "GetParticipantsByUsername")]
+        [HttpGet("participants/current")]
+        [SwaggerOperation(OperationId = "GetCurrentParticipant")]
         [ProducesResponseType(typeof(ParticipantResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.NotFound)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetParticipantsByUsername(string username)
+        public async Task<IActionResult> GetCurrentParticipant()
         {
-            if(string.IsNullOrWhiteSpace(username))
-            {
-                ModelState.AddModelError("username", $"The username is invalid: {username}");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var participants = (await _participantService.GetParticipantsByUsernameAsync(username)).ToList();
+            var participants = (await _participantService.GetParticipantsByUsernameAsync(User.Identity.Name)).ToList();
 
             if (participants.Count == 0)
             {
