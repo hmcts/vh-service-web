@@ -23,10 +23,14 @@ namespace ServiceWebsite.Controllers
         private readonly IParticipantService _participantService;
         private static readonly string strRegex = @"(\b[A-Z]+(?:_[A-Z]+)+\b)|(\b[A-Z]+\b)";
         private static readonly Regex ValidAnswerKeyRegex = new Regex(strRegex, RegexOptions.Compiled);
-        public ParticipantController(IHearingsService hearingsService, IParticipantService participantService)
+        private readonly IKinlyPlatformService _kinlyPlatformService;
+
+        public ParticipantController(IHearingsService hearingsService,
+            IParticipantService participantService, IKinlyPlatformService kinlyPlatformService)
         {
             _hearingService = hearingsService;
             _participantService = participantService;
+            _kinlyPlatformService = kinlyPlatformService;
         }
 
         /// <summary>
@@ -114,6 +118,25 @@ namespace ServiceWebsite.Controllers
             var firstParticipant = participants.First();
 
             return Ok(new ParticipantResponse { Id = firstParticipant.Id, Username = firstParticipant.Username });
+        }
+
+
+        [HttpGet("participants/{participantId}/selftestresult")]
+        [SwaggerOperation(OperationId = "GetTestCallResult")]
+        [ProducesResponseType(typeof(TestCallScoreResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetTestCallResultForParticipant(Guid participantId)
+        {
+            try
+            {
+                var score = await _kinlyPlatformService.GetTestCallScoreAsync(participantId);
+                return Ok(score);
+            }
+            catch (NotFoundException e)
+            {
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, participantId);
+                return NotFound($"No test score result found for participant Id: {participantId}");
+            }
         }
 
         private static List<SuitabilityAnswer> MapAnswers(IEnumerable<HearingSuitabilityAnswer> answers)
