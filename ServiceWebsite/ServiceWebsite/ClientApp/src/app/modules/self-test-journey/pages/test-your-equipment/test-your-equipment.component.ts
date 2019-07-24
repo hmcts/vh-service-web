@@ -3,7 +3,7 @@ import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/compon
 import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { TokenResponse } from '../../../../services/clients/api-client';
+import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
 import { UserMediaService } from '../../services/user-media.service';
 import { UserMediaStreamService } from '../../services/user-media-stream.service';
 import { VideoWebService } from '../../services/video-web.service';
@@ -68,16 +68,17 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async getToken() {
-    const participantResponse = await this.videoWebService.getCurrentParticipantId().toPromise();
-    this.participantId = participantResponse.id;
-    this.videoWebService.getToken(this.participantId).subscribe((token: TokenResponse) => {
-      this.token = token;
-      this.call();
-    },
-      (error) => {
-        this.loadingData = false;
-        this.logger.error('Error to get token.', error);
-      });
+    this.videoWebService.getCurrentParticipantId().subscribe((response: ParticipantResponse) => {
+      this.participantId = response.id;
+      this.videoWebService.getToken(this.participantId).subscribe((token: TokenResponse) => {
+        this.token = token;
+        this.call();
+      },
+        (error) => {
+          this.loadingData = false;
+          this.logger.error('Error to get token.', error);
+        });
+    });
   }
 
   call() {
