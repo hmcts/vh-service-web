@@ -78,4 +78,24 @@ describe('TestYourEquipmentComponent functionality', () => {
     component.call();
     expect(component.didTestComplete).toBeFalsy();
   });
+  it('should replay video', async () => {
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+    component.didTestComplete = true;
+    component.replayVideo();
+    expect(component.didTestComplete).toBeFalsy();
+  });
+  it('should disconnect pexip' , async () => {
+    component.disconnect();
+    expect(component.didTestComplete).toBeTruthy();
+    expect(component.displayFeed).toBeFalsy();
+  });
+  it('should check for active streams', async () => {
+    expect(component.streamsActive).toBeFalsy();
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(function (stream) {
+        component.outgoingStream = stream;
+        component.incomingStream = stream;
+        expect(component.streamsActive).toBeTruthy();
+      });
+  });
 });

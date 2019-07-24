@@ -156,7 +156,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   replayVideo() {
-    this.pexipAPI.disconnect();
+    if (this.pexipAPI) {
+      this.pexipAPI.disconnect();
+    }
     this.call();
   }
 
