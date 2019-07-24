@@ -1,11 +1,19 @@
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using ServiceWebsite.IntegrationTests.Helper;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
@@ -14,7 +22,8 @@ namespace ServiceWebsite.IntegrationTests.Controller
     {
         private TestServer _server;
         private readonly string _environmentName = "development";
-        
+        private string _accessToken;
+
         protected ControllerTestsBase()
         {
             if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
@@ -22,7 +31,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
                 _environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             }
         }
-        
+
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
@@ -31,19 +40,58 @@ namespace ServiceWebsite.IntegrationTests.Controller
             TestContext.WriteLine($"Using content root: {applicationPath}");
 
             var webHostBuilder =
-                new WebHostBuilder()
+                WebHost.CreateDefaultBuilder()
                     .UseContentRoot(applicationPath)
                     .UseWebRoot(applicationPath)
                     .UseEnvironment(_environmentName)
-                    .UseStartup<Startup>();
+                    .UseKestrel(c => c.AddServerHeader = false)
+                    .UseStartup<Startup>()
+                    // Override the the service container here, add mocks or stubs
+                    .ConfigureTestServices(collection => { })
+                    // Reconfigure the services 
+                    .ConfigureServices(services =>
+                    {
+                        // Reconfigure the authentication mechanism to allow different settings 
+                        services.PostConfigure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+                        {
+                            options.Audience = "https://test";
+                            options.BackchannelHttpHandler = new MockBackchannel();
+                            options.MetadataAddress = "https://inmemory.microsoft.com/common/.well-known/openid-configuration";
+                            // Validate signature using self signed token that BearerTokenBuilder builds
+                            options.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                SignatureValidator = (token, parameters) => new JwtSecurityToken(token)
+                            };
+                        });
+                    });
+
+            CreateAccessToken();
 
             _server = new TestServer(webHostBuilder);
         }
-        
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
             _server.Dispose();
+        }
+
+        private void CreateAccessToken()
+        {
+            _accessToken = new BearerTokenBuilder()
+                .WithClaim(ClaimTypes.Name, "doctor@who.com")
+                // We are using a self signed certificate to create the SigningCredentials used when signing a token
+                .WithSigningCertificate(EmbeddedResourceReader.GetCertificate())
+                .BuildToken();
+        }
+
+        protected async Task<HttpResponseMessage> SendGetRequestWithBearerTokenAsync(string uri)
+        {
+            using (var client = _server.CreateClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
+                return await client.GetAsync(uri);
+            }
         }
 
         protected async Task<HttpResponseMessage> SendGetRequestAsync(string uri)
