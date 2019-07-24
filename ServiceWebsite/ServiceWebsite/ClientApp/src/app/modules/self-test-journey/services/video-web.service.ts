@@ -14,7 +14,7 @@ export class VideoWebService {
     return this.apiClient.getToken(participantId);
   }
 
-  getCurrentParticipantId():Observable<ParticipantResponse> {
+  getCurrentParticipantId(): Observable<ParticipantResponse> {
     return this.apiClient.getParticipantsByUsername();
   }
 }
