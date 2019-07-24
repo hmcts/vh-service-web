@@ -20,4 +20,14 @@ export class DeviceType {
   isDesktop() {
     return this.deviceDetectorService.isDesktop();
   }
+
+  isSupportedBrowser(): boolean {
+    const supportedBrowsers = ['Firefox', 'Safari', 'Chrome', 'Edge'];
+    const browser = this.deviceDetectorService.browser;
+    return supportedBrowsers.findIndex(x => x.toUpperCase() === browser.toUpperCase()) > -1;
+  }
+
+  getBrowserName(): string {
+    return this.deviceDetectorService.browser;
+  }
 }
