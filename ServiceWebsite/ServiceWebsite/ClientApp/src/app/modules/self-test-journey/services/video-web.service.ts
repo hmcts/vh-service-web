@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiClient, TokenResponse } from '../../../services/clients/api-client';
+import { ApiClient, TokenResponse, ParticipantResponse } from '../../../services/clients/api-client';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,8 +14,7 @@ export class VideoWebService {
     return this.apiClient.getToken(participantId);
   }
 
-  async getCurrentParticipantId() {
-    const response = await this.apiClient.getParticipantsByUsername().toPromise();
-    return response.id;
+  getCurrentParticipantId():Observable<ParticipantResponse> {
+    return this.apiClient.getParticipantsByUsername();
   }
 }

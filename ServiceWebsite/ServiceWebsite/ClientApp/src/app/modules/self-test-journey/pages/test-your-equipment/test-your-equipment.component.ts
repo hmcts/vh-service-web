@@ -68,7 +68,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async getToken() {
-    this.participantId = await this.videoWebService.getCurrentParticipantId();
+    const participantResponse = await this.videoWebService.getCurrentParticipantId().toPromise();
+    this.participantId = participantResponse.id;
     this.videoWebService.getToken(this.participantId).subscribe((token: TokenResponse) => {
       this.token = token;
       this.call();

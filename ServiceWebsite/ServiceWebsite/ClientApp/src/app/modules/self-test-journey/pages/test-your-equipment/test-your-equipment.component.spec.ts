@@ -13,6 +13,7 @@ import { Component, Input } from '@angular/core';
 import { ConfigService } from '../../../../services/config.service';
 import { TokenResponse } from '../../../../services/clients/api-client';
 import { Config } from '../../../shared/models/config';
+import { UserMediaStreamService } from '../../services/user-media-stream.service';
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -25,11 +26,14 @@ class StubMicVisualiserComponent {
 describe('TestYourEquipmentComponent', () => {
   it('can continue', () => {
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-    const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken']);
+    const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getParticipantsByUsername']);
     videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 
     const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
     configServiceMock.load.and.returnValue(of(new Config()));
+
+    const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic']);
+    userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
 
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,
@@ -37,9 +41,10 @@ describe('TestYourEquipmentComponent', () => {
       declarations: [CrestBluePanelComponent, StubMicVisualiserComponent],
       providers: [{ provide: Logger, useClass: MockLogger },
       { provide: VideoWebService, useValue: videoWebServiceMock },
-        UserMediaService,
-      { provode: Logger, useClass: MockLogger },
-      { provide: ConfigService, useValue: configServiceMock }],
+      { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
+      { provide: ConfigService, useValue: configServiceMock },
+        UserMediaService
+      ],
     });
 
     fixture.detectChanges();
