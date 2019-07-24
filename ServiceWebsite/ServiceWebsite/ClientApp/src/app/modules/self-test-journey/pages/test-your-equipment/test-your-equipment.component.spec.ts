@@ -11,7 +11,7 @@ import { UserMediaService } from '../../services/user-media.service';
 import { of } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { ConfigService } from '../../../../services/config.service';
-import { TokenResponse } from '../../../../services/clients/api-client';
+import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
 import { Config } from '../../../shared/models/config';
 import { UserMediaStreamService } from '../../services/user-media-stream.service';
 
@@ -26,8 +26,9 @@ class StubMicVisualiserComponent {
 describe('TestYourEquipmentComponent', () => {
   it('can continue', () => {
     const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-    const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getParticipantsByUsername']);
+    const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId']);
     videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
+    videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
 
     const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
     configServiceMock.load.and.returnValue(of(new Config()));
