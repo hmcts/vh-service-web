@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 describe('VideoWebService', () => {
 
   let service: VideoWebService;
-  const client = jasmine.createSpyObj<ApiClient>(['getToken','getParticipantsByUsername']);
+  const client = jasmine.createSpyObj<ApiClient>(['getToken', 'getParticipantsByUsername']);
   client.getToken.and.returnValue(of(new TokenResponse()));
 
   service = new VideoWebService(client);
