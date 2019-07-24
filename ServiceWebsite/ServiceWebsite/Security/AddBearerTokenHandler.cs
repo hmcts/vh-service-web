@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using ServiceWebsite.Configuration;
 
 namespace ServiceWebsite.Security
 {

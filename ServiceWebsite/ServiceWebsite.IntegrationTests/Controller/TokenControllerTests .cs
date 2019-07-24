@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using ServiceWebsite.Common;
 using ServiceWebsite.Models;
 using System;
 using System.Net;
-using ServiceWebsite.IntegrationTests.Helper;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
