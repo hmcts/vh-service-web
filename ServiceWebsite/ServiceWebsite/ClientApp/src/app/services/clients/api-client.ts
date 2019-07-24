@@ -272,8 +272,8 @@ export class ApiClient {
     /**
      * @return Success
      */
-    getParticipantsByUsername(): Observable<ParticipantResponse> {
-        let url_ = this.baseUrl + "/api/hearings/participants";
+    getCurrentParticipant(): Observable<ParticipantResponse> {
+        let url_ = this.baseUrl + "/api/hearings/participants/current";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -285,11 +285,11 @@ export class ApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetParticipantsByUsername(response_);
+            return this.processGetCurrentParticipant(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetParticipantsByUsername(<any>response_);
+                    return this.processGetCurrentParticipant(<any>response_);
                 } catch (e) {
                     return <Observable<ParticipantResponse>><any>_observableThrow(e);
                 }
@@ -298,7 +298,7 @@ export class ApiClient {
         }));
     }
 
-    protected processGetParticipantsByUsername(response: HttpResponseBase): Observable<ParticipantResponse> {
+    protected processGetCurrentParticipant(response: HttpResponseBase): Observable<ParticipantResponse> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -317,6 +317,10 @@ export class ApiClient {
             return throwException("A server error occurred.", status, _responseText, _headers);
             }));
         } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("A server error occurred.", status, _responseText, _headers);
             }));

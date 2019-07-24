@@ -75,13 +75,24 @@ describe('TestYourEquipmentComponent functionality', () => {
   });
   it('should setup pexip client', async () => {
     component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-    const defaultDevice = new UserMediaDevice('camera1', 'default', 'videoinput', 'group1');
-    const soundOutput = new UserMediaDevice('audiooutput1', 'audiooutput1', 'audiooutput', 'group1');
+    const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
+    const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
 
     component.userMediaService.updatePreferredCamera(defaultDevice);
     component.userMediaService.updatePreferredMicrophone(soundOutput);
     component.ngOnInit();
     expect(component.didTestComplete).toBeFalsy();
+  });
+  it('should update video and audio devices', async () => {
+    const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
+    const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
+
+
+    component.userMediaService.updatePreferredCamera(defaultDevice);
+    component.userMediaService.updatePreferredMicrophone(soundOutput);
+    component.ngOnInit();
+    await component.updatePexipAudioVideoSource();
+    expect(component.pexipAPI.audio_source).toBeTruthy();
   });
   it('should pexip make a call', async () => {
     component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
@@ -91,6 +102,7 @@ describe('TestYourEquipmentComponent functionality', () => {
   it('should replay video', async () => {
     component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     component.didTestComplete = true;
+    component.ngOnInit();
     component.replayVideo();
     expect(component.didTestComplete).toBeFalsy();
   });

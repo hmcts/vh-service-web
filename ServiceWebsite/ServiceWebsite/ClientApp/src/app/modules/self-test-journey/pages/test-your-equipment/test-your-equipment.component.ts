@@ -99,7 +99,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   async updatePexipAudioVideoSource() {
     this.hasMultipleDevices = await this.userMediaService.hasMultipleDevices();
-
     const cam = this.userMediaService.getPreferredCamera();
     if (cam) {
       this.pexipAPI.video_source = cam.deviceId;

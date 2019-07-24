@@ -5,9 +5,9 @@ import { of } from 'rxjs';
 describe('VideoWebService', () => {
 
   let service: VideoWebService;
-  const client = jasmine.createSpyObj<ApiClient>(['getToken', 'getParticipantsByUsername']);
+  const client = jasmine.createSpyObj<ApiClient>(['getToken', 'getCurrentParticipant']);
   client.getToken.and.returnValue(of(new TokenResponse()));
-  client.getParticipantsByUsername.and.returnValue(of(new ParticipantResponse()));
+  client.getCurrentParticipant.and.returnValue(of(new ParticipantResponse()));
 
   service = new VideoWebService(client);
 
@@ -18,7 +18,7 @@ describe('VideoWebService', () => {
   });
   it('should return participant Id', async () => {
     const participantResponse = await service.getCurrentParticipantId();
-    expect(client.getParticipantsByUsername).toHaveBeenCalled();
+    expect(client.getCurrentParticipant).toHaveBeenCalled();
     expect(participantResponse).toBeTruthy();
   });
 });
