@@ -111,6 +111,21 @@ describe('TestYourEquipmentComponent functionality', () => {
     expect(component.didTestComplete).toBeTruthy();
     expect(component.displayFeed).toBeFalsy();
   });
+  it('should connected handle set incoming stream', () => {
+    component.connectHandleEvent(new MediaStream());
+    expect(component.incomingStream).toBeTruthy();
+    expect(component.displayFeed).toBeTruthy();
+  });
+  it('should disconnected handle set test to completed', () => {
+    component.disconnectHandleEvent('Conference terminated by another participant');
+    expect(component.didTestComplete).toBeTruthy();
+    expect(component.displayFeed).toBeFalsy();
+  });
+  it('should error handle set test to completed', () => {
+    component.errorHandleEvent('Error');
+    expect(component.didTestComplete).toBeTruthy();
+    expect(component.displayFeed).toBeFalsy();
+  });
   it('should check for active streams', async () => {
     expect(component.streamsActive).toBeFalsy();
     navigator.mediaDevices.getUserMedia({ audio: true })

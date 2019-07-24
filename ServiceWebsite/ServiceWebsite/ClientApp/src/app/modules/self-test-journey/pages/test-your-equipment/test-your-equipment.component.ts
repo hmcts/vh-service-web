@@ -120,27 +120,39 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.connect('0000', null);
     };
 
-    this.pexipAPI.onConnect = function (stream) {
-      console.log('successfully connected');
-      self.incomingStream = stream;
-      self.displayFeed = true;
-    };
+    this.pexipAPI.onConnect = ((stream) => {
+      self.connectHandleEvent(stream);
+    });
 
-    this.pexipAPI.onError = function (reason) {
-      self.displayFeed = false;
-      console.log('Error from pexip. Reason : ' + reason);
-      self.logger.error('Error from pexip.', reason);
-      self.didTestComplete = true;
-    };
+    this.pexipAPI.onError = ((reason) => {
+      self.errorHandleEvent(reason);
+    });
 
-    this.pexipAPI.onDisconnect = function (reason) {
-      self.displayFeed = false;
-      console.log('Disconnected from pexip. Reason : ' + reason);
-      self.logger.error('Disconnected from pexip.', reason);
-      if (reason === 'Conference terminated by another participant') {
-        self.didTestComplete = true;
-      }
-    };
+    this.pexipAPI.onDisconnect = ((reason) => {
+      self.disconnectHandleEvent(reason);
+    });
+  }
+
+  connectHandleEvent(stream) {
+    console.log('successfully connected');
+    this.incomingStream = stream;
+    this.displayFeed = true;
+  }
+
+  errorHandleEvent(reason) {
+    this.displayFeed = false;
+    console.log('Error from pexip. Reason : ' + reason);
+    this.logger.error('Error from pexip.', reason);
+    this.didTestComplete = true;
+  }
+
+  disconnectHandleEvent(reason) {
+    this.displayFeed = false;
+    console.log('Disconnected from pexip. Reason : ' + reason);
+    this.logger.error('Disconnected from pexip.', reason);
+    if (reason === 'Conference terminated by another participant') {
+      this.didTestComplete = true;
+    }
   }
 
   disconnect() {
