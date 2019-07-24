@@ -33,8 +33,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _signBackIn;
         private readonly TestContext _testContext;
         private string _individualParticipantId;
+        private readonly LoginSteps _loginSteps;
 
-        public IndividualQuestionnaireSteps(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
+        public IndividualQuestionnaireSteps(LoginSteps loginSteps, TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
             _aboutYou = new DecisionJourney(browserContext, PageUri.AboutYouPage);
             _interpreter = new DecisionJourney(browserContext, PageUri.InterpreterPage);
@@ -54,6 +55,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _signBackIn = new DecisionJourney(browserContext, PageUri.SignBackIn);
             _testContext = testContext;
             _individualParticipantId = _testContext.IndividualParticipantId;
+            _loginSteps = loginSteps;
         }
 
         [Given(@"Individual participant is on '(.*)' page")]
@@ -63,6 +65,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             InitiateJourneySteps(page);
         }
 
+        [Given(@"Individual participant is on '(.*)' page having submitted questionnaire")]
+        public void GivenIndividualParticipantIsOnPageHavingSubmittedQuestionnaire(string page)
+        {
+            SubmitQuestionnaireForPositivePath();
+            _loginSteps.WhenParticipantLogsInWithValidCredentials("Individual");
+            NavigateToDecisionPage(_checkYourComputer);
+            _currentPage = _switchOnCameraAndMicrophone;
+        }
 
         public void InitiateJourneySteps(string page)
         {
@@ -120,6 +130,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_accessToRoom);
                     NavigateToDecisionPage(_consent);
                     _currentPage = _checkYourComputer;
+                    break;
+                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_consent);
+                    NavigateToDecisionPage(_checkYourComputer);
+                    _currentPage = _switchOnCameraAndMicrophone;
                     break;
             }
             _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
@@ -205,17 +226,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Given(@"Individual participant has already submitted questionnaire but not completed self-test")]
         public void GivenIndividualParticipantHasAlreadySubmittedQuestionnaireButNotCompletedSelf_Test()
         {
-            //Submit the answers for individual
-            var answerRequestBody = new List<SuitabilityAnswersRequest>();
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "false", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERPRETER", "false", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ROOM", "true", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERNET", "true", null));
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CONSENT", "true", null));
-
-            SubmitSuitabilityAnswers(_individualParticipantId, answerRequestBody);
+            SubmitQuestionnaireForPositivePath();
         }
 
         [Given(@"Individual participant has already submitted questionnaire but drops out")]
@@ -235,7 +246,23 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return (decisionJourneyPage == _yourComputer || 
                     decisionJourneyPage == _aboutYourComputer || 
                     decisionJourneyPage == _yourInternetConnection ||
-                    decisionJourneyPage == _consent);
+                    decisionJourneyPage == _consent ||
+                    decisionJourneyPage == _checkYourComputer);
+        }
+
+        private void SubmitQuestionnaireForPositivePath()
+        {
+            //Submit the answers for individual
+            var answerRequestBody = new List<SuitabilityAnswersRequest>();
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ABOUT_YOU", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERPRETER", "false", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("ROOM", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("COMPUTER", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CAMERA_MICROPHONE", "Yes", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("INTERNET", "true", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("CONSENT", "true", null));
+
+            SubmitSuitabilityAnswers(_individualParticipantId, answerRequestBody);
         }
     }
 }

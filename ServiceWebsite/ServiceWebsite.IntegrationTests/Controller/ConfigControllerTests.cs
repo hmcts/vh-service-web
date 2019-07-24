@@ -2,7 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using ServiceWebsite.IntegrationTests.Helpers;
+using ServiceWebsite.IntegrationTests.Helper;
 using ServiceWebsite.Models;   
 
 namespace ServiceWebsite.IntegrationTests.Controller 

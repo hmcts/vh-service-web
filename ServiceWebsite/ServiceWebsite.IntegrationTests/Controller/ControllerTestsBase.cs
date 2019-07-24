@@ -1,16 +1,19 @@
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
-using ServiceWebsite.Configuration;
-using ServiceWebsite.Security;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using ServiceWebsite.IntegrationTests.Helper;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
@@ -19,7 +22,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
     {
         private TestServer _server;
         private readonly string _environmentName = "development";
-        private string _bearerToken;
+        private string _accessToken;
 
         protected ControllerTestsBase()
         {
@@ -28,7 +31,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
                 _environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             }
         }
-        
+
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
@@ -37,32 +40,34 @@ namespace ServiceWebsite.IntegrationTests.Controller
             TestContext.WriteLine($"Using content root: {applicationPath}");
 
             var webHostBuilder =
-                new WebHostBuilder()
+                WebHost.CreateDefaultBuilder()
                     .UseContentRoot(applicationPath)
                     .UseWebRoot(applicationPath)
                     .UseEnvironment(_environmentName)
-                    .UseStartup<Startup>();
+                    .UseKestrel(c => c.AddServerHeader = false)
+                    .UseStartup<Startup>()
+                    // Override the the service container here, add mocks or stubs
+                    .ConfigureTestServices(collection => { })
+                    // Reconfigure the services 
+                    .ConfigureServices(services =>
+                    {
+                        // Reconfigure the authentication mechanism to allow different settings 
+                        services.PostConfigure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+                        {
+                            options.Audience = "https://test";
+                            options.BackchannelHttpHandler = new MockBackchannel();
+                            options.MetadataAddress = "https://inmemory.microsoft.com/common/.well-known/openid-configuration";
+                            // Validate signature using self signed token that BearerTokenBuilder builds
+                            options.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                SignatureValidator = (token, parameters) => new JwtSecurityToken(token)
+                            };
+                        });
+                    });
+
+            CreateAccessToken();
 
             _server = new TestServer(webHostBuilder);
-            GetClientAccessTokenForApi();
-        }
-
-        private void GetClientAccessTokenForApi()
-        {
-            var configRootBuilder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables()
-                .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
-
-            var configRoot = configRootBuilder.Build();
-            var envConfig = Options.Create(configRoot.Get<EnvironmentSettings>()).Value;
-            var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
-            var authContext = new AuthenticationContext(azureAdConfig.Authority);
-            var credential = new ClientCredential(envConfig.ClientId, envConfig.ClientSecret);
-            if (envConfig.ClientId != null)
-            {
-                _bearerToken = authContext.AcquireTokenAsync(envConfig.ClientId, credential).Result.AccessToken;
-            }
         }
 
         [OneTimeTearDown]
@@ -71,11 +76,20 @@ namespace ServiceWebsite.IntegrationTests.Controller
             _server.Dispose();
         }
 
+        private void CreateAccessToken()
+        {
+            _accessToken = new BearerTokenBuilder()
+                .WithClaim(ClaimTypes.Name, "doctor@who.com")
+                // We are using a self signed certificate to create the SigningCredentials used when signing a token
+                .WithSigningCertificate(EmbeddedResourceReader.GetCertificate())
+                .BuildToken();
+        }
+
         protected async Task<HttpResponseMessage> SendGetRequestWithBearerTokenAsync(string uri)
         {
             using (var client = _server.CreateClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_bearerToken}");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
                 return await client.GetAsync(uri);
             }
         }

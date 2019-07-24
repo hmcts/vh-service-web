@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace ServiceWebsite.IntegrationTests.Helpers
+namespace ServiceWebsite.IntegrationTests.Helper
 {
     public static class ApiRequestHelper
     {
