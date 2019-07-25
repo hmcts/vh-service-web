@@ -6,15 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
+using ServiceWebsite.Common.Security;
+using ServiceWebsite.IntegrationTests.Helper;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using ServiceWebsite.Common.Security;
-using ServiceWebsite.IntegrationTests.Helper;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {

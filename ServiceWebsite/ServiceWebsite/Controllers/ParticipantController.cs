@@ -110,12 +110,14 @@ namespace ServiceWebsite.Controllers
         [HttpGet("participants/{participantId}/selftestresult")]
         [SwaggerOperation(OperationId = "GetTestCallResult")]
         [ProducesResponseType(typeof(TestCallScoreResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TestCallScoreResponse), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetTestCallResultForParticipant(Guid participantId)
         {
             try
             {
                 var score = await _kinlyPlatformService.GetTestCallScoreAsync(participantId);
+
                 return Ok(score);
             }
             catch (NotFoundException e)

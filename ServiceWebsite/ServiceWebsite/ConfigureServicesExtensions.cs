@@ -23,9 +23,7 @@ namespace ServiceWebsite
         public static IServiceCollection AddCustomTypes(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddMemoryCache();
-
             serviceCollection.AddScoped<EnvironmentSettings>();
-
             serviceCollection.AddTransient<AddBearerTokenHeaderHandler>();
             serviceCollection.AddTransient<UserApiTokenHandler>();
             serviceCollection.AddTransient<BookingsApiTokenHandler>();
@@ -36,7 +34,18 @@ namespace ServiceWebsite
             // Build the hearings api client using a reusable HttpClient factory and predefined base url
             var container = serviceCollection.BuildServiceProvider();
             var serviceSettings = container.GetService<IOptions<ServiceSettings>>().Value;
-            var securitySettings = container.GetService<IOptions<CustomTokenSettings>>().Value;
+            var customTokenSettings = container.GetService<CustomTokenSettings>();
+
+            var customJwtTokenProvider = new CustomJwtTokenProvider
+            (
+                customTokenSettings.Secret,
+                customTokenSettings.Audience,
+                customTokenSettings.Issuer,
+                customTokenSettings.ThirdPartySecret
+            );
+
+            serviceCollection.AddSingleton<ICustomJwtTokenProvider>(customJwtTokenProvider);
+
             serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
                 .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
                 .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
@@ -48,7 +57,8 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
-            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator(securitySettings.Secret));
+            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator(customTokenSettings.Secret));
+            serviceCollection.AddTransient<IKinlyPlatformService>(x => new KinlyPlatformService(customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;

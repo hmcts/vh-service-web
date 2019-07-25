@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ServiceWebsite.Common.Security
 {
@@ -10,12 +10,14 @@ namespace ServiceWebsite.Common.Security
         private readonly string _secret;
         private readonly string _audience;
         private readonly string _issuer;
+        private readonly string _thirdPartySecret;
 
-        public CustomJwtTokenProvider(string secret, string audience, string issuer)
+        public CustomJwtTokenProvider(string secret, string audience, string issuer, string thirdPartySecret)
         {
             _secret = secret;
             _audience = audience;
             _issuer = issuer;
+            _thirdPartySecret = thirdPartySecret;
         }
 
         public string GenerateToken(string claims, int expiresInMinutes)

@@ -2,6 +2,7 @@
 using ServiceWebsite.Common.Security;
 using ServiceWebsite.Domain;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -11,10 +12,12 @@ namespace ServiceWebsite.Services
     public class KinlyPlatformService : IKinlyPlatformService
     {
         private readonly ICustomJwtTokenProvider _customJwtTokenProvider;
+        private readonly string _kinlySelfTestScoreEndpointUrl;
 
-        public KinlyPlatformService(ICustomJwtTokenProvider customJwtTokenProvider)
+        public KinlyPlatformService(ICustomJwtTokenProvider customJwtTokenProvider, string kinlySelfTestScoreEndpointUrl)
         {
             _customJwtTokenProvider = customJwtTokenProvider;
+            _kinlySelfTestScoreEndpointUrl = kinlySelfTestScoreEndpointUrl;
         }
 
         public async Task<TestCallResult> GetTestCallScoreAsync(Guid participantId)
@@ -22,7 +25,7 @@ namespace ServiceWebsite.Services
             HttpResponseMessage responseMessage;
             using (var httpClient = new HttpClient())
             {
-                var requestUri = $"https://dev.self-test.hearings.hmcts.net/api/v1/testcall/{participantId}";
+                var requestUri = $"{_kinlySelfTestScoreEndpointUrl}/{participantId}";
 
                 var request = new HttpRequestMessage
                 {
@@ -35,10 +38,12 @@ namespace ServiceWebsite.Services
                 responseMessage = await httpClient.SendAsync(request);
             }
 
-            if (!responseMessage.IsSuccessStatusCode)
+            if (responseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                return null;
+                throw new NotFoundException($"Could not find Self Test for ParticipantId: {participantId}");
             }
+
+            responseMessage.EnsureSuccessStatusCode();
 
             var content = await responseMessage.Content.ReadAsStringAsync();
             var testCall = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<KinlyVideoTestCall>(content);
