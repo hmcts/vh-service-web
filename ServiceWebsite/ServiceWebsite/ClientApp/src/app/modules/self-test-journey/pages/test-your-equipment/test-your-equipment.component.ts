@@ -171,7 +171,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   retrieveSelfTestScore() {
     this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
-      this.testCallResult = score;
+      console.log('TEST SCORE KINLY RESULT:' + score.score);
+      this.model.selfTest.selfTestResultScore = score.score;
     });
   }
 
@@ -191,8 +192,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     }
     this.pexipAPI = null;
     this.retrieveSelfTestScore();
-    this.model.selfTest.selfTestResultScore = this.testCallResult;
-    console.log('TEST Score Result:' + this.model.selfTest.selfTestResultScore);
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 }

@@ -25,7 +25,8 @@ namespace ServiceWebsite.Services
             HttpResponseMessage responseMessage;
             using (var httpClient = new HttpClient())
             {
-                var requestUri = $"{_kinlySelfTestScoreEndpointUrl}/{participantId}";
+               // var requestUri = $"{_kinlySelfTestScoreEndpointUrl}/{participantId}";
+                var requestUri = $"https://dev.self-test.hearings.hmcts.net/api/v1/testcall/{participantId}";
 
                 var request = new HttpRequestMessage
                 {
