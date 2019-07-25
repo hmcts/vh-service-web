@@ -208,7 +208,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 || page == SelfTestPageNames.SwitchOnCameraAndMicrophone
                 || page == SelfTestPageNames.TestYourEquipment)
             {
-                _scenarioContext.Set<DecisionJourney>((DecisionJourney)pageToValidate, "CurrentPage");
+                _scenarioContext.Set<JourneyStepPage>((JourneyStepPage)pageToValidate, "CurrentPage");
             }
         }
 
