@@ -55,7 +55,7 @@ describe('AppComponent', () => {
 
     window = jasmine.createSpyObj('WindowRef', ['getLocation']);
     window.getLocation.and.returnValue(new WindowLocation('/url'));
-        
+
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
