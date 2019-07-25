@@ -34,7 +34,8 @@ namespace ServiceWebsite.Controllers
                 RedirectUri = $"{baseUrl}/login",
                 PostLogoutRedirectUri = $"{baseUrl}/",
                 BaseVideoUrl = _settings.BaseVideoUrl,
-                PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri
+                PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri,
+                KinlySelfTestScoreEndpointUrl = _serviceSettings.KinlySelfTestScoreEndpointUrl
             };
 
             return Json(config);

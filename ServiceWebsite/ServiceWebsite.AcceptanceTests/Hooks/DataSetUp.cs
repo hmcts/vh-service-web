@@ -4,9 +4,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Contexts;
-using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Models;
 using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
 using System.Linq;
 using System.Net;
@@ -42,16 +42,16 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         [BeforeScenario(Order = 2)]
         public void CreateNewHearingRequest(TestContext testContext)
         {
-                var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual,testContext.TestUserSecrets.Representative);
-                testContext.Request = testContext.Post("/hearings", requestBody);
-                testContext.Response = testContext.Client().Execute(testContext.Request);
-                testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
-                var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);
-                testContext.HearingId = model.Id.ToString();
-                var individual = model.Participants.Single(p => p.Username.Equals(testContext.TestUserSecrets.Individual));
-                testContext.IndividualParticipantId = individual.Id.ToString();
-                var representative = model.Participants.Single(p => p.Username.Equals(testContext.TestUserSecrets.Representative));
-                testContext.RepresentativeParticipantId = representative.Id.ToString();
+            var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual, testContext.TestUserSecrets.Representative);
+            testContext.Request = testContext.Post("/hearings", requestBody);
+            testContext.Response = testContext.Client().Execute(testContext.Request);
+            testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
+            var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);
+            testContext.HearingId = model.Id.ToString();
+            var individual = model.Participants.Single(p => p.Username.Equals(testContext.TestUserSecrets.Individual));
+            testContext.IndividualParticipantId = individual.Id.ToString();
+            var representative = model.Participants.Single(p => p.Username.Equals(testContext.TestUserSecrets.Representative));
+            testContext.RepresentativeParticipantId = representative.Id.ToString();
         }
 
         [AfterScenario(Order = 0)]

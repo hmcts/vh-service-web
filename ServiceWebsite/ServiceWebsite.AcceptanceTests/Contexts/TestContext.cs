@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 using ServiceWebsite.AcceptanceTests.Configuration;
-using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
 
 namespace ServiceWebsite.AcceptanceTests.Contexts
@@ -19,7 +19,7 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
         public string VideoAppUrl { get; set; }
         public string IndividualParticipantId { get; set; }
         public string RepresentativeParticipantId { get; set; }
-        //
+  
         public RestClient Client()
         {
             var client = new RestClient(BaseUrl);
@@ -28,7 +28,10 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
             return client;
         }
 
-        public RestRequest Get(string path) => new RestRequest(path, Method.GET);
+        public RestRequest Get(string path)
+        {
+            return new RestRequest(path, Method.GET);
+        }
 
         public RestRequest Post(string path, object requestBody)
         {
@@ -46,6 +49,9 @@ namespace ServiceWebsite.AcceptanceTests.Contexts
             return request;
         }
 
-        public RestRequest Delete(string path) => new RestRequest(path, Method.DELETE);
+        public RestRequest Delete(string path)
+        {
+            return new RestRequest(path, Method.DELETE);
+        }
     }
 }

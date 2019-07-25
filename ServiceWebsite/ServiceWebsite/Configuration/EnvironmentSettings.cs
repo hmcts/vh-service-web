@@ -1,4 +1,4 @@
-namespace ServiceWebsite.Security
+namespace ServiceWebsite.Configuration
 {
     public class EnvironmentSettings
     {

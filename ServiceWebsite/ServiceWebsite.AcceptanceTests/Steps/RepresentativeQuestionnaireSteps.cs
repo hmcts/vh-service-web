@@ -10,6 +10,8 @@ using ServiceWebsite.BookingsAPI.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ServiceWebsite.Common;
+using ServiceWebsite.Helpers;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 

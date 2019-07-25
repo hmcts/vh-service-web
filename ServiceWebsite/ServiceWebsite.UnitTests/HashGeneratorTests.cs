@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using ServiceWebsite.Security.HashGen;
+using ServiceWebsite.Common.Security;
+using ServiceWebsite.Configuration;
 using System;
 
 namespace ServiceWebsite.UnitTests
@@ -18,7 +19,7 @@ namespace ServiceWebsite.UnitTests
         [Test]
         public void Should_encrypt()
         {
-            var hashGenerator = new HashGenerator(_customTokenSettings);
+            var hashGenerator = new HashGenerator(_customTokenSettings.Secret);
             var id = Guid.NewGuid().ToString();
             var computedHash = hashGenerator.GenerateHash(GetExpiryOn(), id);
             computedHash.Should().NotBeNullOrEmpty();
@@ -27,7 +28,7 @@ namespace ServiceWebsite.UnitTests
         [Test]
         public void Should_fail_authentication()
         {
-            var hashGenerator = new HashGenerator(_customTokenSettings);
+            var hashGenerator = new HashGenerator(_customTokenSettings.Secret);
             var id = Guid.NewGuid().ToString();
             var computedHash = hashGenerator.GenerateHash(GetExpiryOn(), id);
 
