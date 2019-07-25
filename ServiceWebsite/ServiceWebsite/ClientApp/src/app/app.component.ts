@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
 
   checkBrowser(): void {
     if (!this.deviceTypeService.isSupportedBrowser()) {
-      this.router.navigateByUrl(Paths.UnsupportedBrowser);
+      this.router.navigate(Paths.UnsupportedBrowser);
     }
   }
 }
