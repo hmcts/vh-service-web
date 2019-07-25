@@ -1,7 +1,7 @@
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { AdalService } from 'adal-angular4';
 import { Config } from './modules/shared/models/config';
 import { HeaderComponent } from './modules/shared/header/header.component';
@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
 
   checkBrowser(): void {
     if (!this.deviceTypeService.isSupportedBrowser()) {
-      this.router.navigate(Paths.UnsupportedBrowser);
+      this.router.navigateByUrl(Paths.UnsupportedBrowser);
     }
   }
 }
