@@ -1,11 +1,11 @@
-using System.Net;
-using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using ServiceWebsite.IntegrationTests.Helper;
-using ServiceWebsite.Models;   
+using ServiceWebsite.Common;
+using ServiceWebsite.Models;
+using System.Net;
+using System.Threading.Tasks;
 
-namespace ServiceWebsite.IntegrationTests.Controller 
+namespace ServiceWebsite.IntegrationTests.Controller
 {
     public class ConfigControllerTests : ControllerTestsBase
     {

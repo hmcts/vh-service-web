@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.ApplicationInsights.Extensibility;
+﻿using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -13,8 +11,8 @@ using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
-using ServiceWebsite.Security;
-using ServiceWebsite.Security.HashGen;
+using System;
+using System.IO;
 
 namespace ServiceWebsite
 {
@@ -38,7 +36,7 @@ namespace ServiceWebsite
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
-        {            
+        {
             services.AddSingleton<ITelemetryInitializer>(new CloudRoleNameInitializer());
 
             services.AddCors();
@@ -136,24 +134,24 @@ namespace ServiceWebsite
                 .AllowAnyHeader());
 
             app.UseMiddleware<ExceptionMiddleware>();
-            
-            
+
+
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            
+
             app.UseXContentTypeOptions();
             app.UseReferrerPolicy(opts => opts.NoReferrer());
             app.UseXXssProtection(options => options.EnabledWithBlockMode());
             app.UseNoCacheHttpHeaders();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-            
+
             app.UseSpa(spa =>
             {
                 // Make the source folder relative to content to allow integration test project to run as well

@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace ServiceWebsite.IntegrationTests.Helper
+namespace ServiceWebsite.Common
 {
     public static class ApiRequestHelper
     {
         public static string SerialiseRequestToSnakeCaseJson(object request)
         {
-            DefaultContractResolver contractResolver = new DefaultContractResolver
+            var contractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };

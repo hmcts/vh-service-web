@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ServiceWebsite.Security.HashGen
+namespace ServiceWebsite.Common.Security
 {
     public interface IHashGenerator
     {
@@ -14,11 +11,11 @@ namespace ServiceWebsite.Security.HashGen
 
     public class HashGenerator : IHashGenerator
     {
-        private readonly CustomTokenSettings _customTokenSettings;
+        private readonly string _secretKey;
 
-        public HashGenerator(CustomTokenSettings customTokenSettings)
+        public HashGenerator(string secretKey)
         {
-            _customTokenSettings = customTokenSettings;
+            _secretKey = secretKey;
         }
 
         public string GenerateHash(string expiresOnUtc, string data)
@@ -26,7 +23,7 @@ namespace ServiceWebsite.Security.HashGen
             var asciiEncoding = new ASCIIEncoding();
             var stringToHash = $"{expiresOnUtc}{data}";
 
-            var keyBytes = asciiEncoding.GetBytes(_customTokenSettings.Secret);
+            var keyBytes = asciiEncoding.GetBytes(_secretKey);
             var messageBytes = asciiEncoding.GetBytes(stringToHash);
 
             using (var hmac = new HMACSHA256(keyBytes))
