@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ServiceWebsite.Common.Security;
 using ServiceWebsite.Models;
-using ServiceWebsite.Security.HashGen;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace ServiceWebsite.Controllers
@@ -37,6 +34,7 @@ namespace ServiceWebsite.Controllers
             var expiresOn = DateTime.UtcNow.AddMinutes(20).ToUniversalTime().ToString("dd.MM.yyyy-H:mmZ");
             var token = _hashGenerator.GenerateHash(expiresOn, participantId.ToString());
             var tokenResponse = new TokenResponse { ExpiresOn = expiresOn, Token = token };
+
             return Ok(tokenResponse);
         }
     }
