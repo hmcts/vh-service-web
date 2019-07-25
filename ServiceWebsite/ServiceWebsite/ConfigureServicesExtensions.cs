@@ -1,20 +1,20 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
+using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.Common.Security;
+using ServiceWebsite.Configuration;
+using ServiceWebsite.Security;
+using ServiceWebsite.Services;
+using ServiceWebsite.Swagger;
+using ServiceWebsite.UserAPI.Client;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Serialization;
-using ServiceWebsite.BookingsAPI.Client;
-using Swashbuckle.AspNetCore.Swagger;
-using ServiceWebsite.Security;
-using ServiceWebsite.Services;
-using ServiceWebsite.Swagger;
-using ServiceWebsite.UserAPI.Client;
-using ServiceWebsite.Configuration;
-using ServiceWebsite.Security.HashGen;
 
 namespace ServiceWebsite
 {
@@ -23,23 +23,33 @@ namespace ServiceWebsite
         public static IServiceCollection AddCustomTypes(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddMemoryCache();
-
             serviceCollection.AddScoped<EnvironmentSettings>();
-
             serviceCollection.AddTransient<AddBearerTokenHeaderHandler>();
             serviceCollection.AddTransient<UserApiTokenHandler>();
             serviceCollection.AddTransient<BookingsApiTokenHandler>();
             serviceCollection.AddScoped<ITokenProvider, TokenProvider>();
             serviceCollection.AddScoped<SecuritySettings>();
-            
+
 
             // Build the hearings api client using a reusable HttpClient factory and predefined base url
             var container = serviceCollection.BuildServiceProvider();
             var serviceSettings = container.GetService<IOptions<ServiceSettings>>().Value;
+            var customTokenSettings = container.GetService<CustomTokenSettings>();
+
+            var customJwtTokenProvider = new CustomJwtTokenProvider
+            (
+                customTokenSettings.Secret,
+                customTokenSettings.Audience,
+                customTokenSettings.Issuer,
+                customTokenSettings.ThirdPartySecret
+            );
+
+            serviceCollection.AddSingleton<ICustomJwtTokenProvider>(customJwtTokenProvider);
+
             serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
                 .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
                 .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
-            
+
             serviceCollection.AddHttpClient<IBookingsApiClient, BookingsApiClient>()
                 .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>())
                 .AddTypedClient(httpClient => BuildBookingsApiClient(httpClient, serviceSettings));
@@ -47,7 +57,8 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
-            serviceCollection.AddTransient<IHashGenerator, HashGenerator>();
+            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator(customTokenSettings.Secret));
+            serviceCollection.AddTransient<IKinlyPlatformService>(x => new KinlyPlatformService(customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;
@@ -57,7 +68,7 @@ namespace ServiceWebsite
         {
             return new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
         }
-        
+
         private static IBookingsApiClient BuildBookingsApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
             return new BookingsApiClient(httpClient) { BaseUrl = serviceSettings.BookingsApiUrl };
@@ -76,7 +87,9 @@ namespace ServiceWebsite
                 c.AddSecurityDefinition("Bearer",
                     new ApiKeyScheme
                     {
-                        In = "header", Description = "Please enter JWT with Bearer into field", Name = "Authorization",
+                        In = "header",
+                        Description = "Please enter JWT with Bearer into field",
+                        Name = "Authorization",
                         Type = "apiKey"
                     });
                 c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
@@ -95,7 +108,8 @@ namespace ServiceWebsite
             };
 
             serviceCollection.AddMvc()
-                .AddJsonOptions(options => {
+                .AddJsonOptions(options =>
+                {
                     options.SerializerSettings.ContractResolver = contractResolver;
                     options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
                 })

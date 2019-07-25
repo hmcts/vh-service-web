@@ -3,8 +3,8 @@ using Moq;
 using NUnit.Framework;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Models;
-using ServiceWebsite.Security.HashGen;
 using System;
+using ServiceWebsite.Common.Security;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {

@@ -3,13 +3,13 @@ using Moq;
 using NUnit.Framework;
 using ServiceWebsite.Common;
 using ServiceWebsite.Controllers;
+using ServiceWebsite.Domain;
 using ServiceWebsite.Models;
 using ServiceWebsite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceWebsite.Domain;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -20,13 +20,16 @@ namespace ServiceWebsite.UnitTests.Controllers
         private ParticipantController _controller;
         private Mock<IHearingsService> _hearingService;
         private Mock<IParticipantService> _participantService;
+        private Mock<IKinlyPlatformService> _kinlyPlatformService;
 
         [SetUp]
         public void Setup()
         {
             _hearingService = new Mock<IHearingsService>();
             _participantService = new Mock<IParticipantService>();
-            _controller = new ParticipantController(_hearingService.Object, _participantService.Object);
+            _kinlyPlatformService = new Mock<IKinlyPlatformService>();
+
+            _controller = new ParticipantController(_hearingService.Object, _participantService.Object, _kinlyPlatformService.Object);
             _controller.MockUserIdentity(Username);
         }
 
@@ -89,34 +92,15 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_badrequest_if_username_is_empty()
-        {
-            var badRequest1 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername(null);
-            Assert.AreEqual(400, badRequest1.StatusCode);
-            Assert.IsAssignableFrom<SerializableError>(badRequest1.Value);
-            Assert.True(((SerializableError) badRequest1.Value).ContainsKey("username"));
-
-            var badRequest2 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername("");
-            Assert.AreEqual(400, badRequest2.StatusCode);
-            Assert.IsAssignableFrom<SerializableError>(badRequest2.Value);
-            Assert.True(((SerializableError)badRequest2.Value).ContainsKey("username"));
-
-            var badRequest3 = (BadRequestObjectResult)await _controller.GetParticipantsByUsername(" ");
-            Assert.AreEqual(400, badRequest3.StatusCode);
-            Assert.IsAssignableFrom<SerializableError>(badRequest3.Value);
-            Assert.True(((SerializableError)badRequest3.Value).ContainsKey("username"));
-        }
-
-        [Test]
         public async Task should_return_not_found_if_participant_is_found()
         {
-            const string username = "SomeUsername";
+            const string username = "SomeUnknownUsername";
 
             _participantService
                 .Setup(x => x.GetParticipantsByUsernameAsync(username))
                 .ReturnsAsync(Enumerable.Empty<Participant>());
 
-            var result = await _controller.GetParticipantsByUsername(username);
+            var result = await _controller.GetCurrentParticipant();
 
             Assert.NotNull(result);
             Assert.IsAssignableFrom<NotFoundResult>(result);
@@ -125,7 +109,6 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task should_return_ok_if_participant_is_found()
         {
-            const string username = "SomeUsername";
             var participants = new List<Participant>
             {
                 new Participant {Id = Guid.NewGuid(), Username = "one"},
@@ -134,16 +117,16 @@ namespace ServiceWebsite.UnitTests.Controllers
             };
 
             _participantService
-                .Setup(x => x.GetParticipantsByUsernameAsync(username))
+                .Setup(x => x.GetParticipantsByUsernameAsync(Username))
                 .ReturnsAsync(participants);
 
-            var result = await _controller.GetParticipantsByUsername(username);
+            var result = await _controller.GetCurrentParticipant();
 
             Assert.NotNull(result);
             Assert.IsAssignableFrom<OkObjectResult>(result);
             var okResult = (OkObjectResult)result;
             Assert.IsAssignableFrom<ParticipantResponse>(okResult.Value);
-            var response = (ParticipantResponse) okResult.Value;
+            var response = (ParticipantResponse)okResult.Value;
             Assert.AreEqual("one", response.Username);
         }
     }

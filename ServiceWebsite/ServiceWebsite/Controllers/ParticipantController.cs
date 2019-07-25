@@ -21,12 +21,14 @@ namespace ServiceWebsite.Controllers
     {
         private readonly IHearingsService _hearingService;
         private readonly IParticipantService _participantService;
+        private readonly IKinlyPlatformService _kinlyPlatformService;
         private static readonly string strRegex = @"(\b[A-Z]+(?:_[A-Z]+)+\b)|(\b[A-Z]+\b)";
         private static readonly Regex ValidAnswerKeyRegex = new Regex(strRegex, RegexOptions.Compiled);
-        public ParticipantController(IHearingsService hearingsService, IParticipantService participantService)
+        public ParticipantController(IHearingsService hearingsService, IParticipantService participantService, IKinlyPlatformService kinlyPlatformService)
         {
             _hearingService = hearingsService;
             _participantService = participantService;
+            _kinlyPlatformService = kinlyPlatformService;
         }
 
         /// <summary>
@@ -86,25 +88,14 @@ namespace ServiceWebsite.Controllers
             }
         }
 
-        [HttpGet("participants/{username}")]
-        [AllowAnonymous] // TODO remove
-        [SwaggerOperation(OperationId = "GetParticipantsByUsername")]
+        [HttpGet("participants/current")]
+        [SwaggerOperation(OperationId = "GetCurrentParticipant")]
         [ProducesResponseType(typeof(ParticipantResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        [ProducesResponseType((int) HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetParticipantsByUsername(string username)
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetCurrentParticipant()
         {
-            if(string.IsNullOrWhiteSpace(username))
-            {
-                ModelState.AddModelError("username", $"The username is invalid: {username}");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var participants = (await _participantService.GetParticipantsByUsernameAsync(username)).ToList();
+            var participants = (await _participantService.GetParticipantsByUsernameAsync(User.Identity.Name)).ToList();
 
             if (participants.Count == 0)
             {
@@ -114,6 +105,26 @@ namespace ServiceWebsite.Controllers
             var firstParticipant = participants.First();
 
             return Ok(new ParticipantResponse { Id = firstParticipant.Id, Username = firstParticipant.Username });
+        }
+
+        [HttpGet("participants/{participantId}/selftestresult")]
+        [SwaggerOperation(OperationId = "GetTestCallResult")]
+        [ProducesResponseType(typeof(TestCallScoreResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TestCallScoreResponse), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetTestCallResultForParticipant(Guid participantId)
+        {
+            try
+            {
+                var score = await _kinlyPlatformService.GetTestCallScoreAsync(participantId);
+
+                return Ok(score);
+            }
+            catch (NotFoundException e)
+            {
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, User, new Dictionary<string, string>{ { "participantId", participantId.ToString() } });
+                return NotFound($"No test score result found for participant Id: {participantId}");
+            }
         }
 
         private static List<SuitabilityAnswer> MapAnswers(IEnumerable<HearingSuitabilityAnswer> answers)
