@@ -15,7 +15,7 @@ export class SelfTestAnswers {
     checkYourComputer?: boolean,
     cameraWorking?: boolean,
     microphoneWorking?: boolean,
-    selfTestResultScore?:string
+    selfTestResultScore?: string
   }) {
     if (answers) {
       this.seeAndHearClearly = answers.seeAndHearClearly;

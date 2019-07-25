@@ -19,8 +19,8 @@ export class VideoWebService {
   }
 
   getTestCallScore(participantId: string): Observable<string> {
-    return (of("Okay"));
-   // return this.apiClient.getTestCallResult(participantId);
+    return (of('Okay'));
+    // return this.apiClient.getTestCallResult(participantId);
   }
 
 }

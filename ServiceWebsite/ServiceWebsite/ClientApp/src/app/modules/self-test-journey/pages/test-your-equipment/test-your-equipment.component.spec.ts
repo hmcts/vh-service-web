@@ -28,7 +28,7 @@ class StubMicVisualiserComponent {
 }
 
 const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId','getTestCallScore']);
+const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId', 'getTestCallScore']);
 videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
 videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
@@ -56,7 +56,7 @@ describe('TestYourEquipmentComponent', () => {
 
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
-    
+
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CameraWorking);
   });
 });
@@ -108,7 +108,7 @@ describe('TestYourEquipmentComponent functionality', () => {
     component.replayVideo();
     expect(component.didTestComplete).toBeFalsy();
   });
-  it('should disconnect pexip' , async () => {
+  it('should disconnect pexip', async () => {
     component.disconnect();
     expect(component.didTestComplete).toBeTruthy();
     expect(component.displayFeed).toBeFalsy();

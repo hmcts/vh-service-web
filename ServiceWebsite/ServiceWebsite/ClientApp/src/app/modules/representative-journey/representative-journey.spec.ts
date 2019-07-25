@@ -41,7 +41,7 @@ describe('RepresentativeJourney', () => {
       seeAndHearClearly: true,
       checkYourComputer: true,
       microphoneWorking: true,
-      selfTestResultScore:'Okay'
+      selfTestResultScore: 'Okay'
     });
 
     return model;
