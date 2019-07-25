@@ -10,6 +10,12 @@ Scenario: Individual participant attempts to proceed to next page without provid
 	Then 1 error should be displayed
 
 @VIH-3939
+Scenario: Individual participant clicks Check My Equipment button on Camera Working Page
+	Given Individual participant is on 'camera working' page
+	When clicks Check My Equipment button
+	Then Individual should be on 'test your equipment' screen
+
+@VIH-3939
 Scenario: Individual participant provides additional information for video hearing suitability on Camera Working Page
 	Given Individual participant is on 'camera working' page
 	When provides answer as No
@@ -21,6 +27,12 @@ Scenario: Representative participant attempts to proceed to next page without pr
 	Given Representative participant is on 'camera working' page
 	When attempts to proceed without selecting an answer
 	Then 1 error should be displayed
+
+@VIH-4516
+Scenario: Representative participant clicks Check My Equipment button on Camera Working Page
+	Given Representative participant is on 'camera working' page
+	When clicks Check My Equipment button
+	Then Individual should be on 'test your equipment' screen
 
 @VIH-4516
 Scenario: Representative participant provides additional information for video hearing suitability on Camera Working Page
