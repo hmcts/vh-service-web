@@ -40,6 +40,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     router = {
       navigate: jasmine.createSpy('navigate'),
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
       events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
     };
 
@@ -54,7 +55,7 @@ describe('AppComponent', () => {
 
     window = jasmine.createSpyObj('WindowRef', ['getLocation']);
     window.getLocation.and.returnValue(new WindowLocation('/url'));
-
+        
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -111,11 +112,5 @@ describe('AppComponent', () => {
     deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(false);
     component.checkBrowser();
     expect(router.navigateByUrl).toHaveBeenCalledWith(Paths.UnsupportedBrowser);
-  });
-
-  it('should allow user to continue on a supported browser', () => {
-    deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(true);
-    component.checkBrowser();
-    expect(router.navigateByUrl).toHaveBeenCalledTimes(0);
   });
 });
