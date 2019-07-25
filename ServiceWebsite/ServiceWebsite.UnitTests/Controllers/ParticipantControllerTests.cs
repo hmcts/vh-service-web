@@ -20,13 +20,16 @@ namespace ServiceWebsite.UnitTests.Controllers
         private ParticipantController _controller;
         private Mock<IHearingsService> _hearingService;
         private Mock<IParticipantService> _participantService;
+        private Mock<IKinlyPlatformService> _kinlyPlatformService;
 
         [SetUp]
         public void Setup()
         {
             _hearingService = new Mock<IHearingsService>();
             _participantService = new Mock<IParticipantService>();
-            _controller = new ParticipantController(_hearingService.Object, _participantService.Object);
+            _kinlyPlatformService = new Mock<IKinlyPlatformService>();
+
+            _controller = new ParticipantController(_hearingService.Object, _participantService.Object, _kinlyPlatformService.Object);
             _controller.MockUserIdentity(Username);
         }
 

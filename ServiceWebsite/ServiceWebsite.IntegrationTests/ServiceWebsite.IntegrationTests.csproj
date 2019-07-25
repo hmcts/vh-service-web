@@ -50,6 +50,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
     <ProjectReference Include="..\ServiceWebsite\ServiceWebsite.csproj" />
   </ItemGroup>
   <ItemGroup>

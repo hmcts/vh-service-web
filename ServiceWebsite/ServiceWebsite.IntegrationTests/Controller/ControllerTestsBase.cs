@@ -6,14 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
+using ServiceWebsite.Common.Security;
+using ServiceWebsite.IntegrationTests.Helper;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using ServiceWebsite.IntegrationTests.Helper;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
@@ -47,7 +47,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
                     .UseKestrel(c => c.AddServerHeader = false)
                     .UseStartup<Startup>()
                     // Override the the service container here, add mocks or stubs
-                    .ConfigureTestServices(collection => { })
+                    .ConfigureTestServices(OverrideDependenciesInServiceCollection)
                     // Reconfigure the services 
                     .ConfigureServices(services =>
                     {
@@ -74,6 +74,11 @@ namespace ServiceWebsite.IntegrationTests.Controller
         public void OneTimeTearDown()
         {
             _server.Dispose();
+        }
+
+        private static void OverrideDependenciesInServiceCollection(IServiceCollection services)
+        {
+            services.AddScoped<IHashGenerator>(x => new HashGenerator("What_blah-blah-blah"));
         }
 
         private void CreateAccessToken()
