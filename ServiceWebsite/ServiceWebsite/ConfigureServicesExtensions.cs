@@ -48,7 +48,7 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
-            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator("sfdsdfgdsfgvfds"));
+            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator(securitySettings.Secret));
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;

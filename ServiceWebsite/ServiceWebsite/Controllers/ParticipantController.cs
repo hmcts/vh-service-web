@@ -120,7 +120,7 @@ namespace ServiceWebsite.Controllers
             }
             catch (NotFoundException e)
             {
-                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, participantId);
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, User, new Dictionary<string, string>{ { "participantId", participantId.ToString() } });
                 return NotFound($"No test score result found for participant Id: {participantId}");
             }
         }
