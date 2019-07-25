@@ -112,10 +112,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QuestionnaireCompleted.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\SelfTest\CameraWorking.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CameraWorking.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\SelfTest\IndividualThankYou.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>IndividualThankYou.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\SelfTest\MicrophoneWorking.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MicrophoneWorking.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\SelfTest\SwitchCameraMicrophone.feature.cs">
       <DesignTime>True</DesignTime>
@@ -218,12 +228,20 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SelfTestNotSameComputer.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\SelfTest\CameraWorking.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CameraWorking.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\CheckYourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\IndividualThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IndividualThankYou.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\SelfTest\MicrophoneWorking.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MicrophoneWorking.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\SwitchCameraMicrophone.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
