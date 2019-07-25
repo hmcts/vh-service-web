@@ -36,6 +36,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   loadingData: boolean;
   userMediaService: UserMediaService;
 
+  testCallResult: string;
+
+
   constructor(journey: JourneyBase,
     private model: ParticipantSuitabilityModel,
     _userMediaService: UserMediaService,
@@ -152,6 +155,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.logger.error('Disconnected from pexip.', reason);
     if (reason === 'Conference terminated by another participant') {
       this.didTestComplete = true;
+      this.retrieveSelfTestScore();
     }
   }
 
@@ -163,6 +167,12 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.outgoingStream = null;
     this.didTestComplete = true;
     this.displayFeed = false;
+  }
+
+  retrieveSelfTestScore() {
+    this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
+      this.testCallResult = score;
+    });
   }
 
   protected bindModel(): void {
@@ -180,7 +190,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.disconnect();
     }
     this.pexipAPI = null;
-
+    this.retrieveSelfTestScore();
+    this.model.selfTest.selfTestResultScore = this.testCallResult;
+    console.log('TEST Score Result:' + this.model.selfTest.selfTestResultScore);
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 }

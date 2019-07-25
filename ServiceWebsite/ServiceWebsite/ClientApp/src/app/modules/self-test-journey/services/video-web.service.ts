@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiClient, TokenResponse, ParticipantResponse } from '../../../services/clients/api-client';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +17,10 @@ export class VideoWebService {
   getCurrentParticipantId(): Observable<ParticipantResponse> {
     return this.apiClient.getCurrentParticipant();
   }
+
+  getTestCallScore(participantId: string): Observable<string> {
+    return (of("Okay"));
+   // return this.apiClient.getTestCallResult(participantId);
+  }
+
 }
