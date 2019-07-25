@@ -19,7 +19,7 @@ describe('UnsupportedBrowserComponent', () => {
       ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UnsupportedBrowserComponent);
