@@ -40,7 +40,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
-            SelectAnswer(CurrentPage, answer);
+            SelectAnswer((DecisionJourney)CurrentPage, answer);
         }
 
         [When(@"attempts to proceed without selecting an answer")]
@@ -55,13 +55,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"provides additional information containing a two character length '(.*)'")]
         private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharacters(string detail)
         {
-            CurrentPage.SelectYes(detail);
+            ((DecisionJourney)CurrentPage).SelectYes(detail);
         }
 
         [When(@"provides additional information containing a two character length '(.*)' for No answer")]
         private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharactersForNoAnswer(string detail)
         {
-            CurrentPage.SelectNo(detail);
+            ((DecisionJourney)CurrentPage).SelectNo(detail);
         }
 
         protected void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
@@ -83,11 +83,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return true;
         }
 
-        private DecisionJourney CurrentPage
+        private JourneyStepPage CurrentPage
         {
             get
             {
-                return _scenarioContext.Get<DecisionJourney>("CurrentPage");
+                return _scenarioContext.Get<JourneyStepPage>("CurrentPage");
             }
         }
 
