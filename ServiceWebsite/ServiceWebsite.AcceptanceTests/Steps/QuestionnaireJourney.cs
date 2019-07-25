@@ -6,6 +6,7 @@ using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.AcceptanceTests.Contexts;
 using RestSharp;
 using System.Collections.Generic;
+using OpenQA.Selenium;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -18,6 +19,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private ErrorMessage _errorMessage;
         public readonly ScenarioContext _scenarioContext;
         private readonly TestContext _testContext;
+        private readonly BrowserContext _browserContext;
 
         public QuestionnaireJourney(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
         {
@@ -27,6 +29,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
             _scenarioContext = scenarioContext;
             _testContext = testContext;
+            _browserContext = browserContext;
         }
         
 
@@ -40,7 +43,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
-            SelectAnswer(CurrentPage, answer);
+            SelectAnswer((DecisionJourney)CurrentPage, answer);
         }
 
         [When(@"attempts to proceed without selecting an answer")]
@@ -55,13 +58,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"provides additional information containing a two character length '(.*)'")]
         private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharacters(string detail)
         {
-            CurrentPage.SelectYes(detail);
+            ((DecisionJourney)CurrentPage).SelectYes(detail);
         }
 
         [When(@"provides additional information containing a two character length '(.*)' for No answer")]
         private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharactersForNoAnswer(string detail)
         {
-            CurrentPage.SelectNo(detail);
+            ((DecisionJourney)CurrentPage).SelectNo(detail);
+        }
+
+        [When(@"clicks Check My Equipment button")]
+        private void WhenClicksCheckMyEquipmentButton()
+        {
+            _browserContext.NgDriver.WaitUntilElementVisible(By.Id("checkYourEquipment")).Click();
         }
 
         protected void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
@@ -83,11 +92,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return true;
         }
 
-        private DecisionJourney CurrentPage
+        private JourneyStepPage CurrentPage
         {
             get
             {
-                return _scenarioContext.Get<DecisionJourney>("CurrentPage");
+                return _scenarioContext.Get<JourneyStepPage>("CurrentPage");
             }
         }
 

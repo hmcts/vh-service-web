@@ -5,6 +5,7 @@ using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.SelfTesPages;
 using ServiceWebsite.BookingsAPI.Client;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public sealed class RepresentativeQuestionnaireSteps : QuestionnaireJourney
     {
-        private DecisionJourney _currentPage;
+        private JourneyStepPage _currentPage;
         private readonly InformationSteps _information;
         private readonly DecisionJourney _aboutVideoHearings;
         private readonly DecisionJourney _aboutYouAndYouClient;
@@ -34,7 +35,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly Page _thankYou;
         private readonly Page _pleaseContactUs;
         private readonly DecisionJourney _checkYourComputer;
-        private readonly DecisionJourney _switchOnCameraAndMicrophone;
+        private readonly SwitchOnCameraMicrophone _switchOnCameraAndMicrophone;
         private readonly DecisionJourney _testYourEquipment;
         private readonly DecisionJourney _cameraWorking;
         private readonly DecisionJourney _microphoneWorking;
@@ -65,7 +66,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _thankYou = new Page(browserContext, RepresentativePageUrl.ThankYouRep);
             _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
             _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
-            _switchOnCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.SwitchOnCameraAndMicrophone);
+            _switchOnCameraAndMicrophone = new SwitchOnCameraMicrophone(browserContext);
             _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
             _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
@@ -91,7 +92,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             SubmitQuestionnaireForPositivePath();
             _loginSteps.WhenParticipantLogsInWithValidCredentials("Representative");
             NavigateToDecisionPage(_checkYourComputer);
-            _currentPage = _switchOnCameraAndMicrophone;
         }
 
         public void InitiateJourneySteps(string page)
@@ -164,8 +164,39 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_checkYourComputer);
                    _currentPage = _switchOnCameraAndMicrophone;
                     break;
+                case SelfTestPageNames.CameraWorking:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    NavigateToDecisionPage(_hearingSuitability);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    _questionnaireCompleted.Continue();
+                    NavigateToDecisionPage(_checkYourComputer);
+                    _switchOnCameraAndMicrophone.ParticipantSwitchesOnCameraAndMicrophone();
+                    _switchOnCameraAndMicrophone.Continue();
+                    _testYourEquipment.Continue();
+                    _currentPage = _cameraWorking;
+                    break;
+                case SelfTestPageNames.MicrophoneWorking:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_aboutYourClient);
+                    NavigateToDecisionPage(_clientAttendance);
+                    NavigateToDecisionPage(_hearingSuitability);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    _questionnaireCompleted.Continue();
+                    NavigateToDecisionPage(_checkYourComputer);
+                    _switchOnCameraAndMicrophone.ParticipantSwitchesOnCameraAndMicrophone();
+                    _switchOnCameraAndMicrophone.Continue();
+                    _testYourEquipment.Continue();
+                    NavigateToDecisionPage(_cameraWorking);
+                    _currentPage = _microphoneWorking;
+                    break;
             }
-            _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
+            _scenarioContext.Set<JourneyStepPage>(_currentPage, "CurrentPage");
         }
 
         [Then(@"Representative should be on '(.*)' screen")]
@@ -179,7 +210,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 || page == SelfTestPageNames.SwitchOnCameraAndMicrophone
                 || page == SelfTestPageNames.TestYourEquipment)
             {
-                _scenarioContext.Set<DecisionJourney>((DecisionJourney)pageToValidate, "CurrentPage");
+                _scenarioContext.Set<JourneyStepPage>((JourneyStepPage)pageToValidate, "CurrentPage");
             }
         }
 

@@ -3,6 +3,7 @@ using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.SelfTesPages;
 using ServiceWebsite.BookingsAPI.Client;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
 
         private readonly DecisionJourney _aboutYou;
-        private DecisionJourney _currentPage;
+        private JourneyStepPage _currentPage;
         private readonly DecisionJourney _interpreter;
         private readonly DecisionJourney _yourComputer;
         private readonly DecisionJourney _aboutYourComputer;
@@ -24,7 +25,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _accessToRoom;
         private readonly DecisionJourney _consent;
         private readonly DecisionJourney _checkYourComputer;
-        private readonly DecisionJourney _switchOnCameraAndMicrophone;
+        private readonly SwitchOnCameraMicrophone _switchOnCameraAndMicrophone;
         private readonly DecisionJourney _testYourEquipment;
         private readonly DecisionJourney _cameraWorking;
         private readonly DecisionJourney _microphoneWorking;
@@ -46,7 +47,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _accessToRoom = new DecisionJourney(browserContext, PageUri.AccessToARoomPage);
             _consent = new DecisionJourney(browserContext, PageUri.ConsentPage);
             _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
-            _switchOnCameraAndMicrophone = new DecisionJourney(browserContext, PageUri.SwitchOnCameraAndMicrophone);
+            _switchOnCameraAndMicrophone = new SwitchOnCameraMicrophone(browserContext);
             _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
             _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
             _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
@@ -71,7 +72,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             SubmitQuestionnaireForPositivePath();
             _loginSteps.WhenParticipantLogsInWithValidCredentials("Individual");
             NavigateToDecisionPage(_checkYourComputer);
-            _currentPage = _switchOnCameraAndMicrophone;
         }
 
         public void InitiateJourneySteps(string page)
@@ -142,8 +142,38 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     NavigateToDecisionPage(_checkYourComputer);
                     _currentPage = _switchOnCameraAndMicrophone;
                     break;
+                case SelfTestPageNames.CameraWorking:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_consent);
+                    NavigateToDecisionPage(_checkYourComputer);
+                    _switchOnCameraAndMicrophone.ParticipantSwitchesOnCameraAndMicrophone();
+                    _switchOnCameraAndMicrophone.Continue();
+                    _testYourEquipment.Continue();
+                    _currentPage = _cameraWorking;
+                    break;
+                case SelfTestPageNames.MicrophoneWorking:
+                    NavigateToDecisionPage(_aboutYou);
+                    NavigateToDecisionPage(_interpreter);
+                    NavigateToDecisionPage(_yourComputer);
+                    NavigateToDecisionPage(_aboutYourComputer);
+                    NavigateToDecisionPage(_yourInternetConnection);
+                    NavigateToDecisionPage(_accessToRoom);
+                    NavigateToDecisionPage(_consent);
+                    NavigateToDecisionPage(_checkYourComputer);
+                    _switchOnCameraAndMicrophone.ParticipantSwitchesOnCameraAndMicrophone();
+                    _switchOnCameraAndMicrophone.Continue();
+                    _testYourEquipment.Continue();
+                    NavigateToDecisionPage(_cameraWorking);
+                    _currentPage = _microphoneWorking;
+                    break;
+
             }
-            _scenarioContext.Set<DecisionJourney>(_currentPage, "CurrentPage");
+            _scenarioContext.Set<JourneyStepPage>(_currentPage, "CurrentPage");
         }
 
         [Then(@"Participant should proceed to about you page")]
@@ -155,7 +185,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Individual should be on '(.*)' screen")]
         public void ThenParticipantShouldProceedToPage(string page)
         {
-
             switch (page)
             {
                 case IndividualPageNames.AboutYou:

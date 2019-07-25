@@ -1,6 +1,6 @@
 ﻿Feature: Participant blocked media
 	As an Invidual or Representative
-	I am on Switch Camers and Microphone and blocked camera and microphone 
+	I am on Switch Camera and Microphone and blocked camera and microphone 
 	So that I can see media blocked screen
 
 @smoketest @VIH-4447 @BlockCameraAndMic
