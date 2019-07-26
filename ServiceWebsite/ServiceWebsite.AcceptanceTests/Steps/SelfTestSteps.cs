@@ -17,7 +17,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public SelfTestSteps(BrowserContext context )
         {
             _context = context;
-            _switchOnCameraAndMicrophonePage = new SwitchOnCameraMicrophone(_context, PageUri.SwitchOnCameraAndMicrophone);
+            _switchOnCameraAndMicrophonePage = new SwitchOnCameraMicrophone(_context);
         }
 
         [When(@"Media switched on")]
