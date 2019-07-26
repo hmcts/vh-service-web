@@ -97,6 +97,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       } catch (e) {
         this.logger.error('Error connect to pixep', e);
         this.didTestComplete = true;
+        this.displayFeed = false;
       }
     }
   }
@@ -122,23 +123,25 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   setupPexipClient() {
     const self = this;
     this.pexipAPI = new PexRTC();
-    this.updatePexipAudioVideoSource();
-    this.pexipAPI.onSetup = function (stream, pin_status, conference_extension) {
-      self.outgoingStream = stream;
-      this.connect('0000', null);
-    };
+    if (this.pexipAPI) {
+      this.updatePexipAudioVideoSource();
+      this.pexipAPI.onSetup = function (stream, pin_status, conference_extension) {
+        self.outgoingStream = stream;
+        this.connect('0000', null);
+      };
 
-    this.pexipAPI.onConnect = ((stream) => {
-      self.connectHandleEvent(stream);
-    });
+      this.pexipAPI.onConnect = ((stream) => {
+        self.connectHandleEvent(stream);
+      });
 
-    this.pexipAPI.onError = ((reason) => {
-      self.errorHandleEvent(reason);
-    });
+      this.pexipAPI.onError = ((reason) => {
+        self.errorHandleEvent(reason);
+      });
 
-    this.pexipAPI.onDisconnect = ((reason) => {
-      self.disconnectHandleEvent(reason);
-    });
+      this.pexipAPI.onDisconnect = ((reason) => {
+        self.disconnectHandleEvent(reason);
+      });
+    }
   }
 
   connectHandleEvent(stream) {
