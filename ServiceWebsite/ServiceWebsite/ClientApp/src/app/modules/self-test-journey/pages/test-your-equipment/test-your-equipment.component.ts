@@ -170,10 +170,15 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   retrieveSelfTestScore() {
-    this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
-      console.log('TEST SCORE KINLY RESULT:' + score.score);
-      this.model.selfTest.selfTestResultScore = score.score;
-    });
+    try {
+      this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
+        console.log('TEST SCORE KINLY RESULT:' + score.score);
+        this.model.selfTest.selfTestResultScore = score.score;
+      });
+    }
+    catch (e) {
+      this.logger.error('Error to get self test result score', e);
+    }
   }
 
   protected bindModel(): void {
