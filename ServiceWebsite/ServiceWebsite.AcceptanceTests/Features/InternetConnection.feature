@@ -3,7 +3,7 @@
 	I want to let the court know whether I have access to the internet or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@smoketest @VIH-4336
+@VIH-4336
 Scenario: Individual participant will not be able to access the internet at the time of hearing
 	Given Individual participant is on 'your internet connection' page
 	When provides answer as No
