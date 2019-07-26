@@ -8,6 +8,7 @@ using ServiceWebsite.AcceptanceTests.Models;
 using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using TechTalk.SpecFlow;
@@ -40,6 +41,25 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         }
 
         [BeforeScenario(Order = 2)]
+        public static void ClearAnyHearings(TestContext context)
+        {
+            ClearHearings(context, context.TestUserSecrets.Individual);
+            ClearHearings(context, context.TestUserSecrets.Representative);
+        }
+
+        private static void ClearHearings(TestContext context, string userName)
+        {
+            var request = context.Get($"/hearings/?username={userName}");
+            var response = context.Client().Execute(request);
+            var hearings = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<List<HearingDetailsResponse>>(response.Content);
+            foreach (var hearing in hearings)
+            {
+                DeleteHearing(context, hearing.Id.ToString());
+                context.Response.IsSuccessful.Should().BeTrue($"Hearing {hearing.Id} has been deleted");
+            }
+        }
+
+        [BeforeScenario(Order = 3)]
         public void CreateNewHearingRequest(TestContext testContext)
         {
             var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual, testContext.TestUserSecrets.Representative);
@@ -60,10 +80,15 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var hearingId = testContext.HearingId;
             if (!string.IsNullOrEmpty(hearingId))
             {
-                testContext.Request = testContext.Delete($"/hearings/{hearingId}");
-                testContext.Response = testContext.Client().Execute(testContext.Request);
-                testContext.Response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+                DeleteHearing(testContext, hearingId);
             }
+        }
+
+        private static void DeleteHearing(TestContext testContext, string hearingId)
+        {
+            testContext.Request = testContext.Delete($"/hearings/{hearingId}");
+            testContext.Response = testContext.Client().Execute(testContext.Request);
+            testContext.Response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
     }
 }
