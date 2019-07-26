@@ -92,7 +92,12 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     const conferenceAlias = 'testcall1';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
     if (this.pexipAPI) {
-      this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
+      try {
+        this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
+      } catch (e) {
+        this.logger.error('Error connect to pixep', e);
+        this.didTestComplete = true;
+      }
     }
   }
 
