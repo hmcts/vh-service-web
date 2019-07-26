@@ -117,6 +117,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CameraWorking.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\SelfTest\CheckYourComputer.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CheckYourComputer.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\SelfTest\IndividualThankYou.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -234,6 +239,7 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\CheckYourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CheckYourComputer.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\IndividualThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

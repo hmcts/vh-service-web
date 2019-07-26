@@ -3,7 +3,7 @@
 	I want to let the court know whether my computer has a camera and microphone or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@smoketest @VIH-4335
+@VIH-4335
 Scenario: Individual participant computer has no camera and microphone
 	Given Individual participant is on 'about your computer' page
 	When provides answer as No
