@@ -4,27 +4,27 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ServiceWebsite.UnitTests
+namespace ServiceWebsite.Common
 {
     public class FakeHttpMessageHandler : HttpMessageHandler
     {
-        public IDictionary<Uri, HttpResponseMessage> ConfiguredResponses = new Dictionary<Uri, HttpResponseMessage>();
+        private readonly IDictionary<Uri, HttpResponseMessage> _configuredResponses = new Dictionary<Uri, HttpResponseMessage>();
 
         public void Register(string url, HttpResponseMessage httpResponseMessage)
         {
             var uri = new Uri(url);
 
-            if (!ConfiguredResponses.ContainsKey(uri))
+            if (!_configuredResponses.ContainsKey(uri))
             {
-                ConfiguredResponses.Add(uri, httpResponseMessage);
+                _configuredResponses.Add(uri, httpResponseMessage);
             }
         }
 
         public virtual HttpResponseMessage Send(HttpRequestMessage request)
         {
-            if (ConfiguredResponses.ContainsKey(request.RequestUri))
+            if (_configuredResponses.ContainsKey(request.RequestUri))
             {
-                return ConfiguredResponses[request.RequestUri];
+                return _configuredResponses[request.RequestUri];
             }
 
             return new HttpResponseMessage

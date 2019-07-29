@@ -6,14 +6,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
+using ServiceWebsite.Common;
 using ServiceWebsite.Common.Security;
 using ServiceWebsite.IntegrationTests.Helper;
+using ServiceWebsite.Services;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Moq;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
@@ -31,6 +36,8 @@ namespace ServiceWebsite.IntegrationTests.Controller
                 _environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             }
         }
+
+        protected string SuccessSelfTestScoreParticipantId = "55ebe3fa-f4fe-4a45-9de6-123baee253d7";
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -76,9 +83,37 @@ namespace ServiceWebsite.IntegrationTests.Controller
             _server.Dispose();
         }
 
-        private static void OverrideDependenciesInServiceCollection(IServiceCollection services)
+        private void OverrideDependenciesInServiceCollection(IServiceCollection serviceCollection)
         {
-            services.AddScoped<IHashGenerator>(x => new HashGenerator("What_blah-blah-blah"));
+            const string kinlySelfTestScoreEndpointUrl = "https://fakekinly.com";
+
+            // Setup fake responses to http calls
+            var fakeHttpHandler = new FakeHttpMessageHandler();
+            var httpClientWithFakeHandler = new HttpClient(fakeHttpHandler){ Timeout = TimeSpan.FromSeconds(1) };
+            fakeHttpHandler.Register
+            (
+                $"{kinlySelfTestScoreEndpointUrl}/{SuccessSelfTestScoreParticipantId}", 
+                new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{'passed':true,'score':1}")
+                }
+            );
+
+            var customJwtTokenProvider = new Mock<ICustomJwtTokenProvider>();
+            customJwtTokenProvider
+                .Setup(x => x.GenerateToken(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(string.Empty);
+
+            serviceCollection.AddScoped<IKinlyPlatformService>(x => new KinlyPlatformService
+            (
+                httpClientWithFakeHandler,
+                customJwtTokenProvider.Object,
+                "https://fakekinly.com"
+            ));
+
+            // Other dependencies
+
+            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator("What_blah-blah-blah"));
         }
 
         private void CreateAccessToken()
