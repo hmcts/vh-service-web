@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
+using TestScore = ServiceWebsite.Domain.TestScore;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -128,6 +130,35 @@ namespace ServiceWebsite.UnitTests.Controllers
             Assert.IsAssignableFrom<ParticipantResponse>(okResult.Value);
             var response = (ParticipantResponse)okResult.Value;
             Assert.AreEqual("one", response.Username);
+        }
+
+        [Test]
+        public async Task should_return_not_found_if_no_test_score_is_not_found()
+        {
+            _kinlyPlatformService
+                .Setup(x => x.GetTestCallScoreAsync(It.IsAny<Guid>()))
+                .ThrowsAsync(new NotFoundException("any"));
+
+            var result = await _controller.GetTestCallResultForParticipant(Guid.NewGuid());
+
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<NotFoundObjectResult>(result);
+        }
+
+        [Test]
+        public async Task should_return_ok_if_no_test_score_is_found()
+        {
+            var expectedResult = new TestCallResult(true, TestScore.Good);
+
+            _kinlyPlatformService
+                .Setup(x => x.GetTestCallScoreAsync(It.IsAny<Guid>()))
+                .ReturnsAsync(expectedResult);
+
+            var result = await _controller.GetTestCallResultForParticipant(Guid.NewGuid());
+
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<OkObjectResult>(result);
+            result.Should().BeAssignableTo<OkObjectResult>().Subject.Value.Should().Be(expectedResult);
         }
     }
 }

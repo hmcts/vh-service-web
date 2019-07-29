@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Models;
-using ServiceWebsite.Security;
 
 namespace ServiceWebsite.Controllers
 {
