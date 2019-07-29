@@ -54,3 +54,4 @@ jobs:
     solutionType: $(solutionType)
     integrationTestsAppSettingsTransform: $(integrationTestsAppSettingsTransform)
     nodeVersion: $(nodeVersion)
+    pool: 'Hosted Ubuntu 1604'
