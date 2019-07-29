@@ -92,13 +92,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     const conferenceAlias = 'testcall1';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
     if (this.pexipAPI) {
-      try {
-        this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
-      } catch (e) {
-        this.logger.error('Error connect to pixep', e);
-        this.didTestComplete = true;
-        this.displayFeed = false;
-      }
+      this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
     }
   }
 
@@ -178,14 +172,10 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   retrieveSelfTestScore() {
-    try {
-      this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
-        console.log('TEST SCORE KINLY RESULT:' + score.score);
-        this.model.selfTest.selfTestResultScore = score.score;
-      });
-    } catch (e) {
-      this.logger.error('Error to get self test result score', e);
-    }
+    this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
+      console.log('TEST SCORE KINLY RESULT:' + score.score);
+      this.model.selfTest.selfTestResultScore = score.score;
+    });
   }
 
   protected bindModel(): void {
