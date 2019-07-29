@@ -54,11 +54,13 @@ namespace ServiceWebsite
                 .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>())
                 .AddTypedClient(httpClient => BuildBookingsApiClient(httpClient, serviceSettings));
 
+            serviceCollection.AddHttpClient<IKinlyPlatformService, KinlyPlatformService>()
+                .AddTypedClient(x => new KinlyPlatformService(x, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
+
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
             serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator(customTokenSettings.Secret));
-            serviceCollection.AddTransient<IKinlyPlatformService>(x => new KinlyPlatformService(customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;
