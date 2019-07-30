@@ -20,9 +20,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public sealed class RepresentativeQuestionnaireSteps : QuestionnaireJourney
     {
-        private JourneyStepPage _currentPage;
+        
         private readonly InformationSteps _information;
-        private readonly DecisionJourney _questionnaireCompleted;
         private readonly Page _pleaseContactUs;
         private readonly Page _equipmentBlocked;
         private string _key = string.Empty;
