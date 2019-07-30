@@ -7,11 +7,13 @@ namespace ServiceWebsite.AcceptanceTests.Pages
     {
         private readonly string _urlToValidate = string.Empty;
         protected BrowserContext BrowserContext { get; private set; }
+        public string Name { get; private set; }
 
-        public Page(BrowserContext browserContext, string pageUrl)
+        public Page(BrowserContext browserContext, string pageUrl, string name)
         {
             BrowserContext = browserContext;
-            _urlToValidate = pageUrl;             
+            _urlToValidate = pageUrl;
+            Name = name;
         }
 
         public virtual void Validate()

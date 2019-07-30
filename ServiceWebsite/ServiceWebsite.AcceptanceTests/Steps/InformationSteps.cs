@@ -3,6 +3,7 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;
+using ServiceWebsite.AcceptanceTests.Constants;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -25,19 +26,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         public InformationSteps(BrowserContext browserContext, LoginSteps loginSteps, UseCameraMicrophone useCameraMicrophone)
         {
-            _aboutHearings = new JourneyStepPage(browserContext, PageUri.AboutHearingsPage);
-            _differentHearingTypesPage = new JourneyStepPage(browserContext, PageUri.DifferentHearingTypesPage);
-            _exploreCourtBuildingPage = new JourneyStepPage(browserContext, PageUri.ExploreCourtBuildingPage);
+            _aboutHearings = new JourneyStepPage(browserContext, PageUri.AboutHearingsPage, string.Empty);
+            _differentHearingTypesPage = new JourneyStepPage(browserContext, PageUri.DifferentHearingTypesPage, string.Empty);
+            _exploreCourtBuildingPage = new JourneyStepPage(browserContext, PageUri.ExploreCourtBuildingPage, string.Empty);
             _courtBuildingVideoPage = new VideoContentPage(browserContext, PageUri.CourtBuildingVideoPage);
-            _exploreVideoHearing = new JourneyStepPage(browserContext, PageUri.ExploreVideoHearing);
+            _exploreVideoHearing = new JourneyStepPage(browserContext, PageUri.ExploreVideoHearing, string.Empty);
             _useCameraMicrophonePage = useCameraMicrophone;
             _loginSteps = loginSteps;
-            _mediaError = new Page(browserContext, PageUri.MediaErrorPage);
+            _mediaError = new Page(browserContext, PageUri.MediaErrorPage, string.Empty);
             _participantView = new VideoContentPage(browserContext, PageUri.ParticipantViewPage);
-            _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage);
-            _aboutVideoHearing = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutVideoHearings);
-            _aboutYou = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYou);
-            _aboutYouAndYourClient = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYouAndYourClient);
+            _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage, string.Empty);
+            _aboutVideoHearing = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutVideoHearings, string.Empty);
+            _aboutYou = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYou, RepresentativePageNames.AboutYou);
+            _aboutYouAndYourClient = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYouAndYourClient, "about you and your client");
         }
 
         [Given(@"(.*) participant proceeds to camera and microphone page")]

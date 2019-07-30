@@ -7,7 +7,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
     public class UseCameraMicrophone : JourneyStepPage
     {
-        public UseCameraMicrophone(BrowserContext browserContext) : base(browserContext, PageUri.UseCameraMicrophonePage)
+        public UseCameraMicrophone(BrowserContext browserContext) : base(browserContext, PageUri.UseCameraMicrophonePage, "Use your camera")
         {
 
         }

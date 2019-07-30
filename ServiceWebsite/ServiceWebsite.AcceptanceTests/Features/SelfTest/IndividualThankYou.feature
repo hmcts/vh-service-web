@@ -4,7 +4,7 @@
 	And also answer all the self test questions
 	So that I can join a video hearing
 
- @VIH-4338
+@VIH-4338 @IndividualSelfTest
 Scenario: Individual participant consents to video hearing
 	Given Individual participant is on 'consent' page
 	When provides answer as Yes

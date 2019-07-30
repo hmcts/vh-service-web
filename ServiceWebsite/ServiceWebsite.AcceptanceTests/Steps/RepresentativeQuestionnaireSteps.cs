@@ -20,65 +20,38 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public sealed class RepresentativeQuestionnaireSteps : QuestionnaireJourney
     {
-        private JourneyStepPage _currentPage;
+        
         private readonly InformationSteps _information;
-        private readonly DecisionJourney _aboutVideoHearings;
-        private readonly DecisionJourney _aboutYouAndYouClient;
-        private readonly DecisionJourney _aboutYou;
-        private readonly DecisionJourney _accessToRoom;
-        private readonly DecisionJourney _aboutYourClient;
-        private readonly DecisionJourney _clientAttendance;
-        private readonly DecisionJourney _hearingSuitability;
-        private readonly DecisionJourney _yourComputer;
-        private readonly DecisionJourney _aboutYourComputer;
-        private readonly DecisionJourney _questionnaireCompleted;
-        private readonly Page _thankYou;
         private readonly Page _pleaseContactUs;
-        private readonly DecisionJourney _checkYourComputer;
-        private readonly SwitchOnCameraMicrophone _switchOnCameraAndMicrophone;
-        private readonly DecisionJourney _testYourEquipment;
-        private readonly DecisionJourney _cameraWorking;
-        private readonly DecisionJourney _microphoneWorking;
-        private readonly DecisionJourney _videoWorking;
-        private readonly Page _signInOnComputer;
-        private readonly Page _signBackIn;
         private readonly Page _equipmentBlocked;
         private string _key = string.Empty;
         private readonly BrowserContext _browserContext;
         private readonly TestContext _testContext;
         private string _representativeParticipantId;
         private readonly LoginSteps _loginSteps;
-
         public RepresentativeQuestionnaireSteps(LoginSteps loginSteps, TestContext testContext, BrowserContext browserContext, ErrorMessage errorMessage, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
             _information = information;
             _browserContext = browserContext;
-            _aboutVideoHearings = new DecisionJourney(browserContext, RepresentativePageUrl.AboutVideoHearings);
-            _aboutYouAndYouClient = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYouAndYourClient, RepresentativeQuestionKeys.AboutYourClient);
-            _aboutYou = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYou, RepresentativeQuestionKeys.AboutYou);
-            _accessToRoom = new DecisionJourney(browserContext, RepresentativePageUrl.AccessToRoom, RepresentativeQuestionKeys.AccessToRoom);
-            _aboutYourClient = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourClient, RepresentativeQuestionKeys.AboutYourClient);
-            _clientAttendance = new DecisionJourney(browserContext, RepresentativePageUrl.ClientAttendance, RepresentativeQuestionKeys.ClientAttendance);
-            _hearingSuitability = new DecisionJourney(browserContext, RepresentativePageUrl.HearingSuitability, RepresentativeQuestionKeys.HearingSuitability);
-            _yourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.YourComputerRep, RepresentativeQuestionKeys.YourComputer);
-            _aboutYourComputer = new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourComputerRep, RepresentativeQuestionKeys.AboutYourComputer);
-            _questionnaireCompleted = new DecisionJourney(browserContext, RepresentativePageUrl.QuestionnaireCompleted);
-            _thankYou = new Page(browserContext, RepresentativePageUrl.ThankYouRep);
-            _pleaseContactUs = new Page(browserContext, RepresentativePageUrl.PleaseContactUs);
-            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
-            _switchOnCameraAndMicrophone = new SwitchOnCameraMicrophone(browserContext);
-            _testYourEquipment = new DecisionJourney(browserContext, PageUri.TestYourEquipment);
-            _cameraWorking = new DecisionJourney(browserContext, PageUri.CameraWorking);
-            _microphoneWorking = new DecisionJourney(browserContext, PageUri.MicrophoneWorking);
-            _videoWorking = new DecisionJourney(browserContext, PageUri.VideoWorking);
-            _signInOnComputer = new Page(browserContext, PageUri.SignInOncomputer);
-            _signBackIn = new Page(browserContext, PageUri.SignBackIn);
-            _equipmentBlocked = new Page(browserContext, PageUri.EquipmentBlocked);
             _testContext = testContext;
             _representativeParticipantId =  _testContext.RepresentativeParticipantId;
             _loginSteps = loginSteps;
         }
-        
+
+        protected override void InitialisePage(BrowserContext browserContext)
+        {
+            PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.AboutYou, RepresentativePageNames.AboutYou, RepresentativeQuestionKeys.AboutYou));
+            PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.AccessToRoom, RepresentativePageNames.AccessToRoom, RepresentativeQuestionKeys.AccessToRoom));
+            PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourClient, RepresentativePageNames.AboutYourClient, RepresentativeQuestionKeys.AboutYourClient));
+            PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.ClientAttendance, RepresentativePageNames.ClientAttendance, RepresentativeQuestionKeys.ClientAttendance));
+            PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.HearingSuitability, RepresentativePageNames.HearingSuitability, RepresentativeQuestionKeys.HearingSuitability));
+            PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.YourComputerRep, RepresentativePageNames.YourComputer, RepresentativeQuestionKeys.YourComputer));
+            PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.AboutYourComputerRep, RepresentativePageNames.AboutYourComputer, RepresentativeQuestionKeys.AboutYourComputer));
+            PageList.Add(new JourneyStepPage(browserContext, RepresentativePageUrl.QuestionnaireCompleted, RepresentativePageNames.QuestionnaireCompleted));
+            //_pages.Add(new Page(browserContext, RepresentativePageUrl.ThankYouRep, RepresentativePageNames.ThankYou));
+            //_pages.Add(new Page(browserContext, RepresentativePageUrl.PleaseContactUs, RepresentativePageNames.PleaseContactUs));
+        }
+
         [Given(@"Representative participant is on '(.*)' page")]
         public void GivenRepresentativeParticipantIsOnPage(string page)
         {
@@ -91,112 +64,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             SubmitQuestionnaireForPositivePath();
             _loginSteps.WhenParticipantLogsInWithValidCredentials("Representative");
-            NavigateToDecisionPage(_checkYourComputer);
-        }
-
-        public void InitiateJourneySteps(string page)
-        {
-            switch (page)
-            {
-                case RepresentativePageNames.AboutYou:
-                    _aboutYou.Validate();
-                    _currentPage = _aboutYou;
-                    break;
-                case RepresentativePageNames.AboutYourClient:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    _currentPage = _aboutYourClient;
-                    break;
-                case RepresentativePageNames.ClientAttendance:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    _currentPage = _clientAttendance;
-                    break;
-                case RepresentativePageNames.HearingSuitability:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    _currentPage = _hearingSuitability;
-                    break;
-                case RepresentativePageNames.AccessToRoom:
-                    NavigateToDecisionPage(_aboutYou);
-                    _currentPage = _accessToRoom;
-                    break;
-                case RepresentativePageNames.YourComputer:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    NavigateToDecisionPage(_hearingSuitability);
-                    _currentPage = _yourComputer;
-                    break;
-                case RepresentativePageNames.AboutYourComputer:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    NavigateToDecisionPage(_hearingSuitability);
-                    NavigateToDecisionPage(_yourComputer);
-                    _currentPage = _aboutYourComputer;
-                    break;
-                case SelfTestPageNames.CheckYourComputer:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    NavigateToDecisionPage(_hearingSuitability);
-                    NavigateToDecisionPage(_yourComputer);
-                    NavigateToDecisionPage(_aboutYourComputer);
-                    _questionnaireCompleted.Continue();
-                    _currentPage = _checkYourComputer;
-                    break;
-                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    NavigateToDecisionPage(_hearingSuitability);
-                    NavigateToDecisionPage(_yourComputer);
-                    NavigateToDecisionPage(_aboutYourComputer);
-                    _questionnaireCompleted.Continue();
-                    NavigateToDecisionPage(_checkYourComputer);
-                   _currentPage = _switchOnCameraAndMicrophone;
-                    break;
-                case SelfTestPageNames.CameraWorking:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    NavigateToDecisionPage(_hearingSuitability);
-                    NavigateToDecisionPage(_yourComputer);
-                    NavigateToDecisionPage(_aboutYourComputer);
-                    _questionnaireCompleted.Continue();
-                    NavigateToDecisionPage(_checkYourComputer);
-                    _switchOnCameraAndMicrophone.ParticipantSwitchesOnCameraAndMicrophone();
-                    _switchOnCameraAndMicrophone.Continue();
-                    _testYourEquipment.Continue();
-                    _currentPage = _cameraWorking;
-                    break;
-                case SelfTestPageNames.MicrophoneWorking:
-                    NavigateToDecisionPage(_aboutYou);
-                    NavigateToDecisionPage(_accessToRoom);
-                    NavigateToDecisionPage(_aboutYourClient);
-                    NavigateToDecisionPage(_clientAttendance);
-                    NavigateToDecisionPage(_hearingSuitability);
-                    NavigateToDecisionPage(_yourComputer);
-                    NavigateToDecisionPage(_aboutYourComputer);
-                    _questionnaireCompleted.Continue();
-                    NavigateToDecisionPage(_checkYourComputer);
-                    _switchOnCameraAndMicrophone.ParticipantSwitchesOnCameraAndMicrophone();
-                    _switchOnCameraAndMicrophone.Continue();
-                    _testYourEquipment.Continue();
-                    NavigateToDecisionPage(_cameraWorking);
-                    _currentPage = _microphoneWorking;
-                    break;
-            }
-            _scenarioContext.Set<JourneyStepPage>(_currentPage, "CurrentPage");
+            NavigateToDecisionPage(GetPage(SelfTestPageNames.CheckYourComputer));
         }
 
         [Then(@"Representative should be on '(.*)' screen")]
@@ -210,7 +78,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 || page == SelfTestPageNames.SwitchOnCameraAndMicrophone
                 || page == SelfTestPageNames.TestYourEquipment)
             {
-                _scenarioContext.Set<JourneyStepPage>((JourneyStepPage)pageToValidate, "CurrentPage");
+                _scenarioContext.Set(pageToValidate, "CurrentPage");
             }
         }
 
@@ -226,7 +94,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var reponses = table.CreateSet<SuitabilityResponse>();
             foreach (var response in reponses)
             {
-               var currentPage = (DecisionJourney)GetPage(response.Page);
+                var currentPage = (DecisionJourney)GetPage(response.Page);
                 SelectAnswer(currentPage, response.Answer);
                 if(!string.IsNullOrEmpty(response.Details?.Trim()))
                 {
@@ -276,7 +144,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                         answer.Answer.Should().Be(answer.Key == RepresentativeQuestionKeys.AboutYourComputer ? "Yes" : "true");
                         break;
                     case AnswerType.No:
-                        answer.Answer.Should().Be(answer.Key == RepresentativeQuestionKeys.AboutYourComputer ? "Yes" : "false");
+                        answer.Answer.Should().Be(answer.Key == RepresentativeQuestionKeys.AboutYourComputer ? "No" : "false");
                         break;
                     case AnswerType.NotSure:
                         answer.Answer.Should().Be("Not sure");
@@ -320,56 +188,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
         protected override bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
         {
-            return (decisionJourneyPage == _yourComputer ||
-                   decisionJourneyPage == _aboutYourComputer ||
-                   decisionJourneyPage == _accessToRoom || 
-                   decisionJourneyPage == _checkYourComputer);
-        }
-
-        private Page GetPage(string page)
-        {
-            switch (page)
-            {
-                case RepresentativePageNames.AboutYou:
-                    return _aboutYou;
-                case RepresentativePageNames.AboutYourClient:
-                    return _aboutYourClient;
-                case RepresentativePageNames.AccessToRoom:
-                    return _accessToRoom;
-                case RepresentativePageNames.ClientAttendance:
-                    return _clientAttendance;
-                case RepresentativePageNames.HearingSuitability:
-                    return _hearingSuitability;
-                case RepresentativePageNames.YourComputer:
-                    return _yourComputer;
-                case RepresentativePageNames.AboutYourComputer:
-                    return _aboutYourComputer;
-                case RepresentativePageNames.QuestionnaireCompleted:
-                    return _questionnaireCompleted;
-                case RepresentativePageNames.PleaseContactUs:
-                    return _pleaseContactUs;
-                case RepresentativePageNames.ThankYou:
-                    return _thankYou;
-                case SelfTestPageNames.CheckYourComputer:
-                    return _checkYourComputer;
-                case SelfTestPageNames.SwitchOnCameraAndMicrophone:
-                    return _switchOnCameraAndMicrophone;
-                case SelfTestPageNames.TestYourEquipment:
-                    return _testYourEquipment;
-                case SelfTestPageNames.CameraWorking:
-                    return _cameraWorking;
-                case SelfTestPageNames.MicrophoneWorking:
-                    return _microphoneWorking;
-                case SelfTestPageNames.VideoWorking:
-                    return _videoWorking;
-                case SelfTestPageNames.SignBackIn:
-                    return _signBackIn;
-                case SelfTestPageNames.SignInOncomputer:
-                    return _signInOnComputer;
-                case SelfTestPageNames.EquipmentBlocked:
-                    return _equipmentBlocked;
-            }
-            throw new Exception("Invalid page");
+            return (decisionJourneyPage.Name == RepresentativePageNames.YourComputer ||
+             decisionJourneyPage.Name == RepresentativePageNames.AboutYourComputer ||
+             decisionJourneyPage.Name == RepresentativePageNames.AccessToRoom ||
+             decisionJourneyPage.Name == SelfTestPageNames.CheckYourComputer);
         }
 
         private void SubmitQuestionnaireForPositivePath()

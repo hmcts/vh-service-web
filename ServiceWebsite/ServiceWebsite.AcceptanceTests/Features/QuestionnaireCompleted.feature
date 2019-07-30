@@ -3,7 +3,7 @@
 	I want to see a summary of the answers I submitted
 	So that I can print a copy for my records
 
-@smoketest @VIH-4443
+@smoketest @VIH-4443 @Representative
 Scenario: Representative views questionnaire completed page for a client who is not suitable for a video hearing
 	Given Representative participant starts the questionnaire
 	When provides answer
@@ -21,7 +21,7 @@ Scenario: Representative views questionnaire completed page for a client who is 
 	When proceeds to next page
 	Then Representative should be on 'check your computer' screen
 
-@VIH-4578
+@VIH-4578 @Representative
 Scenario: Representative refreshes questionnaire completed page after having dropped out due to not having access to a computer
 	Given Representative participant starts the questionnaire
 	When provides answer
@@ -37,7 +37,7 @@ Scenario: Representative refreshes questionnaire completed page after having dro
 	When the user refreshes the page
 	Then Representative should be on 'questionnaire completed' screen
 
-@VIH-4443
+@VIH-4443 @Representative
 Scenario: Representative views questionnaire completed page for a client who is suitable for a video hearing
 	Given Representative participant starts the questionnaire
 	When provides answer
