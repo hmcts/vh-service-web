@@ -6,9 +6,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages
     public class DecisionJourney : JourneyStepPage
     {
         private readonly string _pageUrl;
-        public DecisionJourney(BrowserContext browserContext, string pageUrl, string questionKey = "") : base(browserContext, pageUrl)
+        public DecisionJourney(BrowserContext browserContext, string pageUrl, string name, string questionKey = "") : base(browserContext, pageUrl, name)
         {
-            _pageUrl = pageUrl;
             _pageUrl = pageUrl;
             QuestionKey = questionKey;
         }

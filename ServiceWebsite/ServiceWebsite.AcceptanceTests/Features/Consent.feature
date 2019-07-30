@@ -4,7 +4,7 @@
 	I want to let the court know whether I consent to a video hearing or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4338
+@VIH-4338 @Individual
 Scenario: Individual participant without providing answer on consent page
 	Given Individual participant is on 'consent' page
 	When attempts to proceed without selecting an answer
@@ -16,7 +16,7 @@ Scenario: Individual participant without providing answer on consent page
 	And proceeds to next page
 	Then 1 errors should be displayed
 
-@VIH-4338
+@VIH-4338 @Individual
 Scenario: Individual participant does not consent to video hearing
 	Given Individual participant is on 'consent' page
 	When Individual provides additional information for not consenting to video hearing as 'ABC'
