@@ -15,14 +15,14 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
         {
             BrowserContext.Retry(() =>
             {
-                //double currentTime;
-                //if (!double.TryParse(GetMethods.GetAttributeValue(_videoContent, BrowserContext, "currentTime"),
-                //        out currentTime))
-                //    throw new Exception();
+                double currentTime;
+                if (!double.TryParse(GetMethods.GetAttributeValue(_videoContent, BrowserContext, "currentTime"),
+                        out currentTime))
+                    throw new Exception();
 
-                //if (currentTime > 0)
-                //    return;
-                //throw new Exception($"Video current time is {currentTime}, it hasn't started automatically");
+                if (currentTime > 0)
+                    return;
+                throw new Exception($"Video current time is {currentTime}, it hasn't started automatically");
             });
         }
     }
