@@ -40,7 +40,8 @@ describe('RepresentativeJourney', () => {
       cameraWorking: true,
       seeAndHearClearly: true,
       checkYourComputer: true,
-      microphoneWorking: true
+      microphoneWorking: true,
+      selfTestResultScore: 'Okay'
     });
 
     return model;
@@ -174,6 +175,7 @@ describe('RepresentativeJourney', () => {
     journey.model.selfTest.microphoneWorking = true;
     journey.model.selfTest.checkYourComputer = true;
     journey.model.selfTest.seeAndHearClearly = true;
+    journey.model.selfTest.selfTestResultScore = 'Okay';
 
     // and going to
     journey.jumpTo(Steps.ThankYou);

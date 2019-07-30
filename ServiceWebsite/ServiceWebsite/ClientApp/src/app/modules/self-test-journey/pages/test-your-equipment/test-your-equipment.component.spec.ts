@@ -28,9 +28,10 @@ class StubMicVisualiserComponent {
 }
 
 const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId']);
+const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId', 'getTestCallScore']);
 videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
+videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
 
 const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
 configServiceMock.load.and.returnValue(of(new Config()));
@@ -55,6 +56,7 @@ describe('TestYourEquipmentComponent', () => {
 
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
+
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CameraWorking);
   });
 });
@@ -106,7 +108,7 @@ describe('TestYourEquipmentComponent functionality', () => {
     component.replayVideo();
     expect(component.didTestComplete).toBeFalsy();
   });
-  it('should disconnect pexip' , async () => {
+  it('should disconnect pexip', async () => {
     component.disconnect();
     expect(component.didTestComplete).toBeTruthy();
     expect(component.displayFeed).toBeFalsy();
@@ -116,10 +118,11 @@ describe('TestYourEquipmentComponent functionality', () => {
     expect(component.incomingStream).toBeTruthy();
     expect(component.displayFeed).toBeTruthy();
   });
-  it('should disconnected handle set test to completed', () => {
+  it('should disconnected handle set test to completed and retrieve test score', () => {
     component.disconnectHandleEvent('Conference terminated by another participant');
     expect(component.didTestComplete).toBeTruthy();
     expect(component.displayFeed).toBeFalsy();
+    expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
   });
   it('should error handle set test to completed', () => {
     component.errorHandleEvent('Error');
@@ -134,5 +137,10 @@ describe('TestYourEquipmentComponent functionality', () => {
         component.incomingStream = stream;
         expect(component.streamsActive).toBeTruthy();
       });
+  });
+  it('should retrieve test score', async () => {
+    component.participantId = '27467';
+    await component.retrieveSelfTestScore();
+    expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
   });
 });

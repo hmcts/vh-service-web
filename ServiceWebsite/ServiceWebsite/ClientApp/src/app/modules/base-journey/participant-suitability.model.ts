@@ -14,13 +14,15 @@ export class SelfTestAnswers {
     seeAndHearClearly?: boolean,
     checkYourComputer?: boolean,
     cameraWorking?: boolean,
-    microphoneWorking?: boolean
+    microphoneWorking?: boolean,
+    selfTestResultScore?: string
   }) {
     if (answers) {
       this.seeAndHearClearly = answers.seeAndHearClearly;
       this.checkYourComputer = answers.checkYourComputer;
       this.cameraWorking = answers.cameraWorking;
       this.microphoneWorking = answers.microphoneWorking;
+      this.selfTestResultScore = answers.selfTestResultScore;
     }
   }
 
@@ -28,12 +30,14 @@ export class SelfTestAnswers {
   checkYourComputer: boolean;
   cameraWorking: boolean;
   microphoneWorking: boolean;
+  selfTestResultScore: string;
 
   isCompleted() {
     return this.seeAndHearClearly !== undefined
       && this.checkYourComputer !== undefined
       && this.cameraWorking !== undefined
-      && this.microphoneWorking !== undefined;
+      && this.microphoneWorking !== undefined
+      && this.selfTestResultScore !== undefined;
   }
 }
 
