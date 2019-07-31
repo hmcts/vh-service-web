@@ -10,7 +10,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
 {
     public class ParticipantControllerTest : ControllerTestsBase
     {
-       [Test]
+       //[Test]
         public async Task should_get_self_test_result_for_participant()
         {
             var responseMessage = await SendGetRequestWithBearerTokenAsync($"/api/hearings/participants/{SuccessSelfTestScoreParticipantId}/selftestresult");
