@@ -202,5 +202,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.pexipAPI.disconnect();
     }
     this.pexipAPI = null;
+    this.userMediaStreamService.stopStream(this.incomingStream);
+    this.userMediaStreamService.stopStream(this.outgoingStream);
+    this.incomingStream = null;
+    this.outgoingStream = null;
   }
 }

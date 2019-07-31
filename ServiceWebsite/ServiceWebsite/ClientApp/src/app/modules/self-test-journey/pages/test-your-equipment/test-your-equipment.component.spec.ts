@@ -36,7 +36,7 @@ videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
 const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
 configServiceMock.load.and.returnValue(of(new Config()));
 
-const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic']);
+const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic','stopStream']);
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
 
 describe('TestYourEquipmentComponent', () => {
@@ -142,5 +142,11 @@ describe('TestYourEquipmentComponent functionality', () => {
     component.participantId = '27467';
     await component.retrieveSelfTestScore();
     expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
+  });
+  it('should stop all stream on destroy event', async () => {
+    component.ngOnDestroy();
+    expect(component.incomingStream).toBeNull();
+    expect(component.outgoingStream).toBeNull();
+    expect(component.pexipAPI).toBeNull();
   });
 });
