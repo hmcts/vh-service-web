@@ -77,7 +77,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
             _server = new TestServer(webHostBuilder);
         }
 
-        [OneTimeTearDown]
+        //[OneTimeTearDown]
         public void OneTimeTearDown()
         {
             _server.Dispose();
