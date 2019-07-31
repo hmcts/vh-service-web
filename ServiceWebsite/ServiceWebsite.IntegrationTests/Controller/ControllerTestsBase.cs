@@ -39,7 +39,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
 
         protected string SuccessSelfTestScoreParticipantId = "55ebe3fa-f4fe-4a45-9de6-123baee253d7";
 
-        //[OneTimeSetUp]
+        [OneTimeSetUp]
         public void OneTimeSetup()
         {
             var integrationTestsPath = PlatformServices.Default.Application.ApplicationBasePath;
@@ -77,7 +77,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
             _server = new TestServer(webHostBuilder);
         }
 
-        //[OneTimeTearDown]
+        [OneTimeTearDown]
         public void OneTimeTearDown()
         {
             _server.Dispose();

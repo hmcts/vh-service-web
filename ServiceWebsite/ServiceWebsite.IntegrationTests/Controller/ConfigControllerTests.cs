@@ -9,7 +9,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
 {
     public class ConfigControllerTests : ControllerTestsBase
     {
-        //[Test]
+        [Test]
         public async Task should_be_redirected_to_microsoft_login_if_not_authenticated()
         {
             var response = await SendGetRequestAsync("https://localhost:5600/api/config");
