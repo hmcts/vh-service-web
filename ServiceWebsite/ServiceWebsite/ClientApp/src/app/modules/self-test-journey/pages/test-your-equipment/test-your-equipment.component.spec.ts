@@ -36,7 +36,7 @@ videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
 const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
 configServiceMock.load.and.returnValue(of(new Config()));
 
-const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic','stopStream']);
+const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic', 'stopStream']);
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
 
 describe('TestYourEquipmentComponent', () => {
