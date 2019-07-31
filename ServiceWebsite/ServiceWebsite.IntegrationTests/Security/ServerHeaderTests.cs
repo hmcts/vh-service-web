@@ -10,7 +10,7 @@ namespace ServiceWebsite.IntegrationTests.Security
     {
         private const string Uri = "https://localhost:5200/api/config";
         
-        //[Test]
+        [Test]
         public async Task should_return_no_sniff_header()
         {
             var headerName = "X-Content-Type-Options";
@@ -21,7 +21,7 @@ namespace ServiceWebsite.IntegrationTests.Security
             headers.Contains(headerValue).Should().BeTrue();
         }
         
-       //[Test]
+       [Test]
         public async Task should_return_xss_protection_header()
         {
             var headerName = "X-Xss-Protection";
@@ -32,7 +32,7 @@ namespace ServiceWebsite.IntegrationTests.Security
             headers.Contains(headerValue).Should().BeTrue();
         }
         
-        //[Test]
+        [Test]
         public async Task should_return_cache_control_headers()
         {
             var response = await SendGetRequestAsync(Uri);
