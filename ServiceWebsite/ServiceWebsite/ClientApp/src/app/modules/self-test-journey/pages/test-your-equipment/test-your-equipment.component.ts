@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
 import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
@@ -18,7 +18,7 @@ declare var PexRTC: any;
   templateUrl: './test-your-equipment.component.html',
   styles: []
 })
-export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
+export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit, OnDestroy {
 
   token: TokenResponse;
   pexipAPI: any;
@@ -195,5 +195,16 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.pexipAPI = null;
     this.retrieveSelfTestScore();
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
+  }
+
+  ngOnDestroy() {
+    if (this.pexipAPI) {
+      this.pexipAPI.disconnect();
+    }
+    this.pexipAPI = null;
+    this.userMediaStreamService.stopStream(this.incomingStream);
+    this.userMediaStreamService.stopStream(this.outgoingStream);
+    this.incomingStream = null;
+    this.outgoingStream = null;
   }
 }
