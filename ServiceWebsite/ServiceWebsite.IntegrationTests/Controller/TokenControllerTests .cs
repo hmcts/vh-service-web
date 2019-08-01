@@ -1,13 +1,13 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
-using ServiceWebsite.Common;
-using ServiceWebsite.Models;
-using System;
-using System.Net;
+﻿//using FluentAssertions;
+//using NUnit.Framework;
+//using ServiceWebsite.Common;
+//using ServiceWebsite.Models;
+//using System;
+//using System.Net;
 
-namespace ServiceWebsite.IntegrationTests.Controller
-{
-    public class TokenControllerTests : ControllerTestsBase
+//namespace ServiceWebsite.IntegrationTests.Controller
+//{
+    //public class TokenControllerTests : ControllerTestsBase
     //{
     //    [Test]
     //    public void Should_get_token_when_requested_with_correct_participant_id()
@@ -27,5 +27,5 @@ namespace ServiceWebsite.IntegrationTests.Controller
     //        var responseMessage = SendGetRequestWithBearerTokenAsync($"/participants/{Guid.Empty}/token").Result;
     //        responseMessage.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     //    }
-    }
-}
+//    }
+//}
