@@ -22,7 +22,6 @@ using Moq;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
-   // [Parallelizable(ParallelScope.All)]
     public abstract class ControllerTestsBase
     {
         private TestServer _server;
