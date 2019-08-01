@@ -9,7 +9,6 @@ namespace ServiceWebsite.IntegrationTests.Controller
 {
     public class TokenControllerTests : ControllerTestsBase
     {
-        [Ignore("test")]
         [Test]
         public void Should_get_token_when_requested_with_correct_participant_id()
         {
@@ -22,7 +21,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
             tokenResponse.Should().NotBeNull();
             tokenResponse.Token.Should().NotBeEmpty();
         }
-        [Ignore("test")]
+
         [Test]
         public void Should_return_bad_request_when_requested_with_incorrect_participant_id()
         {
