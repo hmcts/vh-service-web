@@ -9,7 +9,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
 {
     public class TokenControllerTests : ControllerTestsBase
     {
-        [Test]
+        //[Test]
         public void Should_get_token_when_requested_with_correct_participant_id()
         {
             var responseMessage = SendGetRequestWithBearerTokenAsync($"/participants/{Guid.NewGuid()}/token").Result;
@@ -22,7 +22,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
             tokenResponse.Token.Should().NotBeEmpty();
         }
 
-        [Test]
+        //[Test]
         public void Should_return_bad_request_when_requested_with_incorrect_participant_id()
         {
             var responseMessage = SendGetRequestWithBearerTokenAsync($"/participants/{Guid.Empty}/token").Result;
