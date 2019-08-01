@@ -10,6 +10,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
 {
     public class ParticipantControllerTest : ControllerTestsBase
     {
+        [Ignore("test")]
         [Test]
         public async Task should_get_self_test_result_for_participant()
         {
