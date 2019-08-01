@@ -4,7 +4,7 @@
 	And also answer all the self test questions
 	So that I can join a video hearing
 
-@VIH-4444
+@ignore('pexip issue')
 Scenario: Representative participant views thank you page after submitting self test answers
 	Given Representative participant is on 'your computer' page
 	When provides answer as Yes
