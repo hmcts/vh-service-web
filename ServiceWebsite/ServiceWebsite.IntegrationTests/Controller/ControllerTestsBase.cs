@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
+using Moq;
 using NUnit.Framework;
 using ServiceWebsite.Common;
 using ServiceWebsite.Common.Security;
@@ -13,12 +14,10 @@ using ServiceWebsite.Services;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Moq;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
