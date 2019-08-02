@@ -41,6 +41,7 @@ import { SERVICE_WEB_API_BASE_URL } from './services/clients/api-client';
 import {SelfTestJourneyModule} from './modules/self-test-journey/self-test-journey.module';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 export function initConfiguration(configService: ConfigService): Function {
   return () => configService.load();
@@ -72,6 +73,7 @@ export function initConfiguration(configService: ConfigService): Function {
     SelfTestJourneyModule,
     AppRoutingModule,
     SharedModule,
+    DeviceDetectorModule.forRoot(),
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: initConfiguration, deps: [ConfigService], multi: true },
