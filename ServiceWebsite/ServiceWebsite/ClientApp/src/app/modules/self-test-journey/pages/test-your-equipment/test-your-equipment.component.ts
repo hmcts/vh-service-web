@@ -10,6 +10,7 @@ import { VideoWebService } from '../../services/video-web.service';
 import { ConfigService } from '../../../../services/config.service';
 import { Logger } from '../../../../services/logger';
 import { UserMediaDevice } from '../../models/user-media-device';
+import { Subscription } from 'rxjs';
 
 declare var PexRTC: any;
 
@@ -35,9 +36,11 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   displayFeed: boolean;
   loadingData: boolean;
   userMediaService: UserMediaService;
+  logger: Logger;
 
   testCallResult: string;
-
+  subDevice: Subscription;
+  subScore: Subscription;
 
   constructor(journey: JourneyBase,
     private model: ParticipantSuitabilityModel,
@@ -45,11 +48,12 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     private userMediaStreamService: UserMediaStreamService,
     private videoWebService: VideoWebService,
     private configService: ConfigService,
-    private logger: Logger
+     _logger: Logger
   ) {
     super(journey);
     this.didTestComplete = false;
     this.userMediaService = _userMediaService;
+    this.logger = _logger;
   }
 
   ngOnInit(): void {
@@ -61,7 +65,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   setupSubscribers() {
-    this.userMediaService.connectedDevices.subscribe(async (devices) => {
+    this.subDevice = this.userMediaService.connectedDevices.subscribe(async (devices) => {
       this.hasMultipleDevices = await this.userMediaService.hasMultipleDevices();
       console.log('Has devices :' + this.hasMultipleDevices);
     });
@@ -172,9 +176,12 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   retrieveSelfTestScore() {
-    this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
+    this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
       console.log('TEST SCORE KINLY RESULT:' + score.score);
       this.model.selfTest.selfTestResultScore = score.score;
+    }, (error) => {
+      this.model.selfTest.selfTestResultScore = 'None';
+      this.logger.error('Error to get self test score: ', error);
     });
   }
 
