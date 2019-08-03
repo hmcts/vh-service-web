@@ -44,9 +44,16 @@ namespace ServiceWebsite.Services
             responseMessage.EnsureSuccessStatusCode();
 
             var content = await responseMessage.Content.ReadAsStringAsync();
-            var testCall = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<KinlyVideoTestCall>(content);
+            try
+            {
+                var testCall = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<KinlyVideoTestCall>(content);
 
-            return new TestCallResult(testCall.Passed, testCall.Score);
+                return new TestCallResult(testCall.Passed, testCall.Score);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }
