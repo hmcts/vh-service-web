@@ -48,7 +48,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     private userMediaStreamService: UserMediaStreamService,
     private videoWebService: VideoWebService,
     private configService: ConfigService,
-     _logger: Logger
+    _logger: Logger
   ) {
     super(journey);
     this.didTestComplete = false;
@@ -93,7 +93,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   async call() {
     this.didTestComplete = false;
     this.testScore = null;
-    const conferenceAlias = 'testcall1';
+    const conferenceAlias = 'testcall2';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
     if (this.pexipAPI) {
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
