@@ -8,7 +8,7 @@ import { MockLogger } from '../../../../testing/mocks/mock-logger';
 import { Logger } from '../../../../services/logger';
 import { VideoWebService } from '../../services/video-web.service';
 import { UserMediaService } from '../../services/user-media.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { ConfigService } from '../../../../services/config.service';
 import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
@@ -31,7 +31,6 @@ const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
 const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId', 'getTestCallScore']);
 videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
-videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
 
 const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
 configServiceMock.load.and.returnValue(of(new Config()));
@@ -40,6 +39,7 @@ const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
 
 describe('TestYourEquipmentComponent', () => {
+
   it('can continue', () => {
 
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
@@ -65,6 +65,7 @@ describe('TestYourEquipmentComponent functionality', () => {
   let journeyObj: jasmine.SpyObj<JourneyBase>;
   let model: MutableIndividualSuitabilityModel;
   let component: TestYourEquipmentComponent;
+  videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
 
   beforeEach(() => {
     journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
@@ -148,5 +149,29 @@ describe('TestYourEquipmentComponent functionality', () => {
     expect(component.incomingStream).toBeNull();
     expect(component.outgoingStream).toBeNull();
     expect(component.pexipAPI).toBeNull();
+  });
+});
+
+describe('TestYourEquipmentComponent error functionality', () => {
+  let journeyObj: jasmine.SpyObj<JourneyBase>;
+  let model: MutableIndividualSuitabilityModel;
+  let component: TestYourEquipmentComponent;
+  videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
+
+  beforeEach(() => {
+    journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+    model = new MutableIndividualSuitabilityModel();
+    model.selfTest = new SelfTestAnswers();
+    component = new TestYourEquipmentComponent(journeyObj, model,
+      new UserMediaService(), userMediaStreamServiceMock, videoWebServiceMock,
+      configServiceMock, new MockLogger());
+
+  });
+  it('should retrieve test score and get error', async () => {
+    component.participantId = '27467';
+    spyOn(component.logger, 'error');
+    await component.retrieveSelfTestScore();
+    expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
+    expect(component.logger.error).toHaveBeenCalled();
   });
 });

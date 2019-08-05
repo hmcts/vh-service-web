@@ -4,7 +4,7 @@
 	And also answer all the self test questions
 	So that I can join a video hearing
 
-@ignore('pexip issue')
+@smoketest @VIH-4338 @IndividualSelfTest
 Scenario: Individual participant consents to video hearing
 	Given Individual participant is on 'consent' page
 	When provides answer as Yes
@@ -18,9 +18,8 @@ Scenario: Individual participant consents to video hearing
 	Then Individual should be on 'test your equipment' screen
 	When proceeds to next page
 	And provides answer
-	 | page                      | answer	|
-	 | camera working            | Yes		|
-	 | microphone working		 | Yes		|
-	 | video working			 | Yes		|
+		| page               | answer |
+		| camera working     | Yes    |
+		| microphone working | Yes    |
+		| video working      | Yes    |
 	Then Individual should be on 'thank you' screen
-

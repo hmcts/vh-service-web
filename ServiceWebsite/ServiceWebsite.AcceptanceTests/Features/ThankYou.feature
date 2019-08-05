@@ -4,7 +4,7 @@
 	And also answer all the self test questions
 	So that I can join a video hearing
 
-@ignore('pexip issue')
+@smoketest @VIH-4444 @RepresentativeSelfTest
 Scenario: Representative participant views thank you page after submitting self test answers
 	Given Representative participant is on 'your computer' page
 	When provides answer as Yes
@@ -23,8 +23,8 @@ Scenario: Representative participant views thank you page after submitting self 
 	Then Representative should be on 'test your equipment' screen
 	When proceeds to next page
 	And provides answer
-	 | page                      | answer	|
-	 | camera working            | Yes		|
-	 | microphone working		 | Yes		|
-	 | video working		     | Yes		|
+		| page               | answer |
+		| camera working     | Yes    |
+		| microphone working | Yes    |
+		| video working      | Yes    |
 	Then Representative should be on 'thank you' screen
