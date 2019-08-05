@@ -1,5 +1,5 @@
 import { Injectable, ViewChild, OnInit } from '@angular/core';
-import { VideoViewComponent } from '../../components/video-view/video-view.component';
+import { VideoViewComponent } from '../video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';
 
@@ -24,7 +24,7 @@ export class VideoViewBaseComponent implements OnInit {
     this.disabledReplay = false;
   }
 
-  replay() {
-    this.videoViewComponent.play();
+  async replay() {
+    await this.videoViewComponent.play();
   }
 }
