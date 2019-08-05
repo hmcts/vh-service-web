@@ -16,20 +16,21 @@ import { YourComputerComponent } from './pages/your-computer/your-computer.compo
 import { AboutYourComputerComponent } from './pages/about-your-computer/about-your-computer.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { PleaseContactUsComponent } from './pages/please-contact-us/please-contact-us.component';
+import { RepresentativeGuard } from './representative.gaurd';
 
 const routes: Routes = [
-  { path: Paths.AboutVideoHearings, component: AboutVideoHearingsComponent },
-  { path: Paths.AboutYouAndYourClient, component: AboutYouAndYourClientComponent },
-  { path: Paths.AboutYou, component: AboutYouComponent },
-  { path: Paths.AccessToRoom, component: AccessToRoomComponent },
-  { path: Paths.AboutYourClient, component: AboutYourClientComponent },
-  { path: Paths.ClientAttendance, component: ClientAttendanceComponent },
-  { path: Paths.HearingSuitability, component: HearingSuitabilityComponent },
-  { path: Paths.YourComputer, component: YourComputerComponent },
-  { path: Paths.AboutYourComputer, component: AboutYourComputerComponent },
-  { path: Paths.QuestionnaireCompleted, component: QuestionnaireCompletedComponent },
-  { path: Paths.ThankYou, component: ThankYouComponent },
-  { path: Paths.ContactUs, component: PleaseContactUsComponent }
+  { path: Paths.AboutVideoHearings, component: AboutVideoHearingsComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.AboutYouAndYourClient, component: AboutYouAndYourClientComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.AboutYou, component: AboutYouComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.AccessToRoom, component: AccessToRoomComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.AboutYourClient, component: AboutYourClientComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.ClientAttendance, component: ClientAttendanceComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.HearingSuitability, component: HearingSuitabilityComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.YourComputer, component: YourComputerComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.AboutYourComputer, component: AboutYourComputerComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.QuestionnaireCompleted, component: QuestionnaireCompletedComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.ThankYou, component: ThankYouComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.ContactUs, component: PleaseContactUsComponent, canActivate: [RepresentativeGuard] }
 ];
 
 @NgModule({
