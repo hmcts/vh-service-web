@@ -39,9 +39,9 @@ export class VideoViewComponent implements OnDestroy {
   /**
    * Plays the video
    */
-  play() {
+  async play() {
     this.stopPlaying();
-    this.videoTag.play();
+    await this.videoTag.play();
   }
 
   private get videoTag() {
@@ -57,6 +57,5 @@ export class VideoViewComponent implements OnDestroy {
   ngOnDestroy() {
     this.stopPlaying();
     this.videoTag.removeAttribute('src');
-    this.videoTag.load();
   }
 }

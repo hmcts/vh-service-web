@@ -17,6 +17,7 @@ export class CourtBuildingVideoComponent extends VideoViewBaseComponent {
   }
 
   continue() {
+    this.videoViewComponent.ngOnDestroy();
     this.journey.goto(IndividualJourneySteps.ExploreVideoHearing);
   }
 }
