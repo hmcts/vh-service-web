@@ -125,6 +125,11 @@ namespace ServiceWebsite.Controllers
                 ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, User, new Dictionary<string, string>{ { "participantId", participantId.ToString() } });
                 return NotFound($"No test score result found for participant Id: {participantId}");
             }
+            catch(Exception ex)
+            {
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", ex, User, new Dictionary<string, string> { { "participantId", participantId.ToString() } });
+                return NotFound($"No test score result found for participant Id: {participantId}");
+            }
         }
 
         private static List<SuitabilityAnswer> MapAnswers(IEnumerable<HearingSuitabilityAnswer> answers)
