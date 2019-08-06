@@ -30,6 +30,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   incomingStream: MediaStream;
   outgoingStream: MediaStream;
   preferredMicrophoneStream: MediaStream;
+  microphone: UserMediaDevice;
 
   didTestComplete: boolean;
   testScore: string;
@@ -115,7 +116,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     if (mic) {
       this.pexipAPI.audio_source = mic.deviceId;
     }
-    this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(mic);
+    this.microphone = mic;
+    // this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(mic);
   }
 
   setupPexipClient() {
@@ -142,10 +144,11 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     }
   }
 
-  connectHandleEvent(stream) {
+  async connectHandleEvent(stream) {
     console.log('successfully connected');
     this.incomingStream = stream;
     this.displayFeed = true;
+    this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(this.microphone);
   }
 
   errorHandleEvent(reason) {
