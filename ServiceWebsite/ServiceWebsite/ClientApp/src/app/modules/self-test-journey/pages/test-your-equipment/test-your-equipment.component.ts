@@ -123,98 +123,98 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   setupPexipClient() {
     const self = this;
     this.pexipAPI = new PexRTC();
-    if (this.pexipAPI) {
-      this.updatePexipAudioVideoSource();
-      this.pexipAPI.onSetup = function (stream, pin_status, conference_extension) {
-        self.outgoingStream = stream;
-        this.connect('0000', null);
-      };
+    // if (this.pexipAPI) {
+    this.updatePexipAudioVideoSource();
+    this.pexipAPI.onSetup = function (stream, pin_status, conference_extension) {
+      self.outgoingStream = stream;
+      this.connect('0000', null);
+    };
 
-      this.pexipAPI.onConnect = ((stream) => {
-        self.connectHandleEvent(stream);
-      });
-
-      this.pexipAPI.onError = ((reason) => {
-        self.errorHandleEvent(reason);
-      });
-
-      this.pexipAPI.onDisconnect = ((reason) => {
-        self.disconnectHandleEvent(reason);
-      });
-    }
-  }
-
-  async connectHandleEvent(stream) {
-    console.log('successfully connected');
-    this.incomingStream = stream;
-    this.displayFeed = true;
-    this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(this.microphone);
-  }
-
-  errorHandleEvent(reason) {
-    this.displayFeed = false;
-    console.log('Error from pexip. Reason : ' + reason);
-    this.logger.error('Error from pexip.', reason);
-    this.didTestComplete = true;
-  }
-
-  disconnectHandleEvent(reason) {
-    this.displayFeed = false;
-    console.log('Disconnected from pexip. Reason : ' + reason);
-    this.logger.error('Disconnected from pexip.', reason);
-    if (reason === 'Conference terminated by another participant') {
-      this.didTestComplete = true;
-      this.retrieveSelfTestScore();
-    }
-  }
-
-  disconnect() {
-    if (this.pexipAPI) {
-      this.pexipAPI.disconnect();
-    }
-    this.incomingStream = null;
-    this.outgoingStream = null;
-    this.didTestComplete = true;
-    this.displayFeed = false;
-  }
-
-  async retrieveSelfTestScore() {
-    this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
-      console.log('TEST SCORE KINLY RESULT:' + score.score);
-      this.model.selfTest.selfTestResultScore = score.score;
-    }, (error) => {
-      this.model.selfTest.selfTestResultScore = 'None';
-      this.logger.error('Error to get self test score: ', error);
+    this.pexipAPI.onConnect = ((stream) => {
+      self.connectHandleEvent(stream);
     });
+
+    this.pexipAPI.onError = ((reason) => {
+      self.errorHandleEvent(reason);
+    });
+
+    this.pexipAPI.onDisconnect = ((reason) => {
+      self.disconnectHandleEvent(reason);
+    });
+  // }
+}
+
+async connectHandleEvent(stream) {
+  console.log('successfully connected');
+  this.incomingStream = stream;
+  this.displayFeed = true;
+  this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(this.microphone);
+}
+
+errorHandleEvent(reason) {
+  this.displayFeed = false;
+  console.log('Error from pexip. Reason : ' + reason);
+  this.logger.error('Error from pexip.', reason);
+  this.didTestComplete = true;
+}
+
+disconnectHandleEvent(reason) {
+  this.displayFeed = false;
+  console.log('Disconnected from pexip. Reason : ' + reason);
+  this.logger.error('Disconnected from pexip.', reason);
+  if (reason === 'Conference terminated by another participant') {
+    this.didTestComplete = true;
+    this.retrieveSelfTestScore();
   }
+}
+
+disconnect() {
+  if (this.pexipAPI) {
+    this.pexipAPI.disconnect();
+  }
+  this.incomingStream = null;
+  this.outgoingStream = null;
+  this.didTestComplete = true;
+  this.displayFeed = false;
+}
+
+async retrieveSelfTestScore() {
+  this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
+    console.log('TEST SCORE KINLY RESULT:' + score.score);
+    this.model.selfTest.selfTestResultScore = score.score;
+  }, (error) => {
+    this.model.selfTest.selfTestResultScore = 'None';
+    this.logger.error('Error to get self test score: ', error);
+  });
+}
 
   protected bindModel(): void {
-  }
+}
 
-  replayVideo() {
-    if (this.pexipAPI) {
-      this.pexipAPI.disconnect();
-    }
-    this.call();
+replayVideo() {
+  if (this.pexipAPI) {
+    this.pexipAPI.disconnect();
   }
+  this.call();
+}
 
-  continue() {
-    if (!this.didTestComplete) {
-      this.disconnect();
-    }
-    this.pexipAPI = null;
-    this.retrieveSelfTestScore();
-    this.journey.goto(SelfTestJourneySteps.CameraWorking);
+continue() {
+  if (!this.didTestComplete) {
+    this.disconnect();
   }
+  this.pexipAPI = null;
+  this.retrieveSelfTestScore();
+  this.journey.goto(SelfTestJourneySteps.CameraWorking);
+}
 
-  ngOnDestroy() {
-    if (this.pexipAPI) {
-      this.pexipAPI.disconnect();
-    }
-    this.pexipAPI = null;
-    this.userMediaStreamService.stopStream(this.incomingStream);
-    this.userMediaStreamService.stopStream(this.outgoingStream);
-    this.incomingStream = null;
-    this.outgoingStream = null;
+ngOnDestroy() {
+  if (this.pexipAPI) {
+    this.pexipAPI.disconnect();
   }
+  this.pexipAPI = null;
+  this.userMediaStreamService.stopStream(this.incomingStream);
+  this.userMediaStreamService.stopStream(this.outgoingStream);
+  this.incomingStream = null;
+  this.outgoingStream = null;
+}
 }
