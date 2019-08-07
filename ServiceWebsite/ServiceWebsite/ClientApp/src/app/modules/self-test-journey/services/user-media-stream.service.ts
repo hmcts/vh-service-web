@@ -18,8 +18,6 @@ export class UserMediaStreamService {
   private requestStream: MediaStream;
 
   constructor(private logger: Logger) {
-    this._navigator.getUserMedia = (this._navigator.getUserMedia || this._navigator.webkitGetUserMedia
-      || this._navigator.mozGetUserMedia || this._navigator.msGetUserMedia);
   }
 
   async requestAccess(): Promise<boolean> {
