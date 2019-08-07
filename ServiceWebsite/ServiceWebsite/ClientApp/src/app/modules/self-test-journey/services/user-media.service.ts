@@ -24,9 +24,6 @@ export class UserMediaService {
     this.preferredCamCache = new SessionStorage(this.PREFERRED_CAMERA_KEY);
     this.preferredMicCache = new SessionStorage(this.PREFERRED_MICROPHONE_KEY);
 
-    this._navigator.getUserMedia = (this._navigator.getUserMedia || this._navigator.webkitGetUserMedia
-      || this._navigator.mozGetUserMedia || this._navigator.msGetUserMedia);
-
     this._navigator.mediaDevices.ondevicechange = async () => {
       await this.updateAvailableDevicesList();
     };

@@ -48,7 +48,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     private userMediaStreamService: UserMediaStreamService,
     private videoWebService: VideoWebService,
     private configService: ConfigService,
-     _logger: Logger
+    _logger: Logger
   ) {
     super(journey);
     this.didTestComplete = false;
@@ -90,7 +90,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     });
   }
 
-  call() {
+  async call() {
     this.didTestComplete = false;
     this.testScore = null;
     const conferenceAlias = 'testcall1';
@@ -121,6 +121,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   setupPexipClient() {
     const self = this;
     this.pexipAPI = new PexRTC();
+
     if (this.pexipAPI) {
       this.updatePexipAudioVideoSource();
       this.pexipAPI.onSetup = function (stream, pin_status, conference_extension) {
@@ -142,7 +143,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     }
   }
 
-  connectHandleEvent(stream) {
+  async connectHandleEvent(stream) {
     console.log('successfully connected');
     this.incomingStream = stream;
     this.displayFeed = true;
@@ -175,7 +176,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.displayFeed = false;
   }
 
-  retrieveSelfTestScore() {
+  async retrieveSelfTestScore() {
     this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
       console.log('TEST SCORE KINLY RESULT:' + score.score);
       this.model.selfTest.selfTestResultScore = score.score;
