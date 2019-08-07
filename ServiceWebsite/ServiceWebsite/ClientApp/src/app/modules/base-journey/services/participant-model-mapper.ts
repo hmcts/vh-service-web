@@ -21,7 +21,9 @@ export abstract class ParticipantModelMapper {
     selfTestAnswers.cameraWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeYourself);
     selfTestAnswers.microphoneWorking = this.mapBooleanValue(answers, SelfTestQuestionKeys.Microphone);
     selfTestAnswers.seeAndHearClearly = this.mapBooleanValue(answers, SelfTestQuestionKeys.SeeHearClearly);
-    selfTestAnswers.selfTestResultScore = this.mapTextValue(answers, SelfTestQuestionKeys.TestResultScore); return selfTestAnswers;
+    selfTestAnswers.selfTestResultScore = this.mapTextValue(answers, SelfTestQuestionKeys.TestResultScore);
+
+    return selfTestAnswers;
   }
 
   protected addSelfTestAnswers(selfTestAnswers: SelfTestAnswers, answers: HearingSuitabilityAnswer[]) {

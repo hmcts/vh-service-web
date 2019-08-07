@@ -1,4 +1,4 @@
-import { UserMediaDevice } from '../../modules/self-test-journey/models/user-media-device';
+import {UserMediaDevice} from '../../modules/shared/models/user-media-device';
 
 export class MediaDeviceTestData {
   getListOfDevices() {

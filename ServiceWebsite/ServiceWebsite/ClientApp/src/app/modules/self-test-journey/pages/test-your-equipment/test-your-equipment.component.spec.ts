@@ -7,7 +7,6 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { MockLogger } from '../../../../testing/mocks/mock-logger';
 import { Logger } from '../../../../services/logger';
 import { VideoWebService } from '../../services/video-web.service';
-import { UserMediaService } from '../../services/user-media.service';
 import { of, throwError } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { ConfigService } from '../../../../services/config.service';
@@ -16,7 +15,8 @@ import { Config } from '../../../shared/models/config';
 import { UserMediaStreamService } from '../../services/user-media-stream.service';
 import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
 import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
-import { UserMediaDevice } from '../../models/user-media-device';
+import {UserMediaService} from '../../../../services/user-media.service';
+import {UserMediaDevice} from '../../../shared/models/user-media-device';
 declare var PexRTC: any;
 
 @Component({
@@ -72,7 +72,7 @@ describe('TestYourEquipmentComponent functionality', () => {
     model = new MutableIndividualSuitabilityModel();
     model.selfTest = new SelfTestAnswers();
     component = new TestYourEquipmentComponent(journeyObj, model,
-      new UserMediaService(), userMediaStreamServiceMock, videoWebServiceMock,
+      new UserMediaService(new MockLogger()), userMediaStreamServiceMock, videoWebServiceMock,
       configServiceMock, new MockLogger());
 
   });
@@ -163,7 +163,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
     model = new MutableIndividualSuitabilityModel();
     model.selfTest = new SelfTestAnswers();
     component = new TestYourEquipmentComponent(journeyObj, model,
-      new UserMediaService(), userMediaStreamServiceMock, videoWebServiceMock,
+      new UserMediaService(new MockLogger()), userMediaStreamServiceMock, videoWebServiceMock,
       configServiceMock, new MockLogger());
 
   });

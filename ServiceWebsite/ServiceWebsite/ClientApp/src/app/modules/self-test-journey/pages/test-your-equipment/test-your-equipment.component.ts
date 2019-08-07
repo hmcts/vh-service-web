@@ -4,13 +4,12 @@ import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
-import { UserMediaService } from '../../services/user-media.service';
 import { UserMediaStreamService } from '../../services/user-media-stream.service';
 import { VideoWebService } from '../../services/video-web.service';
 import { ConfigService } from '../../../../services/config.service';
 import { Logger } from '../../../../services/logger';
-import { UserMediaDevice } from '../../models/user-media-device';
 import { Subscription } from 'rxjs';
+import {UserMediaService} from '../../../../services/user-media.service';
 
 declare var PexRTC: any;
 

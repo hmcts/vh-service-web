@@ -1,4 +1,4 @@
-import { MicVisualiserComponent } from '../mic-visualiser/mic-visualiser.component';
+import { MicVisualiserComponent } from './mic-visualiser.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import 'webrtc-adapter';
 

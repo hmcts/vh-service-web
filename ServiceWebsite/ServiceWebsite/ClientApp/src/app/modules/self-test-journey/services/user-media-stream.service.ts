@@ -1,7 +1,7 @@
 import { Injectable, } from '@angular/core';
 import 'webrtc-adapter';
-import { UserMediaDevice } from '../models/user-media-device';
 import { Logger } from '../../../services/logger';
+import {UserMediaDevice} from '../../shared/models/user-media-device';
 
 @Injectable({
   providedIn: 'root',
