@@ -9,6 +9,7 @@ import { JourneyBase } from '../journey-base';
 import { JourneyStep } from '../journey-step';
 import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
 import { EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
 
 class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBindings {
   readonly initialStep = Steps.AboutYou;
@@ -32,6 +33,7 @@ describe('JourneyRoutingListenerService', () => {
   let service: JourneyRoutingListenerService;
   let journey: jasmine.SpyObj<JourneyBase>;
   let router: jasmine.SpyObj<Router>;
+  let location: jasmine.SpyObj<Location>;
   let routerEvents: Subject<Event>;
   let stepEvents: EventEmitter<JourneyStep>;
   let redirectService: jasmine.SpyObj<DocumentRedirectService>;
@@ -49,8 +51,8 @@ describe('JourneyRoutingListenerService', () => {
       ...jasmine.createSpyObj<JourneyBase>(['jumpTo', 'startAt']),
       redirect: stepEvents
     } as jasmine.SpyObj<JourneyBase>;
-
     journey.redirect.subscribe((s: Steps) => currentJourneyStep = s);
+
   });
 
   const givenCurrentUrlIs = (url: string) => {
@@ -59,7 +61,16 @@ describe('JourneyRoutingListenerService', () => {
       events: routerEvents.asObservable(),
       url: url
     } as jasmine.SpyObj<Router>;
+
+
+    location = {
+      ...jasmine.createSpyObj<Location>(['path'])
+    } as jasmine.SpyObj<Location>;
+    location.path.and.returnValue('/about-you');
+
+
     service = new JourneyRoutingListenerService(
+      location,
       router,
       config,
       redirectService
