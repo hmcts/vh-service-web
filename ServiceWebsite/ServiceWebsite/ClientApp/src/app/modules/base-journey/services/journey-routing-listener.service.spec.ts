@@ -34,7 +34,6 @@ describe('JourneyRoutingListenerService', () => {
   let journey: jasmine.SpyObj<JourneyBase>;
   let router: jasmine.SpyObj<Router>;
   let location: jasmine.SpyObj<Location>;
-  //let location: Location;
   let routerEvents: Subject<Event>;
   let stepEvents: EventEmitter<JourneyStep>;
   let redirectService: jasmine.SpyObj<DocumentRedirectService>;
@@ -63,13 +62,13 @@ describe('JourneyRoutingListenerService', () => {
       url: url
     } as jasmine.SpyObj<Router>;
 
-    
+
     location = {
       ...jasmine.createSpyObj<Location>(['path'])
     } as jasmine.SpyObj<Location>;
     location.path.and.returnValue('/about-you');
-    
-    
+
+
     service = new JourneyRoutingListenerService(
       location,
       router,
