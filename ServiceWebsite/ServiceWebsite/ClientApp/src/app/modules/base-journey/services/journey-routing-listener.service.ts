@@ -7,6 +7,7 @@ import { JourneyStep } from '../journey-step';
 import { JourneyBase } from '../journey-base';
 import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
 import { filter } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 /**
  * Connects the routing to the journey
@@ -16,7 +17,8 @@ export class JourneyRoutingListenerService {
     private journey: JourneyBase;
     private componentBindings: ParticipantJourneyStepComponentBindings;
 
-    constructor(
+  constructor(
+        private location: Location,
         private router: Router,
         private config: Config,
         private redirect: DocumentRedirectService) {
@@ -71,7 +73,7 @@ export class JourneyRoutingListenerService {
     }
 
     startJourneyAtCurrentRoute() {
-        const currentRoute = this.getRouteFromUrl(this.router.url);
+      const currentRoute = this.getRouteFromUrl(this.location.path());
         const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
 
         if (journeyStep !== null) {
