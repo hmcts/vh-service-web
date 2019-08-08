@@ -17,7 +17,6 @@ import { MutableIndividualSuitabilityModel } from '../../../individual-journey/m
 import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import {UserMediaService} from '../../../../services/user-media.service';
 import {UserMediaDevice} from '../../../shared/models/user-media-device';
-declare var PexRTC: any;
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -25,6 +24,15 @@ declare var PexRTC: any;
 })
 class StubMicVisualiserComponent {
   @Input() stream: MediaStream;
+}
+
+@Component({
+  selector: 'app-select-media-devices',
+  template: ''
+})
+class StubSelectedUserMediaDeviceComponent {
+  @Input() selectedCamera: UserMediaDevice;
+  @Input() selectedMicrophone: UserMediaDevice;
 }
 
 const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
@@ -45,7 +53,7 @@ describe('TestYourEquipmentComponent', () => {
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,
       journey: journey,
-      declarations: [CrestBluePanelComponent, StubMicVisualiserComponent],
+      declarations: [CrestBluePanelComponent, StubMicVisualiserComponent, StubSelectedUserMediaDeviceComponent],
       providers: [{ provide: Logger, useClass: MockLogger },
       { provide: VideoWebService, useValue: videoWebServiceMock },
       { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
@@ -83,7 +91,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
     component.userMediaService.updatePreferredCamera(defaultDevice);
     component.userMediaService.updatePreferredMicrophone(soundOutput);
-    component.ngOnInit();
+    await component.ngOnInit();
     expect(component.didTestComplete).toBeFalsy();
   });
   it('should update video and audio devices', async () => {
@@ -93,7 +101,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
     component.userMediaService.updatePreferredCamera(defaultDevice);
     component.userMediaService.updatePreferredMicrophone(soundOutput);
-    component.ngOnInit();
+    await component.ngOnInit();
     await component.updatePexipAudioVideoSource();
     expect(component.pexipAPI.audio_source).toBeTruthy();
   });
@@ -105,8 +113,8 @@ describe('TestYourEquipmentComponent functionality', () => {
   it('should replay video', async () => {
     component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     component.didTestComplete = true;
-    component.ngOnInit();
-    component.replayVideo();
+    await component.ngOnInit();
+    await component.replayVideo();
     expect(component.didTestComplete).toBeFalsy();
   });
   it('should disconnect pexip', async () => {
