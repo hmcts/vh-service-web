@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
-import { JourneyBase } from '../../../base-journey/journey-base';
-import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
-import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
-import { UserMediaStreamService } from '../../services/user-media-stream.service';
-import { VideoWebService } from '../../services/video-web.service';
-import { ConfigService } from '../../../../services/config.service';
-import { Logger } from '../../../../services/logger';
-import { Subscription } from 'rxjs';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
+import {JourneyBase} from '../../../base-journey/journey-base';
+import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
+import {SelfTestJourneySteps} from '../../self-test-journey-steps';
+import {TokenResponse, ParticipantResponse} from '../../../../services/clients/api-client';
+import {UserMediaStreamService} from '../../services/user-media-stream.service';
+import {VideoWebService} from '../../services/video-web.service';
+import {ConfigService} from '../../../../services/config.service';
+import {Logger} from '../../../../services/logger';
+import {Subscription} from 'rxjs';
 import {UserMediaService} from '../../../../services/user-media.service';
 import {SelectedUserMediaDevice} from '../../../shared/models/selected-user-media-device';
 
@@ -39,17 +39,16 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   userMediaService: UserMediaService;
   logger: Logger;
 
-  testCallResult: string;
   subDevice: Subscription;
   subScore: Subscription;
 
   constructor(journey: JourneyBase,
-    private model: ParticipantSuitabilityModel,
-    _userMediaService: UserMediaService,
-    private userMediaStreamService: UserMediaStreamService,
-    private videoWebService: VideoWebService,
-    private configService: ConfigService,
-    _logger: Logger
+              private model: ParticipantSuitabilityModel,
+              _userMediaService: UserMediaService,
+              private userMediaStreamService: UserMediaStreamService,
+              private videoWebService: VideoWebService,
+              private configService: ConfigService,
+              _logger: Logger
   ) {
     super(journey);
     this.didTestComplete = false;
@@ -67,7 +66,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   setupSubscribers() {
-    this.subDevice = this.userMediaService.connectedDevices.subscribe(async devices => {
+    this.subDevice = this.userMediaService.connectedDevices.subscribe(async () => {
       this.hasMultipleDevices = await this.userMediaService.hasMultipleDevices();
       console.log('Has devices :' + this.hasMultipleDevices);
     });
@@ -82,9 +81,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.videoWebService.getCurrentParticipantId().subscribe((response: ParticipantResponse) => {
       this.participantId = response.id;
       this.videoWebService.getToken(this.participantId).subscribe(async (token: TokenResponse) => {
-        this.token = token;
-        await this.call();
-      },
+          this.token = token;
+          this.call();
+        },
         (error) => {
           this.loadingData = false;
           this.logger.error('Error to get token.', error);
@@ -92,7 +91,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     });
   }
 
-  async call(): Promise<void> {
+  call() {
     this.didTestComplete = false;
     this.testScore = null;
     const conferenceAlias = 'testcall1';
@@ -126,26 +125,27 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
     if (this.pexipAPI) {
       await this.updatePexipAudioVideoSource();
-      this.pexipAPI.onSetup = function (stream, pin_status, conference_extension) {
+
+      this.pexipAPI.onSetup = function (stream) {
         self.outgoingStream = stream;
         this.connect('0000', null);
       };
 
-      this.pexipAPI.onConnect = (async (stream) => {
-        await self.connectHandleEvent(stream);
+      this.pexipAPI.onConnect = ((stream) => {
+        self.connectHandleEvent(stream);
       });
 
       this.pexipAPI.onError = ((reason) => {
         self.errorHandleEvent(reason);
       });
 
-      this.pexipAPI.onDisconnect = (async (reason) => {
-        await self.disconnectHandleEvent(reason);
+      this.pexipAPI.onDisconnect = ((reason) => {
+        self.disconnectHandleEvent(reason);
       });
     }
   }
 
-  async connectHandleEvent(stream) {
+  connectHandleEvent(stream) {
     console.log('successfully connected');
     this.incomingStream = stream;
     this.displayFeed = true;
@@ -158,13 +158,13 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.didTestComplete = true;
   }
 
-  async disconnectHandleEvent(reason) {
+  disconnectHandleEvent(reason) {
     this.displayFeed = false;
     console.log('Disconnected from pexip. Reason : ' + reason);
     this.logger.error('Disconnected from pexip.', reason);
     if (reason === 'Conference terminated by another participant') {
       this.didTestComplete = true;
-      await this.retrieveSelfTestScore();
+      this.retrieveSelfTestScore();
     }
   }
 
@@ -172,13 +172,14 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     if (this.pexipAPI) {
       this.pexipAPI.disconnect();
     }
+
     this.incomingStream = null;
     this.outgoingStream = null;
     this.didTestComplete = true;
     this.displayFeed = false;
   }
 
-  async retrieveSelfTestScore() {
+  retrieveSelfTestScore() {
     this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
       console.log('TEST SCORE KINLY RESULT:' + score.score);
       this.model.selfTest.selfTestResultScore = score.score;
@@ -191,12 +192,12 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   protected bindModel(): void {
   }
 
-  async replayVideo()  {
+  async replayVideo() {
     this.ngOnDestroy();
 
     await this.setupPexipClient();
     await this.userMediaService.requestAccess();
-    await this.call();
+    this.call();
   }
 
   async changeDevices() {
@@ -210,20 +211,20 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.userMediaService.updatePreferredCamera(selectedMediaDevice.selectedCamera);
     this.userMediaService.updatePreferredMicrophone(selectedMediaDevice.selectedMicrophone);
     await this.updatePexipAudioVideoSource();
-    await this.call();
+    this.call();
   }
 
   async onMediaDeviceChangeCancelled() {
     this.displayDeviceChangeModal = false;
-    await this.call();
+    this.call();
   }
 
-  async continue() {
+  continue() {
     if (!this.didTestComplete) {
       this.disconnect();
     }
     this.pexipAPI = null;
-    await this.retrieveSelfTestScore();
+    this.retrieveSelfTestScore();
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 
