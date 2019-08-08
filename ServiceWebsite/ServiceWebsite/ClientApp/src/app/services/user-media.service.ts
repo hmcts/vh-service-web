@@ -6,23 +6,14 @@ import {BehaviorSubject} from 'rxjs';
 import 'webrtc-adapter';
 import {UserMediaDevice} from '../modules/shared/models/user-media-device';
 
-const _navigator = <any>navigator;
-
-_navigator.mediaDevices.getUserMedia = (_navigator.mediaDevices.getUserMedia ||
-  _navigator.webkitGetUserMedia ||
-  _navigator.mozGetUserMedia ||
-  _navigator.msGetUserMedia);
-
 @Injectable({
   providedIn: 'root',
 })
 export class UserMediaService extends MediaService {
 
-  readonly constraints: MediaStreamConstraints = {
-    audio: true,
-    video: true
-  };
+  _navigator = <any>navigator;
 
+  readonly constraints: MediaStreamConstraints = { audio: true, video: true };
   private readonly preferredCamCache: SessionStorage<UserMediaDevice>;
   private readonly preferredMicCache: SessionStorage<UserMediaDevice>;
   readonly PREFERRED_CAMERA_KEY = 'vh.preferred.camera';
@@ -37,7 +28,10 @@ export class UserMediaService extends MediaService {
     this.preferredCamCache = new SessionStorage(this.PREFERRED_CAMERA_KEY);
     this.preferredMicCache = new SessionStorage(this.PREFERRED_MICROPHONE_KEY);
 
-    _navigator.mediaDevices.ondevicechange = async () => {
+    this._navigator.getUserMedia = (this._navigator.getUserMedia || this._navigator.webkitGetUserMedia
+      || this._navigator.mozGetUserMedia || this._navigator.msGetUserMedia);
+
+    this._navigator.mediaDevices.ondevicechange = async () => {
       await this.updateAvailableDevicesList();
     };
   }
@@ -59,10 +53,10 @@ export class UserMediaService extends MediaService {
   }
 
   async updateAvailableDevicesList(): Promise<void> {
-    if (!_navigator.mediaDevices || !_navigator.mediaDevices.enumerateDevices) {
+    if (!this._navigator.mediaDevices || !this._navigator.mediaDevices.enumerateDevices) {
       throw new Error('enumerateDevices() not supported.');
     }
-    let updatedDevices: MediaDeviceInfo[] = await _navigator.mediaDevices.enumerateDevices();
+    let updatedDevices: MediaDeviceInfo[] = await this._navigator.mediaDevices.enumerateDevices();
     updatedDevices = updatedDevices.filter(x => x.deviceId !== 'default' && x.kind !== 'audiooutput');
     this.availableDeviceList = Array.from(updatedDevices, device =>
       new UserMediaDevice(device.label, device.deviceId, device.kind, device.groupId)
@@ -120,7 +114,7 @@ export class UserMediaService extends MediaService {
     if (this.stream) {
       this.stopStream();
     }
-    this.stream = await _navigator.mediaDevices.getUserMedia(this.constraints);
+    this.stream = await this._navigator.mediaDevices.getUserMedia(this.constraints);
     return this.stream;
   }
 

@@ -50,8 +50,7 @@ export class SelectMediaDevicesComponent implements OnInit {
 
     const preferredCamera = await this.userMediaService.getPreferredCamera();
     const preferredMicrophone = await this.userMediaService.getPreferredMicrophone();
-    this.preferredCameraStream = await this.userMediaStreamService.
-      getStreamForCam(preferredCamera);
+    this.preferredCameraStream = await this.userMediaStreamService.getStreamForCam(preferredCamera);
     this.preferredMicrophoneStream = await this.userMediaStreamService
       .getStreamForMic(preferredMicrophone);
 
@@ -123,12 +122,12 @@ export class SelectMediaDevicesComponent implements OnInit {
   }
 
   private subscribeToDeviceSelectionChange() {
-    this.selectedCamera.valueChanges.subscribe(newCamera => {
-      this.updateCameraStream(newCamera);
+    this.selectedCamera.valueChanges.subscribe(async newCamera => {
+      await this.updateCameraStream(newCamera);
     });
 
-    this.selectedMicrophone.valueChanges.subscribe(newMicrophone => {
-      this.updateMicrophoneStream(newMicrophone);
+    this.selectedMicrophone.valueChanges.subscribe(async newMicrophone => {
+      await this.updateMicrophoneStream(newMicrophone);
     });
   }
 

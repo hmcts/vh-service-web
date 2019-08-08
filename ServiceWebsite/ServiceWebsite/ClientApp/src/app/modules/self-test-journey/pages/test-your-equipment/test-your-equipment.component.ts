@@ -10,6 +10,7 @@ import { ConfigService } from '../../../../services/config.service';
 import { Logger } from '../../../../services/logger';
 import { Subscription } from 'rxjs';
 import {UserMediaService} from '../../../../services/user-media.service';
+import {SelectedUserMediaDevice} from '../../../shared/models/selected-user-media-device';
 
 declare var PexRTC: any;
 
@@ -22,6 +23,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   token: TokenResponse;
   pexipAPI: any;
+  displayDeviceChangeModal: boolean;
   hasMultipleDevices: boolean;
   participantId: string;
   pexipNode: string;
@@ -55,16 +57,17 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.logger = _logger;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.displayFeed = false;
+    this.displayDeviceChangeModal = false;
     this.setupSubscribers();
-    this.setConfiguration();
-    this.setupPexipClient();
-    this.getToken();
+    await this.setConfiguration();
+    await this.setupPexipClient();
+    await this.getToken();
   }
 
   setupSubscribers() {
-    this.subDevice = this.userMediaService.connectedDevices.subscribe(async (devices) => {
+    this.subDevice = this.userMediaService.connectedDevices.subscribe(async devices => {
       this.hasMultipleDevices = await this.userMediaService.hasMultipleDevices();
       console.log('Has devices :' + this.hasMultipleDevices);
     });
@@ -78,9 +81,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   async getToken() {
     this.videoWebService.getCurrentParticipantId().subscribe((response: ParticipantResponse) => {
       this.participantId = response.id;
-      this.videoWebService.getToken(this.participantId).subscribe((token: TokenResponse) => {
+      this.videoWebService.getToken(this.participantId).subscribe(async (token: TokenResponse) => {
         this.token = token;
-        this.call();
+        await this.call();
       },
         (error) => {
           this.loadingData = false;
@@ -89,7 +92,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     });
   }
 
-  async call() {
+  async call(): Promise<void> {
     this.didTestComplete = false;
     this.testScore = null;
     const conferenceAlias = 'testcall1';
@@ -117,27 +120,27 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(mic);
   }
 
-  setupPexipClient() {
+  async setupPexipClient() {
     const self = this;
     this.pexipAPI = new PexRTC();
 
     if (this.pexipAPI) {
-      this.updatePexipAudioVideoSource();
+      await this.updatePexipAudioVideoSource();
       this.pexipAPI.onSetup = function (stream, pin_status, conference_extension) {
         self.outgoingStream = stream;
         this.connect('0000', null);
       };
 
-      this.pexipAPI.onConnect = ((stream) => {
-        self.connectHandleEvent(stream);
+      this.pexipAPI.onConnect = (async (stream) => {
+        await self.connectHandleEvent(stream);
       });
 
       this.pexipAPI.onError = ((reason) => {
         self.errorHandleEvent(reason);
       });
 
-      this.pexipAPI.onDisconnect = ((reason) => {
-        self.disconnectHandleEvent(reason);
+      this.pexipAPI.onDisconnect = (async (reason) => {
+        await self.disconnectHandleEvent(reason);
       });
     }
   }
@@ -155,13 +158,13 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.didTestComplete = true;
   }
 
-  disconnectHandleEvent(reason) {
+  async disconnectHandleEvent(reason) {
     this.displayFeed = false;
     console.log('Disconnected from pexip. Reason : ' + reason);
     this.logger.error('Disconnected from pexip.', reason);
     if (reason === 'Conference terminated by another participant') {
       this.didTestComplete = true;
-      this.retrieveSelfTestScore();
+      await this.retrieveSelfTestScore();
     }
   }
 
@@ -188,19 +191,39 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   protected bindModel(): void {
   }
 
-  replayVideo() {
-    if (this.pexipAPI) {
-      this.pexipAPI.disconnect();
-    }
-    this.call();
+  async replayVideo()  {
+    this.ngOnDestroy();
+
+    await this.setupPexipClient();
+    await this.userMediaService.requestAccess();
+    await this.call();
   }
 
-  continue() {
+  async changeDevices() {
+    this.disconnect();
+    this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
+    this.displayDeviceChangeModal = true;
+  }
+
+  async onMediaDeviceChangeAccepted(selectedMediaDevice: SelectedUserMediaDevice) {
+    this.displayDeviceChangeModal = false;
+    this.userMediaService.updatePreferredCamera(selectedMediaDevice.selectedCamera);
+    this.userMediaService.updatePreferredMicrophone(selectedMediaDevice.selectedMicrophone);
+    await this.updatePexipAudioVideoSource();
+    await this.call();
+  }
+
+  async onMediaDeviceChangeCancelled() {
+    this.displayDeviceChangeModal = false;
+    await this.call();
+  }
+
+  async continue() {
     if (!this.didTestComplete) {
       this.disconnect();
     }
     this.pexipAPI = null;
-    this.retrieveSelfTestScore();
+    await this.retrieveSelfTestScore();
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 
