@@ -19,14 +19,6 @@ export class MockUserMediaService extends UserMediaService {
     return this.testData.getListOfMicrophones();
   }
 
-  async getPreferredMicStream(): Promise<MediaStream> {
-    return null;
-  }
-
-  async getPreferredCameraStream(): Promise<MediaStream> {
-    return null;
-  }
-
   getCachedDeviceIfStillConnected(cache: SessionStorage<UserMediaDevice>): UserMediaDevice {
     return null;
   }
