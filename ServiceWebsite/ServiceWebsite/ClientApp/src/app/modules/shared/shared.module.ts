@@ -12,6 +12,7 @@ import { BackNavigationComponent } from './back-navigation/back-navigation.compo
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { CrestBluePanelComponent } from './crest-blue-panel/crest-blue-panel.component';
 import { BetaBannerComponent} from './beta-banner/beta-banner.component';
+import {SelectMediaDevicesComponent} from './select-media-devices/select-media-devices.component';
 
 // services
 import { ProfileService } from '../../services/profile.service';
@@ -19,6 +20,7 @@ import { PageTrackerService } from '../../services/page-tracker.service';
 import { WindowRef } from './window-ref';
 import { LongDatetimePipe } from './date-time.pipe';
 import { AppYesNoPipe } from './boolean.pipe';
+import {MicVisualiserComponent} from './mic-visualiser/mic-visualiser.component';
 
 @NgModule({
   imports: [
@@ -37,7 +39,9 @@ import { AppYesNoPipe } from './boolean.pipe';
     CrestBluePanelComponent,
     LongDatetimePipe,
     AppYesNoPipe,
-    BetaBannerComponent
+    BetaBannerComponent,
+    SelectMediaDevicesComponent,
+    MicVisualiserComponent
   ],
   providers: [
     ProfileService,
@@ -54,7 +58,9 @@ import { AppYesNoPipe } from './boolean.pipe';
     CrestBluePanelComponent,
     LongDatetimePipe,
     AppYesNoPipe,
-    BetaBannerComponent
+    BetaBannerComponent,
+    SelectMediaDevicesComponent,
+    MicVisualiserComponent
   ]
 })
 export class SharedModule { }
