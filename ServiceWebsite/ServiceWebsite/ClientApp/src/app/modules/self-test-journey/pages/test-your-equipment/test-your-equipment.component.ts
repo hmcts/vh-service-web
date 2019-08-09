@@ -193,7 +193,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async replayVideo() {
-    this.ngOnDestroy();
+    this.dispose();
 
     await this.setupPexipClient();
     await this.userMediaService.requestAccess();
@@ -228,7 +228,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 
-  ngOnDestroy() {
+  dispose() {
     if (this.pexipAPI) {
       this.pexipAPI.disconnect();
     }
@@ -237,5 +237,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.userMediaStreamService.stopStream(this.outgoingStream);
     this.incomingStream = null;
     this.outgoingStream = null;
+  }
+
+  ngOnDestroy() {
+    this.dispose();
   }
 }
