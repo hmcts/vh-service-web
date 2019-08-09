@@ -105,6 +105,22 @@ describe('UserMediaService', () => {
     service.updatePreferredCamera(cachedDevice);
     expect(service.getPreferredCamera()).toBeTruthy();
   }));
+
+  it('should throw error when update device list from navigator devices', inject([UserMediaService], async (service: UserMediaService) => {
+    (<any>navigator)['__defineGetter__']('mediaDevices', function () {
+      return undefined;
+    });
+
+    let error;
+    try {
+      await service.updateAvailableDevicesList();
+    } catch (e) {
+      error = e;
+    }
+    const expectedError = new Error('enumerateDevices() not supported.');
+    expect(error).toEqual(expectedError);
+  }));
+
   it('should update device list from navigator devices', inject([UserMediaService], async (service: UserMediaService) => {
     await service.updateAvailableDevicesList();
     expect(service.availableDeviceList).toBeTruthy();
@@ -114,17 +130,28 @@ describe('UserMediaService', () => {
   it('should return the media stream', async () => {
     const logger = jasmine.createSpyObj<LoggerService>(['error']);
     const userMediaService = new UserMediaService(logger);
-    const stream = await userMediaService.getStream();
+    let stream = await userMediaService.getStream();
+    stream = await userMediaService.getStream();
     expect(stream).not.toBeNull();
     userMediaService.stopStream();
   });
 
-  it('should return media access request successfull', async () => {
+  it('should return media access request successful', async () => {
     const logger = jasmine.createSpyObj<LoggerService>(['error']);
     const userMediaService = new UserMediaService(logger);
     const result = await userMediaService.requestAccess();
     expect(result).not.toBeNull();
     expect(result).toBeTruthy();
+    userMediaService.stopStream();
+  });
+
+  it('should fail to get access to media return false', async () => {
+    const logger = jasmine.createSpyObj<LoggerService>(['error']);
+    const userMediaService = new UserMediaService(logger);
+    spyOn(userMediaService, 'getStream').and.throwError('Failed to get access to user media');
+    const result = await userMediaService.requestAccess();
+    expect(result).not.toBeNull();
+    expect(result).toBeFalsy();
     userMediaService.stopStream();
   });
 });
