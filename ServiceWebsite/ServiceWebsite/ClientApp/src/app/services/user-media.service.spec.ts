@@ -17,6 +17,12 @@ describe('UserMediaService', () => {
         {provide: Logger, useClass: MockLogger}
       ]
     });
+
+    (<any>navigator)['__defineGetter__']('mediaDevices', function () {
+      const mediaDevices = jasmine.createSpyObj<MediaDevices>('mediaDevices', ['enumerateDevices', 'ondevicechange', 'getUserMedia']);
+      mediaDevices.enumerateDevices.and.returnValue([MediaDeviceInfo, MediaDeviceInfo]);
+      return mediaDevices;
+    });
   });
 
   it('should return only video devices', inject([UserMediaService], async (service: UserMediaService) => {
@@ -107,9 +113,8 @@ describe('UserMediaService', () => {
   }));
 
   it('should throw error when update device list from navigator devices', inject([UserMediaService], async (service: UserMediaService) => {
-    const mediaDevices = jasmine.createSpyObj<MediaDevices>('mediaDevices', ['ondevicechange']);
     (<any>navigator)['__defineGetter__']('mediaDevices', function () {
-      return mediaDevices;
+      return jasmine.createSpyObj<MediaDevices>('mediaDevices', ['ondevicechange', 'getUserMedia']);
     });
 
     let error;
@@ -123,24 +128,12 @@ describe('UserMediaService', () => {
   }));
 
   it('should update device list from navigator devices', inject([UserMediaService], async (service: UserMediaService) => {
-    const mediaDevices = jasmine.createSpyObj<MediaDevices>('mediaDevices', ['enumerateDevices']);
-    (<any>navigator)['__defineGetter__']('mediaDevices', function () {
-      mediaDevices.enumerateDevices.and.returnValue([MediaDeviceInfo, MediaDeviceInfo]);
-      return mediaDevices;
-    });
-
     await service.updateAvailableDevicesList();
     expect(service.availableDeviceList).toBeTruthy();
     expect(service.availableDeviceList.length).toBeGreaterThan(0);
   }));
 
   it('should return the media stream', async () => {
-    const mediaDevices = jasmine.createSpyObj<MediaDevices>('mediaDevices', ['enumerateDevices', 'getUserMedia']);
-    (<any>navigator)['__defineGetter__']('mediaDevices', function () {
-      mediaDevices.enumerateDevices.and.returnValue([MediaDeviceInfo, MediaDeviceInfo]);
-      return mediaDevices;
-    });
-
     const logger = jasmine.createSpyObj<LoggerService>(['error']);
     const userMediaService = new UserMediaService(logger);
     let stream = await userMediaService.getStream();
