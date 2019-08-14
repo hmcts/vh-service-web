@@ -1,4 +1,4 @@
-import {SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import { SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers } from '../../base-journey/participant-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from '../../../services/clients/api-client';
 import { IndividualModelMapper, IndividualQuestionKeys } from './individual-model-mapper';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
@@ -6,185 +6,195 @@ import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitabi
 import { SelfTestQuestionKeys } from '../../base-journey/services/participant-model-mapper';
 
 describe('IndividualModelMapper', () => {
-    let serviceResponse: HearingSuitabilityResponse;
-    let model: IndividualSuitabilityModel;
+  let serviceResponse: HearingSuitabilityResponse;
+  let model: IndividualSuitabilityModel;
 
-    let requestAnswersList: HearingSuitabilityAnswer[];
-    let answerModel: MutableIndividualSuitabilityModel;
+  let requestAnswersList: HearingSuitabilityAnswer[];
+  let answerModel: MutableIndividualSuitabilityModel;
 
-    beforeEach(() => {
-        serviceResponse = new HearingSuitabilityResponse({
-            hearing_id: '',
-            hearing_scheduled_at: new Date(),
-            answers: [
-                new HearingSuitabilityAnswer({
-                    question_key: IndividualQuestionKeys.AboutYou,
-                    answer: 'true',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: IndividualQuestionKeys.Consent,
-                    answer: 'true',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: IndividualQuestionKeys.Computer,
-                    answer: 'true',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: IndividualQuestionKeys.Internet,
-                    answer: 'true',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: IndividualQuestionKeys.Interpreter,
-                    answer: 'true',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: IndividualQuestionKeys.Room,
-                    answer: 'true',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: IndividualQuestionKeys.Camera,
-                    answer: 'Yes',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                  question_key: SelfTestQuestionKeys.CheckYourComputer,
-                  answer: 'true',
-                  extended_answer: ''
-                })
-                ,
-                new HearingSuitabilityAnswer({
-                  question_key: SelfTestQuestionKeys.SeeYourself,
-                  answer: 'true',
-                  extended_answer: ''
-                })
-                ,
-                new HearingSuitabilityAnswer({
-                  question_key: SelfTestQuestionKeys.Microphone,
-                  answer: 'true',
-                  extended_answer: ''
-                })
-                ,
-                new HearingSuitabilityAnswer({
-                  question_key: SelfTestQuestionKeys.SeeHearClearly,
-                  answer: 'true',
-                  extended_answer: ''
-                })
-            ]
-      });
-
-      const suitability: SuitabilityAnswer = {
-        answer: true,
-        notes: 'Test Notes'
-      };
-      answerModel = new MutableIndividualSuitabilityModel();
-      answerModel.aboutYou = suitability;
-      answerModel.computer = true;
-      answerModel.internet = true;
-      answerModel.interpreter = true;
-      answerModel.room = true;
-      answerModel.camera = HasAccessToCamera.Yes;
-      answerModel.consent = suitability;
-      answerModel.selfTest = new SelfTestAnswers();
-
+  beforeEach(() => {
+    serviceResponse = new HearingSuitabilityResponse({
+      hearing_id: '',
+      hearing_scheduled_at: new Date(),
+      answers: [
+        new HearingSuitabilityAnswer({
+          question_key: IndividualQuestionKeys.AboutYou,
+          answer: 'true',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: IndividualQuestionKeys.Consent,
+          answer: 'true',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: IndividualQuestionKeys.Computer,
+          answer: 'true',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: IndividualQuestionKeys.Internet,
+          answer: 'true',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: IndividualQuestionKeys.Interpreter,
+          answer: 'true',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: IndividualQuestionKeys.Room,
+          answer: 'true',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: IndividualQuestionKeys.Camera,
+          answer: 'Yes',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: SelfTestQuestionKeys.CheckYourComputer,
+          answer: 'true',
+          extended_answer: ''
+        })
+        ,
+        new HearingSuitabilityAnswer({
+          question_key: SelfTestQuestionKeys.SeeYourself,
+          answer: 'true',
+          extended_answer: ''
+        })
+        ,
+        new HearingSuitabilityAnswer({
+          question_key: SelfTestQuestionKeys.Microphone,
+          answer: 'true',
+          extended_answer: ''
+        })
+        ,
+        new HearingSuitabilityAnswer({
+          question_key: SelfTestQuestionKeys.SeeHearClearly,
+          answer: 'true',
+          extended_answer: ''
+        })
+        ,
+        new HearingSuitabilityAnswer({
+          question_key: SelfTestQuestionKeys.TestResultScore,
+          answer: 'Okay',
+          extended_answer: ''
+        })
+      ]
     });
 
-    const whenMappingModel = () => {
-        model = new IndividualModelMapper().map(serviceResponse);
+    const suitability: SuitabilityAnswer = {
+      answer: true,
+      notes: 'Test Notes'
     };
+    answerModel = new MutableIndividualSuitabilityModel();
+    answerModel.aboutYou = suitability;
+    answerModel.computer = true;
+    answerModel.internet = true;
+    answerModel.interpreter = true;
+    answerModel.room = true;
+    answerModel.camera = HasAccessToCamera.Yes;
+    answerModel.consent = suitability;
+    answerModel.selfTest = new SelfTestAnswers();
 
-    const givenAnswerIs = (answerKey: string, answer: string) => {
-        serviceResponse.answers.find(a => a.question_key === answerKey).answer = answer;
-    };
+  });
 
-    const givenExtendedAnswerIs = (answerKey: string, extendedAnswer: string) => {
-        serviceResponse.answers.find(a => a.question_key === answerKey).extended_answer = extendedAnswer;
-    };
+  const whenMappingModel = () => {
+    model = new IndividualModelMapper().map(serviceResponse);
+  };
 
-    it('should map computer camera and microphone answers', () => {
-        const values = ['Yes', 'No', 'Not sure'];
-        const expected = [HasAccessToCamera.Yes, HasAccessToCamera.No, HasAccessToCamera.NotSure];
+  const givenAnswerIs = (answerKey: string, answer: string) => {
+    serviceResponse.answers.find(a => a.question_key === answerKey).answer = answer;
+  };
 
-        for (let i = 0; i < expected.length; ++i) {
-            givenAnswerIs(IndividualQuestionKeys.Camera, values[i]);
-            whenMappingModel();
-            expect(model.camera).toBe(expected[i]);
-        }
-    });
+  const givenExtendedAnswerIs = (answerKey: string, extendedAnswer: string) => {
+    serviceResponse.answers.find(a => a.question_key === answerKey).extended_answer = extendedAnswer;
+  };
 
-    it('should map boolean values', () => {
-        givenAnswerIs(IndividualQuestionKeys.Interpreter, 'false');
-        givenAnswerIs(IndividualQuestionKeys.Computer, 'false');
-        givenAnswerIs(IndividualQuestionKeys.Internet, 'false');
-        givenAnswerIs(IndividualQuestionKeys.Room, 'false');
-        givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'false');
-        givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'false');
-        givenAnswerIs(SelfTestQuestionKeys.Microphone, 'false');
-        givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'false');
+  it('should map computer camera and microphone answers', () => {
+    const values = ['Yes', 'No', 'Not sure'];
+    const expected = [HasAccessToCamera.Yes, HasAccessToCamera.No, HasAccessToCamera.NotSure];
 
-        whenMappingModel();
-        expect(model.interpreter).toBeFalsy();
-        expect(model.computer).toBeFalsy();
-        expect(model.internet).toBeFalsy();
-        expect(model.room).toBeFalsy();
-        expect(model.selfTest.checkYourComputer).toBeFalsy();
-        expect(model.selfTest.cameraWorking).toBeFalsy();
-        expect(model.selfTest.microphoneWorking).toBeFalsy();
-        expect(model.selfTest.seeAndHearClearly).toBeFalsy();
-    });
+    for (let i = 0; i < expected.length; ++i) {
+      givenAnswerIs(IndividualQuestionKeys.Camera, values[i]);
+      whenMappingModel();
+      expect(model.camera).toBe(expected[i]);
+    }
+  });
 
-    it('should map false answers', () => {
-        givenAnswerIs(IndividualQuestionKeys.AboutYou, 'false');
-        givenAnswerIs(IndividualQuestionKeys.Consent, 'false');
-        whenMappingModel();
-        expect(model.aboutYou.answer).toBeFalsy();
-        expect(model.consent.answer).toBeFalsy();
-    });
+  it('should map boolean values', () => {
+    givenAnswerIs(IndividualQuestionKeys.Interpreter, 'false');
+    givenAnswerIs(IndividualQuestionKeys.Computer, 'false');
+    givenAnswerIs(IndividualQuestionKeys.Internet, 'false');
+    givenAnswerIs(IndividualQuestionKeys.Room, 'false');
+    givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'false');
+    givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'false');
+    givenAnswerIs(SelfTestQuestionKeys.Microphone, 'false');
+    givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'false');
+    givenAnswerIs(SelfTestQuestionKeys.TestResultScore, 'Okay');
 
-    it('should map all answers', () => {
-        givenAnswerIs(IndividualQuestionKeys.AboutYou, 'true');
-        givenAnswerIs(IndividualQuestionKeys.Consent, 'true');
-        givenAnswerIs(IndividualQuestionKeys.Internet, 'true');
-        givenAnswerIs(IndividualQuestionKeys.Room, 'true');
-        givenAnswerIs(IndividualQuestionKeys.Computer, 'true');
-        givenAnswerIs(IndividualQuestionKeys.Interpreter, 'true');
-        givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'true');
-        givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'true');
-        givenAnswerIs(SelfTestQuestionKeys.Microphone, 'true');
-        givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'true');
+    whenMappingModel();
+    expect(model.interpreter).toBeFalsy();
+    expect(model.computer).toBeFalsy();
+    expect(model.internet).toBeFalsy();
+    expect(model.room).toBeFalsy();
+    expect(model.selfTest.checkYourComputer).toBeFalsy();
+    expect(model.selfTest.cameraWorking).toBeFalsy();
+    expect(model.selfTest.microphoneWorking).toBeFalsy();
+    expect(model.selfTest.seeAndHearClearly).toBeFalsy();
+    expect(model.selfTest.selfTestResultScore).toEqual('Okay');
+  });
 
-        whenMappingModel();
+  it('should map false answers', () => {
+    givenAnswerIs(IndividualQuestionKeys.AboutYou, 'false');
+    givenAnswerIs(IndividualQuestionKeys.Consent, 'false');
+    whenMappingModel();
+    expect(model.aboutYou.answer).toBeFalsy();
+    expect(model.consent.answer).toBeFalsy();
+  });
 
-        expect(model.aboutYou.answer).toBeTruthy();
-        expect(model.consent.answer).toBeTruthy();
-        expect(model.internet).toBeTruthy();
-        expect(model.room).toBeTruthy();
-        expect(model.computer).toBeTruthy();
-        expect(model.interpreter).toBeTruthy();
-        expect(model.selfTest.checkYourComputer).toBeTruthy();
-        expect(model.selfTest.cameraWorking).toBeTruthy();
-        expect(model.selfTest.microphoneWorking).toBeTruthy();
-        expect(model.selfTest.seeAndHearClearly).toBeTruthy();
-    });
+  it('should map all answers', () => {
+    givenAnswerIs(IndividualQuestionKeys.AboutYou, 'true');
+    givenAnswerIs(IndividualQuestionKeys.Consent, 'true');
+    givenAnswerIs(IndividualQuestionKeys.Internet, 'true');
+    givenAnswerIs(IndividualQuestionKeys.Room, 'true');
+    givenAnswerIs(IndividualQuestionKeys.Computer, 'true');
+    givenAnswerIs(IndividualQuestionKeys.Interpreter, 'true');
+    givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'true');
+    givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'true');
+    givenAnswerIs(SelfTestQuestionKeys.Microphone, 'true');
+    givenAnswerIs(SelfTestQuestionKeys.SeeHearClearly, 'true');
+    givenAnswerIs(SelfTestQuestionKeys.TestResultScore, 'Okay');
 
-    it('should map extended answer', () => {
-        givenExtendedAnswerIs(IndividualQuestionKeys.AboutYou, 'more information');
-        whenMappingModel();
-        expect(model.aboutYou.notes).toBe('more information');
-    });
+    whenMappingModel();
 
-    it('should map hearing', () => {
-        serviceResponse.hearing_id = '123';
-        serviceResponse.hearing_scheduled_at = new Date();
-        whenMappingModel();
-        expect(model.hearing.id).toBe('123');
-        expect(model.hearing.scheduleDateTime).toEqual(serviceResponse.hearing_scheduled_at);
-    });
+    expect(model.aboutYou.answer).toBeTruthy();
+    expect(model.consent.answer).toBeTruthy();
+    expect(model.internet).toBeTruthy();
+    expect(model.room).toBeTruthy();
+    expect(model.computer).toBeTruthy();
+    expect(model.interpreter).toBeTruthy();
+    expect(model.selfTest.checkYourComputer).toBeTruthy();
+    expect(model.selfTest.cameraWorking).toBeTruthy();
+    expect(model.selfTest.microphoneWorking).toBeTruthy();
+    expect(model.selfTest.seeAndHearClearly).toBeTruthy();
+    expect(model.selfTest.selfTestResultScore).toEqual('Okay');
+  });
+
+  it('should map extended answer', () => {
+    givenExtendedAnswerIs(IndividualQuestionKeys.AboutYou, 'more information');
+    whenMappingModel();
+    expect(model.aboutYou.notes).toBe('more information');
+  });
+
+  it('should map hearing', () => {
+    serviceResponse.hearing_id = '123';
+    serviceResponse.hearing_scheduled_at = new Date();
+    whenMappingModel();
+    expect(model.hearing.id).toBe('123');
+    expect(model.hearing.scheduleDateTime).toEqual(serviceResponse.hearing_scheduled_at);
+  });
 
   it('should map all the answers to request object', () => {
     requestAnswersList = new IndividualModelMapper().mapToRequest(answerModel);
@@ -202,7 +212,8 @@ describe('IndividualModelMapper', () => {
       SelfTestQuestionKeys.CheckYourComputer,
       SelfTestQuestionKeys.SeeYourself,
       SelfTestQuestionKeys.Microphone,
-      SelfTestQuestionKeys.SeeHearClearly
+      SelfTestQuestionKeys.SeeHearClearly,
+      SelfTestQuestionKeys.TestResultScore
     ];
 
     for (let i = 0; i < listOfKeys.length; ++i) {

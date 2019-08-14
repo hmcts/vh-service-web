@@ -7,7 +7,7 @@ import {Components, SelfTestJourneyRoutingModule} from './self-test-journey-rout
 import {JourneyRoutingListenerService} from '../base-journey/services/journey-routing-listener.service';
 import {SelfTestJourneyStepComponentBindings} from './self-test-journey-component-bindings';
 import { SelfTestJourney } from './self-test-journey';
-import { MicVisualiserComponent } from '../self-test-journey/components/mic-visualiser/mic-visualiser.component';
+import { MicVisualiserComponent } from '../shared/mic-visualiser/mic-visualiser.component';
 
 @NgModule({
   imports: [
@@ -22,8 +22,7 @@ import { MicVisualiserComponent } from '../self-test-journey/components/mic-visu
     SelfTestJourneyRoutingModule
   ],
   declarations: [
-    ...Components,
-    MicVisualiserComponent
+    ...Components
   ],
   providers: [
     SelfTestJourney,

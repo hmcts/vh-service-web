@@ -18,10 +18,10 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    sessionStorage.clear();
+
     if (this.loggedIn) {
       this.adalSvc.logOut();
     }
-
-    sessionStorage.clear();
   }
 }

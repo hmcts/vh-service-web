@@ -21,24 +21,25 @@ import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.com
 import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
+import { IndividualGuard } from './individual.gaurd';
 
 const routes: Routes = [
-  { path: Paths.AboutHearings, component: AboutHearingsComponent },
-  { path: Paths.DifferentHearingTypes, component: DifferentHearingTypesComponent },
-  { path: Paths.ExploreCourtBuilding, component: ExploreCourtBuildingComponent },
-  { path: Paths.CourtBuildingVideo, component: CourtBuildingVideoComponent },
-  { path: Paths.ExploreVideoHearing, component: ExploreVideoHearingComponent },
-  { path: Paths.UseCameraMicrophone, component: UseCameraMicrophoneComponent },
-  { path: Paths.ParticipantView, component: ParticipantViewComponent },
-  { path: Paths.HelpTheCourtDecide, component: HelpTheCourtDecideComponent },
-  { path: Paths.AboutYou, component: AboutYouComponent },
-  { path: Paths.Interpreter, component: InterpreterComponent },
-  { path: Paths.YourComputer, component: YourComputerComponent },
-  { path: Paths.AboutYourComputer, component: AboutYourComputerComponent },
-  { path: Paths.YourInternetConnection, component: YourInternetConnectionComponent },
-  { path: Paths.AccessToRoom, component: AccessToRoomComponent },
-  { path: Paths.Consent, component: ConsentComponent },
-  { path: Paths.ThankYou, component: ThankYouComponent }
+  { path: Paths.AboutHearings, component: AboutHearingsComponent, canActivate: [IndividualGuard] },
+  { path: Paths.DifferentHearingTypes, component: DifferentHearingTypesComponent, canActivate: [IndividualGuard] },
+  { path: Paths.ExploreCourtBuilding, component: ExploreCourtBuildingComponent, canActivate: [IndividualGuard] },
+  { path: Paths.CourtBuildingVideo, component: CourtBuildingVideoComponent, canActivate: [IndividualGuard] },
+  { path: Paths.ExploreVideoHearing, component: ExploreVideoHearingComponent, canActivate: [IndividualGuard] },
+  { path: Paths.UseCameraMicrophone, component: UseCameraMicrophoneComponent, canActivate: [IndividualGuard] },
+  { path: Paths.ParticipantView, component: ParticipantViewComponent, canActivate: [IndividualGuard] },
+  { path: Paths.HelpTheCourtDecide, component: HelpTheCourtDecideComponent, canActivate: [IndividualGuard] },
+  { path: Paths.AboutYou, component: AboutYouComponent, canActivate: [IndividualGuard] },
+  { path: Paths.Interpreter, component: InterpreterComponent, canActivate: [IndividualGuard] },
+  { path: Paths.YourComputer, component: YourComputerComponent, canActivate: [IndividualGuard] },
+  { path: Paths.AboutYourComputer, component: AboutYourComputerComponent, canActivate: [IndividualGuard] },
+  { path: Paths.YourInternetConnection, component: YourInternetConnectionComponent, canActivate: [IndividualGuard] },
+  { path: Paths.AccessToRoom, component: AccessToRoomComponent, canActivate: [IndividualGuard] },
+  { path: Paths.Consent, component: ConsentComponent, canActivate: [IndividualGuard] },
+  { path: Paths.ThankYou, component: ThankYouComponent, canActivate: [IndividualGuard] }
 ];
 
 // Export all components loaded so these can be declared in parent module

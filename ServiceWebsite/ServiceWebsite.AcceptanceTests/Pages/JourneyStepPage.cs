@@ -5,7 +5,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
 {
     public class JourneyStepPage : Page
     {
-        public JourneyStepPage(BrowserContext browserContext, string pageUrl) : base(browserContext, pageUrl)
+        public JourneyStepPage(BrowserContext browserContext, string pageUrl, string name) : base(browserContext, pageUrl, name)
         {
            
         }

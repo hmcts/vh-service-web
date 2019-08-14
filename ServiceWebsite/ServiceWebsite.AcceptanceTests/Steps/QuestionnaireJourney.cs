@@ -6,6 +6,10 @@ using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.AcceptanceTests.Contexts;
 using RestSharp;
 using System.Collections.Generic;
+using OpenQA.Selenium;
+using ServiceWebsite.AcceptanceTests.Constants;
+using ServiceWebsite.AcceptanceTests.Pages.SelfTesPages;
+using System.Linq;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -13,22 +17,43 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     public class QuestionnaireJourney
     {
         private readonly InformationSteps _information;
-        protected readonly Page _thankYou;
         private readonly DecisionJourney _checkYourComputer;
         private ErrorMessage _errorMessage;
         public readonly ScenarioContext _scenarioContext;
         private readonly TestContext _testContext;
-
+        private readonly BrowserContext _browserContext;
+        private List<Page> _pages = new List<Page>();
         public QuestionnaireJourney(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
         {
             _information = information;
             _errorMessage = new ErrorMessage(browserContext);
-            _thankYou = new Page(browserContext, PageUri.ThankYouPage);
-            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer);
+            _checkYourComputer = new DecisionJourney(browserContext, PageUri.CheckYourComputer, SelfTestPageNames.CheckYourComputer);
             _scenarioContext = scenarioContext;
             _testContext = testContext;
+            _browserContext = browserContext;
+
+            InitialisePage(browserContext);
+            SelfTestPages(browserContext);
         }
         
+        protected virtual void InitialisePage(BrowserContext browserContext)
+        {
+            //Ideally this should be abstract
+        }
+        private void SelfTestPages(BrowserContext browserContext)
+        {
+            _pages.Add(new DecisionJourney(browserContext, PageUri.CheckYourComputer, SelfTestPageNames.CheckYourComputer));
+            _pages.Add(new SwitchOnCameraMicrophone(browserContext));
+            _pages.Add(new JourneyStepPage(browserContext, PageUri.TestYourEquipment, SelfTestPageNames.TestYourEquipment));
+            _pages.Add(new DecisionJourney(browserContext, PageUri.CameraWorking, SelfTestPageNames.CameraWorking));
+            _pages.Add(new DecisionJourney(browserContext, PageUri.MicrophoneWorking, SelfTestPageNames.MicrophoneWorking));
+            _pages.Add(new DecisionJourney(browserContext, PageUri.VideoWorking, SelfTestPageNames.VideoWorking));
+            _pages.Add(new DecisionJourney(browserContext, PageUri.SignInOncomputer, SelfTestPageNames.SignInOncomputer));
+            _pages.Add(new DecisionJourney(browserContext, PageUri.SignBackIn, SelfTestPageNames.SignBackIn));
+
+            //_pages.Add(new DecisionJourney(browserContext, PageUri.EquipmentBlocked, SelfTestPageNames.EquipmentBlocked));
+            //_equipmentBlocked = new Page(browserContext, PageUri.EquipmentBlocked, SelfTestPageNames.EquipmentBlocked);
+        }
 
         [Then(@"(.*) error should be displayed")]
         [Then(@"(.*) errors should be displayed")]
@@ -40,7 +65,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
         {
-            SelectAnswer(CurrentPage, answer);
+            SelectAnswer((DecisionJourney)CurrentPage, answer);
         }
 
         [When(@"attempts to proceed without selecting an answer")]
@@ -55,27 +80,61 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"provides additional information containing a two character length '(.*)'")]
         private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharacters(string detail)
         {
-            CurrentPage.SelectYes(detail);
+            ((DecisionJourney)CurrentPage).SelectYes(detail);
         }
 
         [When(@"provides additional information containing a two character length '(.*)' for No answer")]
         private void WhenIndividualProvidesAdditionalInformationContainingLessThanThreeCharactersForNoAnswer(string detail)
         {
-            CurrentPage.SelectNo(detail);
+            ((DecisionJourney)CurrentPage).SelectNo(detail);
         }
 
-        protected void NavigateToDecisionPage(DecisionJourney decisionJourneyPage)
+        [When(@"clicks Check My Equipment button")]
+        private void WhenClicksCheckMyEquipmentButton()
         {
-            decisionJourneyPage.Validate();
-            if (ShouldSelectYes(decisionJourneyPage))
-            {                
-                decisionJourneyPage.SelectYes();
-            }
-            else
+            _browserContext.NgDriver.WaitUntilElementVisible(By.Id("checkYourEquipment")).Click();
+        }
+
+        protected void InitiateJourneySteps(string pageName)
+        {
+            foreach (var page in _pages)
             {
-                decisionJourneyPage.SelectNo();
-            }            
-            decisionJourneyPage.Continue();
+                if (page.Name == SelfTestPageNames.SwitchOnCameraAndMicrophone)
+                {
+                    var switchOnCameraAndMicrophone = (SwitchOnCameraMicrophone)page;
+                    switchOnCameraAndMicrophone.ParticipantSwitchesOnCameraAndMicrophone();
+                    switchOnCameraAndMicrophone.Continue();
+                    continue;
+                }
+                if (page.Name == pageName)
+                {
+                    _scenarioContext.Set(page, "CurrentPage");
+                    break;
+                }
+                NavigateToDecisionPage(page);
+            }
+        }
+
+        protected void NavigateToDecisionPage(Page page)
+        {
+            page.Validate();
+            if(page is DecisionJourney)
+            {
+                DecisionJourney decisionJourneyPage = (DecisionJourney)page;
+                if (ShouldSelectYes(decisionJourneyPage))
+                {
+                    decisionJourneyPage.SelectYes();
+                }
+                else
+                {
+                    decisionJourneyPage.SelectNo();
+                }
+            }
+            if (page is JourneyStepPage)
+            {
+                ((JourneyStepPage)page).Continue();
+            }
+                
         }
 
         protected virtual bool ShouldSelectYes(DecisionJourney decisionJourneyPage)
@@ -83,11 +142,34 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return true;
         }
 
-        private DecisionJourney CurrentPage
+        private JourneyStepPage CurrentPage
         {
             get
             {
-                return _scenarioContext.Get<DecisionJourney>("CurrentPage");
+                return _scenarioContext.Get<JourneyStepPage>("CurrentPage");
+            }
+        }
+
+        protected List<Page> PageList
+        {
+            get
+            {
+                return _pages;
+            }
+        }
+
+        protected Page GetPage(string pageName)
+        {
+            switch (pageName)
+            {
+                case RepresentativePageNames.PleaseContactUs:
+                    return new Page(_browserContext, RepresentativePageUrl.PleaseContactUs, RepresentativePageNames.PleaseContactUs);
+                case RepresentativePageNames.ThankYou:
+                    return new Page(_browserContext, PageUri.ThankYouPage, IndividualPageNames.ThankYou);
+                case SelfTestPageNames.EquipmentBlocked:
+                    return new Page(_browserContext, PageUri.EquipmentBlocked, "equipment blocked");
+                default:
+                    return _pages.Single(p => p.Name == pageName);
             }
         }
 

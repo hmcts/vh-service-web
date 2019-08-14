@@ -1,6 +1,6 @@
 import { UserMediaStreamService } from './user-media-stream.service';
 import { MockLogger } from '../../../testing/mocks/mock-logger';
-import { UserMediaDevice } from '../models/user-media-device';
+import {UserMediaDevice} from '../../shared/models/user-media-device';
 
 describe('UserMediaStreamService', () => {
   let service: UserMediaStreamService;

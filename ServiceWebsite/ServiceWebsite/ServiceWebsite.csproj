@@ -50,8 +50,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\modules\individual-journey\individual.gaurd.spec.ts" />
+    <None Remove="ClientApp\src\app\modules\individual-journey\individual.gaurd.ts" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\representative.gaurd.ts" />
     <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
+    <None Remove="ClientApp\src\typings.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,8 +65,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\modules\individual-journey\individual.gaurd.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\individual-journey\individual.gaurd.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\representative-journey\representative.gaurd.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
+    <TypeScriptCompile Include="ClientApp\src\typings.d.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

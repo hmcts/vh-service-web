@@ -5,7 +5,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
     public class ContactUs : Page
     {
-        public ContactUs(BrowserContext browserContext, string url) : base(browserContext, url)
+        public ContactUs(BrowserContext browserContext, string url) : base(browserContext, url, string.Empty)
         {
 
         }

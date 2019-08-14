@@ -3,7 +3,7 @@
 	I want to be able to tell the court if there is anything that could affect client's ability to take part in video hearing
 	So that the court can make an informed decision based on my circumstances
 
-@VIH-4440
+@VIH-4440 @Representative
 Scenario: Representative participant attempts to proceed to next page without providing answer on About Your Client page
 	Given Representative participant is on 'about your client' page
 	When attempts to proceed without selecting an answer
@@ -15,7 +15,7 @@ Scenario: Representative participant attempts to proceed to next page without pr
 	And proceeds to next page
 	Then 1 error should be displayed
 
-@VIH-4440
+@VIH-4440 @Representative
 Scenario: Representative participant provides additional information for video hearing suitability on about your client page
 	Given Representative participant is on 'about your client' page
 	When provides additional information 'ABC'

@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
+using ServiceWebsite.AcceptanceTests.Constants;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
 
@@ -7,10 +8,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages.SelfTesPages
 {
     public class SwitchOnCameraMicrophone : JourneyStepPage
     {
-        private readonly string _pageUrl;
-        public SwitchOnCameraMicrophone(BrowserContext browserContext, string pageUrl) : base(browserContext, PageUri.SwitchOnCameraAndMicrophone)
+        public SwitchOnCameraMicrophone(BrowserContext browserContext) : base(browserContext, PageUri.SwitchOnCameraAndMicrophone, SelfTestPageNames.SwitchOnCameraAndMicrophone)
         {
-            _pageUrl = pageUrl;
         }
         
         private By UseMyCameraAndMicrophone => By.CssSelector("app-show-details span");

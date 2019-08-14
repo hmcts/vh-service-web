@@ -6,7 +6,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
 {
     public class VideoContentPage : JourneyStepPage
     {
-        public VideoContentPage(BrowserContext browserContext, string url) : base(browserContext, url)
+        public VideoContentPage(BrowserContext browserContext, string url) : base(browserContext, url, string.Empty)
         {
 
         }
