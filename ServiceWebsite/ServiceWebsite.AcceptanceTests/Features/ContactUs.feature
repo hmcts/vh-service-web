@@ -3,6 +3,7 @@ As an Individual participant
 I want to be provided with a way of viewing contact details for the video hearing officer
 So that I can contact them if I need help
 
+#TODO: move role to test context and amend steps to make it more readable
 @Individual
 Scenario: Individual views contact details
 	Given 'Individual' is provided with a way of viewing contact details
