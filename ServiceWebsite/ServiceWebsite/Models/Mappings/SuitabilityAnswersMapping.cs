@@ -1,8 +1,6 @@
+using ServiceWebsite.Domain;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using ServiceWebsite.BookingsAPI.Client;
-using ServiceWebsite.Domain;
 
 namespace ServiceWebsite.Models.Mappings
 {
@@ -19,6 +17,7 @@ namespace ServiceWebsite.Models.Mappings
             {
                 HearingId = suitability.HearingId,
                 HearingScheduledAt = suitability.HearingScheduledAt,
+                QuestionnaireNotRequired = suitability.QuestionnaireNotRequired,
                 Answers = suitability.Answers.Select(Map).ToList()
             };
         }

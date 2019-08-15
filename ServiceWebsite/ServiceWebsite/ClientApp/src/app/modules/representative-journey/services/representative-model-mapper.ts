@@ -18,7 +18,7 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
 
     map(response: HearingSuitabilityResponse): RepresentativeSuitabilityModel {
         const model = new MutableRepresentativeSuitabilityModel();
-        model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at);
+        model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at, null, null, response.questionnaire_not_required);
         model.aboutYou = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.AboutYou, response.answers);
         model.aboutYourClient = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.AboutYourClient, response.answers);
         model.clientAttendance = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.ClientAttendance);
