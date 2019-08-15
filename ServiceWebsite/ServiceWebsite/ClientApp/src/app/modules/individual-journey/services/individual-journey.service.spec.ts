@@ -1,7 +1,7 @@
-import { SelfTestAnswers } from './../../base-journey/participant-suitability.model';
-import { IndividualJourneyService } from './individual-journey.service';
-import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
-import { HasAccessToCamera, Hearing, SuitabilityAnswer } from '../../base-journey/participant-suitability.model';
+import {SelfTestAnswers} from './../../base-journey/participant-suitability.model';
+import {IndividualJourneyService} from './individual-journey.service';
+import {MutableIndividualSuitabilityModel} from '../mutable-individual-suitability.model';
+import {HasAccessToCamera, Hearing, SuitabilityAnswer} from '../../base-journey/participant-suitability.model';
 
 describe('representative.journey.service', () => {
   let individualJourneyService: IndividualJourneyService;
@@ -16,7 +16,10 @@ describe('representative.journey.service', () => {
 
   it('returns the model from storage', () => {
     const model = new MutableIndividualSuitabilityModel();
-    model.hearing = new Hearing('hearing1', new Date(2012, 12, 12, 12, 15, 11, 23));
+    model.hearing = new Hearing('hearing1', new Date(2012, 12, 12, 12, 15, 11, 23),
+      null,
+      null,
+      true);
     model.aboutYou = new SuitabilityAnswer();
     model.aboutYou.answer = true;
     model.aboutYou.notes = 'true';

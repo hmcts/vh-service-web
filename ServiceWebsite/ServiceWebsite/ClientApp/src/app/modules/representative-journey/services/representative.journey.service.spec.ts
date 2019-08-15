@@ -15,7 +15,10 @@ describe('representative.journey.service', () => {
 
   it('returns the model from storage', () => {
     const model = new MutableRepresentativeSuitabilityModel();
-    model.hearing = new Hearing('hearing1', new Date(2012, 12, 12, 12, 15, 11, 23));
+    model.hearing = new Hearing('hearing1', new Date(2012, 12, 12, 12, 15, 11, 23),
+      null,
+      null,
+      false);
     model.aboutYou = new SuitabilityAnswer();
     model.aboutYou.answer = true;
     model.aboutYou.notes = 'true';
