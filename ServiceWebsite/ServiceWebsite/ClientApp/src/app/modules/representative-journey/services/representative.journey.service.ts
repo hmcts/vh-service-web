@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { SessionStorage } from '../../shared/services/session-storage';
-import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
-import { Hearing, SelfTestAnswers } from '../../base-journey/participant-suitability.model';
-import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
+import {Injectable} from '@angular/core';
+import {SessionStorage} from '../../shared/services/session-storage';
+import {RepresentativeSuitabilityModel} from '../representative-suitability.model';
+import {Hearing, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import {MutableRepresentativeSuitabilityModel} from '../mutable-representative-suitability.model';
 
 @Injectable()
 export class RepresentativeJourneyService {
@@ -15,7 +15,9 @@ export class RepresentativeJourneyService {
   get(): RepresentativeSuitabilityModel {
     const response = this.cache.get();
 
-    if (response === null) { return null; }
+    if (response === null) {
+      return null;
+    }
 
     /*
       Need to create a new object here even though the cache will return a deserialised object,
@@ -23,7 +25,11 @@ export class RepresentativeJourneyService {
       In this case the "isUpcoming()" was not available
     */
     const model = new MutableRepresentativeSuitabilityModel();
-    model.hearing = new Hearing(response.hearing.id, new Date(response.hearing.scheduleDateTime));
+    model.hearing = new Hearing(response.hearing.id,
+      new Date(response.hearing.scheduleDateTime),
+      null,
+      null,
+      response.hearing.questionnaireNotRequired);
     model.aboutYou = response.aboutYou;
     model.aboutYourClient = response.aboutYourClient;
     model.clientAttendance = response.clientAttendance;
