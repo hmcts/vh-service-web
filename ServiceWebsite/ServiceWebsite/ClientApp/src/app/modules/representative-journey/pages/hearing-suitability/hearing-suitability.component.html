@@ -6,7 +6,12 @@
       <div>
         <app-hearing-details-header></app-hearing-details-header>
       </div>
-      <app-choice-textbox [suitabilityAnswer]="journey.model.hearingSuitability" (submitted)="submit()">
+
+      <app-choice-textbox
+        [detailsYesText]="'Please provide more information'"
+        [suitabilityAnswer]="journey.model.hearingSuitability"
+        (submitted)="submit()">
+
         <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@hearingSuitability_p_1">Based on your knowledge of this
           case and your client, do you believe there is anything that makes this hearing unsuitable for video? For
           example:
