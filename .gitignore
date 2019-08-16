@@ -342,3 +342,9 @@ jasmine-tests
 
 # specflow generated feature files (will be created on build)
 *.feature.cs
+
+#sonarqube folder
+.sonarqube/
+
+# Acceptance tests solution
+ServiceWebsite/ServiceWebsite.AcceptanceTests/ServiceWebsite.AcceptanceTests.sln
