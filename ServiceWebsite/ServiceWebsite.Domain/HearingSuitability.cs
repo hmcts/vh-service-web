@@ -6,17 +6,17 @@ namespace ServiceWebsite.Domain
 {
     public class HearingSuitability
     {
-        public HearingSuitability(Guid hearingId, DateTime hearingScheduledAt, IEnumerable<SuitabilityAnswer> answers = null)
+        public HearingSuitability(Guid hearingId, DateTime hearingScheduledAt, bool questionnaireNotRequired, IEnumerable<SuitabilityAnswer> answers = null)
         {
             HearingId = hearingId;
             HearingScheduledAt = hearingScheduledAt;
+            QuestionnaireNotRequired = questionnaireNotRequired;
             Answers = (answers ?? Enumerable.Empty<SuitabilityAnswer>()).ToList();
         }
         
         public Guid HearingId { get; }
-
         public DateTime HearingScheduledAt { get; }
-        
+        public bool QuestionnaireNotRequired { get; set; }
         public List<SuitabilityAnswer> Answers { get; }
     }
 }

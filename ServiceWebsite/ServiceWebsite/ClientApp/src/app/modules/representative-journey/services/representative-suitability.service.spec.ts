@@ -13,6 +13,7 @@ describe('RepresentativeSuitabilityService', () => {
             new HearingSuitabilityResponse({
                 hearing_id: '123',
                 hearing_scheduled_at: new Date(),
+              questionnaire_not_required: false,
                 answers: []
             })
         ]));
