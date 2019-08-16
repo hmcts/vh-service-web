@@ -53,7 +53,6 @@ export abstract class ParticipantSuitabilityModel {
   mediaAccepted: boolean;
   mediaSwitchedOn: boolean;
   selfTest: SelfTestAnswers;
-
   hearing: Hearing;
 
   isUpcoming(): boolean {
@@ -63,14 +62,16 @@ export abstract class ParticipantSuitabilityModel {
 }
 
 export class Hearing {
-  constructor(id?: string, scheduledDateTime?: Date, caseName?: string, caseNumber?: string) {
+  constructor(id?: string, scheduledDateTime?: Date, caseName?: string, caseNumber?: string, questionnaireNotRequired?: boolean) {
     this.id = id;
     this.scheduleDateTime = scheduledDateTime;
     this.caseName = caseName;
     this.caseNumber = caseNumber;
+    this.questionnaireNotRequired = questionnaireNotRequired;
   }
   id: string;
   scheduleDateTime: Date;
   caseName: string;
   caseNumber: string;
+  questionnaireNotRequired: boolean;
 }

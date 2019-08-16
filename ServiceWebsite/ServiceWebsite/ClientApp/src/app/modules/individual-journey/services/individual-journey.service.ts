@@ -23,7 +23,11 @@ export class IndividualJourneyService {
       In this case the "isUpcoming()" was not available
     */
     const model = new MutableIndividualSuitabilityModel();
-    model.hearing = new Hearing(response.hearing.id, new Date(response.hearing.scheduleDateTime));
+    model.hearing = new Hearing(response.hearing.id,
+      new Date(response.hearing.scheduleDateTime),
+      null,
+      null,
+      response.hearing.questionnaireNotRequired);
     model.aboutYou = response.aboutYou;
     model.consent = response.consent;
     model.internet = response.internet;
