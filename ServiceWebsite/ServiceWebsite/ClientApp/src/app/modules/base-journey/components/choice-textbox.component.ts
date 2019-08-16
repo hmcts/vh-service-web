@@ -9,6 +9,9 @@ import {SuitabilityAnswer} from '../participant-suitability.model';
 export class ChoiceTextboxComponent implements OnInit {
 
   @Input()
+  detailsYesText: string;
+
+  @Input()
   suitabilityAnswer: SuitabilityAnswer;
 
   @Output()
