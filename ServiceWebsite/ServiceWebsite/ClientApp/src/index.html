@@ -13,38 +13,38 @@
       font-size: 19px;
       font-weight: 1.3157;
     }
-    .govuk-grid-column-two-thirds {
+    .browser-grid-column-two-thirds {
       box-sizing: border-box;
       width: 100%;
       padding: 0 15px;
       
     }
-       
-    .govuk-grid-column-full {
+
+    .browser-grid-column-full {
       box-sizing: border-box;
       width: 100%;
       padding: 0 15px;
       float: left
     }
 
-    .govuk-grid-column-one-quarter {
+    .browser-grid-column-one-quarter {
       box-sizing: border-box;
       width: 100%;
       padding: 0 15px
     }
 
-    .govuk-grid-column-one-third {
+    .browser-grid-column-one-third {
       box-sizing: border-box;
       width: 100%;
       padding: 0 15px
     }
 
-    .govuk-grid-row {
+    .browser-grid-row {
       margin-right: -15px;
       margin-left: -15px
     }
 
-    p {
+    .browser-grid-column-two-thirds p {
       max-height: 30%;
       overflow: auto;
       color: #0b0b0b;
@@ -53,12 +53,12 @@
       line-height: 1.3157
     }
 
-    .govuk-list > li
+    .browser-list > li
     {
       margin-bottom: 5px;
     }
 
-    .govuk-list {
+    .browser-list {
       font-family: nta,Arial,sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -72,29 +72,26 @@
       list-style-type: none
     }
 
-    .govuk-list {
+    .browser-list {
       font-size: 1.1875rem;
       line-height: 1.31578947;
       margin-bottom: 20px
     }
 
-    .govuk-grid-column-one-third {
+    .browser-grid-column-one-third {
       width: 10%;
       float: left
     }
 
-    .govuk-grid-column-two-thirds {
+    .browser-grid-column-two-thirds {
       width: 90%;
       float: left
     }
 
-    .govuk-width-container {
+    .unsupported-browser-width-container {
       max-width: 960px;
       margin: 0 auto;
-      
     }
-
-
   </style>
   <script>
     window.onload = function () {
@@ -112,63 +109,14 @@
         
       }
       if (browserName!="" && supportedBrowsers.indexOf(browserName) === -1) {
-        var unsupportedMessage = '<div  class="govuk-grid-column-full"><h2  class="govuk-heading-l">You\'ve signed in using an unsupported browser</h2 > <p  class="supported-browser-body">It looks like you\'ve signed in using {browserName}  Unfortunately this browser is not currently supported by our system. </p> <div ><p  class="supported-browser-body">Please sign out and sign in again using any of the following.</p><ul  class="govuk-list"><!----><li ><div  class="govuk-grid-column-full"><div  class="govuk-grid-column-one-quarter"><div  class="govuk-grid-row"><div  class="govuk-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/chrome_browser_icon.png" alt="Chrome browser logo"></div><div  class="govuk-grid-column-two-thirds"><p >Chrome</p></div></div></div></div></li><li ><div  class="govuk-grid-column-full"><div  class="govuk-grid-column-one-quarter"><div  class="govuk-grid-row"><div  class="govuk-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/firefox_browser_icon.png" alt="Firefox browser logo"></div><div  class="govuk-grid-column-two-thirds"><p >Firefox</p></div></div></div></div></li><li ><div  class="govuk-grid-column-full"><div  class="govuk-grid-column-one-quarter"><div  class="govuk-grid-row"><div  class="govuk-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/edge_browser_icon.png" alt="Edge browser logo"></div><div  class="govuk-grid-column-two-thirds"><p >Edge</p></div></div></div></div></li><li ><div  class="govuk-grid-column-full"><div  class="govuk-grid-column-one-quarter"><div  class="govuk-grid-row"><div  class="govuk-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/safari_browser_icon.png" alt="Safari browser logo"></div><div class="govuk-grid-column-two-thirds"><p>Safari</p></div></div></div></div></li></ul></div></div></div>';
-        unsupportedMessage = unsupportedMessage.replace('{browserName}', browserName)
+        var unsupportedMessage = '<div  class="browser-grid-column-full"><h1  class="govuk-heading-l">This website is not supported on this browser</h1>  <div ><p  class="supported-browser-body">It looks like you\'re using an unsupported browser. Please open with one of the browsers listed below: </p><ul  class="browser-list"><!----><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/chrome_browser_icon.png" alt="Chrome browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Chrome</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/firefox_browser_icon.png" alt="Firefox browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Firefox</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/edge_browser_icon.png" alt="Edge browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Edge</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/safari_browser_icon.png" alt="Safari browser logo"></div><div class="browser-grid-column-two-thirds"><p>Safari</p></div></div></div></div></li></ul></div></div></div>';
         document.getElementById('result').innerHTML = unsupportedMessage;
       }
     }
-    /**
-     * detect IE
-     * returns version of IE or false, if browser is not Internet Explorer
-     */
-    function detectIE() {
-      var ua = window.navigator.userAgent;
-      console.log(ua);
-     // Test values; Uncomment to check result …
-
-      // IE 10
-      // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-
-      // IE 11
-      // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-
-      // Edge 12 (Spartan)
-      // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-
-      // Edge 13
-      // ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
-      console.log(document.getElementById('result'));
-      var msie = ua.indexOf('MSIE ');
-      document.getElementById('result').innerHTML = "Hello";
-      if (msie > 0) {
-        // IE 10 or older => return version number
-        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-        document.getElementById('result').innerHTML = "Hello";
-      }
-
-      if (navigator.userAgent.indexOf("MSIE") != -1) {
-        console.log('It is IE');
-      }
-      var trident = ua.indexOf('Trident/');
-      if (trident > 0) {
-        // IE 11 => return version number
-        var rv = ua.indexOf('rv:');
-        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-      }
-
-      var edge = ua.indexOf('Edge/');
-      if (edge > 0) {
-        // Edge (IE 12+) => return version number
-        return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-      }
-
-      // other browser
-      return false;
-    }
-  </script>
+</script>
 </head>
 <body class="govuk-template__body js-enabled">
- <h2 id="result" class="govuk-width-container" ></h2>
+ <h2 id="result" class="unsupported-browser-width-container" ></h2>
  <app-root></app-root>
 </body>
   </html>
