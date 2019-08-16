@@ -18,6 +18,17 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
     [Binding]
     public class DataSetUp
     {
+
+        public IConfigurationRoot BuildConfigRoot()
+        {
+            var configRootBuilder = new ConfigurationBuilder()
+             .AddJsonFile("appsettings.json")
+             .AddEnvironmentVariables()
+             .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
+
+            return configRootBuilder.Build();
+        }
+
         [BeforeScenario(Order = 0)]
         public void OneTimeSetup(TestContext testContext)
         {
