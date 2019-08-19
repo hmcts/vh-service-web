@@ -1,14 +1,122 @@
 <!doctype html>
 <html lang="en" class="govuk-template">
 <head>
-    <meta charset="utf-8">
-    <title>Video hearings</title>
-    <base href="/">
+  <meta charset="utf-8">
+  <title>Video hearings</title>
+  <base href="/">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .supported-browser-body {
+      font-size: 19px;
+      font-weight: 1.3157;
+    }
+    .browser-grid-column-two-thirds {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 15px;
+      
+    }
+
+    .browser-grid-column-full {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 15px;
+      float: left
+    }
+
+    .browser-grid-column-one-quarter {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 15px
+    }
+
+    .browser-grid-column-one-third {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 15px
+    }
+
+    .browser-grid-row {
+      margin-right: -15px;
+      margin-left: -15px
+    }
+
+    .browser-grid-column-two-thirds p {
+      max-height: 30%;
+      overflow: auto;
+      color: #0b0b0b;
+      font-family: Helvetica,Arial,Verdana,Tahoma,sans-serif;
+      font-size: 18px;
+      line-height: 1.3157
+    }
+
+    .browser-list > li
+    {
+      margin-bottom: 5px;
+    }
+
+    .browser-list {
+      font-family: nta,Arial,sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.25;
+      color: #0b0c0c;
+      margin-top: 0;
+      margin-bottom: 15px;
+      padding-left: 0;
+      list-style-type: none
+    }
+
+    .browser-list {
+      font-size: 1.1875rem;
+      line-height: 1.31578947;
+      margin-bottom: 20px
+    }
+
+    .browser-grid-column-one-third {
+      width: 10%;
+      float: left
+    }
+
+    .browser-grid-column-two-thirds {
+      width: 90%;
+      float: left
+    }
+
+    .unsupported-browser-width-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      var versionNumber = 0;
+      var ua = window.navigator.userAgent;
+      var supportedBrowsers = ["Chrome", "Firefox", "Edge", "Safari"];
+      var browserName = "";
+      
+      if (ua.indexOf('Trident/')>0) {
+        // IE 10 or older => return version number
+        var rv = ua.indexOf('rv:');
+        versionNumber = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+        browserName = "IE " + versionNumber;
+        console.log(browserName);
+        
+      }
+      if (browserName!="" && supportedBrowsers.indexOf(browserName) === -1) {
+        var unsupportedMessage = '<div  class="browser-grid-column-full"><h1  class="govuk-heading-l">This website is not supported on this browser</h1>  <div ><p  class="supported-browser-body">It looks like you\'re using an unsupported browser. Please open with one of the browsers listed below: </p><ul  class="browser-list"><!----><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/chrome_browser_icon.png" alt="Chrome browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Chrome</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/firefox_browser_icon.png" alt="Firefox browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Firefox</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/edge_browser_icon.png" alt="Edge browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Edge</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/safari_browser_icon.png" alt="Safari browser logo"></div><div class="browser-grid-column-two-thirds"><p>Safari</p></div></div></div></div></li></ul></div></div></div>';
+        document.getElementById('result').innerHTML = unsupportedMessage;
+      }
+    }
+</script>
 </head>
 <body class="govuk-template__body js-enabled">
-    <app-root></app-root>
+ <h2 id="result" class="unsupported-browser-width-container" ></h2>
+ <app-root></app-root>
 </body>
-</html>
+  </html>

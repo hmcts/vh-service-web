@@ -11,6 +11,8 @@ import { HeaderComponent } from './modules/shared/header/header.component';
 import { Component } from '@angular/core';
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from './services/profile.service';
+import { DeviceType } from './modules/base-journey/services/device-type';
+import { Paths } from './paths';
 
 @Component({ selector: 'app-footer', template: '' })
 export class FooterStubComponent { }
@@ -33,10 +35,12 @@ describe('AppComponent', () => {
   let journeySelector: jasmine.SpyObj<JourneySelector>;
   let profileService: jasmine.SpyObj<ProfileService>;
   let adalService: jasmine.SpyObj<AdalService>;
+  let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
 
   beforeEach(async(() => {
     router = {
       navigate: jasmine.createSpy('navigate'),
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
       events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
     };
 
@@ -46,6 +50,8 @@ describe('AppComponent', () => {
     profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
 
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
+
+    deviceTypeServiceSpy = jasmine.createSpyObj<DeviceType>(['isSupportedBrowser']);
 
     window = jasmine.createSpyObj('WindowRef', ['getLocation']);
     window.getLocation.and.returnValue(new WindowLocation('/url'));
@@ -66,7 +72,8 @@ describe('AppComponent', () => {
           { provide: WindowRef, useValue: window },
           { provide: PageTrackerService, useValue: pageTracker },
           { provide: ProfileService, useValue: profileService },
-          { provide: JourneySelector, useValue: journeySelector }
+          { provide: JourneySelector, useValue: journeySelector },
+          { provide: DeviceType, useValue: deviceTypeServiceSpy }
         ],
     }).compileComponents();
 
@@ -101,4 +108,9 @@ describe('AppComponent', () => {
     expect(journeySelector.beginFor).toHaveBeenCalledWith('role');
   });
 
+  it('should navigate to unsupported browser page if browser is not compatible', () => {
+    deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(false);
+    component.checkBrowser();
+    expect(router.navigateByUrl).toHaveBeenCalledWith(Paths.UnsupportedBrowser);
+  });
 });
