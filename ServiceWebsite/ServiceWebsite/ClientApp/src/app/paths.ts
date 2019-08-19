@@ -5,5 +5,6 @@ export const Paths = {
     PageNotFound: 'page-not-found',
     Guidance: 'guidance',
     MediaError: 'media-error',
-    EquipmentBlocked: 'equipment-blocked'
+    EquipmentBlocked: 'equipment-blocked',
+    UnsupportedBrowser: 'unsupported-browser'
 };

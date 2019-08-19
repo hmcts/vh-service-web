@@ -1,12 +1,14 @@
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { AdalService } from 'adal-angular4';
 import { Config } from './modules/shared/models/config';
 import { HeaderComponent } from './modules/shared/header/header.component';
 import { WindowRef } from './modules/shared/window-ref';
 import { PageTrackerService } from './services/page-tracker.service';
+import { DeviceType } from './modules/base-journey/services/device-type';
+import { Paths } from './paths';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +29,8 @@ export class AppComponent implements OnInit {
     private window: WindowRef,
     private profileService: ProfileService,
     private journeySelector: JourneySelector,
-    pageTracker: PageTrackerService
+    pageTracker: PageTrackerService,
+    private deviceTypeService: DeviceType
   ) {
     this.loggedIn = false;
     this.initAuthentication();
@@ -46,6 +49,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkBrowser();
     this.adalService.handleWindowCallback();
     this.loggedIn = this.adalService.userInfo.authenticated;
 
@@ -61,6 +65,12 @@ export class AppComponent implements OnInit {
     } else {
       const profile = await this.profileService.getUserProfile();
       await this.journeySelector.beginFor(profile.role);
+    }
+  }
+
+  checkBrowser(): void {
+    if (!this.deviceTypeService.isSupportedBrowser()) {
+      this.router.navigateByUrl(Paths.UnsupportedBrowser);
     }
   }
 }
