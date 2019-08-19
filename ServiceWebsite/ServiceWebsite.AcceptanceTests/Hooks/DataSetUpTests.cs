@@ -14,7 +14,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private DataSetUp _dataSetUp;
 
         [SetUp]
-        public void setUp()
+        public void SetUp()
         {
             _dataSetUp = new DataSetUp();
         }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Contexts;
+using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Models;
 using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Common;
@@ -63,6 +64,12 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var request = context.Get($"/hearings/?username={userName}");
             var response = context.Client().Execute(request);
             var hearings = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<List<HearingDetailsResponse>>(response.Content);
+
+            if (hearings == null || !response.IsSuccessful)
+            {
+                TestLogger.Log("No hearings to clear");
+                return;
+            }
             foreach (var hearing in hearings)
             {
                 DeleteHearing(context, hearing.Id.ToString());
@@ -76,7 +83,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var requestBody = CreateHearingRequest.BuildRequest(testContext.TestUserSecrets.Individual, testContext.TestUserSecrets.Representative);
             testContext.Request = testContext.Post("/hearings", requestBody);
             testContext.Response = testContext.Client().Execute(testContext.Request);
-            testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created);
+            testContext.Response.StatusCode.Should().Be(HttpStatusCode.Created, "Create new hearing Response Status should have been Created");
             var model = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(testContext.Response.Content);
             testContext.HearingId = model.Id.ToString();
             var individual = model.Participants.Single(p => p.Username.Equals(testContext.TestUserSecrets.Individual));
