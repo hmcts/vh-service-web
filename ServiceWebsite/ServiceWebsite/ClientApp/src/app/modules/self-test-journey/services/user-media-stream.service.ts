@@ -51,8 +51,9 @@ export class UserMediaStreamService {
   async getStreamForMic(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
+        let deviceId = await this.getDeviceId(device.label);
         const stream = await this._navigator.mediaDevices.getUserMedia(
-          { audio: { deviceId: { exact: device.deviceId } } }
+          { audio: { deviceId: { exact: deviceId } } }
         );
         return stream;
       } else {
@@ -66,16 +67,23 @@ export class UserMediaStreamService {
   async getStreamForCam(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
+        let deviceId = await this.getDeviceId(device.label);
         const stream = await this._navigator.mediaDevices.getUserMedia(
-          { video: { deviceId: { exact: device.deviceId } } }
+          { video: { deviceId: { exact: deviceId } } }
         );
-        return stream;
+       return stream;
       } else {
         return this.getDefaultCamStream();
       }
     } catch (exception) {
       this.logger.error('could not re-set camera', exception);
     }
+  }
+
+  private async getDeviceId(deviceName: string) {
+    let availableDevices: MediaDeviceInfo[] = await this._navigator.mediaDevices.enumerateDevices();
+    var filteredDevices = availableDevices.filter(x => x.label === deviceName);
+    return filteredDevices[0].deviceId;
   }
 
   private async getDefaultCamStream(): Promise<MediaStream> {

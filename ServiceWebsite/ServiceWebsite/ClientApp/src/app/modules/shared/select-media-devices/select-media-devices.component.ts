@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { SelectedUserMediaDevice } from '../models/selected-user-media-device';
 import { UserMediaService } from 'src/app/services/user-media.service';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
@@ -22,6 +22,9 @@ export class SelectMediaDevicesComponent implements OnInit {
   preferredMicrophoneStream: MediaStream;
 
   selectedMediaDevicesForm: FormGroup;
+
+  @ViewChild("preferredCameraVideo", { static: false })
+  preferredCameraVideo: ElementRef;
 
   constructor(
     private userMediaService: UserMediaService,
@@ -50,7 +53,8 @@ export class SelectMediaDevicesComponent implements OnInit {
 
     const preferredCamera = await this.userMediaService.getPreferredCamera();
     const preferredMicrophone = await this.userMediaService.getPreferredMicrophone();
-    this.preferredCameraStream = await this.userMediaStreamService.getStreamForCam(preferredCamera);
+    await this.assignStream(preferredCamera);
+
     this.preferredMicrophoneStream = await this.userMediaStreamService
       .getStreamForMic(preferredMicrophone);
 
@@ -66,7 +70,7 @@ export class SelectMediaDevicesComponent implements OnInit {
     if (preferredCamera) {
       cam = this.availableCameraDevices.find(x => x.label === preferredCamera.label);
     }
-
+    
     let mic = this.availableMicrophoneDevices[0];
     const preferredMicrophone = await this.userMediaService.getPreferredMicrophone();
     if (preferredMicrophone) {
@@ -137,7 +141,17 @@ export class SelectMediaDevicesComponent implements OnInit {
     }
     this.userMediaService.updatePreferredCamera(newCam);
     this.preferredCameraStream = null;
-    this.preferredCameraStream = await this.userMediaStreamService.getStreamForCam(newCam);
+    await this.assignStream(newCam);
+  }
+
+  private async assignStream(camera: UserMediaDevice) {
+    this.preferredCameraStream = await this.userMediaStreamService.getStreamForCam(camera);
+    var selfvideo = this.preferredCameraVideo.nativeElement;
+    if (typeof (MediaStream) !== "undefined" && this.preferredCameraStream instanceof MediaStream) {
+      selfvideo.srcObject = this.preferredCameraStream;
+    } else {
+      selfvideo.src = this.preferredCameraStream;
+    }
   }
 
   private async updateMicrophoneStream(newMic: UserMediaDevice) {
