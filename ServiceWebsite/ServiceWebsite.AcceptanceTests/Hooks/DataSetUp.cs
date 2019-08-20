@@ -12,6 +12,7 @@ using ServiceWebsite.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
@@ -19,25 +20,10 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
     [Binding]
     public class DataSetUp
     {
-
-        public IConfigurationRoot BuildConfigRoot()
-        {
-            var configRootBuilder = new ConfigurationBuilder()
-             .AddJsonFile("appsettings.json")
-             .AddEnvironmentVariables()
-             .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
-
-            return configRootBuilder.Build();
-        }
-
-        [BeforeScenario(Order = 0)]
+		[BeforeScenario(Order = 0)]
         public void OneTimeSetup(TestContext testContext)
         {
-            var configRootBuilder = new ConfigurationBuilder()
-             .AddJsonFile("appsettings.json")
-             .AddEnvironmentVariables()
-             .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
-            var configRoot = configRootBuilder.Build();
+            var configRoot = ConfigurationHelper.BuildDefaultConfigRoot();
 
             var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
             var vhServiceConfig = Options.Create(configRoot.GetSection("VhServices").Get<ServiceSettings>()).Value;
@@ -67,7 +53,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
             if (hearings == null || !response.IsSuccessful)
             {
-                TestLogger.Log("No hearings to clear");
+                TestLogger.Log(Assembly.GetCallingAssembly().GetName().FullName, "No hearings to clear");
                 return;
             }
             foreach (var hearing in hearings)

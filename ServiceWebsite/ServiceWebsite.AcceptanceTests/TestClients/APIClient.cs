@@ -9,9 +9,10 @@ namespace ServiceWebsite.AcceptanceTests.Clients
         public string BaseUrl { get; set; }
         public string BearerToken { get; set; }
 
-        public APIClient(string url)
+        public APIClient(string url, string token)
         {
             BaseUrl = url;
+            BearerToken = token;
         }
 
         public RestClient CreateClient()

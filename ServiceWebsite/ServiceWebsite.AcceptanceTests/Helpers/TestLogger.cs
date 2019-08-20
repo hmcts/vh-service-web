@@ -8,11 +8,9 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
     public class TestLogger
     {
         const string CATEGORY = "Acceptance Test";
-        public static void Log(string message)
+        public static void Log(string className, string message)
         {
-            ApplicationLogger.Trace(CATEGORY,
-                                    Assembly.GetCallingAssembly().GetName().FullName,
-                                    message);
+            ApplicationLogger.Trace(CATEGORY, className, message);
         }
 
         public static void LogTestResult(string user, IDictionary testResult)
