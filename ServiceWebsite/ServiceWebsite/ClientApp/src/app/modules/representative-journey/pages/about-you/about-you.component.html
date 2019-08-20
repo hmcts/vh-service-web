@@ -6,7 +6,12 @@
     <div>
       <app-hearing-details-header></app-hearing-details-header>
     </div>
-    <app-choice-textbox [suitabilityAnswer]="model.aboutYou" (submitted)="submit()">
+
+    <app-choice-textbox
+      [detailsYesText]="'Please provide any information you feel comfortable sharing and that you believe may help the court decide which type of hearing will be most suitable.'"
+      [suitabilityAnswer]="model.aboutYou"
+      (submitted)="submit()">
+
       <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@rep_aboutYou_p_1">
         Is there anything that could affect your ability to take part in a video hearing?
       </p>

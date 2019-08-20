@@ -9,6 +9,7 @@ import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 
 import { Paths } from './paths';
+import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
 
 export const routes: Routes = [
   { path: Paths.Root, component: HomeComponent, pathMatch: 'full' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: `${Paths.Guidance}/:print`, component: GuidanceComponent },
   { path: Paths.MediaError, component: MediaErrorComponent },
   { path: Paths.EquipmentBlocked, component: MediaErrorComponent },
+  { path: `${Paths.UnsupportedBrowser}`, component: UnsupportedBrowserComponent },
   { path: '**', redirectTo: Paths.PageNotFound, pathMatch: 'full' }
 ];
 

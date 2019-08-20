@@ -6,7 +6,11 @@
 
     <app-hearing-details-header></app-hearing-details-header>
 
-    <app-choice-textbox [suitabilityAnswer]="model.aboutYourClient" (submitted)="submit()">
+    <app-choice-textbox
+      [detailsYesText]="'Please provide any information your client feels comfortable sharing and that you believe may help the court decide which type of hearing will be most suitable.'"
+      [suitabilityAnswer]="model.aboutYourClient"
+      (submitted)="submit()">
+
       <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@aboutYourClient_p_1">Is there anything that could affect
         your client's ability to take part in a video hearing?
       </p>

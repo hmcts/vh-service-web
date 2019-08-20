@@ -67,6 +67,14 @@ describe('ChoiceTextboxComponent', () => {
     expect(component.form.isFormInvalid).toBeFalsy();
   });
 
+  it('should display text field when selecting yes that matches input text', () => {
+    const expectedText = 'Some Text From Me';
+    component.detailsYesText = expectedText;
+    testFixture.radioBoxIsClicked('#choice-yes');
+    const detailsYesText = testFixture.debugElementByCss('#details-yes-label');
+    expect(detailsYesText.nativeElement.textContent).toBe(` ${expectedText} `);
+  });
+
   it('should be invalid if submitting without having entered any text', () => {
     // when
     testFixture.radioBoxIsClicked('#choice-yes');
