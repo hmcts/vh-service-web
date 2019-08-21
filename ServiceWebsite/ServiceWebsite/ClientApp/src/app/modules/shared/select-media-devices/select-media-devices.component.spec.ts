@@ -100,4 +100,11 @@ describe('SelectMediaDevicesComponent', () => {
       expect(component.acceptMediaDeviceChange.emit).toHaveBeenCalled();
     });
   });
+
+  it('should set the video source to a media stream when initialized', async () => {
+    const mediaStream = new MediaStream();
+    userMediaStreamServiceSpy.getStreamForCam.and.returnValue(Promise.resolve(mediaStream));
+    await component.ngOnInit();
+    //expect(userMediaService.getStream).toHaveBeenCalled();
+  });
 });
