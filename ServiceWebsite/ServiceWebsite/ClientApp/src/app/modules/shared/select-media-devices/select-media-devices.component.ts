@@ -23,7 +23,7 @@ export class SelectMediaDevicesComponent implements OnInit {
 
   selectedMediaDevicesForm: FormGroup;
 
-  @ViewChild("preferredCameraVideo", { static: false })
+  @ViewChild('preferredCameraVideo', { static: false })
   preferredCameraVideo: ElementRef;
 
   constructor(
@@ -70,7 +70,7 @@ export class SelectMediaDevicesComponent implements OnInit {
     if (preferredCamera) {
       cam = this.availableCameraDevices.find(x => x.label === preferredCamera.label);
     }
-    
+
     let mic = this.availableMicrophoneDevices[0];
     const preferredMicrophone = await this.userMediaService.getPreferredMicrophone();
     if (preferredMicrophone) {
@@ -146,8 +146,8 @@ export class SelectMediaDevicesComponent implements OnInit {
 
   private async assignStream(camera: UserMediaDevice) {
     this.preferredCameraStream = await this.userMediaStreamService.getStreamForCam(camera);
-    var selfvideo = this.preferredCameraVideo.nativeElement;
-    if (typeof (MediaStream) !== "undefined" && this.preferredCameraStream instanceof MediaStream) {
+    const selfvideo = this.preferredCameraVideo.nativeElement;
+    if (typeof (MediaStream) !== 'undefined' && this.preferredCameraStream instanceof MediaStream) {
       selfvideo.srcObject = this.preferredCameraStream;
     } else {
       selfvideo.src = this.preferredCameraStream;
