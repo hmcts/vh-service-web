@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+			      "extractCss": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,6 +26,7 @@
             "styles": [
               "src/styles.css",
               "src/styles.scss"
+
             ],
             "scripts": [
               "src/scripts/pexrtc.js",
