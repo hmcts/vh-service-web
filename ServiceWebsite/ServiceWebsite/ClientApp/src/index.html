@@ -8,115 +8,159 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <style>
-    .supported-browser-body {
-      font-size: 19px;
-      font-weight: 1.3157;
-    }
-    .browser-grid-column-two-thirds {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 0 15px;
-      
-    }
-
-    .browser-grid-column-full {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 0 15px;
-      float: left
-    }
-
-    .browser-grid-column-one-quarter {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 0 15px
-    }
-
-    .browser-grid-column-one-third {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 0 15px
-    }
-
-    .browser-grid-row {
-      margin-right: -15px;
-      margin-left: -15px
-    }
-
-    .browser-grid-column-two-thirds p {
-      max-height: 30%;
-      overflow: auto;
-      color: #0b0b0b;
-      font-family: Helvetica,Arial,Verdana,Tahoma,sans-serif;
-      font-size: 18px;
-      line-height: 1.3157
-    }
-
-    .browser-list > li
-    {
-      margin-bottom: 5px;
-    }
-
-    .browser-list {
-      font-family: nta,Arial,sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.25;
-      color: #0b0c0c;
-      margin-top: 0;
-      margin-bottom: 15px;
-      padding-left: 0;
-      list-style-type: none
-    }
-
-    .browser-list {
-      font-size: 1.1875rem;
-      line-height: 1.31578947;
-      margin-bottom: 20px
-    }
-
-    .browser-grid-column-one-third {
-      width: 10%;
-      float: left
-    }
-
-    .browser-grid-column-two-thirds {
-      width: 90%;
-      float: left
-    }
-
-    .unsupported-browser-width-container {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-  </style>
   <script>
     window.onload = function () {
       var versionNumber = 0;
       var ua = window.navigator.userAgent;
-      var supportedBrowsers = ["Chrome", "Firefox", "Edge", "Safari"];
+      var supportedBrowsers = ["Chrome", "Firefox", "Edge", "Safari", "MS-Edge"];
       var browserName = "";
-      
-      if (ua.indexOf('Trident/')>0) {
+
+      if (ua.indexOf('Trident/') > 0) {
         // IE 10 or older => return version number
         var rv = ua.indexOf('rv:');
         versionNumber = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
         browserName = "IE " + versionNumber;
         console.log(browserName);
-        
       }
-      if (browserName!="" && supportedBrowsers.indexOf(browserName) === -1) {
-        var unsupportedMessage = '<div  class="browser-grid-column-full"><h1  class="govuk-heading-l">This website is not supported on this browser</h1>  <div ><p  class="supported-browser-body">It looks like you\'re using an unsupported browser. Please open with one of the browsers listed below: </p><ul  class="browser-list"><!----><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/chrome_browser_icon.png" alt="Chrome browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Chrome</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/firefox_browser_icon.png" alt="Firefox browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Firefox</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/edge_browser_icon.png" alt="Edge browser logo"></div><div  class="browser-grid-column-two-thirds"><p >Edge</p></div></div></div></div></li><li ><div  class="browser-grid-column-full"><div  class="browser-grid-column-one-quarter"><div  class="browser-grid-row"><div  class="browser-grid-column-one-third"><img  class="govuk-!-margin-right-2" height="48" width="48" src="/assets/images/safari_browser_icon.png" alt="Safari browser logo"></div><div class="browser-grid-column-two-thirds"><p>Safari</p></div></div></div></div></li></ul></div></div></div>';
-        document.getElementById('result').innerHTML = unsupportedMessage;
+      if (browserName != "" && supportedBrowsers.indexOf(browserName) === -1) {
+        var ieDiv = document.getElementById('showIE');
+        if (ieDiv.style.display === "none") {
+          ieDiv.style.display = "block";
+        }
       }
     }
-</script>
+  </script>
+  <style>
+    .supported-browser-line-height {
+      line-height: 2.3157;
+    }
+  </style>
+ 
 </head>
 <body class="govuk-template__body js-enabled">
- <h2 id="result" class="unsupported-browser-width-container" ></h2>
- <app-root></app-root>
+  <!-- This section for IE 11 only -->
+  <div id="showIE" style="display: none;">
+    <header class="govuk-header " data-module="header" role="banner">
+      <div class="govuk-header__container govuk-width-container">
+        <div class="govuk-header__logo" style="width: 100%;">
+          <a class="govuk-header__link--homepage">
+            <span class="govuk-header__logotype">
+              <img alt="HMCTS logo crest image" class="hmcts-header__logotype-crest" height="32"
+                   src="assets/images/UkGovCrestWhite.png" style="margin-right: 30px;" width="38">
+              <span class="govuk-header__logotype-text">
+                HM Courts &amp; Tribunals Service
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </header>
+    <div class="govuk-width-container" id="master-container">
+      <main class="govuk-main-wrapper" id="main-content" role="main">
+        <router-outlet></router-outlet>
+        <app-unsupported-browser>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+              <h2 class="govuk-heading-l">This website is not supported on this browser</h2>
+              <p class="govuk-body">
+                It looks like you're using an unsupported browser.
+                Please open with one of the browsers listed below:
+              </p>
+              <div>
+                <ul class="govuk-list">
+                  <li>
+                    <div class="govuk-grid-column-full">
+                      <div class="govuk-grid-column-one-quarter">
+                        <div class="govuk-grid-row" style="width: 120px">
+                          <div class="govuk-grid-column-one-half supported-browser-line-height">
+                            <img class="govuk-!-margin-right-2" height="48"
+                                 width="48" src="/assets/images/chrome_browser_icon.png" alt="Chrome browser logo">
+                          </div>
+                          <div class="govuk-grid-column-one-half">
+                            <p class="supported-browser-line-height">Chrome</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="govuk-grid-column-full">
+                      <div class="govuk-grid-column-one-quarter">
+                        <div class="govuk-grid-row" style="width: 120px">
+                          <div class="govuk-grid-column-one-half supported-browser-line-height">
+                            <img class="govuk-!-margin-right-2" height="48"
+                                 width="48" src="/assets/images/firefox_browser_icon.png" alt="Firefox browser logo">
+                          </div>
+                          <div class="govuk-grid-column-one-half">
+                            <p class="supported-browser-line-height">Firefox</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="govuk-grid-column-full">
+                      <div class="govuk-grid-column-one-quarter">
+                        <div class="govuk-grid-row" style="width: 120px">
+                          <div class="govuk-grid-column-one-half supported-browser-line-height">
+                            <img class="govuk-!-margin-right-2" height="48"
+                                 width="48" src="/assets/images/edge_browser_icon.png" alt="Edge browser logo">
+                          </div>
+                          <div class="govuk-grid-column-one-half">
+                            <p class="supported-browser-line-height">Edge</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="govuk-grid-column-full">
+                      <div class="govuk-grid-column-one-quarter">
+                        <div class="govuk-grid-row" style="width: 120px">
+                          <div class="govuk-grid-column-one-half supported-browser-line-height">
+                            <img class="govuk-!-margin-right-2" height="48"
+                                 width="48" src="/assets/images/safari_browser_icon.png" alt="Safari browser logo">
+                          </div>
+                          <div class="govuk-grid-column-one-half">
+                            <p class="supported-browser-line-height">Safari</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </app-unsupported-browser>
+      </main>
+    </div>
+    <footer class="govuk-footer " role="contentinfo">
+      <div class="govuk-width-container ">
+        <div class="govuk-footer__meta">
+          <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+            <h2 class="govuk-visually-hidden">Support links</h2>
+            <img alt="ogl logo" height="17" src="assets/images/open-government-licence.png" width="41">
+            <span class="govuk-footer__licence-description">
+              All content is available under the
+              <a class="govuk-footer__link"
+                 href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">
+                Open
+                Government Licence v3.0
+              </a>, except where otherwise stated
+            </span>
+          </div>
+          <div class="govuk-footer__meta-item">
+            <a class="govuk-footer__link govuk-footer__copyright-logo"
+               href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">
+              © Crown copyright
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- This section for IE 11 only -->
+  <app-root></app-root>
 </body>
   </html>
