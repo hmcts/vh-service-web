@@ -18,7 +18,7 @@ export class IndividualModelMapper extends ParticipantModelMapper {
 
     map(response: HearingSuitabilityResponse): IndividualSuitabilityModel {
         const model = new MutableIndividualSuitabilityModel();
-        model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at);
+        model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at, null, null, response.questionnaire_not_required);
         model.aboutYou = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.AboutYou, response.answers);
         model.consent = this.mapBooleanAnswerFromKey(IndividualQuestionKeys.Consent, response.answers);
         model.internet = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Internet);
