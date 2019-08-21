@@ -105,6 +105,5 @@ describe('SelectMediaDevicesComponent', () => {
     const mediaStream = new MediaStream();
     userMediaStreamServiceSpy.getStreamForCam.and.returnValue(Promise.resolve(mediaStream));
     await component.ngOnInit();
-    //expect(userMediaService.getStream).toHaveBeenCalled();
   });
 });
