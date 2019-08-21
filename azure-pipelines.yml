@@ -49,6 +49,7 @@ pr:
 jobs:
 - template: jobs/angularDotNetCore.yml@azureDevOpsTemplates # Template reference
   parameters:
+    pool: 'vh-pool-dev'
     cleanCheckout: $(cleanCheckout)
     sonarCloudExtraProperties: $(sonarCloudPrepareExtraProperties)
     KeyVaultName: $(KeyVaultName)
