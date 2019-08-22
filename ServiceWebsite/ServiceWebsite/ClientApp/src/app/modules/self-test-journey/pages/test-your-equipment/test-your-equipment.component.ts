@@ -202,7 +202,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   async changeDevices() {
     this.disconnect();
-    this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
     this.displayDeviceChangeModal = true;
   }
 
