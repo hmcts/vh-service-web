@@ -18,6 +18,8 @@ import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
 import { JOURNEY_FACTORY } from '../base-journey/services/journey.selector';
+import { IndividualNavigationBackFactory } from './individual-navigation-back.factory';
+import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-back.selector';
 
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
@@ -26,7 +28,7 @@ import { VideoViewComponent } from './components/video-view/video-view.component
 // directives/pipes
 import { SuitabilityService } from './services/suitability.service';
 import { VideoUrlService } from './services/video-url.service';
-import {IndividualJourneyService} from './services/individual-journey.service';
+import { IndividualJourneyService } from './services/individual-journey.service';
 import { SubmitService } from './services/submit.service';
 import { MediaService } from 'src/app/services/media.service';
 import { UserMediaService } from 'src/app/services/user-media.service';
@@ -59,7 +61,8 @@ import { UserMediaService } from 'src/app/services/user-media.service';
     JourneyStepComponentBindings,
     JourneyRoutingListenerService,
     SubmitService,
-    IndividualJourneyService
+    IndividualJourneyService,
+    { provide: NAVIGATION_BACK_FACTORY, useClass: IndividualNavigationBackFactory, multi: true },
   ]
- })
-export class IndividualJourneyModule {}
+})
+export class IndividualJourneyModule { }
