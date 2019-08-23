@@ -345,6 +345,3 @@ jasmine-tests
 
 #sonarqube folder
 .sonarqube/
-
-# Acceptance tests solution
-ServiceWebsite/ServiceWebsite.AcceptanceTests/ServiceWebsite.AcceptanceTests.sln
