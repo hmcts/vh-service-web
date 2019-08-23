@@ -8,7 +8,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
     {
         public static void Log(string  eventTitle, string message)
         {
-            var category = Assembly.GetCallingAssembly().GetName().ToString();
+            var category = Assembly.GetCallingAssembly().GetName().Name;
             Console.WriteLine("Logging {0}: {1}: {2} ", category, eventTitle, message);
             ApplicationLogger.Trace(category, eventTitle, message);
         }

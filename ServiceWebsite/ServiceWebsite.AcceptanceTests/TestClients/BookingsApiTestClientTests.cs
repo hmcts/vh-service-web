@@ -1,13 +1,11 @@
-﻿using System.Reflection;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.TestClients;
 using ServiceWebsite.AcceptanceTests.Validations;
 
-namespace ServiceWebsite.AcceptanceTests
+namespace ServiceWebsite.AcceptanceTests.TestClients
 {
     public class BookingsApiTestClientTests
     {

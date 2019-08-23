@@ -2,7 +2,7 @@
 using RestSharp;
 using ServiceWebsite.Common;
 
-namespace ServiceWebsite.AcceptanceTests.Clients
+namespace ServiceWebsite.AcceptanceTests.TestClients
 {
     public class ApiTestClientBase : IApiClient
     {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using RestSharp;
-using ServiceWebsite.AcceptanceTests.Clients;
 using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Common;
 

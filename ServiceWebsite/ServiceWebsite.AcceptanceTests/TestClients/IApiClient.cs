@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 
-namespace ServiceWebsite.AcceptanceTests.Clients
+namespace ServiceWebsite.AcceptanceTests.TestClients
 {
     public interface IApiClient
     {

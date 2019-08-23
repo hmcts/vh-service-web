@@ -29,7 +29,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             _configRoot = ConfigurationHelper.BuildDefaultConfigRoot();
             _client = _bookingsApiHelper.CreateClientWithConfig(_configRoot);
             TestContext = ConfigurationHelper.ParseConfigurationIntoTestContext(_configRoot, testContext);
-            TestLogger.Log(MethodBase.GetCurrentMethod().Name, "Test Context: " + TestContext);
+            TestLogger.Log(MethodBase.GetCurrentMethod().Name, "Setting TestContext.BaseUrl to: " + TestContext.BaseUrl);
         }
 
         [BeforeScenario(Order = 2)]
