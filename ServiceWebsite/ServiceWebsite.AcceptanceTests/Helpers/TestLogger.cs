@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using System.Reflection;
 using ServiceWebsite.Common;
 
@@ -7,16 +6,11 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 {
     public class TestLogger
     {
-        const string CATEGORY = "Acceptance Test";
-        public static void Log(string className, string message)
+        public static void Log(string  eventTitle, string message)
         {
-            ApplicationLogger.Trace(CATEGORY, className, message);
-        }
-
-        public static void LogTestResult(string user, IDictionary testResult)
-        {
-            ApplicationLogger.TraceWithProperties(CATEGORY, Assembly.GetCallingAssembly().GetName().FullName,
-                                                    user, (IDictionary<string, string>)testResult);
+            var category = Assembly.GetCallingAssembly().GetName().ToString();
+            Console.WriteLine("Logging {0}: {1}: {2} ", category, eventTitle, message);
+            ApplicationLogger.Trace(category, eventTitle, message);
         }
     }
 }
