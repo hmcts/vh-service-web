@@ -57,7 +57,7 @@ export class VideoViewComponent implements OnDestroy {
   ngOnDestroy() {
     this.stopPlaying();
     this.videoTag.removeAttribute('src');
-    //this.videoTag.load();
-    console.log('################ ngOnDestroy ##############1')
+    // this.videoTag.load();
+    console.log('################ ngOnDestroy ##############1');
   }
 }
