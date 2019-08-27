@@ -10,6 +10,6 @@ const ThankYouRepUrl = '/thank-you-rep';
 export class RepresentativeNavigationBackFactory extends NavigationBackBaseFactory {
 
   constructor(protected router: Router) {
-    super(router, RepresentativeUserType, [QuestionnaireCompletedUrl, ThankYouRepUrl])
+    super(router, RepresentativeUserType, [QuestionnaireCompletedUrl, ThankYouRepUrl]);
   }
 }

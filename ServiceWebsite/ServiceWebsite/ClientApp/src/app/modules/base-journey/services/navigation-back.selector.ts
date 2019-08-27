@@ -5,7 +5,7 @@ export const NAVIGATION_BACK_FACTORY = new InjectionToken<NavigationBackFactory>
 
 
 @Injectable()
-export class NavigationBackSelector{
+export class NavigationBackSelector {
   private currentFactory: NavigationBackFactory;
 
   constructor(@Inject(NAVIGATION_BACK_FACTORY) private factories: NavigationBackFactory[]) { }

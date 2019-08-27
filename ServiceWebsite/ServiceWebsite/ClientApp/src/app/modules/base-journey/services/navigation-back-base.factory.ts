@@ -62,7 +62,7 @@ export class NavigationBackBaseFactory implements NavigationBackFactory {
   private navigateBackToDropPoint() {
     const model = this.cache.get();
     const url = model ? model.url : '';
-    this.router.navigate([url])
+    this.router.navigate([url]);
   }
 
 }
