@@ -19,6 +19,6 @@ export class NavigationBackSelector {
     }
 
     this.currentFactory = factory[0];
-    await this.currentFactory.subscribeToEvent();
+    this.currentFactory.subscribeToEvent();
   }
 }

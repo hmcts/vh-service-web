@@ -12,6 +12,7 @@ export class NavigationBackBaseFactory implements NavigationBackFactory {
   continueUrl: string;
   dropPointUrls: string[] = [];
   private readonly cache = new SessionStorage<NavigateBackUrlModel>('NAVIGATEBACKURL_MODEL');
+  navigated = false;
 
   constructor(protected router: Router,
     protected userType: string,
@@ -40,10 +41,10 @@ export class NavigationBackBaseFactory implements NavigationBackFactory {
       const countEvents = this.eventsStore.length;
       if (countEvents > 1 && this.dropPointUrls.length > 0) {
         const previousEvent = this.eventsStore[countEvents - 2];
-
+        this.navigated = false;
         this.completedPoint(previousEvent.url);
 
-        if (previousEvent.url === QuestionnaireAlreadyCompletedUrl) {
+        if (!this.navigated && previousEvent.url === QuestionnaireAlreadyCompletedUrl) {
           this.navigateBackToDropPoint();
         }
       }
@@ -55,6 +56,8 @@ export class NavigationBackBaseFactory implements NavigationBackFactory {
       if (previousEventUrl === p) {
         this.cache.set(new NavigateBackUrlModel(previousEventUrl));
         this.router.navigate([QuestionnaireAlreadyCompletedUrl]);
+        this.navigated = true;
+        return;
       }
     });
   }
