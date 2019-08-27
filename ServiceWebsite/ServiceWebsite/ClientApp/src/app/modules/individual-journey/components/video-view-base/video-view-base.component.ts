@@ -24,7 +24,7 @@ export class VideoViewBaseComponent implements OnInit {
     this.disabledReplay = false;
   }
 
-  async replay() {
-    await this.videoViewComponent.play();
+  replay() {
+    this.videoViewComponent.play();
   }
 }
