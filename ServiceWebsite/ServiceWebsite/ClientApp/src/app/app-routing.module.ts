@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
+import { QuestionnaireAlreadyCompletedComponent } from './pages/questionnaire-already-completed/questionnaire-already-completed.component';
 
 import { Paths } from './paths';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: Paths.MediaError, component: MediaErrorComponent },
   { path: Paths.EquipmentBlocked, component: MediaErrorComponent },
   { path: `${Paths.UnsupportedBrowser}`, component: UnsupportedBrowserComponent },
+  { path: Paths.QuestionnaireAlreadyCompleted, component: QuestionnaireAlreadyCompletedComponent },
   { path: '**', redirectTo: Paths.PageNotFound, pathMatch: 'full' }
 ];
 

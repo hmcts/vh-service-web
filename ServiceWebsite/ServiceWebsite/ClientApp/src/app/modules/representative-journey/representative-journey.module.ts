@@ -17,6 +17,7 @@ import { JourneyRoutingListenerService } from '../base-journey/services/journey-
 
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
 import { HearingService, HearingApiService } from './services/hearing.service';
+import { RepresentativeNavigationBackFactory } from './representative-navigation-back.factory';
 
 // components
 import { AboutVideoHearingsComponent } from './pages/about-video-hearings/about-video-hearings.component';
@@ -33,8 +34,9 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { PleaseContactUsComponent } from './pages/please-contact-us/please-contact-us.component';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 import { CachedHearingService } from './services/cached-hearing.service';
-import {RepresentativeJourneyService} from './services/representative.journey.service';
+import { RepresentativeJourneyService } from './services/representative.journey.service';
 import { SubmitService } from './services/submit.service';
+import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-back.selector';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,7 @@ import { SubmitService } from './services/submit.service';
   providers: [
     { provide: RepresentativeSuitabilityModel, useFactory: RepresentativeSuitabilityModelFactory },
     { provide: JOURNEY_FACTORY, useClass: RepresentativeJourneyFactory, multi: true },
-    { provide: HearingService, useFactory: (service: HearingService) => new CachedHearingService(service), deps: [ HearingApiService ] },
+    { provide: HearingService, useFactory: (service: HearingService) => new CachedHearingService(service), deps: [HearingApiService] },
     HearingApiService,
     RepresentativeJourney,
     RepresentativeSuitabilityService,
@@ -74,7 +76,8 @@ import { SubmitService } from './services/submit.service';
     JourneyRoutingListenerService,
     RepresentativeSuitabilityService,
     RepresentativeJourneyService,
-    SubmitService
+    SubmitService,
+    { provide: NAVIGATION_BACK_FACTORY, useClass: RepresentativeNavigationBackFactory, multi: true },
   ]
 })
 export class RepresentativeJourneyModule {
