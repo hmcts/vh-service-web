@@ -9,7 +9,7 @@ import { NavigateBackUrlModel } from '../../modules/base-journey/services/naviga
   templateUrl: './questionnaire-already-completed.component.html'
 })
 export class QuestionnaireAlreadyCompletedComponent {
-  private readonly cache: SessionStorage<NavigateBackUrlModel>;
+  cache: SessionStorage<NavigateBackUrlModel>;
   showTextDetails = false;
   contactUsEmail: string;
 
