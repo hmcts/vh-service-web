@@ -1,14 +1,13 @@
-import { HearingSelector } from '../base-journey/hearing-selector';
-import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
-import { EventEmitter, Injectable } from '@angular/core';
-import { JourneyBase } from '../base-journey/journey-base';
-import { IndividualJourneySteps } from './individual-journey-steps';
-import { JourneyStep } from '../base-journey/journey-step';
-import { SubmitService } from './services/submit.service';
-import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
-import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
-import { Logger } from 'src/app/services/logger';
-import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
+import {HearingSelector} from '../base-journey/hearing-selector';
+import {IndividualSuitabilityModel} from 'src/app/modules/individual-journey/individual-suitability.model';
+import {EventEmitter, Injectable} from '@angular/core';
+import {JourneyBase} from '../base-journey/journey-base';
+import {IndividualJourneySteps} from './individual-journey-steps';
+import {JourneyStep} from '../base-journey/journey-step';
+import {SubmitService} from './services/submit.service';
+import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
+import {SelfTestJourneySteps} from '../self-test-journey/self-test-journey-steps';
+import {Logger} from 'src/app/services/logger';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
@@ -19,8 +18,7 @@ export class IndividualJourney extends JourneyBase {
   private currentModel: IndividualSuitabilityModel;
   private isDone: boolean;
 
-  constructor(private submitService: SubmitService,
-    private logger: Logger) {
+  constructor(private submitService: SubmitService, private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
       this.currentStep = step;
@@ -42,9 +40,12 @@ export class IndividualJourney extends JourneyBase {
   }
 
   startAt(step: JourneyStep) {
-    this.assertInitialised();
+    if (!this.assertInitialised()) {
+      return;
+    }
+
     if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
-      this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
+      this.logger.event(`Starting journey at self-test`, {requestedStep: step, details: 'Questionnaire submitted but self-test is not'});
       this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
       this.goto(step);
@@ -66,9 +67,12 @@ export class IndividualJourney extends JourneyBase {
    * @param position The step to jump to
    */
   jumpTo(position: JourneyStep) {
-    this.assertInitialised();
+    if (!this.assertInitialised()) {
+      return;
+    }
+
     if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
-      const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
+      const details = {requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending'};
       this.logger.event(`Redirecting user to self-test`, details);
       this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
@@ -94,12 +98,7 @@ export class IndividualJourney extends JourneyBase {
   /**
    * The journey must know if the user has any upcoming hearings and if the suitability has been answered for these.
    */
-  private assertInitialised() {
-    if (this.isDone || this.model) {
-      return;
-    }
-
-    // we've not initialised the journey
-    throw new Error('Journey must be initialised with suitability answers');
+  private assertInitialised(): boolean {
+    return !!(this.isDone || this.model);
   }
 }
