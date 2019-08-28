@@ -14,7 +14,6 @@ export class RepresentativeJourney extends JourneyBase {
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
-  private isDone: boolean;
 
   private readonly questionnairePages = [
     RepresentativeJourneySteps.AboutVideoHearings,
@@ -52,7 +51,10 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   startAt(step: JourneyStep) {
-    this.assertInitialised();
+    if (!this.assertInitialised()) {
+      return;
+    }
+
     if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
       this.logger.event(`Starting journey at self-test`, { requestedStep: step, details: 'Questionnaire submitted but self-test is not' });
       this.goto(SelfTestJourneySteps.CheckYourComputer);
@@ -89,7 +91,10 @@ export class RepresentativeJourney extends JourneyBase {
    * @param position The step to jump to
    */
   jumpTo(position: JourneyStep) {
-    this.assertInitialised();
+    if (!this.assertInitialised()) {
+      return;
+    }
+
     if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
       const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
       this.logger.event(`Redirecting user to self-test`, details);
@@ -103,11 +108,6 @@ export class RepresentativeJourney extends JourneyBase {
    * The journey must know if the user has any upcoming hearings and if the suitability has been answered for these.
    */
   private assertInitialised() {
-    if (this.model) {
-      return;
-    }
-
-    // we've not initialised the journey
-    throw new Error('Journey must be initialised with suitability answers');
+    return !!(this.model);
   }
 }

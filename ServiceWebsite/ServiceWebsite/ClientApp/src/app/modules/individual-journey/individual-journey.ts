@@ -13,10 +13,8 @@ import {Logger} from 'src/app/services/logger';
 export class IndividualJourney extends JourneyBase {
   static readonly initialStep = IndividualJourneySteps.AboutHearings;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
-  stepOrder: Array<JourneyStep>;
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
   private currentModel: IndividualSuitabilityModel;
-  private isDone: boolean;
 
   constructor(private submitService: SubmitService, private logger: Logger) {
     super();
@@ -99,6 +97,6 @@ export class IndividualJourney extends JourneyBase {
    * The journey must know if the user has any upcoming hearings and if the suitability has been answered for these.
    */
   private assertInitialised(): boolean {
-    return !!(this.isDone || this.model);
+    return !!(this.model);
   }
 }
