@@ -1,9 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using RestSharp;
 using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.TestClients;
 using ServiceWebsite.AcceptanceTests.Validations;
+using ServiceWebsite.Configuration;
 using System.Reflection;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
@@ -14,7 +18,6 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private static BookingsApiClientHelper _bookingsApiHelper;
         private static DataSetUpValidation _dataSetUpValidation;
         private static IConfigurationRoot _configRoot;
-        private static BookingsApiTestClient _client;
         public TestContext TestContext { get; set; }
 
         public DataSetUp()
@@ -27,8 +30,12 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         public void OneTimeSetup(TestContext testContext)
         {
             _configRoot = ConfigurationHelper.BuildDefaultConfigRoot();
-            _client = _bookingsApiHelper.CreateClientWithConfig(_configRoot);
-            TestContext = ConfigurationHelper.ParseConfigurationIntoTestContext(_configRoot, testContext);
+            var vhServiceConfig = Options.Create(_configRoot.GetSection("VhServices").Get<ServiceSettings>()).Value;
+            var token = ConfigurationHelper.GetBearerToken(_configRoot).Result;
+            var restClient = new RestClient(vhServiceConfig.BookingsApiUrl);
+
+            _bookingsApiHelper.CreateClient(restClient, token);
+            TestContext = ConfigurationHelper.ParseConfigurationIntoTestContext(_configRoot, testContext).Result;
             TestLogger.Log(MethodBase.GetCurrentMethod().Name, "Setting TestContext.BaseUrl to: " + TestContext.BaseUrl);
         }
 
@@ -37,8 +44,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             _dataSetUpValidation
                 .AllVideoHearingBookingsShouldHaveBeenSuccessfullyDeleted(_bookingsApiHelper,
-                                                                            testContext.TestUserSecrets,
-                                                                            _client);
+                                                                            testContext.TestUserSecrets);
         }
 
         [BeforeScenario(Order = 3)]
@@ -46,9 +52,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             _dataSetUpValidation
                 .AllVideoHearingBookingsShouldHaveBeenSuccessfullyCreated(_bookingsApiHelper,
-                                                                          testContext.TestUserSecrets,
-                                                                           _configRoot,
-                                                                           _client);
+                                                                          testContext.TestUserSecrets);
 
         }
 
@@ -57,8 +61,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             _dataSetUpValidation
                 .AllVideoHearingBookingsShouldHaveBeenSuccessfullyDeleted(_bookingsApiHelper,
-                                                                          testContext.TestUserSecrets,
-                                                                          _client);
+                                                                          testContext.TestUserSecrets);
         }
     }
 }

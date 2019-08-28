@@ -9,14 +9,14 @@ namespace ServiceWebsite.AcceptanceTests.TestClients
     public class BookingsApiTestClient : ApiTestClientBase
 
     {
-        public BookingsApiTestClient(RestClient client, string token) : base(client, token)
+        public BookingsApiTestClient(IRestClient client, string token) : base(client, token)
         {
         }
 
         public HttpStatusCode CreateNewVideoHearingsBooking(BookNewHearingRequest requestBody)
         {
             var request = Post("/hearings", requestBody);
-            var response = Client.Execute(request);
+            var response = _client.Execute(request);
             return response.StatusCode;
         }
 

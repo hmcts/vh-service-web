@@ -7,13 +7,14 @@ using FluentAssertions;
 using NUnit.Framework;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using TestContext = ServiceWebsite.AcceptanceTests.Contexts.TestContext;
+using System.Threading.Tasks;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
 {
     public class DataSetUpTests
     {
         private DataSetUp _dataSetUp;
-		private static string FULL_TEST_NAME = Assembly.GetCallingAssembly().GetName().FullName;
+		private static readonly string FullTestName = Assembly.GetCallingAssembly().GetName().FullName;
 
 		[SetUp]
         public void SetUp()
@@ -50,32 +51,32 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
 		public void OneTimeSetupBearerTokenIsNotNull()
 		{
-			_dataSetUp.OneTimeSetup(new TestContext());
+            _dataSetUp.OneTimeSetup(new TestContext());
 			_dataSetUp.TestContext.BearerToken.Should().NotBeNull();
 		}
 
 		public void OneTimeSetupBaseUrlIsNotNull()
 		{
-			_dataSetUp.OneTimeSetup(new TestContext());
+            _dataSetUp.OneTimeSetup(new TestContext());
 			_dataSetUp.TestContext.BaseUrl.Should().NotBeNull();
 		}
 
 		public void OneTimeSetupTestUserSecretsIsNotNull()
 		{
-			_dataSetUp.OneTimeSetup(new TestContext());
+            _dataSetUp.OneTimeSetup(new TestContext());
 			_dataSetUp.TestContext.TestUserSecrets.Should().NotBeNull();
 			_dataSetUp.TestContext.VideoAppUrl.Should().NotBeNull();
 		}
 
 		public void OneTimeSetupVideoAppUrlIsNotNull()
 		{
-			_dataSetUp.OneTimeSetup(new TestContext());
+            _dataSetUp.OneTimeSetup(new TestContext());
 			_dataSetUp.TestContext.VideoAppUrl.Should().NotBeNull();
 		}
 
 		public void OneTimeSetupWebsiteUrlIsNotNull()
 		{
-			_dataSetUp.OneTimeSetup(new TestContext());
+            _dataSetUp.OneTimeSetup(new TestContext());
 			_dataSetUp.TestContext.WebsiteUrl.Should().NotBeNull();
 		}
 
@@ -98,7 +99,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
             foreach (var expectedConfigItem in expectedConfigList)
             {
-                Console.WriteLine(FULL_TEST_NAME, "Expected configItem: " + expectedConfigItem);
+                Console.WriteLine(FullTestName, "Expected configItem: " + expectedConfigItem);
                 yield return new TestCaseData(expectedConfigItem);
             }
         }

@@ -4,7 +4,6 @@ namespace ServiceWebsite.AcceptanceTests.TestClients
 {
     public interface IApiClient
     {
-        RestClient Client { get; }
         RestRequest Delete(string path);
         RestRequest Get(string path);
         RestRequest Post(string path, object requestBody);

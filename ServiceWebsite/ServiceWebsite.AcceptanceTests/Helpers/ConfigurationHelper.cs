@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -11,38 +12,36 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 {
     public class ConfigurationHelper
     {
-        private const string INDIVIDUAL_TEST_ACCOUNT = "video-hearing-booking-creation-individual@hmctest.com";
-        private const string REPRESENTATIVE_TEST_ACCOUNT = "video-hearing-booking-creation-representative@hmctest.com";
+        private const string IndividualTestAccount = "video-hearing-booking-creation-individual@hmctest.com";
+        private const string RepresentativeTestAccount = "video-hearing-booking-creation-representative@hmctest.com";
 
         public static IConfigurationRoot BuildDefaultConfigRoot()
         {
             var configRootBuilder = new ConfigurationBuilder()
              .AddJsonFile("appsettings.json")
              .AddEnvironmentVariables()
-             .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122"); //TODO: Ask if this should be here?
+             .AddUserSecrets("CF5CDD5E-FD74-4EDE-8765-2F899C252122");
 
             return configRootBuilder.Build();
         }
 
-        public static string GetBearerToken(IConfigurationRoot configRoot)
+        public async static Task<string> GetBearerToken(IConfigurationRoot configRoot)
         {
             var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
             var vhServiceConfig = Options.Create(configRoot.GetSection("VhServices").Get<ServiceSettings>()).Value;
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
-            var token = authContext.AcquireTokenAsync(vhServiceConfig.BookingsApiResourceId, credential).Result.AccessToken;
+            var token = await authContext.AcquireTokenAsync(vhServiceConfig.BookingsApiResourceId, credential);
 
-            return token;
+            return token.AccessToken;
         }
 
-        public static TestContext ParseConfigurationIntoTestContext(IConfigurationRoot configRoot, TestContext testContext)
+        public async static Task<TestContext> ParseConfigurationIntoTestContext(IConfigurationRoot configRoot, TestContext testContext)
         {
             var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
             var vhServiceConfig = Options.Create(configRoot.GetSection("VhServices").Get<ServiceSettings>()).Value;
             var userAccountConfig = Options.Create(configRoot.GetSection("TestUserSecrets").Get<UserAccount>()).Value;
-            var authContext = new AuthenticationContext(azureAdConfig.Authority);
-            var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
-            testContext.BearerToken = authContext.AcquireTokenAsync(vhServiceConfig.BookingsApiResourceId, credential).Result.AccessToken;
+            testContext.BearerToken = await GetBearerToken(configRoot);
             testContext.BaseUrl = vhServiceConfig.BookingsApiUrl;
             testContext.TestUserSecrets = userAccountConfig;
             testContext.AzureAd = azureAdConfig;
@@ -54,7 +53,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 
         public static IEnumerable<KeyValuePair<string, string>> GetActualConfigAsEnumerable()
         {
-            var configRoot = ConfigurationHelper.BuildDefaultConfigRoot();
+            var configRoot = BuildDefaultConfigRoot();
             return configRoot.AsEnumerable();
         }
 
@@ -83,8 +82,8 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             }
             else
             {
-                userAccount.Individual = INDIVIDUAL_TEST_ACCOUNT;
-                userAccount.Representative = REPRESENTATIVE_TEST_ACCOUNT;
+                userAccount.Individual = IndividualTestAccount;
+                userAccount.Representative = RepresentativeTestAccount;
             }
 
             return userAccount;

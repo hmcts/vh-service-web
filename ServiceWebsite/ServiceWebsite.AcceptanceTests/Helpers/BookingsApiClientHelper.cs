@@ -9,66 +9,64 @@ using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Models;
 using ServiceWebsite.AcceptanceTests.TestClients;
 using ServiceWebsite.BookingsAPI.Client;
-using ServiceWebsite.Configuration;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
 {
     public class BookingsApiClientHelper
     {
-        public BookingsApiTestClient CreateClientWithConfig(IConfigurationRoot configRoot)
+        public BookingsApiTestClient Client { get; set; }
+
+        public void CreateClient(RestClient restClient, string token)
         {
-            var vhServiceConfig = Options.Create(configRoot.GetSection("VhServices").Get<ServiceSettings>()).Value;
-            var token = ConfigurationHelper.GetBearerToken(configRoot);
-            var client = new RestClient(vhServiceConfig.BookingsApiUrl);
-            return new BookingsApiTestClient(client, token);
+            Client = new BookingsApiTestClient(restClient, token);
         }
 
-        public bool CreateNewVideoHearingForCaseParticipants(UserAccount userAccount, IConfigurationRoot configRoot, BookingsApiTestClient client)
+        public bool CreateNewVideoHearingForCaseParticipants(UserAccount userAccount)
         {
             var requestBody = CreateHearingRequest.BuildRequest(userAccount.Individual, userAccount.Representative);
-            var statusCode = client.CreateNewVideoHearingsBooking(requestBody);
+            var statusCode = Client.CreateNewVideoHearingsBooking(requestBody);
             return statusCode.Equals(HttpStatusCode.Created);
         }
 
-        public List<HearingDetailsResponse> GetVideoHearingBookingsByIndividualUsernameAsListWithConfig(IConfigurationRoot configRoot, BookingsApiTestClient client)
+        public List<HearingDetailsResponse> GetVideoHearingBookingsByIndividualUsernameAsListWithConfig(IConfigurationRoot configRoot)
         {
             var userAccount = Options.Create(configRoot.GetSection("TestUserSecrets").Get<UserAccount>()).Value;
-            return client.GetVideoHearingBookingsByUsernameAsList(userAccount.Individual);
+            return Client.GetVideoHearingBookingsByUsernameAsList(userAccount.Individual);
         }
 
-        public List<HearingDetailsResponse> GetVideoHearingBookingsByRepresentativeUsernameAsListWithConfig(IConfigurationRoot configRoot, BookingsApiTestClient client)
+        public List<HearingDetailsResponse> GetVideoHearingBookingsByRepresentativeUsernameAsListWithConfig(IConfigurationRoot configRoot)
         {
             var userAccount = Options.Create(configRoot.GetSection("TestUserSecrets").Get<UserAccount>()).Value;
-            return client.GetVideoHearingBookingsByUsernameAsList(userAccount.Representative);
+            return Client.GetVideoHearingBookingsByUsernameAsList(userAccount.Representative);
         }
 
-        public List<HearingDetailsResponse> GetVideoHearingBookingsForAllParticipants(UserAccount userAccount, BookingsApiTestClient client)
+        public List<HearingDetailsResponse> GetVideoHearingBookingsForAllParticipants(UserAccount userAccount)
         {
-            List<HearingDetailsResponse> videoHearings = client.GetVideoHearingBookingsByUsernameAsList(userAccount.Individual);
+            List<HearingDetailsResponse> videoHearings = Client.GetVideoHearingBookingsByUsernameAsList(userAccount.Individual);
             if (videoHearings != null)
             {
-                videoHearings.AddRange((IEnumerable<HearingDetailsResponse>)client.GetVideoHearingBookingsByUsernameAsList(userAccount.Representative));
+                videoHearings.AddRange(Client.GetVideoHearingBookingsByUsernameAsList(userAccount.Representative));
             }
             else
             {
-                videoHearings = client.GetVideoHearingBookingsByUsernameAsList(userAccount.Representative);
+                videoHearings = Client.GetVideoHearingBookingsByUsernameAsList(userAccount.Representative);
             }
 
             return videoHearings;
         }
 
-        public bool DeleteVideoHearingBookingsForAllCaseParticipants(UserAccount userAccount, BookingsApiTestClient client)
+        public bool DeleteVideoHearingBookingsForAllCaseParticipants(UserAccount userAccount)
         {
-            bool success = true;
-            List<HearingDetailsResponse> videoHearingsList = GetVideoHearingBookingsForAllParticipants(userAccount, client);
+            bool success = false;
+            var videoHearingsList = GetVideoHearingBookingsForAllParticipants(userAccount);
 
             try
             {
-                DeleteVideoHearingBookingsInList(client, videoHearingsList);
+                DeleteVideoHearingBookingsInList(videoHearingsList);
+                success = true;
             }
             catch (Exception ex)
             {
-                success = false;
                 TestLogger.Log(MethodBase.GetCurrentMethod().Name,
                     "Exception deleting all video hearings: " + ex.Message);
             }
@@ -76,13 +74,13 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             return success;
         }
 
-        private static void DeleteVideoHearingBookingsInList(BookingsApiTestClient client, List<HearingDetailsResponse> videoHearings)
+        private void DeleteVideoHearingBookingsInList(IEnumerable<HearingDetailsResponse> videoHearings)
         {
             if (videoHearings != null)
             {
                 foreach (var videoHearingBooking in videoHearings)
                 {
-                    client.DeleteVideoHearingBookingForId(videoHearingBooking.Id.ToString());
+                    Client.DeleteVideoHearingBookingForId(videoHearingBooking.Id.ToString());
                 }
             }
         }

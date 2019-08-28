@@ -4,13 +4,11 @@ using ServiceWebsite.Common;
 
 namespace ServiceWebsite.AcceptanceTests.TestClients
 {
-    public class ApiTestClientBase : IApiClient
+    public class ApiTestClientBase
     {
-        protected RestClient _client;
+        protected IRestClient _client;
 
-        public RestClient Client { get => _client; }
-
-        public ApiTestClientBase(RestClient client, string token)
+        public ApiTestClientBase(IRestClient client, string token)
         {
             _client = InitialiseClient(client, token);
         }
@@ -20,7 +18,7 @@ namespace ServiceWebsite.AcceptanceTests.TestClients
             return _client.BaseUrl;
         }
 
-        public RestClient InitialiseClient(RestClient client, string bearerToken)
+        public IRestClient InitialiseClient(IRestClient client, string bearerToken)
         {
             client.AddDefaultHeader("Accept", "application/json");
             client.AddDefaultHeader("Authorization", $"Bearer {bearerToken}");
