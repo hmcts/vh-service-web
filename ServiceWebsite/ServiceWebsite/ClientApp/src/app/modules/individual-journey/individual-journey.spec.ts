@@ -102,6 +102,19 @@ describe('IndividualJourney', () => {
     expect(redirected).toBeNull();
   });
 
+  it('should stay where it is if model is undefined', () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
+    journey.startAt(Steps.AboutHearings);
+
+    const currentStep = redirected;
+    redirected = null;
+
+    journey.startAt(currentStep);
+    journey.jumpTo(currentStep);
+
+    expect(redirected).toBeNull();
+  });
+
   it('should redirect to video app if all upcoming hearings are done', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
     expect(redirected).toBe(Steps.GotoVideoApp);
