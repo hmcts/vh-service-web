@@ -55,7 +55,7 @@ export class VideoViewComponent implements OnDestroy {
   private stopPlaying() {
     this.videoTag.pause();
     this.videoTag.currentTime = 0;
-    //this.videoTag.videoTracks.item(0).sourceBuffer
+    // this.videoTag.videoTracks.item(0).sourceBuffer
     this.videoTag.muted = true;
     console.log('################ Video ended : ' + this.videoTag.ended);
   }
