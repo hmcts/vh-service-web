@@ -29,6 +29,7 @@ export class VideoViewComponent implements OnDestroy {
    * This method is invoked when a video is ready to start playing
    */
   readyToPlay() {
+    console.log('################ Ready to play');
     this.loaded.emit();
   }
 
@@ -40,7 +41,9 @@ export class VideoViewComponent implements OnDestroy {
    * Plays the video
    */
   play() {
+    console.log('################ play');
     this.stopPlaying();
+    this.videoTag.muted = false;
     this.videoTag.play();
   }
 
@@ -52,12 +55,19 @@ export class VideoViewComponent implements OnDestroy {
   private stopPlaying() {
     this.videoTag.pause();
     this.videoTag.currentTime = 0;
+    //this.videoTag.videoTracks.item(0).sourceBuffer
+    this.videoTag.muted = true;
+    console.log('################ Video ended : ' + this.videoTag.ended);
   }
 
   ngOnDestroy() {
     this.stopPlaying();
     this.videoTag.removeAttribute('src');
-    // this.videoTag.load();
+   // this.videoTag.load();
     console.log('################ ngOnDestroy ##############1');
+  }
+
+  ontimeupdate() {
+    console.log('################ ' + this.videoTag.currentTime);
   }
 }
