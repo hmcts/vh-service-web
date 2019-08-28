@@ -9,6 +9,7 @@ import { RouterModule} from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { BaseJourneyRoutingModule } from './base-journey-routing.module';
+import { NavigationBackSelector } from '../../modules/base-journey/services/navigation-back.selector';
 
 @NgModule({
   providers: [
@@ -22,7 +23,8 @@ import { BaseJourneyRoutingModule } from './base-journey-routing.module';
       provide: ParticipantSuitabilityModel,
       useFactory: (selector: JourneySelector) => selector.getModel(),
       deps: [ JourneySelector ]
-    }
+    },
+    NavigationBackSelector
   ],
   declarations: [
     ChoiceTextboxComponent
