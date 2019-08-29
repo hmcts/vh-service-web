@@ -1,0 +1,32 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl" i18n="@@questionnaire_already_completed_h1">You have completed the questionnaire</h1>
+    <p class="govuk-body" i18n="@@questionnaire_already_completed_p_1">We have already received your answers to the questionnaire and these cannot be changed here.</p>
+    <p class="govuk-body" i18n="@@questionnaire_already_completed_p_2">Please contact us if you need help.</p>
+    <div>
+      <button type="button" i18n="@@questionnaire_already_completed_btn_continue" class="govuk-button" (click)="continue()" id="continue">
+        Continue
+      </button>
+    </div>
+  </div>
+</div>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary" (click)="showDetails()">
+    <span class="govuk-details__summary-text" i18n="@@questionnaire_already_completed_span_1">
+      Contact us for help
+    </span>
+  </summary>
+  <div class="govuk-details__text" *ngIf="showTextDetails">
+    <p class="govuk-body govuk-!-margin-bottom-0"><strong i18n="@@questionnaire_already_completed_p_2">Telephone:</strong></p>
+    <p class="govuk-body govuk-!-margin-bottom-0" i18n="@@questionnaire_already_completed_p_3">Call us on 0300 303 0655 and quote your reference number </p>
+    <span id="telephone-hint" class="govuk-hint" i18n="@@questionnaire_already_completed_span_2">
+      (available between 9am and 5pm, Monday to Friday)
+    </span>
+
+    <p class="govuk-body govuk-!-margin-bottom-0"><strong i18n="@@questionnaire_already_completed_p_4">Email: </strong></p>
+    <p class="govuk-body govuk-!-margin-bottom-0" i18n="@@questionnaire_already_completed_p_5">
+      Email us at <a class="govuk-link" href="mailto:{{contactUsEmail}}" target="_blank" data-hsupport="email">{{contactUsEmail}}</a>
+    </p>
+  </div>
+</details>

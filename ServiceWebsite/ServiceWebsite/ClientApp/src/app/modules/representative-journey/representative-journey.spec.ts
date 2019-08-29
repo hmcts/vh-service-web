@@ -122,6 +122,20 @@ describe('RepresentativeJourney', () => {
     expect(redirected).toBeNull();
   });
 
+  it('should stay where it is if model is undefined', () => {
+    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
+    journey.startAt(Steps.AboutHearings);
+
+    const currentStep = redirected;
+    redirected = null;
+
+    journey.continueWithModel(null);
+    journey.startAt(currentStep);
+    journey.jumpTo(currentStep);
+
+    expect(redirected).toBeNull();
+  });
+
   it('should run the story for the first upcoming hearing', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings());
     expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');

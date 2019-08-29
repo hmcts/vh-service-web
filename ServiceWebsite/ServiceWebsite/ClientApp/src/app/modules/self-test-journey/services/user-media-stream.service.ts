@@ -51,7 +51,7 @@ export class UserMediaStreamService {
   async getStreamForMic(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
-        let deviceId = await this.getDeviceId(device.label);
+        const deviceId = await this.getDeviceId(device.label);
         const stream = await this._navigator.mediaDevices.getUserMedia(
           { audio: { deviceId: { exact: deviceId } } }
         );
@@ -67,7 +67,7 @@ export class UserMediaStreamService {
   async getStreamForCam(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
-        let deviceId = await this.getDeviceId(device.label);
+        const deviceId = await this.getDeviceId(device.label);
         const stream = await this._navigator.mediaDevices.getUserMedia(
           { video: { deviceId: { exact: deviceId } } }
         );
@@ -81,8 +81,8 @@ export class UserMediaStreamService {
   }
 
   private async getDeviceId(deviceName: string) {
-    let availableDevices: MediaDeviceInfo[] = await this._navigator.mediaDevices.enumerateDevices();
-    var filteredDevices = availableDevices.filter(x => x.label === deviceName);
+    const availableDevices: MediaDeviceInfo[] = await this._navigator.mediaDevices.enumerateDevices();
+    const filteredDevices = availableDevices.filter(x => x.label === deviceName);
     return filteredDevices[0].deviceId;
   }
 

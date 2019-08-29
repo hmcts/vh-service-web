@@ -1,4 +1,3 @@
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { TestBed, ComponentFixture, fakeAsync, async  } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { Router, NavigationEnd } from '@angular/router';
@@ -13,6 +12,7 @@ import { JourneySelector } from './modules/base-journey/services/journey.selecto
 import { ProfileService } from './services/profile.service';
 import { DeviceType } from './modules/base-journey/services/device-type';
 import { Paths } from './paths';
+import { NavigationBackSelector } from './modules/base-journey/services/navigation-back.selector';
 
 @Component({ selector: 'app-footer', template: '' })
 export class FooterStubComponent { }
@@ -33,6 +33,7 @@ describe('AppComponent', () => {
   let window: jasmine.SpyObj<WindowRef>;
   let pageTracker: jasmine.SpyObj<PageTrackerService>;
   let journeySelector: jasmine.SpyObj<JourneySelector>;
+  let navigationBackSelector: jasmine.SpyObj<NavigationBackSelector>;
   let profileService: jasmine.SpyObj<ProfileService>;
   let adalService: jasmine.SpyObj<AdalService>;
   let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
@@ -47,6 +48,9 @@ describe('AppComponent', () => {
     adalService = jasmine.createSpyObj<AdalService>(['handleWindowCallback', 'userInfo', 'init']);
 
     journeySelector = jasmine.createSpyObj<JourneySelector>(['beginFor']);
+
+    navigationBackSelector = jasmine.createSpyObj<NavigationBackSelector>(['beginFor']);
+
     profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
 
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
@@ -73,7 +77,8 @@ describe('AppComponent', () => {
           { provide: PageTrackerService, useValue: pageTracker },
           { provide: ProfileService, useValue: profileService },
           { provide: JourneySelector, useValue: journeySelector },
-          { provide: DeviceType, useValue: deviceTypeServiceSpy }
+          { provide: DeviceType, useValue: deviceTypeServiceSpy },
+          { provide: NavigationBackSelector, useValue: navigationBackSelector},
         ],
     }).compileComponents();
 
@@ -98,16 +103,13 @@ describe('AppComponent', () => {
     expect(lastRoutingArgs.url).toEqual('/login');
     expect(lastRoutingArgs.queryParams.returnUrl).toEqual('/url?search#hash');
   }));
-
   it('should select and start journey on init', async () => {
     adalService.userInfo.authenticated = true;
     profileService.getUserProfile.and.returnValue(Promise.resolve({ role: 'role' }));
-
     await component.ngOnInit();
 
     expect(journeySelector.beginFor).toHaveBeenCalledWith('role');
   });
-
   it('should navigate to unsupported browser page if browser is not compatible', () => {
     deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(false);
     component.checkBrowser();

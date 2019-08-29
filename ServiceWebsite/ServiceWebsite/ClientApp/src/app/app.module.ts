@@ -18,6 +18,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { QuestionnaireAlreadyCompletedComponent } from './pages/questionnaire-already-completed/questionnaire-already-completed.component';
 
 // services
 import { ErrorService } from './services/error.service';
@@ -38,7 +39,7 @@ import { BaseJourneyModule } from './modules/base-journey/base-journey.module';
 import { SecurityModule } from './modules/security/security.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { SERVICE_WEB_API_BASE_URL } from './services/clients/api-client';
-import {SelfTestJourneyModule} from './modules/self-test-journey/self-test-journey.module';
+import { SelfTestJourneyModule } from './modules/self-test-journey/self-test-journey.module';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
@@ -56,7 +57,8 @@ export function initConfiguration(configService: ConfigService): Function {
     PageNotFoundComponent,
     GuidanceComponent,
     MediaErrorComponent,
-    UnsupportedBrowserComponent
+    UnsupportedBrowserComponent,
+    QuestionnaireAlreadyCompletedComponent
   ],
   imports: [
     // angular
@@ -93,7 +95,7 @@ export function initConfiguration(configService: ConfigService): Function {
     GuidanceService,
     PrintService,
     DocumentRedirectService,
-    { provide: ErrorHandler, useClass: ErrorService }
+    { provide: ErrorHandler, useClass: ErrorService },
   ],
   bootstrap: [AppComponent]
 })
