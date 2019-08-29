@@ -41,6 +41,7 @@ export class VideoViewComponent implements OnDestroy {
    */
   async play() {
     this.stopPlaying();
+    this.videoTag.muted = false;
     await this.videoTag.play();
   }
 
@@ -52,6 +53,7 @@ export class VideoViewComponent implements OnDestroy {
   private stopPlaying() {
     this.videoTag.pause();
     this.videoTag.currentTime = 0;
+    this.videoTag.muted = true;
   }
 
   ngOnDestroy() {
