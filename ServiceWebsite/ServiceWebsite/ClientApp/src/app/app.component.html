@@ -1,11 +1,11 @@
 <div>
-  <a href="#main-content" class="govuk-skip-link" i18n="@@app_a">Skip to main content</a>
+  <a href="javascript:void(0)" class="govuk-skip-link" i18n="@@app_a" (click)="skipToContent()">Skip to main content</a>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
   <app-header [loggedIn]="loggedIn"></app-header>
 
   <div class="govuk-width-container vh-content">
-    <main class="govuk-main-wrapper" id="main-content" role="main">
+    <main #mainContent class="govuk-main-wrapper" id="main-content" role="main" tabindex="-1">
      <app-beta-banner></app-beta-banner>
      <router-outlet *ngIf="initialized"></router-outlet>
     </main>
