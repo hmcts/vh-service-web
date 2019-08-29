@@ -1,6 +1,6 @@
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { ProfileService } from 'src/app/services/profile.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdalService } from 'adal-angular4';
 import { Config } from './modules/shared/models/config';
@@ -23,6 +23,9 @@ export class AppComponent implements OnInit {
   @ViewChild(HeaderComponent, { static: true })
   header: HeaderComponent;
 
+  @ViewChild('mainContent', { static: true })
+  main: ElementRef;
+
   constructor(
     private router: Router,
     private adalService: AdalService,
@@ -32,7 +35,8 @@ export class AppComponent implements OnInit {
     private journeySelector: JourneySelector,
     pageTracker: PageTrackerService,
     private deviceTypeService: DeviceType,
-    private navigationBackSelector: NavigationBackSelector
+    private navigationBackSelector: NavigationBackSelector,
+    private renderer: Renderer
   ) {
     this.loggedIn = false;
     this.initAuthentication();
@@ -75,5 +79,9 @@ export class AppComponent implements OnInit {
     if (!this.deviceTypeService.isSupportedBrowser()) {
       this.router.navigateByUrl(Paths.UnsupportedBrowser);
     }
+  }
+
+  skipToContent() {
+    this.renderer.invokeElementMethod(this.main.nativeElement, 'focus');
   }
 }
