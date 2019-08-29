@@ -63,4 +63,8 @@ export class MicVisualiserComponent implements OnInit {
     this.canvasContext.fillStyle = 'green';
     this.canvasContext.fillRect(0, 0, feedback * 2, height);
   }
+
+  ngOnDestroy() {
+    this.audioContext.close();
+  }
 }
