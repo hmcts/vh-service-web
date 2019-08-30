@@ -21,7 +21,7 @@ export class ProfileService {
       return this.profile;
     }
 
-    const response: any = await this.httpClient.get(this.apiBaseUrl).toPromise();
+    const response: any = await this.httpClient.get(this.apiBaseUrl);
     this.profile = new UserProfile();
     this.profile.email = response.email;
     this.profile.role = response.role;

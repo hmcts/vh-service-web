@@ -13,7 +13,7 @@ describe('ProfileService', () => {
 
   beforeAll(() => {
     client = jasmine.createSpyObj<HttpClient>(['get']);
-    client.get.and.returnValue(of(serviceResponse));
+    client.get.and.returnValue(Promise.resolve(serviceResponse));
 
     service = new ProfileService(client);
   });

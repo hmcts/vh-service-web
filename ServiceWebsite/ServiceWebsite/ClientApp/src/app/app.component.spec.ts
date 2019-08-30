@@ -1,28 +1,31 @@
-import { TestBed, ComponentFixture, fakeAsync, async  } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { Router, NavigationEnd } from '@angular/router';
-import { AdalService } from 'adal-angular4';
-import { Config } from './modules/shared/models/config';
-import { of } from 'rxjs';
-import { WindowRef, WindowLocation } from './modules/shared/window-ref';
-import { PageTrackerService } from './services/page-tracker.service';
-import { HeaderComponent } from './modules/shared/header/header.component';
-import { Component } from '@angular/core';
-import { JourneySelector } from './modules/base-journey/services/journey.selector';
-import { ProfileService } from './services/profile.service';
-import { DeviceType } from './modules/base-journey/services/device-type';
-import { Paths } from './paths';
-import { NavigationBackSelector } from './modules/base-journey/services/navigation-back.selector';
+import {TestBed, ComponentFixture, fakeAsync, async} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {Router, NavigationEnd} from '@angular/router';
+import {AdalService} from 'adal-angular4';
+import {Config} from './modules/shared/models/config';
+import {of} from 'rxjs';
+import {WindowRef, WindowLocation} from './modules/shared/window-ref';
+import {PageTrackerService} from './services/page-tracker.service';
+import {HeaderComponent} from './modules/shared/header/header.component';
+import {Component} from '@angular/core';
+import {JourneySelector} from './modules/base-journey/services/journey.selector';
+import {ProfileService} from './services/profile.service';
+import {DeviceType} from './modules/base-journey/services/device-type';
+import {Paths} from './paths';
+import {NavigationBackSelector} from './modules/base-journey/services/navigation-back.selector';
 
-@Component({ selector: 'app-footer', template: '' })
-export class FooterStubComponent { }
+@Component({selector: 'app-footer', template: ''})
+export class FooterStubComponent {
+}
 
 // tslint:disable-next-line:component-selector
-@Component({ selector: 'router-outlet', template: '' })
-export class RouterOutletStubComponent { }
+@Component({selector: 'router-outlet', template: ''})
+export class RouterOutletStubComponent {
+}
 
-@Component({ selector: 'app-beta-banner', template: '' })
-export class BetaBannerStubComponent { }
+@Component({selector: 'app-beta-banner', template: ''})
+export class BetaBannerStubComponent {
+}
 
 describe('AppComponent', () => {
 
@@ -46,17 +49,11 @@ describe('AppComponent', () => {
     };
 
     adalService = jasmine.createSpyObj<AdalService>(['handleWindowCallback', 'userInfo', 'init']);
-
     journeySelector = jasmine.createSpyObj<JourneySelector>(['beginFor']);
-
     navigationBackSelector = jasmine.createSpyObj<NavigationBackSelector>(['beginFor']);
-
     profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
-
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
-
     deviceTypeServiceSpy = jasmine.createSpyObj<DeviceType>(['isSupportedBrowser']);
-
     window = jasmine.createSpyObj('WindowRef', ['getLocation']);
     window.getLocation.and.returnValue(new WindowLocation('/url'));
 
@@ -70,15 +67,15 @@ describe('AppComponent', () => {
       ],
       providers:
         [
-          { provide: Router, useValue: router },
-          { provide: AdalService, useValue: adalService },
-          { provide: Config, useValue: config },
-          { provide: WindowRef, useValue: window },
-          { provide: PageTrackerService, useValue: pageTracker },
-          { provide: ProfileService, useValue: profileService },
-          { provide: JourneySelector, useValue: journeySelector },
-          { provide: DeviceType, useValue: deviceTypeServiceSpy },
-          { provide: NavigationBackSelector, useValue: navigationBackSelector},
+          {provide: Router, useValue: router},
+          {provide: AdalService, useValue: adalService},
+          {provide: Config, useValue: config},
+          {provide: WindowRef, useValue: window},
+          {provide: PageTrackerService, useValue: pageTracker},
+          {provide: ProfileService, useValue: profileService},
+          {provide: JourneySelector, useValue: journeySelector},
+          {provide: DeviceType, useValue: deviceTypeServiceSpy},
+          {provide: NavigationBackSelector, useValue: navigationBackSelector},
         ],
     }).compileComponents();
 
@@ -103,13 +100,48 @@ describe('AppComponent', () => {
     expect(lastRoutingArgs.url).toEqual('/login');
     expect(lastRoutingArgs.queryParams.returnUrl).toEqual('/url?search#hash');
   }));
+
+  it('should redirect to unauthorized if user does not have profile', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(Promise.resolve(undefined));
+    await component.ngOnInit();
+
+    const lastRouterCall = router.navigate.calls.mostRecent();
+    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+
+    expect(lastRoutingArgs.url).toEqual('/unauthorized');
+  });
+
+  it('should redirect to unauthorized if user does not have profile email', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(Promise.resolve({email: undefined}));
+    await component.ngOnInit();
+
+    const lastRouterCall = router.navigate.calls.mostRecent();
+    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+
+    expect(lastRoutingArgs.url).toEqual('/unauthorized');
+  });
+
+  it('should redirect to unauthorized if user does not have profile role', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(Promise.resolve({role: undefined}));
+    await component.ngOnInit();
+
+    const lastRouterCall = router.navigate.calls.mostRecent();
+    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+
+    expect(lastRoutingArgs.url).toEqual('/unauthorized');
+  });
+
   it('should select and start journey on init', async () => {
     adalService.userInfo.authenticated = true;
-    profileService.getUserProfile.and.returnValue(Promise.resolve({ role: 'role' }));
+    profileService.getUserProfile.and.returnValue(Promise.resolve({email: 'email', role: 'role'}));
     await component.ngOnInit();
 
     expect(journeySelector.beginFor).toHaveBeenCalledWith('role');
   });
+
   it('should navigate to unsupported browser page if browser is not compatible', () => {
     deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(false);
     component.checkBrowser();
