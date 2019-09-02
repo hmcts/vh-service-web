@@ -193,6 +193,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async replayVideo() {
+    this.disconnect();
     this.dispose();
 
     await this.setupPexipClient();
@@ -239,6 +240,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   ngOnDestroy() {
+    this.disconnect();
     this.dispose();
   }
 }
