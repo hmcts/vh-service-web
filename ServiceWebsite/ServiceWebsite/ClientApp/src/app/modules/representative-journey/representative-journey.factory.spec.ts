@@ -1,10 +1,10 @@
-import {RepresentativeSuitabilityService} from './services/representative-suitability.service';
-import {RepresentativeJourneyFactory} from './representative-journey.factory';
-import {RepresentativeJourney} from './representative-journey';
-import {JourneyRoutingListenerService} from '../base-journey/services/journey-routing-listener.service';
-import {RepresentativeJourneyStepComponentBindings} from './services/representative-journey-component-bindings';
-import {RepresentativeJourneyService} from './services/representative.journey.service';
-import {MutableRepresentativeSuitabilityModel} from './mutable-representative-suitability.model';
+import { RepresentativeSuitabilityService } from './services/representative-suitability.service';
+import { RepresentativeJourneyFactory } from './representative-journey.factory';
+import { RepresentativeJourney } from './representative-journey';
+import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
+import { RepresentativeJourneyStepComponentBindings } from './services/representative-journey-component-bindings';
+import { RepresentativeJourneyService } from './services/representative.journey.service';
+import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import SpyObj = jasmine.SpyObj;
 import { SelfTestJourneyStepComponentBindings } from '../self-test-journey/self-test-journey-component-bindings';
 import { EventEmitter } from '@angular/core';
@@ -36,7 +36,6 @@ describe('RepresentativeJourneyFactory', () => {
     await factory.begin();
     expect(routingListener.startRouting).toHaveBeenCalled();
     expect(routingListener.startJourneyAtCurrentRoute).toHaveBeenCalled();
-    expect(journey.continueWithModel).toHaveBeenCalledWith(model);
   });
 
   it('handles representative users', () => {
