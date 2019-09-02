@@ -7,7 +7,6 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ShowDetailsComponent } from './show-details/show-details.component';
-import { ErrorFooterComponent } from './error-footer/error-footer.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { CrestBluePanelComponent } from './crest-blue-panel/crest-blue-panel.component';
@@ -34,7 +33,6 @@ import {MicVisualiserComponent} from './mic-visualiser/mic-visualiser.component'
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent,
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
@@ -53,7 +51,6 @@ import {MicVisualiserComponent} from './mic-visualiser/mic-visualiser.component'
     HeaderComponent,
     BackNavigationComponent,
     ShowDetailsComponent,
-    ErrorFooterComponent,
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
