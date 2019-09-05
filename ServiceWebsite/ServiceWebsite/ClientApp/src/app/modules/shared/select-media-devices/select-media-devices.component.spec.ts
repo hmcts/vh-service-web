@@ -55,12 +55,12 @@ describe('SelectMediaDevicesComponent', () => {
 
   it('should return true when only one camera is available', () => {
     component.availableCameraDevices = testData.getSingleCamera();
-    expect(component.hasSingleCameraConnected).toBeTruthy();
+    expect(component.hasSingleCameraConncted).toBeTruthy();
     expect(component.singleCameraName).toBeDefined();
   });
 
   it('should return true when multiple cameras are available', () => {
-    expect(component.hasSingleCameraConnected).toBeFalsy();
+    expect(component.hasSingleCameraConncted).toBeFalsy();
   });
 
   it('should return true when only one micrpphone is available', () => {
