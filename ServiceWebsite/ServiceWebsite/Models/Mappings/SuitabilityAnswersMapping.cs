@@ -16,6 +16,7 @@ namespace ServiceWebsite.Models.Mappings
             return new HearingSuitabilityResponse
             {
                 HearingId = suitability.HearingId,
+                ParticipantId = suitability.ParticipantId,
                 HearingScheduledAt = suitability.HearingScheduledAt,
                 QuestionnaireNotRequired = suitability.QuestionnaireNotRequired,
                 Answers = suitability.Answers.Select(Map).ToList()

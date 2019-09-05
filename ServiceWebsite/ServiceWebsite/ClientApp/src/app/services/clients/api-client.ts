@@ -578,6 +578,7 @@ export interface IHearingDetailsResponse {
 
 export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
     hearing_id!: string | undefined;
+    participant_id!: string | undefined;
     hearing_scheduled_at!: Date | undefined;
     questionnaire_not_required!: boolean | undefined;
     answers!: HearingSuitabilityAnswer[] | undefined;
@@ -594,6 +595,7 @@ export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
     init(data?: any) {
         if (data) {
             this.hearing_id = data["hearing_id"];
+            this.participant_id = data["participant_id"];
             this.hearing_scheduled_at = data["hearing_scheduled_at"] ? new Date(data["hearing_scheduled_at"].toString()) : <any>undefined;
             this.questionnaire_not_required = data["questionnaire_not_required"];
             if (Array.isArray(data["answers"])) {
@@ -614,6 +616,7 @@ export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["hearing_id"] = this.hearing_id;
+        data["participant_id"] = this.participant_id;
         data["hearing_scheduled_at"] = this.hearing_scheduled_at ? this.hearing_scheduled_at.toISOString() : <any>undefined;
         data["questionnaire_not_required"] = this.questionnaire_not_required;
         if (Array.isArray(this.answers)) {
@@ -627,6 +630,7 @@ export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
 
 export interface IHearingSuitabilityResponse {
     hearing_id: string | undefined;
+    participant_id: string | undefined;
     hearing_scheduled_at: Date | undefined;
     questionnaire_not_required: boolean | undefined;
     answers: HearingSuitabilityAnswer[] | undefined;

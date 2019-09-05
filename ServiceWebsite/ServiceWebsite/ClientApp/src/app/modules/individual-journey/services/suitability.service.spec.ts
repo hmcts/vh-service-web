@@ -12,6 +12,7 @@ describe('SuitabilityService', () => {
     client.getUserSuitabilityAnswers.and.returnValue(of([
       new HearingSuitabilityResponse({
         hearing_id: '123',
+        participant_id: '456',
         hearing_scheduled_at: new Date(),
         questionnaire_not_required: false,
         answers: []
@@ -21,6 +22,7 @@ describe('SuitabilityService', () => {
     const result = await service.getAllSuitabilityAnswers();
     expect(result.length).toBe(1);
     expect(result[0].hearing.id).toBe('123');
+    expect(result[0].participantId).toBe('456');
   });
 
   it('submits answers to api', () => {

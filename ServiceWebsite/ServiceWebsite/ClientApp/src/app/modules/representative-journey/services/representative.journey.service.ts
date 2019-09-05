@@ -25,6 +25,7 @@ export class RepresentativeJourneyService {
       In this case the "isUpcoming()" was not available
     */
     const model = new MutableRepresentativeSuitabilityModel();
+    model.participantId = response.participantId;
     model.hearing = new Hearing(response.hearing.id,
       new Date(response.hearing.scheduleDateTime),
       null,
