@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-accessibility',
   templateUrl: './accessibility.component.html',
-  styleUrls: ['/accessibility.component.css']
+  styleUrls: ['./accessibility.component.css']
 })
 export class AccessibilityComponent {
 
