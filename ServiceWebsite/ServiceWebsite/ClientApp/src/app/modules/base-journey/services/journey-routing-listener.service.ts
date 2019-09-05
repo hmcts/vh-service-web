@@ -74,10 +74,10 @@ export class JourneyRoutingListenerService {
 
     startJourneyAtCurrentRoute() {
       const currentRoute = this.getRouteFromUrl(this.location.path());
-        const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
+      const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
 
-        if (journeyStep !== null) {
-            this.journey.startAt(journeyStep);
-        }
+      if (journeyStep !== null) {
+          this.journey.startAt(journeyStep);
+      }
     }
 }

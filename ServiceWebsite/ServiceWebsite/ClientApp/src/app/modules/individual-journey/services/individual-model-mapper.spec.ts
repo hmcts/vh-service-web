@@ -15,6 +15,7 @@ describe('IndividualModelMapper', () => {
   beforeEach(() => {
     serviceResponse = new HearingSuitabilityResponse({
       hearing_id: '',
+      participant_id: '',
       hearing_scheduled_at: new Date(),
       questionnaire_not_required: true,
       answers: [
@@ -191,10 +192,12 @@ describe('IndividualModelMapper', () => {
 
   it('should map hearing', () => {
     serviceResponse.hearing_id = '123';
+    serviceResponse.participant_id = '456';
     serviceResponse.hearing_scheduled_at = new Date();
     serviceResponse.questionnaire_not_required = true;
     whenMappingModel();
     expect(model.hearing.id).toBe('123');
+    expect(model.participantId).toBe('456');
     expect(model.hearing.scheduleDateTime).toEqual(serviceResponse.hearing_scheduled_at);
     expect(model.hearing.questionnaireNotRequired).toEqual(serviceResponse.questionnaire_not_required);
   });

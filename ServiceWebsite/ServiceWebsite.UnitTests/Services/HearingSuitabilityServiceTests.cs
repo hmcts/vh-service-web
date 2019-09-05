@@ -30,6 +30,7 @@ namespace ServiceWebsite.UnitTests.Services
             _upcomingHearing = new PersonSuitabilityAnswerResponse
             {
                 Hearing_id = Guid.NewGuid(),
+                Participant_id = Guid.NewGuid(),
                 Scheduled_at = _upcomingHearingScheduledAt,
                 Questionnaire_not_required = _questionnaireNotRequired,
                 Answers = new List<SuitabilityAnswerResponse>()
@@ -39,6 +40,7 @@ namespace ServiceWebsite.UnitTests.Services
             var pastHearing = new PersonSuitabilityAnswerResponse
             {
                 Hearing_id = _pastHearingId,
+                Participant_id = Guid.NewGuid(),
                 Scheduled_at = DateTime.UtcNow.AddDays(-2),
                 Answers = new List<SuitabilityAnswerResponse>()
             };
@@ -53,6 +55,7 @@ namespace ServiceWebsite.UnitTests.Services
             var submittedHearing = new PersonSuitabilityAnswerResponse
             {
                 Hearing_id = _submittedHearingId,
+                Participant_id = Guid.NewGuid(),
                 Scheduled_at = DateTime.UtcNow.AddDays(3),
                 Answers = new List<SuitabilityAnswerResponse> { _answeredQuestion }
             };
@@ -83,6 +86,7 @@ namespace ServiceWebsite.UnitTests.Services
             var upcomingHearing = upcomingHearings.Single(h => h.HearingId == _upcomingHearing.Hearing_id);
             upcomingHearing.HearingScheduledAt.Should().Be(_upcomingHearingScheduledAt);
             upcomingHearing.QuestionnaireNotRequired.Should().Be(_questionnaireNotRequired);
+            upcomingHearing.ParticipantId.Should().Be(_upcomingHearing.Participant_id.Value);
         }
 
         [Test]

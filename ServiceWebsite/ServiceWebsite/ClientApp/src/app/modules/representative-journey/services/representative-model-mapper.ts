@@ -27,6 +27,7 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
         model.camera = this.mapComputerCamera(response.answers);
         model.computer = this.mapBooleanValue(response.answers, RepresentativeQuestionKeys.Computer);
         model.selfTest = this.mapSelfTestAnswers(response.answers);
+        model.participantId = response.participant_id;
 
         return model;
     }
