@@ -14,13 +14,13 @@
           <form *ngIf="selectedMediaDevicesForm" [formGroup]="selectedMediaDevicesForm" class="govuk-form-group"
             (ngSubmit)="onSubmit()">
 
-            <div *ngIf="hasSingleCameraConncted">
+            <div *ngIf="hasSingleCameraConnected">
               <p class="govuk-body">
                 {{singleCameraName}}
               </p>
             </div>
 
-            <div *ngIf="!hasSingleCameraConncted" class="govuk-!-margin-bottom-9">
+            <div *ngIf="!hasSingleCameraConnected" class="govuk-!-margin-bottom-9">
               <p class="govuk-body govuk-!-font-weight-bold">
                 Change your camera?
               </p>
