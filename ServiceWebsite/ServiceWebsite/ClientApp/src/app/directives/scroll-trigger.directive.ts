@@ -52,7 +52,7 @@ export class ScrollTriggerDirective {
   }
 
   checkOffset() {
-    if ((document.body.offsetHeight - document.body.scrollTop) <= (window.innerHeight + 10)) {
+    if ((document.body.offsetHeight - document.body.scrollTop) <= (window.innerHeight + 30)) {
       this.scrollFooter.emit({ footer: false });
     } else {
       this.scrollFooter.emit({ footer: true });
