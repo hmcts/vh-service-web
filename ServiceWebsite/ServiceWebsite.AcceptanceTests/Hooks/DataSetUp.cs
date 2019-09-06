@@ -3,11 +3,9 @@ using Microsoft.Extensions.Options;
 using RestSharp;
 using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.TestClients;
 using ServiceWebsite.AcceptanceTests.Validations;
 using ServiceWebsite.Configuration;
 using System.Reflection;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
