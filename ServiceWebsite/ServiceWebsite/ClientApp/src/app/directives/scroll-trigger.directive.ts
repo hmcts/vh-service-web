@@ -47,10 +47,6 @@ export class ScrollTriggerDirective {
     this.lastScrollPosition = currentScrollPosition;
   }
 
-  getRectTop(el) {
-    return el.getBoundingClientRect().top;
-  }
-
   checkOffset() {
     if ((document.body.offsetHeight - document.body.scrollTop) <= (window.innerHeight + 30)) {
       this.scrollFooter.emit({ footer: false });
