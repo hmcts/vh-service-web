@@ -120,7 +120,6 @@ namespace ServiceWebsite
             {
                 // this will route any unhandled exceptions to the angular error page
                 app.UseExceptionHandler(Urls.Error);
-
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
@@ -134,16 +133,16 @@ namespace ServiceWebsite
                 .AllowAnyHeader());
 
             app.UseMiddleware<ExceptionMiddleware>();
-
-
-
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            // HTTP Response Headers
             app.UseXContentTypeOptions();
             app.UseReferrerPolicy(opts => opts.NoReferrer());
             app.UseXXssProtection(options => options.EnabledWithBlockMode());
             app.UseNoCacheHttpHeaders();
+            app.UseHsts(options => options.MaxAge(365).IncludeSubdomains());
+            app.UseXfo(options => options.SameOrigin());
 
             app.UseMvc(routes =>
             {
