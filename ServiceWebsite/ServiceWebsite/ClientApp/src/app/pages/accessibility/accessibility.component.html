@@ -5,40 +5,45 @@
 </div>
 <div class="govuk-grid-row govuk-!-margin-top-9" >
   <div class="govuk-grid-column-one-quarter">
-    <span>Contents</span>
-    <div id="contents" appScrollTrigger (scrolledPast)="scrollHandler($event)"
-         (scrollFooter)="scrollFooter($event)">
-      <div>
-        <a href="javascript:void(0)" (click)="goToDiv('accessibilityStatment')" >
-          Accessibility statement for [website name]
-        </a>
+    <nav role="navigation">
+      <span>Contents</span>
+      
+      <div id="contents" appScrollTrigger (scrolledPast)="scrollHandler($event)"
+           (scrollFooter)="scrollFooter($event)">
+        <ol class="vh-text">
+          <li class="vh-text">
+            <a href="javascript:void(0)" (click)="goToDiv('accessibilityStatment')">
+              Accessibility statement for [website name]
+            </a>
+          </li>
+          <li class="vh-text">
+            <a href="javascript:void(0)" (click)="goToDiv('contactingUs')">
+              Contacting us by phone or visiting us in person
+            </a>
+          </li>
+          <li class="vh-text">
+            <a href="javascript:void(0)" (click)="goToDiv('technicalInformation')">
+              Technical information about this website’s accessibility
+            </a>
+          </li>
+          <li class="vh-text">
+            <a href="javascript:void(0)" (click)="goToDiv('nonAccessibleContent')">
+              Non accessible content
+            </a>
+          </li>
+          <li class="vh-text">
+            <a href="javascript:void(0)" (click)="goToDiv('howWeTested')">
+              How we tested this website
+            </a>
+          </li>
+          <li class="vh-text">
+            <a href="javascript:void(0)" (click)="goToDiv('accessibilityImprovment')">
+              What we’re doing to improve accessibility
+            </a>
+          </li>
+        </ol>
       </div>
-      <div>
-        <a href="javascript:void(0)" (click)="goToDiv('contactingUs')">
-          Contacting us by phone or visiting us in person
-        </a>
-      </div>
-      <div>
-        <a href="javascript:void(0)" (click)="goToDiv('technicalInformation')">
-          Technical information about this website’s accessibility
-        </a>
-      </div>
-      <div>
-        <a href="javascript:void(0)" (click)="goToDiv('nonAccessibleContent')">
-          Non accessible content
-        </a>
-      </div>
-      <div>
-        <a href="javascript:void(0)" (click)="goToDiv('howWeTested')">
-          How we tested this website
-        </a>
-      </div>
-      <div>
-        <a href="javascript:void(0)" (click)="goToDiv('accessibilityImprovment')">
-          What we’re doing to improve accessibility
-        </a>
-      </div>
-    </div>
+    </nav>
   </div>
   <div class="govuk-grid-column-three-quarters">
 

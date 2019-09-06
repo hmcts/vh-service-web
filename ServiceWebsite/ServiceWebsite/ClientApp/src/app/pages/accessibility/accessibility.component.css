@@ -21,8 +21,17 @@
 }
 
 .govuk-sticky-element-footer {
-  bottom: 250px;
-  position: fixed;
+  bottom: 256px;
+  position: sticky;
+}
+
+@media (max-width: 40.0625em) {
+  .govuk-sticky-element {
+    visibility: hidden;
+  }
+  .govuk-sticky-element-footer {
+    bottom: 256px;
+  }
 }
 
 .app-c-back-to-top {
@@ -45,3 +54,21 @@ a {
   a:link {
     color: #005ea5 !important;
   }
+
+.vh-text {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+@media (min-width: 40.0625em) {
+  .vh-text {
+    padding-top: 7.5px;
+  }
+}
+
+.vh-text a {
+  text-decoration: none;
+}
