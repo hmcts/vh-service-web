@@ -6,6 +6,7 @@ import { WindowScrolling } from './window-scrolling';
 })
 export class ScrollTriggerDirective {
   private lastScrollPosition = 0;
+  margin = 30;
 
   @Output() scrolledPast = new EventEmitter<any>();
   @Output() scrollFooter = new EventEmitter<any>();
@@ -48,7 +49,7 @@ export class ScrollTriggerDirective {
   }
 
   checkOffset() {
-    if ((document.body.offsetHeight - document.body.scrollTop) <= (window.innerHeight + 30)) {
+    if ((document.body.offsetHeight - document.body.scrollTop) <= (window.innerHeight + this.margin)) {
       this.scrollFooter.emit({ footer: false });
     } else {
       this.scrollFooter.emit({ footer: true });
