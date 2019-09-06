@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import 'webrtc-adapter';
 
 @Component({
   selector: 'app-mic-visualiser',
   templateUrl: './mic-visualiser.component.html'
 })
-export class MicVisualiserComponent implements OnInit {
+export class MicVisualiserComponent implements OnInit, OnDestroy {
 
   canvasContext: CanvasRenderingContext2D;
   audioContext: AudioContext;
@@ -62,5 +62,9 @@ export class MicVisualiserComponent implements OnInit {
     this.canvasContext.clearRect(0, 0, width, height);
     this.canvasContext.fillStyle = 'green';
     this.canvasContext.fillRect(0, 0, feedback * 2, height);
+  }
+
+  ngOnDestroy() {
+    this.audioContext.close();
   }
 }

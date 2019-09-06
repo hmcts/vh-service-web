@@ -68,7 +68,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   setupSubscribers() {
     this.subDevice = this.userMediaService.connectedDevices.subscribe(async () => {
       this.hasMultipleDevices = await this.userMediaService.hasMultipleDevices();
-      console.log('Has devices :' + this.hasMultipleDevices);
+
+      this.logger.event(`(setupSubscribers) Has multiple devices: ${this.hasMultipleDevices}`,
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
     });
   }
 
@@ -78,6 +80,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async getToken() {
+    this.logger.event('(getToken -> About to get token for pexip.)',
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
     this.videoWebService.getCurrentParticipantId().subscribe((response: ParticipantResponse) => {
       this.participantId = response.id;
       this.videoWebService.getToken(this.participantId).subscribe(async (token: TokenResponse) => {
@@ -86,7 +91,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
         },
         (error) => {
           this.loadingData = false;
-          this.logger.error('Error to get token.', error);
+          this.logger.error('(getToken -> Error to get token.)', new Error(error),
+            {hearingId: this.model.hearing.id, participantId: this.model.participantId});
         });
     });
   }
@@ -97,6 +103,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     const conferenceAlias = 'testcall1';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
     if (this.pexipAPI) {
+      this.logger.event('(call -> About to make pexip call.)',
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias});
+
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
     }
   }
@@ -110,12 +119,19 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     const cam = this.userMediaService.getPreferredCamera();
     if (cam) {
       this.pexipAPI.video_source = cam.deviceId;
+
+      this.logger.event('(updatePexipAudioVideoSource -> Assigning Video Source.)',
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
     }
 
     const mic = this.userMediaService.getPreferredMicrophone();
     if (mic) {
       this.pexipAPI.audio_source = mic.deviceId;
+
+      this.logger.event('(updatePexipAudioVideoSource -> Assigning Audio Source.)',
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
     }
+
     this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(mic);
   }
 
@@ -136,32 +152,44 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       });
 
       this.pexipAPI.onError = ((reason) => {
+        this.logger.error('(setupPexipClient -> pexipAPI.onError)', new Error(reason),
+          {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
         self.errorHandleEvent(reason);
       });
 
       this.pexipAPI.onDisconnect = ((reason) => {
+        this.logger.event('(setupPexipClient -> pexipAPI.onDisconnect)',
+          {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
         self.disconnectHandleEvent(reason);
       });
     }
   }
 
   connectHandleEvent(stream) {
-    console.log('successfully connected');
+    this.logger.event('(connectHandleEvent) successfully connected',
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
     this.incomingStream = stream;
     this.displayFeed = true;
   }
 
   errorHandleEvent(reason) {
     this.displayFeed = false;
-    console.log('Error from pexip. Reason : ' + reason);
-    this.logger.error('Error from pexip.', reason);
+
+    this.logger.error('(errorHandleEvent -> Error from pexip.)', new Error(reason),
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
     this.didTestComplete = true;
   }
 
   disconnectHandleEvent(reason) {
     this.displayFeed = false;
-    console.log('Disconnected from pexip. Reason : ' + reason);
-    this.logger.error('Disconnected from pexip.', reason);
+
+    this.logger.error('(disconnectHandleEvent -> Disconnected from pexip.)', new Error(reason),
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
     if (reason === 'Conference terminated by another participant') {
       this.didTestComplete = true;
       this.retrieveSelfTestScore();
@@ -170,6 +198,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   disconnect() {
     if (this.pexipAPI) {
+      this.logger.event('(disconnect -> About to disconnecting from pexip.)',
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
       this.pexipAPI.disconnect();
     }
 
@@ -181,11 +212,16 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   retrieveSelfTestScore() {
     this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
-      console.log('TEST SCORE KINLY RESULT:' + score.score);
+
+      this.logger.event(`(retrieveSelfTestScore -> TEST SCORE KINLY RESULT: ${score.score})`,
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
       this.model.selfTest.selfTestResultScore = score.score;
     }, (error) => {
       this.model.selfTest.selfTestResultScore = 'None';
-      this.logger.error('Error to get self test score: ', error);
+
+      this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error),
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
     });
   }
 
@@ -193,6 +229,10 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async replayVideo() {
+    this.logger.event('(replayVideo -> Replaying Video.)',
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
+    this.disconnect();
     this.dispose();
 
     await this.setupPexipClient();
@@ -239,6 +279,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   ngOnDestroy() {
+    this.disconnect();
     this.dispose();
   }
 }

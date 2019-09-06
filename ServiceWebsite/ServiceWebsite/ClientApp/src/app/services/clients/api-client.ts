@@ -397,7 +397,7 @@ export class ApiClient {
     /**
      * @return Success
      */
-    index(): Observable<void> {
+    getUserProfile(): Observable<UserProfileResponse> {
         let url_ = this.baseUrl + "/api/profile";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -405,24 +405,25 @@ export class ApiClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processIndex(response_);
+            return this.processGetUserProfile(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processIndex(<any>response_);
+                    return this.processGetUserProfile(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<UserProfileResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<UserProfileResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processIndex(response: HttpResponseBase): Observable<void> {
+    protected processGetUserProfile(response: HttpResponseBase): Observable<UserProfileResponse> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -431,7 +432,10 @@ export class ApiClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UserProfileResponse.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -442,7 +446,7 @@ export class ApiClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<UserProfileResponse>(<any>null);
     }
 
     /**
@@ -574,6 +578,7 @@ export interface IHearingDetailsResponse {
 
 export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
     hearing_id!: string | undefined;
+    participant_id!: string | undefined;
     hearing_scheduled_at!: Date | undefined;
     questionnaire_not_required!: boolean | undefined;
     answers!: HearingSuitabilityAnswer[] | undefined;
@@ -590,6 +595,7 @@ export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
     init(data?: any) {
         if (data) {
             this.hearing_id = data["hearing_id"];
+            this.participant_id = data["participant_id"];
             this.hearing_scheduled_at = data["hearing_scheduled_at"] ? new Date(data["hearing_scheduled_at"].toString()) : <any>undefined;
             this.questionnaire_not_required = data["questionnaire_not_required"];
             if (Array.isArray(data["answers"])) {
@@ -610,6 +616,7 @@ export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["hearing_id"] = this.hearing_id;
+        data["participant_id"] = this.participant_id;
         data["hearing_scheduled_at"] = this.hearing_scheduled_at ? this.hearing_scheduled_at.toISOString() : <any>undefined;
         data["questionnaire_not_required"] = this.questionnaire_not_required;
         if (Array.isArray(this.answers)) {
@@ -623,6 +630,7 @@ export class HearingSuitabilityResponse implements IHearingSuitabilityResponse {
 
 export interface IHearingSuitabilityResponse {
     hearing_id: string | undefined;
+    participant_id: string | undefined;
     hearing_scheduled_at: Date | undefined;
     questionnaire_not_required: boolean | undefined;
     answers: HearingSuitabilityAnswer[] | undefined;
@@ -762,6 +770,46 @@ export interface ITestCallScoreResponse {
     score: TestCallScoreResponseScore | undefined;
     /** Whether or not the call was successful */
     passed: boolean | undefined;
+}
+
+export class UserProfileResponse implements IUserProfileResponse {
+    email!: string | undefined;
+    role!: string | undefined;
+
+    constructor(data?: IUserProfileResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.email = data["email"];
+            this.role = data["role"];
+        }
+    }
+
+    static fromJS(data: any): UserProfileResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserProfileResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["role"] = this.role;
+        return data; 
+    }
+}
+
+export interface IUserProfileResponse {
+    email: string | undefined;
+    role: string | undefined;
 }
 
 export class TokenResponse implements ITokenResponse {

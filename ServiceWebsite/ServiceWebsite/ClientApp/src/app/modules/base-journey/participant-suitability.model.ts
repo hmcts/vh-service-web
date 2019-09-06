@@ -54,6 +54,7 @@ export abstract class ParticipantSuitabilityModel {
   mediaSwitchedOn: boolean;
   selfTest: SelfTestAnswers;
   hearing: Hearing;
+  participantId: string;
 
   isUpcoming(): boolean {
     const now = new Date();

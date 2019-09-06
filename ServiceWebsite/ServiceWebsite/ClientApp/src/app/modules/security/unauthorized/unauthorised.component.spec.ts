@@ -1,7 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { UnauthorisedComponent } from './unauthorised.component';
-import { ErrorFooterComponent } from '../../shared/error-footer/error-footer.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {UnauthorisedComponent} from './unauthorised.component';
+import {ContactUsComponent} from '../../shared/contact-us/contact-us.component';
 
 describe('UnauthorisedComponent', () => {
   let component: UnauthorisedComponent;
@@ -11,7 +10,7 @@ describe('UnauthorisedComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         UnauthorisedComponent,
-        ErrorFooterComponent
+        ContactUsComponent
       ]
     })
       .compileComponents();

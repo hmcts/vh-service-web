@@ -204,16 +204,6 @@ export let LocaleResources = {
       ParagraphOne: 'The court will use the information you have provided to decide which type of hearing is most suitable.',
       ParagraphTwo: 'All parties involved in the hearing must submit their answers before the court can make a decision.',
     },
-    // Citizen footer.
-    CitizenFooter: {
-      FooterTitle: 'Contact us for help',
-      TitleOne: 'Telephone:',
-      FooterParagraphOne: 'Call us on 0300 303 0655 and quote your reference number ',
-      HintOne: '(available between 9am and 5pm, Monday to Friday)',
-      TitleTwo: 'Email:',
-      FooterEmailUs: 'Email us at',
-      FooterParagraphTwo: ' quoting your reference number'
-    },
     HMCTS: 'HMCTS',
     ForExampleCitizen: {
       Heading: 'For example:',

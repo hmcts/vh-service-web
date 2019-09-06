@@ -1,15 +1,15 @@
-import { JourneySelector } from './modules/base-journey/services/journey.selector';
-import { ProfileService } from 'src/app/services/profile.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { AdalService } from 'adal-angular4';
-import { Config } from './modules/shared/models/config';
-import { HeaderComponent } from './modules/shared/header/header.component';
-import { WindowRef } from './modules/shared/window-ref';
-import { PageTrackerService } from './services/page-tracker.service';
-import { DeviceType } from './modules/base-journey/services/device-type';
-import { Paths } from './paths';
-import { NavigationBackSelector } from './modules/base-journey/services/navigation-back.selector';
+import {JourneySelector} from './modules/base-journey/services/journey.selector';
+import {ProfileService} from 'src/app/services/profile.service';
+import {Component, OnInit, ViewChild, Renderer, ElementRef} from '@angular/core';
+import {Router} from '@angular/router';
+import {AdalService} from 'adal-angular4';
+import {Config} from './modules/shared/models/config';
+import {HeaderComponent} from './modules/shared/header/header.component';
+import {WindowRef} from './modules/shared/window-ref';
+import {PageTrackerService} from './services/page-tracker.service';
+import {DeviceType} from './modules/base-journey/services/device-type';
+import {Paths} from './paths';
+import {NavigationBackSelector} from './modules/base-journey/services/navigation-back.selector';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +20,11 @@ export class AppComponent implements OnInit {
   loggedIn: boolean;
   initialized: boolean;
 
-  @ViewChild(HeaderComponent, { static: true })
+  @ViewChild(HeaderComponent, {static: true})
   header: HeaderComponent;
+
+  @ViewChild('mainContent', {static: true})
+  main: ElementRef;
 
   constructor(
     private router: Router,
@@ -32,7 +35,8 @@ export class AppComponent implements OnInit {
     private journeySelector: JourneySelector,
     pageTracker: PageTrackerService,
     private deviceTypeService: DeviceType,
-    private navigationBackSelector: NavigationBackSelector
+    private navigationBackSelector: NavigationBackSelector,
+    private renderer: Renderer
   ) {
     this.loggedIn = false;
     this.initAuthentication();
@@ -63,11 +67,16 @@ export class AppComponent implements OnInit {
     const currentUrl = this.window.getLocation().href;
 
     if (!this.loggedIn) {
-      await this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
+      await this.router.navigate(['/login'], {queryParams: {returnUrl: currentUrl}});
     } else {
       const profile = await this.profileService.getUserProfile();
-      await this.journeySelector.beginFor(profile.role);
-      await this.navigationBackSelector.beginFor(profile.role);
+
+      if (profile === undefined || profile.email === undefined || profile.role === undefined) {
+        await this.router.navigate(['/unauthorized']);
+      } else {
+        await this.journeySelector.beginFor(profile.role);
+        await this.navigationBackSelector.beginFor(profile.role);
+      }
     }
   }
 
@@ -75,5 +84,9 @@ export class AppComponent implements OnInit {
     if (!this.deviceTypeService.isSupportedBrowser()) {
       this.router.navigateByUrl(Paths.UnsupportedBrowser);
     }
+  }
+
+  skipToContent() {
+    this.renderer.invokeElementMethod(this.main.nativeElement, 'focus');
   }
 }

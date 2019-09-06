@@ -27,6 +27,7 @@ export class IndividualModelMapper extends ParticipantModelMapper {
         model.computer = this.mapBooleanValue(response.answers, IndividualQuestionKeys.Computer);
         model.camera = this.mapComputerCamera(response.answers);
         model.selfTest = this.mapSelfTestAnswers(response.answers);
+        model.participantId = response.participant_id;
 
         return model;
     }

@@ -3,6 +3,7 @@ import { SuitabilityChoicePageBaseComponent} from '../../../base-journey/compone
 import {JourneyBase} from '../../../base-journey/journey-base';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import {Logger} from '../../../../services/logger';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 })
 export class MicrophoneWorkingComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
-  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel, private logger: Logger) {
     super(journey);
   }
 
@@ -33,6 +34,9 @@ export class MicrophoneWorkingComponent extends SuitabilityChoicePageBaseCompone
   }
 
   checkEquipment() {
+    this.logger.event('(checkEquipment -> Checking equipment again.)',
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
     this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
    }
 }

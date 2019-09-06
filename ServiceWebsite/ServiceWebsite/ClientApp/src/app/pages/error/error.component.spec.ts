@@ -1,7 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ErrorComponent } from './error.component';
-import { ErrorFooterComponent } from 'src/app/modules/shared/error-footer/error-footer.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ErrorComponent} from './error.component';
+import {ContactUsComponent} from '../../modules/shared/contact-us/contact-us.component';
 
 describe('ErrorComponent', () => {
   let component: ErrorComponent;
@@ -9,9 +8,9 @@ describe('ErrorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorComponent, ErrorFooterComponent ]
+      declarations: [ErrorComponent, ContactUsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

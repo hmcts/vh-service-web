@@ -1,11 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
+using ServiceWebsite.Models;
 using ServiceWebsite.UserAPI.Client;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ServiceWebsite.Controllers
 {
+    [Produces("application/json")]
     [Route("/api/profile")]
     [Authorize]
     public class ProfileController : Controller
@@ -18,19 +23,15 @@ namespace ServiceWebsite.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> Index()
+        [SwaggerOperation(OperationId = "GetUserProfile")]
+        [ProducesResponseType(typeof(UserProfileResponse), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetUserProfile()
         {
             try
             {
                 var participant = await _userApiClient.GetUserByAdUserNameAsync(User.Identity.Name);
-                
-                var profile = new
-                {
-                    Email=participant.Email,
-                    Role = participant.User_role
-                };
 
-                return Json(profile);
+                return Ok(new UserProfileResponse{ Email = participant.Email, Role = participant.User_role });
             }
             catch (NotFoundException e)
             {
