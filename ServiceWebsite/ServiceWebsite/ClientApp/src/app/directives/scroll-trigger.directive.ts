@@ -5,7 +5,7 @@ import { WindowScrolling } from './window-scrolling';
   selector: '[appScrollTrigger]'
 })
 export class ScrollTriggerDirective {
-  private lastScrollPosition = 0;
+  lastScrollPosition = 0;
   margin = 30;
 
   @Output() scrolledPast = new EventEmitter<any>();
