@@ -56,8 +56,8 @@ a {
   }
 
 .vh-text {
-  overflow-wrap: break-word;
-  word-break: break-all;
+  overflow-wrap: normal;
+  word-break:break-word;
   list-style-type: none;
   padding-left: 0;
   margin-left: 0;
