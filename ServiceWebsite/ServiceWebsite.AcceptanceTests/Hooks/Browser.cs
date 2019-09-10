@@ -1,7 +1,8 @@
 ﻿using TechTalk.SpecFlow;
 using System;
-using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using BoDi;
+using ServiceWebsite.AcceptanceTests.NuGet.Contexts;
 
 namespace AdminWebsite.AcceptanceTests.Hooks
 {
@@ -9,15 +10,15 @@ namespace AdminWebsite.AcceptanceTests.Hooks
     public sealed class Browser
     {
         private readonly BrowserContext _browserContext;
-        private readonly TestContext _testContext;
+        private readonly TestContextBase _testContext;
         private readonly SauceLabsSettings _saucelabsSettings;
         private readonly ScenarioContext _scenarioContext;        
 
-        public Browser(BrowserContext browserContext, TestContext context, SauceLabsSettings saucelabsSettings,
-            ScenarioContext injectedContext)
+        public Browser(BrowserContext browserContext, SauceLabsSettings saucelabsSettings,
+            ScenarioContext injectedContext, TestContextBase testContext)
         {
+            _testContext = testContext;
             _browserContext = browserContext;
-            _testContext = context;
             _saucelabsSettings = saucelabsSettings;
             _scenarioContext = injectedContext;
         }
@@ -29,15 +30,15 @@ namespace AdminWebsite.AcceptanceTests.Hooks
             return Enum.TryParse(NUnit.Framework.TestContext.Parameters["TargetBrowser"], true, out targetTargetBrowser) ? targetTargetBrowser : TargetBrowser.Chrome;
         }
 
-        [BeforeScenario (Order = 1)]
+        [BeforeScenario (Order = 4)]
         public void BeforeScenario()
         {
             var environment = new SeleniumEnvironment(_saucelabsSettings, _scenarioContext.ScenarioInfo, GetTargetBrowser());
-            _browserContext.BrowserSetup(_testContext.WebsiteUrl, environment);
+            _browserContext.BrowserSetup(_testContext.BaseUrl, environment);
             _browserContext.LaunchSite();           
         }
 
-        [AfterScenario]
+        [AfterScenario(Order = 0)]
         public void AfterScenario()
         {
             if (_saucelabsSettings.RunWithSaucelabs)

@@ -3,13 +3,12 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 using ServiceWebsite.BookingsAPI.Client;
-using ServiceWebsite.AcceptanceTests.Contexts;
-using RestSharp;
 using System.Collections.Generic;
 using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Constants;
 using ServiceWebsite.AcceptanceTests.Pages.SelfTesPages;
 using System.Linq;
+using ServiceWebsite.AcceptanceTests.NuGet.Contexts;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -20,10 +19,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _checkYourComputer;
         private ErrorMessage _errorMessage;
         public readonly ScenarioContext _scenarioContext;
-        private readonly TestContext _testContext;
+        private readonly TestContextBase _testContext;
         private readonly BrowserContext _browserContext;
         private List<Page> _pages = new List<Page>();
-        public QuestionnaireJourney(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
+        public QuestionnaireJourney(TestContextBase testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
         {
             _information = information;
             _errorMessage = new ErrorMessage(browserContext);
@@ -203,7 +202,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var requestUrl = $"/hearings/{_testContext.HearingId}/participants/{participantId}/suitability-answers";
             var answerRequest = _testContext.Put(requestUrl, answerRequestBody);
-            var response = _testContext.Client().Execute(answerRequest);
+            _testContext.BookingsApiClient().Execute(answerRequest);
         }
     }
 }
