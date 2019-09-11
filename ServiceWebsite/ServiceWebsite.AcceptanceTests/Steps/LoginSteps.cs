@@ -86,7 +86,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"Participant should be redirected to Video Web")]
         public void ThenIndividualUserShouldBeRedirectedToVideoWeb()
         {
-            ValidatePage(_testContext.RedirectUrl);
+            ValidatePage(_testContext.VideoAppUrl);
         }
     }
 }

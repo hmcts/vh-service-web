@@ -10,7 +10,7 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Contexts
     public interface ITestContext
     {
         string WebsiteUrl { get; set; }
-        string RedirectUrl { get; set; }
+        string VideoAppUrl { get; set; }
         string BookingsApiBearerToken { get; set; }
         string BookingsApiBaseUrl { get; set; }
         RestRequest Request { get; set; }

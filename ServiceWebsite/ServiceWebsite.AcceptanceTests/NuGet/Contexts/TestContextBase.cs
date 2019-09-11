@@ -12,7 +12,7 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Contexts
     public class TestContextBase : ITestContext
     {
         public string WebsiteUrl { get; set; }
-        public string RedirectUrl { get; set; }
+        public string VideoAppUrl { get; set; }
         public string BookingsApiBearerToken { get; set; }
         public string BookingsApiBaseUrl { get; set; }
         public RestRequest Request { get; set; }

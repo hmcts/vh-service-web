@@ -54,7 +54,7 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Hooks
             testContext.AzureAd = azureAdConfig;
 
             testContext.WebsiteUrl = configRoot.GetSection("WebsiteUrl").Value;
-            testContext.RedirectUrl = configRoot.GetSection("RedirectUrl").Value;
+            testContext.VideoAppUrl = configRoot.GetSection("VideoAppUrl").Value;
 
 
 
