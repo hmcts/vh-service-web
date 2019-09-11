@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
 import {JourneyBase} from '../../../base-journey/journey-base';
-import {ParticipantSuitabilityModel, MediaAccessResponse} from '../../../base-journey/participant-suitability.model';
+import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 import {SelfTestJourneySteps} from '../../self-test-journey-steps';
 import {TokenResponse, ParticipantResponse} from '../../../../services/clients/api-client';
 import {UserMediaStreamService} from '../../services/user-media-stream.service';
@@ -41,8 +41,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   subDevice: Subscription;
   subScore: Subscription;
-
-  mediaSwitchedOn: MediaAccessResponse;
 
   constructor(journey: JourneyBase,
               private model: ParticipantSuitabilityModel,
@@ -199,13 +197,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.dispose();
 
     await this.setupPexipClient();
-    
-
-    this.mediaSwitchedOn = await this.userMediaService.requestAccess();
-    if (!this.mediaSwitchedOn.result && this.mediaSwitchedOn.exceptionType === 'NotAllowedError') {
-      this.model.mediaSwitchedOn = false;
-      this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
-    }
+    await this.userMediaService.requestAccess();
     this.call();
   }
 

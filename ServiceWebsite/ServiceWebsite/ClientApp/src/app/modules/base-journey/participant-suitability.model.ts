@@ -9,11 +9,6 @@ export enum HasAccessToCamera {
   NotSure
 }
 
-export class MediaAccessResponse {
-  result: boolean;
-  exceptionType: string;
-
-}
 export class SelfTestAnswers {
   constructor(answers?: {
     seeAndHearClearly?: boolean,

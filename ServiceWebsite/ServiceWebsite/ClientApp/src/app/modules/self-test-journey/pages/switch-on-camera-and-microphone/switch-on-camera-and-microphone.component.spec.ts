@@ -8,7 +8,7 @@ import {SwitchOnCameraAndMicrophoneComponent} from './switch-on-camera-and-micro
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { MutableIndividualSuitabilityModel } from 'src/app/modules/individual-journey/mutable-individual-suitability.model';
 import { MediaService } from 'src/app/services/media.service';
-import { SelfTestAnswers, MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
+import { SelfTestAnswers } from 'src/app/modules/base-journey/participant-suitability.model';
 import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participant-journey-steps';
 import { By } from '@angular/platform-browser';
 import { tick, fakeAsync } from '@angular/core/testing';
@@ -39,17 +39,14 @@ describe('SwitchOnCameraAndMicrophoneComponent', () => {
     });
 
     fixture.detectChanges();
-    const mediaAccessResponse = new MediaAccessResponse();
-    mediaAccessResponse.exceptionType = '';
-    mediaAccessResponse.result = true;
-    mediaService.requestAccess.and.returnValue(Promise.resolve(mediaAccessResponse));
+    mediaService.requestAccess.and.returnValue(Promise.resolve(true));
 
     const switchOnButton = fixture.debugElement.query(By.css('#switch-on-media'));
     switchOnButton.nativeElement.click();
     tick();
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.mediaSwitchedOn.result).toBe(true);
+    expect(fixture.componentInstance.mediaSwitchedOn).toBe(true);
     const continueButton = fixture.debugElement.query(By.css('#continue'));
     continueButton.nativeElement.click();
 
@@ -60,10 +57,7 @@ describe('SwitchOnCameraAndMicrophoneComponent', () => {
   }));
 
   it(`should proceed to ${SelfTestJourneySteps.EquipmentBlocked} with access denied on failure`, async () => {
-    const mediaAccessResponse = new MediaAccessResponse();
-    mediaAccessResponse.exceptionType = 'NotAllowedError';
-    mediaAccessResponse.result = false;
-    mediaService.requestAccess.and.returnValue(Promise.resolve(mediaAccessResponse));
+    mediaService.requestAccess.and.returnValue(Promise.resolve(false));
     const component = new SwitchOnCameraAndMicrophoneComponent(journey, mediaService, model);
     await component.switchOnCameraAndMicrophone();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.EquipmentBlocked);

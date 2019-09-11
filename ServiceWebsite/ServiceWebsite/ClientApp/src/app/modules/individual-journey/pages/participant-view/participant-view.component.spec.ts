@@ -9,13 +9,11 @@ import { DeviceType } from '../../../base-journey/services/device-type';
 import { VideoViewComponentTestBed } from '../../components/video-view-base/video-view-component-test-bed.spec';
 import { IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 import { MediaService } from 'src/app/services/media.service';
-import { Logger } from 'src/app/services/logger';
 
 describe('ParticipantViewComponent', () => {
   const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
   const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-  const logger = jasmine.createSpyObj < Logger>(['error'])
 
   it('can be created', async(() => {
     const fixture = VideoViewComponentTestBed.createComponent(ParticipantViewComponent);
@@ -31,7 +29,7 @@ describe('ParticipantViewComponent', () => {
     beforeEach(() => {
       journey = IndividualJourneyStubs.default;
       deviceType.isMobile.and.returnValue(false);
-      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType, logger);
+      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
     });
 
@@ -60,7 +58,7 @@ describe('ParticipantViewComponent', () => {
     });
     it('should detect that device is a mobile phone and not use media', async() => {
       deviceType.isMobile.and.returnValue(true);
-      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType, logger);
+      component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType);
       component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
 
       await component.ngAfterContentInit();
