@@ -10,6 +10,8 @@ import {PageTrackerService} from './services/page-tracker.service';
 import {DeviceType} from './modules/base-journey/services/device-type';
 import {Paths} from './paths';
 import {NavigationBackSelector} from './modules/base-journey/services/navigation-back.selector';
+import {DocumentRedirectService} from './services/document-redirect.service';
+import {Logger} from './services/logger';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +38,9 @@ export class AppComponent implements OnInit {
     pageTracker: PageTrackerService,
     private deviceTypeService: DeviceType,
     private navigationBackSelector: NavigationBackSelector,
-    private renderer: Renderer
+    private renderer: Renderer,
+    private redirect: DocumentRedirectService,
+    private logger: Logger
   ) {
     this.loggedIn = false;
     this.initAuthentication();
@@ -68,15 +72,23 @@ export class AppComponent implements OnInit {
 
     if (!this.loggedIn) {
       await this.router.navigate(['/login'], {queryParams: {returnUrl: currentUrl}});
-    } else {
-      const profile = await this.profileService.getUserProfile();
+      return;
+    }
 
-      if (profile === undefined || profile.email === undefined || profile.role === undefined) {
-        await this.router.navigate(['/unauthorized']);
-      } else {
-        await this.journeySelector.beginFor(profile.role);
-        await this.navigationBackSelector.beginFor(profile.role);
-      }
+    const profile = await this.profileService.getUserProfile();
+
+    if (profile === undefined || profile.email === undefined || profile.role === undefined) {
+      await this.router.navigate(['/unauthorized']);
+      return;
+    }
+
+    try {
+      await this.journeySelector.beginFor(profile.role);
+      await this.navigationBackSelector.beginFor(profile.role);
+    } catch (err) {
+      this.logger.error(err.message, err, {profileRole: profile.role});
+      this.redirect.to(this.config.videoAppUrl);
+      return;
     }
   }
 

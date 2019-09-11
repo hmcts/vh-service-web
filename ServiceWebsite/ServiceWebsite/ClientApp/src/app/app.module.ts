@@ -19,6 +19,8 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { QuestionnaireAlreadyCompletedComponent } from './pages/questionnaire-already-completed/questionnaire-already-completed.component';
+import { AccessibilityComponent } from './pages/accessibility/accessibility.component';
+import { ScrollTriggerDirective } from './directives/scroll-trigger.directive';
 
 // services
 import { ErrorService } from './services/error.service';
@@ -31,6 +33,7 @@ import { DocumentRedirectService } from './services/document-redirect.service';
 import { AppInsightsLogger } from './services/app-insights-logger.service';
 import { ConsoleLogger } from './services/console-logger';
 import { Logger } from './services/logger';
+import { WindowScrolling } from './directives/window-scrolling';
 
 // modules
 import { RepresentativeJourneyModule } from './modules/representative-journey/representative-journey.module';
@@ -58,7 +61,9 @@ export function initConfiguration(configService: ConfigService): Function {
     GuidanceComponent,
     MediaErrorComponent,
     UnsupportedBrowserComponent,
-    QuestionnaireAlreadyCompletedComponent
+    QuestionnaireAlreadyCompletedComponent,
+    AccessibilityComponent,
+    ScrollTriggerDirective
   ],
   imports: [
     // angular
@@ -96,6 +101,7 @@ export function initConfiguration(configService: ConfigService): Function {
     PrintService,
     DocumentRedirectService,
     { provide: ErrorHandler, useClass: ErrorService },
+    WindowScrolling
   ],
   bootstrap: [AppComponent]
 })

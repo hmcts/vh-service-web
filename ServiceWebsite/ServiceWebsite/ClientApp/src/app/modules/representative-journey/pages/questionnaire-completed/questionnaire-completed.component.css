@@ -5,3 +5,7 @@
 .bottom-border tr:last-child td {
   border-bottom: 1px solid #bfc1c3;
 }
+
+.vh-tr-border {
+  border-top: 1px solid #bfc1c3;
+}

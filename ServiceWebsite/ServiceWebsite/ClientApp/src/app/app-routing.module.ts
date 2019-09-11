@@ -8,6 +8,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { GuidanceComponent } from './pages/guidance/guidance.component';
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { QuestionnaireAlreadyCompletedComponent } from './pages/questionnaire-already-completed/questionnaire-already-completed.component';
+import { AccessibilityComponent } from './pages/accessibility/accessibility.component';
 
 import { Paths } from './paths';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: Paths.Root, component: HomeComponent, pathMatch: 'full' },
   { path: Paths.Error, component: ErrorComponent },
   { path: Paths.PrivacyPolicy, component: PrivacyPolicyComponent },
+  { path: Paths.Accessibility, component: AccessibilityComponent },
   { path: Paths.PageNotFound, component: PageNotFoundComponent },
   { path: Paths.Guidance, component: GuidanceComponent },
   { path: `${Paths.Guidance}/:print`, component: GuidanceComponent },

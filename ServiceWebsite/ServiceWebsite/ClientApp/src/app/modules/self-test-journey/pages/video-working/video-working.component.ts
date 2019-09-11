@@ -4,6 +4,7 @@ import {JourneyBase} from '../../../base-journey/journey-base';
 import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
 import { ParticipantJourneySteps } from '../../../base-journey/participant-journey-steps';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import {Logger} from '../../../../services/logger';
 
 @Component({
   selector: 'app-video-working',
@@ -12,7 +13,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 })
 export class VideoWorkingComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
-  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel) {
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel, private logger: Logger) {
     super(journey);
   }
 
@@ -34,6 +35,9 @@ export class VideoWorkingComponent extends SuitabilityChoicePageBaseComponent<Jo
   }
 
   checkEquipment() {
+    this.logger.event('(checkEquipment -> Checking equipment again.)',
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
     this.journey.goto(SelfTestJourneySteps.TestYourEquipment);
   }
 }

@@ -13,6 +13,9 @@ import {ProfileService} from './services/profile.service';
 import {DeviceType} from './modules/base-journey/services/device-type';
 import {Paths} from './paths';
 import {NavigationBackSelector} from './modules/base-journey/services/navigation-back.selector';
+import {DocumentRedirectService} from './services/document-redirect.service';
+import {Logger} from './services/logger';
+import {MockLogger} from './testing/mocks/mock-logger';
 
 @Component({selector: 'app-footer', template: ''})
 export class FooterStubComponent {
@@ -37,6 +40,7 @@ describe('AppComponent', () => {
   let pageTracker: jasmine.SpyObj<PageTrackerService>;
   let journeySelector: jasmine.SpyObj<JourneySelector>;
   let navigationBackSelector: jasmine.SpyObj<NavigationBackSelector>;
+  let redirect: jasmine.SpyObj<DocumentRedirectService>;
   let profileService: jasmine.SpyObj<ProfileService>;
   let adalService: jasmine.SpyObj<AdalService>;
   let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
@@ -51,6 +55,7 @@ describe('AppComponent', () => {
     adalService = jasmine.createSpyObj<AdalService>(['handleWindowCallback', 'userInfo', 'init']);
     journeySelector = jasmine.createSpyObj<JourneySelector>(['beginFor']);
     navigationBackSelector = jasmine.createSpyObj<NavigationBackSelector>(['beginFor']);
+    redirect = jasmine.createSpyObj<DocumentRedirectService>(['to']);
     profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
     deviceTypeServiceSpy = jasmine.createSpyObj<DeviceType>(['isSupportedBrowser']);
@@ -76,6 +81,8 @@ describe('AppComponent', () => {
           {provide: JourneySelector, useValue: journeySelector},
           {provide: DeviceType, useValue: deviceTypeServiceSpy},
           {provide: NavigationBackSelector, useValue: navigationBackSelector},
+          {provide: DocumentRedirectService, useValue: redirect},
+          {provide: Logger, useValue: new MockLogger()},
         ],
     }).compileComponents();
 
@@ -146,5 +153,14 @@ describe('AppComponent', () => {
     deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(false);
     component.checkBrowser();
     expect(router.navigateByUrl).toHaveBeenCalledWith(Paths.UnsupportedBrowser);
+  });
+
+  it('should redirect to videoAppUrl if error thrown by journeySelector', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(Promise.resolve({email: 'email', role: 'role'}));
+    journeySelector.beginFor.and.throwError('Some Error');
+    await component.ngOnInit();
+
+    expect(redirect.to).toHaveBeenCalled();
   });
 });
