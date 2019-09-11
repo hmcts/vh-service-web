@@ -1,5 +1,6 @@
-import {SessionStorage} from '../modules/shared/services/session-storage';
-import {UserMediaDevice} from '../modules/shared/models/user-media-device';
+import { SessionStorage } from '../modules/shared/services/session-storage';
+import { UserMediaDevice } from '../modules/shared/models/user-media-device';
+import { MediaAccessResponse } from '../modules/base-journey/participant-suitability.model';
 
 export abstract class MediaService {
   abstract getListOfVideoDevices(): Promise<UserMediaDevice[]>;
@@ -12,7 +13,7 @@ export abstract class MediaService {
   abstract getCachedDeviceIfStillConnected(cache: SessionStorage<UserMediaDevice>): UserMediaDevice;
   abstract updatePreferredCamera(camera: UserMediaDevice): void;
   abstract updatePreferredMicrophone(microphone: UserMediaDevice): void;
-  abstract requestAccess(): Promise<boolean>;
+  abstract requestAccess(): Promise<MediaAccessResponse>;
   abstract getStream(): Promise<MediaStream>;
   abstract stopStream(): void;
 }

@@ -1,16 +1,16 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
-import {JourneyBase} from '../../../base-journey/journey-base';
-import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
-import {SelfTestJourneySteps} from '../../self-test-journey-steps';
-import {TokenResponse, ParticipantResponse} from '../../../../services/clients/api-client';
-import {UserMediaStreamService} from '../../services/user-media-stream.service';
-import {VideoWebService} from '../../services/video-web.service';
-import {ConfigService} from '../../../../services/config.service';
-import {Logger} from '../../../../services/logger';
-import {Subscription} from 'rxjs';
-import {UserMediaService} from '../../../../services/user-media.service';
-import {SelectedUserMediaDevice} from '../../../shared/models/selected-user-media-device';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
+import { JourneyBase } from '../../../base-journey/journey-base';
+import { ParticipantSuitabilityModel, MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
+import { UserMediaStreamService } from '../../services/user-media-stream.service';
+import { VideoWebService } from '../../services/video-web.service';
+import { ConfigService } from '../../../../services/config.service';
+import { Logger } from '../../../../services/logger';
+import { Subscription } from 'rxjs';
+import { UserMediaService } from '../../../../services/user-media.service';
+import { SelectedUserMediaDevice } from '../../../shared/models/selected-user-media-device';
 
 declare var PexRTC: any;
 
@@ -42,13 +42,15 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   subDevice: Subscription;
   subScore: Subscription;
 
+  mediaSwitchedOn: MediaAccessResponse;
+
   constructor(journey: JourneyBase,
-              private model: ParticipantSuitabilityModel,
-              _userMediaService: UserMediaService,
-              private userMediaStreamService: UserMediaStreamService,
-              private videoWebService: VideoWebService,
-              private configService: ConfigService,
-              _logger: Logger
+    private model: ParticipantSuitabilityModel,
+    _userMediaService: UserMediaService,
+    private userMediaStreamService: UserMediaStreamService,
+    private videoWebService: VideoWebService,
+    private configService: ConfigService,
+    _logger: Logger
   ) {
     super(journey);
     this.didTestComplete = false;
@@ -81,9 +83,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.videoWebService.getCurrentParticipantId().subscribe((response: ParticipantResponse) => {
       this.participantId = response.id;
       this.videoWebService.getToken(this.participantId).subscribe(async (token: TokenResponse) => {
-          this.token = token;
-          this.call();
-        },
+        this.token = token;
+        this.call();
+      },
         (error) => {
           this.loadingData = false;
           this.logger.error('Error to get token.', error);
@@ -197,7 +199,13 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.dispose();
 
     await this.setupPexipClient();
-    await this.userMediaService.requestAccess();
+
+
+    this.mediaSwitchedOn = await this.userMediaService.requestAccess();
+    if (!this.mediaSwitchedOn.result && this.mediaSwitchedOn.exceptionType === 'NotAllowedError') {
+      this.model.mediaSwitchedOn = false;
+      this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
+    }
     this.call();
   }
 

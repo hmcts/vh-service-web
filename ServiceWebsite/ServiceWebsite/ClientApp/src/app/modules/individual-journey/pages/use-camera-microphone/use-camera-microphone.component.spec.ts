@@ -7,6 +7,7 @@ import { MutableIndividualSuitabilityModel } from '../../mutable-individual-suit
 import { By } from '@angular/platform-browser';
 import { tick, fakeAsync } from '@angular/core/testing';
 import { MediaService } from 'src/app/services/media.service';
+import { MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
 
 describe('UseCameraMicrophoneComponent', () => {
   let mediaService: jasmine.SpyObj<MediaService>;
@@ -25,19 +26,20 @@ describe('UseCameraMicrophoneComponent', () => {
   it(`should proceed to ${IndividualJourneySteps.HearingAsParticipant} after getting camera access`, fakeAsync(() => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: UseCameraMicrophoneComponent,
-      providers: [ { provide: MediaService, useValue: mediaService } ],
+      providers: [{ provide: MediaService, useValue: mediaService }],
       journey: individualJourney
     });
     fixture.detectChanges();
-
-    mediaService.requestAccess.and.returnValue(Promise.resolve(true));
+    const mediaAccessResponse = new MediaAccessResponse();
+    mediaAccessResponse.exceptionType = '';
+    mediaAccessResponse.result = true;
+    mediaService.requestAccess.and.returnValue(Promise.resolve(mediaAccessResponse));
 
     const switchOnButton = fixture.debugElement.query(By.css('#switch-on-media'));
     switchOnButton.nativeElement.click();
     tick();
     fixture.detectChanges();
-
-    expect(fixture.componentInstance.mediaAccepted).toBe(true);
+    expect(fixture.componentInstance.mediaAccepted.result).toBe(true);
     const continueButton = fixture.debugElement.query(By.css('#continue'));
     continueButton.nativeElement.click();
 
@@ -45,7 +47,11 @@ describe('UseCameraMicrophoneComponent', () => {
   }));
 
   it(`should proceed to ${IndividualJourneySteps.MediaAccessError} with access denied on failure`, async () => {
-    mediaService.requestAccess.and.returnValue(Promise.resolve(false));
+
+    const mediaAccessResponse = new MediaAccessResponse();
+    mediaAccessResponse.exceptionType = 'NotAllowedError';
+    mediaAccessResponse.result = false;
+    mediaService.requestAccess.and.returnValue(Promise.resolve(mediaAccessResponse));
     const component = new UseCameraMicrophoneComponent(individualJourney, mediaService);
     await component.switchOnMedia();
     expect(individualJourney.goto).toHaveBeenCalledWith(IndividualJourneySteps.MediaAccessError);
