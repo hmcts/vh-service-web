@@ -197,7 +197,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
   let model: MutableIndividualSuitabilityModel;
   let component: TestYourEquipmentComponent;
   videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
-  let userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(
+  const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(
     ['requestAccess', 'hasMultipleDevices', 'getPreferredCamera', 'getPreferredMicrophone']);
   userMediaServiceMock.requestAccess.and.returnValue(false);
 
