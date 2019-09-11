@@ -15,7 +15,7 @@ describe('ParticipantViewComponent', () => {
   const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
   const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
   const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-  const logger = jasmine.createSpyObj<Logger>(['error'])
+  const logger = jasmine.createSpyObj<Logger>(['error']);
 
   it('can be created', async(() => {
     const fixture = VideoViewComponentTestBed.createComponent(ParticipantViewComponent);

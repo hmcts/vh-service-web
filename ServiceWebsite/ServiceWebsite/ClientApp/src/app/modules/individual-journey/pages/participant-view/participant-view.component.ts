@@ -35,8 +35,7 @@ export class ParticipantViewComponent extends VideoViewBaseComponent implements 
       try {
         this.stream = await this.userMediaService.getStream();
         this.userCameraViewComponent.setSource(this.stream);
-      }
-      catch (exception) {
+      } catch (exception) {
         this.logger.error('Failed to get access to user media', exception);
         if (exception.name === 'NotAllowedError') {
           this.journey.goto(IndividualJourneySteps.MediaAccessError);
