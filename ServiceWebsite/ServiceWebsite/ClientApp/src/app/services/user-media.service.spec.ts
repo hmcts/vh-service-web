@@ -157,7 +157,7 @@ describe('UserMediaService', () => {
     spyOn(userMediaService, 'getStream').and.throwError('Failed to get access to user media');
     const result = await userMediaService.requestAccess();
     expect(result).not.toBeNull();
-    expect(result).toBeFalsy();
+    expect(result.result).toBeFalsy();
     userMediaService.stopStream();
   });
 });

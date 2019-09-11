@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {JourneyBase} from '../../../base-journey/journey-base';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { ParticipantSuitabilityModel } from 'src/app/modules/base-journey/participant-suitability.model';
+import { ParticipantSuitabilityModel, MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
 import { MediaService } from 'src/app/services/media.service';
 import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participant-journey-steps';
 
@@ -11,7 +11,7 @@ import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participan
   styles: []
 })
 export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
-  mediaSwitchedOn = false;
+  mediaSwitchedOn: MediaAccessResponse;
   constructor(private journey: JourneyBase, private mediaAccess: MediaService, private model: ParticipantSuitabilityModel) {
   }
 
@@ -21,7 +21,7 @@ export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
   async switchOnCameraAndMicrophone(): Promise<void> {
     console.log(this.mediaSwitchedOn);
     this.mediaSwitchedOn = await this.mediaAccess.requestAccess();
-    if (!this.mediaSwitchedOn) {
+    if (!this.mediaSwitchedOn.result && this.mediaSwitchedOn.exceptionType === 'NotAllowedError') {
       this.model.mediaSwitchedOn = false;
       this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
     }
