@@ -1,11 +1,20 @@
-import { AppInsights } from 'applicationinsights-js';
-import { LogAdapter } from './log-adapter';
-import { Config } from '../modules/shared/models/config';
-import { Injectable } from '@angular/core';
+import {AppInsights} from 'applicationinsights-js';
+import {LogAdapter} from './log-adapter';
+import {Config} from '../modules/shared/models/config';
+import {Injectable} from '@angular/core';
+
+enum SeverityLevel {
+  Verbose = 0,
+  Information = 1,
+  Warning = 2,
+  Error = 3,
+  Critical = 4
+}
 
 @Injectable()
 export class AppInsightsLogger implements LogAdapter {
   errorInfo: any;
+
   constructor(config: Config) {
     const appInsightsConfig: Microsoft.ApplicationInsights.IConfig = {
       instrumentationKey: config.appInsightsInstrumentationKey,
@@ -20,6 +29,18 @@ export class AppInsightsLogger implements LogAdapter {
         envelope.tags['ai.cloud.role'] = 'vh-service-web';
       });
     });
+  }
+
+  debug(message: string): void {
+    AppInsights.trackTrace(message, null, SeverityLevel.Verbose);
+  }
+
+  info(message: string): void {
+    AppInsights.trackTrace(message, null, SeverityLevel.Information);
+  }
+
+  warn(message: string): void {
+    AppInsights.trackTrace(message, null, SeverityLevel.Warning);
   }
 
   trackPage(pageName: string, url: string) {

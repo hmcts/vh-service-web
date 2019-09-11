@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { SessionStorage } from '../../shared/services/session-storage';
-import { Hearing, SelfTestAnswers } from '../../base-journey/participant-suitability.model';
-import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
-import { IndividualSuitabilityModel } from '../individual-suitability.model';
+import {Injectable} from '@angular/core';
+import {SessionStorage} from '../../shared/services/session-storage';
+import {Hearing, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import {MutableIndividualSuitabilityModel} from '../mutable-individual-suitability.model';
+import {IndividualSuitabilityModel} from '../individual-suitability.model';
 
 @Injectable()
 export class IndividualJourneyService {
@@ -15,7 +15,9 @@ export class IndividualJourneyService {
   get(): IndividualSuitabilityModel {
     const response = this.cache.get();
 
-    if (response === null) { return null; }
+    if (response === null) {
+      return null;
+    }
 
     /*
       Need to create a new object here even though the cache will return a deserialised object,
@@ -23,6 +25,7 @@ export class IndividualJourneyService {
       In this case the "isUpcoming()" was not available
     */
     const model = new MutableIndividualSuitabilityModel();
+    model.participantId = response.participantId;
     model.hearing = new Hearing(response.hearing.id,
       new Date(response.hearing.scheduleDateTime),
       null,
@@ -35,7 +38,6 @@ export class IndividualJourneyService {
     model.room = response.room;
     model.camera = response.camera;
     model.computer = response.computer;
-
     model.selfTest = new SelfTestAnswers(response.selfTest);
 
     return model;

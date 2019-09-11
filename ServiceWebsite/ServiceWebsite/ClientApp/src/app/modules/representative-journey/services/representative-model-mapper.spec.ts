@@ -11,6 +11,7 @@ describe('RepresentativeModelMapper', () => {
   beforeEach(() => {
     serviceResponse = new HearingSuitabilityResponse({
       hearing_id: '',
+      participant_id: '',
       hearing_scheduled_at: new Date(),
       questionnaire_not_required: true,
       answers: [

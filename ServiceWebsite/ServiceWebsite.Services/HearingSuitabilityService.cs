@@ -29,6 +29,7 @@ namespace ServiceWebsite.Services
             return new HearingSuitability
             (
                 response.Hearing_id.GetValueOrDefault(),
+                response.Participant_id.GetValueOrDefault(),
                 response.Scheduled_at.GetValueOrDefault(),
                 response.Questionnaire_not_required.GetValueOrDefault(),
                 answers

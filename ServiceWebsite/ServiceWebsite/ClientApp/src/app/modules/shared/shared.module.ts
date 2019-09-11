@@ -39,12 +39,12 @@ import {MicVisualiserComponent} from './mic-visualiser/mic-visualiser.component'
     AppYesNoPipe,
     BetaBannerComponent,
     SelectMediaDevicesComponent,
-    MicVisualiserComponent
+    MicVisualiserComponent,
   ],
   providers: [
     ProfileService,
     PageTrackerService,
-    WindowRef
+    WindowRef,
   ],
   exports: [
     FooterComponent,

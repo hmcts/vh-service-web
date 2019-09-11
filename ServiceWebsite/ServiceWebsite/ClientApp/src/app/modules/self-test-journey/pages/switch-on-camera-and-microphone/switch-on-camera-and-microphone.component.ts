@@ -3,7 +3,8 @@ import { JourneyBase } from '../../../base-journey/journey-base';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { ParticipantSuitabilityModel, MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
 import { MediaService } from 'src/app/services/media.service';
-import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participant-journey-steps';
+import {Logger} from '../../../../services/logger';
+
 
 @Component({
   selector: 'app-switch-on-camera-and-microphone',
@@ -11,17 +12,24 @@ import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participan
   styles: []
 })
 export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
+
   mediaSwitchedOn: MediaAccessResponse;
-  constructor(private journey: JourneyBase, private mediaAccess: MediaService, private model: ParticipantSuitabilityModel) {
-  }
+  constructor(private journey: JourneyBase, private mediaAccess: MediaService, private model: ParticipantSuitabilityModel, private logger: Logger) {
+
+    }
 
   ngOnInit(): void {
   }
 
   async switchOnCameraAndMicrophone(): Promise<void> {
-    console.log(this.mediaSwitchedOn);
+    this.logger.event(`(switchOnCameraAndMicrophone) Switching on Camera and Microphone`,
+      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+
     this.mediaSwitchedOn = await this.mediaAccess.requestAccess();
-    if (!this.mediaSwitchedOn.result && this.mediaSwitchedOn.exceptionType === 'NotAllowedError') {
+
+   if (!this.mediaSwitchedOn.result && this.mediaSwitchedOn.exceptionType === 'NotAllowedError') {
+      this.logger.event(`(switchOnCameraAndMicrophone) Unable to get access to Camera and Microphone`,
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
       this.model.mediaSwitchedOn = false;
       this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
     }

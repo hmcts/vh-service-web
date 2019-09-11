@@ -13,6 +13,7 @@ namespace ServiceWebsite
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(c => c.AddServerHeader = false)
                 .UseStartup<Startup>();
         }
     }

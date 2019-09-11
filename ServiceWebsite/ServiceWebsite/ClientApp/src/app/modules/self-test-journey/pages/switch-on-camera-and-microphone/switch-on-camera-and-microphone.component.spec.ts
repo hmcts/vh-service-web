@@ -8,10 +8,12 @@ import { SwitchOnCameraAndMicrophoneComponent } from './switch-on-camera-and-mic
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { MutableIndividualSuitabilityModel } from 'src/app/modules/individual-journey/mutable-individual-suitability.model';
 import { MediaService } from 'src/app/services/media.service';
-import { SelfTestAnswers, MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
+import { Hearing,SelfTestAnswers, MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
 import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participant-journey-steps';
 import { By } from '@angular/platform-browser';
 import { tick, fakeAsync } from '@angular/core/testing';
+import {MockLogger} from '../../../../testing/mocks/mock-logger';
+import {Logger} from '../../../../services/logger';
 
 describe('SwitchOnCameraAndMicrophoneComponent', () => {
 
@@ -21,6 +23,8 @@ describe('SwitchOnCameraAndMicrophoneComponent', () => {
 
   beforeEach(() => {
     model = new MutableIndividualSuitabilityModel();
+    model.hearing = new Hearing('1');
+    model.participantId = '2';
     model.selfTest = new SelfTestAnswers();
     mediaService = jasmine.createSpyObj<MediaService>(['requestAccess']);
     journey = {
@@ -33,9 +37,10 @@ describe('SwitchOnCameraAndMicrophoneComponent', () => {
 
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: SwitchOnCameraAndMicrophoneComponent,
-      providers: [{ provide: MediaService, useValue: mediaService }],
+      providers: [{ provide: MediaService, useValue: mediaService }, {provide: Logger, useClass: MockLogger}],
       declarations: [CrestBluePanelComponent],
-      journey: journey
+      journey: journey,
+      model: model
     });
 
     fixture.detectChanges();
@@ -64,7 +69,7 @@ describe('SwitchOnCameraAndMicrophoneComponent', () => {
     mediaAccessResponse.exceptionType = 'NotAllowedError';
     mediaAccessResponse.result = false;
     mediaService.requestAccess.and.returnValue(Promise.resolve(mediaAccessResponse));
-    const component = new SwitchOnCameraAndMicrophoneComponent(journey, mediaService, model);
+    const component = new SwitchOnCameraAndMicrophoneComponent(journey, mediaService, model, new MockLogger());
     await component.switchOnCameraAndMicrophone();
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.EquipmentBlocked);
     expect(model.mediaSwitchedOn).toBe(false);
