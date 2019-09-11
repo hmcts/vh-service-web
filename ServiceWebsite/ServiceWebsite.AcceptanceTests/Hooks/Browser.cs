@@ -34,7 +34,7 @@ namespace AdminWebsite.AcceptanceTests.Hooks
         public void BeforeScenario()
         {
             var environment = new SeleniumEnvironment(_saucelabsSettings, _scenarioContext.ScenarioInfo, GetTargetBrowser());
-            _browserContext.BrowserSetup(_testContext.BaseUrl, environment);
+            _browserContext.BrowserSetup(_testContext.WebsiteUrl, environment);
             _browserContext.LaunchSite();           
         }
 

@@ -9,7 +9,7 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Contexts
 {
     public interface ITestContext
     {
-        string BaseUrl { get; set; }
+        string WebsiteUrl { get; set; }
         string RedirectUrl { get; set; }
         string BookingsApiBearerToken { get; set; }
         string BookingsApiBaseUrl { get; set; }

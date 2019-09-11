@@ -67,15 +67,6 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Builders
                 .AddRepresentative().WithUser(_representatives[0])
                 .Build());
 
-            // TODO: Admin Web request
-            //_participants.Add(new ParticipantsRequestBuilder()
-            //    .AddIndividual().WithUser(_individuals[1])
-            //    .Build());
-
-            //_participants.Add(new ParticipantsRequestBuilder()
-            //    .AddRepresentative().WithUser(_representatives[1])
-            //    .Build());
-
             _participants.Add(new ParticipantsRequestBuilder()
                 .AddClerkOrJudge().WithUser(_context.GetClerkUser())
                 .Build());

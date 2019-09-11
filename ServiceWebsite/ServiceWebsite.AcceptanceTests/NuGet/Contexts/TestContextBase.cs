@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BoDi;
 using RestSharp;
 using ServiceWebsite.AcceptanceTests.NuGet.Configuration;
 using ServiceWebsite.BookingsAPI.Client;
@@ -12,7 +11,7 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Contexts
 {
     public class TestContextBase : ITestContext
     {
-        public string BaseUrl { get; set; }
+        public string WebsiteUrl { get; set; }
         public string RedirectUrl { get; set; }
         public string BookingsApiBearerToken { get; set; }
         public string BookingsApiBaseUrl { get; set; }

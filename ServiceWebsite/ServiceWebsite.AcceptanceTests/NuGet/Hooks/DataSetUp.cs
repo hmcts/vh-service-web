@@ -36,9 +36,7 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Hooks
             var azureAdConfig = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
             var vhServiceConfig = Options.Create(configRoot.GetSection("VhServices").Get<ServiceSettings>()).Value;
             var testSecrets = Options.Create(configRoot.GetSection("TestUserSecrets").Get<TestSettings>()).Value;
-            // added from admin web refactoring
             var testAccounts = Options.Create(configRoot.GetSection("UserAccounts").Get<List<UserAccount>>()).Value;
-            // end of admin web refactoring
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
 
@@ -55,12 +53,10 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Hooks
             testContext.UserAccounts = testAccounts;
             testContext.AzureAd = azureAdConfig;
 
-            testContext.BaseUrl = configRoot.GetSection("BaseUrl").Value;
+            testContext.WebsiteUrl = configRoot.GetSection("WebsiteUrl").Value;
             testContext.RedirectUrl = configRoot.GetSection("RedirectUrl").Value;
 
-            // TODO: Admin Web UserApi
-            //testContext.UserApiBearerToken = authContext.AcquireTokenAsync(vhServiceConfig.UserApiResourceId, credential).Result.AccessToken;
-            //testContext.UserApiBaseUrl = vhServiceConfig.UserApiUrl;
+
 
             foreach (var user in testContext.UserAccounts)
             {
