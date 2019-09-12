@@ -219,7 +219,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
     expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
     expect(component.logger.error).toHaveBeenCalled();
   });
-  it('should replayVideo throw an error', async () => {
+  it('should replayVideo and throw an error', async () => {
     component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     await component.replayVideo();
     expect(journeyObj.goto).toHaveBeenCalled();
