@@ -17,6 +17,8 @@ import { MutableIndividualSuitabilityModel } from '../../../individual-journey/m
 import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import { UserMediaService } from '../../../../services/user-media.service';
 import { UserMediaDevice } from '../../../shared/models/user-media-device';
+import { MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
+
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -199,7 +201,10 @@ describe('TestYourEquipmentComponent error functionality', () => {
   videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
   const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(
     ['requestAccess', 'hasMultipleDevices', 'getPreferredCamera', 'getPreferredMicrophone']);
-  userMediaServiceMock.requestAccess.and.returnValue(false);
+  const mediaAccessResponse = new MediaAccessResponse();
+  mediaAccessResponse.exceptionType = 'NotAllowedError';
+  mediaAccessResponse.result = false;
+  userMediaServiceMock.requestAccess.and.returnValue(mediaAccessResponse);
 
   beforeEach(() => {
     journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
@@ -219,7 +224,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
     expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
     expect(component.logger.error).toHaveBeenCalled();
   });
-  it('should replayVideo and throw an error', async () => {
+  it('should replayVideo and throw an error and go to blocked access page', async () => {
     component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     await component.replayVideo();
     expect(journeyObj.goto).toHaveBeenCalled();
