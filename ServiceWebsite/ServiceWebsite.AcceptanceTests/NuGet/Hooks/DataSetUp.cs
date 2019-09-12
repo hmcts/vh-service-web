@@ -40,10 +40,10 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Hooks
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
 
-            testSecrets.TestUsernameStem.Should().NotBeNullOrEmpty();
-            testSecrets.TestUserPassword.Should().NotBeNullOrEmpty();
-            testAccounts.Count.Should().BeGreaterThan(0);
-            vhServiceConfig.BookingsApiUrl.Should().NotBeNullOrEmpty();
+            testSecrets.TestUsernameStem.Should().NotBeNullOrEmpty("TestUsernameStem should not be empty.");
+            testSecrets.TestUserPassword.Should().NotBeNullOrEmpty("TestUserPassword should not be empty.");
+            testAccounts.Count.Should().BeGreaterThan(0, "The count of test accounts should be greater than 0");
+            vhServiceConfig.BookingsApiUrl.Should().NotBeNullOrEmpty("BookingsApiUrl should not be empty.");
 
             testContext.BookingsApiBearerToken = authContext.AcquireTokenAsync(vhServiceConfig.BookingsApiResourceId, credential).Result.AccessToken;
             testContext.BookingsApiBaseUrl = vhServiceConfig.BookingsApiUrl;
@@ -122,7 +122,7 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Hooks
             if (testContext.HearingId == Guid.Empty) return;
             testContext.Request = testContext.Delete(endpoints.RemoveHearing(testContext.HearingId));
             testContext.Response = testContext.BookingsApiClient().Execute(testContext.Request);
-            testContext.Response.IsSuccessful.Should().BeTrue("New hearing has been deleted after the test");
+            testContext.Response.IsSuccessful.Should().BeTrue("New hearing should have been deleted after the test");
             testContext.HearingId = Guid.Empty;
         }
     }
