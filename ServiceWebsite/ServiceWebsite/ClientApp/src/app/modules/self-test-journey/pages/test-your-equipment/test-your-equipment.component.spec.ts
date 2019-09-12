@@ -1,22 +1,24 @@
-import {JourneyBase} from 'src/app/modules/base-journey/journey-base';
-import {SelfTestJourneyComponentTestBed} from '../self-test-base-component/self-test-component-test-bed.spec';
-import {CrestBluePanelComponent} from '../../../shared/crest-blue-panel/crest-blue-panel.component';
-import {TestYourEquipmentComponent} from './test-your-equipment.component';
-import {ContinuableComponentFixture} from '../../../base-journey/components/suitability-choice-component-fixture.spec';
-import {SelfTestJourneySteps} from '../../self-test-journey-steps';
-import {MockLogger} from '../../../../testing/mocks/mock-logger';
-import {Logger} from '../../../../services/logger';
-import {VideoWebService} from '../../services/video-web.service';
-import {of, throwError} from 'rxjs';
-import {Component, Input} from '@angular/core';
-import {ConfigService} from '../../../../services/config.service';
-import {TokenResponse, ParticipantResponse} from '../../../../services/clients/api-client';
-import {Config} from '../../../shared/models/config';
-import {UserMediaStreamService} from '../../services/user-media-stream.service';
-import {MutableIndividualSuitabilityModel} from '../../../individual-journey/mutable-individual-suitability.model';
-import {Hearing, SelfTestAnswers} from '../../../base-journey/participant-suitability.model';
-import {UserMediaService} from '../../../../services/user-media.service';
-import {UserMediaDevice} from '../../../shared/models/user-media-device';
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
+import { SelfTestJourneyComponentTestBed } from '../self-test-base-component/self-test-component-test-bed.spec';
+import { CrestBluePanelComponent } from '../../../shared/crest-blue-panel/crest-blue-panel.component';
+import { TestYourEquipmentComponent } from './test-your-equipment.component';
+import { ContinuableComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { MockLogger } from '../../../../testing/mocks/mock-logger';
+import { Logger } from '../../../../services/logger';
+import { VideoWebService } from '../../services/video-web.service';
+import { of, throwError } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { ConfigService } from '../../../../services/config.service';
+import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
+import { Config } from '../../../shared/models/config';
+import { UserMediaStreamService } from '../../services/user-media-stream.service';
+import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
+import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
+import { UserMediaService } from '../../../../services/user-media.service';
+import { UserMediaDevice } from '../../../shared/models/user-media-device';
+import { MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
+
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -59,10 +61,10 @@ describe('TestYourEquipmentComponent', () => {
       component: TestYourEquipmentComponent,
       journey: journey,
       declarations: [CrestBluePanelComponent, StubMicVisualiserComponent, StubSelectedUserMediaDeviceComponent],
-      providers: [{provide: Logger, useClass: MockLogger},
-        {provide: VideoWebService, useValue: videoWebServiceMock},
-        {provide: UserMediaStreamService, useValue: userMediaStreamServiceMock},
-        {provide: ConfigService, useValue: configServiceMock},
+      providers: [{ provide: Logger, useClass: MockLogger },
+      { provide: VideoWebService, useValue: videoWebServiceMock },
+      { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
+      { provide: ConfigService, useValue: configServiceMock },
         UserMediaService
       ],
       model: model
@@ -93,7 +95,7 @@ describe('TestYourEquipmentComponent functionality', () => {
   });
 
   it('should setup pexip client', async () => {
-    component.token = new TokenResponse({expires_on: '06/07/22', token: '4556'});
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
     const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
 
@@ -116,13 +118,13 @@ describe('TestYourEquipmentComponent functionality', () => {
   });
 
   it('should pexip make a call', async () => {
-    component.token = new TokenResponse({expires_on: '06/07/22', token: '4556'});
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     component.call();
     expect(component.didTestComplete).toBeFalsy();
   });
 
   it('should replay video', async () => {
-    component.token = new TokenResponse({expires_on: '06/07/22', token: '4556'});
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     component.didTestComplete = true;
     await component.ngOnInit();
     await component.replayVideo();
@@ -156,7 +158,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
   it('should check for active streams', async () => {
     expect(component.streamsActive).toBeFalsy();
-    navigator.mediaDevices.getUserMedia({audio: true})
+    navigator.mediaDevices.getUserMedia({ audio: true })
       .then(function (stream) {
         component.outgoingStream = stream;
         component.incomingStream = stream;
@@ -184,11 +186,12 @@ describe('TestYourEquipmentComponent functionality', () => {
   });
 
   it('should replayVideo', async () => {
-    component.token = new TokenResponse({expires_on: '06/07/22', token: '4556'});
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
     component.didTestComplete = true;
     await component.replayVideo();
     expect(component.didTestComplete).toBeFalsy();
   });
+
 });
 
 describe('TestYourEquipmentComponent error functionality', () => {
@@ -196,6 +199,12 @@ describe('TestYourEquipmentComponent error functionality', () => {
   let model: MutableIndividualSuitabilityModel;
   let component: TestYourEquipmentComponent;
   videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
+  const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(
+    ['requestAccess', 'hasMultipleDevices', 'getPreferredCamera', 'getPreferredMicrophone']);
+  const mediaAccessResponse = new MediaAccessResponse();
+  mediaAccessResponse.exceptionType = 'NotAllowedError';
+  mediaAccessResponse.result = false;
+  userMediaServiceMock.requestAccess.and.returnValue(mediaAccessResponse);
 
   beforeEach(() => {
     journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
@@ -204,7 +213,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
     model.participantId = '2';
     model.selfTest = new SelfTestAnswers();
     component = new TestYourEquipmentComponent(journeyObj, model,
-      new UserMediaService(new MockLogger()), userMediaStreamServiceMock, videoWebServiceMock,
+      userMediaServiceMock, userMediaStreamServiceMock, videoWebServiceMock,
       configServiceMock, new MockLogger());
   });
 
@@ -215,4 +224,11 @@ describe('TestYourEquipmentComponent error functionality', () => {
     expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
     expect(component.logger.error).toHaveBeenCalled();
   });
+  it('should replayVideo and throw an error and go to blocked access page', async () => {
+    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+    await component.replayVideo();
+    expect(journeyObj.goto).toHaveBeenCalled();
+  });
 });
+
+
