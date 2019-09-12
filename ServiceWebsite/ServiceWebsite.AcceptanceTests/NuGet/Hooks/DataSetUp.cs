@@ -44,7 +44,6 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Hooks
             testSecrets.TestUserPassword.Should().NotBeNullOrEmpty();
             testAccounts.Count.Should().BeGreaterThan(0);
             vhServiceConfig.BookingsApiUrl.Should().NotBeNullOrEmpty();
-            vhServiceConfig.UserApiUrl.Should().NotBeNullOrEmpty();
 
             testContext.BookingsApiBearerToken = authContext.AcquireTokenAsync(vhServiceConfig.BookingsApiResourceId, credential).Result.AccessToken;
             testContext.BookingsApiBaseUrl = vhServiceConfig.BookingsApiUrl;
