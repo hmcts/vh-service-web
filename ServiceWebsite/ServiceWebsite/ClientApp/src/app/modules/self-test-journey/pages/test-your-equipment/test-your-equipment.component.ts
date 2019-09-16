@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
 import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel, MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
@@ -297,6 +297,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.pexipAPI = null;
     this.userMediaStreamService.stopStream(this.incomingStream);
     this.userMediaStreamService.stopStream(this.outgoingStream);
+    this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
+
     this.incomingStream = null;
     this.outgoingStream = null;
   }

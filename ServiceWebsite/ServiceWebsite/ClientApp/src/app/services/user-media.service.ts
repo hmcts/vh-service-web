@@ -108,6 +108,8 @@ export class UserMediaService extends MediaService {
       await this.getStream();
       this.mediaAccessResponse.result = true;
       this.mediaAccessResponse.exceptionType = '';
+      this.stopStream();
+
     } catch (exception) {
       this.logger.error('Failed to get access to user media', exception);
       console.log('reuquest access error' + exception.name + ' ' + exception.message);
