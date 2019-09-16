@@ -9,7 +9,7 @@ class MockElementRef implements ElementRef {
     muted: false,
     removeAttribute: function () { },
     srcObject: 'source',
-    src:'source'
+    src: 'source',
   };
 
 }

@@ -5,16 +5,8 @@ class MockElementRef extends ElementRef {
   constructor() { super({ srcObject: '' }); }
   nativeElement: {
     srcObject: 'source',
-    src:'source'
-  }
-}
-
-class MockElementRef1 extends ElementRef {
-  constructor() { super({ srcObject: '' }); }
-  nativeElement: {
-    srcObject: null,
     src: 'source'
-  }
+  };
 }
 
 const component = new UserCameraViewComponent();
@@ -32,7 +24,8 @@ describe('UserCameraViewComponent', () => {
     expect(component.videoBox.nativeElement.srcObject).toBeFalsy();
   });
   it('should reset media src to null', () => {
-    component.videoBox = new MockElementRef1();
+    component.videoBox = new MockElementRef();
+    component.videoBox.nativeElement.srcObject = null;
     component.setSource(new MediaStream());
     component.ngOnDestroy();
     expect(component.videoBox.nativeElement.src).toBeFalsy();
