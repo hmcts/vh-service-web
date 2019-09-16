@@ -9,7 +9,7 @@ import { MediaAccessResponse } from 'src/app/modules/base-journey/participant-su
   templateUrl: './use-camera-microphone.component.html',
   styles: []
 })
-export class UseCameraMicrophoneComponent implements OnDestroy{
+export class UseCameraMicrophoneComponent implements OnDestroy {
   mediaAccepted: MediaAccessResponse;
   constructor(private journey: IndividualJourney, private mediaAccess: MediaService) {
   }
