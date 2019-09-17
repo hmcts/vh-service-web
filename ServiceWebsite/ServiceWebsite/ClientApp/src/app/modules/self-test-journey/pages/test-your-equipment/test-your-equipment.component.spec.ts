@@ -156,6 +156,11 @@ describe('TestYourEquipmentComponent functionality', () => {
     expect(component.displayFeed).toBeFalsy();
   });
 
+  it('should error handle catch blocked access to media devices', () => {
+    component.errorHandleEvent('Could not get access to camera/microphone');
+    expect(journeyObj.goto).toHaveBeenCalledWith(SelfTestJourneySteps.EquipmentBlocked);
+  });
+
   it('should check for active streams', async () => {
     expect(component.streamsActive).toBeFalsy();
     navigator.mediaDevices.getUserMedia({ audio: true })
