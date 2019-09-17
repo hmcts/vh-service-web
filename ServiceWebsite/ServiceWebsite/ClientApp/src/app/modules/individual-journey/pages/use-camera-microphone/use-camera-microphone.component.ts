@@ -1,5 +1,5 @@
 import { IndividualJourneySteps } from './../../individual-journey-steps';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from 'src/app/services/media.service';
 import { MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
@@ -9,7 +9,7 @@ import { MediaAccessResponse } from 'src/app/modules/base-journey/participant-su
   templateUrl: './use-camera-microphone.component.html',
   styles: []
 })
-export class UseCameraMicrophoneComponent {
+export class UseCameraMicrophoneComponent implements OnDestroy {
   mediaAccepted: MediaAccessResponse;
   constructor(private journey: IndividualJourney, private mediaAccess: MediaService) {
   }
@@ -24,5 +24,9 @@ export class UseCameraMicrophoneComponent {
 
   continue() {
     this.journey.goto(IndividualJourneySteps.HearingAsParticipant);
+  }
+
+  ngOnDestroy() {
+    this.mediaAccess.stopStream();
   }
 }
