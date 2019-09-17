@@ -41,12 +41,7 @@ export class JourneyRoutingListenerService {
             return;
         }
 
-        // restart the journey if navigating to the first step
-        if (step === this.componentBindings.initialStep) {
-            this.journey.startAt(step);
-        } else {
-            this.journey.jumpTo(step);
-        }
+        this.journey.jumpTo(step);
     }
 
     private getRouteFromUrl(url: string): string {
@@ -57,6 +52,8 @@ export class JourneyRoutingListenerService {
   startRouting(componentBindings: ParticipantJourneyStepComponentBindings, journey: JourneyBase) {
         this.journey = journey;
         this.componentBindings = componentBindings;
+
+        this.router.navigate([this.componentBindings.getRoute(this.componentBindings.initialStep)], { replaceUrl: true });
 
         // begin tracking events, this will also work for the browser-back
         // meaning that it will automagically correct the journey to the right step
