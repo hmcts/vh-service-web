@@ -22,9 +22,10 @@ import { ConsentComponent } from './pages/consent/consent.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { IndividualGuard } from './individual.gaurd';
+import {CanNavigateGuard} from '../shared/can.navigate.guard';
 
 const routes: Routes = [
-  { path: Paths.AboutHearings, component: AboutHearingsComponent, canActivate: [IndividualGuard] },
+  { path: Paths.AboutHearings, component: AboutHearingsComponent, canActivate: [IndividualGuard], canDeactivate: [CanNavigateGuard] },
   { path: Paths.DifferentHearingTypes, component: DifferentHearingTypesComponent, canActivate: [IndividualGuard] },
   { path: Paths.ExploreCourtBuilding, component: ExploreCourtBuildingComponent, canActivate: [IndividualGuard] },
   { path: Paths.CourtBuildingVideo, component: CourtBuildingVideoComponent, canActivate: [IndividualGuard] },
