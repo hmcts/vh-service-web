@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
 import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel, MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
@@ -64,7 +64,15 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.displayDeviceChangeModal = false;
     this.setupSubscribers();
     await this.setConfiguration();
-    await this.setupPexipClient();
+    try {
+      await this.setupPexipClient();
+    } catch (error) {
+
+      if (error.toString().includes(this.NotAllowedError)) {
+        this.showEquipmentBlockedMessage();
+        return;
+      }
+    }
     await this.getToken();
   }
 
@@ -108,7 +116,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     if (this.pexipAPI) {
       this.logger.event('(call -> About to make pexip call.)',
         { hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias });
-
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
     }
   }
@@ -155,9 +162,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       });
 
       this.pexipAPI.onError = ((reason) => {
-        this.logger.error('(setupPexipClient -> pexipAPI.onError)', new Error(reason),
-          { hearingId: this.model.hearing.id, participantId: this.model.participantId });
-
         self.errorHandleEvent(reason);
       });
 
@@ -180,11 +184,13 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   errorHandleEvent(reason) {
     this.displayFeed = false;
-
-    this.logger.error('(errorHandleEvent -> Error from pexip.)', new Error(reason),
+    this.logger.error('(setupPexipClient -> pexipAPI.onError)', new Error(reason),
       { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
     this.didTestComplete = true;
+    if (reason.toString().includes('Could not get access to camera/microphone')) {
+      this.showEquipmentBlockedMessage();
+    }
   }
 
   disconnectHandleEvent(reason) {
@@ -261,7 +267,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.model.mediaSwitchedOn = false;
     this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
   }
-
 
   async changeDevices() {
     this.disconnect();

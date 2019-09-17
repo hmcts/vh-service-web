@@ -7,7 +7,7 @@ class MockElementRef implements ElementRef {
     pause: function () { },
     currentTime: 10,
     muted: false,
-    removeAttribute: function () { },
+    removeAttribute: function () { this.src = ''; },
     srcObject: 'source',
     src: 'source',
   };
@@ -36,7 +36,7 @@ describe('VideoViewComponent', () => {
     videoViewComponent.ngOnDestroy();
     expect(videoViewComponent.videoElement.nativeElement.srcObject).toBeFalsy();
   });
-  it('should stop plying video and reset src to empty string', () => {
+  it('should stop plying video and remove src from video tag', () => {
     const logger = jasmine.createSpyObj<Logger>(['error']);
     const videoViewComponent = new VideoViewComponent(logger);
     const mockElement = new MockElementRef();
