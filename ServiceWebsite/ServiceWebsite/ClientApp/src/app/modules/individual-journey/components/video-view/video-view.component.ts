@@ -62,6 +62,6 @@ export class VideoViewComponent implements OnDestroy {
     this.videoTag.removeAttribute('src');
     if (this.videoTag.srcObject) {
       this.videoTag.srcObject = null;
-    }; 
+    }
   }
 }
