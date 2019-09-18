@@ -10,19 +10,14 @@ import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-ste
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
-  static readonly initialStep = RepresentativeJourneySteps.AboutVideoHearings;
+  static readonly initialStep = RepresentativeJourneySteps.AnswersSaved;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
 
   private readonly questionnairePages = [
-    RepresentativeJourneySteps.AboutVideoHearings,
-    RepresentativeJourneySteps.AboutYouAndYourClient,
     RepresentativeJourneySteps.AboutYou,
     RepresentativeJourneySteps.AccessToRoom,
-    RepresentativeJourneySteps.AboutYourClient,
-    RepresentativeJourneySteps.ClientAttendance,
-    RepresentativeJourneySteps.HearingSuitability,
     RepresentativeJourneySteps.AccessToComputer,
     RepresentativeJourneySteps.AboutYourComputer
   ];

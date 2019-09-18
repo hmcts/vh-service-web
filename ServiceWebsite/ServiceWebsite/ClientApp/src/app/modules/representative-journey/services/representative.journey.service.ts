@@ -32,10 +32,6 @@ export class RepresentativeJourneyService {
       null,
       response.hearing.questionnaireNotRequired);
     model.aboutYou = response.aboutYou;
-    model.aboutYourClient = response.aboutYourClient;
-    model.clientAttendance = response.clientAttendance;
-    model.hearingSuitability = response.hearingSuitability;
-    model.room = response.room;
     model.camera = response.camera;
     model.computer = response.computer;
 

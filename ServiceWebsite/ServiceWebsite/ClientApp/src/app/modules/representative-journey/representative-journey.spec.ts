@@ -28,10 +28,6 @@ describe('RepresentativeJourney', () => {
 
   const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
     const model = getModelForHearing(id, scheduledDateTime);
-    model.aboutYou.answer = false;
-    model.aboutYourClient.answer = true;
-    model.hearingSuitability.answer = true;
-    model.clientAttendance = true;
     model.camera = HasAccessToCamera.Yes;
     model.computer = true;
     model.room = true;
@@ -95,7 +91,7 @@ describe('RepresentativeJourney', () => {
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
-    journey.jumpTo(Steps.AboutVideoHearings);
+    journey.jumpTo(Steps.AnswersSaved);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
@@ -104,7 +100,7 @@ describe('RepresentativeJourney', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
 
     // when trying to enter later in the journey
-    journey.jumpTo(Steps.ClientAttendance);
+    journey.jumpTo(Steps.AnswersSaved);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
@@ -150,7 +146,7 @@ describe('RepresentativeJourney', () => {
 
   it(`should enter journey at ${SelfTestJourneySteps.CheckYourComputer} if completed questionnaire but not self-test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.jumpTo(Steps.AboutVideoHearings);
+    journey.jumpTo(Steps.AnswersSaved);
     expect(journey.step).toBe(SelfTestJourneySteps.CheckYourComputer);
     expect(redirected).toBe(SelfTestJourneySteps.CheckYourComputer);
   });
