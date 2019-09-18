@@ -6,8 +6,8 @@ import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
-  selector: 'app-your-computer',
-  templateUrl: './your-computer.component.html',
+  selector: 'app-other-information',
+  templateUrl: './other-information.component.html',
   styles: []
 })
 export class OtherInformationComponent extends SuitabilityChoicePageBaseComponent implements OnInit {

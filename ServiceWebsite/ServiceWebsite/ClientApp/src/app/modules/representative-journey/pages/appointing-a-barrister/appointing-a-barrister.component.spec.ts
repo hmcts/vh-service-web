@@ -14,7 +14,7 @@ describe('AppointingABarristerComponent', () => {
       journey: journey
     });
 
-    CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
+    //CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
 
     // need to await async submit
     await fixture.whenStable();
