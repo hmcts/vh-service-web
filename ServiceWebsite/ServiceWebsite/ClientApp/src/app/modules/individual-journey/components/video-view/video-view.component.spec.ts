@@ -28,15 +28,8 @@ describe('VideoViewComponent', () => {
     videoViewComponent.onVideoError();
     expect(videoViewComponent.videoUnavailable).toBeTruthy();
   });
-  it('should stop plying video and reset srcObject to null', () => {
-    const logger = jasmine.createSpyObj<Logger>(['error']);
-    const videoViewComponent = new VideoViewComponent(logger);
 
-    videoViewComponent.videoElement = new MockElementRef();
-    videoViewComponent.ngOnDestroy();
-    expect(videoViewComponent.videoElement.nativeElement.srcObject).toBeFalsy();
-  });
-  it('should stop plying video and remove src from video tag', () => {
+  it('should stop plying video and reset current time to 0 on video tag', () => {
     const logger = jasmine.createSpyObj<Logger>(['error']);
     const videoViewComponent = new VideoViewComponent(logger);
     const mockElement = new MockElementRef();
@@ -45,6 +38,6 @@ describe('VideoViewComponent', () => {
     videoViewComponent.videoElement = mockElement;
 
     videoViewComponent.ngOnDestroy();
-    expect(videoViewComponent.videoElement.nativeElement.src).toBeFalsy();
+    expect(videoViewComponent.videoElement.nativeElement.currentTime).toBe(0);
   });
 });

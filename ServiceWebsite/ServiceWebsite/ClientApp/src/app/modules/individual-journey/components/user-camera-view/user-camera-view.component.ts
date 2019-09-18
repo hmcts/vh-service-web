@@ -23,9 +23,11 @@ export class UserCameraViewComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stream.getTracks().forEach((track) => {
-      track.stop();
-    });
+    if (this.stream) {
+      this.stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+    }
     if (this.videoBox.nativeElement.srcObject) {
       this.videoBox.nativeElement.srcObject = null;
     } else {
