@@ -2,6 +2,7 @@ import { JourneyStep } from '../base-journey/journey-step';
 import { ParticipantJourneySteps } from '../base-journey/participant-journey-steps';
 
 export class RepresentativeJourneySteps extends ParticipantJourneySteps {
+  //Old steps
   static readonly AboutVideoHearings = new JourneyStep('AboutVideoHearings');
   static readonly AboutYouAndYourClient = new JourneyStep('AboutYouAndYourClient');
   static readonly AboutYourClient = new JourneyStep('AboutYourClient');
@@ -9,4 +10,10 @@ export class RepresentativeJourneySteps extends ParticipantJourneySteps {
   static readonly HearingSuitability = new JourneyStep('HearingSuitability');
   static readonly QuestionnaireCompleted = new JourneyStep('QuestionnaireCompleted');
   static readonly ContactUs = new JourneyStep('ContactUs');
+
+  // New Steps
+  static readonly YourVideoHearing = new JourneyStep('YourVideoHearing');
+  static readonly AppointingABarrister = new JourneyStep('AppointingABarrister');
+  static readonly OtherInformation = new JourneyStep('OtherInformation');
+  static readonly AnswersSaved = new JourneyStep('AnswersSaved');
 }
