@@ -33,7 +33,7 @@ export class YourComputerComponent extends SuitabilityChoicePageBaseComponent im
       this.journey.goto(RepresentativeJourneySteps.AboutYourComputer);
     } else {
       await this.journey.submitQuestionnaire();
-      this.journey.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
+      this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
     }
   }
 }

@@ -30,7 +30,7 @@ export class AboutYourComputerComponent extends SuitabilityChoicePageBaseCompone
   async submit(): Promise<void> {
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
-      this.journey.goto(RepresentativeJourneySteps.QuestionnaireCompleted);
+      this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
     }
   }
 }

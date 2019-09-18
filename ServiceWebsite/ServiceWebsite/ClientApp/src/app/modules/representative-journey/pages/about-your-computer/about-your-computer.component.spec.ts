@@ -7,7 +7,7 @@ import {
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
 
 describe('AboutYourComputerComponent', () => {
-  it(`should go to ${RepresentativeJourneySteps.QuestionnaireCompleted} and have submitted after having selected an option`, async () => {
+  it(`should go to ${RepresentativeJourneySteps.AnswersSaved} and have submitted after having selected an option`, async () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
     const fixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: AboutYourComputerComponent,
@@ -22,7 +22,7 @@ describe('AboutYourComputerComponent', () => {
     // and value is bound
     expect(fixture.componentInstance.model.camera).toBe(0);
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.QuestionnaireCompleted);
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AnswersSaved);
   });
 
   it('should initialize choice value', () => {

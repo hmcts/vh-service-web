@@ -24,7 +24,7 @@ export class RepresentativeJourneyStepComponentBindings extends ParticipantJourn
         this.bindings.set(Steps.HearingSuitability, Paths.HearingSuitability);
         this.bindings.set(Steps.AccessToComputer, Paths.YourComputer);
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
-        this.bindings.set(Steps.QuestionnaireCompleted, Paths.QuestionnaireCompleted);
+        this.bindings.set(Steps.AnswersSaved, Paths.AnswersSaved);
         this.bindings.set(Steps.ThankYou, Paths.ThankYou);
         selfTest.bindings.forEach((path, step) => this.bindings.set(step, path));
     }

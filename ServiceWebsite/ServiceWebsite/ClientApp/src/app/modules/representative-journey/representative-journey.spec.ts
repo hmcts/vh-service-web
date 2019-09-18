@@ -155,24 +155,14 @@ describe('RepresentativeJourney', () => {
     expect(redirected).toBe(SelfTestJourneySteps.CheckYourComputer);
   });
 
-  it(`can navigate to ${Steps.QuestionnaireCompleted} after dropping out on ${Steps.AccessToComputer}`, () => {
+  it(`can navigate to ${Steps.AnswersSaved} after dropping out on ${Steps.AccessToComputer}`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
     journey.startAt(Steps.AccessToComputer);
 
     journey.model.computer = false;
-    journey.jumpTo(Steps.QuestionnaireCompleted);
+    journey.jumpTo(Steps.AnswersSaved);
 
-    expect(journey.step).toBe(Steps.QuestionnaireCompleted);
-  });
-
-  it(`can navigate to ${Steps.ContactUs} after having seen ${Steps.QuestionnaireCompleted} post dropout`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-    journey.model.computer = false;
-    journey.startAt(Steps.QuestionnaireCompleted);
-
-    journey.jumpTo(Steps.ContactUs);
-
-    expect(journey.step).toBe(Steps.ContactUs);
+    expect(journey.step).toBe(Steps.AnswersSaved);
   });
 
   it(`should redirect to videoapp if having dropped out from questionnaire`, () => {
