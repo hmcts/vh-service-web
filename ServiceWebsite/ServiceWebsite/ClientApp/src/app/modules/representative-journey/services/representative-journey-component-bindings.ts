@@ -1,5 +1,5 @@
 import { RepresentativeJourneySteps as Steps } from '../representative-journey-steps';
-import { Paths } from '../../representative-journey/paths';
+import { Paths } from '../paths';
 import { JourneyStep } from '../../base-journey/journey-step';
 import { ParticipantJourneyStepComponentBindings } from '../../base-journey/services/participant-journey-component-bindings';
 import { SelfTestJourneyStepComponentBindings } from '../../self-test-journey/self-test-journey-component-bindings';
@@ -25,7 +25,6 @@ export class RepresentativeJourneyStepComponentBindings extends ParticipantJourn
         this.bindings.set(Steps.AccessToComputer, Paths.YourComputer);
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
         this.bindings.set(Steps.QuestionnaireCompleted, Paths.QuestionnaireCompleted);
-        this.bindings.set(Steps.ContactUs, Paths.ContactUs);
         this.bindings.set(Steps.ThankYou, Paths.ThankYou);
         selfTest.bindings.forEach((path, step) => this.bindings.set(step, path));
     }

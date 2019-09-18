@@ -44,8 +44,6 @@ export class QuestionnaireCompletedComponent {
   continue() {
     if (this.hasCameraAndComputer()) {
       this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
-    } else {
-      this.journey.goto(RepresentativeJourneySteps.ContactUs);
     }
   }
 }

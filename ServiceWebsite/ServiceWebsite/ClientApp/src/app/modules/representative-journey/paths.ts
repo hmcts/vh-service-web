@@ -11,5 +11,4 @@ export const Paths = {
     QuestionnaireCompleted: 'questionnaire-completed',
     PleaseContactUs: 'contact-us-rep',
     ThankYou: 'thank-you-rep',
-    ContactUs: 'contact-us-rep',
 };
