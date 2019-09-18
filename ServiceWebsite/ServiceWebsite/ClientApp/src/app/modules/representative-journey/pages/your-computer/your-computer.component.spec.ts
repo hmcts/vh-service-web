@@ -22,7 +22,7 @@ describe('YourComputerComponent for representative', () => {
     expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AboutYourComputer);
   });
 
-  it(`should submit questionnaire and go to ${RepresentativeJourneySteps.QuestionnaireCompleted} if not having access to computer`,
+  it(`should submit questionnaire and go to ${RepresentativeJourneySteps.AnswersSaved} if not having access to computer`,
     fakeAsync(() => {
     const journey = RepresentativeJourneyStubs.journeySpy;
     const component = new YourComputerComponent(journey);
@@ -34,6 +34,6 @@ describe('YourComputerComponent for representative', () => {
     tick();
 
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.QuestionnaireCompleted);
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AnswersSaved);
   }));
 });

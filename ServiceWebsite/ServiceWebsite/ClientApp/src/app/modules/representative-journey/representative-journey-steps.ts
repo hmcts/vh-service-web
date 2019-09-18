@@ -8,10 +8,6 @@ export class RepresentativeJourneySteps extends ParticipantJourneySteps {
   static readonly AboutYourClient = new JourneyStep('AboutYourClient');
   static readonly ClientAttendance = new JourneyStep('ClientAttendance');
   static readonly HearingSuitability = new JourneyStep('HearingSuitability');
-  static readonly QuestionnaireCompleted = new JourneyStep('QuestionnaireCompleted');
-  static readonly ContactUs = new JourneyStep('ContactUs');
-
-  // New Steps
   static readonly YourVideoHearing = new JourneyStep('YourVideoHearing');
   static readonly AppointingABarrister = new JourneyStep('AppointingABarrister');
   static readonly OtherInformation = new JourneyStep('OtherInformation');

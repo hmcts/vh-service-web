@@ -8,8 +8,7 @@ export const Paths = {
     HearingSuitability: 'hearing-suitability',
     YourComputer: 'your-computer-rep',
     AboutYourComputer: 'about-your-computer-rep',
-    QuestionnaireCompleted: 'questionnaire-completed',
+    AnswersSaved: 'answers-saved',
     PleaseContactUs: 'contact-us-rep',
     ThankYou: 'thank-you-rep',
-    ContactUs: 'contact-us-rep',
 };
