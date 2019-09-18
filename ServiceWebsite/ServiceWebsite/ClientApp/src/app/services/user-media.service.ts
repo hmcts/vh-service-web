@@ -123,8 +123,12 @@ export class UserMediaService extends MediaService {
     if (this.stream) {
       this.stopStream();
     }
-    this.stream = await this._navigator.mediaDevices.getUserMedia(this.constraints);
-    return this.stream;
+    try {
+      this.stream = await this._navigator.mediaDevices.getUserMedia(this.constraints);
+      return this.stream;
+    } catch (exception) {
+      throw (exception);
+    }
   }
 
   stopStream() {

@@ -27,7 +27,7 @@ export class RepresentativeJourneyStubs {
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
     const journey = new RepresentativeJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers([RepresentativeJourneyStubs.model]);
-    journey.startAt(RepresentativeJourneySteps.AboutVideoHearings);
+    journey.startAt(RepresentativeJourneySteps.AnswersSaved);
     return journey;
   }
 

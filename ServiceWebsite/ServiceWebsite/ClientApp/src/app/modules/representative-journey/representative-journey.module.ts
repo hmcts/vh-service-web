@@ -20,16 +20,8 @@ import { HearingService, HearingApiService } from './services/hearing.service';
 import { RepresentativeNavigationBackFactory } from './representative-navigation-back.factory';
 
 // components
-import { AboutVideoHearingsComponent } from './pages/about-video-hearings/about-video-hearings.component';
-import { AboutYouAndYourClientComponent } from './pages/about-you-and-your-client/about-you-and-your-client.component';
-import { AboutYouComponent } from './pages/about-you/about-you.component';
-import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.component';
-import { AboutYourClientComponent } from './pages/about-your-client/about-your-client.component';
-import { ClientAttendanceComponent } from './pages/client-attendance/client-attendance.component';
-import { HearingSuitabilityComponent } from './pages/hearing-suitability/hearing-suitability.component';
 import { YourComputerComponent } from './pages/your-computer/your-computer.component';
 import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
-import { AboutYourComputerComponent } from './pages/about-your-computer/about-your-computer.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 import { CachedHearingService } from './services/cached-hearing.service';
@@ -39,16 +31,8 @@ import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-bac
 
 @NgModule({
   declarations: [
-    AboutVideoHearingsComponent,
-    AboutYouAndYourClientComponent,
-    AboutYouComponent,
-    AccessToRoomComponent,
-    AboutYourClientComponent,
-    ClientAttendanceComponent,
-    HearingSuitabilityComponent,
     YourComputerComponent,
     AnswersSavedComponent,
-    AboutYourComputerComponent,
     ThankYouComponent,
     HearingDetailsHeaderComponent
   ],

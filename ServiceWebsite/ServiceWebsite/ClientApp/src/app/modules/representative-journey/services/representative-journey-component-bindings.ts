@@ -12,16 +12,11 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RepresentativeJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
     readonly bindings = new Map<JourneyStep, string>();
-    readonly initialStep = Steps.AboutVideoHearings;
+    readonly initialStep = Steps.AnswersSaved;
     constructor(selfTest: SelfTestJourneyStepComponentBindings) {
         super();
-        this.bindings.set(Steps.AboutVideoHearings, Paths.AboutVideoHearings);
-        this.bindings.set(Steps.AboutYouAndYourClient, Paths.AboutYouAndYourClient);
         this.bindings.set(Steps.AboutYou, Paths.AboutYou);
         this.bindings.set(Steps.AccessToRoom, Paths.AccessToRoom);
-        this.bindings.set(Steps.AboutYourClient, Paths.AboutYourClient);
-        this.bindings.set(Steps.ClientAttendance, Paths.ClientAttendance);
-        this.bindings.set(Steps.HearingSuitability, Paths.HearingSuitability);
         this.bindings.set(Steps.AccessToComputer, Paths.YourComputer);
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
         this.bindings.set(Steps.AnswersSaved, Paths.AnswersSaved);

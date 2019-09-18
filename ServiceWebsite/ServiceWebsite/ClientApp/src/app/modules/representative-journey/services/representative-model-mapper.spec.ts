@@ -16,38 +16,8 @@ describe('RepresentativeModelMapper', () => {
       questionnaire_not_required: true,
       answers: [
         new HearingSuitabilityAnswer({
-          question_key: RepresentativeQuestionKeys.AboutYou,
-          answer: 'true',
-          extended_answer: ''
-        }),
-        new HearingSuitabilityAnswer({
-          question_key: RepresentativeQuestionKeys.AboutYourClient,
-          answer: 'true',
-          extended_answer: ''
-        }),
-        new HearingSuitabilityAnswer({
-          question_key: RepresentativeQuestionKeys.ClientAttendance,
-          answer: 'true',
-          extended_answer: ''
-        }),
-        new HearingSuitabilityAnswer({
-          question_key: RepresentativeQuestionKeys.HearingSuitability,
-          answer: 'true',
-          extended_answer: ''
-        }),
-        new HearingSuitabilityAnswer({
-          question_key: RepresentativeQuestionKeys.Room,
-          answer: 'true',
-          extended_answer: ''
-        }),
-        new HearingSuitabilityAnswer({
           question_key: RepresentativeQuestionKeys.Camera,
           answer: 'Yes',
-          extended_answer: ''
-        }),
-        new HearingSuitabilityAnswer({
-          question_key: RepresentativeQuestionKeys.Computer,
-          answer: 'true',
           extended_answer: ''
         }),
         new HearingSuitabilityAnswer({
@@ -106,9 +76,6 @@ describe('RepresentativeModelMapper', () => {
   });
 
   it('should map boolean values', () => {
-    givenAnswerIs(RepresentativeQuestionKeys.ClientAttendance, 'false');
-    givenAnswerIs(RepresentativeQuestionKeys.Computer, 'false');
-    givenAnswerIs(RepresentativeQuestionKeys.Room, 'false');
     givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'false');
     givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'false');
     givenAnswerIs(SelfTestQuestionKeys.Microphone, 'false');
@@ -116,7 +83,6 @@ describe('RepresentativeModelMapper', () => {
     givenAnswerIs(SelfTestQuestionKeys.TestResultScore, 'Okay');
 
     whenMappingModel();
-    expect(model.clientAttendance).toBeFalsy();
     expect(model.computer).toBeFalsy();
     expect(model.room).toBeFalsy();
     expect(model.selfTest.checkYourComputer).toBeFalsy();
@@ -127,21 +93,7 @@ describe('RepresentativeModelMapper', () => {
 
   });
 
-  it('should map false answers', () => {
-    givenAnswerIs(RepresentativeQuestionKeys.AboutYou, 'false');
-    givenAnswerIs(RepresentativeQuestionKeys.AboutYourClient, 'false');
-    whenMappingModel();
-    expect(model.aboutYou.answer).toBeFalsy();
-    expect(model.aboutYourClient.answer).toBeFalsy();
-  });
-
   it('should map all answers', () => {
-    givenAnswerIs(RepresentativeQuestionKeys.AboutYou, 'true');
-    givenAnswerIs(RepresentativeQuestionKeys.AboutYourClient, 'true');
-    givenAnswerIs(RepresentativeQuestionKeys.HearingSuitability, 'true');
-    givenAnswerIs(RepresentativeQuestionKeys.Room, 'true');
-    givenAnswerIs(RepresentativeQuestionKeys.Computer, 'true');
-    givenAnswerIs(RepresentativeQuestionKeys.ClientAttendance, 'true');
     givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'true');
     givenAnswerIs(SelfTestQuestionKeys.SeeYourself, 'true');
     givenAnswerIs(SelfTestQuestionKeys.Microphone, 'true');
@@ -150,24 +102,12 @@ describe('RepresentativeModelMapper', () => {
 
     whenMappingModel();
 
-    expect(model.aboutYou.answer).toBeTruthy();
-    expect(model.aboutYourClient.answer).toBeTruthy();
-    expect(model.hearingSuitability).toBeTruthy();
-    expect(model.room).toBeTruthy();
-    expect(model.computer).toBeTruthy();
-    expect(model.clientAttendance).toBeTruthy();
     expect(model.selfTest.checkYourComputer).toBeTruthy();
     expect(model.selfTest.cameraWorking).toBeTruthy();
     expect(model.selfTest.microphoneWorking).toBeTruthy();
     expect(model.selfTest.seeAndHearClearly).toBeTruthy();
     expect(model.selfTest.selfTestResultScore).toEqual('Okay');
 
-  });
-
-  it('should map extended answer', () => {
-    givenExtendedAnswerIs(RepresentativeQuestionKeys.AboutYou, 'more information');
-    whenMappingModel();
-    expect(model.aboutYou.notes).toBe('more information');
   });
 
   it('should map hearing', () => {
