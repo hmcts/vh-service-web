@@ -11,14 +11,17 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class RepresentativeJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
-    readonly bindings = new Map<JourneyStep, string>();
-    readonly initialStep = Steps.AnswersSaved;
+  readonly bindings = new Map<JourneyStep, string>();
+  readonly initialStep = Steps.YourVideoHearing;
     constructor(selfTest: SelfTestJourneyStepComponentBindings) {
         super();
         this.bindings.set(Steps.AboutYou, Paths.AboutYou);
         this.bindings.set(Steps.AccessToRoom, Paths.AccessToRoom);
         this.bindings.set(Steps.AccessToComputer, Paths.YourComputer);
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
+        this.bindings.set(Steps.YourVideoHearing, Paths.YourVideoHearing);
+        this.bindings.set(Steps.AppointingABarrister, Paths.AppointingABarrister);
+        this.bindings.set(Steps.OtherInformation, Paths.OtherInformation);
         this.bindings.set(Steps.AnswersSaved, Paths.AnswersSaved);
         this.bindings.set(Steps.ThankYou, Paths.ThankYou);
         selfTest.bindings.forEach((path, step) => this.bindings.set(step, path));

@@ -25,7 +25,7 @@
               <div class="govuk-radios">
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-notSure" type="radio"
-                         [value]="hasAccessToCamera.NotSure">
+                         >
                   <label class="govuk-label govuk-radios__label" for="choice-notSure"
                          i18n="@@aboutYourComputer_rep_label_1">
                     I'm not sure
@@ -34,7 +34,7 @@
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
-                         [value]="hasAccessToCamera.Yes">
+                         >
                   <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@aboutYourComputer_rep_label_2">
                     Yes
                   </label>
@@ -42,13 +42,10 @@
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
-                         [value]="hasAccessToCamera.No">
+                         >
                   <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@aboutYourComputer_rep_label_3">
                     No
                   </label>
-                </div>
-                <div *ngIf="choice.value === hasAccessToCamera.No" class="vh-border">
-                  <p class="govuk-body vh-left" i18n="@@aboutYourComputer_rep_p_2">The laptop or desktop computer will need a camera and microphone for you to take part in a video hearing.</p>
                 </div>
               </div>
             </div>

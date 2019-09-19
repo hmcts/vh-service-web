@@ -22,6 +22,9 @@ import { RepresentativeNavigationBackFactory } from './representative-navigation
 // components
 import { YourComputerComponent } from './pages/your-computer/your-computer.component';
 import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
+import { AppointingABarristerComponent } from './pages/appointing-a-barrister/appointing-a-barrister.component';
+import { OtherInformationComponent } from './pages/other-information/other-information.component';
+import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 import { CachedHearingService } from './services/cached-hearing.service';
@@ -34,7 +37,10 @@ import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-bac
     YourComputerComponent,
     AnswersSavedComponent,
     ThankYouComponent,
-    HearingDetailsHeaderComponent
+    HearingDetailsHeaderComponent,
+    YourVideoHearingComponent,
+    AppointingABarristerComponent,
+    OtherInformationComponent
   ],
   imports: [
     // angular
