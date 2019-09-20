@@ -30,6 +30,7 @@
     <PackageReference Include="RestSharp" Version="106.6.9" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.25.0" />
     <PackageReference Include="SpecFlow" Version="3.0.191" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.191" />
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
@@ -48,11 +49,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutYou.feature</DependentUpon>
     </Compile>
-    <Compile Update="Features\AboutYourClient.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AboutYourClient.feature</DependentUpon>
-    </Compile>
     <Compile Update="Features\AboutYourComputer.feature.cs">
       <DependentUpon>AboutYouComputer.feature</DependentUpon>
     </Compile>
@@ -70,11 +66,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ContactUs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\HearingSuitability.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>HearingSuitability.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\IndividualInformationVideo.feature.cs">
       <DesignTime>True</DesignTime>
@@ -104,16 +95,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AccessToRoom.feature</DependentUpon>
     </Compile>
-    <Compile Update="Features\PleaseContactUs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PleaseContactUs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\QuestionnaireCompleted.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>QuestionnaireCompleted.feature</DependentUpon>
-    </Compile>
     <Compile Update="Features\SelfTest\CameraWorking.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -139,16 +120,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SwitchCameraMicrophone.feature</DependentUpon>
     </Compile>
-    <Compile Update="Features\ThankYou.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ThankYou.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\YourClientsAttendance.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>YourClientsAttendance.feature</DependentUpon>
-    </Compile>
     <Compile Update="Features\YourComputer.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -172,10 +143,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <SpecFlowFeatureFiles Update="Features\AboutYourClient.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AboutYourClient.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYourComputer.feature">
       <LastGenOutput>AboutYourComputer.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -191,10 +158,6 @@
     <SpecFlowFeatureFiles Update="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\HearingSuitability.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>HearingSuitability.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -222,14 +185,6 @@
       <LastGenOutput>AccessToRoom.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
     </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\PleaseContactUs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>PleaseContactUs.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\QuestionnaireCompleted.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>QuestionnaireCompleted.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTestNotSameComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SelfTestNotSameComputer.feature.cs</LastGenOutput>
@@ -253,14 +208,6 @@
     <SpecFlowFeatureFiles Update="Features\SelfTest\SwitchCameraMicrophone.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SwitchCameraMicrophone.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\ThankYou.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ThankYou.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\YourClientsAttendance.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>YourClientsAttendance.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\YourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
