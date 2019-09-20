@@ -40,9 +40,13 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 case TargetBrowser.Chrome:
                     if (!BlockCameraAndMic)
                     {
-                        var chromeOptions = new Dictionary<string, object>();
-                        chromeOptions["args"] = new List<string>
-                        { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream"};
+                        var chromeOptions = new Dictionary<string, object>
+                        {
+                            ["args"] = new List<string>
+                            {
+                                "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream"
+                            }
+                        };
                         caps.SetCapability(ChromeOptions.Capability, chromeOptions);
                     }
                     caps.SetCapability("browserName", "Chrome");
@@ -74,7 +78,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                         var profile = new Dictionary<string, object>
                         {
                             ["args"] = new List<string>
-                            { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "media.navigator.streams.fake"}
+                            { "media.navigator.streams.fake" }
                         };
                         caps.SetCapability(FirefoxDriver.ProfileCapabilityName, profile);
                     }
