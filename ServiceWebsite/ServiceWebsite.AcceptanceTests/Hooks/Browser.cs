@@ -1,10 +1,11 @@
-﻿using TechTalk.SpecFlow;
-using System;
+﻿using System;
+using System.Diagnostics;
+using AdminWebsite.AcceptanceTests.Hooks;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using BoDi;
 using ServiceWebsite.AcceptanceTests.NuGet.Contexts;
+using TechTalk.SpecFlow;
 
-namespace AdminWebsite.AcceptanceTests.Hooks
+namespace ServiceWebsite.AcceptanceTests.Hooks
 {
     [Binding]
     public sealed class Browser
@@ -23,11 +24,9 @@ namespace AdminWebsite.AcceptanceTests.Hooks
             _scenarioContext = injectedContext;
         }
 
-
-        private TargetBrowser GetTargetBrowser()
+        private static TargetBrowser GetTargetBrowser()
         {
-            TargetBrowser targetTargetBrowser;
-            return Enum.TryParse(NUnit.Framework.TestContext.Parameters["TargetBrowser"], true, out targetTargetBrowser) ? targetTargetBrowser : TargetBrowser.Chrome;
+            return Enum.TryParse(NUnit.Framework.TestContext.Parameters["TargetBrowser"], true, out TargetBrowser targetTargetBrowser) ? targetTargetBrowser : TargetBrowser.Chrome;
         }
 
         [BeforeScenario (Order = 4)]
@@ -43,10 +42,24 @@ namespace AdminWebsite.AcceptanceTests.Hooks
         {
             if (_saucelabsSettings.RunWithSaucelabs)
             {
-                bool passed = _scenarioContext.TestError == null;
+                var passed = _scenarioContext.TestError == null;
                 SaucelabsResult.LogPassed(passed, _browserContext.NgDriver);
             }
             _browserContext.BrowserTearDown();
+
+            var driverProcesses = Process.GetProcessesByName("GeckoDriver");
+
+            foreach (var process in driverProcesses)
+            {
+                try
+                {
+                    process.Kill();
+                }
+                catch (Exception ex)
+                {
+                    NUnit.Framework.TestContext.WriteLine(ex.Message);
+                }
+            }
         }
     }
 }
