@@ -3,13 +3,13 @@
 	I am on Switch Camera and Microphone and blocked camera and microphone 
 	So that I can see media blocked screen
 
-@VIH-4447 @BlockCameraAndMic @RepresentativeSelfTest
+@VIH-4447 @smoketest @BlockCameraAndMic @RepresentativeSelfTest
 Scenario: Representative blocks camera
 	Given Representative participant is on 'switch on camera and microphone' page having submitted questionnaire
 	When Media not switched on
 	Then Representative should be on 'equipment blocked' screen
 
-@VIH-4068 @BlockCameraAndMic @IndividualSelfTest
+@VIH-4068 @smoketest @BlockCameraAndMic @IndividualSelfTest
 Scenario: Individual blocks camera
 	Given Individual participant is on 'switch on camera and microphone' page having submitted questionnaire
 	When Media not switched on
