@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl" i18n="@@yourComputerRep_h1">
-      Your computer
+    <h1 class="govuk-heading-xl" i18n="@@otherInformation_h1">
+      Other information
     </h1>
     <div>
       <app-hearing-details-header></app-hearing-details-header>
@@ -11,13 +11,11 @@
       <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <div class="govuk-fieldset">
           <div *ngIf="isFormInvalid">
-            <span id="error-message" class="govuk-error-message" i18n="@@yourComputerRep_span_1">
+            <span id="error-message" class="govuk-error-message" i18n="@@otherInformation_span_1">
               Please answer this question
             </span>
           </div>
-          <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@yourComputerRep_p_1">To join a video hearing, you'll
-            need a laptop or desktop computer with a camera and microphone. Will you have access to a laptop or desktop
-            computer (not a tablet, not a mobile phone)?
+          <p class="govuk-body govuk-!-margin-bottom-5" i18n="@@otherInformation_p_1">Is there anything you'd like the court to know that could affect this hearing taking place by video? 
           </p>
 
           <div class="govuk-form-group">
@@ -27,7 +25,7 @@
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio"
                     [value]="true">
-                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@yourComputerRep_label_1">
+                  <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@otherInformation_label_1">
                     Yes
                   </label>
 
@@ -36,13 +34,13 @@
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio"
                     [value]="false">
-                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@yourComputerRep_label_2">
+                  <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@otherInformation_label_2">
                     No
                   </label>
 
                 </div>
                 <div *ngIf="choice.value === false" class="vh-border">
-                  <p class="govuk-body vh-left" i18n="@@yourComputerRep_p_2">You’ll need a laptop or desktop computer
+                  <p class="govuk-body vh-left" i18n="@@otherInformation_p_2">You’ll need a laptop or desktop computer
                     with a camera and microphone to take part in a video hearing. You can’t use a mobile phone or
                     tablet.</p>
                 </div>
@@ -53,7 +51,7 @@
       </div>
 
       <div class="mt-20">
-        <button class="govuk-button" (click)="submit()" i18n="@@yourComputerRep_btn_continue" id="continue"
+        <button class="govuk-button" (click)="submit()" i18n="@@otherInformation_btn_continue" id="continue"
           type="button">
           Continue
         </button>

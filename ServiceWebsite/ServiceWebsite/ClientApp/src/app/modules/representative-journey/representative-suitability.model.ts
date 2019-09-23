@@ -5,6 +5,7 @@ import { ParticipantSuitabilityModel, SuitabilityAnswer } from '../base-journey/
  * Exposes the basic properties of the suitability model.
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
+    otherInformation: boolean;
 
     isCompleted(): boolean {
         const droppedOff = this.camera === HasAccessToCamera.No || this.computer === false;
