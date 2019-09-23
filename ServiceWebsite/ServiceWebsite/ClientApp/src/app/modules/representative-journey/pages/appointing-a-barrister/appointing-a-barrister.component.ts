@@ -18,13 +18,13 @@ export class AppointingABarristerComponent extends SuitabilityChoicePageBaseComp
   }
 
   ngOnInit(): void {
-    //if (this.model.camera !== undefined && this.model.camera !== null) {
+    // if (this.model.camera !== undefined && this.model.camera !== null) {
     //  this.choice.setValue(this.model.camera);
-    //}
+    // }
   }
 
   protected bindModel(): void {
-    //this.model.camera = this.choice.value;
+    // this.model.camera = this.choice.value;
   }
 
   async submit(): Promise<void> {

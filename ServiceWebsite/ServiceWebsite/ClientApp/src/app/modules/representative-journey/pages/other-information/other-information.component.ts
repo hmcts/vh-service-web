@@ -17,11 +17,11 @@ export class OtherInformationComponent extends SuitabilityChoicePageBaseComponen
   }
 
   ngOnInit() {
-    
+
   }
 
   protected bindModel(): void {
-    
+
   }
 
   async submit(): Promise<void> {

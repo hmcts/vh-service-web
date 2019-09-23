@@ -19,6 +19,6 @@ describe('YourVideoHearingComponent', () => {
     const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.submitIsClicked();
 
-   // expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AppointingABarrister);
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AppointingABarrister);
   });
 });
