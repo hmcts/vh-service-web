@@ -55,8 +55,6 @@ namespace ServiceWebsite.AcceptanceTests.NuGet.Hooks
             testContext.WebsiteUrl = configRoot.GetSection("WebsiteUrl").Value;
             testContext.VideoAppUrl = configRoot.GetSection("VideoAppUrl").Value;
 
-
-
             foreach (var user in testContext.UserAccounts)
             {
                 user.Username = $"{user.Displayname}{testSecrets.TestUsernameStem}";
