@@ -6,7 +6,6 @@ export class MutableRepresentativeSuitabilityModel extends RepresentativeSuitabi
     super();
   }
 
-  camera: HasAccessToCamera;
   hearing: Hearing;
   participantId: string;
 }

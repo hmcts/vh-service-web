@@ -1,7 +1,6 @@
-import { HasAccessToCamera } from '../../base-journey/participant-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from '../../../services/clients/api-client';
 import { RepresentativeModelMapper, RepresentativeQuestionKeys } from './representative-model-mapper';
-import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
+import { RepresentativeSuitabilityModel, AppointingBarrister } from '../representative-suitability.model';
 import { SelfTestQuestionKeys } from '../../base-journey/services/participant-model-mapper';
 
 describe('RepresentativeModelMapper', () => {
@@ -16,8 +15,23 @@ describe('RepresentativeModelMapper', () => {
       questionnaire_not_required: true,
       answers: [
         new HearingSuitabilityAnswer({
-          question_key: RepresentativeQuestionKeys.Camera,
-          answer: 'Yes',
+          question_key: RepresentativeQuestionKeys.Barrister,
+          answer: 'I am the appointed barrister',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: RepresentativeQuestionKeys.BarristerName,
+          answer: 'David',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: RepresentativeQuestionKeys.BarristerChambers,
+          answer: 'Chamber 1',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
+          question_key: RepresentativeQuestionKeys.BarristerEmail,
+          answer: 'email@barrister.com',
           extended_answer: ''
         }),
         new HearingSuitabilityAnswer({
@@ -64,14 +78,18 @@ describe('RepresentativeModelMapper', () => {
     serviceResponse.answers.find(a => a.question_key === answerKey).extended_answer = extendedAnswer;
   };
 
-  it('should map computer camera and microphone answers', () => {
-    const values = ['Yes', 'No', 'Not sure'];
-    const expected = [HasAccessToCamera.Yes, HasAccessToCamera.No, HasAccessToCamera.NotSure];
+  it('should map appointed barrister answers', () => {
+    const values = ['I am the appointed barrister',
+      'A barrister has been/will be appointed',
+      'A barrister will not be appointed'];
+    const expected = [AppointingBarrister.IAmAppointedBarrister,
+    AppointingBarrister.BarristerWillBeAppointed,
+    AppointingBarrister.BarristerWillNotBeAppointed];
 
     for (let i = 0; i < expected.length; ++i) {
-      givenAnswerIs(RepresentativeQuestionKeys.Camera, values[i]);
+      givenAnswerIs(RepresentativeQuestionKeys.Barrister, values[i]);
       whenMappingModel();
-      expect(model.camera).toBe(expected[i]);
+      expect(model.appointingBarrister).toBe(expected[i]);
     }
   });
 

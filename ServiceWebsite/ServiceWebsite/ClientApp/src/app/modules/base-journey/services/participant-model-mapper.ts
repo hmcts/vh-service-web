@@ -1,8 +1,15 @@
 import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
-import { SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers, ParticipantSuitabilityModel } from '../participant-suitability.model';
+import { SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers } from '../participant-suitability.model';
 
 export const ParticipantQuestionKeys = {
   Camera: 'CAMERA_MICROPHONE'
+};
+
+export const QuestionKeys = {
+  Barrister: 'APPOINTING_BARRISTER',
+  BarristerName: 'BARRISTER_NAME',
+  BarristerChambers: 'BARRISTER_CHAMBERS',
+  BarristerEmail: 'BARRISTER_EMAIL'
 };
 
 export const SelfTestQuestionKeys = {
@@ -97,7 +104,7 @@ export abstract class ParticipantModelMapper {
 
   public addTextAnswer(modelAnswer: string, key: string, answers: HearingSuitabilityAnswer[]) {
     if (modelAnswer !== undefined) {
-      answers.push(this.createTextSelfTestAnswer(key, modelAnswer, null));
+      answers.push(this.createTextSelfTestAnswer(key, modelAnswer));
     }
   }
 
@@ -120,7 +127,7 @@ export abstract class ParticipantModelMapper {
     return hearingSuitabilityAnswer;
   }
 
-  private createTextSelfTestAnswer(key: string, answer: string, extendedAnswer: string): HearingSuitabilityAnswer {
+  public createTextSelfTestAnswer(key: string, answer: string): HearingSuitabilityAnswer {
     const hearingSuitabilityAnswer = new HearingSuitabilityAnswer();
     hearingSuitabilityAnswer.question_key = key;
     hearingSuitabilityAnswer.answer = answer;

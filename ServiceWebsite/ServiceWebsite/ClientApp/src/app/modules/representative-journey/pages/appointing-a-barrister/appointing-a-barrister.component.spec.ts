@@ -1,23 +1,22 @@
 import { RepresentativeJourneySteps } from './../../representative-journey-steps';
-import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
 import { AppointingABarristerComponent } from './appointing-a-barrister.component';
 import {
   RepresentativeJourneyStubs,
   RepresentativeJourneyComponentTestBed
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
+import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 describe('AppointingABarristerComponent', () => {
-  it(`should go to ${RepresentativeJourneySteps.OtherInformation} and have submitted after having selected an option`, async () => {
+  it(`should go to ${RepresentativeJourneySteps.OtherInformation} on continuing`, () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
-    const fixture = RepresentativeJourneyComponentTestBed.createComponent({
+    const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: AppointingABarristerComponent,
       journey: journey
     });
 
-    // CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
+    const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
+    fixture.radioBoxIsClicked('#i-am-barrister');
 
-    // need to await async submit
-    await fixture.whenStable();
-
+    fixture.submitIsClicked();
   });
 });
