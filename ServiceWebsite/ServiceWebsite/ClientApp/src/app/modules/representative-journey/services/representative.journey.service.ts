@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SessionStorage} from '../../shared/services/session-storage';
-import {RepresentativeSuitabilityModel} from '../representative-suitability.model';
+import {RepresentativeSuitabilityModel, AppointingBarristerDetails} from '../representative-suitability.model';
 import {Hearing, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
 import {MutableRepresentativeSuitabilityModel} from '../mutable-representative-suitability.model';
 
@@ -32,9 +32,9 @@ export class RepresentativeJourneyService {
       null,
       response.hearing.questionnaireNotRequired);
     model.aboutYou = response.aboutYou;
-    model.camera = response.camera;
     model.computer = response.computer;
-
+    model.appointingBarrister = response.appointingBarrister;
+    model.appointingBarristerDetails = new AppointingBarristerDetails(response.appointingBarristerDetails);
     model.selfTest = new SelfTestAnswers(response.selfTest);
 
     return model;

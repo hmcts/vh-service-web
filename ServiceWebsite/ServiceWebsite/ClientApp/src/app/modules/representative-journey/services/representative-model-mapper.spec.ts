@@ -74,10 +74,6 @@ describe('RepresentativeModelMapper', () => {
     serviceResponse.answers.find(a => a.question_key === answerKey).answer = answer;
   };
 
-  const givenExtendedAnswerIs = (answerKey: string, extendedAnswer: string) => {
-    serviceResponse.answers.find(a => a.question_key === answerKey).extended_answer = extendedAnswer;
-  };
-
   it('should map appointed barrister answers', () => {
     const values = ['I am the appointed barrister',
       'A barrister has been/will be appointed',
@@ -102,7 +98,6 @@ describe('RepresentativeModelMapper', () => {
 
     whenMappingModel();
     expect(model.computer).toBeFalsy();
-    expect(model.room).toBeFalsy();
     expect(model.selfTest.checkYourComputer).toBeFalsy();
     expect(model.selfTest.cameraWorking).toBeFalsy();
     expect(model.selfTest.microphoneWorking).toBeFalsy();

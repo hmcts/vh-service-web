@@ -1,5 +1,5 @@
-import {RepresentativeSuitabilityModel} from './representative-suitability.model';
-import {HasAccessToCamera, Hearing} from '../base-journey/participant-suitability.model';
+import { RepresentativeSuitabilityModel } from './representative-suitability.model';
+import { Hearing } from '../base-journey/participant-suitability.model';
 
 export class MutableRepresentativeSuitabilityModel extends RepresentativeSuitabilityModel {
   constructor() {

@@ -60,7 +60,7 @@ export class RepresentativeJourney extends JourneyBase {
 
   private isQuestionnaireCompleted(): boolean {
     // if we've dropped out on not having access to a computer or if we've answered the camera question which is the last
-    return this.currentModel.computer === false || this.currentModel.camera !== undefined;
+    return this.currentModel.computer === false;
   }
 
   private isQuestionnaireStep(step: JourneyStep): boolean {

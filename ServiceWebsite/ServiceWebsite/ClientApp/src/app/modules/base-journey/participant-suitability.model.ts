@@ -3,17 +3,11 @@ export class SuitabilityAnswer {
   notes: string;
 }
 
-export enum HasAccessToCamera {
-  Yes,
-  No,
-  NotSure
-}
-
 export class MediaAccessResponse {
   result: boolean;
   exceptionType: string;
-
 }
+
 export class SelfTestAnswers {
   constructor(answers?: {
     seeAndHearClearly?: boolean,
@@ -46,15 +40,12 @@ export class SelfTestAnswers {
   }
 }
 
-
 /**
  * Exposes the basic properties of the suitability model.
  */
 export abstract class ParticipantSuitabilityModel {
   aboutYou: SuitabilityAnswer;
-  camera: HasAccessToCamera;
   computer: boolean;
-  room: boolean;
   mediaAccepted: boolean;
   mediaSwitchedOn: boolean;
   selfTest: SelfTestAnswers;

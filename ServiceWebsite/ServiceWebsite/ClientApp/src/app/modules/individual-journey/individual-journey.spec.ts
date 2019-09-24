@@ -1,12 +1,13 @@
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
-import {MutableIndividualSuitabilityModel} from './mutable-individual-suitability.model';
-import {IndividualJourney} from './individual-journey';
-import {HasAccessToCamera, Hearing, SelfTestAnswers} from '../base-journey/participant-suitability.model';
-import {IndividualJourneySteps as Steps, IndividualJourneySteps} from './individual-journey-steps';
-import {DeviceType} from '../base-journey/services/device-type';
-import {JourneyStep} from '../base-journey/journey-step';
-import {SubmitService} from './services/submit.service';
+import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
+import { IndividualJourney } from './individual-journey';
+import { Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
+import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
+import { DeviceType } from '../base-journey/services/device-type';
+import { JourneyStep } from '../base-journey/journey-step';
+import { SubmitService } from './services/submit.service';
 import { TestLogger } from 'src/app/services/logger.spec';
+import { HasAccessToCamera } from 'src/app/modules/individual-journey/individual-suitability.model';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);

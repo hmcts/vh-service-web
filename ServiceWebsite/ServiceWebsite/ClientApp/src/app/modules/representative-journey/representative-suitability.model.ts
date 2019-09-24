@@ -1,5 +1,4 @@
-import { HasAccessToCamera } from '../base-journey/participant-suitability.model';
-import { ParticipantSuitabilityModel, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
+import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
 
 export enum AppointingBarrister {
   IAmAppointedBarrister,
@@ -8,6 +7,18 @@ export enum AppointingBarrister {
 }
 
 export class AppointingBarristerDetails {
+  constructor(details?: {
+    fullName?: string,
+    chambers?: string,
+    email?: string
+  }) {
+    if (details) {
+      this.fullName = details.fullName;
+      this.chambers = details.chambers;
+      this.email = details.email;
+    }
+  }
+
   fullName: string;
   chambers: string;
   email: string;
@@ -16,13 +27,13 @@ export class AppointingBarristerDetails {
  * Exposes the basic properties of the suitability model.
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
-    otherInformation: boolean;
+  otherInformation: boolean;
 
   appointingBarrister: AppointingBarrister;
   appointingBarristerDetails: AppointingBarristerDetails;
 
   isCompleted(): boolean {
-    const droppedOff = this.camera === HasAccessToCamera.No || this.computer === false;
+    const droppedOff = this.computer === false;
     return droppedOff || (this.selfTest !== undefined && this.selfTest.isCompleted());
   }
 }

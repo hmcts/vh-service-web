@@ -1,11 +1,12 @@
 import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
-import { HasAccessToCamera, Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
+import { Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
 import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 import { TestLogger } from 'src/app/services/logger.spec';
+import { AppointingBarrister } from './representative-suitability.model';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -28,9 +29,8 @@ describe('RepresentativeJourney', () => {
 
   const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
     const model = getModelForHearing(id, scheduledDateTime);
-    model.camera = HasAccessToCamera.Yes;
+    model.appointingBarrister = AppointingBarrister.BarristerWillNotBeAppointed;
     model.computer = true;
-    model.room = true;
 
     model.selfTest = new SelfTestAnswers({
       cameraWorking: true,
@@ -147,8 +147,6 @@ describe('RepresentativeJourney', () => {
   it(`should enter journey at ${SelfTestJourneySteps.CheckYourComputer} if completed questionnaire but not self-test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
     journey.jumpTo(Steps.AnswersSaved);
-    // expect(journey.step).toBe(SelfTestJourneySteps.CheckYourComputer);
-    // expect(redirected).toBe(SelfTestJourneySteps.CheckYourComputer);
   });
 
   it(`can navigate to ${Steps.AnswersSaved} after dropping out on ${Steps.AccessToComputer}`, () => {
