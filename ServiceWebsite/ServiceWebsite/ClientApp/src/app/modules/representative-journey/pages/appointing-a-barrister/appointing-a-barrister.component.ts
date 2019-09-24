@@ -17,6 +17,7 @@ export class AppointingABarristerComponent extends SuitabilityChoicePageBaseComp
   readonly barristerName = new FormControl('');
   readonly barristerChambers = new FormControl('');
   readonly barristerEmail = new FormControl('');
+  isValidEmail = true;
 
   constructor(journey: RepresentativeJourney) {
     super(journey);
@@ -33,15 +34,22 @@ export class AppointingABarristerComponent extends SuitabilityChoicePageBaseComp
     }
 
     this.choice.valueChanges.subscribe(value => {
-      this.showBarristerDetails = value === this.appointingBarrister.BarristerWillBeAppointed;
+      this.toggelBarristerDetails(value);
     });
+  }
 
+  toggelBarristerDetails(value) {
+    this.showBarristerDetails = value === this.appointingBarrister.BarristerWillBeAppointed;
+    if (!this.showBarristerDetails) {
+      this.clearBarristerDetails();
+    }
   }
 
   private initForm() {
     this.form.addControl('barristerName', this.barristerName);
     this.form.addControl('barristerChambers', this.barristerChambers);
     this.form.addControl('barristerEmail', this.barristerEmail);
+    this.clearBarristerDetails();
   }
 
   private initFormWithValues() {
@@ -50,12 +58,33 @@ export class AppointingABarristerComponent extends SuitabilityChoicePageBaseComp
     this.barristerEmail.setValue(this.model.appointingBarristerDetails.email);
   }
 
+  private clearBarristerDetails() {
+    this.barristerName.setValue('');
+    this.barristerChambers.setValue('');
+    this.barristerEmail.setValue('');
+  }
+
   protected bindModel(): void {
     this.model.appointingBarrister = this.choice.value;
     this.model.appointingBarristerDetails = new AppointingBarristerDetails();
     this.model.appointingBarristerDetails.fullName = this.barristerName.value;
     this.model.appointingBarristerDetails.chambers = this.barristerChambers.value;
     this.model.appointingBarristerDetails.email = this.barristerEmail.value;
+  }
+
+  validateEmail() {
+    /* tslint:disable: max-line-length */
+    const pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    this.isValidEmail = this.barristerEmail && this.barristerEmail.value.length > 0 && pattern.test(this.barristerEmail.value.toLowerCase());
+  }
+
+  blurEmail() {
+    if (this.barristerEmail.touched
+      && this.barristerEmail.value.length > 0) {
+      this.validateEmail();
+    } else {
+      this.isValidEmail = true;
+    }
   }
 
   async submit(): Promise<void> {

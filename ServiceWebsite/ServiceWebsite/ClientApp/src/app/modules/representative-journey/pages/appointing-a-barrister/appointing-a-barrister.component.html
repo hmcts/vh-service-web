@@ -48,13 +48,21 @@
                     </label>
                     <input id="barristerChambers" formControlName="barristerChambers" class="govuk-input govuk-input--width-20" type="text" />
                   </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="barristerEmail">
-                      Barrister's email
-                    </label>
-                    <input id="barristerEmail" formControlName="barristerEmail" class="govuk-input govuk-input--width-20" type="text" />
+
+                  
+                    <div class="govuk-form-group" [ngClass]="{'govuk-form-group--error':!isValidEmail}">
+                      <div *ngIf="!isValidEmail">
+                        <span class="govuk-error-message">
+                          Invalid email
+                        </span>
+                      </div>
+                      <label class="govuk-label" for="barristerEmail">
+                        Barrister's email
+                      </label>
+                      <input id="barristerEmail" formControlName="barristerEmail" class="govuk-input govuk-input--width-20" type="text"
+                             (blur)="blurEmail()" />
+                    </div>
                   </div>
-                </div>
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="barrister-not-appointed" type="radio"
