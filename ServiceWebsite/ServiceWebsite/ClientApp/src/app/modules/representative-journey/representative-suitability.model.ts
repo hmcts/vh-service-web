@@ -16,6 +16,7 @@ export class AppointingBarristerDetails {
  * Exposes the basic properties of the suitability model.
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
+    otherInformation: boolean;
 
   appointingBarrister: AppointingBarrister;
   appointingBarristerDetails: AppointingBarristerDetails;

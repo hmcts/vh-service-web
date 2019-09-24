@@ -17,16 +17,18 @@ export class OtherInformationComponent extends SuitabilityChoicePageBaseComponen
   }
 
   ngOnInit() {
-
+    this.choice.setValue(this.model.otherInformation);
   }
 
   protected bindModel(): void {
-
+    this.model.otherInformation = this.choice.value;
   }
 
   async submit(): Promise<void> {
     if (!this.trySubmit()) {
       return;
     }
+
+    this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
   }
 }
