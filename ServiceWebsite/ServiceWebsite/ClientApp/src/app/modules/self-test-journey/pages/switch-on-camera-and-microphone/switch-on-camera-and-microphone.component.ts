@@ -29,9 +29,10 @@ export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
 
       this.mediaSwitchedOn = await this.mediaAccess.requestAccess();
 
-     if (!this.mediaSwitchedOn.result && this.mediaSwitchedOn.exceptionType === 'NotAllowedError') {
+    if (!this.mediaSwitchedOn.result && (this.mediaSwitchedOn.exceptionType === 'NotAllowedError'
+      || this.mediaSwitchedOn.exceptionType === 'NotFoundError')) {
       this.logger.event(`(switchOnCameraAndMicrophone) Unable to get access to Camera and Microphone`,
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+        {hearingId: this.model.hearing.id, participantId: this.model.participantId, error: this.mediaSwitchedOn.exceptionType });
 
       this.model.mediaSwitchedOn = false;
       this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
