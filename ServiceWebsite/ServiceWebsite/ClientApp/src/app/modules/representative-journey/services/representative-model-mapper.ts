@@ -20,7 +20,6 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
     model.appointingBarristerDetails = this.mapAppointedBarristerDetaild(response.answers);
     model.selfTest = this.mapSelfTestAnswers(response.answers);
     model.participantId = response.participant_id;
-
     return model;
   }
 

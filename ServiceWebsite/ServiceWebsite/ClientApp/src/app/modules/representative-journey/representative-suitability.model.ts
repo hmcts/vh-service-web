@@ -33,7 +33,6 @@ export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabil
   appointingBarristerDetails: AppointingBarristerDetails;
 
   isCompleted(): boolean {
-    const droppedOff = this.computer === false;
-    return droppedOff || (this.selfTest !== undefined && this.selfTest.isCompleted());
+    return this.selfTest !== undefined && this.selfTest.isCompleted();
   }
 }

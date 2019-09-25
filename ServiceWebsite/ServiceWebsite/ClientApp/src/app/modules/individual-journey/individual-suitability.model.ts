@@ -10,12 +10,14 @@ export enum HasAccessToCamera {
  * Exposes the basic properties of the suitability model.
  */
 export abstract class IndividualSuitabilityModel extends ParticipantSuitabilityModel {
+  aboutYou: SuitabilityAnswer;
   internet: boolean;
   interpreter: boolean;
   consent: SuitabilityAnswer;
   mediaAccepted: boolean;
   camera: HasAccessToCamera;
   room: boolean;
+  computer: boolean;
 
   isCompleted(): boolean {
     const droppedOff = this.camera === HasAccessToCamera.No

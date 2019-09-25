@@ -31,8 +31,6 @@ export class RepresentativeJourneyService {
       null,
       null,
       response.hearing.questionnaireNotRequired);
-    model.aboutYou = response.aboutYou;
-    model.computer = response.computer;
     model.appointingBarrister = response.appointingBarrister;
     model.appointingBarristerDetails = new AppointingBarristerDetails(response.appointingBarristerDetails);
     model.selfTest = new SelfTestAnswers(response.selfTest);

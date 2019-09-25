@@ -44,8 +44,6 @@ export class SelfTestAnswers {
  * Exposes the basic properties of the suitability model.
  */
 export abstract class ParticipantSuitabilityModel {
-  aboutYou: SuitabilityAnswer;
-  computer: boolean;
   mediaAccepted: boolean;
   mediaSwitchedOn: boolean;
   selfTest: SelfTestAnswers;

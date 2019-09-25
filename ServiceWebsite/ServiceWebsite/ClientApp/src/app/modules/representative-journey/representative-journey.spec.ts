@@ -30,7 +30,6 @@ describe('RepresentativeJourney', () => {
   const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
     const model = getModelForHearing(id, scheduledDateTime);
     model.appointingBarrister = AppointingBarrister.BarristerWillNotBeAppointed;
-    model.computer = true;
 
     model.selfTest = new SelfTestAnswers({
       cameraWorking: true,
@@ -45,7 +44,6 @@ describe('RepresentativeJourney', () => {
 
   const getDroppedOutModel = (id: string) => {
     const model = getModelForHearing(id, tomorrow);
-    model.computer = false;
     return model;
   };
 
@@ -153,15 +151,9 @@ describe('RepresentativeJourney', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
     journey.startAt(Steps.AccessToComputer);
 
-    journey.model.computer = false;
     journey.jumpTo(Steps.AnswersSaved);
 
     expect(journey.step).toBe(Steps.AnswersSaved);
-  });
-
-  it(`should redirect to videoapp if having dropped out from questionnaire`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.droppedOutFromQuestionnaire());
-    expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {

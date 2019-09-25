@@ -10,16 +10,14 @@ import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-ste
 
 @Injectable()
 export class RepresentativeJourney extends JourneyBase {
-  static readonly initialStep = RepresentativeJourneySteps.AnswersSaved;
+
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
   private currentModel: RepresentativeSuitabilityModel;
 
   private readonly questionnairePages = [
-    RepresentativeJourneySteps.AboutYou,
-    RepresentativeJourneySteps.AccessToRoom,
-    RepresentativeJourneySteps.AccessToComputer,
-    RepresentativeJourneySteps.AboutYourComputer
+    RepresentativeJourneySteps.AppointingABarrister,
+    RepresentativeJourneySteps.OtherInformation,
   ];
 
   constructor(private submitService: SubmitService, private logger: Logger) {
@@ -59,8 +57,8 @@ export class RepresentativeJourney extends JourneyBase {
   }
 
   private isQuestionnaireCompleted(): boolean {
-    // if we've dropped out on not having access to a computer or if we've answered the camera question which is the last
-    return this.currentModel.computer === false;
+    // if we've dropped out on question other information which is the last
+    return this.currentModel.otherInformation !== undefined;
   }
 
   private isQuestionnaireStep(step: JourneyStep): boolean {

@@ -2,17 +2,9 @@ import { MutableRepresentativeSuitabilityModel } from './mutable-representative-
 import { SelfTestAnswers } from '../base-journey/participant-suitability.model';
 
 describe('RepresentativeSuitabilityModel', () => {
-  it('is completed if not having access to a computer', () => {
-    const model = new MutableRepresentativeSuitabilityModel();
-    model.selfTest = new SelfTestAnswers();
-    model.computer = false;
-
-    expect(model.isCompleted()).toBe(true);
-  });
 
   it('is completed if selftest is completed', () => {
     const model = new MutableRepresentativeSuitabilityModel();
-    model.computer = true;
     model.selfTest = new SelfTestAnswers({
       cameraWorking: true,
       seeAndHearClearly: true,

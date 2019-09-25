@@ -8,12 +8,10 @@ import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.compo
 import { AppointingABarristerComponent } from './pages/appointing-a-barrister/appointing-a-barrister.component';
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
-import { YourComputerComponent } from './pages/your-computer/your-computer.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { RepresentativeGuard } from './representative.gaurd';
 
 const routes: Routes = [
-  { path: Paths.YourComputer, component: YourComputerComponent, canActivate: [RepresentativeGuard] },
   { path: Paths.AnswersSaved, component: AnswersSavedComponent, canActivate: [RepresentativeGuard] },
   { path: Paths.YourVideoHearing, component: YourVideoHearingComponent, canActivate: [RepresentativeGuard] },
   { path: Paths.AppointingABarrister, component: AppointingABarristerComponent, canActivate: [RepresentativeGuard] },

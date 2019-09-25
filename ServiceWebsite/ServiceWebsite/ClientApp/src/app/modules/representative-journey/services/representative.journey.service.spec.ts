@@ -20,7 +20,6 @@ describe('representative.journey.service', () => {
       null,
       null,
       false);
-    model.computer = true;
     model.appointingBarrister = AppointingBarrister.IAmAppointedBarrister;
     model.appointingBarristerDetails = new AppointingBarristerDetails();
 

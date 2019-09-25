@@ -1,7 +1,9 @@
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from '../../../services/clients/api-client';
 import { RepresentativeModelMapper, RepresentativeQuestionKeys } from './representative-model-mapper';
-import { RepresentativeSuitabilityModel, AppointingBarrister } from '../representative-suitability.model';
+import { RepresentativeSuitabilityModel, AppointingBarrister, AppointingBarristerDetails } from '../representative-suitability.model';
 import { SelfTestQuestionKeys } from '../../base-journey/services/participant-model-mapper';
+import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
+import { SelfTestAnswers } from '../../base-journey/participant-suitability.model';
 
 describe('RepresentativeModelMapper', () => {
   let serviceResponse: HearingSuitabilityResponse;
@@ -97,7 +99,6 @@ describe('RepresentativeModelMapper', () => {
     givenAnswerIs(SelfTestQuestionKeys.TestResultScore, 'Okay');
 
     whenMappingModel();
-    expect(model.computer).toBeFalsy();
     expect(model.selfTest.checkYourComputer).toBeFalsy();
     expect(model.selfTest.cameraWorking).toBeFalsy();
     expect(model.selfTest.microphoneWorking).toBeFalsy();
@@ -131,5 +132,19 @@ describe('RepresentativeModelMapper', () => {
     expect(model.hearing.id).toBe('123');
     expect(model.hearing.scheduleDateTime).toEqual(serviceResponse.hearing_scheduled_at);
     expect(model.hearing.questionnaireNotRequired).toEqual(serviceResponse.questionnaire_not_required);
+  });
+  it('should map to request all barrister and self test answers', () => {
+    const modelMutable = new MutableRepresentativeSuitabilityModel();
+    modelMutable.appointingBarrister = AppointingBarrister.BarristerWillBeAppointed;
+    modelMutable.appointingBarristerDetails = new AppointingBarristerDetails(
+      { fullName: 'John', chambers: 'Chamber 1', email: 'email@email.com' });
+    modelMutable.otherInformation = true;
+    modelMutable.selfTest = new SelfTestAnswers({
+      seeAndHearClearly: true, checkYourComputer: true, cameraWorking: true, microphoneWorking: true, selfTestResultScore: 'Good'
+    });
+    const request = new RepresentativeModelMapper().mapToRequest(modelMutable);
+
+    expect(request.length).toBe(9);
+
   });
 });
