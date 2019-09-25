@@ -4,31 +4,23 @@ import {
 } from 'src/app/modules/representative-journey/components/suitability-choice-page-base.component';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
+import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 
 @Component({
   selector: 'app-other-information',
   templateUrl: './other-information.component.html',
   styles: []
 })
-export class OtherInformationComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
+export class OtherInformationComponent {
 
-  constructor(journey: RepresentativeJourney) {
-    super(journey);
+  constructor(private journey: RepresentativeJourney) {
   }
 
-  ngOnInit() {
-    this.choice.setValue(this.model.otherInformation);
+  get model(): RepresentativeSuitabilityModel {
+    return this.journey.model;
   }
-
-  protected bindModel(): void {
-    this.model.otherInformation = this.choice.value;
-  }
-
   async submit(): Promise<void> {
-    if (!this.trySubmit()) {
-      return;
-    }
-
+    await this.journey.submitQuestionnaire();
     this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
   }
 }

@@ -1,4 +1,4 @@
-import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
+import { ParticipantSuitabilityModel, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
 
 export enum AppointingBarrister {
   IAmAppointedBarrister,
@@ -27,8 +27,7 @@ export class AppointingBarristerDetails {
  * Exposes the basic properties of the suitability model.
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
-  otherInformation: boolean;
-
+  otherInformation: SuitabilityAnswer;
   appointingBarrister: AppointingBarrister;
   appointingBarristerDetails: AppointingBarristerDetails;
 

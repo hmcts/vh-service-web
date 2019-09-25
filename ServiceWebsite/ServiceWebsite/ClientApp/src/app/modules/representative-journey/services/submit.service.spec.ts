@@ -13,6 +13,7 @@ describe('SubmitService', () => {
     model.hearing = new Hearing();
     model.appointingBarrister = AppointingBarrister.BarristerWillBeAppointed;
     model.appointingBarristerDetails = new AppointingBarristerDetails();
+    model.otherInformation.answer = false;
     model.selfTest = new SelfTestAnswers();
     model.selfTest.cameraWorking = true;
     model.selfTest.microphoneWorking = true;
