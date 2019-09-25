@@ -3,7 +3,7 @@ import { RepresentativeModelMapper, RepresentativeQuestionKeys } from './represe
 import { RepresentativeSuitabilityModel, AppointingBarrister, AppointingBarristerDetails } from '../representative-suitability.model';
 import { SelfTestQuestionKeys } from '../../base-journey/services/participant-model-mapper';
 import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
-import { SelfTestAnswers } from '../../base-journey/participant-suitability.model';
+import { SelfTestAnswers, SuitabilityAnswer } from '../../base-journey/participant-suitability.model';
 
 describe('RepresentativeModelMapper', () => {
   let serviceResponse: HearingSuitabilityResponse;
@@ -39,7 +39,7 @@ describe('RepresentativeModelMapper', () => {
         new HearingSuitabilityAnswer({
           question_key: RepresentativeQuestionKeys.OtherInformation,
           answer: 'false',
-          extended_answer: ''
+          extended_answer: 'other information'
         }),
         new HearingSuitabilityAnswer({
           question_key: SelfTestQuestionKeys.CheckYourComputer,
@@ -149,7 +149,7 @@ describe('RepresentativeModelMapper', () => {
     modelMutable.appointingBarrister = AppointingBarrister.BarristerWillBeAppointed;
     modelMutable.appointingBarristerDetails = new AppointingBarristerDetails(
       { fullName: 'John', chambers: 'Chamber 1', email: 'email@email.com' });
-    modelMutable.otherInformation = true;
+    modelMutable.otherInformation = new SuitabilityAnswer();
     modelMutable.selfTest = new SelfTestAnswers({
       seeAndHearClearly: true, checkYourComputer: true, cameraWorking: true, microphoneWorking: true, selfTestResultScore: 'Good'
     });
