@@ -28,7 +28,6 @@ export class AppointingBarristerDetails {
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
   otherInformation: SuitabilityAnswer;
-
   appointingBarrister: AppointingBarrister;
   appointingBarristerDetails: AppointingBarristerDetails;
 
