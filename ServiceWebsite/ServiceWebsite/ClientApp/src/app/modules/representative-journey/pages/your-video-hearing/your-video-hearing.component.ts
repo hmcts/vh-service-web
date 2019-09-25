@@ -3,14 +3,14 @@ import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
-  selector: 'app-about-you-and-your-client',
-  templateUrl: './about-you-and-your-client.component.html',
+  selector: 'app-your-video-hearing',
+  templateUrl: './your-video-hearing.component.html',
   styleUrls: []
 })
-export class AboutYouAndYourClientComponent {
+export class YourVideoHearingComponent {
   constructor(private journey: RepresentativeJourney) {}
 
   continue() {
-    this.journey.goto(RepresentativeJourneySteps.AboutYou);
+    this.journey.goto(RepresentativeJourneySteps.AppointingABarrister);
   }
 }

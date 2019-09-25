@@ -1,22 +1,23 @@
-import { SuitabilityChoiceComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
+import { OtherInformationComponent } from './other-information.component';
 import {
   RepresentativeJourneyComponentTestBed,
   RepresentativeJourneyStubs
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
+import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
+import { fakeAsync, tick } from '@angular/core/testing';
+import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { RepresentativeJourney } from '../../representative-journey';
 import { ChoiceTextboxComponent } from 'src/app/modules/base-journey/components/choice-textbox.component';
-import { HearingSuitabilityComponent } from './hearing-suitability.component';
-import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
-describe('HearingSuitabilityComponent', () => {
+describe('OtherInformationComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
-  let component: HearingSuitabilityComponent;
+  let component: OtherInformationComponent;
   let journey: jasmine.SpyObj<RepresentativeJourney>;
-
   beforeEach(() => {
     journey = RepresentativeJourneyStubs.journeySpy;
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
-      component: HearingSuitabilityComponent,
+      component: OtherInformationComponent,
       declarations: [
         ChoiceTextboxComponent
       ],
@@ -27,10 +28,13 @@ describe('HearingSuitabilityComponent', () => {
     fixture.detectChanges();
   });
 
-  it('binds values and goes to next step after selecting choice and choosing continue', () => {
+  it(`should submit questionnaire and go to ${RepresentativeJourneySteps.AnswersSaved} after having selected an option`, fakeAsync(() => {
     fixture.radioBoxIsClicked('#choice-no');
     fixture.submitIsClicked();
-    expect(journey.model.hearingSuitability.answer).toBe(false);
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AccessToComputer);
-  });
+    tick();
+
+    expect(journey.model.otherInformation.answer).toBe(false);
+    expect(journey.submitQuestionnaire).toHaveBeenCalled();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AnswersSaved);
+   }));
 });

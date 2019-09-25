@@ -3,7 +3,7 @@ import { NavigationBackBaseFactory } from '../base-journey/services/navigation-b
 import { Router } from '@angular/router';
 
 const RepresentativeUserType = 'Representative';
-const QuestionnaireCompletedUrl = '/questionnaire-completed';
+const QuestionnaireCompletedUrl = '/answers-saved';
 const ThankYouRepUrl = '/thank-you-rep';
 
 @Injectable()
