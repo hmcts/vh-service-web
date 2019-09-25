@@ -35,6 +35,11 @@ describe('RepresentativeModelMapper', () => {
           extended_answer: ''
         }),
         new HearingSuitabilityAnswer({
+          question_key: RepresentativeQuestionKeys.OtherInformation,
+          answer: 'false',
+          extended_answer: ''
+        }),
+        new HearingSuitabilityAnswer({
           question_key: SelfTestQuestionKeys.CheckYourComputer,
           answer: 'true',
           extended_answer: ''
@@ -104,6 +109,12 @@ describe('RepresentativeModelMapper', () => {
     expect(model.selfTest.seeAndHearClearly).toBeFalsy();
     expect(model.selfTest.selfTestResultScore).toEqual('Okay');
 
+  });
+
+  it('should map false answers', () => {
+    givenAnswerIs(RepresentativeQuestionKeys.OtherInformation, 'false');
+    whenMappingModel();
+    expect(model.otherInformation.answer).toBeFalsy();
   });
 
   it('should map all answers', () => {

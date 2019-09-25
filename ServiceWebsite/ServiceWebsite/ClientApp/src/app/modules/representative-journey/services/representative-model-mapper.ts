@@ -8,7 +8,8 @@ export const RepresentativeQuestionKeys = {
   Barrister: 'APPOINTING_BARRISTER',
   BarristerName: 'BARRISTER_NAME',
   BarristerChambers: 'BARRISTER_CHAMBERS',
-  BarristerEmail: 'BARRISTER_EMAIL'
+  BarristerEmail: 'BARRISTER_EMAIL',
+  OtherInformation: 'OTHER_INFORMATION'
 };
 
 export class RepresentativeModelMapper extends ParticipantModelMapper {
@@ -18,6 +19,7 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
     model.hearing = new Hearing(response.hearing_id, response.hearing_scheduled_at, null, null, response.questionnaire_not_required);
     model.appointingBarrister = this.mapAppointedBarristerAnswer(response.answers);
     model.appointingBarristerDetails = this.mapAppointedBarristerDetaild(response.answers);
+    model.otherInformation = this.mapBooleanAnswerFromKey(RepresentativeQuestionKeys.OtherInformation, response.answers);
     model.selfTest = this.mapSelfTestAnswers(response.answers);
     model.participantId = response.participant_id;
 
@@ -33,7 +35,7 @@ export class RepresentativeModelMapper extends ParticipantModelMapper {
       this.addAnswerForBarristerDetails(model.appointingBarristerDetails.chambers, RepresentativeQuestionKeys.BarristerChambers, answers);
       this.addAnswerForBarristerDetails(model.appointingBarristerDetails.email, RepresentativeQuestionKeys.BarristerEmail, answers);
     }
-
+    this.addSuitabilityAnswer(model.otherInformation, RepresentativeQuestionKeys.OtherInformation, answers);
     this.addSelfTestAnswers(model.selfTest, answers);
 
     return answers;
