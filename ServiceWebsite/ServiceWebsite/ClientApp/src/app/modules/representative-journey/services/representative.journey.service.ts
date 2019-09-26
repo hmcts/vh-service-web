@@ -26,13 +26,17 @@ export class RepresentativeJourneyService {
     */
     const model = new MutableRepresentativeSuitabilityModel();
     model.participantId = response.participantId;
-    model.hearing = new Hearing(response.hearing.id,
+    model.hearing = new Hearing
+    (
+      response.hearing.id,
       new Date(response.hearing.scheduleDateTime),
       null,
       null,
-      response.hearing.questionnaireNotRequired);
+      response.hearing.questionnaireNotRequired
+    );
     model.appointingBarrister = response.appointingBarrister;
     model.appointingBarristerDetails = new AppointingBarristerDetails(response.appointingBarristerDetails);
+    model.otherInformation = response.otherInformation;
     model.selfTest = new SelfTestAnswers(response.selfTest);
 
     return model;
