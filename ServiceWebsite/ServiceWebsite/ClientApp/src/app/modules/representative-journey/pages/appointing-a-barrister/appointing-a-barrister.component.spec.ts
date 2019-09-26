@@ -6,6 +6,7 @@ import {
   RepresentativeJourneyComponentTestBed
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('AppointingABarristerComponent', () => {
   const journey = RepresentativeJourneyStubs.journeySpy;
@@ -14,6 +15,7 @@ describe('AppointingABarristerComponent', () => {
   it(`should go to ${RepresentativeJourneySteps.OtherInformation} on continuing`, () => {
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: AppointingABarristerComponent,
+      declarations: [BackNavigationStubComponent],
       journey: journey
     });
 

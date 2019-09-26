@@ -9,6 +9,7 @@ import { fakeAsync, tick } from '@angular/core/testing';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { RepresentativeJourney } from '../../representative-journey';
 import { ChoiceTextboxComponent } from 'src/app/modules/base-journey/components/choice-textbox.component';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('OtherInformationComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -19,7 +20,8 @@ describe('OtherInformationComponent', () => {
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: OtherInformationComponent,
       declarations: [
-        ChoiceTextboxComponent
+        ChoiceTextboxComponent,
+        BackNavigationStubComponent
       ],
       journey: journey
     });
