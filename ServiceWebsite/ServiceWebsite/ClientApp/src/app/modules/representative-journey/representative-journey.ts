@@ -16,6 +16,7 @@ export class RepresentativeJourney extends JourneyBase {
   private currentModel: RepresentativeSuitabilityModel;
 
   private readonly questionnairePages = [
+    RepresentativeJourneySteps.YourVideoHearing,
     RepresentativeJourneySteps.AppointingABarrister,
     RepresentativeJourneySteps.OtherInformation,
   ];
