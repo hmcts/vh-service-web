@@ -10,7 +10,7 @@ export class DetectIPadService {
   detectiPad(): boolean {
     return this.detectByAgentiPad();
   }
-  
+
   private detectByAgentiPad() {
     if (this._navigator && this._navigator.userAgent && this._navigator.userAgent != null) {
       const strUserAgent = this._navigator.userAgent.toLowerCase();
