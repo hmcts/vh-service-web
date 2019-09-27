@@ -32,5 +32,15 @@ namespace ServiceWebsite.Configuration
         ///     Base Video Url for videos stored in azure storage
         /// </summary>
         public string BaseVideoUrl { get; set; }
+        
+        /// <summary>
+        /// The redirect uri on successful login
+        /// </summary>
+        public string RedirectUri { get; set; }
+        
+        /// <summary>
+        /// The redirect uri on successful logout
+        /// </summary>
+        public string PostLogoutRedirectUri { get; set; }
     }
 }
