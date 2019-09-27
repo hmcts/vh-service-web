@@ -34,7 +34,7 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
       return;
     }
 
-    if (this.deviceType.isMobile()) {
+    if (this.deviceType.isMobile() || this.deviceType.isTablet()) {
       this.journey.goto(SelfTestJourneySteps.SignInOnComputer);
       return;
     }

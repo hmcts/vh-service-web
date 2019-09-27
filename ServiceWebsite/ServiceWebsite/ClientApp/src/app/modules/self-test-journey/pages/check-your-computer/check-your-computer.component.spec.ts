@@ -15,7 +15,7 @@ describe('CheckYourComputerComponent', () => {
     journey = jasmine.createSpyObj<JourneyBase>(['goto']);
     model = new MutableIndividualSuitabilityModel();
     model.selfTest = new SelfTestAnswers();
-    deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+    deviceType = jasmine.createSpyObj<DeviceType>(['isMobile', 'isTablet']);
 
   });
 
@@ -28,6 +28,7 @@ describe('CheckYourComputerComponent', () => {
 
   it(`should submit and go to ${SelfTestJourneySteps.SignInOnComputer} if answering yes and device type is mobile`, async () => {
     deviceType.isMobile.and.returnValue(true);
+    deviceType.isTablet.and.returnValue(true);
     const component = new CheckYourComputerComponent(journey, model, deviceType);
     component.choice.setValue(true);
     await component.submit();
@@ -36,7 +37,8 @@ describe('CheckYourComputerComponent', () => {
 
   it(`should submit and go to ${SelfTestJourneySteps.SwitchOnCameraAndMicrophone}
    if answering yes and device type is not mobile`, async () => {
-    deviceType.isMobile.and.returnValue(false);
+     deviceType.isMobile.and.returnValue(false);
+     deviceType.isTablet.and.returnValue(false);
     const component = new CheckYourComputerComponent(journey, model, deviceType);
     component.choice.setValue(true);
     await component.submit();

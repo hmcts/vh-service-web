@@ -1,4 +1,4 @@
-import { HasAccessToCamera } from './../../../base-journey/participant-suitability.model';
+import { HasAccessToCamera } from '../../individual-suitability.model';
 import { IndividualJourneyStubs } from './../individual-base-component/individual-component-test-bed.spec';
 import { AboutYourComputerComponent } from './about-your-computer.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';

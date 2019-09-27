@@ -1,9 +1,5 @@
 import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
-import { SuitabilityAnswer, HasAccessToCamera, SelfTestAnswers, ParticipantSuitabilityModel } from '../participant-suitability.model';
-
-export const ParticipantQuestionKeys = {
-  Camera: 'CAMERA_MICROPHONE'
-};
+import { SuitabilityAnswer, SelfTestAnswers } from '../participant-suitability.model';
 
 export const SelfTestQuestionKeys = {
   CheckYourComputer: 'KIT_CHECK_YOUR_COMPUTER',
@@ -51,23 +47,6 @@ export abstract class ParticipantModelMapper {
     return undefined;
   }
 
-  public mapComputerCamera(answers: HearingSuitabilityAnswer[]): HasAccessToCamera {
-    const answer = answers.find(a => a.question_key === ParticipantQuestionKeys.Camera);
-    if (answer) {
-      switch (answer.answer) {
-        case 'Yes':
-          return HasAccessToCamera.Yes;
-        case 'No':
-          return HasAccessToCamera.No;
-        case 'Not sure':
-          return HasAccessToCamera.NotSure;
-        default:
-          throw new Error(`Unexpected answer to computer question: ${answer.answer}`);
-      }
-    }
-    return undefined;
-  }
-
   public mapBooleanAnswerFromKey(key: string, answers: HearingSuitabilityAnswer[]): SuitabilityAnswer {
     const answer = answers.find(a => a.question_key === key);
     if (answer) {
@@ -97,16 +76,7 @@ export abstract class ParticipantModelMapper {
 
   public addTextAnswer(modelAnswer: string, key: string, answers: HearingSuitabilityAnswer[]) {
     if (modelAnswer !== undefined) {
-      answers.push(this.createTextSelfTestAnswer(key, modelAnswer, null));
-    }
-  }
-
-  public addAnswerForCamera(modelAnswer: HasAccessToCamera, key: string, answers: HearingSuitabilityAnswer[]) {
-    if (modelAnswer !== undefined) {
-      const answer = new HearingSuitabilityAnswer();
-      answer.question_key = key;
-      answer.answer = this.getAccessToCameraAnswer(modelAnswer);
-      answers.push(answer);
+      answers.push(this.createTextSelfTestAnswer(key, modelAnswer));
     }
   }
 
@@ -120,24 +90,11 @@ export abstract class ParticipantModelMapper {
     return hearingSuitabilityAnswer;
   }
 
-  private createTextSelfTestAnswer(key: string, answer: string, extendedAnswer: string): HearingSuitabilityAnswer {
+  public createTextSelfTestAnswer(key: string, answer: string): HearingSuitabilityAnswer {
     const hearingSuitabilityAnswer = new HearingSuitabilityAnswer();
     hearingSuitabilityAnswer.question_key = key;
     hearingSuitabilityAnswer.answer = answer;
 
     return hearingSuitabilityAnswer;
-  }
-
-  private getAccessToCameraAnswer(accessToCamera: HasAccessToCamera) {
-    switch (accessToCamera) {
-      case HasAccessToCamera.Yes:
-        return 'Yes';
-      case HasAccessToCamera.No:
-        return 'No';
-      case HasAccessToCamera.NotSure:
-        return 'Not sure';
-      default:
-        throw new Error(`Unexpected answer to computer question: ${accessToCamera}`);
-    }
   }
 }

@@ -1,24 +1,26 @@
-import { CrestBluePanelComponent } from 'src/app/modules/shared/crest-blue-panel/crest-blue-panel.component';
+import { AnswersSavedComponent } from './answers-saved.component';
+import { AppYesNoPipe } from '../../../shared/boolean.pipe';
 import {
   RepresentativeJourneyComponentTestBed,
   RepresentativeJourneyStubs
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
-import { AboutVideoHearingsComponent } from './about-video-hearings.component';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
+import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
-describe('AboutVideoHearingsComponent', () => {
-  it(`should go to ${RepresentativeJourneySteps.AboutYouAndYourClient} on continuing`, () => {
+describe('AnswersSavedComponent', () => {
+  it(`goes to ${RepresentativeJourneySteps} when pressing continue`, () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
+
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
-      component: AboutVideoHearingsComponent,
-      declarations: [ CrestBluePanelComponent ],
+      component: AnswersSavedComponent,
+      declarations: [AppYesNoPipe],
       journey: journey
     });
 
     const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.submitIsClicked();
 
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AboutYouAndYourClient);
+    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CheckYourComputer);
   });
 });

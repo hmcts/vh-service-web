@@ -1,8 +1,9 @@
 import { SubmitService } from './submit.service';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
-import {Hearing, HasAccessToCamera, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import { Hearing, SelfTestAnswers } from '../../base-journey/participant-suitability.model';
 import { SuitabilityService } from './suitability.service';
 import { IndividualJourneySteps } from '../individual-journey-steps';
+import { HasAccessToCamera } from '../individual-suitability.model';
 
 describe('SubmitService', () => {
   const suitabilityService = jasmine.createSpyObj<SuitabilityService>(['updateSuitabilityAnswers']);

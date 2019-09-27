@@ -13,11 +13,11 @@ describe('RepresentativeJourneyStepComponentBindings', () => {
     });
 
     it('returns a journey step for a given path', () => {
-        expect(bindings.getJourneyStep(Paths.AboutVideoHearings)).toBe(RepresentativeJourneySteps.AboutVideoHearings);
+        expect(bindings.getJourneyStep(Paths.AnswersSaved)).toBe(RepresentativeJourneySteps.AnswersSaved);
     });
 
     it('should return a path for a given step', () => {
-        expect(bindings.getRoute(RepresentativeJourneySteps.AboutVideoHearings)).toBe(Paths.AboutVideoHearings);
+        expect(bindings.getRoute(RepresentativeJourneySteps.AnswersSaved)).toBe(Paths.AnswersSaved);
     });
 
     it('should throw an exception if no route binding exists for a given step', () => {

@@ -1,7 +1,8 @@
 import { SubmitService } from './submit.service';
 import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
-import {Hearing, HasAccessToCamera, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import {Hearing, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
 import { RepresentativeSuitabilityService } from './representative-suitability.service';
+import { AppointingBarrister, AppointingBarristerDetails } from '../representative-suitability.model';
 
 describe('SubmitService', () => {
   const suitabilityService = jasmine.createSpyObj<RepresentativeSuitabilityService>(['updateSuitabilityAnswers']);
@@ -10,16 +11,9 @@ describe('SubmitService', () => {
   const model = new MutableRepresentativeSuitabilityModel();
   beforeEach(() => {
     model.hearing = new Hearing();
-    model.aboutYou.answer = true;
-    model.aboutYou.notes = 'notes';
-    model.aboutYourClient.answer = true;
-    model.clientAttendance = true;
-    model.aboutYourClient.notes = 'notes';
-    model.hearingSuitability.answer = true;
-    model.hearingSuitability.notes = 'notes';
-    model.computer = true;
-    model.camera = HasAccessToCamera.Yes;
-    model.room = true;
+    model.appointingBarrister = AppointingBarrister.BarristerWillBeAppointed;
+    model.appointingBarristerDetails = new AppointingBarristerDetails();
+    model.otherInformation.answer = false;
     model.selfTest = new SelfTestAnswers();
     model.selfTest.cameraWorking = true;
     model.selfTest.microphoneWorking = true;
