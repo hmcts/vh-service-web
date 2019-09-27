@@ -2,9 +2,19 @@ $crest-image-width: 180px;
 $crest-column-padding: 15px;
 
 .vh-crest-column {
-    min-width:$crest-image-width + $crest-column-padding;
+  min-width: $crest-image-width + $crest-column-padding;
 }
 
 .vh-crest-column img {
-    width: $crest-image-width;
+  width: $crest-image-width;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .vh-crest-column {
+    margin-left: 70px;
+  }
+
+  .vh-blue-centre {
+    margin-left: 70px;
+  }
 }
