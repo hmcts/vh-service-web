@@ -88,7 +88,7 @@ export class AppointingABarristerComponent extends SuitabilityChoicePageBaseComp
   }
 
   async submit(): Promise<void> {
-    if (this.trySubmit()) {
+    if (this.isValidEmail && this.trySubmit()) {
       this.journey.goto(RepresentativeJourneySteps.OtherInformation);
     }
   }

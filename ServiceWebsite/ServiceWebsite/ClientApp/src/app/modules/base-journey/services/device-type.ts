@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { DetectIPadService } from './detect-i-pad.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeviceType {
 
-  constructor(private deviceDetectorService: DeviceDetectorService) {
+  constructor(private deviceDetectorService: DeviceDetectorService, private detectiPadService: DetectIPadService) {
   }
 
   isMobile() {
@@ -14,7 +15,7 @@ export class DeviceType {
   }
 
   isTablet() {
-    return this.deviceDetectorService.isTablet();
+    return this.deviceDetectorService.isTablet() || this.detectiPadService.detectiPad();
   }
 
   isDesktop() {
