@@ -5,6 +5,7 @@ import { DeviceType } from '../../../base-journey/services/device-type';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('ExploreVideoHearingComponent', () => {
   let journey: IndividualJourney;
@@ -17,6 +18,7 @@ describe('ExploreVideoHearingComponent', () => {
 
     fixture = IndividualJourneyComponentTestBed.createComponent({
       component: ExploreVideoHearingComponent,
+      declarations:[BackNavigationStubComponent],
       providers: [ { provide: DeviceType, useValue: deviceType }],
       journey: journey
     });

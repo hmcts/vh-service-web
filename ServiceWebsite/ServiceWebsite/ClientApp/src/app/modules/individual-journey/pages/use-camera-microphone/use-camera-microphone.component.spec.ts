@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { tick, fakeAsync } from '@angular/core/testing';
 import { MediaService } from 'src/app/services/media.service';
 import { MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('UseCameraMicrophoneComponent', () => {
   let mediaService: jasmine.SpyObj<MediaService>;
@@ -26,6 +27,7 @@ describe('UseCameraMicrophoneComponent', () => {
   it(`should proceed to ${IndividualJourneySteps.HearingAsParticipant} after getting camera access`, fakeAsync(() => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: UseCameraMicrophoneComponent,
+      declarations:[BackNavigationStubComponent],
       providers: [{ provide: MediaService, useValue: mediaService }],
       journey: individualJourney
     });

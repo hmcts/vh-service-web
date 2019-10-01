@@ -13,6 +13,7 @@ import { By } from '@angular/platform-browser';
 import { tick, fakeAsync } from '@angular/core/testing';
 import {MockLogger} from '../../../../testing/mocks/mock-logger';
 import {Logger} from '../../../../services/logger';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('SwitchOnCameraAndMicrophoneComponent', () => {
 
@@ -37,7 +38,7 @@ describe('SwitchOnCameraAndMicrophoneComponent', () => {
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: SwitchOnCameraAndMicrophoneComponent,
       providers: [{ provide: MediaService, useValue: mediaService }, {provide: Logger, useClass: MockLogger}],
-      declarations: [CrestBluePanelComponent],
+      declarations: [CrestBluePanelComponent, BackNavigationStubComponent],
       journey: journey,
       model: model
     });

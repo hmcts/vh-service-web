@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
 import { YourComputerComponent } from './your-computer.component';
 import { IndividualJourneyComponentTestBed, IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('YourComputerComponent', () => {
 
@@ -10,6 +10,7 @@ describe('YourComputerComponent', () => {
     const journey = IndividualJourneyStubs.journeySpy;
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: YourComputerComponent,
+      declarations:[BackNavigationStubComponent],
       journey: journey
     });
 

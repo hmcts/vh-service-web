@@ -5,6 +5,7 @@ import { ConsentComponent } from './consent.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('ConsentComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -15,6 +16,7 @@ describe('ConsentComponent', () => {
     journey = IndividualJourneyStubs.journeySpy;
     const componentFixture = IndividualJourneyComponentTestBed.createComponent({
       component: ConsentComponent,
+      declarations:[BackNavigationStubComponent],
       journey: journey
     });
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);

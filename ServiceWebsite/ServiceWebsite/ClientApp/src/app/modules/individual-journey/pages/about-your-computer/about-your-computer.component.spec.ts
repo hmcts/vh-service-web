@@ -7,12 +7,15 @@ import {
   ChoicePageTests
 } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
+import { BackNavigationComponent } from '../../../shared/back-navigation/back-navigation.component';
 
 describe('AboutYourComputerComponent', () => {
   it(`cannot proceed to next step until pressing choice, then goes to ${IndividualJourneySteps.YourInternetConnection}`, () => {
     const journey = IndividualJourneyStubs.journeySpy;
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: AboutYourComputerComponent,
+      declarations:[BackNavigationStubComponent],
       journey: journey
     });
     const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);

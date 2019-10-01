@@ -4,6 +4,8 @@ import { ComponentFixture } from '@angular/core/testing';
 import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { IndividualJourney } from '../../individual-journey';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
+import { BackNavigationComponent } from '../../../shared/back-navigation/back-navigation.component';
 
 describe('AccessToRoomComponent', () => {
   let fixture: ComponentFixture<AccessToRoomComponent>;
@@ -13,6 +15,7 @@ describe('AccessToRoomComponent', () => {
     journey = IndividualJourneyStubs.journeySpy;
     fixture = IndividualJourneyComponentTestBed.createComponent({
       component: AccessToRoomComponent,
+      declarations:[BackNavigationStubComponent],
       journey: journey
     });
   });
