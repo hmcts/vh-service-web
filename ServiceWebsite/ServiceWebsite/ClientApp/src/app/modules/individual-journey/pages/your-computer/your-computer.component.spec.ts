@@ -10,7 +10,7 @@ describe('YourComputerComponent', () => {
     const journey = IndividualJourneyStubs.journeySpy;
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: YourComputerComponent,
-      declarations:[BackNavigationStubComponent],
+      declarations: [BackNavigationStubComponent],
       journey: journey
     });
 

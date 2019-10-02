@@ -15,7 +15,7 @@ describe('AboutYourComputerComponent', () => {
     const journey = IndividualJourneyStubs.journeySpy;
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: AboutYourComputerComponent,
-      declarations:[BackNavigationStubComponent],
+      declarations: [BackNavigationStubComponent],
       journey: journey
     });
     const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);

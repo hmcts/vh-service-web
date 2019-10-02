@@ -27,7 +27,7 @@ describe('UseCameraMicrophoneComponent', () => {
   it(`should proceed to ${IndividualJourneySteps.HearingAsParticipant} after getting camera access`, fakeAsync(() => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: UseCameraMicrophoneComponent,
-      declarations:[BackNavigationStubComponent],
+      declarations: [BackNavigationStubComponent],
       providers: [{ provide: MediaService, useValue: mediaService }],
       journey: individualJourney
     });

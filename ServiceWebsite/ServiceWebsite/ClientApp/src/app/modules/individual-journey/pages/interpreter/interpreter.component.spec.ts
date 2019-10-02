@@ -9,7 +9,7 @@ describe('InterpreterComponent', () => {
     const journey = IndividualJourneyStubs.journeySpy;
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: InterpreterComponent,
-      declarations:[BackNavigationStubComponent],
+      declarations: [BackNavigationStubComponent],
       journey: journey
     });
     CommonTests.cannotProceedUntilChoiceIsSelected(fixture);

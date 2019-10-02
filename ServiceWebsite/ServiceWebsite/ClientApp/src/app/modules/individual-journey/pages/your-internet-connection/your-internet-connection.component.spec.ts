@@ -9,7 +9,7 @@ describe('InterpreterComponent', () => {
   it(`cannot proceed to next step until pressing choice, then goes to ${IndividualJourneySteps.AccessToRoom}`, () => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: YourInternetConnectionComponent,
-      declarations:[BackNavigationStubComponent]
+      declarations: [BackNavigationStubComponent]
     });
 
     CommonTests.cannotProceedUntilChoiceIsSelected(fixture);

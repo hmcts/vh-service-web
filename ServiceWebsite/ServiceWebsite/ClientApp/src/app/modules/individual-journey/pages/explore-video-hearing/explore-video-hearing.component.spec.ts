@@ -18,8 +18,8 @@ describe('ExploreVideoHearingComponent', () => {
 
     fixture = IndividualJourneyComponentTestBed.createComponent({
       component: ExploreVideoHearingComponent,
-      declarations:[BackNavigationStubComponent],
-      providers: [ { provide: DeviceType, useValue: deviceType }],
+      declarations: [BackNavigationStubComponent],
+      providers: [{ provide: DeviceType, useValue: deviceType }],
       journey: journey
     });
   });

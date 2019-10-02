@@ -16,7 +16,7 @@ describe('ConsentComponent', () => {
     journey = IndividualJourneyStubs.journeySpy;
     const componentFixture = IndividualJourneyComponentTestBed.createComponent({
       component: ConsentComponent,
-      declarations:[BackNavigationStubComponent],
+      declarations: [BackNavigationStubComponent],
       journey: journey
     });
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);
@@ -116,7 +116,7 @@ describe('ConsentComponent', () => {
     component.model.consent.notes = 'notes';
     component.ngOnInit();
 
-     // then
+    // then
     expect(component.textInputYes.value).toBe('notes');
   });
 

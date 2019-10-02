@@ -15,7 +15,7 @@ describe('AccessToRoomComponent', () => {
     journey = IndividualJourneyStubs.journeySpy;
     fixture = IndividualJourneyComponentTestBed.createComponent({
       component: AccessToRoomComponent,
-      declarations:[BackNavigationStubComponent],
+      declarations: [BackNavigationStubComponent],
       journey: journey
     });
   });
