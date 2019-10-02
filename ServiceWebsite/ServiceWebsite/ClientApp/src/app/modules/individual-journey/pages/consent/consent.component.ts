@@ -7,13 +7,11 @@ import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-tes
 
 @Component({
   selector: 'app-consent',
-  templateUrl: './consent.component.html',
-  styleUrls: ['./consent.component.css']
+  templateUrl: './consent.component.html'
 })
 export class ConsentComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
 
-  readonly textInputYes = new FormControl({ value: '', disabled: true });
-  readonly textInputNo = new FormControl({ value: '', disabled: true });
+  readonly textInputNo = new FormControl('');
   noSelected = false;
 
   constructor(journey: IndividualJourney) {
@@ -21,26 +19,20 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
   }
 
   ngOnInit() {
-    this.form.addControl('textInputYes', this.textInputYes);
     this.form.addControl('textInputNo', this.textInputNo);
-
     this.choice.setValue(this.model.consent.answer);
-    if (this.model.consent.answer === true) {
-      this.textInputYes.setValue(this.model.consent.notes);
-    } else {
+    if (this.model.consent.answer === false) {
       this.textInputNo.setValue(this.model.consent.notes);
     }
 
     this.choice.valueChanges.subscribe(value => {
       if (value) {
-        // If the value is true, the text input for yes is required
         this.optionYes();
       } else {
         this.optionNo();
       }
 
       // calling these will update the forms validity based on the changed validations
-      this.textInputYes.updateValueAndValidity();
       this.textInputNo.updateValueAndValidity();
       this.form.updateValueAndValidity();
 
@@ -53,10 +45,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
   }
 
   private optionYes() {
-    this.textInputYes.markAsUntouched();
-    this.textInputYes.enable();
     this.noSelected = false;
-
     this.textInputNo.clearValidators();
     this.textInputNo.disable();
     this.textInputNo.setValue('');
@@ -67,10 +56,6 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
     this.textInputNo.markAsUntouched();
     this.textInputNo.enable();
     this.noSelected = true;
-
-    this.textInputYes.clearValidators();
-    this.textInputYes.disable();
-    this.textInputYes.setValue('');
   }
 
   get isTextInputNoInvalid(): boolean {
@@ -79,11 +64,10 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
 
   protected bindModel(): void {
     this.model.consent.answer = this.choice.value;
-    this.model.consent.notes = this.choice.value ? this.textInputYes.value : this.textInputNo.value;
+    this.model.consent.notes = this.choice.value ? null : this.textInputNo.value;
   }
 
   async submit(): Promise<void> {
-    this.textInputYes.markAsTouched();
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
       this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
