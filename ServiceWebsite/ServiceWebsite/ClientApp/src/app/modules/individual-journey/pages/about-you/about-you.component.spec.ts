@@ -4,6 +4,7 @@ import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/
 import { AboutYouComponent } from './about-you.component';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('AboutYouComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -15,7 +16,8 @@ describe('AboutYouComponent', () => {
     const componentFixture = IndividualJourneyComponentTestBed.createComponent({
       component: AboutYouComponent,
       declarations: [
-        ChoiceTextboxComponent
+        ChoiceTextboxComponent,
+        BackNavigationStubComponent
       ],
       journey: journey
     });

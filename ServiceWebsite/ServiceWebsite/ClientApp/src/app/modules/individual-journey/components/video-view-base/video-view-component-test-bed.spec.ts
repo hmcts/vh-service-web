@@ -9,6 +9,7 @@ import { VideoUrlService } from '../../services/video-url.service';
 import { IndividualJourney } from '../../individual-journey';
 import { MediaService } from 'src/app/services/media.service';
 import { UserMediaService } from 'src/app/services/user-media.service';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 @Component({
     selector: 'app-video-view',
@@ -33,7 +34,8 @@ import { UserMediaService } from 'src/app/services/user-media.service';
         ],
         declarations: [
           StubVideoViewComponent,
-          UserCameraViewComponent
+          UserCameraViewComponent,
+          BackNavigationStubComponent
         ],
         journey: journey
       });

@@ -18,7 +18,7 @@ import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suit
 import { UserMediaService } from '../../../../services/user-media.service';
 import { UserMediaDevice } from '../../../shared/models/user-media-device';
 import { MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
-
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 @Component({
   selector: 'app-mic-visualiser',
@@ -60,7 +60,12 @@ describe('TestYourEquipmentComponent', () => {
     const fixture = SelfTestJourneyComponentTestBed.createComponent({
       component: TestYourEquipmentComponent,
       journey: journey,
-      declarations: [CrestBluePanelComponent, StubMicVisualiserComponent, StubSelectedUserMediaDeviceComponent],
+      declarations: [
+        CrestBluePanelComponent,
+        StubMicVisualiserComponent,
+        StubSelectedUserMediaDeviceComponent,
+        BackNavigationStubComponent
+      ],
       providers: [{ provide: Logger, useClass: MockLogger },
       { provide: VideoWebService, useValue: videoWebServiceMock },
       { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
