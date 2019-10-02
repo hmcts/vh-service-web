@@ -2,15 +2,10 @@
 {
     public class RepresentativePageUrl : PageUri
     {
-        public const string AboutVideoHearings = "/about-video-hearings";
-        public const string AboutYouAndYourClient = "/about-you-and-your-client";
-        public const string AboutYou = "/about-you-rep";
-        public const string AccessToRoom = "/access-to-a-room-rep";
-        public const string AboutYourClient = "/about-your-client";
-        public const string ClientAttendance = "/client-attendance";
-        public const string HearingSuitability = "/hearing-suitability";
-        public const string YourComputerRep = "/your-computer-rep";
-        public const string AboutYourComputerRep = "/about-your-computer-rep";
+        public const string YourVideoHearing = "/your-video-hearing";
+        public const string AppointingABarrister = "/appointing-a-barrister";
+        public const string OtherInformation = "/other-information";
+        public const string AnswersSaved = "/answers-saved";
         public const string QuestionnaireCompleted = "/questionnaire-completed";
         public const string ThankYouRep = "/thank-you-rep";
         public const string PleaseContactUs = "/contact-us-rep";

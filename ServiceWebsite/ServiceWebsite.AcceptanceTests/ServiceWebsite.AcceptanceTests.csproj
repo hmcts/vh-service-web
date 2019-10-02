@@ -57,6 +57,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutYourComputer.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\AppointingBarrister.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppointingBarrister.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\Consent.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -94,6 +99,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AccessToRoom.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\OtherInformation.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OtherInformation.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\SelfTest\CameraWorking.feature.cs">
       <DesignTime>True</DesignTime>
@@ -145,20 +155,20 @@
       <LastGenOutput>AboutYourClient.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYourComputer.feature">
-      <LastGenOutput>AboutYourComputer.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AboutYou.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\AppointingBarrister.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AppointingBarrister.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Consent.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Consent.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\HearingSuitability.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -166,7 +176,6 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\IndividualInformationVideo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>IndividualInformationVideo.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\IndividualThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -174,21 +183,21 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\InternetConnection.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>InternetConnection.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Interpreter.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Interpreter.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Login.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AccessToRoom.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-      <LastGenOutput>AccessToRoom.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\OtherInformation.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>OtherInformation.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\PleaseContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -204,23 +213,18 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\CameraWorking.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CameraWorking.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\CheckYourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CheckYourComputer.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\IndividualThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>IndividualThankYou.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\MicrophoneWorking.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>MicrophoneWorking.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\SelfTest\SwitchCameraMicrophone.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SwitchCameraMicrophone.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ThankYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -232,7 +236,6 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\YourComputer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>YourComputer.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
   </ItemGroup>
   <ItemGroup>

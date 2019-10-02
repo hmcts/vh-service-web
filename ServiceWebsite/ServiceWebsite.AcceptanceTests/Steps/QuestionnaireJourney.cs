@@ -9,6 +9,7 @@ using ServiceWebsite.AcceptanceTests.Constants;
 using ServiceWebsite.AcceptanceTests.Pages.SelfTesPages;
 using System.Linq;
 using ServiceWebsite.AcceptanceTests.NuGet.Contexts;
+using ServiceWebsite.AcceptanceTests.Pages.RepresentativePages;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -50,8 +51,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _pages.Add(new DecisionJourney(browserContext, PageUri.SignInOncomputer, SelfTestPageNames.SignInOncomputer));
             _pages.Add(new DecisionJourney(browserContext, PageUri.SignBackIn, SelfTestPageNames.SignBackIn));
 
-            //_pages.Add(new DecisionJourney(browserContext, PageUri.EquipmentBlocked, SelfTestPageNames.EquipmentBlocked));
-            //_equipmentBlocked = new Page(browserContext, PageUri.EquipmentBlocked, SelfTestPageNames.EquipmentBlocked);
         }
 
         [Then(@"(.*) error should be displayed")]
@@ -63,6 +62,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
+        {
+            SelectAnswer((DecisionJourney)CurrentPage, answer);
+        }
+
+        [When(@"When provides selects option as (.*)")]
+        private void WhenRepresentativeProvidesAnswerAsNotsure(AnswerType answer)
         {
             SelectAnswer((DecisionJourney)CurrentPage, answer);
         }
@@ -105,6 +110,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     switchOnCameraAndMicrophone.Continue();
                     continue;
                 }
+                if (page.Name == RepresentativePageNames.AppointingABarrister && page.Name != pageName)
+                {
+                    var appointingABarrister = (AppointingABarrister)page;
+                    appointingABarrister.Select(BarristerAppointmentTypes.IAmBarrister);
+                    appointingABarrister.Continue();
+                    continue;
+                }
                 if (page.Name == pageName)
                 {
                     _scenarioContext.Set(page, "CurrentPage");
@@ -141,7 +153,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return true;
         }
 
-        private JourneyStepPage CurrentPage
+        protected JourneyStepPage CurrentPage
         {
             get
             {
