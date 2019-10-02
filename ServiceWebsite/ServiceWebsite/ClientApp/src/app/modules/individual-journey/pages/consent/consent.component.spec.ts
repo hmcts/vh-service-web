@@ -5,6 +5,7 @@ import { ConsentComponent } from './consent.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('ConsentComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -15,6 +16,7 @@ describe('ConsentComponent', () => {
     journey = IndividualJourneyStubs.journeySpy;
     const componentFixture = IndividualJourneyComponentTestBed.createComponent({
       component: ConsentComponent,
+      declarations: [BackNavigationStubComponent],
       journey: journey
     });
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);
@@ -50,29 +52,6 @@ describe('ConsentComponent', () => {
     expect(component.isFormInvalid).toBeFalsy();
   });
 
-  it('should enable text field when selecting yes', () => {
-    fixture.radioBoxIsClicked('#choice-yes');
-    const textfield = fixture.debugElementByCss('#details-yes');
-    expect(textfield.attributes['disabled']).toBeFalsy();
-  });
-
-  it('should enable text field when selecting no', () => {
-    fixture.radioBoxIsClicked('#choice-no');
-    const textfield = fixture.debugElementByCss('#details-no');
-    expect(textfield.attributes['disabled']).toBeFalsy();
-  });
-
-  it('should be valid if submitting without having entered any text in yes note', () => {
-    // when
-    fixture.radioBoxIsClicked('#choice-yes');
-    fixture.submitIsClicked();
-
-    // then
-    expect(component.isFormInvalid).toBeFalsy();
-    const textfield = fixture.debugElementByCss('#details-yes');
-    expect(textfield.classes['govuk-textarea--error']).toBeFalsy();
-  });
-
   it('should be invalid if submitting without having entered any text in no note', () => {
     // when
     fixture.radioBoxIsClicked('#choice-no');
@@ -84,16 +63,15 @@ describe('ConsentComponent', () => {
     expect(textfield.classes['govuk-textarea--error']).toBeTruthy();
   });
 
-  it('should bind value and notes for option yes to model on submit', () => {
+  it('should bind value for option yes to model on submit', () => {
     // when
     fixture.radioBoxIsClicked('#choice-yes');
-    component.textInputYes.setValue('notes');
     fixture.detectChanges();
     fixture.submitIsClicked();
 
     // then
     expect(component.model.consent.answer).toBe(true);
-    expect(component.model.consent.notes).toBe('notes');
+    expect(component.model.consent.notes).toBe(null);
   });
 
   it('should bind value and notes for option no to model on submit', () => {
@@ -110,18 +88,18 @@ describe('ConsentComponent', () => {
 
   it('should bind value and notes to the data controls onInit', () => {
     // when
-    component.model.consent.answer = true;
+    component.model.consent.answer = false;
     component.model.consent.notes = 'notes';
     component.ngOnInit();
 
-     // then
-    expect(component.textInputYes.value).toBe('notes');
+    // then
+    expect(component.textInputNo.value).toBe('notes');
   });
 
   it(`should submit questionnaire and go to ${SelfTestJourneySteps.CheckYourComputer} on submitting`, async () => {
     component.ngOnInit();
-    component.choice.setValue(true);
-    component.textInputYes.setValue('comments');
+    component.choice.setValue(false);
+    component.textInputNo.setValue('comments');
 
     await component.submit();
 

@@ -3,11 +3,13 @@ import { IndividualJourneySteps } from './../../individual-journey-steps';
 import { CommonTests } from './../../../base-journey/components/common-tests.spec';
 import { YourInternetConnectionComponent } from './your-internet-connection.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
+import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('InterpreterComponent', () => {
   it(`cannot proceed to next step until pressing choice, then goes to ${IndividualJourneySteps.AccessToRoom}`, () => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
-      component: YourInternetConnectionComponent
+      component: YourInternetConnectionComponent,
+      declarations: [BackNavigationStubComponent]
     });
 
     CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
