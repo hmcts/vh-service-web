@@ -12,7 +12,4 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
     }
 }
 
-//selectorId = "i-am-barrister";
-//selectorId = "barrister-will-appointed";
-//selectorId = "barrister-not-appointed";
                     
