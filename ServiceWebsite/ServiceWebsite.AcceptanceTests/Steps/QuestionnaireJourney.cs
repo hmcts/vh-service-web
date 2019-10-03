@@ -173,6 +173,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             switch (pageName)
             {
+                case IndividualPageNames.ThankYou:
+                    return new Page(_browserContext, PageUri.ThankYouPage, IndividualPageNames.ThankYou);
                 case SelfTestPageNames.EquipmentBlocked:
                     return new Page(_browserContext, PageUri.EquipmentBlocked, "equipment blocked");
                 default:
