@@ -3,7 +3,7 @@ import {AppComponent} from './app.component';
 import {Router, NavigationEnd} from '@angular/router';
 import {AdalService} from 'adal-angular4';
 import {Config} from './modules/shared/models/config';
-import {of} from 'rxjs';
+import {Observable, of, throwError, throwError as _observableThrow} from 'rxjs';
 import {WindowRef, WindowLocation} from './modules/shared/window-ref';
 import {PageTrackerService} from './services/page-tracker.service';
 import {HeaderComponent} from './modules/shared/header/header.component';
@@ -16,6 +16,7 @@ import {NavigationBackSelector} from './modules/base-journey/services/navigation
 import {DocumentRedirectService} from './services/document-redirect.service';
 import {Logger} from './services/logger';
 import {MockLogger} from './testing/mocks/mock-logger';
+import {ServiceWebApiException} from './services/clients/api-client';
 
 @Component({selector: 'app-footer', template: ''})
 export class FooterStubComponent {
@@ -114,7 +115,7 @@ describe('AppComponent', () => {
     await component.ngOnInit();
 
     const lastRouterCall = router.navigate.calls.mostRecent();
-    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
 
     expect(lastRoutingArgs.url).toEqual('/unauthorized');
   });
@@ -125,7 +126,7 @@ describe('AppComponent', () => {
     await component.ngOnInit();
 
     const lastRouterCall = router.navigate.calls.mostRecent();
-    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
 
     expect(lastRoutingArgs.url).toEqual('/unauthorized');
   });
@@ -136,7 +137,21 @@ describe('AppComponent', () => {
     await component.ngOnInit();
 
     const lastRouterCall = router.navigate.calls.mostRecent();
-    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
+
+    expect(lastRoutingArgs.url).toEqual('/unauthorized');
+  });
+
+  it('should redirect to unauthorized when getUserProfile throws error 401', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(
+      Promise.reject({status: 401})
+    );
+
+    await component.ngOnInit();
+
+    const lastRouterCall = router.navigate.calls.mostRecent();
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
 
     expect(lastRoutingArgs.url).toEqual('/unauthorized');
   });
