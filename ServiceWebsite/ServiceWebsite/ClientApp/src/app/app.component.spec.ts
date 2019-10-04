@@ -156,6 +156,17 @@ describe('AppComponent', () => {
     expect(lastRoutingArgs.url).toEqual('/unauthorized');
   });
 
+  it('should redirect to Video when getUserProfile throws error 500', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(
+      Promise.reject({status: 500})
+    );
+
+    await component.ngOnInit();
+
+    expect(redirect.to).toHaveBeenCalled();
+  });
+
   it('should select and start journey on init', async () => {
     adalService.userInfo.authenticated = true;
     profileService.getUserProfile.and.returnValue(Promise.resolve({email: 'email', role: 'role'}));
