@@ -19,20 +19,11 @@ export class ProfileService {
       return this.profile;
     }
 
-    try {
-      const response = await this.apiClient.getUserProfile().toPromise();
-      this.profile = new UserProfile();
+    const response = await this.apiClient.getUserProfile().toPromise();
+    this.profile = new UserProfile();
+    this.profile.email = response.email;
+    this.profile.role = response.role;
 
-      if (response === undefined) {
-        return this.profile;
-      }
-
-      this.profile.email = response.email;
-      this.profile.role = response.role;
-
-      return this.profile;
-    } catch (err) {
-      this.logger.error(`Error getting user profile: ${err.response}`, err);
-    }
+    return this.profile;
   }
 }

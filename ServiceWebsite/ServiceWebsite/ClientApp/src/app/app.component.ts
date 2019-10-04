@@ -75,19 +75,34 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    const profile = await this.profileService.getUserProfile();
-
-    if (profile === undefined || profile.email === undefined || profile.role === undefined) {
-      await this.router.navigate(['/unauthorized']);
-      return;
-    }
-
     try {
+      const profile = await this.profileService.getUserProfile();
+
+      if (profile === undefined || profile.email === undefined || profile.role === undefined) {
+        await this.router.navigate(['/unauthorized']);
+        return;
+      }
+
       await this.journeySelector.beginFor(profile.role);
       await this.navigationBackSelector.beginFor(profile.role);
     } catch (err) {
-      this.logger.error(err.message, err, {profileRole: profile.role});
+      const errorMessage =
+        `Error ${err.status ? err.status : ''}:
+        ${err.message ? err.message : 'No Error Message'}:
+        ${err.response ? err.response : 'No Response'}
+        `;
+
+      this.logger.error(errorMessage, err);
+
+      if (err.status) {
+        if (err.status === 401) {
+          await this.router.navigate(['/unauthorized']);
+          return;
+        }
+      }
+
       this.redirect.to(this.config.videoAppUrl);
+
       return;
     }
   }
