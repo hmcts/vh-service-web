@@ -6,12 +6,7 @@ namespace ServiceWebsite.AcceptanceTests.Constants
 {
     public class RepresentativeQuestionKeys
     {
-        public const string AboutYou = "ABOUT_YOU";
-        public const string AboutYourClient = "ABOUT_YOUR_CLIENT";
-        public const string ClientAttendance = "CLIENT_ATTENDANCE";
-        public const string HearingSuitability = "HEARING_SUITABILITY";
-        public const string AccessToRoom = "ROOM";
-        public const string YourComputer = "COMPUTER";
-        public const string AboutYourComputer = "CAMERA_MICROPHONE";
+        public const string AppointingABarrister = "APPOINTING_A_BARRISTER";
+        public const string OtherInformation = "OTHER_INFORMATION";
     }
 }
