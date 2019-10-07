@@ -12,6 +12,9 @@ export class ChoiceTextboxComponent implements OnInit {
   detailsYesText: string;
 
   @Input()
+  hintText: string;
+
+  @Input()
   suitabilityAnswer: SuitabilityAnswer;
 
   @Output()
