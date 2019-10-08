@@ -10,8 +10,8 @@
     </h1>
 
     <app-choice-textbox
-      [detailsYesText]="'Please provide any information you feel comfortable sharing and that you believe may help the court decide which type of hearing will be most suitable.'"
-      [suitabilityAnswer]="journey.model.aboutYou"
+      [detailsYesText]="'Please provide more detail'"
+      [suitabilityAnswer]="journey.model.aboutYou" [hintText]="'Include any information you\'re happy to share to help the court decide which type of hearing may be best'"
       (submitted)="submit()">
 
       <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@aboutYou_p_1">
@@ -29,7 +29,7 @@
         <li i18n="@@aboutYou_listItem_3">do you have a learning disability or sometimes struggle to understand
           everyday things?</li>
         <li i18n="@@aboutYou_listItem_4">do you have mobility issues that make it difficult to travel?</li>
-        <li i18n="@@aboutYou_listItem_5">something else?</li>
+        <li i18n="@@aboutYou_listItem_5">any other reason why you would not be able to join the hearing by video?</li>
       </ul>
     </app-choice-textbox>
 
