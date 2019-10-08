@@ -24,14 +24,14 @@
             <div [ngClass]="form.isTextInputInvalid ? 'vh-radios__conditional--error' : 'govuk-radios__conditional'">
               <div class="form-group textarea-top-margin" *ngIf="form.choice.value">
                 <div>
-                  <span *ngIf="form.isTextInputInvalid" class="govuk-error-message" i18n="@@choiceTextbox_span_2">
-                    Please complete this section
-                  </span>
                   <label for="details-yes" id="details-yes-label" class="govuk-label" i18n="@@choiceTextbox_label_1">
                     {{detailsYesText}}
                   </label>
                   <span class="govuk-hint" i18n="@@choiceTextbox_span_3">
                     {{hintText}}
+                  </span>
+                  <span *ngIf="form.isTextInputInvalid" class="govuk-error-message" i18n="@@choiceTextbox_span_2">
+                    Please complete this section
                   </span>
                   <textarea formControlName="textInput" class="txtMore vh-text-width" id="details-yes" rows="5"
                             cols="80" [ngClass]="form.isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
