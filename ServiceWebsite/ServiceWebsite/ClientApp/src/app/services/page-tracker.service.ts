@@ -11,7 +11,11 @@ export class PageTrackerService {
   trackNavigation(router: Router) {
     router.events
       .pipe(filter(event => event instanceof ResolveEnd))
-      .subscribe((event: ResolveEnd) => this.logPageResolved(event));
+      .subscribe((event: ResolveEnd) => {
+        this.logPageResolved(event);
+        document.body.tabIndex = 0;
+        document.body.focus();
+      });
   }
 
   private logPageResolved(event: ResolveEnd): void {
