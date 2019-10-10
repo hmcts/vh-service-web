@@ -15,7 +15,7 @@ export class ChoiceTextboxComponent implements OnInit {
   hintText: string;
 
   @Input()
-  buttonText: string ='Continue';
+  buttonText = 'Continue';
 
   @Input()
   suitabilityAnswer: SuitabilityAnswer;
