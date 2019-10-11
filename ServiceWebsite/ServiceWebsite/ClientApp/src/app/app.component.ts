@@ -71,9 +71,12 @@ export class AppComponent implements OnInit {
     const currentUrl = this.window.getLocation().href;
 
     if (!this.loggedIn) {
+      this.logger.event('telemetry:any:login:notauthenticated');
       await this.router.navigate(['/login'], {queryParams: {returnUrl: currentUrl}});
       return;
     }
+
+    this.logger.event('telemetry:any:login:authenticated');
 
     try {
       const profile = await this.profileService.getUserProfile();
@@ -96,6 +99,7 @@ export class AppComponent implements OnInit {
 
       if (err.status) {
         if (err.status === 401) {
+          this.logger.event('telemetry:any:login:unauthorized');
           await this.router.navigate(['/unauthorized']);
           return;
         }

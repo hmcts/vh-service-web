@@ -13,6 +13,7 @@ import { Injectable } from '@angular/core';
 export class RepresentativeJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
   readonly bindings = new Map<JourneyStep, string>();
   readonly initialStep = Steps.YourVideoHearing;
+  readonly finalStep = Steps.ThankYou;
     constructor(selfTest: SelfTestJourneyStepComponentBindings) {
         super();
         this.bindings.set(Steps.AboutYou, Paths.AboutYou);

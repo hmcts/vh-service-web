@@ -11,7 +11,6 @@ import {Logger} from 'src/app/services/logger';
 
 @Injectable()
 export class IndividualJourney extends JourneyBase {
-  static readonly initialStep = IndividualJourneySteps.AboutHearings;
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
   private currentModel: IndividualSuitabilityModel;
@@ -19,6 +18,7 @@ export class IndividualJourney extends JourneyBase {
   constructor(private submitService: SubmitService, private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
+      this.logger.event(`telemetry:individual:step:${step}`);
       this.currentStep = step;
     });
   }
