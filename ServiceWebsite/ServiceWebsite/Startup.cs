@@ -40,11 +40,8 @@ namespace ServiceWebsite
             services.AddSingleton<ITelemetryInitializer>(new CloudRoleNameInitializer());
 
             services.AddCors();
-
             services.AddJsonOptions();
-
             RegisterSettings(services);
-
             services.AddCustomTypes();
 
             var settings = Configuration.Get<EnvironmentSettings>();
