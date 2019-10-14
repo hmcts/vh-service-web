@@ -8,7 +8,8 @@ import {
 } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
-import { BackNavigationComponent } from '../../../shared/back-navigation/back-navigation.component';
+import {Logger} from '../../../../services/logger';
+import {MockLogger} from '../../../../testing/mocks/mock-logger';
 
 describe('AboutYourComputerComponent', () => {
   it(`cannot proceed to next step until pressing choice, then goes to ${IndividualJourneySteps.YourInternetConnection}`, () => {
@@ -16,6 +17,7 @@ describe('AboutYourComputerComponent', () => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: AboutYourComputerComponent,
       declarations: [BackNavigationStubComponent],
+      providers: [{provide: Logger, useClass: MockLogger}],
       journey: journey
     });
     const choiceComponentFixture = new SuitabilityChoiceComponentFixture(fixture);
@@ -28,7 +30,7 @@ describe('AboutYourComputerComponent', () => {
 
   it(`should submit and go to ${IndividualJourneySteps.ThankYou} if answering no`, async () => {
     const journey = IndividualJourneyStubs.journeySpy;
-    const component = new AboutYourComputerComponent(journey);
+    const component = new AboutYourComputerComponent(journey, new MockLogger());
     component.choice.setValue(HasAccessToCamera.No);
     await component.submit();
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
