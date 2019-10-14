@@ -31,7 +31,6 @@ export class VideoWorkingComponent extends SuitabilityChoicePageBaseComponent<Jo
     }
 
     await this.journey.submitQuestionnaire();
-    this.logger.event('telemetry:selftest:complete');
     this.journey.goto(ParticipantJourneySteps.ThankYou);
   }
 

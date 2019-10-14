@@ -29,4 +29,8 @@ export class LoggerService implements Logger {
   error(message: string, err: Error, properties?: any) {
     this.adapters.forEach(logger => logger.trackException(message, err, properties));
   }
+
+  flushBuffer() {
+    this.adapters.forEach(logger => logger.flushBuffer());
+  }
 }

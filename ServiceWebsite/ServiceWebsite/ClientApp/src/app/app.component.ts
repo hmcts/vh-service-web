@@ -72,6 +72,7 @@ export class AppComponent implements OnInit {
 
     if (!this.loggedIn) {
       this.logger.event('telemetry:any:login:notauthenticated');
+      this.logger.flushBuffer();
       await this.router.navigate(['/login'], {queryParams: {returnUrl: currentUrl}});
       return;
     }
