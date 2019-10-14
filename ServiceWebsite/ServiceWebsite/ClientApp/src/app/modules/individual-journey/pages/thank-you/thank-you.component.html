@@ -4,17 +4,28 @@
   </h1>
 </div>
 <div>
-  <p class="govuk-body" i18n="@@thankYou_p_1">We’ve received your answers.</p>
+  <p class="govuk-body" i18n="@@thankYou_p_1">
+    Your hearing is due to take place on
+    <strong>{{ hearingDate | appLongDatetime }}.</strong>
+  </p>
 
-  <p class="govuk-body" i18n="@@thankYou_p_2">Your hearing is due to take place on
-    <strong>{{ hearingDate | appLongDatetime }}.</strong></p>
+  <p class="govuk-body" i18n="@@thankYou_p_2">We’ve received your answers. This is what happens next:</p>
 
-  <p class="govuk-body" i18n="@@thankYou_p_3">We’ll contact you by email to let you know if the court has decided that
-    the hearing should take place in a court building or by video. We may phone you if we need more information.</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li i18n="@@thankYou_listItem_1">the other participants need to respond.</li>
 
-  <p class="govuk-body govuk-!-padding-bottom-9" i18n="@@thankYou_p_4">The court needs to hear back from all
-    participants before it can decide.
-    If you have any questions before then, please contact us.</p>
+    <li i18n="@@thankYou_listItem_2">
+      the court will then decide if the hearing will take place by video or in a court building.
+    </li>
+
+    <li i18n="@@thankYou_listItem_3">
+      you’ll receive an email confirming this decision at least 7 days before the hearing.
+    </li>
+  </ul>
+
+  <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@thankYou_p_3">
+    We may phone you if we need more information. If you have any questions, please contact us.
+  </p>
 </div>
 
 <app-contact-us></app-contact-us>
