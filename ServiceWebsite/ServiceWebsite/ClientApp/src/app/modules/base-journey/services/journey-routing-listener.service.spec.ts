@@ -10,9 +10,11 @@ import { JourneyStep } from '../journey-step';
 import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
 import { EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
+import {Logger} from '../../../services/logger';
 
 class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBindings {
   readonly initialStep = Steps.AboutYou;
+  readonly finalStep = Steps.ThankYou;
   readonly bindings = new Map<JourneyStep, string>();
   constructor() {
     super();
@@ -73,7 +75,8 @@ describe('JourneyRoutingListenerService', () => {
       location,
       router,
       config,
-      redirectService
+      redirectService,
+      jasmine.createSpyObj<Logger>(['event'])
     );
   };
 

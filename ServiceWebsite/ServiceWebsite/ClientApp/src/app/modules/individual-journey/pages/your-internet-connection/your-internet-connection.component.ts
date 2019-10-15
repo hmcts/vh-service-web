@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import {Logger} from '../../../../services/logger';
 
 @Component({
   selector: 'app-your-internet-connection',
@@ -10,7 +11,7 @@ import { IndividualJourneySteps } from '../../individual-journey-steps';
 })
 export class YourInternetConnectionComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
 
-  constructor(journey: IndividualJourney) {
+  constructor(journey: IndividualJourney, private logger: Logger) {
     super(journey);
   }
 
@@ -29,6 +30,7 @@ export class YourInternetConnectionComponent extends SuitabilityChoicePageBaseCo
 
     if (this.model.internet === false) {
       await this.journey.submitQuestionnaire();
+      this.logger.event('telemetry:individual:dropout:HasAccessToInternet:No');
       this.journey.goto(IndividualJourneySteps.ThankYou);
     } else {
       this.journey.goto(IndividualJourneySteps.AccessToRoom);
