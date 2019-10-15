@@ -8,6 +8,7 @@ import { JourneyBase } from '../journey-base';
 import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
 import { filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import {Logger} from '../../../services/logger';
 
 /**
  * Connects the routing to the journey
@@ -21,7 +22,8 @@ export class JourneyRoutingListenerService {
         private location: Location,
         private router: Router,
         private config: Config,
-        private redirect: DocumentRedirectService) {
+        private redirect: DocumentRedirectService,
+        private logger: Logger) {
     }
 
     private gotoStep(step: JourneyStep) {
@@ -43,8 +45,13 @@ export class JourneyRoutingListenerService {
 
         // restart the journey if navigating to the first step
         if (step === this.componentBindings.initialStep) {
+            this.logger.event('telemetry:any:journey:start');
             this.journey.startAt(step);
         } else {
+            if (step === this.componentBindings.finalStep ) {
+              this.logger.event('telemetry:any:journey:end');
+            }
+
             this.journey.jumpTo(step);
         }
     }

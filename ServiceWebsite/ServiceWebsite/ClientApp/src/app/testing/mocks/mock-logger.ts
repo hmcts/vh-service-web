@@ -6,4 +6,5 @@ export class MockLogger implements Logger {
   warn(message: string): void { }
   event(event: string, properties?: any): void { }
   error(message: string, err: Error, properties?: any): void { }
+  flushBuffer() { }
 }

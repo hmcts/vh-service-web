@@ -7,6 +7,7 @@ import { JourneyStep } from '../journey-step';
 export abstract class ParticipantJourneyStepComponentBindings {
     readonly bindings = new Map<JourneyStep, string>();
     readonly initialStep;
+    readonly finalStep;
 
     /**
      * Returns any step that matches the given route path or null if no matches exist

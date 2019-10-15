@@ -24,4 +24,6 @@ export class ConsoleLogger implements LogAdapter {
       console.log(`Properties: ${JSON.stringify(properties)}`);
     }
   }
+
+  flushBuffer() { }
 }
