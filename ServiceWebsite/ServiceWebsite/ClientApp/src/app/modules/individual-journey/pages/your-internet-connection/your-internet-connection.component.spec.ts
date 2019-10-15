@@ -1,15 +1,18 @@
-import { IndividualJourneyStubs } from './../individual-base-component/individual-component-test-bed.spec';
-import { IndividualJourneySteps } from './../../individual-journey-steps';
-import { CommonTests } from './../../../base-journey/components/common-tests.spec';
+import { IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { CommonTests } from '../../../base-journey/components/common-tests.spec';
 import { YourInternetConnectionComponent } from './your-internet-connection.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
+import {Logger} from '../../../../services/logger';
+import {MockLogger} from '../../../../testing/mocks/mock-logger';
 
 describe('InterpreterComponent', () => {
   it(`cannot proceed to next step until pressing choice, then goes to ${IndividualJourneySteps.AccessToRoom}`, () => {
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: YourInternetConnectionComponent,
-      declarations: [BackNavigationStubComponent]
+      declarations: [BackNavigationStubComponent],
+      providers: [{provide: Logger, useClass: MockLogger}],
     });
 
     CommonTests.cannotProceedUntilChoiceIsSelected(fixture);
@@ -20,7 +23,7 @@ describe('InterpreterComponent', () => {
 
   it(`should submit questionnaire and go to ${IndividualJourneySteps.ThankYou} if not having internet connection`, async () => {
     const journey = IndividualJourneyStubs.journeySpy;
-    const component = new YourInternetConnectionComponent(journey);
+    const component = new YourInternetConnectionComponent(journey, new MockLogger());
 
     component.choice.setValue(false);
     await component.submit();

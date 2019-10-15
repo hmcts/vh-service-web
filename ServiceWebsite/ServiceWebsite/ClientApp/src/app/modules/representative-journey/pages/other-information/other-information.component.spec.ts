@@ -3,13 +3,14 @@ import {
   RepresentativeJourneyComponentTestBed,
   RepresentativeJourneyStubs
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
-import { CommonTests } from 'src/app/modules/base-journey/components/common-tests.spec';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { RepresentativeJourney } from '../../representative-journey';
 import { ChoiceTextboxComponent } from 'src/app/modules/base-journey/components/choice-textbox.component';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
+import {MockLogger} from '../../../../testing/mocks/mock-logger';
+import {Logger} from '../../../../services/logger';
 
 describe('OtherInformationComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -23,6 +24,7 @@ describe('OtherInformationComponent', () => {
         ChoiceTextboxComponent,
         BackNavigationStubComponent
       ],
+      providers: [{provide: Logger, useClass: MockLogger}],
       journey: journey
     });
     component = componentFixture.componentInstance;

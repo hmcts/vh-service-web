@@ -62,4 +62,8 @@ export class AppInsightsLogger implements LogAdapter {
 
     AppInsights.trackException(err, null, properties);
   }
+
+  flushBuffer() {
+    AppInsights.flush();
+  }
 }

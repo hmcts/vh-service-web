@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  SuitabilityChoicePageBaseComponent
-} from 'src/app/modules/representative-journey/components/suitability-choice-page-base.component';
+import { Component } from '@angular/core';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
+import {Logger} from '../../../../services/logger';
 
 @Component({
   selector: 'app-other-information',
@@ -13,7 +11,7 @@ import { RepresentativeSuitabilityModel } from '../../representative-suitability
 })
 export class OtherInformationComponent {
 
-  constructor(private journey: RepresentativeJourney) {
+  constructor(private journey: RepresentativeJourney, private logger: Logger) {
   }
 
   get model(): RepresentativeSuitabilityModel {
@@ -21,6 +19,7 @@ export class OtherInformationComponent {
   }
   async submit(): Promise<void> {
     await this.journey.submitQuestionnaire();
+    this.logger.event('telemetry:any:questionnaire:complete');
     this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
   }
 }

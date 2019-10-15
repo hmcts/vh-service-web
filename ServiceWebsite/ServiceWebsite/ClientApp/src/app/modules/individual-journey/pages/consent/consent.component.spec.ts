@@ -1,11 +1,12 @@
-import { IndividualJourneyStubs } from './../individual-base-component/individual-component-test-bed.spec';
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
+import { IndividualJourneyStubs } from '../individual-base-component/individual-component-test-bed.spec';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { ConsentComponent } from './consent.component';
 import { IndividualJourneyComponentTestBed } from '../individual-base-component/individual-component-test-bed.spec';
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
+import {MockLogger} from '../../../../testing/mocks/mock-logger';
+import {Logger} from '../../../../services/logger';
 
 describe('ConsentComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -17,6 +18,7 @@ describe('ConsentComponent', () => {
     const componentFixture = IndividualJourneyComponentTestBed.createComponent({
       component: ConsentComponent,
       declarations: [BackNavigationStubComponent],
+      providers: [{provide: Logger, useClass: MockLogger}],
       journey: journey
     });
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);

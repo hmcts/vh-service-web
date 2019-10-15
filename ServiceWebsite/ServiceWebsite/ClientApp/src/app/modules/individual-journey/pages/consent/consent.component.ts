@@ -4,6 +4,7 @@ import { SuitabilityChoicePageBaseComponent } from '../../components/suitability
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
+import {Logger} from '../../../../services/logger';
 
 const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
 FormControlName.prototype.ngOnChanges = function () {
@@ -22,7 +23,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
   readonly textInputNo = new FormControl('');
   noSelected = false;
 
-  constructor(journey: IndividualJourney) {
+  constructor(journey: IndividualJourney, private logger: Logger) {
     super(journey);
   }
 
@@ -83,6 +84,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
 
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
+      this.logger.event('telemetry:any:questionnaire:complete');
       this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
     }
   }
