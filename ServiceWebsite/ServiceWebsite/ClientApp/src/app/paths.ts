@@ -8,5 +8,6 @@ export const Paths = {
   MediaError: 'media-error',
   EquipmentBlocked: 'equipment-blocked',
   UnsupportedBrowser: 'unsupported-browser',
-  QuestionnaireAlreadyCompleted: 'questionnaire-already-completed'
+  QuestionnaireAlreadyCompleted: 'questionnaire-already-completed',
+  SignInOnComputer: 'sign-in-on-computer',
 };
