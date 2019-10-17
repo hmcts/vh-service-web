@@ -9,6 +9,7 @@ import { ParticipantJourneyStepComponentBindings } from './participant-journey-c
 import { filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import {Logger} from '../../../services/logger';
+import {Title} from '@angular/platform-browser';
 
 /**
  * Connects the routing to the journey
@@ -23,7 +24,8 @@ export class JourneyRoutingListenerService {
         private router: Router,
         private config: Config,
         private redirect: DocumentRedirectService,
-        private logger: Logger) {
+        private logger: Logger,
+        private titleService: Title) {
     }
 
     private gotoStep(step: JourneyStep) {
@@ -71,6 +73,10 @@ export class JourneyRoutingListenerService {
         this.router.events
           .pipe(filter(event => event instanceof ResolveEnd))
           .subscribe((event: ResolveEnd) => {
+            const currentRoute = this.getRouteFromUrl(event.urlAfterRedirects);
+            const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
+            console.log(`***: ${journeyStep} - HMCTS`);
+            this.titleService.setTitle(`${journeyStep} - HMCTS`);
             this.tryJumpJourneyTo(this.getRouteFromUrl(event.urlAfterRedirects));
           });
 
