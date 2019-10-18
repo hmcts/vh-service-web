@@ -64,6 +64,10 @@ export class JourneyRoutingListenerService {
   }
 
   private getFriendlyNameFromRoute(routeText: string): string {
+    if (routeText === undefined || routeText === '') {
+      return;
+    }
+
     const text = routeText.replace(/-/g, ' ');
     const wordArray = text.match(/\w+|\s+|[^\s\w]+/g);
     let friendlyName = '';

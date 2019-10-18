@@ -21,12 +21,14 @@ class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBi
     super();
     this.bindings.set(Steps.AboutYou, Paths.AboutYou);
     this.bindings.set(Steps.AboutHearings, Paths.AboutHearings);
+    this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
   }
 }
 
 export const Paths = {
   AboutYou: 'about-you',
-  AboutHearings: 'about-hearings'
+  AboutHearings: 'about-hearings',
+  AboutYourComputer: 'about-your-computer'
 
 };
 const tomorrow = new Date();
@@ -40,7 +42,7 @@ describe('JourneyRoutingListenerService', () => {
   let routerEvents: Subject<Event>;
   let stepEvents: EventEmitter<JourneyStep>;
   let redirectService: jasmine.SpyObj<DocumentRedirectService>;
-  const titleService = jasmine.createSpyObj<Title>(['setTitle']);
+  let titleService: jasmine.SpyObj<Title>;
   let currentJourneyStep: Steps;
 
   const bindings = new JourneyStepComponentBindingsStub();
@@ -48,7 +50,7 @@ describe('JourneyRoutingListenerService', () => {
 
   beforeEach(() => {
     redirectService = jasmine.createSpyObj<DocumentRedirectService>(['to']);
-
+    titleService = jasmine.createSpyObj<Title>(['setTitle']);
     routerEvents = new Subject();
     stepEvents = new EventEmitter<JourneyStep>();
     journey = {
@@ -122,10 +124,10 @@ describe('JourneyRoutingListenerService', () => {
     expect(journey.jumpTo).toHaveBeenCalledWith(Steps.AboutHearings);
   });
 
-  // it('should set the title', () => {
-  //   givenInitialisedAtStartStep();
-  //   expect(titleService.setTitle).toHaveBeenCalledWith(['About You']);
-  //   stepEvents.emit(Steps.AboutHearings);
-  //   expect(titleService.setTitle).toHaveBeenCalledWith(['AboutHearings']);
-  // });
+  it('should set the title', () => {
+    givenInitialisedAtStartStep();
+    const url = `/${Paths.AboutYourComputer}`;
+    routerEvents.next(new ResolveEnd(0, url, url, null));
+    expect(titleService.setTitle).toHaveBeenCalledWith('About Your Computer');
+  });
 });
