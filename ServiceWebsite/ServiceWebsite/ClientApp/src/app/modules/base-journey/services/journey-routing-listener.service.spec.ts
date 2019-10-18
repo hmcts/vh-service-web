@@ -1,16 +1,17 @@
 import {ParticipantJourneySteps as Steps} from '../participant-journey-steps';
-import { Config } from '../../shared/models/config';
-import { Subject } from 'rxjs';
-import { JourneyRoutingListenerService } from './journey-routing-listener.service';
-import { Router, Event, ResolveEnd } from '@angular/router';
-import { Paths as AppPaths } from '../../../paths';
-import { DocumentRedirectService } from 'src/app/services/document-redirect.service';
-import { JourneyBase } from '../journey-base';
-import { JourneyStep } from '../journey-step';
-import { ParticipantJourneyStepComponentBindings } from './participant-journey-component-bindings';
-import { EventEmitter } from '@angular/core';
-import { Location } from '@angular/common';
+import {Config} from '../../shared/models/config';
+import {Subject} from 'rxjs';
+import {JourneyRoutingListenerService} from './journey-routing-listener.service';
+import {Event, ResolveEnd, Router} from '@angular/router';
+import {Paths as AppPaths} from '../../../paths';
+import {DocumentRedirectService} from 'src/app/services/document-redirect.service';
+import {JourneyBase} from '../journey-base';
+import {JourneyStep} from '../journey-step';
+import {ParticipantJourneyStepComponentBindings} from './participant-journey-component-bindings';
+import {EventEmitter} from '@angular/core';
+import {Location} from '@angular/common';
 import {Logger} from '../../../services/logger';
+import {Title} from '@angular/platform-browser';
 
 class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBindings {
   readonly initialStep = Steps.AboutYou;
@@ -20,12 +21,14 @@ class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBi
     super();
     this.bindings.set(Steps.AboutYou, Paths.AboutYou);
     this.bindings.set(Steps.AboutHearings, Paths.AboutHearings);
+    this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
   }
 }
 
 export const Paths = {
   AboutYou: 'about-you',
-  AboutHearings: 'about-hearings'
+  AboutHearings: 'about-hearings',
+  AboutYourComputer: 'about-your-computer'
 
 };
 const tomorrow = new Date();
@@ -39,6 +42,7 @@ describe('JourneyRoutingListenerService', () => {
   let routerEvents: Subject<Event>;
   let stepEvents: EventEmitter<JourneyStep>;
   let redirectService: jasmine.SpyObj<DocumentRedirectService>;
+  let titleService: jasmine.SpyObj<Title>;
   let currentJourneyStep: Steps;
 
   const bindings = new JourneyStepComponentBindingsStub();
@@ -46,7 +50,7 @@ describe('JourneyRoutingListenerService', () => {
 
   beforeEach(() => {
     redirectService = jasmine.createSpyObj<DocumentRedirectService>(['to']);
-
+    titleService = jasmine.createSpyObj<Title>(['setTitle']);
     routerEvents = new Subject();
     stepEvents = new EventEmitter<JourneyStep>();
     journey = {
@@ -70,13 +74,13 @@ describe('JourneyRoutingListenerService', () => {
     } as jasmine.SpyObj<Location>;
     location.path.and.returnValue('/about-you');
 
-
     service = new JourneyRoutingListenerService(
       location,
       router,
       config,
       redirectService,
-      jasmine.createSpyObj<Logger>(['event'])
+      jasmine.createSpyObj<Logger>(['event']),
+      titleService
     );
   };
 
@@ -118,5 +122,12 @@ describe('JourneyRoutingListenerService', () => {
 
     // then we should be at the consent page,
     expect(journey.jumpTo).toHaveBeenCalledWith(Steps.AboutHearings);
+  });
+
+  it('should set the title', () => {
+    givenInitialisedAtStartStep();
+    const url = `/${Paths.AboutYourComputer}`;
+    routerEvents.next(new ResolveEnd(0, url, url, null));
+    expect(titleService.setTitle).toHaveBeenCalledWith('About Your Computer');
   });
 });
