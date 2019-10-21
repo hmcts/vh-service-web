@@ -1,4 +1,4 @@
-import { JourneyStep } from '../base-journey/journey-step';
+import { JourneyStep } from './journey-step';
 
 export class ParticipantJourneySteps {
   static readonly  NotStarted = new JourneyStep('NotStarted');
