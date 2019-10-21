@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://localhost:5301/swagger/v1/swagger.json",
+      "url": "https://vh-bookings-api-dev.azurewebsites.net/swagger/v1/swagger.json",
       "output": null
     }
   },
@@ -14,7 +14,7 @@
       "generateClientClasses": true,
       "generateClientInterfaces": true,
       "injectHttpClient": true,
-      "disposeHttpClient": false,
+      "disposeHttpClient": true,
       "protectedMethods": [],
       "generateExceptionClasses": true,
       "exceptionClass": "BookingsApiException",
@@ -30,7 +30,7 @@
       "typeAccessModifier": "public",
       "generateContractsOutput": false,
       "contractsNamespace": "ServiceWebsite.BookingsAPI.Client",
-      "contractsOutputFilePath": "BookingsApiContracts.cs",
+      "contractsOutputFilePath": "",
       "parameterDateTimeFormat": "s",
       "generateUpdateJsonSerializerSettingsMethod": true,
       "serializeTypeInformation": false,
@@ -65,7 +65,7 @@
       "arrayBaseType": "System.Collections.Generic.List",
       "dictionaryBaseType": "System.Collections.Generic.Dictionary",
       "classStyle": "Poco",
-      "generateDefaultValues": true,
+      "generateDefaultValues": false,
       "generateDataAnnotations": false,
       "excludedTypeNames": [],
       "excludedParameterNames": [],
@@ -84,7 +84,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": "http://localhost:5301",
       "serviceSchemes": null,
-      "output": "BookingsApiClient.cs"
+      "output": "../ServiceWebsite.BookingApi.Client/BookingsApiClient.cs"
     }
   }
 }
