@@ -12,7 +12,7 @@ export class ExploreVideoHearingComponent {
   constructor(private journey: IndividualJourney, private deviceType: DeviceType) {}
 
   get isMobile(): boolean {
-    return this.deviceType.isMobile();
+      return this.deviceType.isMobile() || this.deviceType.isTablet();
   }
 
   continue() {

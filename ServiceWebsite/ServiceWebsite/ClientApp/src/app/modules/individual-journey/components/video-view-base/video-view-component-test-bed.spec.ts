@@ -14,31 +14,31 @@ import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navi
 @Component({
     selector: 'app-video-view',
     template: ''
-  })
-  class StubVideoViewComponent {
+})
+class StubVideoViewComponent {
     @Input()
     source: string;
-  }
-  const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+}
+const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile', 'isTablet']);
 
-  export class VideoViewComponentTestBed {
+export class VideoViewComponentTestBed {
     static createComponent<TComponent>(component: Type<TComponent>, journey?: IndividualJourney): ComponentFixture<TComponent> {
-      return IndividualJourneyComponentTestBed.createComponent({
-        component: component,
-        providers: [
-          { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['getVideoFileUrlerror']) },
-          { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']) },
-          { provide: Config, useValue: {} },
-          { provide: MediaService, useClass: UserMediaService },
-          { provide: DeviceType, useValue: deviceType },
-        ],
-        declarations: [
-          StubVideoViewComponent,
-          UserCameraViewComponent,
-          BackNavigationStubComponent
-        ],
-        journey: journey
-      });
+        return IndividualJourneyComponentTestBed.createComponent({
+            component: component,
+            providers: [
+                { provide: Logger, useValue: jasmine.createSpyObj<Logger>(['getVideoFileUrlerror']) },
+                { provide: VideoUrlService, useValue: jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']) },
+                { provide: Config, useValue: {} },
+                { provide: MediaService, useClass: UserMediaService },
+                { provide: DeviceType, useValue: deviceType },
+            ],
+            declarations: [
+                StubVideoViewComponent,
+                UserCameraViewComponent,
+                BackNavigationStubComponent
+            ],
+            journey: journey
+        });
     }
-  }
+}
 
