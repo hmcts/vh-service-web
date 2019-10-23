@@ -27,7 +27,7 @@ export class ParticipantViewComponent extends VideoViewBaseComponent implements 
     videoUrlService: VideoUrlService, private deviceType: DeviceType, _logger: Logger) {
     super(videoUrlService, VideoFiles.BeforeTheDay_ParticipantView);
     this.logger = _logger;
-    this.isMobile = this.deviceType.isMobile();
+    this.isMobile = this.deviceType.isMobile() || this.deviceType.isTablet();
   }
 
   async ngAfterContentInit() {
