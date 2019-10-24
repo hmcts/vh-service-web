@@ -1,4 +1,4 @@
-import { JourneyStep } from '../base-journey/journey-step';
+import { JourneyStep } from './journey-step';
 
 export class ParticipantJourneySteps {
   static readonly  NotStarted = new JourneyStep('NotStarted');
@@ -9,4 +9,5 @@ export class ParticipantJourneySteps {
   static readonly  AccessToRoom = new JourneyStep('AccessToRoom');
   static readonly  ThankYou = new JourneyStep('ThankYou');
   static readonly GotoVideoApp = new JourneyStep('GotoVideoApp');
+  static readonly SignInOnComputer = new JourneyStep('SignInOnComputer');
 }

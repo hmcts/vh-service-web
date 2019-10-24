@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
-import {MediaService} from './media.service';
-import {Logger} from './logger';
-import {SessionStorage} from '../modules/shared/services/session-storage';
-import {BehaviorSubject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { MediaService } from './media.service';
+import { Logger } from './logger';
+import { SessionStorage } from '../modules/shared/services/session-storage';
+import { BehaviorSubject } from 'rxjs';
 import 'webrtc-adapter';
-import {UserMediaDevice} from '../modules/shared/models/user-media-device';
+import { UserMediaDevice } from '../modules/shared/models/user-media-device';
+import { MediaAccessResponse } from '../modules/base-journey/participant-suitability.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class UserMediaService extends MediaService {
   private stream: MediaStream;
   availableDeviceList: UserMediaDevice[];
   connectedDevices: BehaviorSubject<UserMediaDevice[]> = new BehaviorSubject([]);
+  mediaAccessResponse: MediaAccessResponse;
 
   constructor(private logger: Logger) {
     super();
@@ -100,22 +102,33 @@ export class UserMediaService extends MediaService {
     this.preferredMicCache.set(microphone);
   }
 
-  async requestAccess(): Promise<boolean> {
+  async requestAccess(): Promise<MediaAccessResponse> {
+    this.mediaAccessResponse = new MediaAccessResponse();
     try {
       await this.getStream();
-      return true;
+      this.mediaAccessResponse.result = true;
+      this.mediaAccessResponse.exceptionType = '';
+      this.stopStream();
+
     } catch (exception) {
       this.logger.error('Failed to get access to user media', exception);
-      return false;
+      console.log('reuquest access error' + exception.name + ' ' + exception.message);
+      this.mediaAccessResponse.result = false;
+      this.mediaAccessResponse.exceptionType = exception.name;
     }
+    return this.mediaAccessResponse;
   }
 
   async getStream(): Promise<MediaStream> {
     if (this.stream) {
       this.stopStream();
     }
-    this.stream = await this._navigator.mediaDevices.getUserMedia(this.constraints);
-    return this.stream;
+    try {
+      this.stream = await this._navigator.mediaDevices.getUserMedia(this.constraints);
+      return this.stream;
+    } catch (exception) {
+      throw (exception);
+    }
   }
 
   stopStream() {

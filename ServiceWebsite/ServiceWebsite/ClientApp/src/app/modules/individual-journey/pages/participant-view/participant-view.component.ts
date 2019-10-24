@@ -7,6 +7,7 @@ import { UserCameraViewComponent } from '../../components/user-camera-view/user-
 import { VideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component';
 import { DeviceType } from '../../../base-journey/services/device-type';
 import { MediaService } from 'src/app/services/media.service';
+import { Logger } from 'src/app/services/logger';
 
 @Component({
   selector: 'app-participant-view',
@@ -20,17 +21,28 @@ export class ParticipantViewComponent extends VideoViewBaseComponent implements 
 
   stream: MediaStream;
   isMobile = false;
+  logger: Logger;
 
   constructor(private journey: IndividualJourney, private userMediaService: MediaService,
-    videoUrlService: VideoUrlService, private deviceType: DeviceType) {
+    videoUrlService: VideoUrlService, private deviceType: DeviceType, _logger: Logger) {
     super(videoUrlService, VideoFiles.BeforeTheDay_ParticipantView);
-    this.isMobile = this.deviceType.isMobile();
+    this.logger = _logger;
+    this.isMobile = this.deviceType.isMobile() || this.deviceType.isTablet();
   }
 
   async ngAfterContentInit() {
     if (!this.isMobile) {
-      this.stream = await this.userMediaService.getStream();
-      this.userCameraViewComponent.setSource(this.stream);
+      try {
+        this.stream = await this.userMediaService.getStream();
+        if (this.stream) {
+          this.userCameraViewComponent.setSource(this.stream);
+        }
+      } catch (exception) {
+        this.logger.error('Failed to get access to user media', exception);
+        if (exception.name === 'NotAllowedError') {
+          this.journey.goto(IndividualJourneySteps.MediaAccessError);
+        }
+      }
     }
   }
 

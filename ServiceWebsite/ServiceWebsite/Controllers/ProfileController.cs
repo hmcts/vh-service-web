@@ -1,12 +1,13 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
 using ServiceWebsite.Models;
 using ServiceWebsite.UserAPI.Client;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ServiceWebsite.Controllers
 {
@@ -21,7 +22,7 @@ namespace ServiceWebsite.Controllers
         {
             _userApiClient = userApiClient;
         }
-        
+
         [HttpGet]
         [SwaggerOperation(OperationId = "GetUserProfile")]
         [ProducesResponseType(typeof(UserProfileResponse), (int)HttpStatusCode.OK)]
@@ -31,13 +32,56 @@ namespace ServiceWebsite.Controllers
             {
                 var participant = await _userApiClient.GetUserByAdUserNameAsync(User.Identity.Name);
 
-                return Ok(new UserProfileResponse{ Email = participant.Email, Role = participant.User_role });
+                return Ok(new UserProfileResponse { Email = participant.Email, Role = participant.User_role });
             }
-            catch (NotFoundException e)
+            catch (UserApiException ex) when (ex.StatusCode == (int)HttpStatusCode.NotFound)
             {
-                // If we can't find the user, or it hasn't got any upcoming hearings, it shouldn't be deemed as authorized
-                ApplicationLogger.TraceException(TraceCategories.Authorization, $"Failed to find participant: [{User.Identity.Name}]", e, User);
-                return Unauthorized();
+                var userAdObjectId = User.Claims.FirstOrDefault(m => m.Type == "oid");
+                ApplicationLogger.TraceException
+                (
+                    TraceCategories.MissingResource,
+                    $"Failed call to GetUserProfile(): [{(userAdObjectId != null ? userAdObjectId.Value : "unknown")}]",
+                    ex,
+                    User
+                );
+
+                return NotFound();
+            }
+            catch (UserApiException ex) when (ex.StatusCode == (int)HttpStatusCode.Unauthorized)
+            {
+                ApplicationLogger.TraceException
+                (
+                    TraceCategories.Authorization,
+                    "Unauthorized call to GetUserProfile()",
+                    ex,
+                    User
+                );
+
+                return Unauthorized(ex.Message);
+            }
+            catch (UserApiException ex)
+            {
+                ApplicationLogger.TraceException
+                (
+                    TraceCategories.Unhandled,
+                    $"Failed call to GetUserProfile(): [{ex.Message}]",
+                    ex,
+                    User
+                );
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ApplicationLogger.TraceException
+                (
+                    TraceCategories.Unhandled,
+                    "Failed call to GetUserProfile()",
+                    ex,
+                    User
+                );
+
+                throw;
             }
         }
     }

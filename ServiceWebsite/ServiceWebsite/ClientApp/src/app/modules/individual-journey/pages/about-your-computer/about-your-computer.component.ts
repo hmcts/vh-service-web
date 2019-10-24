@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HasAccessToCamera } from '../../../base-journey/participant-suitability.model';
+import { HasAccessToCamera } from '../../individual-suitability.model';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { IndividualJourney } from '../../individual-journey';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import {Logger} from '../../../../services/logger';
 
 @Component({
   selector: 'app-about-your-computer',
@@ -13,7 +14,7 @@ export class AboutYourComputerComponent extends SuitabilityChoicePageBaseCompone
 
   hasAccessToCamera = HasAccessToCamera;
 
-  constructor(journey: IndividualJourney) {
+  constructor(journey: IndividualJourney, private logger: Logger) {
     super(journey);
   }
 
@@ -32,6 +33,7 @@ export class AboutYourComputerComponent extends SuitabilityChoicePageBaseCompone
 
     if (this.model.camera === HasAccessToCamera.No) {
       this.journey.submitQuestionnaire();
+      this.logger.event('telemetry:individual:dropout:HasAccessToCamera:No');
       this.journey.goto(IndividualJourneySteps.ThankYou);
     } else {
       this.journey.goto(IndividualJourneySteps.YourInternetConnection);

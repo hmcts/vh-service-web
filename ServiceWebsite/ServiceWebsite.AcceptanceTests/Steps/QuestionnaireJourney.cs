@@ -3,13 +3,13 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 using ServiceWebsite.BookingsAPI.Client;
-using ServiceWebsite.AcceptanceTests.Contexts;
-using RestSharp;
 using System.Collections.Generic;
 using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Constants;
 using ServiceWebsite.AcceptanceTests.Pages.SelfTesPages;
 using System.Linq;
+using ServiceWebsite.AcceptanceTests.NuGet.Contexts;
+using ServiceWebsite.AcceptanceTests.Pages.RepresentativePages;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -20,10 +20,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly DecisionJourney _checkYourComputer;
         private ErrorMessage _errorMessage;
         public readonly ScenarioContext _scenarioContext;
-        private readonly TestContext _testContext;
+        private readonly TestContextBase _testContext;
         private readonly BrowserContext _browserContext;
         private List<Page> _pages = new List<Page>();
-        public QuestionnaireJourney(TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
+        public QuestionnaireJourney(TestContextBase testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext)
         {
             _information = information;
             _errorMessage = new ErrorMessage(browserContext);
@@ -51,8 +51,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _pages.Add(new DecisionJourney(browserContext, PageUri.SignInOncomputer, SelfTestPageNames.SignInOncomputer));
             _pages.Add(new DecisionJourney(browserContext, PageUri.SignBackIn, SelfTestPageNames.SignBackIn));
 
-            //_pages.Add(new DecisionJourney(browserContext, PageUri.EquipmentBlocked, SelfTestPageNames.EquipmentBlocked));
-            //_equipmentBlocked = new Page(browserContext, PageUri.EquipmentBlocked, SelfTestPageNames.EquipmentBlocked);
         }
 
         [Then(@"(.*) error should be displayed")]
@@ -64,6 +62,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         [When(@"provides answer as (.*)")]
         private void WhenIndividualProvidesAnswerAsNotsure(AnswerType answer)
+        {
+            SelectAnswer((DecisionJourney)CurrentPage, answer);
+        }
+
+        [When(@"When provides selects option as (.*)")]
+        private void WhenRepresentativeProvidesAnswerAsNotsure(AnswerType answer)
         {
             SelectAnswer((DecisionJourney)CurrentPage, answer);
         }
@@ -106,6 +110,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     switchOnCameraAndMicrophone.Continue();
                     continue;
                 }
+                if (page.Name == RepresentativePageNames.AppointingABarrister && page.Name != pageName)
+                {
+                    var appointingABarrister = (AppointingABarrister)page;
+                    appointingABarrister.Select(BarristerAppointmentTypes.IAmBarrister);
+                    appointingABarrister.Continue();
+                    continue;
+                }
                 if (page.Name == pageName)
                 {
                     _scenarioContext.Set(page, "CurrentPage");
@@ -142,7 +153,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return true;
         }
 
-        private JourneyStepPage CurrentPage
+        protected JourneyStepPage CurrentPage
         {
             get
             {
@@ -162,9 +173,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             switch (pageName)
             {
-                case RepresentativePageNames.PleaseContactUs:
-                    return new Page(_browserContext, RepresentativePageUrl.PleaseContactUs, RepresentativePageNames.PleaseContactUs);
-                case RepresentativePageNames.ThankYou:
+                case IndividualPageNames.ThankYou:
                     return new Page(_browserContext, PageUri.ThankYouPage, IndividualPageNames.ThankYou);
                 case SelfTestPageNames.EquipmentBlocked:
                     return new Page(_browserContext, PageUri.EquipmentBlocked, "equipment blocked");
@@ -203,7 +212,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var requestUrl = $"/hearings/{_testContext.HearingId}/participants/{participantId}/suitability-answers";
             var answerRequest = _testContext.Put(requestUrl, answerRequestBody);
-            var response = _testContext.Client().Execute(answerRequest);
+            _testContext.BookingsApiClient().Execute(answerRequest);
         }
     }
 }

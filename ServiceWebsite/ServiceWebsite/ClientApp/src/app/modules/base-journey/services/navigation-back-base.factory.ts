@@ -46,6 +46,8 @@ export class NavigationBackBaseFactory implements NavigationBackFactory {
 
         if (!this.navigated && previousEvent.url === QuestionnaireAlreadyCompletedUrl) {
           this.navigateBackToDropPoint();
+        } else if (event.url === '/login' || event.url === '/') {
+          this.router.navigate([this.eventsStore[1].url]);
         }
       }
     }

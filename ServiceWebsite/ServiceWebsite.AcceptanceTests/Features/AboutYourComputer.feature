@@ -29,30 +29,3 @@ Scenario: Your computer Page - Individual participant attempts to proceed to nex
 	Given Individual participant is on 'about your computer' page
 	When attempts to proceed without selecting an answer
 	Then 1 error should be displayed
-
-@VIH-4334 @Representative
-Scenario: Representative participant computer has no camera and microphone
-	Given Representative participant is on 'about your computer' page
-	When provides answer as No
-	And proceeds to next page
-	Then Representative should be on 'questionnaire completed' screen
-
- @VIH-4334 @Representative
-Scenario: Representative participant computer has both camera and microphone
-	Given Representative participant is on 'about your computer' page	
-	When provides answer as Yes
-	And proceeds to next page
-	Then Representative should be on 'questionnaire completed' screen
-
-@VIH-4334 @Representative
-Scenario: Representative participant not sure about computer having camera and microphone
-	Given Representative participant is on 'about your computer' page	
-	When provides answer as NotSure
-	And proceeds to next page
-	Then Representative should be on 'questionnaire completed' screen
-
-@VIH-4334 @Representative
-Scenario: Your computer Page - Representative participant attempts to proceed to next page without providing answer
-	Given Representative participant is on 'about your computer' page
-	When attempts to proceed without selecting an answer
-	Then 1 error should be displayed

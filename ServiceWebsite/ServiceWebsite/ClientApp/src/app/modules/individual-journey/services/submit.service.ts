@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HearingSuitabilityAnswer } from 'src/app/services/clients/api-client';
 import { IndividualModelMapper } from './individual-model-mapper';
 import { SuitabilityService } from './suitability.service';
-import { SuitabilityAnswer, HasAccessToCamera } from '../../base-journey/participant-suitability.model';
+import { SuitabilityAnswer } from '../../base-journey/participant-suitability.model';
 import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
 import { JourneyStep } from '../../base-journey/journey-step';
@@ -23,17 +23,17 @@ export class SubmitService {
     modelToSave = model;
 
     if (step === IndividualJourneySteps.AccessToComputer) {
-        modelToSave.camera = undefined;
-        modelToSave.internet = undefined;
-        modelToSave.room = undefined;
-        modelToSave.consent = new SuitabilityAnswer();
+      modelToSave.camera = undefined;
+      modelToSave.internet = undefined;
+      modelToSave.room = undefined;
+      modelToSave.consent = new SuitabilityAnswer();
     } else if (step === IndividualJourneySteps.AccessToCameraAndMicrophone) {
-        modelToSave.internet = undefined;
-        modelToSave.room = undefined;
-        modelToSave.consent = new SuitabilityAnswer();
+      modelToSave.internet = undefined;
+      modelToSave.room = undefined;
+      modelToSave.consent = new SuitabilityAnswer();
     } else if (step === IndividualJourneySteps.YourInternetConnection) {
-        modelToSave.room = undefined;
-        modelToSave.consent = new SuitabilityAnswer();
+      modelToSave.room = undefined;
+      modelToSave.consent = new SuitabilityAnswer();
     }
 
     // for any other step the model need not be updated

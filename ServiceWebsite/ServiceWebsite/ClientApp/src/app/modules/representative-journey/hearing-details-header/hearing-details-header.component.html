@@ -1,8 +1,16 @@
 <table class="govuk-table vh-fullwidth" *ngIf="loaded">
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><strong>{{ caseName }}</strong> ({{ caseType }}) <span i18n="@@hearingDetails_caseNumber">case number</span>: <strong>{{ caseNumber }}</strong></td>
-      <td class="govuk-table__cell" style="text-align:right;">{{ scheduledDateTime | appLongDatetime }}</td>
+  <tbody class="govuk-table__body ">
+    <tr class="govuk-table__row vh-panel ">
+      <td class="govuk-table__cell">
+        <span class="vh-ml5">
+          <strong>{{ caseName }}</strong> ({{ caseType }}) <span i18n="@@hearingDetails_caseNumber">case number</span>: {{ caseNumber }}
+        </span>
+      </td>
+      <td class="govuk-table__cell" style="text-align:right;">
+        <span class="vh-mr5">
+          <strong>{{ scheduledDateTime | appLongDatetime }}</strong>
+        </span>
+      </td>
     </tr>
-  </tbody>  
+  </tbody>
 </table>

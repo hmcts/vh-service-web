@@ -1,0 +1,40 @@
+﻿{
+    "UserAccounts": [
+        {
+            "Role": "Case admin",
+            "Firstname": "Automation01_",
+            "Lastname": "SW_CaseAdmin01",
+            "Displayname": "Automation01_SW_CaseAdmin01",
+            "AlternativeEmail": "d1@d.com",
+            "UserGroups": [ "CivilMoneyClaims" ]
+        },
+        {
+            "Role": "Clerk",
+            "Firstname": "Automation01_",
+            "Lastname": "SW_Clerk01",
+            "Displayname": "Automation01_SW_Clerk01",
+            "AlternativeEmail": "d2@d.com"
+        },
+        {
+            "DefaultParticipant": true,
+            "Role": "Individual",
+            "Firstname": "Automation01",
+            "Lastname": "Citizen01",
+            "Displayname": "Automation01Citizen01",
+            "AlternativeEmail": "automation01citizen01@email.com",
+            "CaseRoleName": "Claimant",
+            "HearingRoleName": "Claimant LIP",
+            "SolicitorsReference": "Automation01Professional01"
+        },
+        {
+            "Role": "Representative",
+            "Firstname": "Automation01",
+            "Lastname": "Professional01",
+            "Displayname": "Automation01Professional01",
+            "AlternativeEmail": "automation01professional01@email.com",
+            "CaseRoleName": "Claimant",
+            "HearingRoleName": "Solicitor",
+            "Representee": "Automation01Citizen01"
+        }
+    ]
+}

@@ -22,16 +22,14 @@ namespace ServiceWebsite.Controllers
         [AllowAnonymous]
         public IActionResult GetConfiguration()
         {
-            var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
-
             var config = new ClientConfiguration
             {
                 VideoAppUrl = _settings.VideoAppUrl,
                 AppInsightsInstrumentationKey = _settings.AppInsightsKey,
                 TenantId = _settings.TenantId,
                 ClientId = _settings.ClientId,
-                RedirectUri = $"{baseUrl}/login",
-                PostLogoutRedirectUri = $"{baseUrl}/",
+                RedirectUri = _settings.RedirectUri,
+                PostLogoutRedirectUri = _settings.PostLogoutRedirectUri,
                 BaseVideoUrl = _settings.BaseVideoUrl,
                 PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri,
                 KinlySelfTestScoreEndpointUrl = _serviceSettings.KinlySelfTestScoreEndpointUrl

@@ -7,4 +7,5 @@ export interface LogAdapter {
   warn(message: string): void;
   trackEvent(eventName: string, properties: any);
   trackException(message: string, err: Error, properties: any);
+  flushBuffer();
 }

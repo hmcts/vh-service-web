@@ -1,7 +1,8 @@
-import {SelfTestAnswers} from './../../base-journey/participant-suitability.model';
-import {IndividualJourneyService} from './individual-journey.service';
-import {MutableIndividualSuitabilityModel} from '../mutable-individual-suitability.model';
-import {HasAccessToCamera, Hearing, SuitabilityAnswer} from '../../base-journey/participant-suitability.model';
+import { SelfTestAnswers } from './../../base-journey/participant-suitability.model';
+import { IndividualJourneyService } from './individual-journey.service';
+import { MutableIndividualSuitabilityModel } from '../mutable-individual-suitability.model';
+import { Hearing, SuitabilityAnswer } from '../../base-journey/participant-suitability.model';
+import { HasAccessToCamera } from '../individual-suitability.model';
 
 describe('representative.journey.service', () => {
   let individualJourneyService: IndividualJourneyService;

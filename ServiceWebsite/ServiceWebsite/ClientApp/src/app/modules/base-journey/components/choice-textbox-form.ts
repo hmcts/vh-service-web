@@ -1,6 +1,13 @@
 import { ChoiceForm } from './choice-form';
-import { FormControl, Validators } from '@angular/forms';
+import {FormControl, FormControlName, Validators} from '@angular/forms';
 import { ValidateForWhiteSpace } from '../../shared/validators/whitespace-validator';
+
+const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
+FormControlName.prototype.ngOnChanges = function () {
+  const result = originFormControlNameNgOnChanges.apply(this, arguments);
+  this.control.nativeElement = this.valueAccessor._elementRef.nativeElement;
+  return result;
+};
 
 export class ChoiceTextboxForm extends ChoiceForm {
 
@@ -36,6 +43,11 @@ export class ChoiceTextboxForm extends ChoiceForm {
     }
 
     submit() {
+      const textInputElement = (<any>this.textInput).nativeElement;
+      if (textInputElement) {
+        textInputElement.focus();
+      }
+
       this.textInput.markAsTouched();
       super.submit();
     }

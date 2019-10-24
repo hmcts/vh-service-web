@@ -1,13 +1,10 @@
 ﻿using ServiceWebsite.AcceptanceTests.Constants;
-using ServiceWebsite.AcceptanceTests.Contexts;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Navigation;
+using ServiceWebsite.AcceptanceTests.NuGet.Contexts;
 using ServiceWebsite.AcceptanceTests.Pages;
-using ServiceWebsite.AcceptanceTests.Pages.SelfTesPages;
 using ServiceWebsite.BookingsAPI.Client;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -16,15 +13,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     public sealed class IndividualQuestionnaireSteps : QuestionnaireJourney
     {
         private readonly InformationSteps _information;
-        private readonly TestContext _testContext;
+        private readonly TestContextBase _testContext;
         private string _individualParticipantId;
         private readonly LoginSteps _loginSteps;
         
-        public IndividualQuestionnaireSteps(LoginSteps loginSteps, TestContext testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
+        public IndividualQuestionnaireSteps(LoginSteps loginSteps, TestContextBase testContext, BrowserContext browserContext, InformationSteps information, ScenarioContext scenarioContext) : base(testContext, browserContext, information, scenarioContext)
         {
             _information = information;
             _testContext = testContext;
-            _individualParticipantId = _testContext.IndividualParticipantId;
+            _individualParticipantId = _testContext.GetIndividualUser().Id.ToString();
             _loginSteps = loginSteps;
         }
 
