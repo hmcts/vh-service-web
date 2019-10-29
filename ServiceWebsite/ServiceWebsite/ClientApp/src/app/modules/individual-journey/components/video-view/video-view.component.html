@@ -1,12 +1,16 @@
 <div class="govuk-warning-text" *ngIf="videoUnavailable">
-    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-    <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        Sorry, this video is not available at the moment.
-    </strong>
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive">Warning</span>
+    Sorry, this video is not available at the moment.
+  </strong>
 </div>
-<video id="video-element" controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable"
-    (error)="onVideoError()">
-    <source [src]="source" type="video/mp4" (error)="onVideoError()">
-    <p> Sorry, this video is not available at the moment.</p>
+<video id="video-element" class="azuremediaplayer amp-default-skin" controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable"
+       (error)="onVideoError()" data-setup='{"nativeControlsForTouch": false}'>
+  <source [src]="currentMovie" type="application/vnd.ms-sstr+xml" (error)="onVideoError()">
+  <p> Sorry, this video is not available at the moment.</p>
 </video>
+<!--<video id="video-element" controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable">
+  <source [src]="source" type="video/mp4" (error)="onVideoError()">
+  <p> Sorry, this video is not available at the moment.</p>
+</video>-->

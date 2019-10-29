@@ -8,13 +8,17 @@
     <p class="govuk-body-l" i18n="@@test_your_equipment_p_1">Please wait to be connected...</p>
   </div>
   <div *ngIf="displayFeed" class="govuk-grid-column-full">
-    <video i18n="@@test_your_equipment_video_1" *ngIf="streamsActive" id="incomingStream" [srcObject]="this.incomingStream" autoplay width="100%">
+    <video i18n="@@test_your_equipment_video_1" *ngIf="streamsActive" id="incomingStream"
+           [srcObject]="this.incomingStream" autoplay width="100%"
+           class="azuremediaplayer amp-default-skin" data-setup='{"nativeControlsForTouch": false}'>
       Your browser does not support video
     </video>
+
+    
   </div>
 </div>
 
-<div *ngIf="!didTestComplete" class="govuk-grid-row">
+<div *ngIf="!didTestComplete" class="govuk-grid-row" style="margin-top:10px;">
 
   <div class="govuk-grid-column-one-quarter">
     <video i18n="@@test_your_equipment_video_2" *ngIf="streamsActive" id="outgoingStream" [muted]="true" [srcObject]="this.outgoingStream" autoplay
