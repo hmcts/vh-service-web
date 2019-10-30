@@ -81,7 +81,11 @@ describe('ScrollableDirective', () => {
     directive.checkOffset(200);
     expect(eventRaisedFooter).toBe(true);
   });
-
+  it('check offset from footer raised event with false parameter', () => {
+    directive.margin = 200;
+    directive.checkOffset(0);
+    expect(eventRaisedFooter).toBe(true);
+  });
 });
 
 
