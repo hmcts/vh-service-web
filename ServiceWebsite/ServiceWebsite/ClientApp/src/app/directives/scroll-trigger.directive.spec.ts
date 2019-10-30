@@ -62,6 +62,7 @@ describe('ScrollableDirective', () => {
     directive.lastScrollPosition = 10;
     directive.onWindowScroll();
     expect(eventRaised).toBe(true);
+    expect(eventRaisedFooter).toBe(true);
   });
 
   it('should raise event if reached bottom of element, scrolling up then down again', () => {
@@ -78,13 +79,11 @@ describe('ScrollableDirective', () => {
 
   it('check offset from footer raised event with true parameter', () => {
     directive.margin = 100;
-    directive.checkOffset();
-    expect(eventRaisedFooter).toBe(true);
+    expect(directive.checkOffset(200)).toBe(false);
   });
-  it('check offset from footer raised event with  false parameter', () => {
-    directive.margin = 0;
-    directive.checkOffset();
-    expect(eventRaisedFooter).toBe(true);
+  it('check offset from footer raised event with false parameter', () => {
+    directive.margin = -200;
+    expect(directive.checkOffset(0)).toBe(true);
   });
 });
 
