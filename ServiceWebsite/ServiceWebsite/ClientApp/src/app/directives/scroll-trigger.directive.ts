@@ -35,7 +35,8 @@ export class ScrollTriggerDirective {
   onWindowScroll() {
 
     const currentScrollPosition = this.getScreenBottom();
-    this.checkOffset(currentScrollPosition);
+    const isFooter = this.checkOffset(currentScrollPosition);
+    this.scrollFooter.emit({ footer: isFooter });
     const hasScrolledUp = currentScrollPosition < this.lastScrollPosition;
     if (hasScrolledUp) {
       if (this.hasScrolledPastElementUp(currentScrollPosition)) {
@@ -49,11 +50,7 @@ export class ScrollTriggerDirective {
     this.lastScrollPosition = currentScrollPosition;
   }
 
-  checkOffset(currentScrollPosition) {
-    if ((document.body.offsetHeight - currentScrollPosition) <= (window.innerHeight + this.margin)) {
-      this.scrollFooter.emit({ footer: false });
-    } else {
-      this.scrollFooter.emit({ footer: true });
-    }
+  checkOffset(currentScrollPosition): boolean {
+    return ((document.body.offsetHeight - currentScrollPosition) > (window.innerHeight + this.margin));
   }
 }
