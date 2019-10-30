@@ -33,7 +33,7 @@ export class ScrollTriggerDirective {
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    
+
     const currentScrollPosition = this.getScreenBottom();
     this.checkOffset(currentScrollPosition);
     const hasScrolledUp = currentScrollPosition < this.lastScrollPosition;
