@@ -11,6 +11,10 @@
   margin-top: 5em;
 }
 
+.vh-left20 {
+  margin-left: 20px;
+}
+
 .govuk-heading-s {
   margin-bottom: 5px;
 }
@@ -29,6 +33,7 @@
   .govuk-sticky-element {
     visibility: hidden;
   }
+
   .govuk-sticky-element-footer {
     bottom: 256px;
   }
@@ -57,7 +62,7 @@ a {
 
 .vh-text {
   overflow-wrap: normal;
-  word-break:break-word;
+  word-break: break-word;
   list-style-type: none;
   padding-left: 0;
   margin-left: 0;
