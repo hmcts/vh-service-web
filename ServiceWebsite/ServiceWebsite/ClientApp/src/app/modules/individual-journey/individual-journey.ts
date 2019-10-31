@@ -18,7 +18,7 @@ export class IndividualJourney extends JourneyBase {
   constructor(private submitService: SubmitService, private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
-      this.logger.event(`telemetry:individual:step:${step}`);
+      this.logger.event(`telemetry:serviceweb:individual:step:${step}`);
       this.currentStep = step;
     });
   }

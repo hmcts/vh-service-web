@@ -19,7 +19,7 @@ export class OtherInformationComponent {
   }
   async submit(): Promise<void> {
     await this.journey.submitQuestionnaire();
-    this.logger.event('telemetry:any:questionnaire:complete');
+    this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
     this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
   }
 }

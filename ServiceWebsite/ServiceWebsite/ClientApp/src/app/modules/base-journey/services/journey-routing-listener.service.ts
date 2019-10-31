@@ -47,11 +47,11 @@ export class JourneyRoutingListenerService {
 
     // restart the journey if navigating to the first step
     if (step === this.componentBindings.initialStep) {
-      this.logger.event('telemetry:any:journey:start');
+      this.logger.event('telemetry:serviceweb:any:journey:start');
       this.journey.startAt(step);
     } else {
       if (step === this.componentBindings.finalStep) {
-        this.logger.event('telemetry:any:journey:end');
+        this.logger.event('telemetry:serviceweb:any:journey:end');
       }
 
       this.journey.jumpTo(step);

@@ -33,7 +33,7 @@ export class AboutYourComputerComponent extends SuitabilityChoicePageBaseCompone
 
     if (this.model.camera === HasAccessToCamera.No) {
       this.journey.submitQuestionnaire();
-      this.logger.event('telemetry:individual:dropout:HasAccessToCamera:No');
+      this.logger.event('telemetry:serviceweb:individual:dropout:HasAccessToCamera:No');
       this.journey.goto(IndividualJourneySteps.ThankYou);
     } else {
       this.journey.goto(IndividualJourneySteps.YourInternetConnection);

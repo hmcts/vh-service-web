@@ -84,7 +84,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
 
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
-      this.logger.event('telemetry:any:questionnaire:complete');
+      this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
       this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
     }
   }

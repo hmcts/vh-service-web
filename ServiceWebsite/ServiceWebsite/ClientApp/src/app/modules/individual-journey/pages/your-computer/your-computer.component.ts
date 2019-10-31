@@ -32,7 +32,7 @@ export class YourComputerComponent extends SuitabilityChoicePageBaseComponent im
 
     if (this.model.computer === false) {
       this.journey.submitQuestionnaire();
-      this.logger.event('telemetry:individual:dropout:HasAccessToComputer:No');
+      this.logger.event('telemetry:serviceweb:individual:dropout:HasAccessToComputer:No');
       this.journey.goto(IndividualJourneySteps.ThankYou);
     } else {
       this.journey.goto(IndividualJourneySteps.AboutYourComputer);

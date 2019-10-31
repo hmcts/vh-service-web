@@ -30,7 +30,7 @@ export class YourInternetConnectionComponent extends SuitabilityChoicePageBaseCo
 
     if (this.model.internet === false) {
       await this.journey.submitQuestionnaire();
-      this.logger.event('telemetry:individual:dropout:HasAccessToInternet:No');
+      this.logger.event('telemetry:serviceweb:individual:dropout:HasAccessToInternet:No');
       this.journey.goto(IndividualJourneySteps.ThankYou);
     } else {
       this.journey.goto(IndividualJourneySteps.AccessToRoom);
