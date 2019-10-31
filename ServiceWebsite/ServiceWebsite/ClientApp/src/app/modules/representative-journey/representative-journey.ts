@@ -24,7 +24,7 @@ export class RepresentativeJourney extends JourneyBase {
   constructor(private submitService: SubmitService, private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {
-      this.logger.event(`telemetry:representative:step:${step}`);
+      this.logger.event(`telemetry:serviceweb:representative:step:${step}`);
       this.currentStep = step;
     });
   }

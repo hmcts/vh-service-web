@@ -66,7 +66,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     await this.setConfiguration();
     try {
       await this.setupPexipClient();
-      this.logger.event('telemetry:any:selftest:start');
+      this.logger.event('telemetry:serviceweb:any:selftest:start');
     } catch (error) {
 
       if (error.toString().includes(this.NotAllowedError)) {
@@ -292,7 +292,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.disconnect();
     }
     this.pexipAPI = null;
-    this.logger.event('telemetry:any:selftest:complete');
+    this.logger.event('telemetry:serviceweb:any:selftest:complete');
     this.retrieveSelfTestScore();
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
