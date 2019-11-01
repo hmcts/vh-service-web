@@ -3,6 +3,15 @@
     <img src="/assets/images/hmcts-logo.gif" alt="HMCTS logo crest image" />
   </div>
 </div>
+
+<video id="video-element" class="azuremediaplayer amp-default-skin" controls #video width="100%" height="100%" autoplay
+       data-setup='{"nativeControlsForTouch": false}'>
+  <source [src]="currentMovie" type="application/vnd.ms-sstr+xml">
+  <track label="English" kind="subtitles" srclang="en" [src]="captionsFile" default>
+  <p> Sorry, this video is not available at the moment.</p>
+</video>
+
+
 <div class="govuk-grid-row govuk-!-margin-top-9" >
   <div class="govuk-grid-column-one-quarter">
     <nav role="navigation">
