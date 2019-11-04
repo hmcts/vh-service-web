@@ -1,47 +1,48 @@
-import { Component, OnInit, AfterViewInit,NgZone } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-accessibility',
   templateUrl: './accessibility.component.html',
   styleUrls: ['./accessibility.component.css']
 })
-export class AccessibilityComponent implements AfterViewInit{
- //currentMovie = 'https://amssamples.streaming.mediaservices.windows.net/3b970ae0-39d5-44bd-b3a3-3136143d6435/AzureMediaServicesPromo.ism/manifest';
-  currentMovie = 'https://amssamples.streaming.mediaservices.windows.net/634cd01c-6822-4630-8444-8dd6279f94c6/CaminandesLlamaDrama4K.ism/manifest';
+export class AccessibilityComponent implements AfterViewInit {
 
-  //url from the azure media service
-  //currentMovie = 'http://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.ism/manifest';
-  //currentMovie = 'https://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_court.ism/manifest';
+  srcLama = '//amssamples.streaming.mediaservices.windows.net/634cd01c-6822-4630-8444-8dd6279f94c6/CaminandesLlamaDrama4K.ism';
+  srcEx1 = "//amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest";
 
-  captionFile = 'http://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.mp4.ttml';
+  srcVideo = '//vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.ism/manifest';
+  srcCourt = '//vhcoreinfratest1-ukwe1.streaming.media.azure.net/41da90e5-8689-4ffb-b86d-616d0a71c5e9/btd_court.ism/manifest';
 
+  srcMp4 = '//vhcoreinfrapreview.blob.core.windows.net/video/btd_court.mp4';
+  captionFile = '//vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.mp4.ttml';
+
+
+  @ViewChild('videoazp', { static: true }) videoPlayer;
 
   isVisibleContents = true;
   isFooter = false;
-  constructor(private _ngZone: NgZone) {
-    
-  }
+  constructor() {
+
+  } i
   ngAfterViewInit() {
-    //const myOptions = {
-    //  'nativeControlsForTouch': false,
-    //  controls: true,
-    //  autoplay: true,
-    //  width: "640",
-    //  height: "400",
-    //};
-    //this._ngZone.run(() => {
-    //  setTimeout(() => {
-    //    const myPlayer = amp('vh-vd1', myOptions);
-    //    myPlayer.src([
-    //      {
-    //        //'src': '//amssamples.streaming.mediaservices.windows.net/634cd01c-6822-4630-8444-8dd6279f94c6/CaminandesLlamaDrama4K.ism/manifest',
-    //        'type': 'application/vnd.ms-sstr+xml'
-    //      }
-    //    ]);
-    //  }, 500
-    //  )
-    //})
-    
+    const myOptions = {
+      'nativeControlsForTouch': false,
+      controls: true,
+      autoplay: true,
+      width: "640",
+      height: "400",
+      id: 'vh-vd1',
+      logo: { enabled: true },
+    };
+    var myPlayer = amp(this.videoPlayer.nativeElement, myOptions);
+    myPlayer.src([
+      {
+        type: 'application/vnd.ms-sstr+xml',
+        //  type:'application/dash+xml',
+        src: this.srcMp4,
+      }
+    ]);
+
   }
   goToDiv(fragment: string): void {
     window.document.getElementById(fragment).scrollIntoView();

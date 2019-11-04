@@ -9,18 +9,20 @@
        controls #video width="100%" height="100%" autoplay
        (canplay)="readyToPlay()" *ngIf="!videoUnavailable"
         data-setup='{"nativeControlsForTouch": false}'>
-  <source [src]="currentMovie" type="application/vnd.ms-sstr+xml" (error)="onVideoError()">
+  <source [src]="source" type="application/vnd.ms-sstr+xml" (error)="onVideoError()">
   <p> Sorry, this video is not available at the moment.</p>
 </video>-->
-<!--<video id="video-element" class="azuremediaplayer amp-default-skin" controls #video width="100%" height="100%" autoplay
-       data-setup='{"nativeControlsForTouch": false}'>
-  <source [src]="currentMovie" type="application/vnd.ms-sstr+xml">
-  <track label="English" kind="subtitles" srclang="en" [src]="captionsFile" default>
+<video id="video-element" #videoElement class="azuremediaplayer amp-default-skin" controls  width="100%" height="100%" autoplay
+      >
+  <source [src]="source" type="application/vnd.ms-sstr+xml">
+  <!--<track label="English" kind="subtitles" srclang="en" [src]="captionsFile" default>-->
   <p> Sorry, this video is not available at the moment.</p>
-</video>-->
-<video id="video-element" controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable">
+</video>
+<!--<video id="video-element" controls #video width="100%" height="100%" autoplay (canplay)="readyToPlay()" *ngIf="!videoUnavailable">
   <source [src]="source" type="video/mp4" (error)="onVideoError()">
   <track label="English" kind="subtitles" srclang="en" [src]="captionsFile" default>
 
   <p> Sorry, this video is not available at the moment.</p>
-</video>
+</video>-->
+
+<input type="button" class="govuk-button" (click)="playAZP()" value="Play AZP" />

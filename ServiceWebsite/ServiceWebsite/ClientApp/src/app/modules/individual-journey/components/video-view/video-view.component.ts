@@ -1,4 +1,4 @@
-import { Component, Output, Input, ElementRef, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Output, Input, AfterContentInit, ElementRef, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
 import { Logger } from 'src/app/services/logger';
 /*
 Muted videos can autoplay in Chrome. Autoplay with sound is allowed if:
@@ -12,7 +12,7 @@ Muted videos can autoplay in Chrome. Autoplay with sound is allowed if:
     templateUrl: './video-view.component.html',
     styles: []
 })
-export class VideoViewComponent implements OnDestroy {
+export class VideoViewComponent implements AfterContentInit, OnDestroy {
     constructor(private logger: Logger) {
     }
 
@@ -22,8 +22,8 @@ export class VideoViewComponent implements OnDestroy {
   //url from the azure media service
   //currentMovie = 'https://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_court.ism/manifest';
 
-  currentMovie = 'http://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.ism/manifest';
-  captionFile = 'http://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.mp4.ttml';
+  // = 'https://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.ism/manifest';
+ // captionFile = 'http://vhcoreinfratest1-ukwe1.streaming.media.azure.net/5b20f544-272c-45a1-a7b6-52b03e99abae/btd_individual_laptop.mp4.ttml';
   
   @Output()
     loaded: EventEmitter<any> = new EventEmitter<any>();
@@ -31,10 +31,106 @@ export class VideoViewComponent implements OnDestroy {
     @Input()
     source: string;
 
-    @ViewChild('video', { static: false })
+  @ViewChild('videoElement', { static: false })
     videoElement: ElementRef;
 
-    videoUnavailable: boolean;
+  videoUnavailable: boolean;
+
+  ngAfterContentInit() {
+    setTimeout(() => {
+      var myPlayer = amp(this.videoElement.nativeElement);
+      console.log(myPlayer.currentTechName(), 'texhname');
+      myPlayer.autoplay(true);
+      myPlayer.controls(true);
+      myPlayer.src({
+        type: "application/dash+xml",
+        src: this.source,
+      });
+    }, 1000);
+    
+  }
+
+  playAZP() {
+    var myPlayer = amp(this.videoElement.nativeElement);
+    console.log(myPlayer.currentTechName(), 'texhname');
+    myPlayer.autoplay(true);
+    myPlayer.controls(true);
+    //myPlayer.src({
+    //  type: "application/dash+xml",
+    //  src: this.source + '(format=mpd-time-csf)',
+    //}); 
+  }
+
+  xxngOnInit() {
+    const myOptions = {
+      nativeControlsForTouch: false,
+      controls: true,
+      autoplay: true,
+      width: "640",
+      height: "400",
+      id: "vh-vd1",
+      logo: { enabled: true },
+    };
+    setTimeout(() => {
+      var myPlayer = amp(this.videoElement.nativeElement, myOptions,
+        function () {
+          console.log('It is playing');
+        });
+      myPlayer.src({
+        type: "application/dash+xml",
+        src: this.source
+      });
+
+      myPlayer.addEventListener('error', function () {
+        var errorDetails = myPlayer.error();
+        // var code = errorDetails.code;
+        var message = errorDetails.message;
+        console.log('ERROR: ' + message);
+      });
+
+      //amp(this.videoElement.nativeElement).ready(function () {
+      //  //Start playing the video.
+      //  console.log('It is playing');
+      //  myPlayer.play();
+      //});
+
+      //if (myPlayer.error().code & amp.errorCode.abortedErrStart) {
+      //  // MEDIA_ERR_ABORTED errors
+      //  console.log('MEDIA_ERR_ABORTED errors');
+      //}
+      //else if (myPlayer.error().code & amp.errorCode.networkErrStart) {
+      //  // MEDIA_ERR_NETWORK errors
+      //  console.log('MEDIA_ERR_NETWORK errors');
+      //}
+      //else if (myPlayer.error().code & amp.errorCode.decodeErrStart) {
+      //  // MEDIA_ERR_DECODE errors
+      //  console.log('MEDIA_ERR_DECODE errors');
+      //}
+      //else if (myPlayer.error().code & amp.errorCode.srcErrStart) {
+      //  // MEDIA_ERR_SRC_NOT_SUPPORTED errors
+      //  console.log(' MEDIA_ERR_SRC_NOT_SUPPORTED errors');
+      //}
+      //else if (myPlayer.error().code & amp.errorCode.encryptErrStart) {
+      //  // MEDIA_ERR_ENCRYPTED errors
+      //  console.log('MEDIA_ERR_ENCRYPTED errors');
+      //}
+      //else if (myPlayer.error().code & amp.errorCode.srcPlayerMismatchStart) {
+      //  // SRC_PLAYER_MISMATCH errors
+      //  console.log('SRC_PLAYER_MISMATCH errors');
+      //}
+      //else {
+      //  // unknown errors
+      //  console.log(' unknown errors');
+      //}
+     //myPlayer.src([
+     //   {
+     //     type: "application/vnd.ms-sstr+xml",
+     //     src: this.source,
+     //   } 
+     // ]);
+    }, 1000);
+    
+  }
     /**
      * This method is invoked when a video is ready to start playing
      */

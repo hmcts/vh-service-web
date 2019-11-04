@@ -3,16 +3,23 @@
     <img src="/assets/images/hmcts-logo.gif" alt="HMCTS logo crest image" />
   </div>
 </div>
-<!--<video id="vh-vd1" class="azuremediaplayer amp-default-skin amp-big-play-centered" tabindex="0">
-</video>-->
-
-<video id="vh-vd1" class="azuremediaplayer amp-default-skin amp-big-play-centered"
-       controls #video width="100%" height="100%" autoplay
-       data-setup='{"nativeControlsForTouch": false}'>
-  <source [src]="currentMovie" type="application/vnd.ms-sstr+xml">
+<video id="vh-vd1" #videoazp class="azuremediaplayer amp-default-skin amp-big-play-centered">
   <track label="English" kind="subtitles" srclang="en" [src]="captionsFile" default>
+  <track label="English" kind="captions" srclang="en" [src]="captionsFile" default>
+  <track label="English" kind="captions" srclang="ru" [src]="captionsFile">
+  <p> Sorry, this video is not available at the moment.</p>
+
   <p> Sorry, this video is not available at the moment.</p>
 </video>
+
+<!--<video id="vh-vd1" class="azuremediaplayer amp-default-skin amp-big-play-centered"
+       controls #video width="100%" height="100%" autoplay
+       data-setup='{"nativeControlsForTouch": false}'>
+  <source [src]="src" type="application/vnd.ms-sstr+xml">
+ <track label="English" kind="subtitles" srclang="en" [src]="captionsFile" default>
+  <track label="English" kind="captions" srclang="en" [src]="captionsFile" default>
+  <track label="English" kind="captions" srclang="ru" [src]="captionsFile">  <p> Sorry, this video is not available at the moment.</p>
+</video>-->
 
 <div class="govuk-grid-row govuk-!-margin-top-9">
   <div class="govuk-grid-column-one-quarter">
