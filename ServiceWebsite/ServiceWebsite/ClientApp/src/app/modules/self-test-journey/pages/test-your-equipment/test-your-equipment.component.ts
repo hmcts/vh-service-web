@@ -226,12 +226,15 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event(`(retrieveSelfTestScore -> TEST SCORE KINLY RESULT: ${score.score})`,
         { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
+      this.logger.event(`telemetry:serviceweb:any:selftest:score:${score.score}`);
+
       this.model.selfTest.selfTestResultScore = score.score;
     }, (error) => {
       this.model.selfTest.selfTestResultScore = 'None';
 
       this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error),
         { hearingId: this.model.hearing.id, participantId: this.model.participantId });
+        this.logger.event('telemetry:serviceweb:any:selftest:score:none');
     });
   }
 
