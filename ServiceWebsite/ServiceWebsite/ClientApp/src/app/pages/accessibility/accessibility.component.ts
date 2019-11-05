@@ -21,29 +21,50 @@ export class AccessibilityComponent implements AfterViewInit {
 
   isVisibleContents = true;
   isFooter = false;
+
+  ampOptions = {
+    'nativeControlsForTouch': false,
+    "disableUrlRewriter": true,
+    controls: true,
+    autoplay: true,
+    width: "640",
+    height: "400",
+    id: 'vh-vd1',
+    logo: { enabled: true },
+  };
+
+  ampPlayer: any;
+
+
   constructor() {
 
-  } i
-  ngAfterViewInit() {
-    const myOptions = {
-      'nativeControlsForTouch': false,
-      controls: true,
-      autoplay: true,
-      width: "640",
-      height: "400",
-      id: 'vh-vd1',
-      logo: { enabled: true },
-    };
-    var myPlayer = amp(this.videoPlayer.nativeElement, myOptions);
-    myPlayer.src([
-      {
-        type: 'application/vnd.ms-sstr+xml',
-        //  type:'application/dash+xml',
-        src: this.srcMp4,
-      }
-    ]);
-
   }
+
+  ngAfterViewInit() {
+    
+    this.waitForAmp().then((amp) => {
+      this.ampPlayer = amp;
+
+      this.ampPlayer.src([{
+        src: this.srcVideo,
+        type: 'application/vnd.ms-sstr+xml',
+        
+      }],
+        [
+          {
+            src:
+              "https://vhcoreinfratest1.blob.core.windows.net/asset-cbcd4569-3775-4994-91a8-a1e019de17e1/btd_individual_laptop.mp4.vtt?sv=2017-04-17&sr=c&si=e30e8eff-b0bb-435e-b8ce-1a4cefea0cba&sig=jP125rTmY8dV0TjnrMUWoVejrI0qx9TnNdA17PS12mc%3D&st=2019-11-05T10%3A45%3A19Z&se=2119-11-12T10%3A45%3A19Z";
+            srclang: "en",
+            label: "track1",
+            kind: "captions"
+          }
+        ]
+      );
+     
+      this.videoPlayer.srcObject = this.srcLama;
+    }).catch(e => console.error('Could not found Azure Media Player plugin', e));
+  }
+
   goToDiv(fragment: string): void {
     window.document.getElementById(fragment).scrollIntoView();
   }
@@ -54,6 +75,27 @@ export class AccessibilityComponent implements AfterViewInit {
 
   scrollFooter(e) {
     this.isFooter = !e.footer;
+  }
+
+waitForAmp = () => {
+    return new Promise((resolve, reject) => {
+      let waited = 0;
+      const wait = (interval) => {
+        setTimeout(() => {
+            waited += interval;
+          const ampPlayer = amp(this.videoPlayer.nativeElement, this.ampOptions);
+          if (ampPlayer !== undefined) {
+            return resolve(ampPlayer);
+            }
+            if (waited >= 30000) {
+            return reject();
+            }
+            wait(interval * 2);
+            return null;
+        }, interval);
+      };
+      wait(30);
+    });
   }
 
 }
