@@ -1,10 +1,10 @@
-<details class="govuk-details">
-  <summary class="govuk-details__summary" (click)="toggle()">
+<details class="govuk-details" data-module="govuk-details" >
+  <summary class="govuk-details__summary" (click)="toggle()" tabindex="0" role="button" [attr.aria-expanded]="expanded">
     <span class="govuk-details__summary-text">
       {{detailsTitle}}
     </span>
   </summary>
-  <div class="govuk-details__text" *ngIf="expanded">
+  <div class="govuk-details__text" *ngIf="expanded" >
     <div *ngFor="let textItem of textArray">
       <p class="govuk-body govuk-!-margin-bottom-4" [innerHTML]="textItem">
        
