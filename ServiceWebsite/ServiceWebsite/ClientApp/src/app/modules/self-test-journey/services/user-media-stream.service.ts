@@ -27,9 +27,7 @@ export class UserMediaStreamService {
       rather than being returned to the client.
       */
       await this.getStream();
-                
       this.stopRequestStream();
-
       return true;
     } catch (exception) {
       this.logger.error('could not get cam and mic access', exception);
@@ -53,8 +51,9 @@ export class UserMediaStreamService {
   async getStreamForMic(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
+        const deviceId = await this.getDeviceId(device.label);
         const stream = await this._navigator.mediaDevices.getUserMedia(
-          { audio: { deviceId: { exact: device.deviceId } } }
+          { audio: { deviceId: { exact: deviceId } } }
         );
         return stream;
       } else {
@@ -68,8 +67,9 @@ export class UserMediaStreamService {
   async getStreamForCam(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
-       const stream = await this._navigator.mediaDevices.getUserMedia(
-          { video: { deviceId: { exact: device.deviceId } } }
+        const deviceId = await this.getDeviceId(device.label);
+        const stream = await this._navigator.mediaDevices.getUserMedia(
+          { video: { deviceId: { exact: deviceId } } }
         );
        return stream;
       } else {
@@ -82,7 +82,7 @@ export class UserMediaStreamService {
 
   private async getDeviceId(deviceName: string) {
     const availableDevices: MediaDeviceInfo[] = await this._navigator.mediaDevices.enumerateDevices();
-    const filteredDevices = availableDevices.filter(x => x.deviceId === deviceName);
+    const filteredDevices = availableDevices.filter(x => x.label === deviceName);
     return filteredDevices[0].deviceId;
   }
 
