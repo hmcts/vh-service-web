@@ -58,8 +58,16 @@ export class UserMediaService extends MediaService {
     if (!this._navigator.mediaDevices || !this._navigator.mediaDevices.enumerateDevices) {
       throw new Error('enumerateDevices() not supported.');
     }
-    let updatedDevices: MediaDeviceInfo[] = await this._navigator.mediaDevices.enumerateDevices();
-    updatedDevices = updatedDevices.filter(x => x.deviceId !== 'default' && x.kind !== 'audiooutput');
+
+    let updatedDevices: MediaDeviceInfo[];
+
+    var stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    if (stream.getAudioTracks().length > 0 && stream.getVideoTracks().length > 0) {
+      updatedDevices = await navigator.mediaDevices.enumerateDevices();
+
+    }
+   
+  updatedDevices = updatedDevices.filter(x => x.deviceId !== 'default' && x.kind !== 'audiooutput');
     this.availableDeviceList = Array.from(updatedDevices, device =>
       new UserMediaDevice(device.label, device.deviceId, device.kind, device.groupId)
     );
