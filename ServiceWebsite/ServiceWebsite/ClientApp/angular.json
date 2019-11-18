@@ -32,7 +32,6 @@
               "src/scripts/pexrtc.js",
               "src/scripts/EdgePF.js",
               "src/scripts/IEPF.js",
-              "src/azuremediaplayer.min.js"
             ]
           },
           "configurations": {
