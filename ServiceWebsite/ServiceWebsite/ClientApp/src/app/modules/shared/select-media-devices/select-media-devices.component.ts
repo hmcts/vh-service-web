@@ -158,8 +158,8 @@ export class SelectMediaDevicesComponent implements OnInit {
     if (this.preferredMicrophoneStream) {
       this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
     }
-    this.userMediaService.updatePreferredMicrophone(newMic);
     this.preferredMicrophoneStream = null;
     this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(newMic);
+    this.userMediaService.updatePreferredMicrophone(newMic);
   }
 }
