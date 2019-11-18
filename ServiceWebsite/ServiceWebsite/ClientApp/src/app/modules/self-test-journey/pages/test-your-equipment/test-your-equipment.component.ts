@@ -213,11 +213,18 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
       this.pexipAPI.disconnect();
     }
-
+    this.closeStreams();
     this.incomingStream = null;
     this.outgoingStream = null;
     this.didTestComplete = true;
     this.displayFeed = false;
+  }
+
+  closeStreams() {
+    if (this.preferredMicrophoneStream) {
+      this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
+    }
+    this.preferredMicrophoneStream = null;
   }
 
   retrieveSelfTestScore() {
