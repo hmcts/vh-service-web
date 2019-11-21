@@ -53,8 +53,10 @@ export class UserMediaStreamService {
   async getStreamForMic(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
+        let isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+        let deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
         const stream = await this._navigator.mediaDevices.getUserMedia(
-          { audio: { deviceId: { exact: device.deviceId } } }
+          { audio: { deviceId: { exact: deviceId } } }
         );
         return stream;
       } else {
@@ -68,8 +70,10 @@ export class UserMediaStreamService {
   async getStreamForCam(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
+        let isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+        let deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
        const stream = await this._navigator.mediaDevices.getUserMedia(
-          { video: { deviceId: { exact: device.deviceId } } }
+         { video: { deviceId: { exact: deviceId } } }
         );
        return stream;
       } else {
@@ -82,7 +86,7 @@ export class UserMediaStreamService {
 
   private async getDeviceId(deviceName: string) {
     const availableDevices: MediaDeviceInfo[] = await this._navigator.mediaDevices.enumerateDevices();
-    const filteredDevices = availableDevices.filter(x => x.deviceId === deviceName);
+    const filteredDevices = availableDevices.filter(x => x.label === deviceName);
     return filteredDevices[0].deviceId;
   }
 
