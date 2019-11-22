@@ -29,7 +29,6 @@ export class UserMediaStreamService {
       await this.getStream();
 
       this.stopRequestStream();
-
       return true;
     } catch (exception) {
       this.logger.error('could not get cam and mic access', exception);
@@ -53,8 +52,10 @@ export class UserMediaStreamService {
   async getStreamForMic(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
+
         const isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
         const deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
+
         const stream = await this._navigator.mediaDevices.getUserMedia(
           { audio: { deviceId: { exact: deviceId } } }
         );
@@ -72,7 +73,7 @@ export class UserMediaStreamService {
       if (device) {
         const isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
         const deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
-       const stream = await this._navigator.mediaDevices.getUserMedia(
+        const stream = await this._navigator.mediaDevices.getUserMedia(
          { video: { deviceId: { exact: deviceId } } }
         );
        return stream;

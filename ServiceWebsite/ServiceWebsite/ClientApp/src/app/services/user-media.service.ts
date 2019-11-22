@@ -66,7 +66,8 @@ export class UserMediaService extends MediaService {
       updatedDevices = await navigator.mediaDevices.enumerateDevices();
     }
 
-  updatedDevices = updatedDevices.filter(x => x.deviceId !== 'default' && x.kind !== 'audiooutput');
+    updatedDevices = updatedDevices.filter(x => x.deviceId !== 'default' && x.kind !== 'audiooutput');
+
     this.availableDeviceList = Array.from(updatedDevices, device =>
       new UserMediaDevice(device.label, device.deviceId, device.kind, device.groupId)
     );
