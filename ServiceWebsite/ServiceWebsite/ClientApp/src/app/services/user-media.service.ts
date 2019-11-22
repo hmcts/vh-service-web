@@ -71,10 +71,6 @@ export class UserMediaService extends MediaService {
     this.availableDeviceList = Array.from(updatedDevices, device =>
       new UserMediaDevice(device.label, device.deviceId, device.kind, device.groupId)
     );
-
-    if (!stream) {
-      return;
-    }
        
     this.stopStream();
 
