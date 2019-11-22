@@ -98,8 +98,8 @@ describe('SelectMediaDevicesComponent', () => {
       component.onSubmit();
     }).then(() => {
       expect(component.acceptMediaDeviceChange.emit).toHaveBeenCalled();
-      //expect(component.getSelectedCamera).toHaveBeenCalled();
-      //expect(component.getSelectedMicrophone).toHaveBeenCalled();
+      // expect(component.getSelectedCamera).toHaveBeenCalled();
+      // expect(component.getSelectedMicrophone).toHaveBeenCalled();
     });
   }));
 
