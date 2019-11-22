@@ -26,7 +26,7 @@ describe('UserMediaService', () => {
       mediaDevices.getUserMedia.and.returnValue(mediaStream);
       mediaStream.getAudioTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack]);
       mediaStream.getVideoTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack]);
-      mediaStream.getTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack]);
+      mediaStream.getTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack, mediaStreamTrack, mediaStreamTrack]);
       return mediaDevices;
     });
   });

@@ -98,6 +98,8 @@ describe('SelectMediaDevicesComponent', () => {
       component.onSubmit();
     }).then(() => {
       expect(component.acceptMediaDeviceChange.emit).toHaveBeenCalled();
+      expect(component.getSelectedCamera).toHaveBeenCalled();
+      expect(component.getSelectedMicrophone).toHaveBeenCalled();
     });
   });
 
@@ -106,4 +108,5 @@ describe('SelectMediaDevicesComponent', () => {
     userMediaStreamServiceSpy.getStreamForCam.and.returnValue(Promise.resolve(mediaStream));
     await component.ngOnInit();
   });
-});
+
+ });
