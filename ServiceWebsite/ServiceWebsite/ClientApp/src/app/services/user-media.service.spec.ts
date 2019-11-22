@@ -21,7 +21,7 @@ describe('UserMediaService', () => {
     (<any>navigator)['__defineGetter__']('mediaDevices', function () {
       const mediaDevices = jasmine.createSpyObj<MediaDevices>('mediaDevices', ['enumerateDevices', 'ondevicechange', 'getUserMedia']);
       const mediaStream = jasmine.createSpyObj<MediaStream>('MediaStream', ['getAudioTracks', 'getVideoTracks', 'getTracks']);
-      const mediaStreamTrack = jasmine.createSpyObj<MediaStreamTrack>('MediaStreamTrack', ['stop']);
+      const mediaStreamTrack = jasmine.createSpyObj<MediaStreamTrack>('MediaStreamTrack', ['stop','kind','label','id']);
       mediaDevices.enumerateDevices.and.returnValue([MediaDeviceInfo, MediaDeviceInfo]);
       mediaDevices.getUserMedia.and.returnValue(mediaStream);
       mediaStream.getAudioTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack]);
