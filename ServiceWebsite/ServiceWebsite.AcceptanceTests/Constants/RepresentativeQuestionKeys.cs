@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServiceWebsite.AcceptanceTests.Constants
+﻿namespace ServiceWebsite.AcceptanceTests.Constants
 {
     public class RepresentativeQuestionKeys
     {
-        public const string AppointingABarrister = "APPOINTING_A_BARRISTER";
+        public const string PresentingTheCase = "PRESENTING_THE_CASE";
         public const string OtherInformation = "OTHER_INFORMATION";
     }
 }

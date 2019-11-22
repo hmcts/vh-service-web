@@ -3,7 +3,7 @@
     public class RepresentativePageUrl : PageUri
     {
         public const string YourVideoHearing = "/your-video-hearing";
-        public const string AppointingABarrister = "/appointing-a-barrister";
+        public const string PresentingTheCase = "/presenting-the-case";
         public const string OtherInformation = "/other-information";
         public const string AnswersSaved = "/answers-saved";
         public const string QuestionnaireCompleted = "/questionnaire-completed";

@@ -6,7 +6,7 @@ export const Paths = {
     PleaseContactUs: 'contact-us-rep',
     ThankYou: 'thank-you-rep',
     YourVideoHearing: 'your-video-hearing',
-    AppointingABarrister: 'appointing-a-barrister',
+    PresentingTheCase: 'presenting-the-case',
     OtherInformation: 'other-information',
     AnswersSaved: 'answers-saved',
 };

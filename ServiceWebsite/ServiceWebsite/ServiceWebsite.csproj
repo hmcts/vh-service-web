@@ -52,6 +52,8 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\modules\individual-journey\individual.gaurd.spec.ts" />
     <None Remove="ClientApp\src\app\modules\individual-journey\individual.gaurd.ts" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\pages\presenting-the-case\presenting-the-case.component.spec.ts" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\pages\presenting-the-case\presenting-the-case.component.ts" />
     <None Remove="ClientApp\src\app\modules\representative-journey\representative.gaurd.ts" />
     <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
@@ -67,6 +69,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\modules\individual-journey\individual.gaurd.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\individual-journey\individual.gaurd.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\representative-journey\pages\presenting-the-case\presenting-the-case.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\representative-journey\pages\presenting-the-case\presenting-the-case.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\representative-journey\representative.gaurd.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />

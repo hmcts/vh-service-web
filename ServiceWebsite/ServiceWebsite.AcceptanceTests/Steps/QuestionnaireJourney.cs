@@ -110,10 +110,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     switchOnCameraAndMicrophone.Continue();
                     continue;
                 }
-                if (page.Name == RepresentativePageNames.AppointingABarrister && page.Name != pageName)
+                if (page.Name == RepresentativePageNames.PresentingTheCase && page.Name != pageName)
                 {
-                    var appointingABarrister = (AppointingABarrister)page;
-                    appointingABarrister.Select(BarristerAppointmentTypes.IAmBarrister);
+                    var appointingABarrister = (PresentingTheCase)page;
+                    appointingABarrister.Select(PresentingTheCaseTypes.IWillBePresentingTheCase);
                     appointingABarrister.Continue();
                     continue;
                 }

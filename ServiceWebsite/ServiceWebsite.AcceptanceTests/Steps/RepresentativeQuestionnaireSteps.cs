@@ -35,7 +35,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         protected override void InitialisePage(BrowserContext browserContext)
         {
-            PageList.Add(new AppointingABarrister(browserContext));
+            PageList.Add(new PresentingTheCase(browserContext));
             PageList.Add(new DecisionJourney(browserContext, RepresentativePageUrl.OtherInformation, RepresentativePageNames.OtherInformation, RepresentativeQuestionKeys.OtherInformation));
             PageList.Add(new JourneyStepPage(browserContext, RepresentativePageUrl.AnswersSaved, RepresentativePageNames.AnswersSaved));
         }
@@ -48,19 +48,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
         [When(@"provides selects option as (.*)")]
-        public void WhenProvidesSelectsOption(BarristerAppointmentTypes answer)
+        public void WhenProvidesSelectsOption(PresentingTheCaseTypes answer)
         {
-            var page = (AppointingABarrister)CurrentPage;
+            var page = (PresentingTheCase)CurrentPage;
             switch (answer)
             {
-                case BarristerAppointmentTypes.BarristerWillBeAppointed:
-                    page.Select(BarristerAppointmentTypes.BarristerWillBeAppointed);
+                case PresentingTheCaseTypes.SomeoneWillBePresentingTheCase:
+                    page.Select(PresentingTheCaseTypes.SomeoneWillBePresentingTheCase);
                     break;
-                case BarristerAppointmentTypes.BarristerWillNotBeAppointed:
-                    page.Select(BarristerAppointmentTypes.BarristerWillNotBeAppointed);
-                    break;
-                case BarristerAppointmentTypes.IAmBarrister:
-                    page.Select(BarristerAppointmentTypes.IAmBarrister);
+                case PresentingTheCaseTypes.IWillBePresentingTheCase:
+                    page.Select(PresentingTheCaseTypes.IWillBePresentingTheCase);
                     break;
             }
         }
@@ -200,7 +197,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             //Submit the answers for rep
             var answerRequestBody = new List<SuitabilityAnswersRequest>();
-            answerRequestBody.Add(CreateSuitabilityAnswersRequest("APPOINTING_BARRISTER", "I am the appointed barrister", null));
+            answerRequestBody.Add(CreateSuitabilityAnswersRequest("PRESENTING_THE_CASE", "I will be presenting the case", null));
             answerRequestBody.Add(CreateSuitabilityAnswersRequest("OTHER_INFORMATION", "false", null));
 
             SubmitSuitabilityAnswers(_representativeParticipantId, answerRequestBody);
