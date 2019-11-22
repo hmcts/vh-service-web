@@ -1,37 +1,34 @@
 import { ParticipantSuitabilityModel, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
 
-export enum AppointingBarrister {
-  IAmAppointedBarrister,
-  BarristerWillBeAppointed,
-  BarristerWillNotBeAppointed
+export enum PresentingTheCase {
+    IWillBePresentingTheCase,
+    SomeoneWillBePresenting,
 }
 
-export class AppointingBarristerDetails {
-  constructor(details?: {
-    fullName?: string,
-    chambers?: string,
-    email?: string
-  }) {
-    if (details) {
-      this.fullName = details.fullName;
-      this.chambers = details.chambers;
-      this.email = details.email;
+export class PresentingCaseDetails {
+    constructor(details?: {
+        fullName?: string,
+        email?: string
+    }) {
+        if (details) {
+            this.fullName = details.fullName;
+            this.email = details.email;
+        }
     }
-  }
 
-  fullName: string;
-  chambers: string;
-  email: string;
+    fullName: string;
+    email: string;
 }
 /**
  * Exposes the basic properties of the suitability model.
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
-  otherInformation: SuitabilityAnswer;
-  appointingBarrister: AppointingBarrister;
-  appointingBarristerDetails: AppointingBarristerDetails;
+    otherInformation: SuitabilityAnswer;
 
-  isCompleted(): boolean {
-    return this.selfTest !== undefined && this.selfTest.isCompleted();
-  }
+    presentingTheCase: PresentingTheCase;
+    presentingCaseDetails: PresentingCaseDetails;
+
+    isCompleted(): boolean {
+        return this.selfTest !== undefined && this.selfTest.isCompleted();
+    }
 }

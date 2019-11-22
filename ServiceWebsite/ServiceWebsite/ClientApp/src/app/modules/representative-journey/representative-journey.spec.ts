@@ -6,7 +6,7 @@ import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 import { TestLogger } from 'src/app/services/logger.spec';
-import { AppointingBarrister } from './representative-suitability.model';
+import { PresentingTheCase } from './representative-suitability.model';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -29,7 +29,7 @@ describe('RepresentativeJourney', () => {
 
   const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
     const model = getModelForHearing(id, scheduledDateTime);
-    model.appointingBarrister = AppointingBarrister.BarristerWillNotBeAppointed;
+    model.presentingTheCase = PresentingTheCase.SomeoneWillBePresenting;
 
     model.selfTest = new SelfTestAnswers({
       cameraWorking: true,

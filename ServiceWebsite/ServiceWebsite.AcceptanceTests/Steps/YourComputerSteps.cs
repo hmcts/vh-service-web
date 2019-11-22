@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Models;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps

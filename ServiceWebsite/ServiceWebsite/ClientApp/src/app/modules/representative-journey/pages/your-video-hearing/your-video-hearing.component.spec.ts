@@ -8,7 +8,7 @@ import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 
 describe('YourVideoHearingComponent', () => {
-  it(`should go to ${RepresentativeJourneySteps.AppointingABarrister} on continuing`, () => {
+  it(`should go to ${RepresentativeJourneySteps.PresentingTheCase} on continuing`, () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: YourVideoHearingComponent,
@@ -19,6 +19,6 @@ describe('YourVideoHearingComponent', () => {
     const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.submitIsClicked();
 
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AppointingABarrister);
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.PresentingTheCase);
   });
 });
