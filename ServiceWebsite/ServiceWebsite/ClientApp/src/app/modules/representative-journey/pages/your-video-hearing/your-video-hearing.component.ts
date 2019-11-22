@@ -11,6 +11,6 @@ export class YourVideoHearingComponent {
   constructor(private journey: RepresentativeJourney) {}
 
   continue() {
-    this.journey.goto(RepresentativeJourneySteps.AppointingABarrister);
+    this.journey.goto(RepresentativeJourneySteps.PresentingTheCase);
   }
 }

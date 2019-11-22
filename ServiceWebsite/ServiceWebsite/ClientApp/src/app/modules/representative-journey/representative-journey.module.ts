@@ -21,7 +21,7 @@ import { RepresentativeNavigationBackFactory } from './representative-navigation
 
 // components
 import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
-import { AppointingABarristerComponent } from './pages/appointing-a-barrister/appointing-a-barrister.component';
+import { PresentingTheCaseComponent } from './pages/presenting-the-case/presenting-the-case.component';
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
@@ -32,39 +32,39 @@ import { SubmitService } from './services/submit.service';
 import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-back.selector';
 
 @NgModule({
-  declarations: [
-    AnswersSavedComponent,
-    ThankYouComponent,
-    HearingDetailsHeaderComponent,
-    YourVideoHearingComponent,
-    AppointingABarristerComponent,
-    OtherInformationComponent
-  ],
-  imports: [
-    // angular
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    declarations: [
+        AnswersSavedComponent,
+        ThankYouComponent,
+        HearingDetailsHeaderComponent,
+        YourVideoHearingComponent,
+        PresentingTheCaseComponent,
+        OtherInformationComponent
+    ],
+    imports: [
+        // angular
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
 
-    // app
-    SharedModule,
-    BaseJourneyModule,
-    RepresentativeJourneyRoutingModule,
-  ],
-  providers: [
-    { provide: RepresentativeSuitabilityModel, useFactory: RepresentativeSuitabilityModelFactory },
-    { provide: JOURNEY_FACTORY, useClass: RepresentativeJourneyFactory, multi: true },
-    { provide: HearingService, useFactory: (service: HearingService) => new CachedHearingService(service), deps: [HearingApiService] },
-    HearingApiService,
-    RepresentativeJourney,
-    RepresentativeSuitabilityService,
-    RepresentativeJourneyStepComponentBindings,
-    JourneyRoutingListenerService,
-    RepresentativeSuitabilityService,
-    RepresentativeJourneyService,
-    SubmitService,
-    { provide: NAVIGATION_BACK_FACTORY, useClass: RepresentativeNavigationBackFactory, multi: true },
-  ]
+        // app
+        SharedModule,
+        BaseJourneyModule,
+        RepresentativeJourneyRoutingModule,
+    ],
+    providers: [
+        { provide: RepresentativeSuitabilityModel, useFactory: RepresentativeSuitabilityModelFactory },
+        { provide: JOURNEY_FACTORY, useClass: RepresentativeJourneyFactory, multi: true },
+        { provide: HearingService, useFactory: (service: HearingService) => new CachedHearingService(service), deps: [HearingApiService] },
+        HearingApiService,
+        RepresentativeJourney,
+        RepresentativeSuitabilityService,
+        RepresentativeJourneyStepComponentBindings,
+        JourneyRoutingListenerService,
+        RepresentativeSuitabilityService,
+        RepresentativeJourneyService,
+        SubmitService,
+        { provide: NAVIGATION_BACK_FACTORY, useClass: RepresentativeNavigationBackFactory, multi: true },
+    ]
 })
 export class RepresentativeJourneyModule {
 }

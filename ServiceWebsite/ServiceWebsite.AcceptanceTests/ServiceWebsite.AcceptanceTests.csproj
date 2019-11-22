@@ -57,11 +57,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AboutYourComputer.feature</DependentUpon>
     </Compile>
-    <Compile Update="Features\AppointingBarrister.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AppointingBarrister.feature</DependentUpon>
-    </Compile>
     <Compile Update="Features\Consent.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -159,10 +154,6 @@
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\AboutYou.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\AppointingBarrister.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AppointingBarrister.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\Consent.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
