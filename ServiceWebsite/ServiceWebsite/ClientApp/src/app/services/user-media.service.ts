@@ -75,10 +75,8 @@ export class UserMediaService extends MediaService {
     if (!stream) {
       return;
     }
-
-    stream.getTracks().forEach((track) => {
-      track.stop();
-    });
+       
+    this.stopStream();
 
     this.connectedDevices.next(this.availableDeviceList);
   }
