@@ -14,7 +14,7 @@ describe('RepresentativeSuitabilityService', () => {
                 hearing_id: '123',
                 participant_id: '456',
                 hearing_scheduled_at: new Date(),
-              questionnaire_not_required: false,
+                questionnaire_not_required: false,
                 answers: []
             })
         ]));
@@ -28,5 +28,5 @@ describe('RepresentativeSuitabilityService', () => {
     it('submits answers to api', () => {
         const result = service.updateSuitabilityAnswers('123', []);
         expect(client.updateSuitabilityAnswers).toHaveBeenCalled();
-      });
+    });
 });

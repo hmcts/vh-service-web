@@ -21,12 +21,10 @@ export class RepresentativeJourneyStepComponentBindings extends ParticipantJourn
         this.bindings.set(Steps.AccessToComputer, Paths.YourComputer);
         this.bindings.set(Steps.AboutYourComputer, Paths.AboutYourComputer);
         this.bindings.set(Steps.YourVideoHearing, Paths.YourVideoHearing);
-        this.bindings.set(Steps.AppointingABarrister, Paths.AppointingABarrister);
+        this.bindings.set(Steps.PresentingTheCase, Paths.PresentingTheCase);
         this.bindings.set(Steps.OtherInformation, Paths.OtherInformation);
         this.bindings.set(Steps.AnswersSaved, Paths.AnswersSaved);
         this.bindings.set(Steps.ThankYou, Paths.ThankYou);
         selfTest.bindings.forEach((path, step) => this.bindings.set(step, path));
     }
-
-
 }
