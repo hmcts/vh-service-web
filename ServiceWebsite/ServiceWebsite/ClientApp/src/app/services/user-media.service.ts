@@ -61,12 +61,11 @@ export class UserMediaService extends MediaService {
 
     let updatedDevices: MediaDeviceInfo[];
 
-    var stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-    if (stream.getAudioTracks().length > 0 && stream.getVideoTracks().length > 0) {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    if (stream.getVideoTracks().length > 0 && stream.getAudioTracks().length > 0) {
       updatedDevices = await navigator.mediaDevices.enumerateDevices();
-
     }
-   
+
   updatedDevices = updatedDevices.filter(x => x.deviceId !== 'default' && x.kind !== 'audiooutput');
     this.availableDeviceList = Array.from(updatedDevices, device =>
       new UserMediaDevice(device.label, device.deviceId, device.kind, device.groupId)

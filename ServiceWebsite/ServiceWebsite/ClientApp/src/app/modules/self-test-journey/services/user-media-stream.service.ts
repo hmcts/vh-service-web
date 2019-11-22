@@ -27,7 +27,7 @@ export class UserMediaStreamService {
       rather than being returned to the client.
       */
       await this.getStream();
-                
+
       this.stopRequestStream();
 
       return true;
@@ -53,8 +53,8 @@ export class UserMediaStreamService {
   async getStreamForMic(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
-        let isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
-        let deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
+        const isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+        const deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
         const stream = await this._navigator.mediaDevices.getUserMedia(
           { audio: { deviceId: { exact: deviceId } } }
         );
@@ -70,8 +70,8 @@ export class UserMediaStreamService {
   async getStreamForCam(device: UserMediaDevice): Promise<MediaStream> {
     try {
       if (device) {
-        let isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
-        let deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
+        const isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+        const deviceId = isFireFox ? device.deviceId : await this.getDeviceId(device.label);
        const stream = await this._navigator.mediaDevices.getUserMedia(
          { video: { deviceId: { exact: deviceId } } }
         );
