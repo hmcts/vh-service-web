@@ -3,7 +3,8 @@ import { PresentingTheCase, PresentingCaseDetails } from '../../representative-s
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { Constants } from '../../../shared/constants';
 
 @Component({
     selector: 'app-presenting-the-case',
@@ -45,9 +46,14 @@ export class PresentingTheCaseComponent extends SuitabilityChoicePageBaseCompone
     }
 
     private initForm() {
+        this.setValidationForPresenterDetails();
         this.form.addControl('presentingCaseName', this.presentingCaseName);
         this.form.addControl('presentingCaseEmail', this.presentingCaseEmail);
         this.clearPresentingCaseDetails();
+    }
+
+    get presentingCaseNameInvalid() {
+        return this.presentingCaseName.invalid && (this.presentingCaseName.dirty || this.presentingCaseName.touched);
     }
 
     private initFormWithValues() {
@@ -58,6 +64,11 @@ export class PresentingTheCaseComponent extends SuitabilityChoicePageBaseCompone
     private clearPresentingCaseDetails() {
         this.presentingCaseName.setValue('');
         this.presentingCaseEmail.setValue('');
+    }
+
+    private setValidationForPresenterDetails() {
+        this.presentingCaseName.setValidators([Validators.pattern(Constants.TextInputPatternName), Validators.maxLength(255)]);
+        this.presentingCaseName.updateValueAndValidity();
     }
 
     protected bindModel(): void {
