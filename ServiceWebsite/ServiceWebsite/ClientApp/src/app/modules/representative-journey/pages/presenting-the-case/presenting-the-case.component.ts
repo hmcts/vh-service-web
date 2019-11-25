@@ -69,7 +69,7 @@ export class PresentingTheCaseComponent extends SuitabilityChoicePageBaseCompone
 
     validateEmail() {
         /* tslint:disable: max-line-length */
-        const pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         this.isValidEmail = this.presentingCaseEmail && this.presentingCaseEmail.value.length > 0 && pattern.test(this.presentingCaseEmail.value.toLowerCase());
     }
 
