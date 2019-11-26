@@ -20,6 +20,12 @@ export class ChoiceTextboxComponent implements OnInit {
   @Input()
   suitabilityAnswer: SuitabilityAnswer;
 
+  @Input()
+  errorMessage1: string;
+
+  @Input()
+  errorMessage2: string;
+
   @Output()
   submitted = new EventEmitter();
 

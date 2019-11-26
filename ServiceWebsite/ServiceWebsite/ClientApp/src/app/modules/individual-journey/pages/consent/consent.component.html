@@ -15,12 +15,12 @@
         <div class="govuk-fieldset">
           <div *ngIf="isFormInvalid  && !textInputNo.invalid">
             <span class="govuk-error-message" i18n="@@consent_span_1">
-              Please answer this question
+              Select if you would be content to take part in the hearing by video
             </span>
           </div>
 
           <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@consent_p_1">
-            As you'd be using your own computer and room, we'd like to find out if you would be happy to do this.
+            As you’d be using your own computer and room, please indicate if you’d be happy to do this.
           </p>
 
           <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@consent_p_2">
@@ -85,7 +85,7 @@
       <div class="mt-20">
         <button class="govuk-button" (click)="submit()" i18n="@@consent_btn_continue" id="continue"
                 type="button">
-          Save and Continue
+          Save and continue
         </button>
       </div>
     </form>
