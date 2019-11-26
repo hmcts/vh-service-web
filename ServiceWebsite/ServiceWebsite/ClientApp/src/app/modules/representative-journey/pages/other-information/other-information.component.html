@@ -16,6 +16,8 @@
 
     <app-choice-textbox [detailsYesText]="'Please provide any information here.'"
                         [suitabilityAnswer]="model.otherInformation" [buttonText]="'Save and continue'"
+                        [errorMessage1]="'Please answer this question'"
+                        [errorMessage2]="'Please complete this section'"
                         (submitted)="submit()" i18n="@@otherInformation_choice_1">
 
       <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@otherInformation_p_1">

@@ -4,7 +4,7 @@
     <div class="govuk-fieldset">
       <div *ngIf="form.isFormInvalid && !form.isTextInputInvalid">
         <span class="govuk-error-message" i18n="@@choiceTextbox_span_1">
-          Please answer this question
+          <!--Please answer this question-->{{errorMessage1}}
         </span>
       </div>
 
@@ -31,7 +31,7 @@
                     {{hintText}}
                   </span>
                   <span *ngIf="form.isTextInputInvalid" class="govuk-error-message" i18n="@@choiceTextbox_span_2">
-                    Please complete this section
+                    <!--Please complete this section-->{{errorMessage2}}
                   </span>
                   <textarea formControlName="textInput" class="txtMore vh-text-width" id="details-yes" rows="5"
                             cols="80" [ngClass]="form.isTextInputInvalid ? 'govuk-textarea--error' : 'govuk-textarea'"
