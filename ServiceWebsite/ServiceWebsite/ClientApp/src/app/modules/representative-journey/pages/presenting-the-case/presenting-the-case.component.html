@@ -6,7 +6,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl" i18n="@@presentingTheCase_rep_h1">
-      Presenting the case
+      Presenting the case 
     </h1>
     <div>
       <app-hearing-details-header></app-hearing-details-header>
@@ -42,7 +42,14 @@
                   </label>
                 </div>
                 <div *ngIf="showPresenterDetails" class="govuk-radios__conditional govuk-!-margin-bottom-3 pt-3">
-                  <div class="govuk-form-group">
+
+                  <div class="govuk-form-group" [ngClass]="{'govuk-form-group--error':presentingCaseNameInvalid}">
+
+                    <legend id="presentingCaseName-error" *ngIf="presentingCaseNameInvalid">
+                      <span class="govuk-error-message" i18n="@@presentingTheCase_span_2">
+                        Please enter a valid name
+                      </span>
+                    </legend>
                     <label class="govuk-label" for="presentingCaseName" i18n="@@presentingTheCase_rep_label_3">
                       Full name of the person presenting
                     </label>
