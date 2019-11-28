@@ -4,6 +4,8 @@ import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
+import { Router } from '@angular/router';
+import { Paths } from '../../../../paths';
 
 @Component({
   selector: 'app-check-your-computer',
@@ -12,7 +14,8 @@ import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 })
 export class CheckYourComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
 
-  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel, private deviceType: DeviceType) {
+  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel,
+    private deviceType: DeviceType, private router: Router) {
     super(journey);
   }
 
@@ -34,8 +37,8 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
       return;
     }
 
-    if (this.deviceType.isMobile()) {
-      this.journey.goto(SelfTestJourneySteps.SignInOnComputer);
+    if (this.deviceType.isMobile() || this.deviceType.isTablet()) {
+      this.router.navigate([`/${Paths.SignInOnComputer}`]);
       return;
     }
 

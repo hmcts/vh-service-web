@@ -1,6 +1,9 @@
-﻿using FluentAssertions;
-using ServiceWebsite.AcceptanceTests.Contexts;
+﻿using System;
+using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.AcceptanceTests.NuGet.Contexts;
+using ServiceWebsite.AcceptanceTests.NuGet.Helpers;
+using ServiceWebsite.AcceptanceTests.NuGet.Hooks;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 
@@ -12,44 +15,56 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly BrowserContext _browserContext;
         private readonly MicrosoftLoginPage _loginPage;
         private readonly ScenarioContext _scenarioContext;
-        private readonly TestContext _testContext;
+        private readonly TestContextBase _testContext;
         public LoginSteps(MicrosoftLoginPage loginPage,
-            ScenarioContext injectedContext, TestContext testContext, BrowserContext browserContext)
+            ScenarioContext injectedContext, TestContextBase testContext, BrowserContext browserContext)
         {
             _loginPage = loginPage;
             _scenarioContext = injectedContext;
             _testContext = testContext;
             _browserContext = browserContext;
         }
+
         public void AdminOnMicrosoftLoginPage()
         {
             ValidatePage("login.microsoftonline.com");           
         }
-        [Given(@"'(.*)' is provided with a way of viewing contact details")]
+
         [When(@"'(.*)' with no upcoming hearings logs in with valid credentials")]
+        public void WhenParticipantLogsInWithValidCredentialsButNoHearings(string user)
+        {
+            SetCurrentUserContext(user);
+            DataSetUp.RemoveHearing(_testContext, new HearingsEndpoints());
+            _loginPage.Logon(_testContext.CurrentUser.Username, _testContext.TestUserSecrets.TestUserPassword);
+            _scenarioContext.Add("Participant", _testContext.CurrentUser.Role);
+        }
+
+
+        [Given(@"'(.*)' is provided with a way of viewing contact details")]
+        
         [When(@"'(.*)' logs in with valid credentials")]
-        public void WhenParticipantLogsInWithValidCredentials(string participant)
+        public void WhenParticipantLogsInWithValidCredentials(string user)
         {
             AdminOnMicrosoftLoginPage();
-            var appSecrets = _testContext.TestUserSecrets;
-            var password = appSecrets.Password;
-            switch (participant)
-            {
-                case "Individual":
-                    _loginPage.Logon(appSecrets.Individual, password);
-                    _scenarioContext.Add("Username", appSecrets.Individual);
-                    break;
-                case "Representative":
-                    _loginPage.Logon(appSecrets.Representative, password);
-                    _scenarioContext.Add("Username", appSecrets.Representative);
-                    break;
-                case "Person":
-                    _loginPage.Logon(appSecrets.Person, password);
-                    _scenarioContext.Add("Username", appSecrets.Person);
-                    break;
-            }
-            _scenarioContext.Add("Participant", participant);
+
+            SetCurrentUserContext(user);
+            _loginPage.Logon(_testContext.CurrentUser.Username, _testContext.TestUserSecrets.TestUserPassword);
+            _scenarioContext.Add("Participant", _testContext.CurrentUser.Role);         
         }
+
+        private void SetCurrentUserContext(string user)
+        {
+            if (_testContext.CurrentUser != null) return;
+            switch (user)
+            {
+                case "Individual": _testContext.CurrentUser = _testContext.GetIndividualUser(); break;
+                case "Representative": _testContext.CurrentUser = _testContext.GetRepresentativeUser(); break;
+                case "Case Admin": _testContext.CurrentUser = _testContext.GetCaseAdminUser(); break;
+                case "Person": _testContext.CurrentUser = _testContext.GetNonAdminUser(); break;
+                default: throw new ArgumentOutOfRangeException($"No user found with user type {user}");
+            }
+        }
+
         [When(@"Individual starts suitability questionnaire")]
         public void ThenIndividulStartsSuitabilityQuestionnaire()
         {

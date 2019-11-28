@@ -43,19 +43,4 @@ describe('ProfileService', () => {
     expect(profile.email).toBe(response.email);
     expect(profile.role).toBe(response.role);
   });
-
-  it('returns empty profile when response from api undefined', async () => {
-    apiClient.getUserProfile.and.returnValue(of(undefined));
-    service.profile = undefined;
-    const profile = await service.getUserProfile();
-    expect(profile.email).toBeUndefined();
-    expect(profile.role).toBeUndefined();
-  });
-
-  it('logs error when api client throws', async () => {
-    apiClient.getUserProfile.and.throwError('something');
-    service.profile = undefined;
-    const profile = await service.getUserProfile();
-    expect(logger.error).toHaveBeenCalled();
-  });
 });

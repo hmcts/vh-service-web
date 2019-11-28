@@ -12,7 +12,19 @@ export class ChoiceTextboxComponent implements OnInit {
   detailsYesText: string;
 
   @Input()
+  hintText: string;
+
+  @Input()
+  buttonText = 'Continue';
+
+  @Input()
   suitabilityAnswer: SuitabilityAnswer;
+
+  @Input()
+  errorMessage1: string;
+
+  @Input()
+  errorMessage2: string;
 
   @Output()
   submitted = new EventEmitter();

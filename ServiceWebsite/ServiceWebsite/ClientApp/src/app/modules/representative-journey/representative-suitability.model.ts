@@ -1,16 +1,34 @@
-import { HasAccessToCamera } from './../base-journey/participant-suitability.model';
 import { ParticipantSuitabilityModel, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
 
+export enum PresentingTheCase {
+    IWillBePresentingTheCase,
+    SomeoneWillBePresenting,
+}
+
+export class PresentingCaseDetails {
+    constructor(details?: {
+        fullName?: string,
+        email?: string
+    }) {
+        if (details) {
+            this.fullName = details.fullName;
+            this.email = details.email;
+        }
+    }
+
+    fullName: string;
+    email: string;
+}
 /**
  * Exposes the basic properties of the suitability model.
  */
 export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabilityModel {
-    aboutYourClient: SuitabilityAnswer;
-    clientAttendance: boolean;
-    hearingSuitability: SuitabilityAnswer;
+    otherInformation: SuitabilityAnswer;
+
+    presentingTheCase: PresentingTheCase;
+    presentingCaseDetails: PresentingCaseDetails;
 
     isCompleted(): boolean {
-        const droppedOff = this.camera === HasAccessToCamera.No || this.computer === false;
-        return droppedOff || (this.selfTest !== undefined && this.selfTest.isCompleted());
+        return this.selfTest !== undefined && this.selfTest.isCompleted();
     }
 }

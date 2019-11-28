@@ -51,13 +51,13 @@ export class VideoViewComponent implements OnDestroy {
   }
 
   private stopPlaying() {
-    this.videoTag.pause();
-    this.videoTag.currentTime = 0;
-    this.videoTag.muted = true;
+    const videoElement = this.videoTag;
+    videoElement.pause();
+    videoElement.currentTime = 0;
+    videoElement.muted = true;
   }
 
   ngOnDestroy() {
     this.stopPlaying();
-    this.videoTag.removeAttribute('src');
   }
 }

@@ -1,16 +1,16 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {SuitabilityChoicePageBaseComponent} from '../../../base-journey/components/suitability-choice-page-base.component';
-import {JourneyBase} from '../../../base-journey/journey-base';
-import {ParticipantSuitabilityModel} from '../../../base-journey/participant-suitability.model';
-import {SelfTestJourneySteps} from '../../self-test-journey-steps';
-import {TokenResponse, ParticipantResponse} from '../../../../services/clients/api-client';
-import {UserMediaStreamService} from '../../services/user-media-stream.service';
-import {VideoWebService} from '../../services/video-web.service';
-import {ConfigService} from '../../../../services/config.service';
-import {Logger} from '../../../../services/logger';
-import {Subscription} from 'rxjs';
-import {UserMediaService} from '../../../../services/user-media.service';
-import {SelectedUserMediaDevice} from '../../../shared/models/selected-user-media-device';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
+import { JourneyBase } from '../../../base-journey/journey-base';
+import { ParticipantSuitabilityModel, MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
+import { UserMediaStreamService } from '../../services/user-media-stream.service';
+import { VideoWebService } from '../../services/video-web.service';
+import { ConfigService } from '../../../../services/config.service';
+import { Logger } from '../../../../services/logger';
+import { Subscription } from 'rxjs';
+import { UserMediaService } from '../../../../services/user-media.service';
+import { SelectedUserMediaDevice } from '../../../shared/models/selected-user-media-device';
 
 declare var PexRTC: any;
 
@@ -42,13 +42,16 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   subDevice: Subscription;
   subScore: Subscription;
 
+  mediaSwitchedOn: MediaAccessResponse;
+  NotAllowedError = 'NotAllowedError';
+
   constructor(journey: JourneyBase,
-              private model: ParticipantSuitabilityModel,
-              _userMediaService: UserMediaService,
-              private userMediaStreamService: UserMediaStreamService,
-              private videoWebService: VideoWebService,
-              private configService: ConfigService,
-              _logger: Logger
+    private model: ParticipantSuitabilityModel,
+    _userMediaService: UserMediaService,
+    private userMediaStreamService: UserMediaStreamService,
+    private videoWebService: VideoWebService,
+    private configService: ConfigService,
+    _logger: Logger
   ) {
     super(journey);
     this.didTestComplete = false;
@@ -61,7 +64,16 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.displayDeviceChangeModal = false;
     this.setupSubscribers();
     await this.setConfiguration();
-    await this.setupPexipClient();
+    try {
+      await this.setupPexipClient();
+      this.logger.event('telemetry:serviceweb:any:selftest:start');
+    } catch (error) {
+
+      if (error.toString().includes(this.NotAllowedError)) {
+        this.showEquipmentBlockedMessage();
+        return;
+      }
+    }
     await this.getToken();
   }
 
@@ -70,7 +82,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.hasMultipleDevices = await this.userMediaService.hasMultipleDevices();
 
       this.logger.event(`(setupSubscribers) Has multiple devices: ${this.hasMultipleDevices}`,
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId });
     });
   }
 
@@ -81,18 +93,18 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   async getToken() {
     this.logger.event('(getToken -> About to get token for pexip.)',
-      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+      { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
     this.videoWebService.getCurrentParticipantId().subscribe((response: ParticipantResponse) => {
       this.participantId = response.id;
       this.videoWebService.getToken(this.participantId).subscribe(async (token: TokenResponse) => {
-          this.token = token;
-          this.call();
-        },
+        this.token = token;
+        this.call();
+      },
         (error) => {
           this.loadingData = false;
           this.logger.error('(getToken -> Error to get token.)', new Error(error),
-            {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+            { hearingId: this.model.hearing.id, participantId: this.model.participantId });
         });
     });
   }
@@ -104,8 +116,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
     if (this.pexipAPI) {
       this.logger.event('(call -> About to make pexip call.)',
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias});
-
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias });
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
     }
   }
@@ -121,7 +132,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.pexipAPI.video_source = cam.deviceId;
 
       this.logger.event('(updatePexipAudioVideoSource -> Assigning Video Source.)',
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId });
     }
 
     const mic = this.userMediaService.getPreferredMicrophone();
@@ -129,7 +140,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.pexipAPI.audio_source = mic.deviceId;
 
       this.logger.event('(updatePexipAudioVideoSource -> Assigning Audio Source.)',
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId });
     }
 
     this.preferredMicrophoneStream = await this.userMediaStreamService.getStreamForMic(mic);
@@ -152,15 +163,12 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       });
 
       this.pexipAPI.onError = ((reason) => {
-        this.logger.error('(setupPexipClient -> pexipAPI.onError)', new Error(reason),
-          {hearingId: this.model.hearing.id, participantId: this.model.participantId});
-
         self.errorHandleEvent(reason);
       });
 
       this.pexipAPI.onDisconnect = ((reason) => {
         this.logger.event('(setupPexipClient -> pexipAPI.onDisconnect)',
-          {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+          { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
         self.disconnectHandleEvent(reason);
       });
@@ -169,7 +177,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   connectHandleEvent(stream) {
     this.logger.event('(connectHandleEvent) successfully connected',
-      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+      { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
     this.incomingStream = stream;
     this.displayFeed = true;
@@ -177,18 +185,20 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   errorHandleEvent(reason) {
     this.displayFeed = false;
-
-    this.logger.error('(errorHandleEvent -> Error from pexip.)', new Error(reason),
-      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+    this.logger.error('(setupPexipClient -> pexipAPI.onError)', new Error(reason),
+      { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
     this.didTestComplete = true;
+    if (reason.toString().includes('Could not get access to camera/microphone')) {
+      this.showEquipmentBlockedMessage();
+    }
   }
 
   disconnectHandleEvent(reason) {
     this.displayFeed = false;
 
     this.logger.error('(disconnectHandleEvent -> Disconnected from pexip.)', new Error(reason),
-      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+      { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
     if (reason === 'Conference terminated by another participant') {
       this.didTestComplete = true;
@@ -199,29 +209,39 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   disconnect() {
     if (this.pexipAPI) {
       this.logger.event('(disconnect -> About to disconnecting from pexip.)',
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
       this.pexipAPI.disconnect();
     }
-
+    this.closeStreams();
     this.incomingStream = null;
     this.outgoingStream = null;
     this.didTestComplete = true;
     this.displayFeed = false;
   }
 
+  closeStreams() {
+    if (this.preferredMicrophoneStream) {
+      this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
+    }
+    this.preferredMicrophoneStream = null;
+  }
+
   retrieveSelfTestScore() {
     this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
 
       this.logger.event(`(retrieveSelfTestScore -> TEST SCORE KINLY RESULT: ${score.score})`,
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId });
+
+      this.logger.event(`telemetry:serviceweb:any:selftest:score:${score.score}`);
 
       this.model.selfTest.selfTestResultScore = score.score;
     }, (error) => {
       this.model.selfTest.selfTestResultScore = 'None';
 
       this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error),
-        {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId });
+        this.logger.event('telemetry:serviceweb:any:selftest:score:none');
     });
   }
 
@@ -230,14 +250,33 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   async replayVideo() {
     this.logger.event('(replayVideo -> Replaying Video.)',
-      {hearingId: this.model.hearing.id, participantId: this.model.participantId});
+      { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
     this.disconnect();
     this.dispose();
+    try {
+      await this.setupPexipClient();
+    } catch (error) {
 
-    await this.setupPexipClient();
-    await this.userMediaService.requestAccess();
-    this.call();
+      if (error.toString().includes(this.NotAllowedError)) {
+        this.showEquipmentBlockedMessage();
+        return;
+      }
+
+      throw (error);
+    }
+
+    this.mediaSwitchedOn = await this.userMediaService.requestAccess();
+    if (!this.mediaSwitchedOn.result && this.mediaSwitchedOn.exceptionType === this.NotAllowedError) {
+      this.showEquipmentBlockedMessage();
+    } else {
+      this.call();
+    }
+  }
+
+  showEquipmentBlockedMessage() {
+    this.model.mediaSwitchedOn = false;
+    this.journey.goto(SelfTestJourneySteps.EquipmentBlocked);
   }
 
   async changeDevices() {
@@ -263,6 +302,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.disconnect();
     }
     this.pexipAPI = null;
+    this.logger.event('telemetry:serviceweb:any:selftest:complete');
     this.retrieveSelfTestScore();
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
@@ -274,6 +314,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.pexipAPI = null;
     this.userMediaStreamService.stopStream(this.incomingStream);
     this.userMediaStreamService.stopStream(this.outgoingStream);
+    this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
+
     this.incomingStream = null;
     this.outgoingStream = null;
   }

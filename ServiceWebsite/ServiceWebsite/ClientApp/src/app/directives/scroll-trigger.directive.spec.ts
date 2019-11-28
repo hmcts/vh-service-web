@@ -48,6 +48,23 @@ describe('ScrollableDirective', () => {
     expect(eventRaised).toBe(true);
   });
 
+  it('should raise event if start scroll up', () => {
+    const pos = getElementBottom() + documentHeight;
+    windowScroll.getPosition.and.returnValue(pos);
+    directive.lastScrollPosition = 1000;
+    directive.onWindowScroll();
+    expect(eventRaised).toBe(true);
+  });
+
+  it('should raise event if start scroll up and pass content point', () => {
+    const pos = getElementBottom() + documentHeight;
+    windowScroll.getPosition.and.returnValue(pos);
+    directive.lastScrollPosition = 10;
+    directive.onWindowScroll();
+    expect(eventRaised).toBe(true);
+    expect(eventRaisedFooter).toBe(true);
+  });
+
   it('should raise event if reached bottom of element, scrolling up then down again', () => {
     scrollPastElementBottom();
     expect(eventRaised).toBe(true);
@@ -60,4 +77,14 @@ describe('ScrollableDirective', () => {
     expect(eventRaised).toBe(true);
   });
 
+  it('check offset from footer raised event with true parameter', () => {
+    directive.margin = 100;
+    expect(directive.checkOffset(200)).toBe(false);
+  });
+  it('check offset from footer raised event with false parameter', () => {
+    directive.margin = -200;
+    expect(directive.checkOffset(0)).toBe(true);
+  });
 });
+
+

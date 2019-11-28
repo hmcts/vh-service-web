@@ -1,20 +1,11 @@
-import {RepresentativeSuitabilityModel} from './representative-suitability.model';
-import {HasAccessToCamera, SuitabilityAnswer, Hearing} from '../base-journey/participant-suitability.model';
+import { RepresentativeSuitabilityModel } from './representative-suitability.model';
+import { Hearing, SuitabilityAnswer } from '../base-journey/participant-suitability.model';
 
 export class MutableRepresentativeSuitabilityModel extends RepresentativeSuitabilityModel {
   constructor() {
     super();
-    this.aboutYou = new SuitabilityAnswer();
-    this.aboutYourClient = new SuitabilityAnswer();
-    this.hearingSuitability = new SuitabilityAnswer();
+    this.otherInformation = new SuitabilityAnswer();
   }
-
-  camera: HasAccessToCamera;
-  computer: boolean;
-  room: boolean;
-  aboutYou: SuitabilityAnswer;
-  aboutYourClient: SuitabilityAnswer;
-  hearingSuitability: SuitabilityAnswer;
   hearing: Hearing;
   participantId: string;
 }

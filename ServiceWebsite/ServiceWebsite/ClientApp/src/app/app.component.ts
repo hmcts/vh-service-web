@@ -10,6 +10,8 @@ import {PageTrackerService} from './services/page-tracker.service';
 import {DeviceType} from './modules/base-journey/services/device-type';
 import {Paths} from './paths';
 import {NavigationBackSelector} from './modules/base-journey/services/navigation-back.selector';
+import {DocumentRedirectService} from './services/document-redirect.service';
+import {Logger} from './services/logger';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +38,9 @@ export class AppComponent implements OnInit {
     pageTracker: PageTrackerService,
     private deviceTypeService: DeviceType,
     private navigationBackSelector: NavigationBackSelector,
-    private renderer: Renderer
+    private renderer: Renderer,
+    private redirect: DocumentRedirectService,
+    private logger: Logger
   ) {
     this.loggedIn = false;
     this.initAuthentication();
@@ -67,16 +71,44 @@ export class AppComponent implements OnInit {
     const currentUrl = this.window.getLocation().href;
 
     if (!this.loggedIn) {
+      this.logger.event('telemetry:serviceweb:any:login:notauthenticated');
+      this.logger.flushBuffer();
       await this.router.navigate(['/login'], {queryParams: {returnUrl: currentUrl}});
-    } else {
+      return;
+    }
+
+    this.logger.event('telemetry:serviceweb:any:login:authenticated');
+
+    try {
       const profile = await this.profileService.getUserProfile();
 
       if (profile === undefined || profile.email === undefined || profile.role === undefined) {
         await this.router.navigate(['/unauthorized']);
-      } else {
-        await this.journeySelector.beginFor(profile.role);
-        await this.navigationBackSelector.beginFor(profile.role);
+        return;
       }
+
+      await this.journeySelector.beginFor(profile.role);
+      await this.navigationBackSelector.beginFor(profile.role);
+    } catch (err) {
+      const errorMessage =
+        `Error ${err.status ? err.status : ''}:
+        ${err.message ? err.message : 'No Error Message'}:
+        ${err.response ? err.response : 'No Response'}
+        `;
+
+      this.logger.error(errorMessage, err);
+
+      if (err.status) {
+        if (err.status === 401) {
+          this.logger.event('telemetry:serviceweb:any:login:unauthorized');
+          await this.router.navigate(['/unauthorized']);
+          return;
+        }
+      }
+
+      this.redirect.to(this.config.videoAppUrl);
+
+      return;
     }
   }
 

@@ -1,11 +1,11 @@
-import {UserMediaService} from './user-media.service';
-import {LoggerService} from 'src/app/services/logger.service';
-import {MediaDeviceTestData} from '../testing/data/media-device-test-data';
-import {inject, TestBed} from '@angular/core/testing';
-import {Logger} from './logger';
-import {MockLogger} from '../testing/mocks/mock-logger';
-import {SessionStorage} from '../modules/shared/services/session-storage';
-import {UserMediaDevice} from '../modules/shared/models/user-media-device';
+import { UserMediaService } from './user-media.service';
+import { LoggerService } from 'src/app/services/logger.service';
+import { MediaDeviceTestData } from '../testing/data/media-device-test-data';
+import { inject, TestBed } from '@angular/core/testing';
+import { Logger } from './logger';
+import { MockLogger } from '../testing/mocks/mock-logger';
+import { SessionStorage } from '../modules/shared/services/session-storage';
+import { UserMediaDevice } from '../modules/shared/models/user-media-device';
 
 describe('UserMediaService', () => {
   const testData = new MediaDeviceTestData();
@@ -14,13 +14,19 @@ describe('UserMediaService', () => {
     TestBed.configureTestingModule({
       providers: [
         UserMediaService,
-        {provide: Logger, useClass: MockLogger}
+        { provide: Logger, useClass: MockLogger }
       ]
     });
 
     (<any>navigator)['__defineGetter__']('mediaDevices', function () {
       const mediaDevices = jasmine.createSpyObj<MediaDevices>('mediaDevices', ['enumerateDevices', 'ondevicechange', 'getUserMedia']);
+      const mediaStream = jasmine.createSpyObj<MediaStream>('MediaStream', ['getAudioTracks', 'getVideoTracks', 'getTracks']);
+      const mediaStreamTrack = jasmine.createSpyObj<MediaStreamTrack>('MediaStreamTrack', ['stop', 'kind', 'label', 'id']);
       mediaDevices.enumerateDevices.and.returnValue([MediaDeviceInfo, MediaDeviceInfo]);
+      mediaDevices.getUserMedia.and.returnValue(mediaStream);
+      mediaStream.getAudioTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack]);
+      mediaStream.getVideoTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack]);
+      mediaStream.getTracks.and.returnValue([mediaStreamTrack, mediaStreamTrack, mediaStreamTrack, mediaStreamTrack]);
       return mediaDevices;
     });
   });
@@ -157,7 +163,7 @@ describe('UserMediaService', () => {
     spyOn(userMediaService, 'getStream').and.throwError('Failed to get access to user media');
     const result = await userMediaService.requestAccess();
     expect(result).not.toBeNull();
-    expect(result).toBeFalsy();
+    expect(result.result).toBeFalsy();
     userMediaService.stopStream();
   });
 });

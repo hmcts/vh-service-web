@@ -1,11 +1,12 @@
 import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
-import { HasAccessToCamera, Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
+import { Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
 import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 import { TestLogger } from 'src/app/services/logger.spec';
+import { PresentingTheCase } from './representative-suitability.model';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -28,13 +29,7 @@ describe('RepresentativeJourney', () => {
 
   const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
     const model = getModelForHearing(id, scheduledDateTime);
-    model.aboutYou.answer = false;
-    model.aboutYourClient.answer = true;
-    model.hearingSuitability.answer = true;
-    model.clientAttendance = true;
-    model.camera = HasAccessToCamera.Yes;
-    model.computer = true;
-    model.room = true;
+    model.presentingTheCase = PresentingTheCase.SomeoneWillBePresenting;
 
     model.selfTest = new SelfTestAnswers({
       cameraWorking: true,
@@ -49,7 +44,6 @@ describe('RepresentativeJourney', () => {
 
   const getDroppedOutModel = (id: string) => {
     const model = getModelForHearing(id, tomorrow);
-    model.computer = false;
     return model;
   };
 
@@ -95,7 +89,7 @@ describe('RepresentativeJourney', () => {
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
-    journey.jumpTo(Steps.AboutVideoHearings);
+    journey.jumpTo(Steps.AnswersSaved);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
@@ -104,7 +98,7 @@ describe('RepresentativeJourney', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
 
     // when trying to enter later in the journey
-    journey.jumpTo(Steps.ClientAttendance);
+    journey.jumpTo(Steps.AnswersSaved);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
@@ -150,34 +144,16 @@ describe('RepresentativeJourney', () => {
 
   it(`should enter journey at ${SelfTestJourneySteps.CheckYourComputer} if completed questionnaire but not self-test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.jumpTo(Steps.AboutVideoHearings);
-    expect(journey.step).toBe(SelfTestJourneySteps.CheckYourComputer);
-    expect(redirected).toBe(SelfTestJourneySteps.CheckYourComputer);
+    journey.jumpTo(Steps.AnswersSaved);
   });
 
-  it(`can navigate to ${Steps.QuestionnaireCompleted} after dropping out on ${Steps.AccessToComputer}`, () => {
+  it(`can navigate to ${Steps.AnswersSaved} after dropping out on ${Steps.AccessToComputer}`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
     journey.startAt(Steps.AccessToComputer);
 
-    journey.model.computer = false;
-    journey.jumpTo(Steps.QuestionnaireCompleted);
+    journey.jumpTo(Steps.AnswersSaved);
 
-    expect(journey.step).toBe(Steps.QuestionnaireCompleted);
-  });
-
-  it(`can navigate to ${Steps.ContactUs} after having seen ${Steps.QuestionnaireCompleted} post dropout`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-    journey.model.computer = false;
-    journey.startAt(Steps.QuestionnaireCompleted);
-
-    journey.jumpTo(Steps.ContactUs);
-
-    expect(journey.step).toBe(Steps.ContactUs);
-  });
-
-  it(`should redirect to videoapp if having dropped out from questionnaire`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.droppedOutFromQuestionnaire());
-    expect(redirected).toBe(Steps.GotoVideoApp);
+    expect(journey.step).toBe(Steps.AnswersSaved);
   });
 
   it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {

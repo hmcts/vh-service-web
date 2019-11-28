@@ -6,7 +6,7 @@ import {ParticipantJourneyStepComponentBindings} from '../base-journey/services/
 export class SelfTestJourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
   readonly bindings = new Map<JourneyStep, string>();
   readonly initialStep = Steps.CheckYourComputer;
-
+  readonly finalStep = Steps.VideoWorking;
   constructor() {
     super();
     this.bindings.set(Steps.CheckYourComputer, Paths.CheckYourComputer);

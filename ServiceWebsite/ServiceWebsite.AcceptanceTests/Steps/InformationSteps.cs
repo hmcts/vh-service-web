@@ -20,10 +20,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly LoginSteps _loginSteps;
         private readonly VideoContentPage _participantView;
         private readonly JourneyStepPage _helpTheCourtDecide;
-        private readonly JourneyStepPage _aboutVideoHearing;
-        private readonly JourneyStepPage _aboutYouAndYourClient;
-        private readonly JourneyStepPage _aboutYou;
-
+        private readonly JourneyStepPage _yourVideoHearing;
+        
         public InformationSteps(BrowserContext browserContext, LoginSteps loginSteps, UseCameraMicrophone useCameraMicrophone)
         {
             _aboutHearings = new JourneyStepPage(browserContext, PageUri.AboutHearingsPage, string.Empty);
@@ -36,9 +34,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _mediaError = new Page(browserContext, PageUri.MediaErrorPage, string.Empty);
             _participantView = new VideoContentPage(browserContext, PageUri.ParticipantViewPage);
             _helpTheCourtDecide = new JourneyStepPage(browserContext, PageUri.HelpTheCourtDecidePage, string.Empty);
-            _aboutVideoHearing = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutVideoHearings, string.Empty);
-            _aboutYou = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYou, RepresentativePageNames.AboutYou);
-            _aboutYouAndYourClient = new JourneyStepPage(browserContext, RepresentativePageUrl.AboutYouAndYourClient, "about you and your client");
+            _yourVideoHearing = new JourneyStepPage(browserContext, RepresentativePageUrl.YourVideoHearing, string.Empty);
         }
 
         [Given(@"(.*) participant proceeds to camera and microphone page")]
@@ -96,8 +92,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                     break;
                 case "Representative":
                     _loginSteps.WhenParticipantLogsInWithValidCredentials(participant);
-                    _aboutVideoHearing.Continue();
-                    _aboutYouAndYourClient.Continue();
+                    _yourVideoHearing.Continue();
                     break;
             }            
         }

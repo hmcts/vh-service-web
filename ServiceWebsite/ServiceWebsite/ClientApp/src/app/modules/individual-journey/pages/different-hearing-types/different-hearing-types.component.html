@@ -1,3 +1,8 @@
+<div class="govuk-grid-row vh-back-bottom">
+  <div class="govuk-grid-column-full">
+    <app-back-navigation></app-back-navigation>
+  </div>
+</div>
 <app-crest-blue-panel>
   <h1 class="govuk-heading-l text-white" i18n="@@differentHearingType_h1_1">Which type of court hearing?</h1>
   <p class="govuk-body govuk-!-margin-bottom-6 text-white" i18n="@@differentHearingType_p_1">
@@ -12,7 +17,7 @@
     Before you answer the questions, we'll show you what the different types of hearing are like.
   </p>
 
-  <button class="govuk-button vh-button-white" (click)="continue()" i18n="@@journey_btn_continue" id="continue"
+  <button class="govuk-button govuk-button--secondary" (click)="continue()" i18n="@@journey_btn_continue" id="continue"
     type="button">Continue</button>
 </app-crest-blue-panel>
 <app-contact-us></app-contact-us>

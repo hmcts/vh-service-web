@@ -1,6 +1,7 @@
 import {RepresentativeJourneyService} from './representative.journey.service';
 import {MutableRepresentativeSuitabilityModel} from '../mutable-representative-suitability.model';
-import {HasAccessToCamera, Hearing, SuitabilityAnswer, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import {Hearing, SelfTestAnswers} from '../../base-journey/participant-suitability.model';
+import { PresentingTheCase, PresentingCaseDetails } from '../representative-suitability.model';
 
 describe('representative.journey.service', () => {
   let representativeJourneyService: RepresentativeJourneyService;
@@ -19,19 +20,8 @@ describe('representative.journey.service', () => {
       null,
       null,
       false);
-    model.aboutYou = new SuitabilityAnswer();
-    model.aboutYou.answer = true;
-    model.aboutYou.notes = 'true';
-    model.aboutYourClient = new SuitabilityAnswer();
-    model.aboutYourClient.answer = true;
-    model.aboutYourClient.notes = 'true';
-    model.clientAttendance = true;
-    model.hearingSuitability = new SuitabilityAnswer();
-    model.hearingSuitability.answer = true;
-    model.hearingSuitability.notes = 'true';
-    model.room = true;
-    model.camera = HasAccessToCamera.NotSure;
-    model.computer = true;
+    model.presentingTheCase = PresentingTheCase.IWillBePresentingTheCase;
+    model.presentingCaseDetails = new PresentingCaseDetails();
 
     model.selfTest = new SelfTestAnswers({
       seeAndHearClearly: false,

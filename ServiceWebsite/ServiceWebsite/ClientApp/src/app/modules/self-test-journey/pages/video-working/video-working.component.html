@@ -1,3 +1,8 @@
+<div class="govuk-grid-row vh-back-bottom">
+  <div class="govuk-grid-column-full">
+    <app-back-navigation></app-back-navigation>
+  </div>
+</div>
 <div>
   <h1 class="govuk-heading-xl" i18n="@@video_working_h1">
     Could you see and hear the video clearly?
@@ -8,11 +13,11 @@
     [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
     <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@video_working_span_1">
-      Please answer this question
+      Select if the image and sound were clear
     </span>
 
     <div>
-      <p class="govuk-body" i18n="@@video_working_p_1">Could you see and hear the video clearly?</p>
+      <p class="govuk-body" i18n="@@video_working_p_1">Were the image and sound clear?</p>
     </div>
 
     <div class="govuk-fieldset">

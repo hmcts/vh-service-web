@@ -3,7 +3,7 @@ import {AppComponent} from './app.component';
 import {Router, NavigationEnd} from '@angular/router';
 import {AdalService} from 'adal-angular4';
 import {Config} from './modules/shared/models/config';
-import {of} from 'rxjs';
+import {Observable, of, throwError, throwError as _observableThrow} from 'rxjs';
 import {WindowRef, WindowLocation} from './modules/shared/window-ref';
 import {PageTrackerService} from './services/page-tracker.service';
 import {HeaderComponent} from './modules/shared/header/header.component';
@@ -13,6 +13,10 @@ import {ProfileService} from './services/profile.service';
 import {DeviceType} from './modules/base-journey/services/device-type';
 import {Paths} from './paths';
 import {NavigationBackSelector} from './modules/base-journey/services/navigation-back.selector';
+import {DocumentRedirectService} from './services/document-redirect.service';
+import {Logger} from './services/logger';
+import {MockLogger} from './testing/mocks/mock-logger';
+import {ServiceWebApiException} from './services/clients/api-client';
 
 @Component({selector: 'app-footer', template: ''})
 export class FooterStubComponent {
@@ -37,6 +41,7 @@ describe('AppComponent', () => {
   let pageTracker: jasmine.SpyObj<PageTrackerService>;
   let journeySelector: jasmine.SpyObj<JourneySelector>;
   let navigationBackSelector: jasmine.SpyObj<NavigationBackSelector>;
+  let redirect: jasmine.SpyObj<DocumentRedirectService>;
   let profileService: jasmine.SpyObj<ProfileService>;
   let adalService: jasmine.SpyObj<AdalService>;
   let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
@@ -51,6 +56,7 @@ describe('AppComponent', () => {
     adalService = jasmine.createSpyObj<AdalService>(['handleWindowCallback', 'userInfo', 'init']);
     journeySelector = jasmine.createSpyObj<JourneySelector>(['beginFor']);
     navigationBackSelector = jasmine.createSpyObj<NavigationBackSelector>(['beginFor']);
+    redirect = jasmine.createSpyObj<DocumentRedirectService>(['to']);
     profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
     pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
     deviceTypeServiceSpy = jasmine.createSpyObj<DeviceType>(['isSupportedBrowser']);
@@ -76,6 +82,8 @@ describe('AppComponent', () => {
           {provide: JourneySelector, useValue: journeySelector},
           {provide: DeviceType, useValue: deviceTypeServiceSpy},
           {provide: NavigationBackSelector, useValue: navigationBackSelector},
+          {provide: DocumentRedirectService, useValue: redirect},
+          {provide: Logger, useValue: new MockLogger()},
         ],
     }).compileComponents();
 
@@ -107,7 +115,7 @@ describe('AppComponent', () => {
     await component.ngOnInit();
 
     const lastRouterCall = router.navigate.calls.mostRecent();
-    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
 
     expect(lastRoutingArgs.url).toEqual('/unauthorized');
   });
@@ -118,7 +126,7 @@ describe('AppComponent', () => {
     await component.ngOnInit();
 
     const lastRouterCall = router.navigate.calls.mostRecent();
-    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
 
     expect(lastRoutingArgs.url).toEqual('/unauthorized');
   });
@@ -129,9 +137,34 @@ describe('AppComponent', () => {
     await component.ngOnInit();
 
     const lastRouterCall = router.navigate.calls.mostRecent();
-    const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
 
     expect(lastRoutingArgs.url).toEqual('/unauthorized');
+  });
+
+  it('should redirect to unauthorized when getUserProfile throws error 401', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(
+      Promise.reject({status: 401})
+    );
+
+    await component.ngOnInit();
+
+    const lastRouterCall = router.navigate.calls.mostRecent();
+    const lastRoutingArgs = {url: lastRouterCall.args[0][0]};
+
+    expect(lastRoutingArgs.url).toEqual('/unauthorized');
+  });
+
+  it('should redirect to Video when getUserProfile throws error 500', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(
+      Promise.reject({status: 500})
+    );
+
+    await component.ngOnInit();
+
+    expect(redirect.to).toHaveBeenCalled();
   });
 
   it('should select and start journey on init', async () => {
@@ -146,5 +179,14 @@ describe('AppComponent', () => {
     deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(false);
     component.checkBrowser();
     expect(router.navigateByUrl).toHaveBeenCalledWith(Paths.UnsupportedBrowser);
+  });
+
+  it('should redirect to videoAppUrl if error thrown by journeySelector', async () => {
+    adalService.userInfo.authenticated = true;
+    profileService.getUserProfile.and.returnValue(Promise.resolve({email: 'email', role: 'role'}));
+    journeySelector.beginFor.and.throwError('Some Error');
+    await component.ngOnInit();
+
+    expect(redirect.to).toHaveBeenCalled();
   });
 });

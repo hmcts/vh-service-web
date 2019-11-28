@@ -21,6 +21,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { QuestionnaireAlreadyCompletedComponent } from './pages/questionnaire-already-completed/questionnaire-already-completed.component';
 import { AccessibilityComponent } from './pages/accessibility/accessibility.component';
 import { ScrollTriggerDirective } from './directives/scroll-trigger.directive';
+import { SignInOnComputerComponent } from './pages/sign-in-on-computer/sign-in-on-computer.component';
 
 // services
 import { ErrorService } from './services/error.service';
@@ -63,7 +64,8 @@ export function initConfiguration(configService: ConfigService): Function {
     UnsupportedBrowserComponent,
     QuestionnaireAlreadyCompletedComponent,
     AccessibilityComponent,
-    ScrollTriggerDirective
+    ScrollTriggerDirective,
+    SignInOnComputerComponent
   ],
   imports: [
     // angular

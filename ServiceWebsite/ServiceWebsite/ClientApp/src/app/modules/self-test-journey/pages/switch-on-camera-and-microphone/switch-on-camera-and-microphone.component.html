@@ -1,3 +1,8 @@
+<div class="govuk-grid-row vh-back-bottom">
+  <div class="govuk-grid-column-full">
+    <app-back-navigation></app-back-navigation>
+  </div>
+</div>
 <div class="govuk-width-container">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
@@ -22,16 +27,22 @@
       <div *ngIf="mediaSwitchedOn">
         <div>
           <h1 class="govuk-heading-xl" i18n="@@switch_on_camera_and_microphone_h1_1">
-            Your camera and microphone are now switched on
+            Your camera and microphone are switched on
           </h1>
         </div>
         <div>
           <p class="govuk-body" i18n="@@switch_on_camera_and_microphone_p_2">
-            Your camera and microphone are now switched on. You can go ahead and check they are working properly.
+            You're ready to watch interactive video. It will start automatically on a new page.
           </p>
+          <p class="govuk-body" i18n="@@switch_on_camera_and_microphone_p_3">
+            You must watch it to the end. It will only take 20 to 30 seconds.
+          </p>
+          <app-show-details i18n-bind-detailsTitle="@@switch_on_camera_and_microphone_detailsTitle1" bind-detailsTitle="'Why must I watch the whole video?'"
+                            i18-bind-textArray="@@switch_on_camera_and_microphone_textArray1" bind-textArray="['During the video, the system tests the strength of your internet connection. This checks it\'s strong enough for a video hearing.']">
+          </app-show-details>
         </div>
         <button type="button" i18n="@@switch_on_camera_and_microphone_btn_watchVideo" class="govuk-button hmcts-button--primary" (click)="continue()" id="continue">
-          Test equipment
+          Watch video
         </button>
       </div>
       <app-contact-us></app-contact-us>

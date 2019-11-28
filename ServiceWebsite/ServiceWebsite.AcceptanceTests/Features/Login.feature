@@ -12,9 +12,3 @@ Scenario: Individual without computer submits questionnaire is redirected to Vid
 	Given Individual participant has already submitted questionnaire but drops out
 	When 'Individual' with no upcoming hearings logs in with valid credentials
 	Then Participant should be redirected to Video Web
-
-@VIH-4577 @Representative
-Scenario: Representative without computer submits questionnaire is redirected to Video Web
-	Given Representative participant has already submitted questionnaire but drops out
-	When 'Representative' with no upcoming hearings logs in with valid credentials
-	Then Participant should be redirected to Video Web

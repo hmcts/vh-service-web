@@ -1,3 +1,8 @@
+<div class="govuk-grid-row vh-back-bottom">
+  <div class="govuk-grid-column-full">
+    <app-back-navigation></app-back-navigation>
+  </div>
+</div>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl" i18n="@@accessRoom_h1">
@@ -9,14 +14,14 @@
       <div id="form-container" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
         <div class="govuk-fieldset">
           <div *ngIf="isFormInvalid">
-            <span id="error-message"  class="govuk-error-message" i18n="@@accessRoom_span_1">
-              Please answer this question
+            <span id="error-message" class="govuk-error-message" i18n="@@accessRoom_span_1">
+              Select if you’ll have access to a quiet, private room
             </span>
           </div>
           <p class="govuk-body" i18n="@@accessRoom_p_1">Your hearing is due to take place on <strong>{{ hearingDate | appLongDatetime }}.</strong></p>
 
           <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@accessRoom_p_2">
-            If you have a video hearing, you'll need to sit in a room in your home or office.
+            If you have a video hearing, you’ll need to sit in a room in your home or office.
           </p>
 
           <p class="govuk-body govuk-!-margin-bottom-1" i18n="@@accessRoom_p_3">

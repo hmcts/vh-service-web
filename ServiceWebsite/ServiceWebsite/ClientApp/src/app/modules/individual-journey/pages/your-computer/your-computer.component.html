@@ -1,3 +1,8 @@
+<div class="govuk-grid-row vh-back-bottom">
+  <div class="govuk-grid-column-full">
+    <app-back-navigation></app-back-navigation>
+  </div>
+</div>
 <div>
   <h1 class="govuk-heading-xl" i18n="@@yourComputer_h1">
     Your computer
@@ -7,8 +12,8 @@
   <div id="form-container" class="govuk-form-group"
     [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
-    <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid"  i18n="@@yourComputer_span_1">
-      Please answer this question
+    <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@yourComputer_span_1">
+      Select if you’ll have access to a laptop or desktop computer
     </span>
 
     <div>
