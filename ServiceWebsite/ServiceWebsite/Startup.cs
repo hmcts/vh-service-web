@@ -105,12 +105,15 @@ namespace ServiceWebsite
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            if (!env.IsProduction())
             {
-                const string url = "/swagger/v1/swagger.json";
-                c.SwaggerEndpoint(url, "Video Hearings Website backend");
-            });
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    const string url = "/swagger/v1/swagger.json";
+                    c.SwaggerEndpoint(url, "Video Hearings Website backend");
+                });
+            }
 
             if (env.IsDevelopment())
             {
