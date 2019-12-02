@@ -4,13 +4,11 @@
 
   <app-header [loggedIn]="loggedIn"></app-header>
 
-  <div class="govuk-width-container vh-content">
+  <div class="govuk-width-container ">
     <main #mainContent class="govuk-main-wrapper" id="main-content" role="main" tabindex="-1">
      <app-beta-banner></app-beta-banner>
      <router-outlet *ngIf="initialized"></router-outlet>
     </main>
   </div>
-</div>
-<div>
   <app-footer></app-footer>
 </div>
