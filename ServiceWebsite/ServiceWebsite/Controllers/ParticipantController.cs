@@ -22,13 +22,16 @@ namespace ServiceWebsite.Controllers
         private readonly IHearingsService _hearingService;
         private readonly IParticipantService _participantService;
         private readonly IKinlyPlatformService _kinlyPlatformService;
+        private readonly IPollyRetryService _pollyRetryService;
         private const string StrRegex = @"(\b[A-Z]+(?:_[A-Z]+)+\b)|(\b[A-Z]+\b)";
         private static readonly Regex ValidAnswerKeyRegex = new Regex(StrRegex, RegexOptions.Compiled);
-        public ParticipantController(IHearingsService hearingsService, IParticipantService participantService, IKinlyPlatformService kinlyPlatformService)
+        public ParticipantController(IHearingsService hearingsService, IParticipantService participantService, IKinlyPlatformService kinlyPlatformService,
+            IPollyRetryService pollyRetryService)
         {
             _hearingService = hearingsService;
             _participantService = participantService;
             _kinlyPlatformService = kinlyPlatformService;
+            _pollyRetryService = pollyRetryService;
         }
 
         /// <summary>
@@ -116,7 +119,11 @@ namespace ServiceWebsite.Controllers
         {
             try
             {
-                var score = await _kinlyPlatformService.GetTestCallScoreAsync(participantId);
+                var score = await _pollyRetryService.WaitAndRetryAsync<NotFoundException, TestCallResult>
+                (
+                    2, x => TimeSpan.FromSeconds(1 * x), null, 
+                    () => _kinlyPlatformService.GetTestCallScoreAsync(participantId)
+                );
 
                 return Ok(score);
             }
