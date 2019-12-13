@@ -112,7 +112,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   call() {
     this.didTestComplete = false;
     this.testScore = null;
-    const conferenceAlias = 'testcall1';
+    const conferenceAlias = 'testcall2';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
     if (this.pexipAPI) {
       this.logger.event('(call -> About to make pexip call.)',
