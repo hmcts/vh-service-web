@@ -13,14 +13,9 @@ namespace ServiceWebsite.UnitTests.Services
     public class ParticipantServiceTests
     {
         private ParticipantService _participantService;
-
-
         private Mock<IBookingsApiClient> _bookingsApiClient;
-
-
         private readonly Guid _hearingId;
         private readonly Guid _participantId;
-
         private readonly List<SuitabilityAnswer> _answers;
         private readonly List<SuitabilityAnswersRequest> _answerRequests;
 
