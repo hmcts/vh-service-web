@@ -64,6 +64,7 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
             serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator(customTokenSettings.Secret));
+            serviceCollection.AddSingleton<IPollyRetryService, PollyRetryService>();
 
             serviceCollection.AddSwaggerToApi();
             return serviceCollection;

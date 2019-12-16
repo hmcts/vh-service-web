@@ -23,6 +23,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         private Mock<IHearingsService> _hearingService;
         private Mock<IParticipantService> _participantService;
         private Mock<IKinlyPlatformService> _kinlyPlatformService;
+        private Mock<IPollyRetryService> _pollyRetryService;
 
         [SetUp]
         public void Setup()
@@ -30,8 +31,10 @@ namespace ServiceWebsite.UnitTests.Controllers
             _hearingService = new Mock<IHearingsService>();
             _participantService = new Mock<IParticipantService>();
             _kinlyPlatformService = new Mock<IKinlyPlatformService>();
+            _pollyRetryService = new Mock<IPollyRetryService>();
 
-            _controller = new ParticipantController(_hearingService.Object, _participantService.Object, _kinlyPlatformService.Object);
+            _controller = new ParticipantController(_hearingService.Object, _participantService.Object, 
+                _kinlyPlatformService.Object, _pollyRetryService.Object);
             _controller.MockUserIdentity(Username);
         }
 
@@ -135,8 +138,11 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task should_return_not_found_if_no_test_score_is_not_found()
         {
-            _kinlyPlatformService
-                .Setup(x => x.GetTestCallScoreAsync(It.IsAny<Guid>()))
+            _pollyRetryService
+                .Setup(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
+                (
+                    It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), null, It.IsAny<Func<Task<TestCallResult>>>())
+                )
                 .ThrowsAsync(new NotFoundException("any"));
 
             var result = await _controller.GetTestCallResultForParticipant(Guid.NewGuid());
@@ -150,8 +156,11 @@ namespace ServiceWebsite.UnitTests.Controllers
         {
             var expectedResult = new TestCallResult(true, TestScore.Good);
 
-            _kinlyPlatformService
-                .Setup(x => x.GetTestCallScoreAsync(It.IsAny<Guid>()))
+            _pollyRetryService
+                .Setup(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
+                (
+                    It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), null, It.IsAny<Func<Task<TestCallResult>>>())
+                )
                 .ReturnsAsync(expectedResult);
 
             var result = await _controller.GetTestCallResultForParticipant(Guid.NewGuid());
