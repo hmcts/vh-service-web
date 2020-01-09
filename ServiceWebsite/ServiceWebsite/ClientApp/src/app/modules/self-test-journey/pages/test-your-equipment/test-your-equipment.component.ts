@@ -201,8 +201,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
     if (reason === 'Conference terminated by another participant') {
-      this.didTestComplete = true;
       this.retrieveSelfTestScore();
+      this.didTestComplete = true;
     }
   }
 
@@ -295,6 +295,10 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   async onMediaDeviceChangeCancelled() {
     this.displayDeviceChangeModal = false;
     this.call();
+  }
+
+  testCompleted(): boolean {
+    return this.didTestComplete;
   }
 
   continue() {

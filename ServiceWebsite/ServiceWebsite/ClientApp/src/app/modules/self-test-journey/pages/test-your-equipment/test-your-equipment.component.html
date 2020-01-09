@@ -37,7 +37,7 @@
 <div class="govuk-grid-row govuk-!-margin-top-6">
   <div class="govuk-grid-column-full">
     <p class="govuk-body" i18n="@@test_your_equipment_p_2">
-      When the video has ended, answer a few questions to confirm your microphone and camera are working.
+      You can continue once the video has ended. You'll be asked 3 questions to confirm your microphone and camera are working.
     </p>
   </div>
 </div>
@@ -45,7 +45,7 @@
 <div>
 
   <input type="button" i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()"
-         id="continue" role="button" value="Continue" alt="Continue" />
+         id="continue" role="button" value="Continue" alt="Continue" [ngClass]="testCompleted() ? 'govuk-button' : 'govuk-button--disabled'" />
 
   <input type="button" i18n="@@test_your_equipment_btn_replay" class="govuk-button" (click)="replayVideo()"
          id="replay-video" value="Re-play the video message" alt="Re-play the video message" role="button" />
