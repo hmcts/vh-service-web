@@ -201,8 +201,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
     if (reason === 'Conference terminated by another participant') {
       this.retrieveSelfTestScore();
-      this.didTestComplete = true;
     }
+    this.didTestComplete = true;    
   }
 
   disconnect() {
