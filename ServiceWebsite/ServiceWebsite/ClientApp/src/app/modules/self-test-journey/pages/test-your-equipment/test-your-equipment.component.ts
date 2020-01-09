@@ -202,7 +202,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     if (reason === 'Conference terminated by another participant') {
       this.retrieveSelfTestScore();
     }
-    this.didTestComplete = true;    
+    this.didTestComplete = true;
   }
 
   disconnect() {
@@ -240,7 +240,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
       this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error),
         { hearingId: this.model.hearing.id, participantId: this.model.participantId });
-        this.logger.event('telemetry:serviceweb:any:selftest:score:none');
+      this.logger.event('telemetry:serviceweb:any:selftest:score:none');
     });
   }
 
