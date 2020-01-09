@@ -297,6 +297,10 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.call();
   }
 
+  testCompleted(): boolean {
+    return this.didTestComplete;
+  }
+
   continue() {
     if (!this.didTestComplete) {
       this.disconnect();
