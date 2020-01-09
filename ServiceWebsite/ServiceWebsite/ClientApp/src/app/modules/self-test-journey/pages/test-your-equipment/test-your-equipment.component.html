@@ -44,7 +44,7 @@
 
 <div>
 
-  <input type="button" i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()"
+  <input type="button" i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()" [disabled]="!didTestComplete"
          id="continue" role="button" value="Continue" alt="Continue" [ngClass]="testCompleted() ? 'govuk-button' : 'govuk-button--disabled'" />
 
   <input type="button" i18n="@@test_your_equipment_btn_replay" class="govuk-button" (click)="replayVideo()"

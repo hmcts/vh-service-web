@@ -196,7 +196,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
   disconnectHandleEvent(reason) {
     this.displayFeed = false;
-
     this.logger.error('(disconnectHandleEvent -> Disconnected from pexip.)', new Error(reason),
       { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
