@@ -24,7 +24,7 @@ namespace ServiceWebsite.Controllers
         {
             var config = new ClientConfiguration
             {
-                VideoAppUrl = _settings.VideoAppUrl,
+                VideoAppUrl = _settings.VideoWebUrl,
                 AppInsightsInstrumentationKey = _settings.AppInsightsKey,
                 TenantId = _settings.TenantId,
                 ClientId = _settings.ClientId,

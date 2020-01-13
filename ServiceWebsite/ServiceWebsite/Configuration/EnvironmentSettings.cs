@@ -24,7 +24,7 @@ namespace ServiceWebsite.Configuration
         public string ClientSecret { get; set; }
 
         public string HearingsApiUrl { get; set; }
-        public string VideoAppUrl { get; set; }
+        public string VideoWebUrl { get; set; }
 
         public bool RequireHttpsMetadata { get; set; }
 
