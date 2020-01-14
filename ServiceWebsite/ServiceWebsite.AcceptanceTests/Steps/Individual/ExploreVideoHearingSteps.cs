@@ -2,10 +2,8 @@
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
-using AcceptanceTests.Common.Test.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Individual

@@ -1,4 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DefaultData>
-  <AboutYou>Adding more details to help the court decide which type of hearing may be best</AboutYou>
+  <AboutYou>
+    <Answer>No</Answer>
+    <ExtendedAnswer>Adding more details to help the court decide which type of hearing may be best</ExtendedAnswer>
+  </AboutYou>
+  <AboutYourComputer>Yes</AboutYourComputer>
+  <AccessToRoom>Yes</AccessToRoom>
+  <CameraWorking>Yes</CameraWorking>
+  <CheckYourComputer>Yes</CheckYourComputer>
+  <Consent>Yes</Consent>
+  <InternetConnection>Yes</InternetConnection>
+  <Interpreter>No</Interpreter>
+  <MicrophoneWorking>Yes</MicrophoneWorking>
+  <VideoWorking>Yes</VideoWorking>
+  <YourComputer>Yes</YourComputer>
 </DefaultData>

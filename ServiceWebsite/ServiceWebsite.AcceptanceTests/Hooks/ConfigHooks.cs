@@ -5,11 +5,12 @@ using AcceptanceTests.Common.Data.TestData;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using NUnit.Framework;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
-using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
+using TestContext = ServiceWebsite.AcceptanceTests.Helpers.TestContext;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
 {
@@ -66,7 +67,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private static void RegisterDefaultData(TestContext context)
         {
-            context.Test = new Test();
+            context.Test = new Test {Answers = new List<SuitabilityAnswer>()};
         }
 
         private void RegisterHearingServices(TestContext context)

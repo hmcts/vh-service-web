@@ -17,7 +17,6 @@ namespace ServiceWebsite.AcceptanceTests.Data
         private readonly List<UserAccount> _individuals;
         private readonly List<UserAccount> _representatives;
         private readonly List<ParticipantRequest> _participants;
-        private readonly UserManager _userManager;
         private List<UserAccount> _userAccounts;
 
         public HearingRequestBuilder()
@@ -26,7 +25,6 @@ namespace ServiceWebsite.AcceptanceTests.Data
             _individuals = new List<UserAccount>();
             _representatives = new List<UserAccount>();
             _participants = new List<ParticipantRequest>();
-            _userManager = new UserManager();
             _userAccounts = new List<UserAccount>();
         }
 
@@ -81,6 +79,7 @@ namespace ServiceWebsite.AcceptanceTests.Data
                 .With(x => x.Participants = _participants)
                 .With(x => x.Cases = cases)
                 .With(x => x.Created_by = UserManager.GetCaseAdminUser(_userAccounts).Username)
+                .With(x => x.Questionnaire_not_required = false)
                 .Build();
 
             return _request;

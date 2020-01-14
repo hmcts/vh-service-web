@@ -44,7 +44,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 .Build();
 
             var hearingResponse = _bookingsApiManager.CreateHearing(hearingRequest);
-
+            hearingResponse.StatusCode.Should().Be(HttpStatusCode.Created);
             var hearing = RequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(hearingResponse.Content);
             hearing.Should().NotBeNull();
             _c.Test.Hearing = hearing;

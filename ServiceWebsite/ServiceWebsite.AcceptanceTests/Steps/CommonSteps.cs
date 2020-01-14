@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
+using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
@@ -66,6 +68,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _browsers[_c.CurrentUser.Key].Driver
                 .WaitUntilVisible(CommonLocators.ElementContainingText(message))
                 .Displayed.Should().BeTrue();
+        }
+
+        [Then(@"the hearing date is displayed correctly")]
+        public void ThenTheHearingDateIsDisplayedCorrectly()
+        {
+            if (_c.Test.Hearing.Scheduled_date_time == null)
+                throw new DataMisalignedException("Scheduled date time must be set.");
+            var scheduledDate = _c.Test.Hearing.Scheduled_date_time?.ToLocalTime().ToString(DateFormats.YourComputerDateTime).Replace("AM", "am").Replace("PM", "pm");
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(scheduledDate)).Displayed.Should().BeTrue();
         }
     }
 }
