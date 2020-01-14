@@ -5,6 +5,7 @@ using ServiceWebsite.AcceptanceTests.Pages;
 using ServiceWebsite.AcceptanceTests.Pages.Journeys;
 using ServiceWebsite.AcceptanceTests.Steps.Individual;
 using ServiceWebsite.AcceptanceTests.Steps.Representative;
+using ServiceWebsite.AcceptanceTests.Steps.SelfTest;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps

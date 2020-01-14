@@ -11,7 +11,7 @@ using ServiceWebsite.AcceptanceTests.Pages;
 using ServiceWebsite.AcceptanceTests.Questions;
 using TechTalk.SpecFlow;
 
-namespace ServiceWebsite.AcceptanceTests.Steps.Individual
+namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
 {
     [Binding]
     public class TestYourEquipmentSteps : ISteps

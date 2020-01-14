@@ -6,7 +6,7 @@ using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
 
-namespace ServiceWebsite.AcceptanceTests.Steps.Individual
+namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
 {
     [Binding]
     public class SwitchOnCameraMicrophoneSteps : ISteps
