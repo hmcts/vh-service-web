@@ -1,8 +1,9 @@
 ﻿Feature: Consent
-	As a Participant
-	I want to be able to tell the court if there is any reason I don't think I am suitable
-	So that the court can make an informed decision based on my circumstances
+	As an Individual Participant
+	I want to let the court know whether I consent to a video hearing or not
+	So that the court can decide whether a video hearing is not suitable for me
 
+@VIH-4338
 Scenario: Consent
 	Given the Individual has progressed to the Consent page
 	Then contact details are available
@@ -12,6 +13,7 @@ Scenario: Consent
 	And the user clicks the Continue button
 	Then the user is on the Check Your Computer page
 
+@VIH-4338
 Scenario: Consent - User drops out with No Answer
 	Given the Individual has progressed to the Consent page
 	When the user selects the 'No' radiobutton

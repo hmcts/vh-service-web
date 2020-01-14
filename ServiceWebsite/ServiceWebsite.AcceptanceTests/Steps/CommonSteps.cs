@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
+using Selenium.Axe;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
@@ -51,8 +53,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"contact details are available")]
         public void ThenContactDetailsAreAvailable()
         {
-            var element = _c.CurrentUser.Role.ToLower().Equals("individual") ? _commonServiceWebPage.IndividualContactLink : _commonServiceWebPage.RepContactLink;
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(element).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_commonServiceWebPage.ContactLink).Click();
             _browsers[_c.CurrentUser.Key].Driver
                 .WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone))
                 .Displayed.Should().BeTrue();
@@ -77,6 +78,31 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 throw new DataMisalignedException("Scheduled date time must be set.");
             var scheduledDate = _c.Test.Hearing.Scheduled_date_time?.ToLocalTime().ToString(DateFormats.YourComputerDateTime).Replace("AM", "am").Replace("PM", "pm");
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(scheduledDate)).Displayed.Should().BeTrue();
+        }
+
+        [Then(@"the hearing details are displayed correctly")]
+        public void ThenTheHearingDetailsAreDisplayedCorrectly()
+        {
+            var hearingDetails = _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_commonServiceWebPage.HearingDetails).Text;
+            hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Name);
+            hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Number);
+            hearingDetails.Should().Contain(_c.Test.Hearing.Case_type_name);
+        }
+
+        [Then(@"the page should be accessible")]
+        public void ThenThePageShouldBeAccessible()
+        {
+            var axeResult = new AxeBuilder(_browsers[_c.CurrentUser.Key].Driver)
+                .DisableRules( // BUG: Once VIH-5174 bug is fixed, remove these exclusions
+                    "region", // https://dequeuniversity.com/rules/axe/3.3/region?application=axeAPI
+                    "landmark-main-is-top-level", // https://dequeuniversity.com/rules/axe/3.3/landmark-main-is-top-level?application=axeAPI
+                    "landmark-one-main", // https://dequeuniversity.com/rules/axe/3.3/landmark-one-main?application=axeAPI
+                    "landmark-no-duplicate-banner", // https://dequeuniversity.com/rules/axe/3.3/landmark-no-duplicate-banner?application=axeAPI
+                    "landmark-no-duplicate-contentinfo", // https://dequeuniversity.com/rules/axe/3.3/landmark-no-duplicate-contentinfo?application=axeAPI
+                    "page-has-heading-one", // https://dequeuniversity.com/rules/axe/3.3/page-has-heading-one?application=axeAPI
+                    "landmark-unique") // https://dequeuniversity.com/rules/axe/3.3/landmark-unique?application=axeAPI
+                .Analyze();
+            axeResult.Violations.Should().BeEmpty();
         }
     }
 }

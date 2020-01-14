@@ -1,7 +1,7 @@
 ﻿using AcceptanceTests.Common.PageObject.Helpers;
 using OpenQA.Selenium;
 
-namespace ServiceWebsite.AcceptanceTests.Pages.IndividualPages
+namespace ServiceWebsite.AcceptanceTests.Pages
 {
     public class UseCamAndMicPage
     {

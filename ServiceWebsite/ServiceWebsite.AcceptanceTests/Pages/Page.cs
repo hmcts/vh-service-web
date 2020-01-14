@@ -36,6 +36,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page PresentingTheCase = new Page("Presenting the Case", "presenting-the-case");
         public static readonly Page OtherInformation = new Page("Other Information", "other-information");
         public static readonly Page AnswersSaved = new Page("Answers Saved", "answers-saved");
+        public static readonly Page ThankYouRep = new Page("Thank You Rep", "thank-you-rep");
 
         // After submission of answers
         public static readonly Page CheckYourComputer = new Page("Check Your Computer", "check-your-computer");
@@ -95,6 +96,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
                 yield return PresentingTheCase;
                 yield return OtherInformation;
                 yield return AnswersSaved;
+                yield return ThankYouRep;
                 yield return YourInternetConnection;
                 yield return AccessToARoom;
                 yield return Consent;

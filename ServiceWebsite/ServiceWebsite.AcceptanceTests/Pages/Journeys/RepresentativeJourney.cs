@@ -20,13 +20,13 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
                 Page.CameraWorking,
                 Page.MicrophoneWorking,
                 Page.VideoWorking,
-                Page.ThankYou
+                Page.ThankYouRep
             };
         }
 
         public void VerifyUserIsApplicableToJourney(string currentUserRole)
         {
-            currentUserRole.ToLower().Should().BeOneOf("individual");
+            currentUserRole.ToLower().Should().BeOneOf("representative");
         }
 
         public void VerifyDestinationIsInThatJourney(Page destinationPage)

@@ -1,8 +1,9 @@
 ﻿Feature: Participant View
-	As a Participant
-	I want to be able to tell the court if there is any reason I don't think I am suitable
-	So that the court can make an informed decision based on my circumstances
+	As an Individual Participant	
+	I want to view more information about video hearings
+	So that I can see what a video hearing is like from a Participant's point of view
 
+@VIH-4401 
 Scenario: Participant View
 	Given the Individual has progressed to the Participant View page
 	Then contact details are available

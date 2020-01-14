@@ -1,8 +1,9 @@
 ﻿Feature: Your Computer
-	As a Participant
-	I want to be able to tell the court if there is any reason I don't think I am suitable
-	So that the court can make an informed decision based on my circumstances
+	As an Individual Participant
+	I want to let the court know whether I have a computer or not
+	So that the court can decide whether a video hearing is not suitable for me
 
+@VIH-4334
 Scenario: Your Computer
 	Given the Individual has progressed to the Your Computer page
 	Then contact details are available
@@ -13,6 +14,7 @@ Scenario: Your Computer
 	And the user clicks the Continue button
 	Then the user is on the About Your Computer page
 
+@VIH-4334
 Scenario: Your Computer - User drops out with No Answer
 	Given the Individual has progressed to the Your Computer page
 	When the user selects the 'No' radiobutton

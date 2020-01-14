@@ -1,8 +1,9 @@
 ﻿Feature: Interpreter
-	As a Participant
-	I want to be able to tell the court if there is any reason I don't think I am suitable
-	So that the court can make an informed decision based on my circumstances
+	As an Individual Participant
+	I want to let the court know if I need an interpreter for a video hearing
+	So that the court can decide whether a video hearing is not suitable for me
 
+@VIH-4333
 Scenario: Interpreter
 	Given the Individual has progressed to the Interpreter page
 	Then contact details are available

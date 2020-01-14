@@ -1,8 +1,9 @@
 ﻿Feature: Your Internet Connection
-	As a Participant
-	I want to be able to tell the court if there is any reason I don't think I am suitable
-	So that the court can make an informed decision based on my circumstances
+	As an Individual Participant	
+	I want to let the court know whether I have access to the internet or not
+	So that the court can decide whether a video hearing is not suitable for me
 
+@VIH-4336
 Scenario: Your Internet Connection
 	Given the Individual has progressed to the Your Internet Connection page
 	Then contact details are available
@@ -12,6 +13,7 @@ Scenario: Your Internet Connection
 	And the user clicks the Continue button
 	Then the user is on the Accesss to a Room page
 
+@VIH-4336
 Scenario: Your Internet Connection - User drops out with No Answer
 	Given the Individual has progressed to the Your Internet Connection page
 	When the user selects the 'No' radiobutton

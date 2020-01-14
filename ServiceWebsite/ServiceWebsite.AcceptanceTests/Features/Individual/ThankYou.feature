@@ -1,7 +1,8 @@
 ﻿Feature: Thank You
 	As a Participant
-	I want to be able to tell the court if there is any reason I don't think I am suitable
-	So that the court can make an informed decision based on my circumstances
+	I want to be able to reach end of the questionnaire 
+	And also answer all the self test questions
+	So that I can join a video hearing
 
 @Smoketest
 Scenario: Thank You Individual

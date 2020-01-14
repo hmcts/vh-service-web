@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Browser;
-using AcceptanceTests.Common.PageObject.Pages;
+using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
 
-namespace ServiceWebsite.AcceptanceTests.Steps
+namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 {
     [Binding]
-    public class StandardContinueSteps : ISteps
+    public class YourVideoHearingSteps : ISteps
     {
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
-        private readonly CommonPages _commonPages;
 
-        public StandardContinueSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext, CommonPages commonPages)
+        public YourVideoHearingSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
-            _commonPages = commonPages;
         }
 
         public void ProgressToNextPage()
         {
-            throw new System.NotImplementedException();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
         }
     }
 }

@@ -4,6 +4,7 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using ServiceWebsite.AcceptanceTests.Pages.Journeys;
 using ServiceWebsite.AcceptanceTests.Steps.Individual;
+using ServiceWebsite.AcceptanceTests.Steps.Representative;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -34,7 +35,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly CameraWorkingSteps _cameraWorkingSteps;
         private readonly MicrophoneWorkingSteps _microphoneWorkingSteps;
         private readonly VideoWorkingSteps _videoWorkingSteps;
-
+        private readonly ThankYouSteps _thankYouSteps;
+        private readonly YourVideoHearingSteps _yourVideoHearingSteps;
+        private readonly PresentingTheCaseSteps _presentingTheCaseSteps;
+        private readonly OtherInformationSteps _otherInformationSteps;
+        private readonly AnswersSavedSteps _answersSavedSteps;
+        private readonly ThankYouRepSteps _thankYouRepSteps;
 
         public ProgressionSteps(
             TestContext testContext,
@@ -51,7 +57,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             InterpreterSteps interpreterSteps, 
             YourComputerSteps yourComputerSteps, 
             AboutYourComputerSteps aboutYourComputerSteps, 
-            YourInternetConnectionSteps yourInternetConnectionSteps, 
+            YourInternetConnectionSteps yourInternetConnectionSteps,
             AccessToRoomSteps accessToRoomSteps, 
             ConsentSteps consentSteps, 
             CheckYourComputerSteps checkYourComputerSteps, 
@@ -59,7 +65,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             TestYourEquipmentSteps testYourEquipmentSteps, 
             CameraWorkingSteps cameraWorkingSteps, 
             MicrophoneWorkingSteps microphoneWorkingSteps, 
-            VideoWorkingSteps videoWorkingSteps)
+            VideoWorkingSteps videoWorkingSteps, 
+            ThankYouSteps thankYouSteps, 
+            YourVideoHearingSteps yourVideoHearingSteps, 
+            PresentingTheCaseSteps presentingTheCaseSteps, 
+            OtherInformationSteps otherInformationSteps, 
+            AnswersSavedSteps answersSavedSteps, 
+            ThankYouRepSteps thankYouRepSteps)
         {
             _c = testContext;
             _browsersSteps = browserSteps;
@@ -84,6 +96,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _cameraWorkingSteps = cameraWorkingSteps;
             _microphoneWorkingSteps = microphoneWorkingSteps;
             _videoWorkingSteps = videoWorkingSteps;
+            _thankYouSteps = thankYouSteps;
+            _yourVideoHearingSteps = yourVideoHearingSteps;
+            _presentingTheCaseSteps = presentingTheCaseSteps;
+            _otherInformationSteps = otherInformationSteps;
+            _answersSavedSteps = answersSavedSteps;
+            _thankYouRepSteps = thankYouRepSteps;
         }
 
         [Given(@"the (.*) has progressed to the (.*) page")]
@@ -161,7 +179,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 { Page.TestYourEquipment, _testYourEquipmentSteps },
                 { Page.CameraWorking, _cameraWorkingSteps },
                 { Page.MicrophoneWorking, _microphoneWorkingSteps },
-                { Page.VideoWorking, _videoWorkingSteps }
+                { Page.VideoWorking, _videoWorkingSteps },
+                { Page.ThankYou, _thankYouSteps },
+                { Page.YourVideoHearing, _yourVideoHearingSteps },
+                { Page.PresentingTheCase, _presentingTheCaseSteps },
+                { Page.OtherInformation, _otherInformationSteps },
+                { Page.AnswersSaved, _answersSavedSteps },
+                { Page.ThankYouRep, _thankYouRepSteps }
             };
         }
     }

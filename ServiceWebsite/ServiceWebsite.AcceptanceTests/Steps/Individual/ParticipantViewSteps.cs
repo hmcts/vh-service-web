@@ -7,7 +7,7 @@ using AcceptanceTests.Common.Test.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Pages.IndividualPages;
+using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Individual
