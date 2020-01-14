@@ -6,9 +6,8 @@
 Scenario: Access To a Room
 	Given the Individual has progressed to the Access To a Room page
 	Then contact details are available
-	And the hearing date is displayed correctly
 	When attempts to click Continue without selecting an answer
-	Then an error message appears stating 'Select if you’ll have access to a laptop or desktop computer'
+	Then an error message appears stating 'Select if you’ll have access to a quiet, private room'
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Consent page

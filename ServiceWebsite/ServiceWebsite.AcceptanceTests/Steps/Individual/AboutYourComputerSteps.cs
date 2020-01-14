@@ -22,7 +22,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.RadioButtonWithLabel("Yes")).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("Yes")).Click();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
         }
     }

@@ -33,7 +33,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         [Then(@"the exploring the court building video begins to play")]
         public void ThenTheExploringTheCourtBuildingVideoBeginsToPlay()
         {
-            new VerifyVideoBuilder(_browsers[_c.CurrentUser.Key]).Feed(_exploreCourtBuildingPage.Video);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_exploreCourtBuildingPage.Video);
         }
     }
 }

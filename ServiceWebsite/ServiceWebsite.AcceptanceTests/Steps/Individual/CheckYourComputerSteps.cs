@@ -4,15 +4,17 @@ using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Individual
 {
-    public class YourInternetConnectionSteps : ISteps
+    [Binding]
+    public class CheckYourComputerSteps : ISteps
     {
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public YourInternetConnectionSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
+        public CheckYourComputerSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;

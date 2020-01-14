@@ -35,9 +35,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         [Then(@"the participant view video begins to play")]
         public void ThenTheParticipantViewVideoBeginsToPlay()
         {
-            new VerifyVideoBuilder(_browsers[_c.CurrentUser.Key]).Feed(_participantViewPage.Video);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_participantViewPage.Video);
             _originalVideoTime = Convert.ToDouble(_browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_participantViewPage.Video).GetAttribute("currentTime"));
-            new VerifyVideoBuilder(_browsers[_c.CurrentUser.Key]).Feed(_participantViewPage.SelfCameraView);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_participantViewPage.SelfCameraView);
         }
 
         [Then(@"the video restarts")]

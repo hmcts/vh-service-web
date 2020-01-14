@@ -28,6 +28,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly YourInternetConnectionSteps _yourInternetConnectionSteps;
         private readonly AccessToRoomSteps _accessToRoomSteps;
         private readonly ConsentSteps _consentSteps;
+        private readonly CheckYourComputerSteps _checkYourComputerSteps;
+        private readonly SwitchOnCameraMicrophoneSteps _switchOnCameraMicrophoneSteps;
+        private readonly TestYourEquipmentSteps _testYourEquipmentSteps;
+        private readonly CameraWorkingSteps _cameraWorkingSteps;
+        private readonly MicrophoneWorkingSteps _microphoneWorkingSteps;
+        private readonly VideoWorkingSteps _videoWorkingSteps;
+
 
         public ProgressionSteps(
             TestContext testContext,
@@ -45,7 +52,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             YourComputerSteps yourComputerSteps, 
             AboutYourComputerSteps aboutYourComputerSteps, 
             YourInternetConnectionSteps yourInternetConnectionSteps, 
-            AccessToRoomSteps accessToRoomSteps)
+            AccessToRoomSteps accessToRoomSteps, 
+            ConsentSteps consentSteps, 
+            CheckYourComputerSteps checkYourComputerSteps, 
+            SwitchOnCameraMicrophoneSteps switchOnCameraMicrophoneSteps, 
+            TestYourEquipmentSteps testYourEquipmentSteps, 
+            CameraWorkingSteps cameraWorkingSteps, 
+            MicrophoneWorkingSteps microphoneWorkingSteps, 
+            VideoWorkingSteps videoWorkingSteps)
         {
             _c = testContext;
             _browsersSteps = browserSteps;
@@ -63,6 +77,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _aboutYourComputerSteps = aboutYourComputerSteps;
             _yourInternetConnectionSteps = yourInternetConnectionSteps;
             _accessToRoomSteps = accessToRoomSteps;
+            _consentSteps = consentSteps;
+            _checkYourComputerSteps = checkYourComputerSteps;
+            _switchOnCameraMicrophoneSteps = switchOnCameraMicrophoneSteps;
+            _testYourEquipmentSteps = testYourEquipmentSteps;
+            _cameraWorkingSteps = cameraWorkingSteps;
+            _microphoneWorkingSteps = microphoneWorkingSteps;
+            _videoWorkingSteps = videoWorkingSteps;
         }
 
         [Given(@"the (.*) has progressed to the (.*) page")]
@@ -134,7 +155,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 { Page.AboutYourComputer, _aboutYourComputerSteps },
                 { Page.YourInternetConnection, _yourInternetConnectionSteps },
                 { Page.AccessToARoom, _accessToRoomSteps },
-                { Page.Consent, _consentSteps }
+                { Page.Consent, _consentSteps },
+                { Page.CheckYourComputer, _checkYourComputerSteps },
+                { Page.SwitchOnCameraAndMicrophone, _switchOnCameraMicrophoneSteps },
+                { Page.TestYourEquipment, _testYourEquipmentSteps },
+                { Page.CameraWorking, _cameraWorkingSteps },
+                { Page.MicrophoneWorking, _microphoneWorkingSteps },
+                { Page.VideoWorking, _videoWorkingSteps }
             };
         }
     }
