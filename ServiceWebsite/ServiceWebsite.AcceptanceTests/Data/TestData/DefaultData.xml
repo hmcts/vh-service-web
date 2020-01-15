@@ -24,6 +24,7 @@
     <WhoWillBePresentingName>Joe Test</WhoWillBePresentingName>
     <WhoWillBePresentingEmail>joetest@test.com</WhoWillBePresentingEmail>
   </PresentingTheCase>
+  <SelfTestScore>None</SelfTestScore>
   <VideoWorking>Yes</VideoWorking>
   <YourComputer>Yes</YourComputer>
 </DefaultData>

@@ -13,6 +13,7 @@
         public string MicrophoneWorking { get; set; }
         public OtherInformation OtherInformation { get; set; }
         public PresentingTheCase PresentingTheCase { get; set; }
+        public string SelfTestScore { get; set; }
         public string VideoWorking { get; set; }
         public string YourComputer { get; set; }
     }
