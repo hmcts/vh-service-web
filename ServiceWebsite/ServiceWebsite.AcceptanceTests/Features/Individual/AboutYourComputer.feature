@@ -12,6 +12,8 @@ Scenario: About Your Computer
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Your Internet Connection page
+	When the user signs out 
+	Then the answers have not been stored
 
 @VIH-4335
 Scenario: About Your Computer Not Sure
@@ -19,10 +21,13 @@ Scenario: About Your Computer Not Sure
 	When the user selects the 'Not sure' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Your Internet Connection page
+	When the user signs out 
+	Then the answers have not been stored
 
 @VIH-4335
-Scenario: About Your Computer - User drops out with No Answer
+Scenario: About Your Computer - Individual drops out with No Answer
 	Given the Individual has progressed to the About Your Computer page
-	When the user selects the 'No' radiobutton
-	And the user clicks the Continue button
+	When the user answers no to the about your computer question
 	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored

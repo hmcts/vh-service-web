@@ -12,10 +12,13 @@ Scenario: Access To a Room
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Consent page
+	When the user signs out 
+	Then the answers have not been stored
 
 @VIH-4337 
-Scenario: Access To a Room - User drops out with No Answer
+Scenario: Access To a Room - Individual drops out with No Answer
 	Given the Individual has progressed to the Access To a Room page
-	When the user selects the 'No' radiobutton
-	And the user clicks the Continue button
+	When the user answers no to the access to a room question
 	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored

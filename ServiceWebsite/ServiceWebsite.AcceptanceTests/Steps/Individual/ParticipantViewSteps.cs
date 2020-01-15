@@ -7,7 +7,7 @@ using AcceptanceTests.Common.Test.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.Individual;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Individual
@@ -17,14 +17,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
     {
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
-        private readonly ParticipantViewPage _participantViewPage;
         private double _originalVideoTime;
 
-        public ParticipantViewSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext, ParticipantViewPage participantViewPage)
+        public ParticipantViewSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
-            _participantViewPage = participantViewPage;
         }
 
         public void ProgressToNextPage()
@@ -35,15 +33,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         [Then(@"the participant view video begins to play")]
         public void ThenTheParticipantViewVideoBeginsToPlay()
         {
-            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_participantViewPage.Video);
-            _originalVideoTime = Convert.ToDouble(_browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_participantViewPage.Video).GetAttribute("currentTime"));
-            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_participantViewPage.SelfCameraView);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(ParticipantViewPage.Video);
+            _originalVideoTime = Convert.ToDouble(_browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ParticipantViewPage.Video).GetAttribute("currentTime"));
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(ParticipantViewPage.SelfCameraView);
         }
 
         [Then(@"the video restarts")]
         public void ThenTheVideoRestarts()
         {
-            var currentVideoTime = Convert.ToDouble(_browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_participantViewPage.Video).GetAttribute("currentTime"));
+            var currentVideoTime = Convert.ToDouble(_browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ParticipantViewPage.Video).GetAttribute("currentTime"));
             currentVideoTime.Should().BeLessThan(_originalVideoTime);
         }
     }

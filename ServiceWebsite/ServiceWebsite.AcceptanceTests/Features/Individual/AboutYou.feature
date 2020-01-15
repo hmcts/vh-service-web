@@ -13,6 +13,7 @@ Scenario: About You
 	And attempts to click Continue without providing additional information
 	Then an error message appears stating 'Enter any information to help the court decide'
 	When the user enters more details into the please provide more details textfield
-	And the user clicks the Continue button
 	Then the user is on the Interpreter page
+	When the user signs out 
+	Then the answers have not been stored
 	

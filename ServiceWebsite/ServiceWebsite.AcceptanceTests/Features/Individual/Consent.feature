@@ -9,13 +9,18 @@ Scenario: Consent
 	Then contact details are available
 	When attempts to click Save and continue without selecting an answer
 	Then an error message appears stating 'Select if you would be content to take part in the hearing by video'
-	When the user selects the 'Yes' radiobutton
-	And the user clicks the Continue button
+	When the user selects the 'No' radiobutton
+	And attempts to click Save and continue without providing additional information
+	Then an error message appears stating 'Please type in this box'
+	When the user answers yes to the consent question
 	Then the user is on the Check Your Computer page
+	When the user signs out 
+	Then the answers have been stored
 
 @VIH-4338
-Scenario: Consent - User drops out with No Answer
+Scenario: Consent - Individual gives reason for no consent
 	Given the Individual has progressed to the Consent page
-	When the user selects the 'No' radiobutton
-	And the user clicks the Continue button
-	Then the user is on the Thank You page
+	When the user enters more details into the please provide more details of why you do not consent textfield
+	Then the user is on the Check Your Computer page
+	When the user signs out 
+	Then the answers have been stored

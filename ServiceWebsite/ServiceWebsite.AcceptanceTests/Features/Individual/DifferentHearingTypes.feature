@@ -8,3 +8,5 @@ Scenario: Different Hearing Types
 	Then contact details are available
 	When the user clicks the Continue button
 	Then the user is on the Explore Court Building page
+	When the user signs out 
+	Then the answers have not been stored

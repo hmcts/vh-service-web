@@ -5,7 +5,7 @@ using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.Individual;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Individual
@@ -15,13 +15,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
     {
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
-        private readonly ExploreCourtBuildingPage _exploreCourtBuildingPage;
 
-        public ExploreCourtBuildingSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext, ExploreCourtBuildingPage exploreCourtBuildingPage)
+        public ExploreCourtBuildingSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
-            _exploreCourtBuildingPage = exploreCourtBuildingPage;
         }
 
         public void ProgressToNextPage()
@@ -33,7 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         [Then(@"the exploring the court building video begins to play")]
         public void ThenTheExploringTheCourtBuildingVideoBeginsToPlay()
         {
-            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_exploreCourtBuildingPage.Video);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(ExploreCourtBuildingPage.Video);
         }
     }
 }

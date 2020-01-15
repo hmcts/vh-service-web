@@ -6,6 +6,7 @@ using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.Individual;
 using ServiceWebsite.AcceptanceTests.Questions;
 using TechTalk.SpecFlow;
 
@@ -16,13 +17,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
     {
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
-        private readonly AboutYouPage _aboutYouPage;
 
-        public AboutYouSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext, AboutYouPage aboutYouPage)
+        public AboutYouSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
-            _aboutYouPage = aboutYouPage;
         }
 
         public void ProgressToNextPage()
@@ -40,7 +39,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         [When(@"the user enters more details into the please provide more details textfield")]
         public void WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreDetailsTextfield()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_aboutYouPage.MoreDetailsTextfield)
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(AboutYouPage.MoreDetailsTextfield)
                 .SendKeys(_c.ServiceWebConfig.TestConfig.TestData.AboutYou.ExtendedAnswer);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
             _c.Test.Answers.Add(new SuitabilityAnswer

@@ -26,12 +26,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.AccessToRoom)).Click();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
-            _c.Test.Answers.Add(new SuitabilityAnswer
-            {
-                Answer = _c.ServiceWebConfig.TestConfig.TestData.AccessToRoom,
-                ExtendedAnswer = null,
-                QuestionKey = IndividualQuestionKeys.RoomQuestion
-            });
+            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.ServiceWebConfig.TestConfig.TestData.AccessToRoom, ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.RoomQuestion });
+        }
+
+        [When(@"the user answers no to the access to a room question")]
+        public void WhenTheUserAnswersNoToTheAccessToARoomQuestion()
+        {
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("No")).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
+            _c.Test.Answers.Add(new SuitabilityAnswer { Answer = "No", ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.RoomQuestion });
         }
     }
 }

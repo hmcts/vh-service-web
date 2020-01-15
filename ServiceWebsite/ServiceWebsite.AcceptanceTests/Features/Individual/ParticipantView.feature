@@ -12,3 +12,5 @@ Scenario: Participant View
 	Then the video restarts
 	When the user clicks the Continue button
 	Then the user is on the Help the Court Decide page
+	When the user signs out 
+	Then the answers have not been stored

@@ -12,3 +12,5 @@ Scenario: Use Camera and Microphone
 	Then a message appears stating 'Your camera is now switched on'
 	When the user clicks the Watch video button
 	Then the user is on the Participant View page
+	When the user signs out 
+	Then the answers have not been stored

@@ -8,3 +8,5 @@ Scenario: Explore Video Hearing
 	Then contact details are available
 	When the user clicks the Continue button
 	Then the user is on the Use Camera and Microphone page
+	When the user signs out 
+	Then the answers have not been stored

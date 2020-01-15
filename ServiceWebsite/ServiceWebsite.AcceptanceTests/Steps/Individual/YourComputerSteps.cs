@@ -26,12 +26,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.YourComputer)).Click();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
-            _c.Test.Answers.Add(new SuitabilityAnswer
-            {
-                Answer = _c.ServiceWebConfig.TestConfig.TestData.YourComputer,
-                ExtendedAnswer = null,
-                QuestionKey = IndividualQuestionKeys.CheckYourComputerQuestion
-            });
+            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.ServiceWebConfig.TestConfig.TestData.YourComputer, ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.ComputerQuestion });
+        }
+
+        [When(@"the user answers no to the your computer question")]
+        public void WhenTheUserAnswersNoToTheYourComputerQuestion()
+        {
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("No")).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
+            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = "No", ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.ComputerQuestion });
         }
     }
 }

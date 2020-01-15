@@ -11,3 +11,5 @@ Scenario: Explore Court Building
 	Then the exploring the court building video begins to play
 	When the user clicks the Continue button
 	Then the user is on the Explore Video Hearing page
+	When the user signs out 
+	Then the answers have not been stored

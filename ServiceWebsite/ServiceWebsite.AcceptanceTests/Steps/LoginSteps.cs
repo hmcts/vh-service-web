@@ -18,17 +18,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly TestContext _c;
         private readonly LoginPage _loginPage;
         private readonly CommonPages _commonPages;
-        private readonly CommonServiceWebPage _commonServiceWebPage;
         private const int ReachedThePageRetries = 2;
 
         public LoginSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext,
-            LoginPage loginPage, CommonPages commonPages, CommonServiceWebPage commonServiceWebPage)
+            LoginPage loginPage, CommonPages commonPages)
         {
             _browsers = browsers;
             _c = testContext;
             _loginPage = loginPage;
             _commonPages = commonPages;
-            _commonServiceWebPage = commonServiceWebPage;
         }
 
         [When(@"the user logs in with valid credentials")]
@@ -41,7 +39,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"the user attempts to logout")]
         public void WhenTheUserAttemptsToLogout()
         { 
-           _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementClickable(_commonServiceWebPage.SignOutButton).Click();
+           _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementClickable(CommonServiceWebPage.SignOutButton).Click();
+        }
+
+        [When(@"the user signs out")]
+        public void WhenTheUserSignsOut()
+        {
+            WhenTheUserAttemptsToLogout();
+            ThenTheUserShouldBeNavigatedToSignInScreen();
         }
 
         [Then(@"the sign out link is displayed")]

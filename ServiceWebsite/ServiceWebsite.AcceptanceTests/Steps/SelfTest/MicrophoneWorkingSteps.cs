@@ -30,7 +30,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.MicrophoneWorking,
                 ExtendedAnswer = null,
-                QuestionKey = IndividualQuestionKeys.MicrophoneQuestion
+                QuestionKey = SelfTestQuestionKeys.MicrophoneQuestion
             });
         }
     }

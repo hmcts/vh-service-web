@@ -30,7 +30,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.CameraWorking,
                 ExtendedAnswer = null,
-                QuestionKey = IndividualQuestionKeys.SeeYourselfQuestion
+                QuestionKey = SelfTestQuestionKeys.SeeYourselfQuestion
             });
         }
     }

@@ -7,7 +7,7 @@ using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Pages.SelfTest;
 using ServiceWebsite.AcceptanceTests.Questions;
 using TechTalk.SpecFlow;
 
@@ -19,34 +19,32 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         private const int Timeout = 60;
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
-        private readonly TestYourEquipmentPage _testYourEquipmentPage;
 
-        public TestYourEquipmentSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext, TestYourEquipmentPage testYourEquipmentPage)
+        public TestYourEquipmentSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
-            _testYourEquipmentPage = testYourEquipmentPage;
         }
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_testYourEquipmentPage.IncomingStream).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.IncomingStream).Displayed.Should().BeTrue();
             _browsers[_c.CurrentUser.Key].ScrollTo(CommonLocators.ButtonWithInnerText("Continue"));
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
-            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = "None", ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.SelfTestScoreQuestion });
+            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = "None", ExtendedAnswer = null, QuestionKey = SelfTestQuestionKeys.SelfTestScoreQuestion });
         }
 
         [When(@"the Test Your Equipment video has ended")]
         public void WhenTheVideoHasEnded()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementNotVisible(_testYourEquipmentPage.IncomingStream, Timeout);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementNotVisible(TestYourEquipmentPage.IncomingStream, Timeout);
         }
 
         [Then(@"the Test Your Equipment video begins to play")]
         public void ThenTheExploringTheCourtBuildingVideoBeginsToPlay()
         {
-            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_testYourEquipmentPage.IncomingStream);
-            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(_testYourEquipmentPage.SelfView);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.IncomingStream);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.SelfView);
         }
     }
 }

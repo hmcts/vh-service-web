@@ -30,7 +30,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.VideoWorking,
                 ExtendedAnswer = null,
-                QuestionKey = IndividualQuestionKeys.SeeVideoQuestion
+                QuestionKey = SelfTestQuestionKeys.SeeVideoQuestion
             });
         }
     }

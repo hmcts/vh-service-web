@@ -8,7 +8,10 @@
   <AccessToRoom>Yes</AccessToRoom>
   <CameraWorking>Yes</CameraWorking>
   <CheckYourComputer>Yes</CheckYourComputer>
-  <Consent>Yes</Consent>
+  <Consent>
+    <Answer>Yes</Answer>
+    <ExtendedAnswer>Adding more details of why I would not consent</ExtendedAnswer>
+  </Consent>
   <InternetConnection>Yes</InternetConnection>
   <Interpreter>No</Interpreter>
   <MicrophoneWorking>Yes</MicrophoneWorking>

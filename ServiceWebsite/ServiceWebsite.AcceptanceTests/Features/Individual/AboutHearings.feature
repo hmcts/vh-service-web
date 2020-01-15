@@ -8,4 +8,6 @@ Scenario: About Hearings
 	Then contact details are available
 	When the user clicks the Next button
 	Then the user is on the Different Hearing Types page
+	When the user signs out 
+	Then the answers have not been stored
 	

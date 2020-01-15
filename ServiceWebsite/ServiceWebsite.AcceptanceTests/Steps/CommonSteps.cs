@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AcceptanceTests.Common.Api.Hearings;
+using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
-using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using Selenium.Axe;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.BookingsAPI.Client;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -19,19 +21,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
-        private readonly CommonPages _commonPages;
-        private readonly CommonServiceWebPage _commonServiceWebPage;
 
-        public CommonSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext, CommonPages commonPages, CommonServiceWebPage commonServiceWebPage)
+        public CommonSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
-            _commonPages = commonPages;
-            _commonServiceWebPage = commonServiceWebPage;
         }
 
         [When(@"the user clicks the (.*) button")]
-        public void WhenTheUserClicksTheNextButton(string innerText)
+        public void WhenTheUserClicksTheButton(string innerText)
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(innerText)).Click();
         }
@@ -41,6 +39,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Click();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Selected.Should().BeTrue();
+        }
+
+        [When(@"the user clicks the (.*) link")]
+        public void WhenTheUserClicksTheChangeCameraOrMicrophoneLink(string linkText)
+        {
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Click();
         }
 
         [When(@"attempts to click (.*) without selecting an answer")]
@@ -53,7 +58,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"contact details are available")]
         public void ThenContactDetailsAreAvailable()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_commonServiceWebPage.ContactLink).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ContactLink).Click();
             _browsers[_c.CurrentUser.Key].Driver
                 .WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone))
                 .Displayed.Should().BeTrue();
@@ -83,10 +88,35 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the hearing details are displayed correctly")]
         public void ThenTheHearingDetailsAreDisplayedCorrectly()
         {
-            var hearingDetails = _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_commonServiceWebPage.HearingDetails).Text;
+            var hearingDetails = _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.HearingDetails).Text;
             hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Name);
             hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Number);
             hearingDetails.Should().Contain(_c.Test.Hearing.Case_type_name);
+        }
+
+        [Then(@"the answers have been stored")]
+        public void ThenAnswersHaveBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            if (answers.Count.Equals(0))
+                throw new DataMisalignedException("No answers were retrieved from the bookings api");
+            answers.Count.Should().Be(_c.Test.Answers.Count);
+            new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
+        }
+
+        [Then(@"the answers have not been stored")]
+        public void ThenTheAnswersHaveNotBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            answers.Count.Should().Be(0);
+        }
+
+        private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
+        {
+            var bookingsApiManager = new BookingsApiManager(_c.ServiceWebConfig.VhServices.BookingsApiUrl, _c.Tokens.BookingsApiBearerToken);
+            var response = bookingsApiManager.GetSuitabilityAnswers(_c.CurrentUser.Username);
+            var answers = RequestHelper.DeserialiseSnakeCaseJsonToResponse<List<PersonSuitabilityAnswerResponse>>(response.Content);
+            return answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)).Answers;
         }
 
         [Then(@"the page should be accessible")]

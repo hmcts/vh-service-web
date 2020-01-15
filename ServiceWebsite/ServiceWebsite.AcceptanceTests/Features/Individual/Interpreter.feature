@@ -11,4 +11,6 @@ Scenario: Interpreter
 	Then an error message appears stating 'Select if you would need an interpreter for the hearing'
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
-	Then the user is on the Interpreter page
+	Then the user is on the Your Computer page
+	When the user signs out 
+	Then the answers have not been stored

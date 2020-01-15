@@ -53,6 +53,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page NotFound = new Page("Not Found", "not-found");
         public static readonly Page Unauthorised = new Page("Unauthorised", "unauthorised");
         public static readonly Page ContactUs = new Page("Contact Us", "contact-us");
+        public static readonly Page Accessibility = new Page("Accessibility", "accessibility");
+        public static readonly Page PrivacyPolicy = new Page("Privacy Policy", "privacy-policy");
         public static readonly Page OpenGovernmentLicence = new Page("Open Government Licence", "open-government-licence");
         public static readonly Page UnsupportedBrowser = new Page("Unsupported Browser", "unsupported-browser");
 
@@ -112,6 +114,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages
                 yield return NotFound;
                 yield return Unauthorised;
                 yield return ContactUs;
+                yield return Accessibility;
+                yield return PrivacyPolicy;
                 yield return OpenGovernmentLicence;
                 yield return UnsupportedBrowser;
             }

@@ -8,3 +8,5 @@ Scenario: Help the Court Decide
 	Then contact details are available
 	When the user clicks the Continue to questions button
 	Then the user is on the About you page
+	When the user signs out 
+	Then the answers have not been stored

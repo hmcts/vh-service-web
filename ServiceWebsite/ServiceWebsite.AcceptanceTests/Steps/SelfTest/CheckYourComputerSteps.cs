@@ -31,7 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.CheckYourComputer,
                 ExtendedAnswer = null,
-                QuestionKey = IndividualQuestionKeys.ComputerQuestion
+                QuestionKey = SelfTestQuestionKeys.CheckYourComputerQuestion
             });
         }
     }
