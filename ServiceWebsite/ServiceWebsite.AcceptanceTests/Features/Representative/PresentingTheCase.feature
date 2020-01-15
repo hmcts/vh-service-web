@@ -13,3 +13,5 @@ Scenario: Presenting the Case
 	And adds details of who will be presenting the case
 	And the user clicks the 'Continue' button
 	Then the user is on the Other Information page
+	When the user signs out 
+	Then the answers have not been stored

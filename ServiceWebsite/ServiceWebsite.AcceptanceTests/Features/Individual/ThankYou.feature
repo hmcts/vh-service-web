@@ -9,4 +9,5 @@ Scenario: Thank You Individual
 	Given the Individual has progressed to the Thank You page
 	Then contact details are available
 	And the hearing date is displayed correctly
-	And answers have been stored
+	When the user signs out 
+	Then the answers have been stored

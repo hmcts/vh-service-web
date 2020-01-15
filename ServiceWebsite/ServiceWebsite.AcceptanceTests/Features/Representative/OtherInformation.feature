@@ -15,3 +15,5 @@ Scenario: Other Information
 	When the user enters more details into the please provide more information textfield
 	And the user clicks the Save and continue button
 	Then the user is on the Answers Saved page
+	When the user signs out 
+	Then the answers have been stored

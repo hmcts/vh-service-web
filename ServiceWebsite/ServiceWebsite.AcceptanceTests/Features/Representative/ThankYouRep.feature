@@ -9,6 +9,5 @@ Scenario: Thank You Representative
 	Then contact details are available
 	And the hearing details are displayed correctly
 	And the hearing date is displayed correctly
-	And answers have been stored
-
-
+	When the user signs out 
+	Then the answers have been stored

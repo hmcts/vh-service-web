@@ -6,7 +6,6 @@ using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Pages;
 using ServiceWebsite.AcceptanceTests.Pages.Representative;
 using ServiceWebsite.AcceptanceTests.Questions;
 using TechTalk.SpecFlow;

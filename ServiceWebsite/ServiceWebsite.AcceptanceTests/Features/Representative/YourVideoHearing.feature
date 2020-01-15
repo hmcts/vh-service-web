@@ -8,3 +8,5 @@ Scenario: Your Video Hearing
 	Then contact details are available
 	When the user clicks the Continue button
 	Then the user is on the Presenting the Case page
+	When the user signs out 
+	Then the answers have not been stored

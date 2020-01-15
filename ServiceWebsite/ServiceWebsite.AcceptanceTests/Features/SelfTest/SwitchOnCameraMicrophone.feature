@@ -11,6 +11,8 @@ Scenario: Switch On Camera and Microphone Individual
 	Then a message appears stating 'Your camera and microphone are switched on'
 	When the user clicks the Watch video button
 	Then the user is on the Test Your Equipment page
+	When the user signs out 
+	Then only the about you answers have been stored
 
 @VIH-4447 
 Scenario: Switch On Camera and Microphone Representative
@@ -20,3 +22,5 @@ Scenario: Switch On Camera and Microphone Representative
 	Then a message appears stating 'Your camera and microphone are switched on'
 	When the user clicks the Watch video button
 	Then the user is on the Test Your Equipment page
+	When the user signs out 
+	Then only the your hearing answers have been stored

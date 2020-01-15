@@ -8,9 +8,10 @@ Scenario: Camera Working Individual
 	Then contact details are available
 	When attempts to click Continue without selecting an answer
 	Then an error message appears stating 'Select if you could see yourself in the camera window'
-	When the user selects the 'Yes' radiobutton
-	And the user clicks the Continue button
+	When the user answers yes to the camera working question
 	Then the user is on the Microphone Working page
+	When the user signs out 
+	Then only the about you answers have been stored
 
 Scenario: Camera Working - Individual Check Again
 	Given the Individual has progressed to the Camera Working page
@@ -22,9 +23,10 @@ Scenario: Camera Working Representative
 	Then contact details are available
 	When attempts to click Continue without selecting an answer
 	Then an error message appears stating 'Select if you could see yourself in the camera window'
-	When the user selects the 'Yes' radiobutton
-	And the user clicks the Continue button
+	When the user answers yes to the camera working question
 	Then the user is on the Microphone Working page
+	When the user signs out 
+	Then only the your hearing answers have been stored
 
 Scenario: Camera Working - Representative Check Again
 	Given the Representative has progressed to the Camera Working page

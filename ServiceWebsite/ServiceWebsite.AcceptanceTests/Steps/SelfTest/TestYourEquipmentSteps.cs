@@ -16,7 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     [Binding]
     public class TestYourEquipmentSteps : ISteps
     {
-        private const int Timeout = 60;
+        private const int Timeout = 90;
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
 

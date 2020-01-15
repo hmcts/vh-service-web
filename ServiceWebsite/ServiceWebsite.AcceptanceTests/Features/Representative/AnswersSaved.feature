@@ -8,3 +8,5 @@ Scenario: Answers Saved
 	Then contact details are available
 	When the user clicks the Check my computer button
 	Then the user is on the Check Your Computer page
+	When the user signs out 
+	Then the answers have been stored

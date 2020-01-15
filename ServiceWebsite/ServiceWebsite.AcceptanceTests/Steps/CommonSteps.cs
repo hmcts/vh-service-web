@@ -11,7 +11,9 @@ using Selenium.Axe;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
+using ServiceWebsite.AcceptanceTests.Questions;
 using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.VideoAPI.Client;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -98,8 +100,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void ThenAnswersHaveBeenStored()
         {
             var answers = GetAnswersFromBookingsApi();
-            if (answers.Count.Equals(0))
-                throw new DataMisalignedException("No answers were retrieved from the bookings api");
+            answers.Count.Should().BeGreaterThan(0);
             answers.Count.Should().Be(_c.Test.Answers.Count);
             new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
         }
@@ -111,12 +112,52 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             answers.Count.Should().Be(0);
         }
 
+        [Then(@"only the about you answers have been stored")]
+        public void ThenOnlyTheAboutYouAnswersHaveBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.AboutYouQuestion)).Should().BeTrue();
+            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.CameraMicrophoneQuestion)).Should().BeTrue();
+            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.ComputerQuestion)).Should().BeTrue();
+            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.ConsentQuestion)).Should().BeTrue();
+            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.InternetQuestion)).Should().BeTrue();
+            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.InterpreterQuestion)).Should().BeTrue();
+            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.RoomQuestion)).Should().BeTrue();
+        }
+
+        [Then(@"only the your hearing answers have been stored")]
+        public void ThenOnlyTheYourHearingAnswersHaveBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            answers.Any(x => x.Key.Equals(RepresentativeQuestionKeys.OtherInformation)).Should().BeTrue();
+            answers.Any(x => x.Key.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Should().BeTrue();
+        }
+
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
         {
             var bookingsApiManager = new BookingsApiManager(_c.ServiceWebConfig.VhServices.BookingsApiUrl, _c.Tokens.BookingsApiBearerToken);
             var response = bookingsApiManager.GetSuitabilityAnswers(_c.CurrentUser.Username);
             var answers = RequestHelper.DeserialiseSnakeCaseJsonToResponse<List<PersonSuitabilityAnswerResponse>>(response.Content);
             return answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)).Answers;
+        }
+
+        [Then(@"the self test score is set in the results")]
+        public void ThenTheSelfTestScoreIsSetInTheResults()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
+            selfTest.Answer.Should().NotBe("None");
+            //var videoApiManager = new VideoApiManager(_c.ServiceWebConfig.VhServices.VideoApiUrl, _c.Tokens.VideoApiBearerToken);
+            //if (_c.Test.Hearing.Id == null)
+            //    throw new DataMisalignedException("Hearing Id must be set");
+            //var response = videoApiManager.GetConferenceByHearingId((Guid)_c.Test.Hearing.Id);
+            //var conference = RequestHelper.DeserialiseSnakeCaseJsonToResponse<ConferenceDetailsResponse>(response.Content);
+            //var participantId = _c.Test.Hearing.Participants.First(x => x.Username.ToLower().Equals(_c.CurrentUser.Username.ToLower())).Id;
+            //if (conference.Id == null || participantId == null)
+            //    throw new DataMisalignedException("Values must be set");
+            //response = videoApiManager.GetSelfTestScore((Guid)conference.Id, (Guid)participantId);
+            //var selfTestScore = RequestHelper.DeserialiseSnakeCaseJsonToResponse<TestCallScoreResponse>(response.Content);
+            //selfTestScore.Score.ToString().Should().BeOneOf("Good","Bad","Okay");
         }
 
         [Then(@"the page should be accessible")]

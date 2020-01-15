@@ -12,6 +12,8 @@ Scenario: Microphone Working Individual
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Video Working page
+	When the user signs out 
+	Then only the about you answers have been stored
 
 @VIH-3940
 Scenario: Microphone Working - Individual Check Again

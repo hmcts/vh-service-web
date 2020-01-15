@@ -4,35 +4,39 @@
 	So that I can complete self test Questionnaire
 
 @VIH-4577
-Scenario: Consent Individual
+Scenario: Check Your Computer Individual
 	Given the Individual has progressed to the Check Your Computer page
 	Then contact details are available
 	When attempts to click Continue without selecting an answer
 	Then an error message appears stating 'Select if this is the same computer you would use for a video hearing'
-	When the user selects the 'Yes' radiobutton
-	And the user clicks the Continue button
+	When the user answers yes to the Check Your Computer question
 	Then the user is on the Switch On Camera and Microphone page
+	When the user signs out 
+	Then only the about you answers have been stored
 
 @VIH-4577
-Scenario: Consent - Individual User drops out with No Answer
-	Given the Individual has progressed to the Consent page
-	When the user selects the 'No' radiobutton
-	And the user clicks the Continue button
+Scenario: Check Your Computer - Individual User drops out with No Answer
+	Given the Individual has progressed to the Check Your Computer page
+	When the user answers no to the Check Your Computer question
 	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored
 
 @VIH-4577
-Scenario: Consent Representative
+Scenario: Check Your Computer Representative
 	Given the Representative has progressed to the Check Your Computer page
 	Then contact details are available
 	When attempts to click Continue without selecting an answer
 	Then an error message appears stating 'Select if this is the same computer you would use for a video hearing'
-	When the user selects the 'Yes' radiobutton
-	And the user clicks the Continue button
+	When the user answers yes to the Check Your Computer question
 	Then the user is on the Switch On Camera and Microphone page
+	When the user signs out 
+	Then only the your hearing answers have been stored
 
 @VIH-4577
-Scenario: Consent - Representative User drops out with No Answer
-	Given the Representative has progressed to the Consent page
-	When the user selects the 'No' radiobutton
-	And the user clicks the Continue button
+Scenario: Check Your Computer - Representative User drops out with No Answer
+	Given the Representative has progressed to the Check Your Computer page
+	When the user answers no to the Check Your Computer question
 	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored

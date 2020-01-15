@@ -11,6 +11,8 @@ Scenario: Video Working Individual
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored
 
 Scenario: Video Working - Individual Check Again
 	Given the Individual has progressed to the Video Working page
@@ -25,6 +27,8 @@ Scenario: Video Working Representative
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored
 
 Scenario: Video Working - Representative Check Again
 	Given the Representative has progressed to the Video Working page
