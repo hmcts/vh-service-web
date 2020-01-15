@@ -7,7 +7,7 @@
 Scenario: Switch On Camera and Microphone Individual
 	Given the Individual has progressed to the Switch On Camera and Microphone page
 	Then contact details are available
-	When the user selects the 'Switch on' radiobutton
+	When the user clicks the 'Switch on' button
 	Then a message appears stating 'Your camera and microphone are switched on'
 	When the user clicks the Watch video button
 	Then the user is on the Test Your Equipment page
@@ -18,7 +18,7 @@ Scenario: Switch On Camera and Microphone Individual
 Scenario: Switch On Camera and Microphone Representative
 	Given the Representative has progressed to the Switch On Camera and Microphone page
 	Then contact details are available
-	When the user selects the 'Switch on' radiobutton
+	When the user clicks the 'Switch on' button
 	Then a message appears stating 'Your camera and microphone are switched on'
 	When the user clicks the Watch video button
 	Then the user is on the Test Your Equipment page

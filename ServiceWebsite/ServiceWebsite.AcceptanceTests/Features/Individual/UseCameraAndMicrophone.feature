@@ -14,9 +14,3 @@ Scenario: Use Camera and Microphone
 	Then the user is on the Participant View page
 	When the user signs out 
 	Then the answers have not been stored
-
-@Blocked
-Scenario: Block Use of Camera and Microphone
-	Given the Individual has progressed to the Use Camera and Microphone page
-	When the user clicks the Switch on button
-	Then the user is on the Equipment Blocked page

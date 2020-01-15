@@ -147,17 +147,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var answers = GetAnswersFromBookingsApi();
             var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
             selfTest.Answer.Should().NotBe("None");
-            //var videoApiManager = new VideoApiManager(_c.ServiceWebConfig.VhServices.VideoApiUrl, _c.Tokens.VideoApiBearerToken);
-            //if (_c.Test.Hearing.Id == null)
-            //    throw new DataMisalignedException("Hearing Id must be set");
-            //var response = videoApiManager.GetConferenceByHearingId((Guid)_c.Test.Hearing.Id);
-            //var conference = RequestHelper.DeserialiseSnakeCaseJsonToResponse<ConferenceDetailsResponse>(response.Content);
-            //var participantId = _c.Test.Hearing.Participants.First(x => x.Username.ToLower().Equals(_c.CurrentUser.Username.ToLower())).Id;
-            //if (conference.Id == null || participantId == null)
-            //    throw new DataMisalignedException("Values must be set");
-            //response = videoApiManager.GetSelfTestScore((Guid)conference.Id, (Guid)participantId);
-            //var selfTestScore = RequestHelper.DeserialiseSnakeCaseJsonToResponse<TestCallScoreResponse>(response.Content);
-            //selfTestScore.Score.ToString().Should().BeOneOf("Good","Bad","Okay");
         }
 
         [Then(@"the page should be accessible")]
