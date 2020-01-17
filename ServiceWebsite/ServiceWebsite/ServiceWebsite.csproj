@@ -43,15 +43,23 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\**" />
     <Content Include="ClientApp\accessibility_lint.js" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\modules\individual-journey\individual.gaurd.spec.ts" />
     <None Remove="ClientApp\src\app\modules\individual-journey\individual.gaurd.ts" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\answers-saved.component.css" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\answers-saved.component.html" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\answers-saved.component.spec.ts" />
+    <None Remove="ClientApp\src\app\modules\representative-journey\pages\answers-saved\answers-saved.component.ts" />
     <None Remove="ClientApp\src\app\modules\representative-journey\pages\presenting-the-case\presenting-the-case.component.spec.ts" />
     <None Remove="ClientApp\src\app\modules\representative-journey\pages\presenting-the-case\presenting-the-case.component.ts" />
     <None Remove="ClientApp\src\app\modules\representative-journey\representative.gaurd.ts" />

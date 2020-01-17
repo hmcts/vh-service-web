@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {RepresentativeJourney} from '../../representative-journey';
-import {RepresentativeSuitabilityModel} from '../../representative-suitability.model';
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import {SelfTestJourneySteps} from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
 
@@ -11,13 +10,9 @@ import {SelfTestJourneySteps} from 'src/app/modules/self-test-journey/self-test-
 })
 
 export class AnswersSavedComponent {
-  constructor(private journey: RepresentativeJourney) {
+    constructor(private journey: JourneyBase) {
   }
-
-  get model(): RepresentativeSuitabilityModel {
-    return this.journey.model;
-  }
-
+      
   continue() {
     this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
   }

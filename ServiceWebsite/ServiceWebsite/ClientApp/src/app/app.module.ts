@@ -47,6 +47,7 @@ import { SelfTestJourneyModule } from './modules/self-test-journey/self-test-jou
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
 
 export function initConfiguration(configService: ConfigService): Function {
   return () => configService.load();
@@ -65,7 +66,8 @@ export function initConfiguration(configService: ConfigService): Function {
     QuestionnaireAlreadyCompletedComponent,
     AccessibilityComponent,
     ScrollTriggerDirective,
-    SignInOnComputerComponent
+    SignInOnComputerComponent,
+    AnswersSavedComponent
   ],
   imports: [
     // angular

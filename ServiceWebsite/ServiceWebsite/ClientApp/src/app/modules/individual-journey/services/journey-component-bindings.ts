@@ -22,6 +22,7 @@ export class JourneyStepComponentBindings extends ParticipantJourneyStepComponen
     this.bindings.set(Steps.AccessToComputer, Paths.YourComputer);
     this.bindings.set(Steps.AccessToRoom, Paths.AccessToRoom);
     this.bindings.set(Steps.Consent, Paths.Consent);
+    this.bindings.set(Steps.AnswersSaved, Paths.AnswersSaved);
     this.bindings.set(Steps.CourtInformationVideo, Paths.CourtBuildingVideo);
     this.bindings.set(Steps.ExploreVideoHearing, Paths.ExploreVideoHearing);
     this.bindings.set(Steps.DifferentHearingTypes, Paths.DifferentHearingTypes);

@@ -17,5 +17,6 @@ export const Paths = {
   Consent: 'consent',
   ThankYou: 'thank-you',
   MediaError: 'media-error',
-  SignInOnComputer: 'sign-in-on-computer'
+  SignInOnComputer: 'sign-in-on-computer',
+  AnswersSaved: 'answers-saved',
 };

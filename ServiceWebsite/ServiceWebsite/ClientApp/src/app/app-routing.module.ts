@@ -13,6 +13,7 @@ import { SignInOnComputerComponent } from './pages/sign-in-on-computer/sign-in-o
 
 import { Paths } from './paths';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
+import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
 
 export const routes: Routes = [
   { path: Paths.Root, component: HomeComponent, pathMatch: 'full' },
@@ -27,6 +28,7 @@ export const routes: Routes = [
   { path: Paths.EquipmentBlocked, component: MediaErrorComponent },
   { path: `${Paths.UnsupportedBrowser}`, component: UnsupportedBrowserComponent },
   { path: Paths.QuestionnaireAlreadyCompleted, component: QuestionnaireAlreadyCompletedComponent },
+  { path: Paths.AnswersSaved, component: AnswersSavedComponent },
   { path: '**', redirectTo: Paths.PageNotFound, pathMatch: 'full' }
 ];
 

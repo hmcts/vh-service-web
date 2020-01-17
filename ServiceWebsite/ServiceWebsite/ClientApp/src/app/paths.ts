@@ -10,4 +10,5 @@ export const Paths = {
   UnsupportedBrowser: 'unsupported-browser',
   QuestionnaireAlreadyCompleted: 'questionnaire-already-completed',
   SignInOnComputer: 'sign-in-on-computer',
+  AnswersSaved: 'answers-saved',
 };

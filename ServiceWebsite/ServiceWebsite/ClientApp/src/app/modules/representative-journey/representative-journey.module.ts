@@ -20,7 +20,7 @@ import { HearingService, HearingApiService } from './services/hearing.service';
 import { RepresentativeNavigationBackFactory } from './representative-navigation-back.factory';
 
 // components
-import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
+// import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
 import { PresentingTheCaseComponent } from './pages/presenting-the-case/presenting-the-case.component';
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
@@ -33,7 +33,7 @@ import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-bac
 
 @NgModule({
     declarations: [
-        AnswersSavedComponent,
+        // AnswersSavedComponent,
         ThankYouComponent,
         HearingDetailsHeaderComponent,
         YourVideoHearingComponent,
