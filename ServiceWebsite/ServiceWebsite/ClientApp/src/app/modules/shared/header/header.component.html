@@ -1,11 +1,11 @@
 <header class="govuk-header " role="banner" data-module="header">
   <div class="govuk-header__container govuk-width-container">
-   
+
     <div class="govuk-header__logo">
       <a class="govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <img src="assets/images/UkGovCrestWhite.png" height="32" width="38" class="hmcts-header__logotype-crest"
-               alt="HMCTS logo crest image" style="margin-right: 30px;" />
+            alt="HMCTS logo crest image" style="margin-right: 30px;" />
           <span class="govuk-header_link govuk-header_link--service-name" i18n="@@header_logo_1">
             HM Courts &amp; Tribunals Service
           </span>
@@ -17,9 +17,10 @@
       <nav class="hmcts-header__navigation" aria-label="Account navigation">
         <ul class="hmcts-header__navigation-list">
           <li *ngIf="loggedIn" class="hmcts-header__navigation-item">
-            <button id="header-logout-link" class="govuk-header__link  right-align" href="javascript:void()" (click)="logout()" i18n="@@header_btn_signout">
+            <a id="header-logout-link" class="govuk-header__link  right-align" href="javascript:void(0)"
+              (click)="logout()" i18n="@@header_btn_signout">
               Sign out
-            </button>
+            </a>
           </li>
         </ul>
       </nav>
