@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.SpaServices;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
@@ -103,7 +105,7 @@ namespace ServiceWebsite
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (!env.IsProduction())
             {
@@ -127,13 +129,13 @@ namespace ServiceWebsite
                 app.UseHttpsRedirection();
             }
 
-            app.UseAuthentication();
-
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowCredentials()
                 .AllowAnyHeader());
+    
+            app.UseAuthentication();
 
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseStaticFiles();

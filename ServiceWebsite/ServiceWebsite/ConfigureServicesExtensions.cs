@@ -8,13 +8,21 @@ using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
 using ServiceWebsite.UserAPI.Client;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Microsoft.OpenApi.Models;
+using System.IO;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.Newtonsoft;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ServiceWebsite
 {
@@ -85,25 +93,26 @@ namespace ServiceWebsite
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
+            var contractsXmlFile = $"{typeof(ParticipantResponse).Assembly.GetName().Name}.xml";
+            var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXmlFile);
+
             serviceCollection.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Video Hearings Service Web API", Version = "v1" });
-                c.IncludeXmlComments(xmlPath);
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Video Hearings Service Web API", Version = "v1" });
+                c.AddFluentValidationRules();
+                c.IncludeXmlComments(contractsXmlPath);
                 c.EnableAnnotations();
-                c.AddSecurityDefinition("Bearer",
-                    new ApiKeyScheme
-                    {
-                        In = "header",
-                        Description = "Please enter JWT with Bearer into field",
-                        Name = "Authorization",
-                        Type = "apiKey"
-                    });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    {"Bearer", Enumerable.Empty<string>()}
+                    In = ParameterLocation.Header,
+                    Description = "Please enter JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
                 });
+
                 c.OperationFilter<AuthResponsesOperationFilter>();
             });
+            serviceCollection.AddSwaggerGenNewtonsoftSupport();
         }
 
         public static IServiceCollection AddJsonOptions(this IServiceCollection serviceCollection)
@@ -113,15 +122,14 @@ namespace ServiceWebsite
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
+           
             serviceCollection.AddMvc()
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver = contractResolver;
-                    options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
-                })
-                .AddJsonOptions(options =>
-                    options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
-
+                            .AddNewtonsoftJson(options =>
+                            {
+                                options.SerializerSettings.ContractResolver = contractResolver;
+                                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                                options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                            });
 
             return serviceCollection;
         }
