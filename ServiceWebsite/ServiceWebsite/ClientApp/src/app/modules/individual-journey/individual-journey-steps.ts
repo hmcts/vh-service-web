@@ -14,5 +14,5 @@ export class IndividualJourneySteps extends ParticipantJourneySteps {
     static readonly Consent = new JourneyStep('Consent');
     static readonly AnswersSaved = new JourneyStep('AnswersSaved');
   static readonly MediaAccessError = new JourneyStep('MediaAccessError');
-  
+
 }
