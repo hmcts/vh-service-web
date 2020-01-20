@@ -12,7 +12,7 @@ import {SelfTestJourneySteps} from 'src/app/modules/self-test-journey/self-test-
 export class AnswersSavedComponent {
     constructor(private journey: JourneyBase) {
   }
-      
+
   continue() {
     this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
   }

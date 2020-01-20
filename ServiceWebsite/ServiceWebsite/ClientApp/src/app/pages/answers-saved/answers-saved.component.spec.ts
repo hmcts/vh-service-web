@@ -42,7 +42,7 @@ describe('AnswersSavedComponent', () => {
 
     beforeEach(() => {
         journey = {
-            ...jasmine.createSpyObj<JourneyBase>(['jumpTo', 'startAt','goto']),
+            ...jasmine.createSpyObj<JourneyBase>(['jumpTo', 'startAt', 'goto']),
             redirect: stepEvents
         } as jasmine.SpyObj<JourneyBase>;
         component = new AnswersSavedComponent(journey);
@@ -51,10 +51,10 @@ describe('AnswersSavedComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-   
+
     it('should navigate to url that was saved in session', () => {
         component.continue();
         expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CheckYourComputer);
-       
+
     });
 });

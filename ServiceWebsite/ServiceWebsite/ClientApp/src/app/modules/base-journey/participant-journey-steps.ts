@@ -10,5 +10,5 @@ export class ParticipantJourneySteps {
   static readonly  ThankYou = new JourneyStep('ThankYou');
   static readonly GotoVideoApp = new JourneyStep('GotoVideoApp');
   static readonly SignInOnComputer = new JourneyStep('SignInOnComputer');
-  static readonly AnswersSaved = new JourneyStep('AnswersSaved');
+  // static readonly AnswersSaved = new JourneyStep('AnswersSaved');
 }
