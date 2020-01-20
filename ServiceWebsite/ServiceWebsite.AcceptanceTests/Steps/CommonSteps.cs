@@ -121,8 +121,18 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().BeGreaterThan(0);
+            RemoveSelfTestQuestion(answers);
             answers.Count.Should().Be(_c.Test.Answers.Count);
             new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
+        }
+
+        private void RemoveSelfTestQuestion(IEnumerable<SuitabilityAnswerResponse> answers)
+        {
+            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)) &&
+                !answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
+            {
+                _c.Test.Answers.Remove(_c.Test.Answers.First(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)));
+            }
         }
 
         [Then(@"the answers have not been stored")]

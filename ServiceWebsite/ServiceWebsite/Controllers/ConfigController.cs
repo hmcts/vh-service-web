@@ -9,13 +9,13 @@ namespace ServiceWebsite.Controllers
     [Route("/api/config")]
     public class ConfigController : Controller
     {
-        private readonly EnvironmentSettings _settings;
         private readonly ServiceSettings _serviceSettings;
+        private readonly SecuritySettings _securitySettings;
 
-        public ConfigController(IOptions<EnvironmentSettings> settings, IOptions<ServiceSettings> serviceSettings)
+        public ConfigController(IOptions<ServiceSettings> serviceSettings, IOptions<SecuritySettings> securitySettings)
         {
-            _settings = settings.Value;
             _serviceSettings = serviceSettings.Value;
+            _securitySettings = securitySettings.Value;
         }
 
         [HttpGet]
@@ -24,13 +24,13 @@ namespace ServiceWebsite.Controllers
         {
             var config = new ClientConfiguration
             {
-                VideoAppUrl = _settings.VideoWebUrl,
-                AppInsightsInstrumentationKey = _settings.AppInsightsKey,
-                TenantId = _settings.TenantId,
-                ClientId = _settings.ClientId,
-                RedirectUri = _settings.RedirectUri,
-                PostLogoutRedirectUri = _settings.PostLogoutRedirectUri,
-                BaseVideoUrl = _settings.BaseVideoUrl,
+                VideoAppUrl = _serviceSettings.VideoWebUrl,
+                AppInsightsInstrumentationKey = _securitySettings.AppInsightsKey,
+                TenantId = _securitySettings.TenantId,
+                ClientId = _securitySettings.ClientId,
+                RedirectUri = _securitySettings.RedirectUri,
+                PostLogoutRedirectUri = _securitySettings.PostLogoutRedirectUri,
+                BaseVideoUrl = _securitySettings.BaseVideoUrl,
                 PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri,
                 KinlySelfTestScoreEndpointUrl = _serviceSettings.KinlySelfTestScoreEndpointUrl
             };

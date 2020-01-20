@@ -5,7 +5,6 @@ using AcceptanceTests.Common.Data.TestData;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using NUnit.Framework;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
@@ -43,6 +42,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private void RegisterAzureSecrets(TestContext context)
         {
             context.ServiceWebConfig.AzureAdConfiguration = Options.Create(_configRoot.GetSection("AzureAd").Get<ServiceWebSecurityConfiguration>()).Value;
+            context.ServiceWebConfig.AzureAdConfiguration.Authority += context.ServiceWebConfig.AzureAdConfiguration.TenantId;
             ConfigurationManager.VerifyConfigValuesSet(context.ServiceWebConfig.AzureAdConfiguration);
         }
 

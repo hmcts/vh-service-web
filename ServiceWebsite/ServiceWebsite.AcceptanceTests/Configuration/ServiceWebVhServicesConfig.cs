@@ -3,7 +3,6 @@
     public class ServiceWebVhServicesConfig
     {
         public string ServiceWebUrl { get; set; }
-        public string ServiceWebResourceId { get; set; }
         public bool RunningServiceWebLocally { get; set; }
         public string BookingsApiUrl { get; set; }
         public string BookingsApiResourceId { get; set; }
