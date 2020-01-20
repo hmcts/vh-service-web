@@ -11,8 +11,23 @@ export class IndividualJourneySteps extends ParticipantJourneySteps {
   static readonly HelpTheCourtDecide = new JourneyStep('HelpTheCourtDecide');
   static readonly Interpreter = new JourneyStep('Interpreter');
   static readonly YourInternetConnection = new JourneyStep('YourInternetConnection');
-    static readonly Consent = new JourneyStep('Consent');
-    static readonly AnswersSaved = new JourneyStep('AnswersSaved');
+  static readonly Consent = new JourneyStep('Consent');
+  static readonly AnswersSaved = new JourneyStep('AnswersSaved');
   static readonly MediaAccessError = new JourneyStep('MediaAccessError');
+
+    static GetAll(): JourneyStep[] {
+        return [
+            this.DifferentHearingTypes,
+            this.ExploreCourtBuilding,
+            this.CourtInformationVideo,
+            this.ExploreVideoHearing,
+            this.AccessToCameraAndMicrophone,
+            this.HearingAsParticipant,
+            this.HelpTheCourtDecide,
+            this.Interpreter,
+            this.YourInternetConnection,
+            this.Consent,
+        ];
+    }
 
 }
