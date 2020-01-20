@@ -9,35 +9,8 @@ variables:
     sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
     sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts
     sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
-  coverletCoverageExclusions: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.UserAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions,[ServiceWebsite.IntegrationTests]*,[ServiceWebsite.UnitTests]*'
-  integrationTestsAppSettingsTransform: '
-    "AzureAd:AppInsightsKey": "$(vh-core-infra-AppInsightsKey)",
-    "AzureAd:Authority": "$(Authority)",
-    "AzureAd:BaseVideoUrl": "$(video_blob_url)",
-    "AzureAd:ClientId": "$(vh-service-web-appid)",  
-    "AzureAd:ClientSecret": "$(vh-service-web-key)",
-    "AzureAd:RedirectUri": "$(service_web_url_staging)home",
-    "AzureAd:TenantId": "$(TenantId)",
-    "AzureAd:UserApiClientId": "$(vh-user-api-appid)",
-    "AzureAd:UserApiClientSecret": "$(vh-user-api-key)",
-    "CustomToken:Secret": "$(VhVideoSecretKey)",
-    "TestUserSecrets:TestUsernameStem": "$(TestUserSecrets:TestUsernameStem)",
-    "TestUserSecrets:TestUserPassword": "$(TestUserSecrets:TestUserPassword)",
-    "VhServices:BookingsApiResourceId": "$(vh-bookings-api-identifieruris)",
-    "VhServices:BookingsApiUrl": "$(bookings_api_url)",
-    "VhServices:KinlySelfTestScoreEndpointUrl": "$(KinlySelfTestApiUrl)/testcall",
-    "VhServices:PexipSelfTestNodeUri": "$(PexipSelfTestNode)",
-    "VhServices:ServiceWebUrl": "$(service_web_url)",
-    "VhServices:UserApiResourceId": "$(vh-user-api-identifieruris)",
-    "VhServices:UserApiUrl": "$(user_api_url)",
-    "VhServices:VideoApiResourceId": "$(vh-video-api-identifieruris)",
-    "VhServices:VideoApiUrl": "$(video_api_url)",
-    "VhServices:VideoWebUrl": "$(video_web_url)"
-'
-  vhAzureKeyVault: 'https://vhwebsitepreview.vault.azure.net/' # Used during integration tests
-  keyVaultName: vhcoreinfrahtpreview # Used to get secrets for integration tests
-  secretsFilter: 'TenantId,hmac-secret-key,vh-service-web-appid,vh-service-web-key,vh-bookings-api-identifieruris' # filters out secrets returned from key vault
-
+  coverletCoverageExclusions: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.UserAPI.Client]*,[ServiceWebsite.VideoAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions,[ServiceWebsite.IntegrationTests]*,[ServiceWebsite.UnitTests]*'
+ 
 # GitHub Repo that contains build templates. Reference https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=vsts#using-other-repositories
 resources:
   repositories:
