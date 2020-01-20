@@ -11,6 +11,6 @@ const QuestionnaireCompletedUrl = '/answers-saved';
 export class IndividualNavigationBackFactory extends NavigationBackBaseFactory {
 
   constructor(protected router: Router) {
-      super(router, IndividualUserType, [QuestionnaireCompletedUrl,ThankYouUrl]);
+      super(router, IndividualUserType, [QuestionnaireCompletedUrl, ThankYouUrl]);
   }
 }
