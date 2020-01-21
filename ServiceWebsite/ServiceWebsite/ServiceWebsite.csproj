@@ -16,7 +16,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <WarningLevel>2</WarningLevel>
-    <DocumentationFile>obj\Debug\netcoreapp2.2\ServiceWebsite.xml</DocumentationFile>
+    <DocumentationFile>obj\Debug\netcoreapp3.1\ServiceWebsite.xml</DocumentationFile>
     <OutputPath></OutputPath>
     <NoWarn>1701;1702;</NoWarn>
   </PropertyGroup>
@@ -26,7 +26,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="2.3.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.1" />
+    <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="3.0.0-rc.4" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />

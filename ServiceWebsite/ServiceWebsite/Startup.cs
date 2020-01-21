@@ -41,7 +41,15 @@ namespace ServiceWebsite
         {
             services.AddSingleton<ITelemetryInitializer>(new CloudRoleNameInitializer());
 
-            services.AddCors();
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowCredentials();
+                }));
 
             services.AddJsonOptions();
 
@@ -53,7 +61,7 @@ namespace ServiceWebsite
             services.AddApplicationInsightsTelemetry(settings.AppInsightsKey);
 
             RegisterAuth(services);
-            services.AddMvc();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -129,13 +137,14 @@ namespace ServiceWebsite
                 app.UseHttpsRedirection();
             }
 
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowCredentials()
-                .AllowAnyHeader());
-    
+            app.UseRouting();
+
+            app.UseAuthorization();
+
             app.UseAuthentication();
+
+            app.UseCors("CorsPolicy");
+            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
 
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseStaticFiles();
@@ -148,13 +157,6 @@ namespace ServiceWebsite
             app.UseNoCacheHttpHeaders();
             app.UseHsts(options => options.MaxAge(365).IncludeSubdomains());
             app.UseXfo(options => options.SameOrigin());
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
 
             app.UseSpa(spa =>
             {

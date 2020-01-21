@@ -55,19 +55,17 @@ namespace ServiceWebsite
             serviceCollection.AddSingleton<ICustomJwtTokenProvider>(customJwtTokenProvider);
 
             serviceCollection
-                .AddHttpClient<IUserApiClient, UserApiClient>()
-                .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
-                .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
+                .AddHttpClient<IUserApiClient, UserApiClient>(httpClient => BuildUserApiClient(httpClient, serviceSettings))
+                .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>());
 
             serviceCollection
-                .AddHttpClient<IBookingsApiClient, BookingsApiClient>()
-                .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>())
-                .AddTypedClient(httpClient => BuildBookingsApiClient(httpClient, serviceSettings));
+                .AddHttpClient<IBookingsApiClient, BookingsApiClient>(httpClient => BuildBookingsApiClient(httpClient, serviceSettings))
+                .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>());
 
             serviceCollection
-                .AddHttpClient<IKinlyPlatformService, KinlyPlatformService>()
-                .AddTypedClient<IKinlyPlatformService>(httpClient => new KinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
-
+                .AddHttpClient<IKinlyPlatformService, KinlyPlatformService>(httpClient =>
+                        new KinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
+            
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
