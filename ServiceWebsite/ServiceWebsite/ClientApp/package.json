@@ -39,7 +39,7 @@
     "ng-bullet": "latest"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.801.1",
+    "@angular-devkit/build-angular": "~0.803.0",
     "@angular/cli": "~8.1.1",
     "@angular/compiler-cli": "^8.1.1",
     "@angular/language-service": "^8.1.1",
