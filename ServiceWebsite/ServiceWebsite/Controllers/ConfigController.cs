@@ -18,6 +18,10 @@ namespace ServiceWebsite.Controllers
             _securitySettings = securitySettings.Value;
         }
 
+        /// <summary>
+        /// Get configuration
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult GetConfiguration()
