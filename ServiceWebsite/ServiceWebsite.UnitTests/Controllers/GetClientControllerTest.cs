@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
-using ServiceWebsite.Models;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -22,12 +17,23 @@ namespace ServiceWebsite.UnitTests.Controllers
                 TenantId = "TenantId",
                 ClientSecret = "ClientSecret",
                 Authority = "Authority",
+                AppInsightsKey = "AppInsightsKey",
+                BaseVideoUrl = "BaseVideoUrl",
+                PostLogoutRedirectUri = "PostLogoutRedirectUri",
+                RedirectUri = "RedirectUri",
+                UserApiClientId = "UserApiClientId",
+                UserApiClientSecret = "UserApiClientSecret"
             };
 
             var serviceSettings = new ServiceSettings
             {
                 BookingsApiResourceId = "BookingsApiResourceId",
-                BookingsApiUrl = "BookingsApiUrl"
+                BookingsApiUrl = "BookingsApiUrl",
+                KinlySelfTestScoreEndpointUrl = "KinlySelfTestScoreEndpointUrl",
+                PexipSelfTestNodeUri = "PexipSelfTestNodeUri",
+                UserApiResourceId = "UserApiResourceId",
+                UserApiUrl = "UserApiUrl",
+                VideoWebUrl = "VideoWebUrl"
             };
 
             var configSettingsController = new ConfigController(Options.Create(serviceSettings), Options.Create(securitySettings));
