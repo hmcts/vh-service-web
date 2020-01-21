@@ -35,9 +35,6 @@ jobs:
   parameters:
     cleanCheckout: $(cleanCheckout)
     sonarCloudExtraProperties: $(sonarCloudPrepareExtraProperties)
-    KeyVaultName: $(KeyVaultName)
     apiDirectory: $(apiDirectory)
-    SecretsFilter: $(SecretsFilter)
     solutionType: $(solutionType)
-    integrationTestsAppSettingsTransform: $(integrationTestsAppSettingsTransform)
     nodeVersion: $(nodeVersion)
