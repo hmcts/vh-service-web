@@ -12,6 +12,11 @@ namespace ServiceWebsite.Controllers
         private readonly ServiceSettings _serviceSettings;
         private readonly SecuritySettings _securitySettings;
 
+        /// <summary>
+        /// Config controller
+        /// </summary>
+        /// <param name="serviceSettings"></param>
+        /// <param name="securitySettings"></param>
         public ConfigController(IOptions<ServiceSettings> serviceSettings, IOptions<SecuritySettings> securitySettings)
         {
             _serviceSettings = serviceSettings.Value;
