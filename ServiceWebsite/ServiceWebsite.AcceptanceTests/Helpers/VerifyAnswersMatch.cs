@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
+using ServiceWebsite.AcceptanceTests.Questions;
 using ServiceWebsite.BookingsAPI.Client;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
@@ -29,6 +30,10 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 else if (actual.Answer.Equals("false"))
                 {
                     expected.Answer.Should().Be("No");
+                }
+                else if (actual.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion) && !actual.Answer.Equals("None"))
+                {
+                    actual.Answer.Should().BeOneOf("Good","Bad","Okay");
                 }
                 else
                 {
