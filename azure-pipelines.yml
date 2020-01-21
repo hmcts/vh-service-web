@@ -9,7 +9,7 @@ variables:
     sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
     sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts
     sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
-  coverletCoverageExclusions: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.UserAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions,[ServiceWebsite.IntegrationTests]*,[ServiceWebsite.UnitTests]*'
+  coverletCoverageExclusions: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.VideoAPI.Client]*,[ServiceWebsite.UserAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions,[ServiceWebsite.IntegrationTests]*,[ServiceWebsite.UnitTests]*'
   integrationTestsAppSettingsTransform: '
     "AzureAd:TenantId": "$(TenantId)",
     "CustomToken:Secret": "$(VhVideoSecretKey)"
