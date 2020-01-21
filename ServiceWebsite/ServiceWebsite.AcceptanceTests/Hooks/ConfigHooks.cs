@@ -42,7 +42,6 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private void RegisterAzureSecrets(TestContext context)
         {
             context.ServiceWebConfig.AzureAdConfiguration = Options.Create(_configRoot.GetSection("AzureAd").Get<ServiceWebSecurityConfiguration>()).Value;
-            context.ServiceWebConfig.AzureAdConfiguration.Authority += context.ServiceWebConfig.AzureAdConfiguration.TenantId;
             ConfigurationManager.VerifyConfigValuesSet(context.ServiceWebConfig.AzureAdConfiguration);
         }
 
