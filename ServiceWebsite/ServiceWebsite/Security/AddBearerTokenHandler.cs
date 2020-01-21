@@ -11,15 +11,17 @@ namespace ServiceWebsite.Security
     {
         private const string TokenKey = "s2stoken";
         private readonly IMemoryCache _memoryCache;
-        private readonly EnvironmentSettings _environmentSettings;
+        private readonly SecuritySettings _securitySettings;
+        private readonly ServiceSettings _serviceSettings;
         private readonly ITokenProvider _tokenProvider;
 
         public AddBearerTokenHeaderHandler(ITokenProvider tokenProvider, IMemoryCache memoryCache,
-            IOptions<EnvironmentSettings> securitySettings)
+            IOptions<SecuritySettings> securitySettings, IOptions<ServiceSettings> serviceSettings)
         {
             _tokenProvider = tokenProvider;
             _memoryCache = memoryCache;
-            _environmentSettings = securitySettings.Value;
+            _securitySettings = securitySettings.Value;
+            _serviceSettings = serviceSettings.Value;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
@@ -28,8 +30,8 @@ namespace ServiceWebsite.Security
             var token = _memoryCache.Get<string>(TokenKey);
             if (string.IsNullOrEmpty(token))
             {
-                var authenticationResult = _tokenProvider.GetAuthorisationResult(_environmentSettings.ClientId,
-                    _environmentSettings.ClientSecret, _environmentSettings.HearingsApiResourceId);
+                var authenticationResult = _tokenProvider.GetAuthorisationResult(_securitySettings.ClientId,
+                    _securitySettings.ClientSecret, _serviceSettings.BookingsApiResourceId);
 
                 token = authenticationResult.AccessToken;
                 var tokenExpireDateTime = authenticationResult.ExpiresOn.DateTime.AddMinutes(-1);

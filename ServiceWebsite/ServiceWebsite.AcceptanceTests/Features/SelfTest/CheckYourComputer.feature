@@ -1,30 +1,42 @@
-﻿Feature: Participants Logged in on different computer to complete Self Test
+﻿Feature: Check Your Computer
 	As an Invidual or Representative
 	I am on Check Your computer screen after completing intial questionnaire 
 	So that I can complete self test Questionnaire
 
-@VIH-4577 @RepresentativeSelfTest
-Scenario: Representative participant initiates self test journey
-	Given Representative participant has already submitted questionnaire but not completed self-test
-	When 'Representative' logs in with valid credentials
-	Then Representative should be on 'check your computer' screen
+@VIH-4577
+Scenario: Check Your Computer Individual
+	Given the Individual has progressed to the Check Your Computer page
+	Then contact details are available
+	When attempts to click Continue without selecting an answer
+	Then an error message appears stating 'Select if this is the same computer you would use for a video hearing'
+	When the user answers yes to the Check Your Computer question
+	Then the user is on the Switch On Camera and Microphone page
+	When the user signs out 
+	Then only the about you answers have been stored
 
-@VIH-4577 @IndividualSelfTest
-Scenario: Individual participant initiates self test journey
-	Given Individual participant has already submitted questionnaire but not completed self-test
-	When 'Individual' logs in with valid credentials
-	Then Individual should be on 'check your computer' screen
-	
-@VIH-4577 @RepresentativeSelfTest
-Scenario: Representative participant redirected to "Sign Back In" page when trying to answer self test questionnaire
-	Given Representative participant is on 'check your computer' page
-	When provides answer as No
-	And proceeds to next page
-	Then Representative should be on 'sign back in' screen
+@VIH-4577
+Scenario: Check Your Computer - Individual User drops out with No Answer
+	Given the Individual has progressed to the Check Your Computer page
+	When the user answers no to the Check Your Computer question
+	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored
 
-@VIH-4577 @IndividualSelfTest
-Scenario: Individual participant redirected to "Sign Back In" page when trying to answer self test questionnaire
-	Given Individual participant is on 'check your computer' page
-	When provides answer as No
-	And proceeds to next page
-	Then Individual should be on 'sign back in' screen
+@VIH-4577
+Scenario: Check Your Computer Representative
+	Given the Representative has progressed to the Check Your Computer page
+	Then contact details are available
+	When attempts to click Continue without selecting an answer
+	Then an error message appears stating 'Select if this is the same computer you would use for a video hearing'
+	When the user answers yes to the Check Your Computer question
+	Then the user is on the Switch On Camera and Microphone page
+	When the user signs out 
+	Then only the your hearing answers have been stored
+
+@VIH-4577
+Scenario: Check Your Computer - Representative User drops out with No Answer
+	Given the Representative has progressed to the Check Your Computer page
+	When the user answers no to the Check Your Computer question
+	Then the user is on the Thank You page
+	When the user signs out 
+	Then the answers have been stored

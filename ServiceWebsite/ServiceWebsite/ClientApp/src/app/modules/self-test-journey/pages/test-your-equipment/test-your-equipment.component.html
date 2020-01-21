@@ -44,11 +44,13 @@
 
 <div>
 
-  <input type="button" i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()"
-         id="continue" role="button" value="Continue" alt="Continue" />
+  <button i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()"
+          id="continue" data-module="govuk-button" alt="Continue">
+  Continue</button>
 
-  <input type="button" i18n="@@test_your_equipment_btn_replay" class="govuk-button" (click)="replayVideo()"
-         id="replay-video" value="Re-play the video message" alt="Re-play the video message" role="button" />
+  <button i18n="@@test_your_equipment_btn_replay" class="govuk-button" (click)="replayVideo()"
+          id="replay-video" alt="Re-play the video message" data-module="govuk-button">
+  Re-play the video message</button>
 
 </div>
 

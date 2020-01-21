@@ -47,7 +47,7 @@ namespace ServiceWebsite
 
             services.AddCustomTypes();
 
-            var settings = Configuration.Get<EnvironmentSettings>();
+            var settings = Configuration.GetSection("AzureAd").Get<SecuritySettings>();
             services.AddApplicationInsightsTelemetry(settings.AppInsightsKey);
 
             RegisterAuth(services);
@@ -64,10 +64,6 @@ namespace ServiceWebsite
             services.Configure<SecuritySettings>(options => Configuration.Bind("AzureAd", options));
             services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
-            services.Configure<SecuritySettings>(options => Configuration.Bind("ApplicationInsights", options));
-            services.Configure<EnvironmentSettings>(options => Configuration.Bind(options));
-            services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
-            services.Configure<EnvironmentSettings>(options => Configuration.Bind("AzureStorage", options));
 
             var customTokenSettings = Configuration.GetSection("CustomToken").Get<CustomTokenSettings>();
             services.AddSingleton(customTokenSettings);
@@ -75,7 +71,7 @@ namespace ServiceWebsite
 
         private void RegisterAuth(IServiceCollection services)
         {
-            var settings = Configuration.Get<EnvironmentSettings>();
+            var securitySettings = Configuration.GetSection("AzureAd").Get<SecuritySettings>();
 
             var policy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
@@ -89,9 +85,9 @@ namespace ServiceWebsite
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = settings.Authority + settings.TenantId;
+                options.Authority = securitySettings.Authority;
                 options.TokenValidationParameters.ValidateLifetime = true;
-                options.Audience = settings.ClientId;
+                options.Audience = securitySettings.ClientId;
                 options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
             });
 
