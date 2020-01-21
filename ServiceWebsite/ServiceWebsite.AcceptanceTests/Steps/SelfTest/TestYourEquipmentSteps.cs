@@ -17,7 +17,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     public class TestYourEquipmentSteps : ISteps
     {
         private const int ExtraTimeoutToLoadVideoFromKinly = 60;
-        private const int Timeout = 90;
+        private const int VideoLength = 90;
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
 
@@ -39,7 +39,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         [When(@"the Test Your Equipment video has ended")]
         public void WhenTheVideoHasEnded()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementNotVisible(TestYourEquipmentPage.IncomingStream, Timeout);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementNotVisible(TestYourEquipmentPage.IncomingStream, VideoLength);
         }
 
         [Then(@"the Test Your Equipment video begins to play")]
