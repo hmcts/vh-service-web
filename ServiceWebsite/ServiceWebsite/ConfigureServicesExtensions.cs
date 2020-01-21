@@ -23,7 +23,8 @@ namespace ServiceWebsite
         public static IServiceCollection AddCustomTypes(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddMemoryCache();
-            serviceCollection.AddScoped<EnvironmentSettings>();
+            serviceCollection.AddScoped<SecuritySettings>();
+            serviceCollection.AddScoped<ServiceSettings>();
             serviceCollection.AddTransient<AddBearerTokenHeaderHandler>();
             serviceCollection.AddTransient<UserApiTokenHandler>();
             serviceCollection.AddTransient<BookingsApiTokenHandler>();

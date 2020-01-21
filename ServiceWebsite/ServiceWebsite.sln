@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWebsite", "ServiceWebsite\ServiceWebsite.csproj", "{35EFC7F3-5971-4351-9CB4-EF341A0F516E}"
 EndProject
@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWebsite.BookingApi.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWebsite.AcceptanceTests", "ServiceWebsite.AcceptanceTests\ServiceWebsite.AcceptanceTests.csproj", "{119775EE-221C-48F0-AC75-1CE9006E94B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWebsite.Services.Generator", "ServiceWebsite.Services.Generator\ServiceWebsite.Services.Generator.csproj", "{ADC1E3A4-1075-4A3F-98DD-27D71B0A8D5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWebsite.Services.Generator", "ServiceWebsite.Services.Generator\ServiceWebsite.Services.Generator.csproj", "{ADC1E3A4-1075-4A3F-98DD-27D71B0A8D5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWebsite.VideoAPI.Client", "ServiceWebsite.VideoAPI.Client\ServiceWebsite.VideoAPI.Client.csproj", "{843C1874-3D34-4256-A491-F5D1CDC4BE4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{ADC1E3A4-1075-4A3F-98DD-27D71B0A8D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADC1E3A4-1075-4A3F-98DD-27D71B0A8D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADC1E3A4-1075-4A3F-98DD-27D71B0A8D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{843C1874-3D34-4256-A491-F5D1CDC4BE4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{843C1874-3D34-4256-A491-F5D1CDC4BE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{843C1874-3D34-4256-A491-F5D1CDC4BE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{843C1874-3D34-4256-A491-F5D1CDC4BE4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
