@@ -17,6 +17,7 @@ export class IndividualJourneySteps extends ParticipantJourneySteps {
 
     static GetAll(): JourneyStep[] {
         return [
+            this.AboutHearings,
             this.DifferentHearingTypes,
             this.ExploreCourtBuilding,
             this.CourtInformationVideo,
