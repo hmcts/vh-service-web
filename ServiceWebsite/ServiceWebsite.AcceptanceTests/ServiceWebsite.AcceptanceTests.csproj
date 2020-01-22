@@ -55,6 +55,6 @@
     <PackageReference Include="SpecFlow" Version="3.1.78" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.1.78" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.78" />
-    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.0.21" />
+    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.0.25" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
-using ServiceWebsite.AcceptanceTests.Questions;
 using ServiceWebsite.BookingsAPI.Client;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
