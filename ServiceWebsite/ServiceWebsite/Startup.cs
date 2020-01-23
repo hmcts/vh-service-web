@@ -137,18 +137,22 @@ namespace ServiceWebsite
                 app.UseHttpsRedirection();
             }
 
-            app.UseRouting();
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
+            app.UseRouting();
+            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseAuthentication();
-
-            app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
 
             app.UseMiddleware<ExceptionMiddleware>();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+
 
             // HTTP Response Headers
             app.UseXContentTypeOptions();

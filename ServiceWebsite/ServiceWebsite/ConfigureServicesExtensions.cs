@@ -54,18 +54,18 @@ namespace ServiceWebsite
 
             serviceCollection.AddSingleton<ICustomJwtTokenProvider>(customJwtTokenProvider);
 
-            serviceCollection
-                .AddHttpClient<IUserApiClient, UserApiClient>(httpClient => BuildUserApiClient(httpClient, serviceSettings))
-                .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>());
+            serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
+            .AddHttpMessageHandler<UserApiTokenHandler>()
+            .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
+
+            serviceCollection.AddHttpClient<IBookingsApiClient, BookingsApiClient>()
+            .AddHttpMessageHandler<BookingsApiTokenHandler>()
+            .AddTypedClient(httpClient => BuildBookingsApiClient(httpClient, serviceSettings));
 
             serviceCollection
-                .AddHttpClient<IBookingsApiClient, BookingsApiClient>(httpClient => BuildBookingsApiClient(httpClient, serviceSettings))
-                .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>());
+                .AddHttpClient<IKinlyPlatformService, KinlyPlatformService>()
+            .AddTypedClient(httpClient => BuildKinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings));
 
-            serviceCollection
-                .AddHttpClient<IKinlyPlatformService, KinlyPlatformService>(httpClient =>
-                        new KinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
-            
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
@@ -76,9 +76,50 @@ namespace ServiceWebsite
             return serviceCollection;
         }
 
+        /// <summary>
+        /// Temporary work-around until typed-client bug is restored
+        /// https://github.com/dotnet/aspnetcore/issues/13346#issuecomment-535544207
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="factory"></param>
+        /// <typeparam name="TClient"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        private static IHttpClientBuilder AddTypedClient<TClient>(this IHttpClientBuilder builder,
+            Func<HttpClient, TClient> factory)
+            where TClient : class
+        {
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            if (factory == null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+
+            builder.Services.AddTransient(s =>
+            {
+                var httpClientFactory = s.GetRequiredService<IHttpClientFactory>();
+                var httpClient = httpClientFactory.CreateClient(builder.Name);
+
+                return factory(httpClient);
+            });
+
+            return builder;
+        }
+
         private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
-            return new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
+            var client = new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
+            return client;
+        }
+
+        private static IKinlyPlatformService BuildKinlyPlatformService(HttpClient httpClient, CustomJwtTokenProvider customJwtTokenProvider, ServiceSettings serviceSettings)
+        {
+            var service = new KinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl);
+            return service;
         }
 
         private static IBookingsApiClient BuildBookingsApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
@@ -98,16 +139,28 @@ namespace ServiceWebsite
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Video Hearings Service Web API", Version = "v1" });
                 c.AddFluentValidationRules();
+                c.IncludeXmlComments(xmlPath);
                 c.IncludeXmlComments(contractsXmlPath);
                 c.EnableAnnotations();
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    In = ParameterLocation.Header,
-                    Description = "Please enter JWT with Bearer into field",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
-                });
 
+                c.AddSecurityDefinition("Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        Description = "Please enter JWT with Bearer into field",
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer"
+                    });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    {
+                        new OpenApiSecurityScheme{
+                            Reference = new OpenApiReference{
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },new List<string>()
+                    }
+                });
                 c.OperationFilter<AuthResponsesOperationFilter>();
             });
             serviceCollection.AddSwaggerGenNewtonsoftSupport();
@@ -120,7 +173,7 @@ namespace ServiceWebsite
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
-           
+
             serviceCollection.AddMvc()
                             .AddNewtonsoftJson(options =>
                             {
