@@ -15,6 +15,7 @@ export const Paths = {
   YourInternetConnection: 'your-internet-connection',
   AccessToRoom: 'access-to-a-room',
   Consent: 'consent',
+  AnswersSaved: 'answers-saved',
   ThankYou: 'thank-you',
   MediaError: 'media-error',
   SignInOnComputer: 'sign-in-on-computer'

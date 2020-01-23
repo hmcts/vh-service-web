@@ -24,6 +24,7 @@ import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-bac
 // components
 import { UserCameraViewComponent } from './components/user-camera-view/user-camera-view.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
+import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
 
 // directives/pipes
 import { SuitabilityService } from './services/suitability.service';
