@@ -24,6 +24,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
                 Page.YourInternetConnection,
                 Page.AccessToARoom,
                 Page.Consent,
+                Page.AnswersSaved,
                 Page.CheckYourComputer,
                 Page.SwitchOnCameraAndMicrophone,
                 Page.TestYourEquipment,
