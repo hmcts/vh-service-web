@@ -18,7 +18,7 @@ Scenario: About Your Computer
 @VIH-4335
 Scenario: About Your Computer Not Sure
 	Given the Individual has progressed to the About Your Computer page
-	When the user selects the 'Not sure' radiobutton
+	When the user selects the 'not sure' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Your Internet Connection page
 	When the user signs out 

@@ -24,7 +24,7 @@ namespace ServiceWebsite.Services
             {
                 var participants = await _bookingsApiClient.GetParticipantsByUsernameAsync(username);
 
-                return participants.Select(x => new Participant { Id = x.Id.Value, Username = x.Username });
+                return participants.Select(x => new Participant { Id = x.Id, Username = x.Username });
             }
             catch (BookingsApiException e)
             {

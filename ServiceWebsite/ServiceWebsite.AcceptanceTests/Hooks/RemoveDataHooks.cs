@@ -95,11 +95,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
             var conference = RequestHelper.DeserialiseSnakeCaseJsonToResponse<ConferenceDetailsResponse>(response.Content);
-
-            if (conference.Hearing_id == null)
-                return Guid.Empty;
-
-            return (Guid)conference.Hearing_id;
+            return conference.Hearing_id;
         }
 
         private bool HearingHasNotBeenDeletedAlready(Guid hearingId)
