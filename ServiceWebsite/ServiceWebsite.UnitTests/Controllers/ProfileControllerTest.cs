@@ -38,7 +38,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task get_user_profile_returns_ok()
+        public async Task Get_user_profile_returns_ok()
         {
             var userProfile = new UserProfile{Email = "email", User_role = "userrole"};
             _userApiClient.Setup(x => x.GetUserByAdUserNameAsync("username")).ReturnsAsync(userProfile);
@@ -52,7 +52,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task get_user_profile_returns_not_found()
+        public async Task Get_user_profile_returns_not_found()
         {
             var userApiException = new UserApiException("message", (int) HttpStatusCode.NotFound, "response", null, null);
 
@@ -66,7 +66,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task get_user_profile_returns_unauthorized()
+        public async Task Get_user_profile_returns_unauthorized()
         {
             var userApiException = new UserApiException("message", (int)HttpStatusCode.Unauthorized, "response", null, null);
 
@@ -80,7 +80,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task get_user_profile_returns_internal_server_error()
+        public async Task Get_user_profile_returns_internal_server_error()
         {
             var userApiException = new UserApiException("message", (int)HttpStatusCode.InternalServerError, "response", null, null);
 
@@ -97,7 +97,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task get_user_profile_rethrows_exception()
+        public void Get_user_profile_rethrows_exception()
         {
             _userApiClient
                 .Setup(x => x.GetUserByAdUserNameAsync("username"))

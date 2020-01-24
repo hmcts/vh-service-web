@@ -76,7 +76,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_return_hearing_suitability_for_user()
+        public async Task Should_return_hearing_suitability_for_user()
         {
             GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
@@ -90,7 +90,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_return_answered_questions_for_upcoming_hearings()
+        public async Task Should_return_answered_questions_for_upcoming_hearings()
         {
             GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
@@ -105,7 +105,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_return_past_hearing_suitability_answers()
+        public async Task Should_return_past_hearing_suitability_answers()
         {
             GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
