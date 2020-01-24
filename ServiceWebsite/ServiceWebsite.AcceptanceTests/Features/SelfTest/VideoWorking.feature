@@ -8,8 +8,7 @@ Scenario: Video Working Individual
 	Then contact details are available
 	When attempts to click Continue without selecting an answer
 	Then an error message appears stating 'Select if the image and sound were clear'
-	When the user selects the 'Yes' radiobutton
-	And the user clicks the Continue button
+	When the user answers yes to the video working question
 	Then the user is on the Thank You page
 	When the user signs out 
 	Then the answers have been stored
@@ -24,8 +23,7 @@ Scenario: Video Working Representative
 	Then contact details are available
 	When attempts to click Continue without selecting an answer
 	Then an error message appears stating 'Select if the image and sound were clear'
-	When the user selects the 'Yes' radiobutton
-	And the user clicks the Continue button
+	When the user answers yes to the video working question
 	Then the user is on the Thank You page
 	When the user signs out 
 	Then the answers have been stored

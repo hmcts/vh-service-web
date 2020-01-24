@@ -22,6 +22,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
             _c = testContext;
         }
 
+        [When(@"the user answers yes to the video working question")]
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.VideoWorking)).Click();
