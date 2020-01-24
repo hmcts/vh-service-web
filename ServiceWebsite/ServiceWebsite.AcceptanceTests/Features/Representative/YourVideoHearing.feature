@@ -5,7 +5,7 @@
 
 Scenario: Your Video Hearing
 	Given the Representative has progressed to the Your Video Hearing page
-	Then contact details are available
+	Then contact details are available on the Your Video Hearing page
 	When the user clicks the Continue button
 	Then the user is on the Presenting the Case page
 	When the user signs out 

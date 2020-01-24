@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using AcceptanceTests.Common.Data.Questions;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
+using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages.Representative;
-using ServiceWebsite.AcceptanceTests.Questions;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Representative
@@ -28,7 +29,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.WhoWillBePresentingText).Displayed.Should().BeTrue();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer)).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.ContinueButton).Click();
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer,
@@ -42,6 +43,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.FullNameTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(Keys.Tab);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = "Someone else will be presenting the case",

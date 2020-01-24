@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AcceptanceTests.Common.Data.Questions;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
-using ServiceWebsite.AcceptanceTests.Questions;
 using ServiceWebsite.BookingsAPI.Client;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
