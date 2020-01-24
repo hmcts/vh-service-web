@@ -21,6 +21,6 @@ Scenario: Consent
 Scenario: Consent - Individual gives reason for no consent
 	Given the Individual has progressed to the Consent page
 	When the user enters more details into the please provide more details of why you do not consent textfield
-	Then the user is on the Answers Saved page
+	Then the user is on the Answers Saved Individual page
 	When the user signs out 
 	Then the answers have been stored
