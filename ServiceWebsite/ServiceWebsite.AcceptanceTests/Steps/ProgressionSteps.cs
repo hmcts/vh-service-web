@@ -178,6 +178,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 { Page.YourInternetConnection, _yourInternetConnectionSteps },
                 { Page.AccessToARoom, _accessToRoomSteps },
                 { Page.Consent, _consentSteps },
+                { Page.AnswersSavedIndividual, _answersSavedIndividualSteps },
                 { Page.CheckYourComputer, _checkYourComputerSteps },
                 { Page.SwitchOnCameraAndMicrophone, _switchOnCameraMicrophoneSteps },
                 { Page.TestYourEquipment, _testYourEquipmentSteps },

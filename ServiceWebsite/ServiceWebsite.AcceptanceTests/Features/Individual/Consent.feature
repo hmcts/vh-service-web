@@ -13,7 +13,7 @@ Scenario: Consent
 	And attempts to click Save and continue without providing additional information
 	Then an error message appears stating 'Please type in this box'
 	When the user answers yes to the consent question
-	Then the user is on the Check Your Computer page
+	Then the user is on the Answers Saved Individual page
 	When the user signs out 
 	Then the answers have been stored
 
