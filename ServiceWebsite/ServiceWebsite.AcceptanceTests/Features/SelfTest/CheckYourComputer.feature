@@ -15,14 +15,6 @@ Scenario: Check Your Computer Individual
 	Then only the about you answers have been stored
 
 @VIH-4577
-Scenario: Check Your Computer - Individual User drops out with No Answer
-	Given the Individual has progressed to the Check Your Computer page
-	When the user answers no to the Check Your Computer question
-	Then the user is on the Thank You page
-	When the user signs out 
-	Then the answers have been stored
-
-@VIH-4577
 Scenario: Check Your Computer Representative
 	Given the Representative has progressed to the Check Your Computer page
 	Then contact details are available
@@ -32,11 +24,3 @@ Scenario: Check Your Computer Representative
 	Then the user is on the Switch On Camera and Microphone page
 	When the user signs out 
 	Then only the your hearing answers have been stored
-
-@VIH-4577
-Scenario: Check Your Computer - Representative User drops out with No Answer
-	Given the Representative has progressed to the Check Your Computer page
-	When the user answers no to the Check Your Computer question
-	Then the user is on the Thank You page
-	When the user signs out 
-	Then the answers have been stored

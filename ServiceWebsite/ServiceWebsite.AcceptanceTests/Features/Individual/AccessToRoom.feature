@@ -14,11 +14,3 @@ Scenario: Access To a Room
 	Then the user is on the Consent page
 	When the user signs out 
 	Then the answers have not been stored
-
-@VIH-4337 
-Scenario: Access To a Room - Individual drops out with No Answer
-	Given the Individual has progressed to the Access To a Room page
-	When the user answers no to the access to a room question
-	Then the user is on the Thank You page
-	When the user signs out 
-	Then the answers have been stored
