@@ -9,21 +9,17 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
     <!-- Set this to true if you enable server-side prerendering -->
-    <BuildServerSideRenderer>false</BuildServerSideRenderer>
-	<UserSecretsId>CF5CDD5E-FD74-4EDE-8765-2F899C252122</UserSecretsId>
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>	
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-    <WarningLevel>2</WarningLevel>
-    <DocumentationFile>obj\Debug\netcoreapp3.1\ServiceWebsite.xml</DocumentationFile>
-    <OutputPath></OutputPath>
-    <NoWarn>1701;1702;</NoWarn>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <DocumentationFile>
+    </DocumentationFile>
+    <UserSecretsId>CF5CDD5E-FD74-4EDE-8765-2F899C252122</UserSecretsId>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>obj\Release\netcoreapp2.2\ServiceWebsite.xml</DocumentationFile>
-  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.1" />
