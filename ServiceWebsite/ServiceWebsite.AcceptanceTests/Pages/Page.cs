@@ -121,6 +121,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
                 yield return OpenGovernmentLicence;
                 yield return UnsupportedBrowser;
                 yield return VideoWeb;
+                yield return AnswersSavedIndividual;
             }
         }
     }
