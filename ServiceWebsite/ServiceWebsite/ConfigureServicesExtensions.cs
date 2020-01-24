@@ -17,12 +17,6 @@ using Newtonsoft.Json.Converters;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Swashbuckle.AspNetCore.Newtonsoft;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ServiceWebsite
 {
