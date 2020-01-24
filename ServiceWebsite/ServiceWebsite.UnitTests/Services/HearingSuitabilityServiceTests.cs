@@ -86,7 +86,7 @@ namespace ServiceWebsite.UnitTests.Services
             var upcomingHearing = upcomingHearings.Single(h => h.HearingId == _upcomingHearing.Hearing_id);
             upcomingHearing.HearingScheduledAt.Should().Be(_upcomingHearingScheduledAt);
             upcomingHearing.QuestionnaireNotRequired.Should().Be(_questionnaireNotRequired);
-            upcomingHearing.ParticipantId.Should().Be(_upcomingHearing.Participant_id.Value);
+            upcomingHearing.ParticipantId.Should().Be(_upcomingHearing.Participant_id);
         }
 
         [Test]
