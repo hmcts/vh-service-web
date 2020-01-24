@@ -11,7 +11,7 @@ Scenario: Your Internet Connection
 	Then an error message appears stating 'Select if the computer will be able to access the internet at the time of the hearing'
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
-	Then the user is on the Accesss to a Room page
+	Then the user is on the Access to a Room page
 	When the user signs out 
 	Then the answers have not been stored
 
