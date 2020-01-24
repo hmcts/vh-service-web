@@ -17,6 +17,7 @@ using Newtonsoft.Json.Converters;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
+using ServiceWebsite.Models;
 
 namespace ServiceWebsite
 {
@@ -127,7 +128,7 @@ namespace ServiceWebsite
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-            var contractsXmlFile = $"{typeof(ParticipantResponse).Assembly.GetName().Name}.xml";
+            var contractsXmlFile = $"{typeof(TestCallScoreResponse).Assembly.GetName().Name}.xml";
             var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXmlFile);
 
             serviceCollection.AddSwaggerGen(c =>
