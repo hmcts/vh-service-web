@@ -41,6 +41,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly PresentingTheCaseSteps _presentingTheCaseSteps;
         private readonly OtherInformationSteps _otherInformationSteps;
         private readonly AnswersSavedSteps _answersSavedSteps;
+        private readonly AnswersSavedIndividualSteps _answersSavedIndividualSteps;
         private readonly ThankYouRepSteps _thankYouRepSteps;
 
         public ProgressionSteps(
@@ -72,6 +73,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             PresentingTheCaseSteps presentingTheCaseSteps, 
             OtherInformationSteps otherInformationSteps, 
             AnswersSavedSteps answersSavedSteps, 
+            AnswersSavedIndividualSteps answersSavedIndividualSteps,
             ThankYouRepSteps thankYouRepSteps)
         {
             _c = testContext;
@@ -102,6 +104,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _presentingTheCaseSteps = presentingTheCaseSteps;
             _otherInformationSteps = otherInformationSteps;
             _answersSavedSteps = answersSavedSteps;
+            _answersSavedIndividualSteps = answersSavedIndividualSteps;
             _thankYouRepSteps = thankYouRepSteps;
         }
 
@@ -175,6 +178,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 { Page.YourInternetConnection, _yourInternetConnectionSteps },
                 { Page.AccessToARoom, _accessToRoomSteps },
                 { Page.Consent, _consentSteps },
+                { Page.AnswersSavedIndividual, _answersSavedIndividualSteps },
                 { Page.CheckYourComputer, _checkYourComputerSteps },
                 { Page.SwitchOnCameraAndMicrophone, _switchOnCameraMicrophoneSteps },
                 { Page.TestYourEquipment, _testYourEquipmentSteps },

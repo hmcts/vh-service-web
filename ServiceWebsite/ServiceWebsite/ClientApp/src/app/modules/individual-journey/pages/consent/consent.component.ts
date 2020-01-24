@@ -5,6 +5,7 @@ import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-val
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import {Logger} from '../../../../services/logger';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
 FormControlName.prototype.ngOnChanges = function () {
@@ -84,8 +85,8 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
 
     if (this.trySubmit()) {
       await this.journey.submitQuestionnaire();
-      this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
-      this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
+        this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
+        this.journey.goto(IndividualJourneySteps.AnswersSaved);
     }
   }
 }
