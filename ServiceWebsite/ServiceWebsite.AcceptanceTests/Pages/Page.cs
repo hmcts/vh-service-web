@@ -36,6 +36,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page PresentingTheCase = new Page("Presenting the Case", "presenting-the-case");
         public static readonly Page OtherInformation = new Page("Other Information", "other-information");
         public static readonly Page AnswersSaved = new Page("Answers Saved", "answers-saved");
+        public static readonly Page AnswersSavedIndividual = new Page("Answers Saved Individual", "answers-saved-citizen");
         public static readonly Page ThankYouRep = new Page("Thank You Rep", "thank-you-rep");
 
         // After submission of answers
@@ -120,6 +121,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
                 yield return OpenGovernmentLicence;
                 yield return UnsupportedBrowser;
                 yield return VideoWeb;
+                yield return AnswersSavedIndividual;
             }
         }
     }
