@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.Driver.Support;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
@@ -25,7 +26,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"the user attempts to access the page on their unsupported browser")]
         public void WhenTheUserAttemptsToAccessThePageOnTheirUnsupportedBrowser()
         {
-            _loginSteps.ProgressToNextPage();
+            if (_c.ServiceWebConfig.TestConfig.TargetBrowser != TargetBrowser.Ie11)
+                _loginSteps.ProgressToNextPage();
         }
 
         [When(@"the user attempts to navigate to a nonexistent page")]
@@ -44,7 +46,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is on the Unsupported Browser error page with text of how to rectify the problem")]
         public void ThenTheUserIsOnTheUnsupportedBrowserErrorPageWithTextOfHowToRectifyTheProblem()
         {
-            _browsers[_c.CurrentUser.Key].Driver.Url.Should().NotContainAny(Page.AboutHearings.Url, Page.YourVideoHearing.Url);
+            _browsers[_c.CurrentUser.Key].Driver.Url.Should().NotContainAny(Page.AboutHearings.Url, Page.YourVideoHearing.Url, Page.YourVideoHearing.Url);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitle).Displayed.Should().BeTrue();
         }
 
