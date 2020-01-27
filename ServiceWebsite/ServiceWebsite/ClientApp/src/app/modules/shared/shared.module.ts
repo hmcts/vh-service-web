@@ -1,4 +1,4 @@
-import { NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DeviceDetectorModule } from 'ngx-device-detector';
@@ -10,8 +10,8 @@ import { ShowDetailsComponent } from './show-details/show-details.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { CrestBluePanelComponent } from './crest-blue-panel/crest-blue-panel.component';
-import { BetaBannerComponent} from './beta-banner/beta-banner.component';
-import {SelectMediaDevicesComponent} from './select-media-devices/select-media-devices.component';
+import { BetaBannerComponent } from './beta-banner/beta-banner.component';
+import { SelectMediaDevicesComponent } from './select-media-devices/select-media-devices.component';
 
 // services
 import { ProfileService } from '../../services/profile.service';
@@ -19,7 +19,8 @@ import { PageTrackerService } from '../../services/page-tracker.service';
 import { WindowRef } from './window-ref';
 import { LongDatetimePipe } from './date-time.pipe';
 import { AppYesNoPipe } from './boolean.pipe';
-import {MicVisualiserComponent} from './mic-visualiser/mic-visualiser.component';
+import { MicVisualiserComponent } from './mic-visualiser/mic-visualiser.component';
+import { LongDatePipe } from './date.pipe';
 
 @NgModule({
   imports: [
@@ -36,10 +37,11 @@ import {MicVisualiserComponent} from './mic-visualiser/mic-visualiser.component'
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
+    LongDatePipe,
     AppYesNoPipe,
     BetaBannerComponent,
     SelectMediaDevicesComponent,
-    MicVisualiserComponent,
+    MicVisualiserComponent
   ],
   providers: [
     ProfileService,
@@ -54,6 +56,7 @@ import {MicVisualiserComponent} from './mic-visualiser/mic-visualiser.component'
     ContactUsComponent,
     CrestBluePanelComponent,
     LongDatetimePipe,
+    LongDatePipe,
     AppYesNoPipe,
     BetaBannerComponent,
     SelectMediaDevicesComponent,
