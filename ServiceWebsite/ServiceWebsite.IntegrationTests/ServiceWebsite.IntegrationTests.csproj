@@ -41,9 +41,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.0-alpha12" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Helper\AzureAdMockData\microsoft-openid-config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

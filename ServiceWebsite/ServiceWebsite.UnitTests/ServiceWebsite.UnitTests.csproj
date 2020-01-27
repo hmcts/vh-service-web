@@ -5,14 +5,14 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.6.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.8.0" />
     <PackageReference Include="FluentAssertions" Version="5.10.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
-    <PackageReference Include="Moq" Version="4.9.0" />
-    <PackageReference Include="NBuilder" Version="6.0.0" />
-    <PackageReference Include="NUnit" Version="3.10.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.11.0.8083" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="NBuilder" Version="6.1.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0.14119" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite.BookingApi.Client\ServiceWebsite.BookingApi.Client.csproj" />
