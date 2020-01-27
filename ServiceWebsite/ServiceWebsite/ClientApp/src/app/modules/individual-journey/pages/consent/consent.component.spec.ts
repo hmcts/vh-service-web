@@ -7,6 +7,7 @@ import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-tes
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 import {MockLogger} from '../../../../testing/mocks/mock-logger';
 import {Logger} from '../../../../services/logger';
+import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 describe('ConsentComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
@@ -98,7 +99,7 @@ describe('ConsentComponent', () => {
     expect(component.textInputNo.value).toBe('notes');
   });
 
-  it(`should submit questionnaire and go to ${SelfTestJourneySteps.CheckYourComputer} on submitting`, async () => {
+    it(`should submit questionnaire and go to ${IndividualJourneySteps.AnswersSaved} on submitting`, async () => {
     component.ngOnInit();
     component.choice.setValue(false);
     component.textInputNo.setValue('comments');
@@ -106,7 +107,7 @@ describe('ConsentComponent', () => {
     await component.submit();
 
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CheckYourComputer);
+        expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.AnswersSaved);
   });
 });
 

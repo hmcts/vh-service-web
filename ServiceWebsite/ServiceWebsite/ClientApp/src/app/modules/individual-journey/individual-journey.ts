@@ -42,7 +42,7 @@ export class IndividualJourney extends JourneyBase {
       return;
     }
 
-    if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(step)) {
+      if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(step)) {
       this.logger.event(`Starting journey at self-test`, {requestedStep: step, details: 'Questionnaire submitted but self-test is not'});
       this.goto(SelfTestJourneySteps.CheckYourComputer);
     } else {
@@ -69,7 +69,7 @@ export class IndividualJourney extends JourneyBase {
       return;
     }
 
-    if (this.isQuestionnaireCompleted() && !this.isSelfTestStep(position)) {
+      if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
       const details = {requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending'};
       this.logger.event(`Redirecting user to self-test`, details);
       this.goto(SelfTestJourneySteps.CheckYourComputer);
@@ -81,7 +81,11 @@ export class IndividualJourney extends JourneyBase {
   private isSelfTestStep(step: JourneyStep): boolean {
     // Include thank you as it comes straight after self-test
     return step === IndividualJourneySteps.ThankYou || SelfTestJourneySteps.GetAll().indexOf(step) !== -1;
-  }
+    }
+
+    private isQuestionnaireStep(step: JourneyStep): boolean {
+        return IndividualJourneySteps.GetAll().indexOf(step) >= 0;
+    }
 
   private isQuestionnaireCompleted(): boolean {
     return this.currentModel.consent.answer !== undefined;

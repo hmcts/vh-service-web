@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServiceWebsite.UnitTests.Response
+﻿namespace ServiceWebsite.UnitTests.Response
 {
 
     /// <summary>

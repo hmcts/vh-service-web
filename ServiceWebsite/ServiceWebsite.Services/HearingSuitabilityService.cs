@@ -28,10 +28,10 @@ namespace ServiceWebsite.Services
 
             return new HearingSuitability
             (
-                response.Hearing_id.GetValueOrDefault(),
-                response.Participant_id.GetValueOrDefault(),
-                response.Scheduled_at.GetValueOrDefault(),
-                response.Questionnaire_not_required.GetValueOrDefault(),
+                response.Hearing_id,
+                response.Participant_id,
+                response.Scheduled_at,
+                response.Questionnaire_not_required,
                 answers
             );
         }

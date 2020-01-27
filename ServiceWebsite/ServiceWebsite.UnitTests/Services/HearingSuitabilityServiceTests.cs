@@ -76,7 +76,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_return_hearing_suitability_for_user()
+        public async Task Should_return_hearing_suitability_for_user()
         {
             GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
@@ -86,11 +86,11 @@ namespace ServiceWebsite.UnitTests.Services
             var upcomingHearing = upcomingHearings.Single(h => h.HearingId == _upcomingHearing.Hearing_id);
             upcomingHearing.HearingScheduledAt.Should().Be(_upcomingHearingScheduledAt);
             upcomingHearing.QuestionnaireNotRequired.Should().Be(_questionnaireNotRequired);
-            upcomingHearing.ParticipantId.Should().Be(_upcomingHearing.Participant_id.Value);
+            upcomingHearing.ParticipantId.Should().Be(_upcomingHearing.Participant_id);
         }
 
         [Test]
-        public async Task should_return_answered_questions_for_upcoming_hearings()
+        public async Task Should_return_answered_questions_for_upcoming_hearings()
         {
             GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
@@ -105,7 +105,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_return_past_hearing_suitability_answers()
+        public async Task Should_return_past_hearing_suitability_answers()
         {
             GivenTheBookingsApiReturnsListOfHearingsWithAnswers();
 
