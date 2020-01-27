@@ -24,6 +24,11 @@ Scenario: Access to a Room page accessibility
 	Then the page should be accessible
 
 @Accessibility
+Scenario: Answers Saved Individual page accessibility
+	Given the Individual has progressed to the Answers Saved Individual page
+	Then the page should be accessible
+
+@Accessibility
 Scenario: Consent page accessibility
 	Given the Individual has progressed to the Consent page
 	Then the page should be accessible
@@ -65,7 +70,7 @@ Scenario: Thank You page accessibility
 	
 @Accessibility
 Scenario: Use Your Camera and Microphone page accessibility
-	Given the Individual has progressed to the Use Your Camera and Microphone page
+	Given the Individual has progressed to the Use Camera and Microphone page
 	Then the page should be accessible
 
 @Accessibility
@@ -120,7 +125,7 @@ Scenario: Microphone Working page accessibility
 
 @Accessibility
 Scenario: Swtich on Camera and Microphone page accessibility
-	Given the Individual has progressed to the Swtich on Camera and Microphone page
+	Given the Individual has progressed to the Switch On Camera and Microphone page
 	Then the page should be accessible
 
 @Accessibility

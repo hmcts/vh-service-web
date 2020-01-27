@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using AcceptanceTests.Common.Data.Questions;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Questions;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
@@ -22,6 +22,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
             _c = testContext;
         }
 
+        [When(@"the user answers yes to the video working question")]
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.VideoWorking)).Click();

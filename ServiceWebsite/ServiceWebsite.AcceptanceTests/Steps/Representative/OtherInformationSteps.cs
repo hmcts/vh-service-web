@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using AcceptanceTests.Common.Data.Questions;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
+using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.AcceptanceTests.Questions;
+using ServiceWebsite.AcceptanceTests.Pages.Representative;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Representative
@@ -37,10 +39,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [When(@"the user enters more details into the please provide more information textfield")]
         public void WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreInformationTextfield()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("No")).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("Yes")).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(Keys.Tab);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
-                Answer = "No",
+                Answer = "Yes",
                 ExtendedAnswer = _c.ServiceWebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer,
                 QuestionKey = RepresentativeQuestionKeys.OtherInformation
             });

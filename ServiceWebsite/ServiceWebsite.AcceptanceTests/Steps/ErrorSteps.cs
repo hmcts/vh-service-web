@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.Driver.Support;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
@@ -14,20 +15,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly TestContext _c;
         private readonly Dictionary<string, UserBrowser> _browsers;
-        private readonly ErrorPage _errorPage;
         private readonly LoginSteps _loginSteps;
-        public ErrorSteps(TestContext testContext, Dictionary<string, UserBrowser> browsers, LoginSteps loginSteps, ErrorPage errorPage)
+        public ErrorSteps(TestContext testContext, Dictionary<string, UserBrowser> browsers, LoginSteps loginSteps)
         {
             _c = testContext;
             _browsers = browsers;
             _loginSteps = loginSteps;
-            _errorPage = errorPage;
         }
 
         [When(@"the user attempts to access the page on their unsupported browser")]
         public void WhenTheUserAttemptsToAccessThePageOnTheirUnsupportedBrowser()
         {
-            _loginSteps.ProgressToNextPage();
+            if (_c.ServiceWebConfig.TestConfig.TargetBrowser != TargetBrowser.Ie11)
+                _loginSteps.ProgressToNextPage();
         }
 
         [When(@"the user attempts to navigate to a nonexistent page")]
@@ -46,25 +46,25 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is on the Unsupported Browser error page with text of how to rectify the problem")]
         public void ThenTheUserIsOnTheUnsupportedBrowserErrorPageWithTextOfHowToRectifyTheProblem()
         {
-            _browsers[_c.CurrentUser.Key].Driver.Url.Should().NotContainAny(Page.AboutHearings.Url, Page.YourVideoHearing.Url);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.UnsupportedBrowserTitle).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.Url.Should().NotContainAny(Page.AboutHearings.Url, Page.YourVideoHearing.Url, Page.YourVideoHearing.Url);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitle).Displayed.Should().BeTrue();
         }
 
         [Then(@"the Not Found error page displays text of how to rectify the problem")]
         public void ThenTheNotFoundErrorPageDisplaysTextOfHowToRectifyTheProblem()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.NotFoundPageTitle).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.TypedErrorMessage).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.PastedErrorMessage).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.LinkErrorMessage).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.NotFoundPageTitle).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.TypedErrorMessage).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.PastedErrorMessage).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.LinkErrorMessage).Displayed.Should().BeTrue();
         }
 
         [Then(@"the Unauthorised error page displays text of how to rectify the problem")]
         public void ThenTheUnauthorisedErrorPageDisplaysTextOfHowToRectifyTheProblem()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.UnauthorisedPageTitle).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.NotRegisteredErrorMessage).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(_errorPage.IsThisAMistakeErrorMessage).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnauthorisedPageTitle).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.NotRegisteredErrorMessage).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.IsThisAMistakeErrorMessage).Displayed.Should().BeTrue();
         }
     }
 }

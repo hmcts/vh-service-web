@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Requests;
+using AcceptanceTests.Common.Data.Questions;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
@@ -12,7 +13,6 @@ using Selenium.Axe;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
-using ServiceWebsite.AcceptanceTests.Questions;
 using ServiceWebsite.BookingsAPI.Client;
 using TechTalk.SpecFlow;
 
@@ -34,20 +34,22 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void GivenIndividualHasAlreadySubmittedChecklistAndSelfTest(string user)
         {
             var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).AllAnswers(user);
-            var bookingsApiManager = new BookingsApiManager(_c.ServiceWebConfig.VhServices.BookingsApiUrl, _c.Tokens.BookingsApiBearerToken);
-            var participantId = _c.Test.Hearing.Participants.First(x => x.Last_name.ToLower().Equals(_c.CurrentUser.Lastname.ToLower())).Id;
-            var response = bookingsApiManager.SetSuitabilityAnswers(_c.Test.Hearing.Id, participantId, answers);
-            response.Should().Be(HttpStatusCode.OK);
+            SubmitAnswers(answers);
         }
 
         [Given(@"(.*) has already submitted checklist")]
         public void GivenIndividualHasAlreadySubmittedChecklist(string user)
         {
             var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).ChecklistAnswersOnly(user);
+            SubmitAnswers(answers);
+        }
+
+        private void SubmitAnswers(IEnumerable<SuitabilityAnswersRequest> answers)
+        {
             var bookingsApiManager = new BookingsApiManager(_c.ServiceWebConfig.VhServices.BookingsApiUrl, _c.Tokens.BookingsApiBearerToken);
             var participantId = _c.Test.Hearing.Participants.First(x => x.Last_name.ToLower().Equals(_c.CurrentUser.Lastname.ToLower())).Id;
             var response = bookingsApiManager.SetSuitabilityAnswers(_c.Test.Hearing.Id, participantId, answers);
-            response.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
         [When(@"the user clicks the (.*) button")]
@@ -80,6 +82,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"contact details are available")]
         public void ThenContactDetailsAreAvailable()
         {
+            _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ContactLink).Click();
             _browsers[_c.CurrentUser.Key].Driver
                 .WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone))
@@ -101,9 +104,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the hearing date is displayed correctly")]
         public void ThenTheHearingDateIsDisplayedCorrectly()
         {
-            if (_c.Test.Hearing.Scheduled_date_time == null)
-                throw new DataMisalignedException("Scheduled date time must be set.");
-            var scheduledDate = _c.Test.Hearing.Scheduled_date_time?.ToLocalTime().ToString(DateFormats.YourComputerDateTime).Replace("AM", "am").Replace("PM", "pm");
+            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.YourComputerDateTime).Replace("AM", "am").Replace("PM", "pm");
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(scheduledDate)).Displayed.Should().BeTrue();
         }
 
@@ -184,6 +185,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var axeResult = new AxeBuilder(_browsers[_c.CurrentUser.Key].Driver)
                 .DisableRules( // BUG: Once VIH-5174 bug is fixed, remove these exclusions
+                    "duplicate-id-active", // https://dequeuniversity.com/rules/axe/3.4/duplicate-id-active?application=axeAPI
                     "region", // https://dequeuniversity.com/rules/axe/3.3/region?application=axeAPI
                     "landmark-main-is-top-level", // https://dequeuniversity.com/rules/axe/3.3/landmark-main-is-top-level?application=axeAPI
                     "landmark-one-main", // https://dequeuniversity.com/rules/axe/3.3/landmark-one-main?application=axeAPI

@@ -40,5 +40,5 @@ Scenario: Representative Self Test Score
 	Then the Test Your Equipment video begins to play
 	When the Test Your Equipment video has ended
 	And the user clicks the Continue button
-	And the Representative progresses from the Camera Working page to the Thank You page
+	And the Representative progresses from the Camera Working page to the Thank You Rep page
 	Then the self test score is set in the results

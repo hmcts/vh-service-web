@@ -52,7 +52,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             _userApiManager.ParticipantsExistInAad(_c.UserAccounts, Timeout).Should().BeTrue();
         }
 
-        private bool ParticipantExistsInTheDb(Guid? hearingId)
+        private bool ParticipantExistsInTheDb(Guid hearingId)
         {
             var hearingResponse = _bookingsApiManager.GetHearing(hearingId);
             var hearing = RequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(hearingResponse.Content);
