@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {RepresentativeJourney} from '../../representative-journey';
 import {RepresentativeSuitabilityModel} from '../../representative-suitability.model';
-import {SelfTestJourneySteps} from 'src/app/modules/self-test-journey/self-test-journey-steps';
+import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class AnswersSavedComponent {
   }
 
   continue() {
-    this.journey.goto(SelfTestJourneySteps.CheckYourComputer);
+    this.journey.goto(RepresentativeJourneySteps.CheckYourComputer);
   }
 }
 

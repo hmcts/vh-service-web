@@ -24,6 +24,7 @@ import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.compo
 import { PresentingTheCaseComponent } from './pages/presenting-the-case/presenting-the-case.component';
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
+import { CheckYourComputerComponent } from './pages/check-your-computer/check-your-computer.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 import { CachedHearingService } from './services/cached-hearing.service';
@@ -38,7 +39,8 @@ import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-bac
         HearingDetailsHeaderComponent,
         YourVideoHearingComponent,
         PresentingTheCaseComponent,
-        OtherInformationComponent
+        OtherInformationComponent,
+        CheckYourComputerComponent
     ],
     imports: [
         // angular

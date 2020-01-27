@@ -9,4 +9,5 @@ export const Paths = {
     PresentingTheCase: 'presenting-the-case',
     OtherInformation: 'other-information',
     AnswersSaved: 'answers-saved',
+    CheckYourComputer: 'check-your-computer-rep',
 };

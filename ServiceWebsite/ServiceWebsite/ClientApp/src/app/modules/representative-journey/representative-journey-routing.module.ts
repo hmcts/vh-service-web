@@ -9,13 +9,15 @@ import { PresentingTheCaseComponent } from './pages/presenting-the-case/presenti
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { CheckYourComputerComponent } from './pages/check-your-computer/check-your-computer.component';
 import { RepresentativeGuard } from './representative.gaurd';
 
 const routes: Routes = [
     { path: Paths.AnswersSaved, component: AnswersSavedComponent, canActivate: [RepresentativeGuard] },
     { path: Paths.YourVideoHearing, component: YourVideoHearingComponent, canActivate: [RepresentativeGuard] },
     { path: Paths.PresentingTheCase, component: PresentingTheCaseComponent, canActivate: [RepresentativeGuard] },
-    { path: Paths.OtherInformation, component: OtherInformationComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.OtherInformation, component: OtherInformationComponent, canActivate: [RepresentativeGuard] },
+  { path: Paths.CheckYourComputer, component: CheckYourComputerComponent },
     { path: Paths.ThankYou, component: ThankYouComponent, canActivate: [RepresentativeGuard] }
 ];
 
