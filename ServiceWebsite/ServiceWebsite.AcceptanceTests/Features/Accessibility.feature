@@ -24,6 +24,11 @@ Scenario: Access to a Room page accessibility
 	Then the page should be accessible
 
 @Accessibility
+Scenario: Answers Saved Individual page accessibility
+	Given the Individual has progressed to the Answers Saved Individual page
+	Then the page should be accessible
+
+@Accessibility
 Scenario: Consent page accessibility
 	Given the Individual has progressed to the Consent page
 	Then the page should be accessible
