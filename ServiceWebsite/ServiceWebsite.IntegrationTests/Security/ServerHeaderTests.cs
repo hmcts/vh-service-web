@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NUnit.Framework;
 using ServiceWebsite.IntegrationTests.Controller;
 
 namespace ServiceWebsite.IntegrationTests.Security

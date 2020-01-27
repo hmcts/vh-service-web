@@ -1,6 +1,4 @@
-﻿using ServiceWebsite.Domain;
-
-namespace ServiceWebsite.Models
+﻿namespace ServiceWebsite.Models
 {
     public class TestCallScoreResponse
     {
