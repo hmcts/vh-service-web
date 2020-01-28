@@ -1,5 +1,5 @@
-import { ApiClient, HearingDetailsResponse } from './../../../services/clients/api-client';
-import { HearingDetails } from './hearing-details';
+import { ApiClient, HearingDetailsResponse } from '../../../services/clients/api-client';
+import { HearingDetails } from '../../representative-journey/services/hearing-details';
 import { Injectable } from '@angular/core';
 
 export abstract class HearingService {

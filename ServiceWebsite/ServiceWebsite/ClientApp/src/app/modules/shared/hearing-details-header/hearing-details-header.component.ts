@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RepresentativeJourney } from '../representative-journey';
+import { RepresentativeJourney } from '../../representative-journey/representative-journey';
 import { HearingService } from '../services/hearing.service';
 
 @Component({

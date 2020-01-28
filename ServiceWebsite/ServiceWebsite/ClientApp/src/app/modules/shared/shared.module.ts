@@ -21,6 +21,7 @@ import { LongDatetimePipe } from './date-time.pipe';
 import { AppYesNoPipe } from './boolean.pipe';
 import { MicVisualiserComponent } from './mic-visualiser/mic-visualiser.component';
 import { LongDatePipe } from './date.pipe';
+import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { LongDatePipe } from './date.pipe';
     AppYesNoPipe,
     BetaBannerComponent,
     SelectMediaDevicesComponent,
-    MicVisualiserComponent
+    MicVisualiserComponent,
+    HearingDetailsHeaderComponent
   ],
   providers: [
     ProfileService,
@@ -60,7 +62,8 @@ import { LongDatePipe } from './date.pipe';
     AppYesNoPipe,
     BetaBannerComponent,
     SelectMediaDevicesComponent,
-    MicVisualiserComponent
+    MicVisualiserComponent,
+    HearingDetailsHeaderComponent
   ]
 })
 export class SharedModule { }
