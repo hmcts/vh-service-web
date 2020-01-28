@@ -13,6 +13,8 @@ import {Logger} from '../../../../services/logger';
 })
 export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
   mediaSwitchedOn: MediaAccessResponse;
+  isRepresentative: boolean;
+  isIndividual: boolean;
   constructor(private journey: JourneyBase,
               private mediaAccess: MediaService,
               private model: ParticipantSuitabilityModel,
@@ -21,6 +23,8 @@ export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isRepresentative = this.journey.constructor.name === 'RepresentativeJourney';
+    this.isIndividual = this.journey.constructor.name === 'IndividualJourney';
   }
 
   async switchOnCameraAndMicrophone(): Promise<void> {
