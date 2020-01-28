@@ -31,5 +31,13 @@ namespace ServiceWebsite.UnitTests.Controllers
             var result = (OkObjectResult)_controller.GetToken(Guid.Parse(participantId));
             Assert.IsInstanceOf(typeof(TokenResponse), result.Value);
         }
+
+        [Test]
+        public void Should_return_a_bad_response_for_empty_participant_id()
+        {
+            var participantId = Guid.Empty;
+            var result = (BadRequestObjectResult)_controller.GetToken(participantId);
+            Assert.IsNotNull(result.Value);
+        }
     }
 }
