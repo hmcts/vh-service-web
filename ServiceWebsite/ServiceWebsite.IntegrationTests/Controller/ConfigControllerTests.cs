@@ -18,6 +18,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
             var settings = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<ClientConfiguration>(responseBody);
             settings.VideoAppUrl.Should().NotBeNullOrEmpty();
             settings.BaseVideoUrl.Should().NotBeNullOrEmpty();
+           
         }
     }
 }
