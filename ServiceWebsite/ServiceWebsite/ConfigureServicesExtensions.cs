@@ -8,13 +8,16 @@ using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
 using ServiceWebsite.UserAPI.Client;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Microsoft.OpenApi.Models;
+using System.IO;
+using Swashbuckle.AspNetCore.Swagger;
+using ServiceWebsite.Models;
 
 namespace ServiceWebsite
 {
@@ -47,19 +50,17 @@ namespace ServiceWebsite
 
             serviceCollection.AddSingleton<ICustomJwtTokenProvider>(customJwtTokenProvider);
 
-            serviceCollection
-                .AddHttpClient<IUserApiClient, UserApiClient>()
-                .AddHttpMessageHandler(() => container.GetService<UserApiTokenHandler>())
-                .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
+            serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
+            .AddHttpMessageHandler<UserApiTokenHandler>()
+            .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
 
-            serviceCollection
-                .AddHttpClient<IBookingsApiClient, BookingsApiClient>()
-                .AddHttpMessageHandler(() => container.GetService<BookingsApiTokenHandler>())
-                .AddTypedClient(httpClient => BuildBookingsApiClient(httpClient, serviceSettings));
+            serviceCollection.AddHttpClient<IBookingsApiClient, BookingsApiClient>()
+            .AddHttpMessageHandler<BookingsApiTokenHandler>()
+            .AddTypedClient(httpClient => BuildBookingsApiClient(httpClient, serviceSettings));
 
             serviceCollection
                 .AddHttpClient<IKinlyPlatformService, KinlyPlatformService>()
-                .AddTypedClient<IKinlyPlatformService>(httpClient => new KinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl));
+            .AddTypedClient(httpClient => BuildKinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings));
 
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
@@ -71,9 +72,50 @@ namespace ServiceWebsite
             return serviceCollection;
         }
 
+        /// <summary>
+        /// Temporary work-around until typed-client bug is restored
+        /// https://github.com/dotnet/aspnetcore/issues/13346#issuecomment-535544207
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="factory"></param>
+        /// <typeparam name="TClient"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        private static IHttpClientBuilder AddTypedClient<TClient>(this IHttpClientBuilder builder,
+            Func<HttpClient, TClient> factory)
+            where TClient : class
+        {
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            if (factory == null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+
+            builder.Services.AddTransient(s =>
+            {
+                var httpClientFactory = s.GetRequiredService<IHttpClientFactory>();
+                var httpClient = httpClientFactory.CreateClient(builder.Name);
+
+                return factory(httpClient);
+            });
+
+            return builder;
+        }
+
         private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
-            return new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
+            var client = new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
+            return client;
+        }
+
+        private static IKinlyPlatformService BuildKinlyPlatformService(HttpClient httpClient, CustomJwtTokenProvider customJwtTokenProvider, ServiceSettings serviceSettings)
+        {
+            var service = new KinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl);
+            return service;
         }
 
         private static IBookingsApiClient BuildBookingsApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
@@ -86,25 +128,38 @@ namespace ServiceWebsite
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
+            var contractsXmlFile = $"{typeof(TestCallScoreResponse).Assembly.GetName().Name}.xml";
+            var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXmlFile);
+
             serviceCollection.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Video Hearings Service Web API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Video Hearings Service Web API", Version = "v1" });
+                c.AddFluentValidationRules();
                 c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(contractsXmlPath);
                 c.EnableAnnotations();
+
                 c.AddSecurityDefinition("Bearer",
-                    new ApiKeyScheme
+                    new OpenApiSecurityScheme
                     {
-                        In = "header",
                         Description = "Please enter JWT with Bearer into field",
-                        Name = "Authorization",
-                        Type = "apiKey"
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer"
                     });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-                {
-                    {"Bearer", Enumerable.Empty<string>()}
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    {
+                        new OpenApiSecurityScheme{
+                            Reference = new OpenApiReference{
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },new List<string>()
+                    }
                 });
                 c.OperationFilter<AuthResponsesOperationFilter>();
             });
+            serviceCollection.AddSwaggerGenNewtonsoftSupport();
         }
 
         public static IServiceCollection AddJsonOptions(this IServiceCollection serviceCollection)
@@ -114,15 +169,14 @@ namespace ServiceWebsite
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
-            serviceCollection.AddMvc()
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver = contractResolver;
-                    options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
-                })
-                .AddJsonOptions(options =>
-                    options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
 
+            serviceCollection.AddMvc()
+                            .AddNewtonsoftJson(options =>
+                            {
+                                options.SerializerSettings.ContractResolver = contractResolver;
+                                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                                options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                            });
 
             return serviceCollection;
         }
