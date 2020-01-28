@@ -48,13 +48,13 @@
   <app-show-details i18n-bind-detailsTitle="@@yourComputer_detailsTitle"
     bind-detailsTitle="'If I have access to a computer, will the court definitely decide on a video hearing?'"
     i18-bind-textArray="@@yourComputer_textArray"
-    bind-textArray="['No. The court will take other things into account. It will look at the information you’ve provided in this questionnaire and the information provided by the other people taking part in the hearing. A video hearing has to be suitable for all participants.']">
+    bind-textArray="['<p>No. The court will take other things into account.</p><p> It will look at the information you’ve provided in this questionnaire and the information provided by the other people taking part in the hearing.</p> A video hearing has to be suitable for all participants.']">
   </app-show-details>
 
   <app-show-details i18n-bind-detailsTitle="@@yourComputer_detailsTitle"
     bind-detailsTitle="'What if my computer is old or doesn’t work properly?'"
     i18-bind-textArray="@@yourComputer_textArray"
-    bind-textArray="['Don’t worry. You’ll have the chance to check that a video hearing will work on your computer. You can do this by watching a short video and confirming how well you could see and hear. This check is very simple and you don’t need to be an experienced computer user to do it.']">
+    bind-textArray="['<p>Don’t worry. You’ll have the chance to check that a video hearing will work on your computer.</p><p> You can do this by watching a short video and confirming how well you could see and hear.</p><p> This check is very simple and you don’t need to be an experienced computer user to do it.</p>']">
   </app-show-details>
 
   <button class="govuk-button" (click)="submit()" i18n="@@yourComputer_btn_continue" id="continue"
