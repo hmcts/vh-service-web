@@ -13,7 +13,8 @@ import { Paths } from '../../../../paths';
   styles: []
 })
 export class CheckYourComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
-
+  isRepresentative: boolean;
+  isIndividual: boolean;
   constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel,
     private deviceType: DeviceType, private router: Router) {
     super(journey);
@@ -21,6 +22,8 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
 
   ngOnInit(): void {
     this.choice.setValue(this.model.selfTest.checkYourComputer);
+    this.isRepresentative = this.journey.constructor.name === 'RepresentativeJourney';
+    this.isIndividual = this.journey.constructor.name === 'IndividualJourney';
   }
 
   protected bindModel(): void {
