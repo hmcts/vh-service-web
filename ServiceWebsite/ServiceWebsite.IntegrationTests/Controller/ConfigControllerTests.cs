@@ -16,8 +16,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var responseBody = await response.Content.ReadAsStringAsync();
             var settings = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<ClientConfiguration>(responseBody);
-            settings.VideoAppUrl.Should().NotBeNullOrEmpty();
-            settings.BaseVideoUrl.Should().NotBeNullOrEmpty();
+            settings.Should().NotBeNull();
            
         }
     }
