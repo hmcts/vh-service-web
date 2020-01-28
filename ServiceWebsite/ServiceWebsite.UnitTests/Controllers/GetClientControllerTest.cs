@@ -1,8 +1,10 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
+using ServiceWebsite.Models;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -40,6 +42,18 @@ namespace ServiceWebsite.UnitTests.Controllers
 
             var result = configSettingsController.GetConfiguration();
             result.Should().NotBeNull();
+            var config = result.As<JsonResult>().Value;
+            config.Should().BeOfType(typeof(ClientConfiguration));
+            var clientConfig = config as ClientConfiguration;
+            clientConfig.PexipSelfTestNodeUri.Should().Be("PexipSelfTestNodeUri");
+            clientConfig.BaseVideoUrl.Should().Be("BaseVideoUrl");
+            clientConfig.PostLogoutRedirectUri.Should().Be("PostLogoutRedirectUri");
+            clientConfig.AppInsightsInstrumentationKey.Should().Be("AppInsightsKey");
+            clientConfig.TenantId.Should().Be("TenantId");
+            clientConfig.ClientId.Should().Be("ClientId");
+            clientConfig.RedirectUri.Should().Be("RedirectUri");
+            clientConfig.VideoAppUrl.Should().Be("VideoWebUrl");
+            clientConfig.KinlySelfTestScoreEndpointUrl.Should().Be("KinlySelfTestScoreEndpointUrl");
         }
     }
 }
