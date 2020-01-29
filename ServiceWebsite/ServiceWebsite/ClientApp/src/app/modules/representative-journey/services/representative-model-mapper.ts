@@ -16,7 +16,7 @@ export const RepresentativeQuestionKeys = {
 };
 
 export const PresentingCaseConstants = {
-    AnswerIAmPresenting: 'I will be presenting the case',
+    AnswerIAmPresenting: "I'll be presenting the case",
     AnswerSomeonePresenting: 'Someone will be presenting the case',
     AnswerError: 'Unexpected answer to presenting the case question:'
 };
