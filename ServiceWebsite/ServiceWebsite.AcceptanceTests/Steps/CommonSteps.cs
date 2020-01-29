@@ -98,8 +98,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the hearing date is displayed correctly")]
         public void ThenTheHearingDateIsDisplayedCorrectly()
         {
-            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",", "");
-            var scheduledTime = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsTime);
+            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.CommonDateFormat);
+            var scheduledTime = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.CommonTimeFormat).Replace("AM", "am").Replace("PM", "pm");
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDateTime).Text.Should().ContainAll(scheduledDate, scheduledTime);
         }
 
