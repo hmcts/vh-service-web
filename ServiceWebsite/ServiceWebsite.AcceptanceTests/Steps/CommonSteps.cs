@@ -104,17 +104,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the hearing date is displayed correctly")]
         public void ThenTheHearingDateIsDisplayedCorrectly()
         {
-            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.YourComputerDateTime).Replace("AM", "am").Replace("PM", "pm");
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(scheduledDate)).Displayed.Should().BeTrue();
+            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",","");
+            var scheduledTime = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsTime);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDate).Text.Should().Contain(scheduledDate);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledTime).Text.Should().Contain(scheduledTime);
         }
 
         [Then(@"the hearing details are displayed correctly")]
         public void ThenTheHearingDetailsAreDisplayedCorrectly()
         {
-            var hearingDetails = _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.HearingDetails).Text;
-            hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Name);
-            hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Number);
-            hearingDetails.Should().Contain(_c.Test.Hearing.Case_type_name);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.CaseName).Text.Should().Contain(_c.Test.Hearing.Cases.First().Name);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.CaseTypeCaseNumber).Text.Should().ContainAll(_c.Test.Hearing.Cases.First().Number, _c.Test.Hearing.Case_type_name);
         }
 
         [Then(@"the answers have been stored")]

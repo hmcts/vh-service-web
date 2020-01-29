@@ -7,24 +7,24 @@
     <tr class="govuk-table__row vh-panel">
       <td class="govuk-table__cell">
         <div>
-          <span class="vh-ml5">
+          <span class="vh-ml5" id="caseName">
             <strong>{{ caseName }}</strong>
           </span>
         </div>
         <div>
-          <span class="vh-ml5">
+          <span class="vh-ml5" id="caseTypeCaseNumber">
             ({{ caseType }}) {{ caseNumber }}
           </span>
         </div>
       </td>
       <td class="govuk-table__cell" style="text-align:right;">
         <div>
-          <span class="vh-mr5">
+          <span class="vh-mr5" id="scheduledDate">
             <strong>{{ scheduledDateTime | appLongDate }}</strong>
           </span>
         </div>
         <div>
-          <span class="vh-mr5">
+          <span class="vh-mr5" id="scheduledTime">
             <strong>{{ scheduledDateTime | date:'shortTime' }}</strong>
           </span>
         </div>
