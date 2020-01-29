@@ -27,7 +27,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_map_responses_from_service()
+        public async Task Should_map_responses_from_service()
         {
             var answer = new SuitabilityAnswer { QuestionKey = "Key", Answer = "Answer", ExtendedAnswer = "Extended" };
             var hearingSuitability = new HearingSuitability(Guid.NewGuid(), Guid.NewGuid(), DateTime.Now.AddDays(2), false, new [] { answer });

@@ -10,5 +10,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static By CaseTypeCaseNumber = By.Id("caseTypeCaseNumber");
         public static By ScheduledDate = By.Id("scheduledDate");
         public static By ScheduledTime = By.Id("scheduledTime");
+        public static By ScheduledDateTime = By.Id("scheduledDateTime");
     }
 }
