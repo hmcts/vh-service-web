@@ -23,7 +23,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Switch on")).Click();
-            var buttonText = _c.CurrentUser.Role.ToLower().Equals("individual") ? "Watch video" : "Test equipment";
+            var buttonText = _c.CurrentUser.Role.ToLower().Equals("individual") ? "Watch the video" : "Test equipment";
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(buttonText)).Click();
         }
     }

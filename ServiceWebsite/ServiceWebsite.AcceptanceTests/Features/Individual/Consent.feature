@@ -11,7 +11,7 @@ Scenario: Consent
 	Then an error message appears stating 'Select if you would be content to take part in the hearing by video'
 	When the user selects the 'No' radiobutton
 	And attempts to click Save and continue without providing additional information
-	Then an error message appears stating 'Please type in this box'
+	Then an error message appears stating 'Enter your reasons for not consenting to a video hearing to help the court decide'
 	When the user answers yes to the consent question
 	Then the user is on the Answers Saved Individual page
 	When the user signs out 
