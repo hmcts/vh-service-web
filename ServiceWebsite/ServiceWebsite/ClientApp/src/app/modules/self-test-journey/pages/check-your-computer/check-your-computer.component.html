@@ -1,44 +1,48 @@
-<div>
+<div *ngIf="isRepresentative">
   <h1 class="govuk-heading-xl" i18n="@@check_your_computer_h1">
     Check your computer
   </h1>
+  <div>
+    <app-hearing-details-header></app-hearing-details-header>
+  </div>
+</div>
+<div *ngIf="isIndividual">
+  <h1 class="govuk-heading-xl" i18n="@@check_your_computer_h1">
+    Let's see if a video hearing would work on your computer
+  </h1>
 </div>
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <div id="form-container" class="govuk-form-group" [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
-
+  <div id="form-container" class="govuk-form-group"
+    [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
     <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@check_your_computer_span_1">
-      Select if this is the same computer you would use for a video hearing
+      Select if this is the computer you'll use
     </span>
-
     <div>
-      <p class="govuk-body" i18n="@@check_your_computer_p_1">We need to check that a video hearing would work on your computer.</p>
-      <p class="govuk-body" i18n="@@check_your_computer_p_2">Is this the same computer you would use for video hearing?</p>
+      <p *ngIf="isRepresentative" class="govuk-body" i18n="@@check_your_computer_p_1">We need to check that your
+        computer is suitable for a video hearing.</p>
+      <p class="govuk-body" i18n="@@check_your_computer_p_2">Is this the computer you'll use?</p>
     </div>
-
     <div class="govuk-fieldset">
       <div class="govuk-radios" data-module="radios">
         <div class="govuk-radios__item">
           <input formControlName="choice" class="govuk-radios__input" id="choice-yes" type="radio" [value]="true"
-                 data-aria-controls="conditional-how-contacted-conditional">
+            data-aria-controls="conditional-how-contacted-conditional">
           <label class="govuk-label govuk-radios__label" for="choice-yes" i18n="@@check_your_computer_choice_yes">
             Yes
           </label>
         </div>
-
         <div class="govuk-radios__item">
           <input formControlName="choice" class="govuk-radios__input" id="choice-no" type="radio" [value]="false"
-                 data-aria-controls="conditional-how-contacted">
+            data-aria-controls="conditional-how-contacted">
           <label class="govuk-label govuk-radios__label" for="choice-no" i18n="@@check_your_computer_choice_no">
             No
           </label>
         </div>
-        <div *ngIf="choice.value === false" class="vh-border">
-          <p class="govuk-body vh-left" i18n="@@check_your_computer_rep_p_2">You need to know the camera and microphone are working on the computer you'll be using for the hearing.</p>
-        </div>
       </div>
     </div>
   </div>
-  <button class="govuk-button" (click)="submit()" i18n="@@check_your_computer_btn_continue" id="continue" type="button">Continue</button>
+  <button class="govuk-button" (click)="submit()" i18n="@@check_your_computer_btn_continue" id="continue"
+    type="button">Continue
+  </button>
 </form>
-
 <app-contact-us></app-contact-us>

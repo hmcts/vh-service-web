@@ -1,5 +1,5 @@
 import { HearingDetails } from './hearing-details';
-import { HearingService } from './hearing.service';
+import { HearingService } from '../../shared/services/hearing.service';
 import { Injectable } from '@angular/core';
 import { SessionStorage } from '../../shared/services/session-storage';
 

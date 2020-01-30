@@ -6,7 +6,7 @@
 Scenario: Explore Court Building
 	Given the Individual has progressed to the Explore Court Building page
 	Then contact details are available
-	When the user clicks the Play the video button
+	When the user clicks the Watch the video button
 	Then the user is on the Court Building Video page
 	Then the exploring the court building video begins to play
 	When the user clicks the Continue button

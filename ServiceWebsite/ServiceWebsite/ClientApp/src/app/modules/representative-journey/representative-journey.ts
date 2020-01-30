@@ -14,7 +14,7 @@ export class RepresentativeJourney extends JourneyBase {
     readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
     private currentStep: JourneyStep = RepresentativeJourneySteps.NotStarted;
     private currentModel: RepresentativeSuitabilityModel;
-
+    journeyName = 'Representative';
     private readonly questionnairePages = [
         RepresentativeJourneySteps.YourVideoHearing,
         RepresentativeJourneySteps.PresentingTheCase,

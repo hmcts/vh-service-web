@@ -1,6 +1,6 @@
 import { HearingDetails } from './hearing-details';
 import { CachedHearingService } from './cached-hearing.service';
-import { HearingService } from './hearing.service';
+import { HearingService } from '../../shared/services/hearing.service';
 
 describe('CachedHearingService', () => {
     let service: HearingService;

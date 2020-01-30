@@ -36,7 +36,7 @@ namespace ServiceWebsite.UnitTests
         }
 
         [Test]
-        public async Task should_return_a_mapped_hearing_for_hearing_with_user_as_participant()
+        public async Task Should_return_a_mapped_hearing_for_hearing_with_user_as_participant()
         {
             GivenApiHasResponseWithCase(_case);
 
@@ -51,7 +51,7 @@ namespace ServiceWebsite.UnitTests
         }
         
         [Test]
-        public async Task should_use_first_best_case_if_lead_case_is_missing()
+        public async Task Should_use_first_best_case_if_lead_case_is_missing()
         {
             var notLeadCase = new CaseResponse
             {
@@ -68,7 +68,7 @@ namespace ServiceWebsite.UnitTests
         }
 
         [Test]
-        public void should_throw_not_found_for_missing_hearings()
+        public void Should_throw_not_found_for_missing_hearings()
         {
             // given
             var notFoundException = new BookingsApiException("msg", 404, "resp", null, null);
@@ -80,7 +80,7 @@ namespace ServiceWebsite.UnitTests
         }
         
         [Test]
-        public void should_rethrow_general_api_exceptions()
+        public void Should_rethrow_general_api_exceptions()
         {
             // given
             var serverErrorException = new BookingsApiException("msg", 500, "resp", null, null);
@@ -92,7 +92,7 @@ namespace ServiceWebsite.UnitTests
         }
 
         [Test]
-        public void should_rethrow_general_api_exception_when_get_participant_id_called()
+        public void Should_rethrow_general_api_exception_when_get_participant_id_called()
         {
             // given
             var serverErrorException = new BookingsApiException("msg", 500, "resp", null, null);
@@ -104,7 +104,7 @@ namespace ServiceWebsite.UnitTests
         }
 
         [Test]
-        public void should_unauthorized_if_user_is_not_participant()
+        public void Should_unauthorized_if_user_is_not_participant()
         {
             // given a response without participants
             GivenApiHasResponse(new HearingDetailsResponse
@@ -120,7 +120,7 @@ namespace ServiceWebsite.UnitTests
         }
 
         [Test]
-        public async Task should_return_participant_id_should_return_a_mapped_hearing_for_hearing_with_user_as_participant()
+        public async Task Should_return_participant_id_Should_return_a_mapped_hearing_for_hearing_with_user_as_participant()
         {
             GivenApiHasResponseWithCase(_case);
             var participantid = await _hearingService.GetParticipantIdAsync(Username, _hearingId);
