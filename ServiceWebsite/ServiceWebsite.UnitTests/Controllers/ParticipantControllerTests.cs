@@ -39,7 +39,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_badrequest_if_hearingId_is_empty()
+        public async Task Should_return_badrequest_if_hearingId_is_empty()
         {
             var result = await _controller.UpdateSuitabilityAnswers(Guid.Empty, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             var badRequestObjectResult = (BadRequestObjectResult)result;
@@ -48,7 +48,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_not_found_if_no_hearing_for_user_is_found()
+        public async Task Should_return_not_found_if_no_hearing_for_user_is_found()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
             // given service returns
@@ -59,7 +59,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
+        public async Task Should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
             // given service throws
@@ -69,7 +69,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_badrequest_if_question_key_format_is_incorrect()
+        public async Task Should_return_badrequest_if_question_key_format_is_incorrect()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "incorrect_key", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
             var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
@@ -78,7 +78,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_badrequest_if_answers_length_is_zero()
+        public async Task Should_return_badrequest_if_answers_length_is_zero()
         {
             var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             Assert.AreEqual(400, result.StatusCode);
@@ -86,7 +86,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_ok_if_suitability_answers_updated_successfully()
+        public async Task Should_return_ok_if_suitability_answers_updated_successfully()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
 
@@ -97,7 +97,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_not_found_if_participant_is_found()
+        public async Task Should_return_not_found_if_participant_is_found()
         {
             const string username = "SomeUnknownUsername";
 
@@ -112,7 +112,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_ok_if_participant_is_found()
+        public async Task Should_return_ok_if_participant_is_found()
         {
             var participants = new List<Participant>
             {
@@ -136,7 +136,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_not_found_if_no_test_score_is_not_found()
+        public async Task Should_return_not_found_if_no_test_score_is_not_found()
         {
             _pollyRetryService
                 .Setup(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
@@ -152,7 +152,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_ok_if_no_test_score_is_found()
+        public async Task Should_return_ok_if_no_test_score_is_found()
         {
             var expectedResult = new TestCallResult(true, TestScore.Good);
 

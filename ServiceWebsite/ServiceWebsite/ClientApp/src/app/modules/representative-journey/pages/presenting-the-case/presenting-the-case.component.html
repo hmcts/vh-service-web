@@ -6,7 +6,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl" i18n="@@presentingTheCase_rep_h1">
-      Presenting the case 
+      Presenting the case
     </h1>
     <div>
       <app-hearing-details-header></app-hearing-details-header>
@@ -17,27 +17,28 @@
         <div class="govuk-fieldset">
           <div *ngIf="isFormInvalid">
             <span class="govuk-error-message" id="error-message" i18n="@@presentingTheCase_rep_span_1">
-              Select who will be presenting the case
+              Select who'll be presenting the case
             </span>
           </div>
 
           <div class="govuk-form-group">
             <div class="govuk-fieldset fieldset-margin">
-              <p class="govuk-body" i18n="@@presentingTheCase_p_1">Who will be presenting this case?</p>
+              <p class="govuk-body" i18n="@@presentingTheCase_p_1">Who'll be presenting this case?</p>
               <div class="govuk-radios">
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="i-will-be-presenting" type="radio"
-                         [value]="presentingTheCase.IWillBePresentingTheCase">
+                    [value]="presentingTheCase.IWillBePresentingTheCase">
                   <label class="govuk-label govuk-radios__label" for="i-will-be-presenting"
-                         i18n="@@presentingTheCase_rep_label_1">
-                    I will be presenting the case
+                    i18n="@@presentingTheCase_rep_label_1">
+                    I'll be presenting the case
                   </label>
                 </div>
 
                 <div class="govuk-radios__item">
                   <input formControlName="choice" class="govuk-radios__input" id="someone-will-presenting" type="radio"
-                         [value]="presentingTheCase.SomeoneWillBePresenting">
-                  <label class="govuk-label govuk-radios__label" for="someone-will-presenting" i18n="@@presentingTheCase_rep_label_2">
+                    [value]="presentingTheCase.SomeoneWillBePresenting">
+                  <label class="govuk-label govuk-radios__label" for="someone-will-presenting"
+                    i18n="@@presentingTheCase_rep_label_2">
                     Someone else will be presenting the case
                   </label>
                 </div>
@@ -53,7 +54,8 @@
                     <label class="govuk-label" for="presentingCaseName" i18n="@@presentingTheCase_rep_label_3">
                       Full name of the person presenting
                     </label>
-                    <input id="presentingCaseName" formControlName="presentingCaseName" class="govuk-input govuk-input--width-20" type="text" />
+                    <input id="presentingCaseName" formControlName="presentingCaseName"
+                      class="govuk-input govuk-input--width-20" type="text" />
                   </div>
 
                   <div class="govuk-form-group" [ngClass]="{'govuk-form-group--error':!isValidEmail}">
@@ -65,8 +67,8 @@
                     <label class="govuk-label" for="barristerEmail" i18n="@@presentingTheCase_rep_label_4">
                       Email of the person presenting
                     </label>
-                    <input id="presentingCaseEmail" formControlName="presentingCaseEmail" class="govuk-input govuk-input--width-20" type="text"
-                           (blur)="blurEmail()" />
+                    <input id="presentingCaseEmail" formControlName="presentingCaseEmail"
+                      class="govuk-input govuk-input--width-20" type="text" (blur)="blurEmail()" />
                   </div>
                 </div>
 
@@ -77,11 +79,12 @@
       </div>
       <div class="vh-top-20">
         <app-show-details i18n-bind-detailsTitle="@@presentingTheCase_detailsTitle"
-                          bind-detailsTitle="'What if I don\'t know the contact details of the person presenting?'" i18-bind-textArray="@@presentingTheCase_textArray"
-                          bind-textArray="['You must tell the video hearings team no later than 48 hours before the hearing. If you cannot do this, please call us now on <strong>0300 303 0655</strong>']">
+          bind-detailsTitle="'What if I don\'t know the contact details of the person presenting?'"
+          i18-bind-textArray="@@presentingTheCase_textArray"
+          bind-textArray="['You must tell the video hearings team no later than 48 hours before the hearing. If you cannot do this, please call us now on <strong>0300 303 0655</strong>']">
         </app-show-details>
       </div>
-      
+
 
       <div class="vh-top-20">
         <button class="govuk-button" data-module="govuk-button" (click)="submit()" i18n="@@presentingTheCase_rep_journey_btn_continue" id="continue">

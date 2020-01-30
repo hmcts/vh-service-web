@@ -8,7 +8,7 @@ Scenario: Presenting the Case
 	Then contact details are available
 	And the hearing details are displayed correctly
 	When attempts to click Continue without selecting an answer
-	Then an error message appears stating 'Select who will be presenting the case'
+	Then an error message appears stating 'Select who'll be presenting the case'
 	When the user selects the 'Someone else will be presenting the case' radiobutton
 	And adds details of who will be presenting the case
 	And the user clicks the Continue button

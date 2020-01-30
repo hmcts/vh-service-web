@@ -14,7 +14,7 @@ export class IndividualJourney extends JourneyBase {
   readonly redirect: EventEmitter<JourneyStep> = new EventEmitter();
   private currentStep: JourneyStep = IndividualJourneySteps.NotStarted;
   private currentModel: IndividualSuitabilityModel;
-
+  journeyName = 'Individual';
   constructor(private submitService: SubmitService, private logger: Logger) {
     super();
     this.redirect.subscribe((step: JourneyStep) => {

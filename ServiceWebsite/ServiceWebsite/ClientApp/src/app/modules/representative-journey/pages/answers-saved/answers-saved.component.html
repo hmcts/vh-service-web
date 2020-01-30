@@ -4,16 +4,16 @@
       Thank you
     </h1>
     <div>
+      <app-hearing-details-header></app-hearing-details-header>
+    </div>
+    <div>
       <p class="govuk-body" i18n="@@answers_saved_p_summary">
-        We have saved your answers. You can now check your computer will work for a video hearing.
+        We've saved your answers. You can now check your computer will work for a video hearing.
       </p>
     </div>
 
     <div class="mt-20">
-      <button class="govuk-button" (click)="continue()"
-              i18n="@@answers_saved_btn_continue"
-              id="continue"
-              type="button">
+      <button class="govuk-button" (click)="continue()" i18n="@@answers_saved_btn_continue" id="continue" type="button">
         Check my computer
       </button>
     </div>

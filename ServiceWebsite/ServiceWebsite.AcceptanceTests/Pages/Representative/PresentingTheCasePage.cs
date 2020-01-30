@@ -7,7 +7,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Representative
     {
         public static By FullNameTextField = By.Id("presentingCaseName");
         public static By EmailTextField = By.Id("presentingCaseEmail");
-        public static By WhoWillBePresentingText = CommonLocators.ElementContainingText("I will be presenting the case");
+        public static By WhoWillBePresentingText = CommonLocators.ElementContainingText("I'll be presenting the case");
         public static By ContinueButton = By.Id("continue");
     }
 }

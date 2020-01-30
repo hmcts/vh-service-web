@@ -28,7 +28,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_not_found_if_no_hearing_for_user_is_found()
+        public async Task Should_return_not_found_if_no_hearing_for_user_is_found()
         {
             // given service returns
             _service.Setup(x => x.GetHearingFor(Username, _hearingId))
@@ -39,7 +39,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
+        public async Task Should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
         {
             // given service throws
             _service.Setup(x => x.GetHearingFor(Username, _hearingId))
@@ -50,7 +50,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_hearing_for_user()
+        public async Task Should_return_hearing_for_user()
         {
             var hearing = new Hearing(_hearingId, "case name", "case number", _scheduledDateTime, "caseType",
                 "hearingType");

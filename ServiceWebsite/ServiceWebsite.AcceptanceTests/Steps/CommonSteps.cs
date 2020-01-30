@@ -84,37 +84,34 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ContactLink).Click();
-            _browsers[_c.CurrentUser.Key].Driver
-                .WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone))
-                .Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver
-                .WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoEmail))
-                .Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone)).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoEmail)).Displayed.Should().BeTrue();
         }
 
         [Then(@"a message appears stating '(.*)'")]
         [Then(@"an error message appears stating '(.*)'")]
         public void ThenAMessageAppearsStating(string message)
         {
-            _browsers[_c.CurrentUser.Key].Driver
-                .WaitUntilVisible(CommonLocators.ElementContainingText(message))
-                .Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(message)).Displayed.Should().BeTrue();
         }
 
         [Then(@"the hearing date is displayed correctly")]
         public void ThenTheHearingDateIsDisplayedCorrectly()
         {
-            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.YourComputerDateTime).Replace("AM", "am").Replace("PM", "pm");
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(scheduledDate)).Displayed.Should().BeTrue();
+            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.CommonDateFormat);
+            var scheduledTime = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.CommonTimeFormat).Replace("AM", "am").Replace("PM", "pm");
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDateTime).Text.Should().ContainAll(scheduledDate, scheduledTime);
         }
 
         [Then(@"the hearing details are displayed correctly")]
         public void ThenTheHearingDetailsAreDisplayedCorrectly()
         {
-            var hearingDetails = _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.HearingDetails).Text;
-            hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Name);
-            hearingDetails.Should().Contain(_c.Test.Hearing.Cases.First().Number);
-            hearingDetails.Should().Contain(_c.Test.Hearing.Case_type_name);
+            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",", "");
+            var scheduledTime = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsTime);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDate).Text.Should().Contain(scheduledDate);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledTime).Text.Should().Contain(scheduledTime);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.CaseName).Text.Should().Contain(_c.Test.Hearing.Cases.First().Name);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.CaseTypeCaseNumber).Text.Should().ContainAll(_c.Test.Hearing.Cases.First().Number, _c.Test.Hearing.Case_type_name);
         }
 
         [Then(@"the answers have been stored")]
