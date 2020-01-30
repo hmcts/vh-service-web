@@ -93,7 +93,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_return_participants()
+        public async Task Should_return_participants()
         {
             var participantResponses = new List<ParticipantResponse>
             {

@@ -8,7 +8,8 @@
     <p class="govuk-body-l" i18n="@@test_your_equipment_p_1">Please wait to be connected...</p>
   </div>
   <div *ngIf="displayFeed" class="govuk-grid-column-full">
-    <video i18n="@@test_your_equipment_video_1" *ngIf="streamsActive" id="incomingStream" [srcObject]="this.incomingStream" autoplay width="100%">
+    <video i18n="@@test_your_equipment_video_1" *ngIf="streamsActive" id="incomingStream"
+      [srcObject]="this.incomingStream" autoplay width="100%">
       Your browser does not support video
     </video>
   </div>
@@ -17,16 +18,18 @@
 <div *ngIf="!didTestComplete" class="govuk-grid-row">
 
   <div class="govuk-grid-column-one-quarter">
-    <video i18n="@@test_your_equipment_video_2" *ngIf="streamsActive" id="outgoingStream" [muted]="true" [srcObject]="this.outgoingStream" autoplay
-           width="270" height="auto">
+    <video i18n="@@test_your_equipment_video_2" *ngIf="streamsActive" id="outgoingStream" [muted]="true"
+      [srcObject]="this.outgoingStream" autoplay width="270" height="auto">
       Your browser does not support video
     </video>
   </div>
 
   <div class="govuk-grid-column-full">
-    <app-mic-visualiser *ngIf="displayFeed && streamsActive && preferredMicrophoneStream" [stream]="preferredMicrophoneStream"></app-mic-visualiser>
+    <app-mic-visualiser *ngIf="displayFeed && streamsActive && preferredMicrophoneStream"
+      [stream]="preferredMicrophoneStream"></app-mic-visualiser>
     <div *ngIf="hasMultipleDevices" class="govuk-!-margin-bottom-6">
-      <a id="change-device-link" href="javascript:void(0);" role="button" (click)="changeDevices()" class="govuk-link">Change
+      <a id="change-device-link" href="javascript:void(0);" role="button" (click)="changeDevices()"
+        class="govuk-link">Change
         camera or microphone</a>
     </div>
   </div>
@@ -37,7 +40,7 @@
 <div class="govuk-grid-row govuk-!-margin-top-6">
   <div class="govuk-grid-column-full">
     <p class="govuk-body" i18n="@@test_your_equipment_p_2">
-      When the video has ended, answer a few questions to confirm your microphone and camera are working.
+      When the video has ended, answer 3 questions to confirm your microphone and camera are working.
     </p>
   </div>
 </div>
@@ -45,17 +48,16 @@
 <div>
 
   <button i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()"
-          id="continue" data-module="govuk-button" alt="Continue">
-  Continue</button>
+    id="continue" data-module="govuk-button" alt="Continue">
+    Continue</button>
 
-  <button i18n="@@test_your_equipment_btn_replay" class="govuk-button" (click)="replayVideo()"
-          id="replay-video" alt="Re-play the video message" data-module="govuk-button">
-  Re-play the video message</button>
+  <button i18n="@@test_your_equipment_btn_replay" class="govuk-button govuk-button--secondary" (click)="replayVideo()"
+    id="replay-video" alt="Watch the video again" data-module="govuk-button">
+    Watch the video again</button>
 
 </div>
 
-<app-select-media-devices *ngIf="displayDeviceChangeModal"
-                          (cancelMediaDeviceChange)="onMediaDeviceChangeCancelled()"
-                          (acceptMediaDeviceChange)="onMediaDeviceChangeAccepted($event)"></app-select-media-devices>
+<app-select-media-devices *ngIf="displayDeviceChangeModal" (cancelMediaDeviceChange)="onMediaDeviceChangeCancelled()"
+  (acceptMediaDeviceChange)="onMediaDeviceChangeAccepted($event)"></app-select-media-devices>
 
 <app-contact-us></app-contact-us>
