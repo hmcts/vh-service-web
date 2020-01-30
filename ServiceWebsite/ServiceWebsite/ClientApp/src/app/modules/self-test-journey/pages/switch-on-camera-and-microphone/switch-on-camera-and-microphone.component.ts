@@ -19,7 +19,8 @@ export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
               private mediaAccess: MediaService,
               private model: ParticipantSuitabilityModel,
               private logger: Logger) {
-
+    this.isRepresentative = false;
+    this.isIndividual = false;
   }
 
   ngOnInit(): void {
