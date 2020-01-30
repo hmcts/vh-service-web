@@ -15,4 +15,6 @@ export abstract class JourneyBase {
     abstract goto(step: JourneyStep): void;
 
     abstract submitQuestionnaire(): Promise<void>;
+
+    abstract journeyName: string;
 }

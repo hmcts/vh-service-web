@@ -22,8 +22,8 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
 
   ngOnInit(): void {
     this.choice.setValue(this.model.selfTest.checkYourComputer);
-    this.isRepresentative = this.journey.constructor.name === 'RepresentativeJourney';
-    this.isIndividual = this.journey.constructor.name === 'IndividualJourney';
+    this.isRepresentative = this.journey.journeyName === 'Representative';
+    this.isIndividual = this.journey.journeyName === 'Individual';
   }
 
   protected bindModel(): void {

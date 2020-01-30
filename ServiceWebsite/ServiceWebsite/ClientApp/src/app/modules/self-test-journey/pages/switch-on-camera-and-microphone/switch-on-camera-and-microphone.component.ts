@@ -24,8 +24,9 @@ export class SwitchOnCameraAndMicrophoneComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isRepresentative = this.journey.constructor.name === 'RepresentativeJourney';
-    this.isIndividual = this.journey.constructor.name === 'IndividualJourney';
+    console.log(this.journey.journeyName);
+    this.isRepresentative = this.journey.journeyName === 'Representative';
+    this.isIndividual = this.journey.journeyName === 'Individual';
   }
 
   async switchOnCameraAndMicrophone(): Promise<void> {
