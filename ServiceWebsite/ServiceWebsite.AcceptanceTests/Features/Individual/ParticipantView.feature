@@ -8,7 +8,7 @@ Scenario: Participant View
 	Given the Individual has progressed to the Participant View page
 	Then contact details are available
 	And the participant view video begins to play
-	When the user clicks the Re-play the video button
+	When the user clicks the Watch the video again button
 	Then the video restarts
 	When the user clicks the Continue button
 	Then the user is on the Help the Court Decide page
