@@ -8,7 +8,7 @@ Scenario: Test Your Equipment Individual
 	Then contact details are available
 	And the Test Your Equipment video begins to play
 	When the Test Your Equipment video has ended
-	And the user clicks the Re-play the video message button
+	And the user clicks the Watch the video again message button
 	Then the Test Your Equipment video begins to play
 	When the user clicks the Continue button
 	Then the user is on the Camera Working page
@@ -20,7 +20,7 @@ Scenario: Test Your Equipment Representative
 	Then contact details are available
 	And the Test Your Equipment video begins to play
 	When the Test Your Equipment video has ended
-	And the user clicks the Re-play the video message button
+	And the user clicks the Watch the video again message button
 	Then the Test Your Equipment video begins to play
 	When the user clicks the Continue button
 	Then the user is on the Camera Working page

@@ -8,9 +8,8 @@ Scenario: Check Your Computer Individual
 	Given the Individual has progressed to the Check Your Computer page
 	Then contact details are available
 	And the hearing details are displayed correctly
-	And the hearing date is displayed correctly
 	When attempts to click Continue without selecting an answer
-	Then an error message appears stating 'Select if this is the same computer you would use for a video hearing'
+	Then an error message appears stating 'Select if this is the computer you'll use'
 	When the user answers yes to the Check Your Computer question
 	Then the user is on the Switch On Camera and Microphone page
 	When the user signs out 
@@ -21,9 +20,8 @@ Scenario: Check Your Computer Representative
 	Given the Representative has progressed to the Check Your Computer page
 	Then contact details are available
 	And the hearing details are displayed correctly
-	And the hearing date is displayed correctly
 	When attempts to click Continue without selecting an answer
-	Then an error message appears stating 'Select if this is the same computer you would use for a video hearing'
+	Then an error message appears stating 'Select if this is the computer you'll use'
 	When the user answers yes to the Check Your Computer question
 	Then the user is on the Switch On Camera and Microphone page
 	When the user signs out 

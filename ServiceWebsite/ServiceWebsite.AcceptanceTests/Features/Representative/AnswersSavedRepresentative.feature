@@ -7,7 +7,6 @@ Scenario: Answers Saved Representative
 	Given the Representative has progressed to the Answers Saved page
 	Then contact details are available
 	And the hearing details are displayed correctly
-	And the hearing date is displayed correctly
 	When the user clicks the Check my computer button
 	Then the user is on the Check Your Computer page
 	When the user signs out 
