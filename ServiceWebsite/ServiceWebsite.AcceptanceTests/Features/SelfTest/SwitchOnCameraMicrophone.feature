@@ -20,7 +20,7 @@ Scenario: Switch On Camera and Microphone Representative
 	Then contact details are available
 	When the user clicks the Switch on button
 	Then a message appears stating 'Your camera and microphone are now switched on'
-	When the user clicks the Test Equipment button
+	When the user clicks the Test equipment button
 	Then the user is on the Test Your Equipment page
 	When the user signs out 
 	Then only the your hearing answers have been stored
