@@ -46,8 +46,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is on the Unsupported Browser error page with text of how to rectify the problem")]
         public void ThenTheUserIsOnTheUnsupportedBrowserErrorPageWithTextOfHowToRectifyTheProblem()
         {
-            _browsers[_c.CurrentUser.Key].Driver.Url.Should().NotContainAny(Page.AboutHearings.Url, Page.YourVideoHearing.Url, Page.YourVideoHearing.Url);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitle).Displayed.Should().BeTrue();
+            if (_c.ServiceWebConfig.TestConfig.TargetBrowser == TargetBrowser.Ie11)
+            {
+                _browsers[_c.CurrentUser.Key].Driver.Url.Should().NotContainAny(Page.AboutHearings.Url, Page.YourVideoHearing.Url, Page.VideoWeb.Url);
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitleIe).Displayed.Should().BeTrue();
+            }
+            else
+            {
+                _browsers[_c.CurrentUser.Key].PageUrl(Page.UnsupportedBrowser.Url);
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitle).Displayed.Should().BeTrue();
+            }
         }
 
         [Then(@"the Not Found error page displays text of how to rectify the problem")]
