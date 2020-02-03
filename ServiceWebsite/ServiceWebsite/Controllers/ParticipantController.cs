@@ -121,7 +121,7 @@ namespace ServiceWebsite.Controllers
             {
                 var score = await _pollyRetryService.WaitAndRetryAsync<NotFoundException, TestCallResult>
                 (
-                    2, x => TimeSpan.FromSeconds(1 * x), null, 
+                    2, x => TimeSpan.FromSeconds(5 * x), null, 
                     () => _kinlyPlatformService.GetTestCallScoreAsync(participantId)
                 );
 
