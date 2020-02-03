@@ -54,7 +54,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             else
             {
                 _browsers[_c.CurrentUser.Key].PageUrl(Page.UnsupportedBrowser.Url);
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitle).Displayed.Should().BeTrue();
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserText).Displayed.Should().BeTrue();
             }
         }
 
