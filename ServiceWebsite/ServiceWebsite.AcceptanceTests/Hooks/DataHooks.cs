@@ -39,10 +39,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private void CreateHearing()
         {
-            var hearingRequest = new HearingRequestBuilder()
-                .WithUserAccounts(_c.UserAccounts)
-                .Build();
-
+            var hearingRequest = new HearingRequestBuilder().WithUserAccounts(_c.UserAccounts).Build();
             var hearingResponse = _bookingsApiManager.CreateHearing(hearingRequest);
             hearingResponse.StatusCode.Should().Be(HttpStatusCode.Created);
             var hearing = RequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(hearingResponse.Content);
