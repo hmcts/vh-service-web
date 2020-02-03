@@ -2,6 +2,7 @@
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.Driver.Support;
+using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
@@ -54,7 +55,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             else
             {
                 _browsers[_c.CurrentUser.Key].PageUrl(Page.UnsupportedBrowser.Url);
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitle).Displayed.Should().BeTrue();
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText("You've signed in using an unsupported browser")).Displayed.Should().BeTrue();
             }
         }
 
