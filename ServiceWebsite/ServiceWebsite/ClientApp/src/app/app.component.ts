@@ -59,6 +59,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('check browser');
     this.checkBrowser();
     this.adalService.handleWindowCallback();
     this.loggedIn = this.adalService.userInfo.authenticated;
@@ -69,6 +70,8 @@ export class AppComponent implements OnInit {
   private async initialiseProfile(): Promise<void> {
     // the window callback modifies the url so store this accordingly first
     const currentUrl = this.window.getLocation().href;
+    console.log('currentUrl:' + currentUrl);
+    console.log('logedin:' + this.loggedIn);
 
     if (!this.loggedIn) {
       this.logger.event('telemetry:serviceweb:any:login:notauthenticated');
