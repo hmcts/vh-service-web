@@ -33,7 +33,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.IncomingStream, ExtraTimeoutToLoadVideoFromKinly).Displayed.Should().BeTrue();
+            TheVideoBeginsToPlay();
             _browsers[_c.CurrentUser.Key].ScrollTo(TestYourEquipmentPage.ContinueButton);
             WhenTheVideoHasEnded();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.ContinueButton).Displayed.Should().BeTrue();
@@ -48,7 +48,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         }
 
         [Then(@"the Test Your Equipment video begins to play")]
-        public void ThenTheExploringTheCourtBuildingVideoBeginsToPlay()
+        public void TheVideoBeginsToPlay()
         {
             new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.IncomingStream);
             new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.SelfView);
