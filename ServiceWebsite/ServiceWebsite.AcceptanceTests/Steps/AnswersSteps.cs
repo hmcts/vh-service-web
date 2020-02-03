@@ -47,24 +47,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
-        [Then(@"the answers have been stored")]
-        public void ThenAnswersHaveBeenStored()
-        {
-            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-                WaitForTheSelfTestScoreToBeSet();
-            var answers = GetAnswersFromBookingsApi();
-            answers.Count.Should().BeGreaterThan(0);
-            answers.Count.Should().Be(_c.Test.Answers.Count);
-            new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
-        }
-
-        [Then(@"the answers have not been stored")]
-        public void ThenTheAnswersHaveNotBeenStored()
-        {
-            var answers = GetAnswersFromBookingsApi();
-            answers.Count.Should().Be(0);
-        }
-
         [Then(@"only the about you answers have been stored")]
         public void ThenOnlyTheAboutYouAnswersHaveBeenStored()
         {
@@ -84,6 +66,24 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var answers = GetAnswersFromBookingsApi();
             answers.Any(x => x.Key.Equals(RepresentativeQuestionKeys.OtherInformation)).Should().BeTrue();
             answers.Any(x => x.Key.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Should().BeTrue();
+        }
+
+        [Then(@"the answers have been stored")]
+        public void ThenAnswersHaveBeenStored()
+        {
+            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
+                WaitForTheSelfTestScoreToBeSet();
+            var answers = GetAnswersFromBookingsApi();
+            answers.Count.Should().BeGreaterThan(0);
+            answers.Count.Should().Be(_c.Test.Answers.Count);
+            new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
+        }
+
+        [Then(@"the answers have not been stored")]
+        public void ThenTheAnswersHaveNotBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            answers.Count.Should().Be(0);
         }
 
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
