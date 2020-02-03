@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Data.Questions;
@@ -14,6 +17,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class AnswersSteps
     {
+        private const int Timeout = 30;
         private readonly TestContext _c;
 
         public AnswersSteps(TestContext testContext)
@@ -43,22 +47,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
-        [Then(@"the answers have been stored")]
-        public void ThenAnswersHaveBeenStored()
-        {
-            var answers = GetAnswersFromBookingsApi();
-            answers.Count.Should().BeGreaterThan(0);
-            answers.Count.Should().Be(_c.Test.Answers.Count);
-            new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
-        }
-
-        [Then(@"the answers have not been stored")]
-        public void ThenTheAnswersHaveNotBeenStored()
-        {
-            var answers = GetAnswersFromBookingsApi();
-            answers.Count.Should().Be(0);
-        }
-
         [Then(@"only the about you answers have been stored")]
         public void ThenOnlyTheAboutYouAnswersHaveBeenStored()
         {
@@ -80,6 +68,24 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             answers.Any(x => x.Key.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Should().BeTrue();
         }
 
+        [Then(@"the answers have been stored")]
+        public void ThenAnswersHaveBeenStored()
+        {
+            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
+                WaitForTheSelfTestScoreToBeSet();
+            var answers = GetAnswersFromBookingsApi();
+            answers.Count.Should().BeGreaterThan(0);
+            answers.Count.Should().Be(_c.Test.Answers.Count);
+            new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
+        }
+
+        [Then(@"the answers have not been stored")]
+        public void ThenTheAnswersHaveNotBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            answers.Count.Should().Be(0);
+        }
+
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
         {
             var bookingsApiManager = new BookingsApiManager(_c.ServiceWebConfig.VhServices.BookingsApiUrl, _c.Tokens.BookingsApiBearerToken);
@@ -88,12 +94,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)).Answers;
         }
 
-        [Then(@"the self test score is set in the results")]
-        public void SelfTestScoreIsSet()
+        public void WaitForTheSelfTestScoreToBeSet()
         {
-            var answers = GetAnswersFromBookingsApi();
-            var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
-            selfTest.Answer.Should().NotBe("None");
+            for (var i = 0; i < Timeout; i++)
+            {
+                var answers = GetAnswersFromBookingsApi();
+                if (answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
+                {
+                    var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
+                    selfTest.Answer.Should().NotBe("None");
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+            throw new DataException("Self test score was not set in the bookings api");
         }
     }
 }
