@@ -3,7 +3,7 @@
 	I would expect information error messages when things go wrong
 	So that I know how to resolve the issue
 
-@Smoketest
+@UnsupportedBrowser
 Scenario: Unsupported browser error page
 	Given a new browser is open for an Individual
 	When the user attempts to access the page on their unsupported browser
