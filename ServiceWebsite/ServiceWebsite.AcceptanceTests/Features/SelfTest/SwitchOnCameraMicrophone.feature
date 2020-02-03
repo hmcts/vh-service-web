@@ -8,8 +8,8 @@ Scenario: Switch On Camera and Microphone Individual
 	Given the Individual has progressed to the Switch On Camera and Microphone page
 	Then contact details are available
 	When the user clicks the Switch on button
-	Then a message appears stating 'Your camera and microphone are switched on'
-	When the user clicks the Watch video button
+	Then a message appears stating 'Your camera and microphone are now switched on'
+	When the user clicks the Watch the video button
 	Then the user is on the Test Your Equipment page
 	When the user signs out 
 	Then only the about you answers have been stored
@@ -19,8 +19,8 @@ Scenario: Switch On Camera and Microphone Representative
 	Given the Representative has progressed to the Switch On Camera and Microphone page
 	Then contact details are available
 	When the user clicks the Switch on button
-	Then a message appears stating 'Your camera and microphone are switched on'
-	When the user clicks the Watch video button
+	Then a message appears stating 'Your camera and microphone are now switched on'
+	When the user clicks the Test equipment button
 	Then the user is on the Test Your Equipment page
 	When the user signs out 
 	Then only the your hearing answers have been stored
