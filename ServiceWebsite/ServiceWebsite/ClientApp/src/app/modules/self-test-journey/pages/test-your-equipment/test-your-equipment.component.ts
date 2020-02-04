@@ -296,11 +296,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.displayDeviceChangeModal = false;
     this.call();
   }
-
-  testCompleted(): boolean {
-    return this.didTestComplete;
-  }
-
+    
   continue() {
     if (!this.didTestComplete) {
       this.disconnect();
