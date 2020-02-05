@@ -118,8 +118,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event('(call -> About to make pexip call.)',
         { hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias });
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
-      // this.retrieveSelfTestScore();
-    }
+      }
   }
 
   get streamsActive() {
