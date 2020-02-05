@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading;
-using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
+using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.BookingsAPI.Client;
 using TechTalk.SpecFlow;
@@ -17,7 +14,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class AnswersSteps
     {
-        private const int Timeout = 30;
         private readonly TestContext _c;
 
         public AnswersSteps(TestContext testContext)
@@ -26,25 +22,58 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
         [Given(@"(.*) has already submitted checklist and self test")]
-        public void GivenIndividualHasAlreadySubmittedChecklistAndSelfTest(string user)
+        public void UserHasAlreadySubmittedChecklistAndSelfTest(string user)
         {
             var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).AllAnswers(user);
-            SubmitAnswers(answers);
+            SubmitAnswers(answers, _c.Test.Hearing);
         }
 
         [Given(@"(.*) has already submitted checklist")]
         public void GivenIndividualHasAlreadySubmittedChecklist(string user)
         {
             var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).ChecklistAnswersOnly(user);
-            SubmitAnswers(answers);
+            SubmitAnswers(answers, _c.Test.Hearing);
         }
 
-        private void SubmitAnswers(IEnumerable<SuitabilityAnswersRequest> answers)
+        [Given(@"Representative has already submitted checklist and self test on a previous hearing")]
+        public void GivenRepresentativeHasAlreadySubmittedChecklistAndSelfTestOnAPreviousHearing()
         {
-            var bookingsApiManager = new BookingsApiManager(_c.ServiceWebConfig.VhServices.BookingsApiUrl, _c.Tokens.BookingsApiBearerToken);
-            var participantId = _c.Test.Hearing.Participants.First(x => x.Last_name.ToLower().Equals(_c.CurrentUser.Lastname.ToLower())).Id;
-            var response = bookingsApiManager.SetSuitabilityAnswers(_c.Test.Hearing.Id, participantId, answers);
+            var hearing = new HearingData(_c.Apis.BookingsApi).CreateHearing(_c.UserAccounts);
+            var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).AllAnswers("Representative");
+            SubmitAnswers(answers, hearing);
+        }
+
+        private void SubmitAnswers(IEnumerable<SuitabilityAnswersRequest> answers, HearingDetailsResponse hearing)
+        {
+            var participantId = hearing.Participants.First(x => x.Last_name.ToLower().Equals(_c.CurrentUser.Lastname.ToLower())).Id;
+            var response = _c.Apis.BookingsApi.SetSuitabilityAnswers(hearing.Id, participantId, answers);
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        [Then(@"the answers have been stored")]
+        public void ThenAnswersHaveBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            answers.Count.Should().BeGreaterThan(0);
+            RemoveSelfTestQuestion(answers);
+            answers.Count.Should().Be(_c.Test.Answers.Count);
+            new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
+        }
+
+        [Then(@"the answers have not been stored")]
+        public void ThenTheAnswersHaveNotBeenStored()
+        {
+            var answers = GetAnswersFromBookingsApi();
+            answers.Count.Should().Be(0);
+        }
+
+        private void RemoveSelfTestQuestion(IEnumerable<SuitabilityAnswerResponse> answers)
+        {
+            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)) &&
+                !answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
+            {
+                _c.Test.Answers.Remove(_c.Test.Answers.First(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)));
+            }
         }
 
         [Then(@"only the about you answers have been stored")]
@@ -68,45 +97,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             answers.Any(x => x.Key.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Should().BeTrue();
         }
 
-        [Then(@"the answers have been stored")]
-        public void ThenAnswersHaveBeenStored()
-        {
-            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-                WaitForTheSelfTestScoreToBeSet();
-            var answers = GetAnswersFromBookingsApi();
-            answers.Count.Should().BeGreaterThan(0);
-            answers.Count.Should().Be(_c.Test.Answers.Count);
-            new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
-        }
-
-        [Then(@"the answers have not been stored")]
-        public void ThenTheAnswersHaveNotBeenStored()
-        {
-            var answers = GetAnswersFromBookingsApi();
-            answers.Count.Should().Be(0);
-        }
-
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
         {
-            var bookingsApiManager = new BookingsApiManager(_c.ServiceWebConfig.VhServices.BookingsApiUrl, _c.Tokens.BookingsApiBearerToken);
-            var response = bookingsApiManager.GetSuitabilityAnswers(_c.CurrentUser.Username);
+            var response = _c.Apis.BookingsApi.GetSuitabilityAnswers(_c.CurrentUser.Username);
             var answers = RequestHelper.DeserialiseSnakeCaseJsonToResponse<List<PersonSuitabilityAnswerResponse>>(response.Content);
             return answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)).Answers;
         }
 
-        public void WaitForTheSelfTestScoreToBeSet()
+        [Then(@"the self test score is set in the results")]
+        public void ThenTheSelfTestScoreIsSetInTheResults()
         {
-            for (var i = 0; i < Timeout; i++)
-            {
-                var answers = GetAnswersFromBookingsApi();
-                if (answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-                {
-                    var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
-                    selfTest.Answer.Should().NotBe("None");
-                }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-            }
-            throw new DataException("Self test score was not set in the bookings api");
+            var answers = GetAnswersFromBookingsApi();
+            var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
+            selfTest.Answer.Should().NotBe("None");
         }
     }
 }

@@ -8,11 +8,12 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 {
     public class TestContext
     {
-        public ServiceWebConfig ServiceWebConfig { get; set; }
-        public ServiceWebTokens Tokens { get; set; }
-        public DriverSetup Driver { get; set; }
+        public Apis Apis { get; set; }
         public UserAccount CurrentUser { get; set; }
-        public List<UserAccount> UserAccounts { get; set; }
+        public DriverSetup Driver { get; set; }
+        public ServiceWebConfig ServiceWebConfig { get; set; }
         public Test Test { get; set; }
+        public ServiceWebTokens Tokens { get; set; }
+        public List<UserAccount> UserAccounts { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AcceptanceTests.Common.Configuration;
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Data.TestData;
@@ -27,7 +28,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]
-        public void RegisterSecrets(TestContext context)
+        public async Task RegisterSecrets(TestContext context)
         {
             RegisterAzureSecrets(context);
             RegisterTestUserSecrets(context);
@@ -36,7 +37,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             RegisterHearingServices(context);
             RegisterSauceLabsSettings(context);
             RunningServiceWebLocally(context);
-            GenerateBearerTokens(context);
+            await GenerateBearerTokens(context);
         }
 
         private void RegisterAzureSecrets(TestContext context)
@@ -87,19 +88,19 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             context.ServiceWebConfig.VhServices.RunningServiceWebLocally = context.ServiceWebConfig.VhServices.ServiceWebUrl.Contains("localhost");
         }
 
-        private static async void GenerateBearerTokens(TestContext context)
+        private static async Task GenerateBearerTokens(TestContext context)
         {
             context.Tokens.BookingsApiBearerToken = await ConfigurationManager.GetBearerToken(
                 context.ServiceWebConfig.AzureAdConfiguration, context.ServiceWebConfig.VhServices.BookingsApiResourceId);
             context.Tokens.BookingsApiBearerToken.Should().NotBeNullOrEmpty();
 
-            context.Tokens.UserApiBearerToken = await ConfigurationManager.GetBearerToken(
-                context.ServiceWebConfig.AzureAdConfiguration, context.ServiceWebConfig.VhServices.UserApiResourceId);
-            context.Tokens.UserApiBearerToken.Should().NotBeNullOrEmpty();
-
             context.Tokens.VideoApiBearerToken = await ConfigurationManager.GetBearerToken(
                 context.ServiceWebConfig.AzureAdConfiguration, context.ServiceWebConfig.VhServices.VideoApiResourceId);
             context.Tokens.VideoApiBearerToken.Should().NotBeNullOrEmpty();
+
+            context.Tokens.UserApiBearerToken = await ConfigurationManager.GetBearerToken(
+                context.ServiceWebConfig.AzureAdConfiguration, context.ServiceWebConfig.VhServices.UserApiResourceId);
+            context.Tokens.UserApiBearerToken.Should().NotBeNullOrEmpty();
         }
     }
 }
