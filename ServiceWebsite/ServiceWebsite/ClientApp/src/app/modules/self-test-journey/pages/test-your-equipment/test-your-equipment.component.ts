@@ -308,7 +308,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     }
     this.pexipAPI = null;
     this.logger.event('telemetry:serviceweb:any:selftest:complete');
-    // this.retrieveSelfTestScore();
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 
