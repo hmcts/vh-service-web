@@ -22,6 +22,7 @@ Scenario: Test Your Equipment Representative
 	When the Test Your Equipment video has ended
 	And the user clicks the Watch the video again button
 	Then the Test Your Equipment video begins to play
+	When the Test Your Equipment video has ended
 	When the user clicks the Continue button
 	Then the user is on the Camera Working page
 	When the user signs out 

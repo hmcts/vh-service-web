@@ -118,10 +118,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event('(call -> About to make pexip call.)',
         { hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias });
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
-      this.retrieveSelfTestScore();
-      if (this.model.selfTest.selfTestResultScore) {
-        this.didTestComplete = true;
-      }
+      // this.retrieveSelfTestScore();
     }
   }
 
@@ -240,6 +237,9 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event(`telemetry:serviceweb:any:selftest:score:${score.score}`);
 
       this.model.selfTest.selfTestResultScore = score.score;
+      if (this.model.selfTest.selfTestResultScore) {
+        this.didTestComplete = true;
+      }
     }, (error) => {
       this.model.selfTest.selfTestResultScore = 'None';
 
@@ -253,6 +253,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async replayVideo() {
+    
     this.logger.event('(replayVideo -> Replaying Video.)',
       { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
@@ -260,6 +261,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.dispose();
     try {
       await this.setupPexipClient();
+      this.didTestComplete = true;
     } catch (error) {
 
       if (error.toString().includes(this.NotAllowedError)) {
