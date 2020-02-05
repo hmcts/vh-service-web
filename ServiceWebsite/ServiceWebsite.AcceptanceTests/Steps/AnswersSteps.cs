@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
@@ -14,6 +17,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class AnswersSteps
     {
+        private const int Timeout = 30;
         private readonly TestContext _c;
 
         public AnswersSteps(TestContext testContext)
@@ -53,9 +57,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the answers have been stored")]
         public void ThenAnswersHaveBeenStored()
         {
+            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
+                WaitForTheSelfTestScoreToBeSet();
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().BeGreaterThan(0);
-            RemoveSelfTestQuestion(answers);
             answers.Count.Should().Be(_c.Test.Answers.Count);
             new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
         }
@@ -65,15 +70,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().Be(0);
-        }
-
-        private void RemoveSelfTestQuestion(IEnumerable<SuitabilityAnswerResponse> answers)
-        {
-            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)) &&
-                !answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-            {
-                _c.Test.Answers.Remove(_c.Test.Answers.First(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)));
-            }
         }
 
         [Then(@"only the about you answers have been stored")]
@@ -110,6 +106,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var answers = GetAnswersFromBookingsApi();
             var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
             selfTest.Answer.Should().NotBe("None");
+        }
+
+        public void WaitForTheSelfTestScoreToBeSet()
+        {
+            for (var i = 0; i < Timeout; i++)
+            {
+                var answers = GetAnswersFromBookingsApi();
+                if (answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
+                {
+                    var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
+                    selfTest.Answer.Should().NotBe("None");
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+            throw new DataException("Self test score was not set in the bookings api");
         }
     }
 }
