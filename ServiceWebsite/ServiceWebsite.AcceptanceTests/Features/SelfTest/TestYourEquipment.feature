@@ -10,7 +10,8 @@ Scenario: Test Your Equipment Individual
 	When the Test Your Equipment video has ended
 	And the user clicks the Watch the video again button
 	Then the Test Your Equipment video begins to play
-	When the user clicks the Continue button
+	When the Test Your Equipment video has ended
+	And the user clicks the Continue button
 	Then the user is on the Camera Working page
 	When the user signs out 
 	Then only the about you answers have been stored
@@ -23,7 +24,7 @@ Scenario: Test Your Equipment Representative
 	And the user clicks the Watch the video again button
 	Then the Test Your Equipment video begins to play
 	When the Test Your Equipment video has ended
-	When the user clicks the Continue button
+	And the user clicks the Continue button
 	Then the user is on the Camera Working page
 	When the user signs out 
 	Then only the your hearing answers have been stored
