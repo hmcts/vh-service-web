@@ -253,7 +253,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async replayVideo() {
-    
+
     this.logger.event('(replayVideo -> Replaying Video.)',
       { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
