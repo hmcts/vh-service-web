@@ -37,6 +37,13 @@ Scenario: Representative completed checklist and self test redirected to Video W
 	When the user logs in with valid credentials
 	Then the user is redirected to Video Web
 
+@VIH-4858
+Scenario: Representative completed checklist on a previous hearing redirected to Video Web
+	Given a new browser is open for an Representative
+	And Representative has already submitted checklist and self test on a previous hearing
+	When the user logs in with valid credentials
+	Then the user is redirected to Video Web
+
 Scenario: Clerk redirected to Video Web
 	Given a new browser is open for a Clerk
 	When the user logs in with valid credentials
