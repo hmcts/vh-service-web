@@ -8,7 +8,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
     public class HealthcheckHooks
     {
         [BeforeScenario(Order = (int)HooksSequence.HealthcheckHooks)]
-        private void CheckApiHealth(TestContext context)
+        public void CheckApiHealth(TestContext context)
         {
             CheckBookingsApiHealth(context.ServiceWebConfig.VhServices.BookingsApiUrl, context.Tokens.BookingsApiBearerToken);
             CheckUserApiHealth(context.ServiceWebConfig.VhServices.UserApiUrl, context.Tokens.UserApiBearerToken);
