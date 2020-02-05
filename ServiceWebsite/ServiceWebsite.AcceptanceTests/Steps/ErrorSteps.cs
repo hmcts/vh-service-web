@@ -15,19 +15,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private readonly TestContext _c;
         private readonly Dictionary<string, UserBrowser> _browsers;
-        private readonly LoginSteps _loginSteps;
-        public ErrorSteps(TestContext testContext, Dictionary<string, UserBrowser> browsers, LoginSteps loginSteps)
+        public ErrorSteps(TestContext testContext, Dictionary<string, UserBrowser> browsers)
         {
             _c = testContext;
             _browsers = browsers;
-            _loginSteps = loginSteps;
-        }
-
-        [When(@"the user attempts to access the page on their unsupported browser")]
-        public void WhenTheUserAttemptsToAccessThePageOnTheirUnsupportedBrowser()
-        {
-            if (_c.ServiceWebConfig.TestConfig.TargetBrowser != TargetBrowser.Ie11)
-                _loginSteps.ProgressToNextPage();
         }
 
         [When(@"the user attempts to navigate to a nonexistent page")]
@@ -46,16 +37,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is on the Unsupported Browser error page with text of how to rectify the problem")]
         public void ThenTheUserIsOnTheUnsupportedBrowserErrorPageWithTextOfHowToRectifyTheProblem()
         {
-            if (_c.ServiceWebConfig.TestConfig.TargetBrowser == TargetBrowser.Ie11)
-            {
-                _browsers[_c.CurrentUser.Key].Driver.Url.Should().NotContainAny(Page.AboutHearings.Url, Page.YourVideoHearing.Url, Page.VideoWeb.Url);
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserTitleIe).Displayed.Should().BeTrue();
-            }
-            else
-            {
-                _browsers[_c.CurrentUser.Key].PageUrl(Page.UnsupportedBrowser.Url);
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserText).Displayed.Should().BeTrue();
-            }
+            _browsers[_c.CurrentUser.Key].PageUrl(Page.UnsupportedBrowser.Url);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ErrorPage.UnsupportedBrowserText).Displayed.Should().BeTrue();
         }
 
         [Then(@"the Not Found error page displays text of how to rectify the problem")]
