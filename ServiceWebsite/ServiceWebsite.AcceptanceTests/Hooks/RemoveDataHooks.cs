@@ -88,7 +88,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private static void DeleteTheConference(VideoApiManager videoApi, Guid conferenceId)
         {
-            videoApi.RemoveConference(conferenceId);
+            videoApi.DeleteConference(conferenceId);
         }
     }
 }
