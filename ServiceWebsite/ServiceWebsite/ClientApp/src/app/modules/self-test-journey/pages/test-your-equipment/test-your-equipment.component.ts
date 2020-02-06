@@ -236,10 +236,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event(`telemetry:serviceweb:any:selftest:score:${score.score}`);
 
       this.model.selfTest.selfTestResultScore = score.score;
-      if (this.model.selfTest.selfTestResultScore) {
-        this.didTestComplete = true;
-      }
-    }, (error) => {
+     }, (error) => {
       this.model.selfTest.selfTestResultScore = 'None';
 
       this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error),
