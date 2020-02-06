@@ -58,7 +58,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void ThenAnswersHaveBeenStored()
         {
             if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-                WaitForTheSelfTestScoreToBeSet();
+            {
+                var selfTest = WaitForTheSelfTestScoreToBeSet();
+                selfTest.Answer.Should().NotBe("None");
+            }
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().BeGreaterThan(0);
             answers.Count.Should().Be(_c.Test.Answers.Count);
@@ -108,7 +111,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             selfTest.Answer.Should().NotBe("None");
         }
 
-        public void WaitForTheSelfTestScoreToBeSet()
+        public SuitabilityAnswerResponse WaitForTheSelfTestScoreToBeSet()
         {
             for (var i = 0; i < Timeout; i++)
             {
@@ -116,7 +119,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 if (answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
                 {
                     var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
-                    selfTest.Answer.Should().NotBe("None");
+                    return selfTest;
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
