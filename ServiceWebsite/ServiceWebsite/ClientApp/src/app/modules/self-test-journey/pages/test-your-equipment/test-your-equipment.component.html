@@ -53,9 +53,9 @@
 <div>
 
   <button i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()"
-    id="continue" data-module="govuk-button" alt="Continue">
-    Continue</button>
-
+        [disabled]="!didTestComplete" [ngClass]="didTestComplete ? 'govuk-button' : 'govuk-button--disabled'"
+          id="continue" data-module="govuk-button" alt="Continue">
+  Continue</button>
   <button i18n="@@test_your_equipment_btn_replay" class="govuk-button govuk-button--secondary" (click)="replayVideo()"
     id="replay-video" alt="Watch the video again" data-module="govuk-button">
     Watch the video again</button>
