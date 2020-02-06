@@ -1,4 +1,6 @@
-﻿using Microsoft.ApplicationInsights.Extensibility;
+﻿using System;
+using System.IO;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -13,22 +15,11 @@ using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
-using System;
-using System.IO;
 
-namespace ServiceWebsite
-{
-    public class Startup
-    {
-        public Startup()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddEnvironmentVariables();
-            builder.AddUserSecrets<Startup>();
-
-            Configuration = builder.Build();
+namespace ServiceWebsite {
+    public class Startup {
+        public Startup (IConfiguration configuration) {
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -37,71 +28,64 @@ namespace ServiceWebsite
         ///     This method gets called by the runtime. Use this method to add services to the container.
         /// </summary>
         /// <param name="services"></param>
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<ITelemetryInitializer>(new CloudRoleNameInitializer());
+        public void ConfigureServices (IServiceCollection services) {
+            services.AddSingleton<ITelemetryInitializer> (new CloudRoleNameInitializer ());
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-                builder =>
-                {
+            services.AddCors (options => options.AddPolicy ("CorsPolicy",
+                builder => {
                     builder
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .SetIsOriginAllowed((host) => true)
-                        .AllowCredentials();
+                        .AllowAnyHeader ()
+                        .AllowAnyMethod ()
+                        .SetIsOriginAllowed ((host) => true)
+                        .AllowCredentials ();
                 }));
 
-            services.AddJsonOptions();
+            services.AddJsonOptions ();
 
-            RegisterSettings(services);
+            RegisterSettings (services);
 
-            services.AddCustomTypes();
+            services.AddCustomTypes ();
 
-            var settings = Configuration.GetSection("AzureAd").Get<SecuritySettings>();
-            services.AddApplicationInsightsTelemetry(settings.AppInsightsKey);
+            var settings = Configuration.GetSection ("AzureAd").Get<SecuritySettings> ();
+            services.AddApplicationInsightsTelemetry (settings.AppInsightsKey);
 
-            RegisterAuth(services);
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            RegisterAuth (services);
+            services.AddMvc (options => options.EnableEndpointRouting = false);
 
-            services.AddSpaStaticFiles(configuration =>
-            {
+            services.AddSpaStaticFiles (configuration => {
                 configuration.RootPath = "ClientApp/dist";
             });
         }
 
-        private void RegisterSettings(IServiceCollection services)
-        {
-            services.Configure<SecuritySettings>(options => Configuration.Bind("AzureAd", options));
-            services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
-            services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
+        private void RegisterSettings (IServiceCollection services) {
+            services.Configure<SecuritySettings> (options => Configuration.Bind ("AzureAd", options));
+            services.Configure<ServiceSettings> (options => Configuration.Bind ("VhServices", options));
+            services.Configure<AppConfigSettings> (options => Configuration.Bind (options));
 
-            var customTokenSettings = Configuration.GetSection("CustomToken").Get<CustomTokenSettings>();
-            services.AddSingleton(customTokenSettings);
+            var customTokenSettings = Configuration.GetSection ("CustomToken").Get<CustomTokenSettings> ();
+            services.AddSingleton (customTokenSettings);
         }
 
-        private void RegisterAuth(IServiceCollection services)
-        {
-            var securitySettings = Configuration.GetSection("AzureAd").Get<SecuritySettings>();
+        private void RegisterAuth (IServiceCollection services) {
+            var securitySettings = Configuration.GetSection ("AzureAd").Get<SecuritySettings> ();
 
-            var policy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .Build();
+            var policy = new AuthorizationPolicyBuilder ()
+                .RequireAuthenticatedUser ()
+                .Build ();
 
-            services.AddMvc(options => { options.Filters.Add(new AuthorizeFilter(policy)); });
+            services.AddMvc (options => { options.Filters.Add (new AuthorizeFilter (policy)); });
 
-            services.AddAuthentication(options =>
-            {
+            services.AddAuthentication (options => {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
+            }).AddJwtBearer (options => {
                 options.Authority = securitySettings.Authority;
                 options.TokenValidationParameters.ValidateLifetime = true;
                 options.Audience = securitySettings.ClientId;
                 options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
             });
 
-            services.AddAuthorization();
+            services.AddAuthorization ();
         }
 
         /// <summary>
@@ -109,65 +93,49 @@ namespace ServiceWebsite
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (!env.IsProduction())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    const string url = "/swagger/v1/swagger.json";
-                    c.SwaggerEndpoint(url, "Video Hearings Website backend");
-                });
+        public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
+            if (!env.IsProduction ()) {
+                app.UseSwagger ();
+                app.UseSwaggerUI (c => { c.SwaggerEndpoint ("/swagger/v1/swagger.json", "Video Hearings Website backend"); });
             }
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // this will route any unhandled exceptions to the angular error page
-                app.UseExceptionHandler(Urls.Error);
-                app.UseHsts();
-                app.UseHttpsRedirection();
+            if (env.IsDevelopment ()) {
+                app.UseDeveloperExceptionPage ();
+            } else {
+                app.UseExceptionHandler ("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts ();
             }
 
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
+            if (!env.IsDevelopment ()) {
+                app.UseSpaStaticFiles ();
             }
 
-            app.UseRouting();
-            app.UseHttpsRedirection();
-            app.UseCors("CorsPolicy");
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseRouting ();
+            app.UseAuthorization ();
+            app.UseAuthentication ();
+            app.UseHttpsRedirection ();
+            app.UseMiddleware<ExceptionMiddleware> ();
+            app.UseCors ("CorsPolicy");
 
-            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
-
-            app.UseMiddleware<ExceptionMiddleware>();
-
+            app.UseEndpoints (endpoints => { endpoints.MapDefaultControllerRoute (); });
 
             // HTTP Response Headers
-            app.UseXContentTypeOptions();
-            app.UseReferrerPolicy(opts => opts.NoReferrer());
-            app.UseXXssProtection(options => options.EnabledWithBlockMode());
-            app.UseNoCacheHttpHeaders();
-            app.UseHsts(options => options.MaxAge(365).IncludeSubdomains());
-            app.UseXfo(options => options.SameOrigin());
+            app.UseXContentTypeOptions ();
+            app.UseReferrerPolicy (opts => opts.NoReferrer ());
+            app.UseXXssProtection (options => options.EnabledWithBlockMode ());
+            app.UseNoCacheHttpHeaders ();
+            app.UseHsts (options => options.MaxAge (365).IncludeSubdomains ());
+            app.UseXfo (options => options.SameOrigin ());
 
-            app.UseSpa(spa =>
-            {
+            app.UseSpa (spa => {
                 // Make the source folder relative to content to allow integration test project to run as well
-                var sourcePath = Path.Combine(env.ContentRootPath, "ClientApp");
+                var sourcePath = Path.Combine (env.ContentRootPath, "ClientApp");
                 spa.Options.SourcePath = sourcePath;
 
-                if (env.IsDevelopment())
-                {
+                if (env.IsDevelopment ()) {
                     // this magically uses the ng serve to host the web app under the same port as the api
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer (npmScript: "start");
                 }
             });
         }
