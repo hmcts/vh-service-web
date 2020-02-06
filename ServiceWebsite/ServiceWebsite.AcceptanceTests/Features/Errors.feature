@@ -6,7 +6,7 @@
 @UnsupportedBrowser
 Scenario: Unsupported browser error page
 	Given a new browser is open for an Individual
-	When the user attempts to access the page on their unsupported browser
+	When the user logs in with valid credentials
 	Then the user is on the Unsupported Browser error page with text of how to rectify the problem
 
 Scenario: Page not found error
