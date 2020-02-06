@@ -60,7 +60,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
             {
                 var selfTest = WaitForTheSelfTestScoreToBeSet();
-                selfTest.Answer.Should().NotBe("None");
+                selfTest.Answer.Should().BeOneOf("Good","Bad","Okay");
             }
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().BeGreaterThan(0);
