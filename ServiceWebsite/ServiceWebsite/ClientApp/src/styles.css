@@ -108,3 +108,7 @@
 body:focus {
   outline: none;
 }
+
+.mb-2 {
+  margin-bottom: 2px;
+}

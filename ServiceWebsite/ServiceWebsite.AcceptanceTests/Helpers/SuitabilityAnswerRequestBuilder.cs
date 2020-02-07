@@ -113,7 +113,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             return UpdateYesNoToTrueFalse(answers);
         }
 
-        private IEnumerable<SuitabilityAnswersRequest> UpdateYesNoToTrueFalse(List<SuitabilityAnswersRequest> yesNoAnswers)
+        private static IEnumerable<SuitabilityAnswersRequest> UpdateYesNoToTrueFalse(List<SuitabilityAnswersRequest> yesNoAnswers)
         {
             var answers = yesNoAnswers;
             foreach (var answer in answers)

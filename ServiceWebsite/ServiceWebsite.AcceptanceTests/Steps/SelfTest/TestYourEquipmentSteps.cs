@@ -15,7 +15,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     [Binding]
     public class TestYourEquipmentSteps : ISteps
     {
-        private const int ExtraTimeoutToLoadVideoFromKinly = 60;
         private const int VideoLength = 90;
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
@@ -28,8 +27,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.IncomingStream, ExtraTimeoutToLoadVideoFromKinly).Displayed.Should().BeTrue();
+            TheVideoBeginsToPlay();
             _browsers[_c.CurrentUser.Key].ScrollTo(TestYourEquipmentPage.ContinueButton);
+            WhenTheVideoHasEnded();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.ContinueButton).Displayed.Should().BeTrue();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.ContinueButton).Click();
             _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = "None", ExtendedAnswer = null, QuestionKey = SelfTestQuestionKeys.SelfTestScoreQuestion });
@@ -42,7 +42,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         }
 
         [Then(@"the Test Your Equipment video begins to play")]
-        public void ThenTheExploringTheCourtBuildingVideoBeginsToPlay()
+        public void TheVideoBeginsToPlay()
         {
             new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.IncomingStream);
             new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.SelfView);

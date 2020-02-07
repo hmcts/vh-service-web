@@ -31,7 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 {
                     expected.Answer.Should().Be("No");
                 }
-                else if (actual.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion) && !actual.Answer.Equals("None"))
+                else if (actual.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion))
                 {
                     actual.Answer.Should().BeOneOf("Good","Bad","Okay");
                 }
