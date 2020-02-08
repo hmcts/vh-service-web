@@ -21,10 +21,15 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         public ConfigHooks(TestContext context)
         {
-            _configRoot = new ConfigurationManager("CF5CDD5E-FD74-4EDE-8765-2F899C252122").BuildConfig();
+            _configRoot = new ConfigurationManager("CF5CDD5E-FD74-4EDE-8765-2F899C252122").BuildConfig(GetTargetEnvironment());
             context.ServiceWebConfig = new ServiceWebConfig();
             context.UserAccounts = new List<UserAccount>();
             context.Tokens = new ServiceWebTokens();
+        }
+
+        private static string GetTargetEnvironment()
+        {
+            return NUnit.Framework.TestContext.Parameters["TargetEnvironment"] ?? "";
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]

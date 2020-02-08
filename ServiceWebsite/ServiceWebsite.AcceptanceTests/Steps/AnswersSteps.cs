@@ -57,11 +57,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the answers have been stored")]
         public void ThenAnswersHaveBeenStored()
         {
-            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-            {
-                var selfTest = WaitForTheSelfTestScoreToBeSet();
-                selfTest.Answer.Should().BeOneOf("Good","Bad","Okay");
-            }
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().BeGreaterThan(0);
             answers.Count.Should().Be(_c.Test.Answers.Count);
@@ -109,21 +104,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var answers = GetAnswersFromBookingsApi();
             var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
             selfTest.Answer.Should().NotBe("None");
-        }
-
-        public SuitabilityAnswerResponse WaitForTheSelfTestScoreToBeSet()
-        {
-            for (var i = 0; i < Timeout; i++)
-            {
-                var answers = GetAnswersFromBookingsApi();
-                if (answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-                {
-                    var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
-                    return selfTest;
-                }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-            }
-            throw new DataException("Self test score was not set in the bookings api");
         }
     }
 }
