@@ -37,8 +37,8 @@ namespace ServiceWebsite.Security
             var token = _memoryCache.Get<string>(TokenCacheKey);
             if (string.IsNullOrEmpty(token))
             {
-                var authenticationResult = _tokenProvider.GetAuthorisationResult(_securitySettings.ClientId,
-                    _securitySettings.ClientSecret, ClientResource);
+                var authenticationResult = _tokenProvider.GetAuthorisationResult(_securitySettings.UserApiClientId,
+                    _securitySettings.UserApiClientSecret, ClientResource);
                 token = authenticationResult.AccessToken;
                 var tokenExpireDateTime = authenticationResult.ExpiresOn.DateTime.AddMinutes(-1);
                 _memoryCache.Set(TokenCacheKey, token, tokenExpireDateTime);

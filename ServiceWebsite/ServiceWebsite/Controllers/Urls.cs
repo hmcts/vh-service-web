@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace ServiceWebsite.Controllers
+﻿namespace ServiceWebsite.Controllers
 {
     public static class Urls
     {

@@ -16,7 +16,7 @@ import { RepresentativeJourneyStepComponentBindings } from './services/represent
 import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
 
 import { RepresentativeSuitabilityModelFactory } from './representative-suitability-model-factory';
-import { HearingService, HearingApiService } from './services/hearing.service';
+import { HearingService, HearingApiService } from '../shared/services/hearing.service';
 import { RepresentativeNavigationBackFactory } from './representative-navigation-back.factory';
 
 // components
@@ -25,7 +25,6 @@ import { PresentingTheCaseComponent } from './pages/presenting-the-case/presenti
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
-import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 import { CachedHearingService } from './services/cached-hearing.service';
 import { RepresentativeJourneyService } from './services/representative.journey.service';
 import { SubmitService } from './services/submit.service';
@@ -35,7 +34,6 @@ import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-bac
     declarations: [
         AnswersSavedComponent,
         ThankYouComponent,
-        HearingDetailsHeaderComponent,
         YourVideoHearingComponent,
         PresentingTheCaseComponent,
         OtherInformationComponent

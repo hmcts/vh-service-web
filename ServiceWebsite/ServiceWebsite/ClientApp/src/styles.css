@@ -30,7 +30,7 @@
 }
 
 .panel-blue {
-  background-color: #005ea5;
+  background-color: #1d70b8;
   padding: 30px;
 }
 
@@ -107,4 +107,8 @@
 
 body:focus {
   outline: none;
+}
+
+.mb-2 {
+  margin-bottom: 2px;
 }

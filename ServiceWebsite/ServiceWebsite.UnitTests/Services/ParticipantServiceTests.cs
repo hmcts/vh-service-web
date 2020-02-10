@@ -13,14 +13,9 @@ namespace ServiceWebsite.UnitTests.Services
     public class ParticipantServiceTests
     {
         private ParticipantService _participantService;
-
-
         private Mock<IBookingsApiClient> _bookingsApiClient;
-
-
         private readonly Guid _hearingId;
         private readonly Guid _participantId;
-
         private readonly List<SuitabilityAnswer> _answers;
         private readonly List<SuitabilityAnswersRequest> _answerRequests;
 
@@ -98,7 +93,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task should_return_participants()
+        public async Task Should_return_participants()
         {
             var participantResponses = new List<ParticipantResponse>
             {

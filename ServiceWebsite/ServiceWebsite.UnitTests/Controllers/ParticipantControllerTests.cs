@@ -23,6 +23,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         private Mock<IHearingsService> _hearingService;
         private Mock<IParticipantService> _participantService;
         private Mock<IKinlyPlatformService> _kinlyPlatformService;
+        private Mock<IPollyRetryService> _pollyRetryService;
 
         [SetUp]
         public void Setup()
@@ -30,13 +31,15 @@ namespace ServiceWebsite.UnitTests.Controllers
             _hearingService = new Mock<IHearingsService>();
             _participantService = new Mock<IParticipantService>();
             _kinlyPlatformService = new Mock<IKinlyPlatformService>();
+            _pollyRetryService = new Mock<IPollyRetryService>();
 
-            _controller = new ParticipantController(_hearingService.Object, _participantService.Object, _kinlyPlatformService.Object);
+            _controller = new ParticipantController(_hearingService.Object, _participantService.Object, 
+                _kinlyPlatformService.Object, _pollyRetryService.Object);
             _controller.MockUserIdentity(Username);
         }
 
         [Test]
-        public async Task should_return_badrequest_if_hearingId_is_empty()
+        public async Task Should_return_badrequest_if_hearingId_is_empty()
         {
             var result = await _controller.UpdateSuitabilityAnswers(Guid.Empty, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             var badRequestObjectResult = (BadRequestObjectResult)result;
@@ -45,7 +48,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_not_found_if_no_hearing_for_user_is_found()
+        public async Task Should_return_not_found_if_no_hearing_for_user_is_found()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
             // given service returns
@@ -56,7 +59,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
+        public async Task Should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
             // given service throws
@@ -66,7 +69,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_badrequest_if_question_key_format_is_incorrect()
+        public async Task Should_return_badrequest_if_question_key_format_is_incorrect()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "incorrect_key", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
             var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
@@ -75,7 +78,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_badrequest_if_answers_length_is_zero()
+        public async Task Should_return_badrequest_if_answers_length_is_zero()
         {
             var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             Assert.AreEqual(400, result.StatusCode);
@@ -83,7 +86,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_ok_if_suitability_answers_updated_successfully()
+        public async Task Should_return_ok_if_suitability_answers_updated_successfully()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
 
@@ -94,7 +97,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_not_found_if_participant_is_found()
+        public async Task Should_return_not_found_if_participant_is_found()
         {
             const string username = "SomeUnknownUsername";
 
@@ -109,7 +112,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_ok_if_participant_is_found()
+        public async Task Should_return_ok_if_participant_is_found()
         {
             var participants = new List<Participant>
             {
@@ -133,10 +136,13 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_not_found_if_no_test_score_is_not_found()
+        public async Task Should_return_not_found_if_no_test_score_is_not_found()
         {
-            _kinlyPlatformService
-                .Setup(x => x.GetTestCallScoreAsync(It.IsAny<Guid>()))
+            _pollyRetryService
+                .Setup(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
+                (
+                    It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), null, It.IsAny<Func<Task<TestCallResult>>>())
+                )
                 .ThrowsAsync(new NotFoundException("any"));
 
             var result = await _controller.GetTestCallResultForParticipant(Guid.NewGuid());
@@ -146,12 +152,15 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_ok_if_no_test_score_is_found()
+        public async Task Should_return_ok_if_no_test_score_is_found()
         {
             var expectedResult = new TestCallResult(true, TestScore.Good);
 
-            _kinlyPlatformService
-                .Setup(x => x.GetTestCallScoreAsync(It.IsAny<Guid>()))
+            _pollyRetryService
+                .Setup(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
+                (
+                    It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), null, It.IsAny<Func<Task<TestCallResult>>>())
+                )
                 .ReturnsAsync(expectedResult);
 
             var result = await _controller.GetTestCallResultForParticipant(Guid.NewGuid());
