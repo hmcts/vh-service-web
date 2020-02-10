@@ -112,13 +112,13 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   call() {
     this.didTestComplete = false;
     this.testScore = null;
-    const conferenceAlias = 'testcall1';
+    const conferenceAlias = 'testcall2';
     const tokenOptions = btoa(`${this.token.expires_on};${this.participantId};${this.token.token}`);
     if (this.pexipAPI) {
       this.logger.event('(call -> About to make pexip call.)',
         { hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias });
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
-    }
+      }
   }
 
   get streamsActive() {
@@ -236,7 +236,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event(`telemetry:serviceweb:any:selftest:score:${score.score}`);
 
       this.model.selfTest.selfTestResultScore = score.score;
-    }, (error) => {
+     }, (error) => {
       this.model.selfTest.selfTestResultScore = 'None';
 
       this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error),
@@ -249,6 +249,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   async replayVideo() {
+
     this.logger.event('(replayVideo -> Replaying Video.)',
       { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
@@ -256,6 +257,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.dispose();
     try {
       await this.setupPexipClient();
+      this.didTestComplete = true;
     } catch (error) {
 
       if (error.toString().includes(this.NotAllowedError)) {
@@ -303,7 +305,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     }
     this.pexipAPI = null;
     this.logger.event('telemetry:serviceweb:any:selftest:complete');
-    this.retrieveSelfTestScore();
     this.journey.goto(SelfTestJourneySteps.CameraWorking);
   }
 

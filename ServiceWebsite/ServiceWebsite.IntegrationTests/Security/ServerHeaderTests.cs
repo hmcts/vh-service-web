@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NUnit.Framework;
 using ServiceWebsite.IntegrationTests.Controller;
 
 namespace ServiceWebsite.IntegrationTests.Security
@@ -11,7 +10,7 @@ namespace ServiceWebsite.IntegrationTests.Security
         private const string Uri = "https://localhost:5200/api/config";
         
         //[Test]
-        public async Task should_return_no_sniff_header()
+        public async Task Should_return_no_sniff_header()
         {
             var headerName = "X-Content-Type-Options";
             var headerValue = "nosniff";
@@ -22,7 +21,7 @@ namespace ServiceWebsite.IntegrationTests.Security
         }
         
         //[Test]
-        public async Task should_return_xss_protection_header()
+        public async Task Should_return_xss_protection_header()
         {
             var headerName = "X-Xss-Protection";
             var headerValue = "1; mode=block";
@@ -33,7 +32,7 @@ namespace ServiceWebsite.IntegrationTests.Security
         }
         
         //[Test]
-        public async Task should_return_cache_control_headers()
+        public async Task Should_return_cache_control_headers()
         {
             var response = await SendGetRequestAsync(Uri);
             var cacheControl = response.Headers.CacheControl;

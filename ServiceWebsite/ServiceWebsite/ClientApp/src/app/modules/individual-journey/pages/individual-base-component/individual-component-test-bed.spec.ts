@@ -15,6 +15,7 @@ import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { SubmitService } from '../../services/submit.service';
 import { TestLogger } from 'src/app/services/logger.spec';
+import { LongDatePipe } from 'src/app/modules/shared/date.pipe';
 
 export interface IndividualComponentTestBedConfiguration<TComponent> extends ComponentTestBedConfiguration<TComponent> {
   journey?: IndividualJourney;
@@ -70,6 +71,7 @@ export class IndividualJourneyComponentTestBed {
         component: config.component,
         declarations: [
           LongDatetimePipe,
+          LongDatePipe,
           ...(config.declarations || [])
         ],
         providers: [

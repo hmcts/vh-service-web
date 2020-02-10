@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace ServiceWebsite
 {
@@ -10,11 +10,15 @@ namespace ServiceWebsite
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-        {
-            return WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(c => c.AddServerHeader = false)
-                .UseStartup<Startup>();
-        }
+        public static IHostBuilder CreateWebHostBuilder(string[] args) =>
+                Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureKestrel(serverOptions =>
+                    {
+                        serverOptions.AddServerHeader = false;
+                    })
+                    .UseStartup<Startup>();
+                });
     }
 }

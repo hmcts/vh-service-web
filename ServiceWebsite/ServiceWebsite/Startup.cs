@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.SpaServices;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using ServiceWebsite.Common;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
@@ -39,7 +41,15 @@ namespace ServiceWebsite
         {
             services.AddSingleton<ITelemetryInitializer>(new CloudRoleNameInitializer());
 
-            services.AddCors();
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowCredentials();
+                }));
 
             services.AddJsonOptions();
 
@@ -47,11 +57,11 @@ namespace ServiceWebsite
 
             services.AddCustomTypes();
 
-            var settings = Configuration.Get<EnvironmentSettings>();
+            var settings = Configuration.GetSection("AzureAd").Get<SecuritySettings>();
             services.AddApplicationInsightsTelemetry(settings.AppInsightsKey);
 
             RegisterAuth(services);
-            services.AddMvc();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -64,10 +74,6 @@ namespace ServiceWebsite
             services.Configure<SecuritySettings>(options => Configuration.Bind("AzureAd", options));
             services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
-            services.Configure<SecuritySettings>(options => Configuration.Bind("ApplicationInsights", options));
-            services.Configure<EnvironmentSettings>(options => Configuration.Bind(options));
-            services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
-            services.Configure<EnvironmentSettings>(options => Configuration.Bind("AzureStorage", options));
 
             var customTokenSettings = Configuration.GetSection("CustomToken").Get<CustomTokenSettings>();
             services.AddSingleton(customTokenSettings);
@@ -75,7 +81,7 @@ namespace ServiceWebsite
 
         private void RegisterAuth(IServiceCollection services)
         {
-            var settings = Configuration.Get<EnvironmentSettings>();
+            var securitySettings = Configuration.GetSection("AzureAd").Get<SecuritySettings>();
 
             var policy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
@@ -89,9 +95,9 @@ namespace ServiceWebsite
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = settings.Authority + settings.TenantId;
+                options.Authority = securitySettings.Authority;
                 options.TokenValidationParameters.ValidateLifetime = true;
-                options.Audience = settings.ClientId;
+                options.Audience = securitySettings.ClientId;
                 options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
             });
 
@@ -103,14 +109,17 @@ namespace ServiceWebsite
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            if (!env.IsProduction())
             {
-                const string url = "/swagger/v1/swagger.json";
-                c.SwaggerEndpoint(url, "Video Hearings Website backend");
-            });
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    const string url = "/swagger/v1/swagger.json";
+                    c.SwaggerEndpoint(url, "Video Hearings Website backend");
+                });
+            }
 
             if (env.IsDevelopment())
             {
@@ -124,17 +133,22 @@ namespace ServiceWebsite
                 app.UseHttpsRedirection();
             }
 
-            app.UseAuthentication();
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowCredentials()
-                .AllowAnyHeader());
+            app.UseRouting();
+            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
 
             app.UseMiddleware<ExceptionMiddleware>();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+
 
             // HTTP Response Headers
             app.UseXContentTypeOptions();
@@ -143,13 +157,6 @@ namespace ServiceWebsite
             app.UseNoCacheHttpHeaders();
             app.UseHsts(options => options.MaxAge(365).IncludeSubdomains());
             app.UseXfo(options => options.SameOrigin());
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
 
             app.UseSpa(spa =>
             {

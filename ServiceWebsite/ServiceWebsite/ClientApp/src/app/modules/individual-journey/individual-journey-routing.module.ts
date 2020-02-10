@@ -19,6 +19,7 @@ import { AboutYourComputerComponent } from './pages/about-your-computer/about-yo
 import { YourInternetConnectionComponent } from './pages/your-internet-connection/your-internet-connection.component';
 import { AccessToRoomComponent } from './pages/access-to-room/access-to-room.component';
 import { ConsentComponent } from './pages/consent/consent.component';
+import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { VideoViewComponent } from './components/video-view/video-view.component';
 import { IndividualGuard } from './individual.gaurd';
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: Paths.YourInternetConnection, component: YourInternetConnectionComponent, canActivate: [IndividualGuard] },
   { path: Paths.AccessToRoom, component: AccessToRoomComponent, canActivate: [IndividualGuard] },
   { path: Paths.Consent, component: ConsentComponent, canActivate: [IndividualGuard] },
+  { path: Paths.AnswersSaved, component: AnswersSavedComponent, canActivate: [IndividualGuard] },
   { path: Paths.ThankYou, component: ThankYouComponent, canActivate: [IndividualGuard] }
 ];
 
@@ -59,6 +61,7 @@ export const Components = [
   YourInternetConnectionComponent,
   AccessToRoomComponent,
   ConsentComponent,
+  AnswersSavedComponent,
   ThankYouComponent,
   VideoViewComponent
 ];
