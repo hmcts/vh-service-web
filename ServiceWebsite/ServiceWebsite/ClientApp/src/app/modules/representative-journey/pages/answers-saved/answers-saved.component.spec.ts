@@ -20,7 +20,6 @@ describe('AnswersSavedComponent', () => {
 
     const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
     fixture.submitIsClicked();
-
     expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CheckYourComputer);
   });
 });

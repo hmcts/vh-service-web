@@ -59,6 +59,7 @@
     <None Remove="ClientApp\src\app\modules\representative-journey\representative.gaurd.ts" />
     <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <None Remove="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
+    <None Remove="ClientApp\src\app\testing\mocks\mock-activated-route.ts" />
     <None Remove="ClientApp\src\typings.d.ts" />
   </ItemGroup>
 
@@ -76,6 +77,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\modules\representative-journey\representative.gaurd.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\shared\validators\whitespace-validator.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\testing\mocks\mock-activated-route.ts" />
     <TypeScriptCompile Include="ClientApp\src\typings.d.ts" />
   </ItemGroup>
 

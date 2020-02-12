@@ -32,13 +32,17 @@ describe('OtherInformationComponent', () => {
     fixture.detectChanges();
   });
 
-  it(`should submit questionnaire and go to ${RepresentativeJourneySteps.AnswersSaved} after having selected an option`, fakeAsync(() => {
+  it(`should go to ${RepresentativeJourneySteps.CheckYourAnswers} on continuing`, fakeAsync(() => {
+    // fixture.radioBoxIsClicked('#choice-no');
+    //fixture.submitIsClicked();
+
+    //  expect(journey.model.otherInformation.answer).toBe(false);
+    // expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.CheckYourAnswers);
+
     fixture.radioBoxIsClicked('#choice-no');
     fixture.submitIsClicked();
-    tick();
-
     expect(journey.model.otherInformation.answer).toBe(false);
-    expect(journey.submitQuestionnaire).toHaveBeenCalled();
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AnswersSaved);
-   }));
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.CheckYourAnswers);
+  }));
+   
 });

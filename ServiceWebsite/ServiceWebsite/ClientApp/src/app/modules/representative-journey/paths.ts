@@ -8,5 +8,6 @@ export const Paths = {
     YourVideoHearing: 'your-video-hearing',
     PresentingTheCase: 'presenting-the-case',
     OtherInformation: 'other-information',
+    CheckYourAnswers: 'check-your-ansswers',
     AnswersSaved: 'answers-saved',
 };

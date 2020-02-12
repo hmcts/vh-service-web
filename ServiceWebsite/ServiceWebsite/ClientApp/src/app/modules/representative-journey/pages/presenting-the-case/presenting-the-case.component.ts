@@ -5,6 +5,7 @@ import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { FormControl, Validators } from '@angular/forms';
 import { Constants } from '../../../shared/constants';
+import { ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-presenting-the-case',
@@ -18,10 +19,14 @@ export class PresentingTheCaseComponent extends SuitabilityChoicePageBaseCompone
     readonly presentingCaseName = new FormControl('');
     readonly presentingCaseEmail = new FormControl('');
     isValidEmail = true;
+    mode: string;
 
-    constructor(journey: RepresentativeJourney) {
-        super(journey);
-    }
+  constructor(journey: RepresentativeJourney, private route: ActivatedRoute) {
+    super(journey);
+    this.route.queryParams.subscribe(params => {
+      this.mode = params['mode'];
+    });
+  }
 
     ngOnInit(): void {
         this.initForm();
@@ -94,8 +99,15 @@ export class PresentingTheCaseComponent extends SuitabilityChoicePageBaseCompone
     }
 
     async submit(): Promise<void> {
-        if (this.isValidEmail && this.trySubmit()) {
-            this.journey.goto(RepresentativeJourneySteps.OtherInformation);
+      if (this.isValidEmail && this.trySubmit()) {
+        console.log(this.mode);
+        if (this.mode != undefined && this.mode == "Edit") {
+          this.journey.goto(RepresentativeJourneySteps.CheckYourAnswers);
+        } else {
+          this.journey.goto(RepresentativeJourneySteps.OtherInformation);
+         
+        }
+            
         }
     }
 }

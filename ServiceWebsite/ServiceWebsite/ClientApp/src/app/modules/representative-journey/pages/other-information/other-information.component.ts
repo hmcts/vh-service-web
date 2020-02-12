@@ -17,9 +17,13 @@ export class OtherInformationComponent {
   get model(): RepresentativeSuitabilityModel {
     return this.journey.model;
   }
+  // async submit(): Promise<void> {
+  //  // await this.journey.submitQuestionnaire();
+  //  this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
+  //  this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
+  // }
+
   async submit(): Promise<void> {
-    await this.journey.submitQuestionnaire();
-    this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
-    this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
-  }
+    this.journey.goto(RepresentativeJourneySteps.CheckYourAnswers);
+     }
 }

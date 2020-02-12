@@ -4,7 +4,6 @@ import {RepresentativeSuitabilityModel} from '../../representative-suitability.m
 import {SelfTestJourneySteps} from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
-
 @Component({
   selector: 'app-check-your-answers',
   templateUrl: './check-your-answers.component.html',
@@ -12,6 +11,7 @@ import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 })
 
 export class CheckYourAnswersComponent {
+  mode: string;
   constructor(private journey: RepresentativeJourney) {
   }
 
@@ -20,6 +20,7 @@ export class CheckYourAnswersComponent {
   }
 
   continue() {
+    this.journey.model.checkYourAnswers = true;
     this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
   }
 }

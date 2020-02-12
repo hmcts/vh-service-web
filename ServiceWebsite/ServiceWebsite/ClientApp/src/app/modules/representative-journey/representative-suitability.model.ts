@@ -26,7 +26,12 @@ export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabil
     otherInformation: SuitabilityAnswer;
 
     presentingTheCase: PresentingTheCase;
-    presentingCaseDetails: PresentingCaseDetails;
+  presentingCaseDetails: PresentingCaseDetails;
+  checkYourAnswers: boolean;
+
+
+
+
 
     isCompleted(): boolean {
         return this.selfTest !== undefined && this.selfTest.isCompleted();
