@@ -16,6 +16,10 @@
         Who'll be presenting the case?
       </h2>
       <table class="govuk-table bottom-border">
+              <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+          </tr>
+        </thead>
         <tbody class="govuk-table__body">
           <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.fullName!=''">
             <th scope="row" class="govuk-table__header vh-col-width" i18n="@@questionnaireCompleted_td_question_6">Name</th>
@@ -47,6 +51,10 @@
       </table>
       <h2 class="govuk-heading-m govuk-!-margin-top-8">Other information for the court?</h2>
       <table class="govuk-table bottom-border">
+              <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+          </tr>
+        </thead>
         <tbody class="govuk-table__body">
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header vh-col-width">{{model.otherInformation.answer?"Yes":"No"}}</th>
