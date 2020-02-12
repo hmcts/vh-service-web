@@ -16,15 +16,9 @@
         Who'll be presenting the case?
       </h2>
       <table class="govuk-table bottom-border">
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-          </tr>
-        </thead>
         <tbody class="govuk-table__body">
           <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.fullName!=''">
-            <td class="govuk-table__cell govuk-table__header" i18n="@@questionnaireCompleted_td_question_6">
-              Name
-            </td>
+            <th scope="row" class="govuk-table__header vh-col-width" i18n="@@questionnaireCompleted_td_question_6">Name</th>
             <td id="COMPUTER" class="govuk-table__cell text-align-right">
               {{ model.presentingCaseDetails.fullName }}
             </td>
@@ -33,9 +27,7 @@
             </td>
           </tr>
           <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.email!=''">
-            <td class="govuk-table__cell govuk-table__header" i18n="@@questionnaireCompleted_td_question_6">
-              Email
-            </td>
+            <th scope="row" class="govuk-table__header vh-col-width" i18n="@@questionnaireCompleted_td_question_6">Email</th>
             <td id="COMPUTER" class="govuk-table__cell text-align-right">
               {{ model.presentingCaseDetails.email }}
             </td>
@@ -55,15 +47,9 @@
       </table>
       <h2 class="govuk-heading-m govuk-!-margin-top-8">Other information for the court?</h2>
       <table class="govuk-table bottom-border">
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-          </tr>
-        </thead>
-
         <tbody class="govuk-table__body">
-
           <tr class="govuk-table__row">
-            <td class="govuk-table__cell govuk-table__header vh-col-width">{{model.otherInformation.answer?"Yes":"No"}}</td>
+            <th scope="row" class="govuk-table__header vh-col-width">{{model.otherInformation.answer?"Yes":"No"}}</th>
             <td class="govuk-table__cell">{{model.otherInformation.notes}}</td>
             <td class="govuk-table__cell govuk-table__cell--numeric">
               <a routerLink="/other-information" [queryParams]="{mode: 'Edit'}" routerLinkActive="active">Change</a>
