@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
-import {RepresentativeJourney} from '../../representative-journey';
-import {RepresentativeSuitabilityModel} from '../../representative-suitability.model';
-import {SelfTestJourneySteps} from 'src/app/modules/self-test-journey/self-test-journey-steps';
+import { Component } from '@angular/core';
+import { RepresentativeJourney } from '../../representative-journey';
+import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 @Component({
