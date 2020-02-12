@@ -43,14 +43,6 @@ describe('PresentingTheCaseComponent', () => {
     fixture.submitIsClicked();
     expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.OtherInformation);
   });
-  //it(`should go to ${RepresentativeJourneySteps.OtherInformation} on continuing`, () => {
-  //  fixture.radioBoxIsClicked('#choice-no');
-  //  fixture.submitIsClicked();
-  //  tick();
-  //  expect(journey.model.otherInformation.answer).toBe(false);
-  //  expect(journey.submitQuestionnaire).toHaveBeenCalled();
-  //  expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.CheckYourAnswers);
-  //});
   it('should not show presenting the case person details if the selected option is I will be presenting', () => {
     component.toggelPresenterCaseDetails(PresentingTheCase.IWillBePresentingTheCase);
     expect(component.showPresenterDetails).toBeFalsy();

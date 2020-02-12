@@ -30,7 +30,8 @@ export class PresentingTheCaseComponent extends SuitabilityChoicePageBaseCompone
 
     ngOnInit(): void {
         this.initForm();
-        if (this.model.presentingTheCase !== undefined && this.model.presentingTheCase !== null) {
+      if (this.model.presentingTheCase !== undefined &&
+        this.model.presentingTheCase !== null) {
             this.choice.setValue(this.model.presentingTheCase);
             this.showPresenterDetails = this.model.presentingTheCase === this.presentingTheCase.SomeoneWillBePresenting;
             if (this.showPresenterDetails && this.model.presentingCaseDetails) {
@@ -101,13 +102,13 @@ export class PresentingTheCaseComponent extends SuitabilityChoicePageBaseCompone
     async submit(): Promise<void> {
       if (this.isValidEmail && this.trySubmit()) {
         console.log(this.mode);
-        if (this.mode != undefined && this.mode == "Edit") {
+        if (this.mode !== undefined && this.mode === 'Edit') {
           this.journey.goto(RepresentativeJourneySteps.CheckYourAnswers);
         } else {
           this.journey.goto(RepresentativeJourneySteps.OtherInformation);
-         
+
         }
-            
+
         }
     }
 }

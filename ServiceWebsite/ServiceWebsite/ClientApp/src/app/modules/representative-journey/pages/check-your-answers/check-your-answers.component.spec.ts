@@ -15,10 +15,10 @@ describe('CheckYourAnswersComponent', () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
     journey.model.presentingCaseDetails = new PresentingCaseDetails();
 
-    journey.model.presentingCaseDetails.email = "TestUser@test.com";
-    journey.model.presentingCaseDetails.fullName = "Mr TestUser";
+    journey.model.presentingCaseDetails.email = 'TestUser@test.com';
+    journey.model.presentingCaseDetails.fullName = 'Mr TestUser';
     journey.model.otherInformation.answer = true;
-    journey.model.otherInformation.notes = "Test Notes";
+    journey.model.otherInformation.notes = 'Test Notes';
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: CheckYourAnswersComponent,
       declarations: [BackNavigationStubComponent],

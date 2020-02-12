@@ -67,7 +67,9 @@ export class RepresentativeJourney extends JourneyBase {
 
     private isQuestionnaireCompleted(): boolean {
       // if we've dropped out on question other information which is the last
-      return this.currentModel.otherInformation !== undefined && this.currentModel.otherInformation.answer !== undefined && this.currentModel.checkYourAnswers;
+      return this.currentModel.otherInformation !== undefined
+        && this.currentModel.otherInformation.answer !== undefined
+        && this.currentModel.checkYourAnswers;
     }
 
     private isQuestionnaireStep(step: JourneyStep): boolean {
@@ -79,9 +81,9 @@ export class RepresentativeJourney extends JourneyBase {
     }
 
   goto(step: JourneyStep) {
-    console.log("Current Step --- " + this.currentStep);
-    console.log("Step --- " + this.step);
-    if (this.step == RepresentativeJourneySteps.CheckYourAnswers || this.currentStep !== step) {
+
+    if (this.step === RepresentativeJourneySteps.CheckYourAnswers ||
+      this.currentStep !== step) {
             this.redirect.emit(step);
         }
     }
