@@ -10,7 +10,8 @@ Scenario: Test Your Equipment Individual
 	When the Test Your Equipment video has ended
 	And the user clicks the Watch the video again button
 	Then the Test Your Equipment video begins to play
-	When the user clicks the Continue button
+	When the Test Your Equipment video has ended
+	And the user clicks the Continue button
 	Then the user is on the Camera Working page
 	When the user signs out 
 	Then only the about you answers have been stored
@@ -22,23 +23,8 @@ Scenario: Test Your Equipment Representative
 	When the Test Your Equipment video has ended
 	And the user clicks the Watch the video again button
 	Then the Test Your Equipment video begins to play
-	When the user clicks the Continue button
+	When the Test Your Equipment video has ended
+	And the user clicks the Continue button
 	Then the user is on the Camera Working page
 	When the user signs out 
 	Then only the your hearing answers have been stored
-
-Scenario: Individual Self Test Score 
-	Given the Individual has progressed to the Test Your Equipment page
-	Then the Test Your Equipment video begins to play
-	When the Test Your Equipment video has ended
-	And the user clicks the Continue button
-	And the Individual progresses from the Camera Working page to the Thank You page
-	Then the self test score is set in the results
-
-Scenario: Representative Self Test Score 
-	Given the Representative has progressed to the Test Your Equipment page
-	Then the Test Your Equipment video begins to play
-	When the Test Your Equipment video has ended
-	And the user clicks the Continue button
-	And the Representative progresses from the Camera Working page to the Thank You Rep page
-	Then the self test score is set in the results

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
@@ -14,6 +17,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class AnswersSteps
     {
+        private const int Timeout = 30;
         private readonly TestContext _c;
 
         public AnswersSteps(TestContext testContext)
@@ -55,7 +59,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().BeGreaterThan(0);
-            RemoveSelfTestQuestion(answers);
             answers.Count.Should().Be(_c.Test.Answers.Count);
             new VerifyAnswersMatch().Expected(_c.Test.Answers).Actual(answers);
         }
@@ -65,15 +68,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var answers = GetAnswersFromBookingsApi();
             answers.Count.Should().Be(0);
-        }
-
-        private void RemoveSelfTestQuestion(IEnumerable<SuitabilityAnswerResponse> answers)
-        {
-            if (_c.Test.Answers.Any(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)) &&
-                !answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)))
-            {
-                _c.Test.Answers.Remove(_c.Test.Answers.First(x => x.QuestionKey.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)));
-            }
         }
 
         [Then(@"only the about you answers have been stored")]

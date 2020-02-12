@@ -75,6 +75,7 @@ describe('TestYourEquipmentComponent', () => {
       model: model
     });
 
+    fixture.componentInstance.didTestComplete  = true;
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
 

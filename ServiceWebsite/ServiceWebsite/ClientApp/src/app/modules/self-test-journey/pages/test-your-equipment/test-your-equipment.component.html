@@ -3,6 +3,11 @@
     <app-back-navigation></app-back-navigation>
   </div>
 </div>
+<div>
+  <h1 class="govuk-heading-xl mb-2" i18n="@@test_your_equipment_h1">
+    Testing your equipment
+  </h1>
+</div>
 <div class="govuk-grid-row">
   <div *ngIf="!displayFeed && !didTestComplete" class="govuk-grid-column-full">
     <p class="govuk-body-l" i18n="@@test_your_equipment_p_1">Please wait to be connected...</p>
@@ -48,9 +53,9 @@
 <div>
 
   <button i18n="@@test_your_equipment_btn_next" class="govuk-button govuk-!-margin-right-1" (click)="continue()"
-    id="continue" data-module="govuk-button" alt="Continue">
-    Continue</button>
-
+        [disabled]="!didTestComplete" [ngClass]="didTestComplete ? 'govuk-button' : 'govuk-button--disabled'"
+          id="continue" data-module="govuk-button" alt="Continue">
+  Continue</button>
   <button i18n="@@test_your_equipment_btn_replay" class="govuk-button govuk-button--secondary" (click)="replayVideo()"
     id="replay-video" alt="Watch the video again" data-module="govuk-button">
     Watch the video again</button>

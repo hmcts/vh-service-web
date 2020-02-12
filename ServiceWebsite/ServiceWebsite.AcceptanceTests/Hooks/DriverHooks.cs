@@ -28,7 +28,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigureDriverHooks)]
-        private void ConfigureDriver(TestContext context, ScenarioContext scenarioContext)
+        public void ConfigureDriver(TestContext context, ScenarioContext scenarioContext)
         {
             context.ServiceWebConfig.TestConfig.TargetBrowser = _driverManager.GetTargetBrowser(NUnit.Framework.TestContext.Parameters["TargetBrowser"]);
             context.ServiceWebConfig.TestConfig.TargetDevice = _driverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
