@@ -22,7 +22,9 @@
         </thead>
         <tbody class="govuk-table__body">
           <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.fullName!=''">
-            <th scope="row" class="govuk-table__header vh-col-width" i18n="@@questionnaireCompleted_td_question_6">Name</th>
+            <td class="govuk-table__cell govuk-table__header" i18n="@@questionnaireCompleted_td_question_6">
+              Name
+            </td>
             <td id="COMPUTER" class="govuk-table__cell text-align-right">
               {{ model.presentingCaseDetails.fullName }}
             </td>
@@ -31,7 +33,7 @@
             </td>
           </tr>
           <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.email!=''">
-            <th scope="row" class="govuk-table__header vh-col-width" i18n="@@questionnaireCompleted_td_question_6">Email</th>
+            <td class="govuk-table__header vh-col-width" i18n="@@questionnaireCompleted_td_question_6">Email</td>
             <td id="COMPUTER" class="govuk-table__cell text-align-right">
               {{ model.presentingCaseDetails.email }}
             </td>
