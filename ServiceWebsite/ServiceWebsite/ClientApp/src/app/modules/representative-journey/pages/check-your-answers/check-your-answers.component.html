@@ -59,7 +59,7 @@
         </thead>
         <tbody class="govuk-table__body">
           <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header vh-col-width">{{model.otherInformation.answer?"Yes":"No"}}</th>
+            <td class="govuk-table__header vh-col-width">{{model.otherInformation.answer?"Yes":"No"}}</td>
             <td class="govuk-table__cell">{{model.otherInformation.notes}}</td>
             <td class="govuk-table__cell govuk-table__cell--numeric">
               <a routerLink="/other-information" [queryParams]="{mode: 'Edit'}" routerLinkActive="active">Change</a>
