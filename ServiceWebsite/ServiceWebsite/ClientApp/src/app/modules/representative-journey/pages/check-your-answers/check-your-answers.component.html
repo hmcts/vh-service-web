@@ -22,10 +22,10 @@
         </thead>
         <tbody class="govuk-table__body">
           <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.fullName!=''">
-            <td class="govuk-table__cell govuk-table__header" i18n="@@questionnaireCompleted_td_question_6">
+            <td class="govuk-table__cell govuk-table__header" i18n="@@checkYourAnswers_td_fullName_6">
               Name
             </td>
-            <td id="COMPUTER" class="govuk-table__cell text-align-right">
+            <td id="fullName" class="govuk-table__cell text-align-right">
               {{ model.presentingCaseDetails.fullName }}
             </td>
             <td class="govuk-table__cell govuk-table__cell--numeric">
@@ -33,8 +33,8 @@
             </td>
           </tr>
           <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.email!=''">
-            <td class="govuk-table__header vh-col-width" i18n="@@questionnaireCompleted_td_question_6">Email</td>
-            <td id="COMPUTER" class="govuk-table__cell text-align-right">
+            <td class="govuk-table__header vh-col-width" i18n="@@checkYourAnswers_td_email">Email</td>
+            <td id="email" class="govuk-table__cell text-align-right">
               {{ model.presentingCaseDetails.email }}
             </td>
             <td class="govuk-table__cell govuk-table__cell--numeric">
@@ -42,7 +42,7 @@
             </td>
           </tr>
           <tr class="govuk-table__row" *ngIf="model.presentingCaseDetails.fullName=='' &&  model.presentingCaseDetails.email==''">
-            <td class="govuk-table__cell govuk-table__header" colspan="2" i18n="@@questionnaireCompleted_td_question_6">
+            <td class="govuk-table__cell govuk-table__header" colspan="2" i18n="@@checkYourAnswers_td_presentingTheCase">
               I will be presesenting the case
             </td>
             <td class="govuk-table__cell govuk-table__cell--numeric">
@@ -59,8 +59,8 @@
         </thead>
         <tbody class="govuk-table__body">
           <tr class="govuk-table__row">
-            <td class="govuk-table__header vh-col-width">{{model.otherInformation.answer?"Yes":"No"}}</td>
-            <td class="govuk-table__cell">{{model.otherInformation.notes}}</td>
+            <td class="govuk-table__header vh-col-width" i18n="@@checkYourAnswers_td_presentingTheCase">{{model.otherInformation.answer?"Yes":"No"}}</td>
+            <td id="otherInformation" class="govuk-table__cell">{{model.otherInformation.notes}}</td>
             <td class="govuk-table__cell govuk-table__cell--numeric">
               <a routerLink="/other-information" [queryParams]="{mode: 'Edit'}" routerLinkActive="active">Change</a>
             </td>
