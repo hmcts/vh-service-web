@@ -1,80 +1,80 @@
 <div class="govuk-grid-row vh-back-bottom">
-  <div class="govuk-grid-column-full">
-    <app-back-navigation></app-back-navigation>
-  </div>
+    <div class="govuk-grid-column-full">
+        <app-back-navigation></app-back-navigation>
+    </div>
 </div>
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl" i18n="@@questionnaireCompleted_h1">
-      Check your answers
-    </h1>
-    <div>
-      <app-hearing-details-header></app-hearing-details-header>
-    </div>
-    <div>
-      <h2 class="govuk-heading-m" i18n="@@questionnaireCompleted_h2_question_title5">
-        Who'll be presenting the case?
-      </h2>
-      <table class="govuk-table bottom-border" role="none">
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.fullName!=''">
-            <td class="govuk-table__cell govuk-table__header" i18n="@@checkYourAnswers_td_fullName_6">
-              Name
-            </td>
-            <td id="fullName" class="govuk-table__cell text-align-right">
-              {{ model.presentingCaseDetails.fullName }}
-            </td>
-            <td class="govuk-table__cell govuk-table__cell--numeric">
-              <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active">Change</a>
-            </td>
-          </tr>
-          <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.email!=''">
-            <td class="govuk-table__header vh-col-width" i18n="@@checkYourAnswers_td_email">Email</td>
-            <td id="email" class="govuk-table__cell text-align-right">
-              {{ model.presentingCaseDetails.email }}
-            </td>
-            <td class="govuk-table__cell govuk-table__cell--numeric">
-              <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active">Change</a>
-            </td>
-          </tr>
-          <tr class="govuk-table__row" *ngIf="model.presentingCaseDetails.fullName=='' &&  model.presentingCaseDetails.email==''">
-            <td class="govuk-table__cell govuk-table__header" id="presentingAnswer" colspan="2" i18n="@@checkYourAnswers_td_presentingTheCase">
-              I'll be presenting the case
-            </td>
-            <td class="govuk-table__cell govuk-table__cell--numeric">
-              <a id="changePresenter" routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active">Change</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <h2 class="govuk-heading-m govuk-!-margin-top-8">Other information for the court?</h2>
-      <table class="govuk-table bottom-border" role="none">
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          <tr class="govuk-table__row">
-            <td class="govuk-table__header vh-col-width" id="otherInformationAnswer" i18n="@@checkYourAnswers_td_presentingTheCase">{{model.otherInformation.answer?"Yes":"No"}}</td>
-            <td id="otherInformation" class="govuk-table__cell">{{model.otherInformation.notes}}</td>
-            <td class="govuk-table__cell govuk-table__cell--numeric">
-              <a id="changeOtherInformation" routerLink="/other-information" [queryParams]="{mode: 'Edit'}" routerLinkActive="active">Change</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" i18n="@@questionnaireCompleted_h1">
+            Check your answers
+        </h1>
+        <div>
+            <app-hearing-details-header></app-hearing-details-header>
+        </div>
+        <div>
+            <h2 class="govuk-heading-m" i18n="@@questionnaireCompleted_h2_question_title5">
+                Who'll be presenting the case?
+            </h2>
+            <table class="govuk-table bottom-border" role="none">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.fullName!=''">
+                        <td class="govuk-table__cell govuk-table__header" i18n="@@checkYourAnswers_td_fullName_6">
+                            Name
+                        </td>
+                        <td id="fullName" class="govuk-table__cell text-align-right">
+                            {{ model.presentingCaseDetails.fullName }}
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">
+                            <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.email!=''">
+                        <td class="govuk-table__header vh-col-width" i18n="@@checkYourAnswers_td_email">Email</td>
+                        <td id="email" class="govuk-table__cell text-align-right">
+                            {{ model.presentingCaseDetails.email }}
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">
+                            <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row" *ngIf="model.presentingCaseDetails.fullName=='' &&  model.presentingCaseDetails.email==''">
+                        <td class="govuk-table__cell govuk-table__header" id="presentingAnswer" colspan="2" i18n="@@checkYourAnswers_td_presentingTheCase">
+                            I'll be presenting the case
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">
+                            <a id="changePresenter" routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class="govuk-heading-m govuk-!-margin-top-8">Other information for the court?</h2>
+            <table class="govuk-table bottom-border" role="none">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__header vh-col-width" id="otherInformationAnswer" i18n="@@checkYourAnswers_td_presentingTheCase">{{model.otherInformation.answer?"Yes":"No"}}</td>
+                        <td id="otherInformation" class="govuk-table__cell">{{model.otherInformation.notes}}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">
+                            <a id="changeOtherInformation" routerLink="/other-information" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div class="mt-20">
-      <button class="govuk-button" (click)="continue()" i18n="@@answers_saved_btn_continue" id="continue" type="button">
+        <div class="mt-20">
+            <button class="govuk-button" (click)="continue()" i18n="@@answers_saved_btn_continue" id="continue" type="button">
         Save and continue
       </button>
+        </div>
     </div>
-  </div>
 </div>
 
 <app-contact-us></app-contact-us>
