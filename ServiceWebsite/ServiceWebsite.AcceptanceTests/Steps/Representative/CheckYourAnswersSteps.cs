@@ -41,7 +41,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.ChangeOtherInformationLink).Click();
             RemovePreviousAnswer(RepresentativeQuestionKeys.OtherInformation);
             _otherInformationSteps.WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreInformationTextfield();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.ContinueButton).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.ContinueButton).Click();
         }
 
         [Then(@"the answer for who'll be presenting is displayed correctly")]
