@@ -49,7 +49,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         public void ThenTheAnswerForWhoLlBePresentingIsDisplayedCorrectly()
         {
             var answer = _c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase));
-            if (answer.Answer.Equals("I'll be presenting the case"))
+            if (answer.Answer.Equals(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer))
             {
                 _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.PresentingAnswerText)
                     .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Answer);
