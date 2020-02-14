@@ -16,8 +16,7 @@ Scenario: Check Your Answers
 @VIH-5510
 Scenario: Check Your Answers change presenter
 	Given the Representative has progressed to the Check Your Answers page
-	Then contact details are available
-	And the hearing details are displayed correctly
+	Then the hearing details are displayed correctly
 	And the answer for who'll be presenting is displayed correctly
 	When the user changes who'll be presenting
 	Then the answer for who'll be presenting is displayed correctly
@@ -25,8 +24,7 @@ Scenario: Check Your Answers change presenter
 @VIH-5510
 Scenario: Check Your Answers change other information
 	Given the Representative has progressed to the Check Your Answers page
-	Then contact details are available
-	And the hearing details are displayed correctly
+	Then the hearing details are displayed correctly
 	And the answer for other information is displayed correctly
 	When the user changes the other information
 	Then the answer for other information is displayed correctly

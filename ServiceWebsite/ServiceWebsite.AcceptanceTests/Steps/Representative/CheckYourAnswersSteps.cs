@@ -48,8 +48,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [Then(@"the answer for who'll be presenting is displayed correctly")]
         public void ThenTheAnswerForWhoLlBePresentingIsDisplayedCorrectly()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.PresentingAnswerText)
-                .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Answer);
+            var answer = _c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase));
+            if (answer.Answer.Equals("I'll be presenting the case"))
+            {
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.PresentingAnswerText)
+                    .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Answer);
+            }
+            else
+            {
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.FullName)
+                    .Text.Trim().Should().Be(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.Email)
+                    .Text.Trim().Should().Be(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
+            }
         }
 
         [Then(@"the answer for other information is displayed correctly")]
