@@ -3035,19 +3035,6 @@ namespace ServiceWebsite.VideoAPI.Client
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.4.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ParticipantStatusResponse 
-    {
-        [Newtonsoft.Json.JsonProperty("participant_state", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public ParticipantState Participant_state { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("time_stamp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTime Time_stamp { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.4.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum TestScore
     {
         [System.Runtime.Serialization.EnumMember(Value = @"Good")]
@@ -3109,8 +3096,9 @@ namespace ServiceWebsite.VideoAPI.Client
         [Newtonsoft.Json.JsonProperty("representee", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Representee { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("current_status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ParticipantStatusResponse Current_status { get; set; }
+        [Newtonsoft.Json.JsonProperty("current_status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public ParticipantState Current_status { get; set; }
     
         [Newtonsoft.Json.JsonProperty("self_test_score", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public TestCallScoreResponse Self_test_score { get; set; }
