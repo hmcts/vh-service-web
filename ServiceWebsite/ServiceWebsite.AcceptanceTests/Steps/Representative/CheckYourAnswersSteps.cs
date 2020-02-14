@@ -54,9 +54,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [Then(@"the answer for other information is displayed correctly")]
         public void ThenTheAnswerForOtherInformationIsDisplayedCorrectly()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationText)
-                .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).Answer);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationAnswer)
+                .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).Answer);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationText)
                 .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).ExtendedAnswer);
         }
 

@@ -19,7 +19,6 @@ Scenario: Check Your Answers change presenter
 	Then contact details are available
 	And the hearing details are displayed correctly
 	And the answer for who'll be presenting is displayed correctly
-	And the answer for other information is displayed correctly
 	When the user changes who'll be presenting
 	Then the answer for who'll be presenting is displayed correctly
 	When the user signs out 
@@ -30,7 +29,6 @@ Scenario: Check Your Answers change other information
 	Given the Representative has progressed to the Check Your Answers page
 	Then contact details are available
 	And the hearing details are displayed correctly
-	And the answer for who'll be presenting is displayed correctly
 	And the answer for other information is displayed correctly
 	When the user changes the other information
 	Then the answer for other information is displayed correctly
