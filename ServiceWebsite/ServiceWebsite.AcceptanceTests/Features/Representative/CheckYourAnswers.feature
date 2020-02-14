@@ -10,8 +10,10 @@ Scenario: Check Your Answers
 	And the hearing details are displayed correctly
 	And the answer for who'll be presenting is displayed correctly
 	And the answer for other information is displayed correctly
+	When the user clicks the Save and continue button
+	Then the user is on the Answers Saved page
 	When the user signs out 
-	Then the answers have not been stored
+	Then the answers have been stored
 
 @VIH-5510
 Scenario: Check Your Answers change presenter
@@ -20,6 +22,8 @@ Scenario: Check Your Answers change presenter
 	And the answer for who'll be presenting is displayed correctly
 	When the user changes who'll be presenting
 	Then the answer for who'll be presenting is displayed correctly
+	When the user signs out 
+	Then the answers have not been stored
 
 @VIH-5510
 Scenario: Check Your Answers change other information
@@ -28,3 +32,5 @@ Scenario: Check Your Answers change other information
 	And the answer for other information is displayed correctly
 	When the user changes the other information
 	Then the answer for other information is displayed correctly
+	When the user signs out 
+	Then the answers have not been stored
