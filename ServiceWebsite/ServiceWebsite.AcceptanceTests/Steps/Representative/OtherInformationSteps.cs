@@ -27,7 +27,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.OtherInformation.Answer)).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Save and continue")).Click();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.OtherInformation.Answer,
