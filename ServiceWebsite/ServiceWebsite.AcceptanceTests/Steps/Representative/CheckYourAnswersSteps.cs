@@ -32,7 +32,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.ChangePresenterLink).Click();
             RemovePreviousAnswer(RepresentativeQuestionKeys.PresentingTheCase);
-            _presentingTheCaseSteps.WhenAddsDetailsOfWhoWillBePresentingTheCase();
+            _presentingTheCaseSteps.WhenTheUserSelectsSomeoneElseToPresent();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.ContinueButton).Click();
         }
 

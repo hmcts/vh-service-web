@@ -39,9 +39,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
             });
         }
 
+        public void WhenTheUserSelectsSomeoneElseToPresent()
+        {
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer)).Click();
+            WhenAddsDetailsOfWhoWillBePresentingTheCase();
+        }
+
         [When(@"adds details of who will be presenting the case")]
         public void WhenAddsDetailsOfWhoWillBePresentingTheCase()
         {
+            _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.FullNameTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(Keys.Tab);
