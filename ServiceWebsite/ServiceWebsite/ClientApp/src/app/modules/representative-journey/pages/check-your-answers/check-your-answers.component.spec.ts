@@ -13,29 +13,6 @@ import { Logger } from 'src/app/services/logger';
 import { MockLogger } from 'src/app/testing/mocks/mock-logger';
 import { fakeAsync } from '@angular/core/testing';
 
-/* describe('CheckYourAnswersComponent', () => {
-  it(`goes to ${RepresentativeJourneySteps} when pressing continue`, () => {
-    const journey = RepresentativeJourneyStubs.journeySpy;
-    journey.model.presentingCaseDetails = new PresentingCaseDetails();
-
-    journey.model.presentingCaseDetails.email = 'TestUser@test.com';
-    journey.model.presentingCaseDetails.fullName = 'Mr TestUser';
-    journey.model.otherInformation.answer = true;
-    journey.model.otherInformation.notes = 'Test Notes';
-    const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
-      component: CheckYourAnswersComponent,
-      declarations: [BackNavigationStubComponent],
-      imports: [RouterTestingModule],
-      journey: journey
-    });
-
-    const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
-    fixture.submitIsClicked();
-
-    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.AnswersSaved);
-  });
-}); */
-
 describe('CheckYourAnswersComponent', () => {
   let fixture: SuitabilityChoiceComponentFixture;
   let journey: jasmine.SpyObj<RepresentativeJourney>;

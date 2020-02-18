@@ -69,7 +69,6 @@ export class RepresentativeJourney extends JourneyBase {
       // if we've dropped out on question other information which is the last
       return this.currentModel.otherInformation !== undefined
         && this.currentModel.otherInformation.answer !== undefined;
-        // && this.currentModel.checkYourAnswers;
     }
 
     private isQuestionnaireStep(step: JourneyStep): boolean {
