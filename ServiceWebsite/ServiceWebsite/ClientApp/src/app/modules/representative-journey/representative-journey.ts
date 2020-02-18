@@ -68,8 +68,8 @@ export class RepresentativeJourney extends JourneyBase {
     private isQuestionnaireCompleted(): boolean {
       // if we've dropped out on question other information which is the last
       return this.currentModel.otherInformation !== undefined
-        && this.currentModel.otherInformation.answer !== undefined
-        && this.currentModel.checkYourAnswers;
+        && this.currentModel.otherInformation.answer !== undefined;
+        // && this.currentModel.checkYourAnswers;
     }
 
     private isQuestionnaireStep(step: JourneyStep): boolean {
@@ -80,13 +80,12 @@ export class RepresentativeJourney extends JourneyBase {
         return this.currentModel;
     }
 
-  goto(step: JourneyStep) {
-
-    if (this.step === RepresentativeJourneySteps.CheckYourAnswers ||
-      this.currentStep !== step) {
-            this.redirect.emit(step);
+    goto(step: JourneyStep) {
+        if (this.step === RepresentativeJourneySteps.CheckYourAnswers ||
+        this.currentStep !== step) {
+                this.redirect.emit(step);
+            }
         }
-    }
 
     async submitQuestionnaire(): Promise<void> {
         await this.submitService.submit(this.model);
@@ -101,7 +100,7 @@ export class RepresentativeJourney extends JourneyBase {
             return;
         }
 
-        if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position)) {
+        if (this.isQuestionnaireCompleted() && this.isQuestionnaireStep(position) && this.currentModel.checkYourAnswers) {
             const details = { requestedStep: position, details: 'Trying to go to non-self-test step but self-test is pending' };
             this.logger.event(`Redirecting user to self-test`, details);
             this.goto(SelfTestJourneySteps.CheckYourComputer);

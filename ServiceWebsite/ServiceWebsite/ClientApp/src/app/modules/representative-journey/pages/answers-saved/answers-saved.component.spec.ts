@@ -4,12 +4,11 @@ import {
   RepresentativeJourneyComponentTestBed,
   RepresentativeJourneyStubs
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
-import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
 describe('AnswersSavedComponent', () => {
-  it(`goes to ${RepresentativeJourneySteps} when pressing continue`, () => {
+  it(`goes to ${SelfTestJourneySteps.CheckYourComputer} when pressing continue`, () => {
     const journey = RepresentativeJourneyStubs.journeySpy;
 
     const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({

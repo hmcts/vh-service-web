@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
+import { Logger } from 'src/app/services/logger';
 
 @Component({
   selector: 'app-check-your-answers',
@@ -11,7 +12,7 @@ import { RepresentativeJourneySteps } from '../../representative-journey-steps';
 
 export class CheckYourAnswersComponent {
   mode: string;
-  constructor(private journey: RepresentativeJourney) {
+  constructor(private journey: RepresentativeJourney, private logger: Logger) {
   }
 
   get model(): RepresentativeSuitabilityModel {
@@ -19,8 +20,8 @@ export class CheckYourAnswersComponent {
   }
 
   continue() {
-    this.journey.model.checkYourAnswers = true;
+    this.journey.submitQuestionnaire();
+    this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
     this.journey.goto(RepresentativeJourneySteps.AnswersSaved);
   }
 }
-
