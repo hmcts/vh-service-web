@@ -21,6 +21,7 @@
   </OtherInformation>
   <PresentingTheCase>
     <Answer>I'll be presenting the case</Answer>
+    <AlternativeAnswer>Someone else will be presenting the case</AlternativeAnswer>
     <WhoWillBePresentingName>Joe Test</WhoWillBePresentingName>
     <WhoWillBePresentingEmail>joetest@test.com</WhoWillBePresentingEmail>
   </PresentingTheCase>

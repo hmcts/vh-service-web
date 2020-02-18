@@ -25,6 +25,7 @@ import { PresentingTheCaseComponent } from './pages/presenting-the-case/presenti
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { CheckYourAnswersComponent } from './pages/check-your-answers/check-your-answers.component';
 import { CachedHearingService } from './services/cached-hearing.service';
 import { RepresentativeJourneyService } from './services/representative.journey.service';
 import { SubmitService } from './services/submit.service';
@@ -36,7 +37,8 @@ import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-bac
         ThankYouComponent,
         YourVideoHearingComponent,
         PresentingTheCaseComponent,
-        OtherInformationComponent
+        OtherInformationComponent,
+        CheckYourAnswersComponent
     ],
     imports: [
         // angular
