@@ -27,6 +27,7 @@ export abstract class RepresentativeSuitabilityModel extends ParticipantSuitabil
 
     presentingTheCase: PresentingTheCase;
     presentingCaseDetails: PresentingCaseDetails;
+    checkYourAnswers: boolean;
 
     isCompleted(): boolean {
         return this.selfTest !== undefined && this.selfTest.isCompleted();
