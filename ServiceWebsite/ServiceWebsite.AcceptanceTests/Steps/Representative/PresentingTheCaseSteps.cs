@@ -39,6 +39,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
             });
         }
 
+        public void WhenTheUserSelectsSomeoneElseToPresent()
+        {
+            _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer)).Click();
+            WhenAddsDetailsOfWhoWillBePresentingTheCase();
+        }
+
         [When(@"adds details of who will be presenting the case")]
         public void WhenAddsDetailsOfWhoWillBePresentingTheCase()
         {

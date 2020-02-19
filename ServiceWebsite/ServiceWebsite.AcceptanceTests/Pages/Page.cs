@@ -14,13 +14,12 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             Url = url;
         }
 
-        public static readonly Page Login = new Page("Login", "login.microsoftonline.com");
+        // Individual
         public static readonly Page AboutHearings = new Page("About Hearings", "about-hearings");
         public static readonly Page CourtBuildingVideo = new Page("Court Building Video", "court-building-video");
         public static readonly Page DifferentHearingTypes = new Page("Different Hearing Types", "different-hearing-types");
         public static readonly Page ExploreCourtBuilding = new Page("Explore Court Building", "explore-court-building");
         public static readonly Page HelpTheCourtDecide = new Page("Help the Court Decide", "help-the-court-decide");
-        public static readonly Page MediaError = new Page("Media Error", "media-error");
         public static readonly Page ParticipantView = new Page("Participant View", "participant-view");
         public static readonly Page UseCameraMicrophone = new Page("Use Camera and Microphone", "use-camera-microphone");
         public static readonly Page AboutYou = new Page("About You", "about-you");
@@ -32,9 +31,12 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page YourInternetConnection = new Page("Your Internet Connection", "your-internet-connection");
         public static readonly Page AccessToARoom = new Page("Access to a Room", "access-to-a-room");
         public static readonly Page Consent = new Page("Consent", "consent");
+        
+        // Representative
         public static readonly Page YourVideoHearing = new Page("Your Video Hearing", "your-video-hearing");
         public static readonly Page PresentingTheCase = new Page("Presenting the Case", "presenting-the-case");
         public static readonly Page OtherInformation = new Page("Other Information", "other-information");
+        public static readonly Page CheckYourAnswers = new Page("Check Your Answers", "check-your-answers");
         public static readonly Page AnswersSaved = new Page("Answers Saved", "answers-saved");
         public static readonly Page AnswersSavedIndividual = new Page("Answers Saved Individual", "answers-saved-citizen");
         public static readonly Page ThankYouRep = new Page("Thank You Rep", "thank-you-rep");
@@ -50,9 +52,11 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page SignBackIn = new Page("Sign Back In", "sign-back-in");
         public static readonly Page EquipmentBlocked = new Page("Equipment Blocked", "equipment-blocked");
 
-        // Common
+        // Shared
+        public static readonly Page Login = new Page("Login", "login.microsoftonline.com");
         public static readonly Page NotFound = new Page("Not Found", "not-found");
         public static readonly Page Unauthorised = new Page("Unauthorised", "unauthorised");
+        public static readonly Page MediaError = new Page("Media Error", "media-error");
         public static readonly Page ContactUs = new Page("Contact Us", "contact-us");
         public static readonly Page Accessibility = new Page("Accessibility", "accessibility");
         public static readonly Page PrivacyPolicy = new Page("Privacy Policy", "privacy-policy");
@@ -122,6 +126,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
                 yield return UnsupportedBrowser;
                 yield return VideoWeb;
                 yield return AnswersSavedIndividual;
+                yield return CheckYourAnswers;
             }
         }
     }

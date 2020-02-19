@@ -7,24 +7,42 @@ import {
 } from '../representative-base-component/representative-journey-component-test-bed.spec';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
-
+import { RepresentativeJourney } from '../../representative-journey';
+import { ChoiceTextboxComponent } from 'src/app/modules/base-journey/components/choice-textbox.component';
+import { Logger } from 'src/app/services/logger';
+import { MockLogger } from 'src/app/testing/mocks/mock-logger';
+import { tick } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { from } from 'rxjs';
 describe('PresentingTheCaseComponent', () => {
-  const journey = RepresentativeJourneyStubs.journeySpy;
-  const component = new PresentingTheCaseComponent(journey);
-
-  it(`should go to ${RepresentativeJourneySteps.OtherInformation} on continuing`, () => {
-    const componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
+  let fixture: SuitabilityChoiceComponentFixture;
+  let component: PresentingTheCaseComponent;
+  let journey: jasmine.SpyObj<RepresentativeJourney>;
+  let componentFixture: any;
+  beforeEach(() => {
+    journey = RepresentativeJourneyStubs.journeySpy;
+    componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
       component: PresentingTheCaseComponent,
-      declarations: [BackNavigationStubComponent],
+      declarations: [
+        ChoiceTextboxComponent,
+        BackNavigationStubComponent
+      ],
+      providers: [{ provide: Logger, useClass: MockLogger },
+      {
+        provide: ActivatedRoute, useValue: { queryParams: from([]) }
+      }
+      ],
       journey: journey
     });
-
-    const fixture = new SuitabilityChoiceComponentFixture(componentFixture);
-    fixture.radioBoxIsClicked('#i-will-be-presenting');
-
-    fixture.submitIsClicked();
+    component = componentFixture.componentInstance;
+    fixture = new SuitabilityChoiceComponentFixture(componentFixture);
+    fixture.detectChanges();
   });
-
+  it(`should go to ${RepresentativeJourneySteps.OtherInformation} on continuing`, () => {
+    fixture.radioBoxIsClicked('#i-will-be-presenting');
+    fixture.submitIsClicked();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.OtherInformation);
+  });
   it('should not show presenting the case person details if the selected option is I will be presenting', () => {
     component.toggelPresenterCaseDetails(PresentingTheCase.IWillBePresentingTheCase);
     expect(component.showPresenterDetails).toBeFalsy();
@@ -34,7 +52,6 @@ describe('PresentingTheCaseComponent', () => {
     expect(component.showPresenterDetails).toBeTruthy();
     component.presentingCaseName.setValue('Smith');
     component.presentingCaseEmail.setValue('Email@email.test');
-
     component.toggelPresenterCaseDetails(PresentingTheCase.IWillBePresentingTheCase);
     expect(component.showPresenterDetails).toBeFalsy();
     expect(component.presentingCaseName.value).toBe('');
@@ -85,3 +102,35 @@ describe('PresentingTheCaseComponent', () => {
   });
 });
 
+describe('PresentingTheCaseComponentEditMode', () => {
+  let fixture: SuitabilityChoiceComponentFixture;
+  let component: PresentingTheCaseComponent;
+  let journey: jasmine.SpyObj<RepresentativeJourney>;
+  let componentFixture: any;
+  beforeEach(() => {
+    journey = RepresentativeJourneyStubs.journeySpy;
+    componentFixture = RepresentativeJourneyComponentTestBed.createComponent({
+      component: PresentingTheCaseComponent,
+      declarations: [
+        ChoiceTextboxComponent,
+        BackNavigationStubComponent
+      ],
+      providers: [
+        { provide: Logger, useClass: MockLogger },
+        { provide: ActivatedRoute, useValue: { queryParams: from([{ mode: 'Edit' }]) } }
+      ],
+      journey: journey
+    });
+    component = componentFixture.componentInstance;
+    fixture = new SuitabilityChoiceComponentFixture(componentFixture);
+    fixture.detectChanges();
+  });
+  it(`should go to ${RepresentativeJourneySteps.CheckYourAnswers} on continuing when mode is Edit`, () => {
+    component = componentFixture.componentInstance;
+    fixture = new SuitabilityChoiceComponentFixture(componentFixture);
+    fixture.detectChanges();
+    fixture.radioBoxIsClicked('#i-will-be-presenting');
+    fixture.submitIsClicked();
+    expect(journey.goto).toHaveBeenCalledWith(RepresentativeJourneySteps.CheckYourAnswers);
+  });
+});
