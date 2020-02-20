@@ -8,6 +8,7 @@ import { AnswersSavedComponent } from './pages/answers-saved/answers-saved.compo
 import { PresentingTheCaseComponent } from './pages/presenting-the-case/presenting-the-case.component';
 import { OtherInformationComponent } from './pages/other-information/other-information.component';
 import { YourVideoHearingComponent } from './pages/your-video-hearing/your-video-hearing.component';
+import { CheckYourAnswersComponent } from './pages/check-your-answers/check-your-answers.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { RepresentativeGuard } from './representative.gaurd';
 
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: Paths.YourVideoHearing, component: YourVideoHearingComponent, canActivate: [RepresentativeGuard] },
     { path: Paths.PresentingTheCase, component: PresentingTheCaseComponent, canActivate: [RepresentativeGuard] },
     { path: Paths.OtherInformation, component: OtherInformationComponent, canActivate: [RepresentativeGuard] },
+    { path: Paths.CheckYourAnswers, component: CheckYourAnswersComponent, canActivate: [RepresentativeGuard] },
     { path: Paths.ThankYou, component: ThankYouComponent, canActivate: [RepresentativeGuard] }
 ];
 

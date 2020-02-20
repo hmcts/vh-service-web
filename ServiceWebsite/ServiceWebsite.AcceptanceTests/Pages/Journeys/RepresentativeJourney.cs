@@ -13,6 +13,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
                 Page.YourVideoHearing,
                 Page.PresentingTheCase,
                 Page.OtherInformation,
+                Page.CheckYourAnswers,
                 Page.AnswersSaved,
                 Page.CheckYourComputer,
                 Page.SwitchOnCameraAndMicrophone,

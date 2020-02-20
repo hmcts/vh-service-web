@@ -39,6 +39,7 @@
     public class PresentingTheCase
     {
         public string Answer { get; set; }
+        public string AlternativeAnswer { get; set; }
         public string WhoWillBePresentingName { get; set; }
         public string WhoWillBePresentingEmail { get; set; }
     }
