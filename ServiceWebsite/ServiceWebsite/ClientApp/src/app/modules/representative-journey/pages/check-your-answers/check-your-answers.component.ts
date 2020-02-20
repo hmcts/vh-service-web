@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
