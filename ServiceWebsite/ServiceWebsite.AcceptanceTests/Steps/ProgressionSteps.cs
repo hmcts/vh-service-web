@@ -40,6 +40,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly YourVideoHearingSteps _yourVideoHearingSteps;
         private readonly PresentingTheCaseSteps _presentingTheCaseSteps;
         private readonly OtherInformationSteps _otherInformationSteps;
+        private readonly CheckYourAnswersSteps _checkYourAnswersSteps;
         private readonly AnswersSavedSteps _answersSavedSteps;
         private readonly AnswersSavedIndividualSteps _answersSavedIndividualSteps;
         private readonly ThankYouRepSteps _thankYouRepSteps;
@@ -72,6 +73,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             YourVideoHearingSteps yourVideoHearingSteps, 
             PresentingTheCaseSteps presentingTheCaseSteps, 
             OtherInformationSteps otherInformationSteps, 
+            CheckYourAnswersSteps checkYourAnswersSteps,
             AnswersSavedSteps answersSavedSteps, 
             AnswersSavedIndividualSteps answersSavedIndividualSteps,
             ThankYouRepSteps thankYouRepSteps)
@@ -103,6 +105,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _yourVideoHearingSteps = yourVideoHearingSteps;
             _presentingTheCaseSteps = presentingTheCaseSteps;
             _otherInformationSteps = otherInformationSteps;
+            _checkYourAnswersSteps = checkYourAnswersSteps;
             _answersSavedSteps = answersSavedSteps;
             _answersSavedIndividualSteps = answersSavedIndividualSteps;
             _thankYouRepSteps = thankYouRepSteps;
@@ -189,6 +192,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 { Page.YourVideoHearing, _yourVideoHearingSteps },
                 { Page.PresentingTheCase, _presentingTheCaseSteps },
                 { Page.OtherInformation, _otherInformationSteps },
+                { Page.CheckYourAnswers, _checkYourAnswersSteps },
                 { Page.AnswersSaved, _answersSavedSteps },
                 { Page.ThankYouRep, _thankYouRepSteps }
             };
