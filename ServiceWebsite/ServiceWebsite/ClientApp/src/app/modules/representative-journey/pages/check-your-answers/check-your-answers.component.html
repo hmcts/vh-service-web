@@ -21,27 +21,27 @@
                     </tr>
                 </thead>
                 <tbody class="govuk-table__body">
-                    <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.fullName!=''">
+                    <tr class="govuk-table__row" *ngIf="!isPresenting && (data.presentingCaseDetails.email !=='' || data.presentingCaseDetails.fullName !=='')">
                         <td class="govuk-table__cell govuk-table__header" i18n="@@checkYourAnswers_td_fullName_6">
                             Name
                         </td>
                         <td id="fullName" class="govuk-table__cell text-align-right">
-                            {{ model.presentingCaseDetails.fullName }}
+                            {{ data.presentingCaseDetails.fullName === '' ? 'no details provided' : data.presentingCaseDetails.fullName }}
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                             <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
                         </td>
                     </tr>
-                    <tr class="govuk-table__row" *ngIf=" model.presentingCaseDetails.email!=''">
+                    <tr class="govuk-table__row" *ngIf="!isPresenting && (data.presentingCaseDetails.email !=='' || data.presentingCaseDetails.fullName !=='')">
                         <td class="govuk-table__header vh-col-width" i18n="@@checkYourAnswers_td_email">Email</td>
                         <td id="email" class="govuk-table__cell text-align-right">
-                            {{ model.presentingCaseDetails.email }}
+                            {{ data.presentingCaseDetails.email === '' ? 'no details provided' : data.presentingCaseDetails.email }}
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                             <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
                         </td>
                     </tr>
-                    <tr class="govuk-table__row" *ngIf="model.presentingCaseDetails.fullName=='' &&  model.presentingCaseDetails.email==''">
+                    <tr class="govuk-table__row" *ngIf="isPresenting">
                         <td class="govuk-table__cell govuk-table__header" id="presentingAnswer" colspan="2" i18n="@@checkYourAnswers_td_presentingTheCase">
                             I'll be presenting the case
                         </td>
@@ -49,6 +49,14 @@
                             <a id="changePresenter" routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
                         </td>
                     </tr>
+                    <tr class="govuk-table__row" *ngIf="!isPresenting && data.presentingCaseDetails.email ==='' && data.presentingCaseDetails.fullName ==='' ">
+                        <td class="govuk-table__cell govuk-table__header" id="presentingAnswer" colspan="2" i18n="@@checkYourAnswers_td_presentingTheCase">
+                            Someone else will be presenting the case (no details provided)
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">
+                            <a id="changePresenter" routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
+                        </td>
+                    </tr>                    
                 </tbody>
             </table>
             <h2 class="govuk-heading-m govuk-!-margin-top-8">Other information for the court?</h2>
@@ -59,8 +67,8 @@
                 </thead>
                 <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__header vh-col-width" id="otherInformationAnswer" i18n="@@checkYourAnswers_td_presentingTheCase">{{model.otherInformation.answer?"Yes":"No"}}</td>
-                        <td id="otherInformation" class="govuk-table__cell">{{model.otherInformation.notes}}</td>
+                        <td class="govuk-table__header vh-col-width" id="otherInformationAnswer" i18n="@@checkYourAnswers_td_presentingTheCase">{{data.otherInformation.answer?"Yes":"No"}}</td>
+                        <td id="otherInformation" class="govuk-table__cell">{{data.otherInformation.notes}}</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                             <a id="changeOtherInformation" routerLink="/other-information" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
                         </td>
