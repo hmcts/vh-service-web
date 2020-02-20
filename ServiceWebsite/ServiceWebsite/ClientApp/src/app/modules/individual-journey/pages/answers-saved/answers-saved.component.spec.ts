@@ -4,15 +4,14 @@ import {
   IndividualJourneyComponentTestBed,
   IndividualJourneyStubs
 } from '../individual-base-component/individual-component-test-bed.spec';
-import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { SuitabilityChoiceComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 
 describe('AnswersSavedComponent', () => {
-    it(`goes to ${IndividualJourneySteps} when pressing continue`, () => {
-      const journey = IndividualJourneyStubs.journeySpy;
+  it(`goes to ${SelfTestJourneySteps.CheckYourComputer} when pressing continue`, () => {
+    const journey = IndividualJourneyStubs.journeySpy;
 
-      const componentFixture = IndividualJourneyComponentTestBed.createComponent({
+    const componentFixture = IndividualJourneyComponentTestBed.createComponent({
       component: AnswersSavedComponent,
       declarations: [AppYesNoPipe],
       journey: journey

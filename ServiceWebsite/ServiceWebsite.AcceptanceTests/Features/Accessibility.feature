@@ -29,6 +29,11 @@ Scenario: Answers Saved Individual page accessibility
 	Then the page should be accessible
 
 @Accessibility
+Scenario: Check Your Answers page accessibility
+	Given the Representative has progressed to the Check Your Answers page
+	Then the page should be accessible
+
+@Accessibility
 Scenario: Consent page accessibility
 	Given the Individual has progressed to the Consent page
 	Then the page should be accessible
