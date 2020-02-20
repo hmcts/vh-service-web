@@ -24,14 +24,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Switch on")).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Watch video")).Click();
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Switch on"));
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Watch video"));
         }
 
         [When(@"the user clicks on the why do I need to use my camera and mic link")]
         public void WhenTheUserClicksOnTheWhyDoINeedToUseMyCameraAndMicLink()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(UseCamAndMicPage.WhyUseCameraLink).Click();
+            _browsers[_c.CurrentUser.Key].Click(UseCamAndMicPage.WhyUseCameraLink);
         }
 
         [Then(@"the explanation of why the need to use my camera and mic is shown")]

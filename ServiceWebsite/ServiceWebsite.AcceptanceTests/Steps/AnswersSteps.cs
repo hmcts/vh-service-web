@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
@@ -17,7 +14,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class AnswersSteps
     {
-        private const int Timeout = 30;
         private readonly TestContext _c;
 
         public AnswersSteps(TestContext testContext)

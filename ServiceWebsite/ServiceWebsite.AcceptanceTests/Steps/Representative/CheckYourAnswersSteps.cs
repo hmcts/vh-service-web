@@ -30,19 +30,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [When(@"the user changes who'll be presenting")]
         public void WhenTheUserChangesWhoLlBePresenting()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.ChangePresenterLink).Click();
+            _browsers[_c.CurrentUser.Key].ClickLink(CheckYourAnswersPage.ChangePresenterLink);
             RemovePreviousAnswer(RepresentativeQuestionKeys.PresentingTheCase);
             _presentingTheCaseSteps.WhenTheUserSelectsSomeoneElseToPresent();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.ContinueButton).Click();
+            _browsers[_c.CurrentUser.Key].Click(PresentingTheCasePage.ContinueButton);
         }
 
         [When(@"the user changes the other information")]
         public void WhenTheUserChangesTheOtherInformation()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.ChangeOtherInformationLink).Click();
+            _browsers[_c.CurrentUser.Key].ClickLink(CheckYourAnswersPage.ChangeOtherInformationLink);
             RemovePreviousAnswer(RepresentativeQuestionKeys.OtherInformation);
             _otherInformationSteps.WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreInformationTextfield();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.ContinueButton).Click();
+            _browsers[_c.CurrentUser.Key].Click(OtherInformationPage.ContinueButton);
         }
 
         [Then(@"the answer for who'll be presenting is displayed correctly")]
@@ -74,7 +74,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.ContinueButton).Click();
+            _browsers[_c.CurrentUser.Key].Click(CheckYourAnswersPage.ContinueButton);
         }
 
         private void RemovePreviousAnswer(string questionKey)
