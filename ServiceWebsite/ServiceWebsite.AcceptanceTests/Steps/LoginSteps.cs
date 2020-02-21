@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Browser;
-using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
@@ -27,14 +26,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"the user logs in with valid credentials")]
         public void ProgressToNextPage()
         {
-            _loginSharedSteps = new LoginSharedSteps(_browsers[_c.CurrentUser.Key].Driver, _c.CurrentUser.Username, _c.ServiceWebConfig.TestConfig.TestUserPassword);
+            _loginSharedSteps = new LoginSharedSteps(_browsers[_c.CurrentUser.Key], _c.CurrentUser.Username, _c.ServiceWebConfig.TestConfig.TestUserPassword);
             _loginSharedSteps.ProgressToNextPage();
         }
 
         [When(@"the user attempts to logout")]
         public void WhenTheUserAttemptsToLogout()
         { 
-           _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementClickable(CommonServiceWebPage.SignOutButton).Click();
+           _browsers[_c.CurrentUser.Key].Click(CommonServiceWebPage.SignOutButton);
         }
 
         [When(@"the user signs out")]
