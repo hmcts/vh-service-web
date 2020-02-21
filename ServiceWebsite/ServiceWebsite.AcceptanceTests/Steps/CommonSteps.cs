@@ -27,35 +27,35 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"the user clicks the (.*) button")]
         public void WhenTheUserClicksTheButton(string innerText)
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(innerText)).Click();
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText(innerText));
         }
 
         [When(@"the user selects the '(.*)' radiobutton")]
         public void WhenTheUserSelectsTheRadiobutton(string label)
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(label));
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Selected.Should().BeTrue();
         }
 
         [When(@"the user clicks the (.*) link")]
-        public void WhenTheUserClicksTheChangeCameraOrMicrophoneLink(string linkText)
+        public void WhenTheUserClicksTheLink(string linkText)
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Click();
+            _browsers[_c.CurrentUser.Key].ClickLink(CommonLocators.LinkWithText(linkText));
         }
 
         [When(@"attempts to click (.*) without selecting an answer")]
         [When(@"attempts to click (.*) without providing additional information")]
         public void WhenAttemptsToClickContinueWithoutSelectingAnAnswer(string innerText)
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(innerText)).Click();
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText(innerText));
         }
 
         [Then(@"contact details are available")]
         public void ThenContactDetailsAreAvailable()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ContactLink).Click();
+            _browsers[_c.CurrentUser.Key].ClickLink(CommonServiceWebPage.ContactLink);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone)).Displayed.Should().BeTrue();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoEmail)).Displayed.Should().BeTrue();
         }

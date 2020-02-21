@@ -29,8 +29,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.WhoWillBePresentingText).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer)).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.ContinueButton).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer));
+            _browsers[_c.CurrentUser.Key].Click(PresentingTheCasePage.ContinueButton);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer,
@@ -42,7 +42,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         public void WhenTheUserSelectsSomeoneElseToPresent()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer)).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer));
             WhenAddsDetailsOfWhoWillBePresentingTheCase();
         }
 

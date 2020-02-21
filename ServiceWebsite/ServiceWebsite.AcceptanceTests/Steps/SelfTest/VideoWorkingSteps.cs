@@ -25,8 +25,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         [When(@"the user answers yes to the video working question")]
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.VideoWorking)).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.VideoWorking));
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.VideoWorking,

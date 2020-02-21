@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
-using AcceptanceTests.Common.Driver.Support;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;

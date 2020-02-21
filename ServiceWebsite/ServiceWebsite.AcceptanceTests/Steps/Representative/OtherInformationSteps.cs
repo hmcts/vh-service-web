@@ -26,8 +26,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.OtherInformation.Answer)).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.ContinueButton).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.OtherInformation.Answer));
+            _browsers[_c.CurrentUser.Key].Click(OtherInformationPage.ContinueButton);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.ServiceWebConfig.TestConfig.TestData.OtherInformation.Answer,
@@ -39,7 +39,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [When(@"the user enters more details into the please provide more information textfield")]
         public void WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreInformationTextfield()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("Yes")).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel("Yes"));
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(Keys.Tab);
             _c.Test.Answers.Add(new SuitabilityAnswer

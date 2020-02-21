@@ -26,16 +26,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.CheckYourComputer)).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.CheckYourComputer));
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
             _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.ServiceWebConfig.TestConfig.TestData.CheckYourComputer, ExtendedAnswer = null, QuestionKey = SelfTestQuestionKeys.CheckYourComputerQuestion });
         }
 
         [When(@"the user answers no to the Check Your Computer question")]
         public void WhenTheUserAnswersNoToTheCheckYourComputerQuestion()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("No")).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Continue")).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel("No"));
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
         }
     }
 }

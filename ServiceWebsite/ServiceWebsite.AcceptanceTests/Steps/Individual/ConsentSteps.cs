@@ -27,8 +27,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.Consent.Answer)).Click();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Save and continue")).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.Consent.Answer));
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Save and continue"));
             _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.ServiceWebConfig.TestConfig.TestData.Consent.Answer, ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.ConsentQuestion });
         }
 
@@ -36,9 +36,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         public void WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreDetailsOfWhyYouDoNotConsentTextfield()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel("No")).Click();
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel("No"));
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ConsentPage.MoreDetails).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.Consent.ExtendedAnswer);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Save and continue")).Click();
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Save and continue"));
             _c.Test.Answers.Add(new SuitabilityAnswer { Answer = "No", ExtendedAnswer = _c.ServiceWebConfig.TestConfig.TestData.Consent.ExtendedAnswer, QuestionKey = IndividualQuestionKeys.ConsentQuestion });
         }
     }

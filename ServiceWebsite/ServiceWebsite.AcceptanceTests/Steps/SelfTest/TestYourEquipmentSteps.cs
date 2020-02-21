@@ -31,7 +31,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
             _browsers[_c.CurrentUser.Key].ScrollTo(TestYourEquipmentPage.ContinueButton);
             WhenTheVideoHasEnded();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.ContinueButton).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.ContinueButton).Click();
+            _browsers[_c.CurrentUser.Key].Click(TestYourEquipmentPage.ContinueButton);
             _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = "None", ExtendedAnswer = null, QuestionKey = SelfTestQuestionKeys.SelfTestScoreQuestion });
         }
 

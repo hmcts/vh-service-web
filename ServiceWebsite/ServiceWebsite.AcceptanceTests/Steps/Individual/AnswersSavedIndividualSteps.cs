@@ -22,7 +22,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText("Check my computer")).Click();
+            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Check my computer"));
         }
     }
 }
