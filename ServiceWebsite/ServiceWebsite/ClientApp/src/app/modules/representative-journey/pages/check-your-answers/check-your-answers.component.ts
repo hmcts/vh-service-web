@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RepresentativeJourney } from '../../representative-journey';
 import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
@@ -10,13 +10,16 @@ import { Logger } from 'src/app/services/logger';
   styleUrls: ['./check-your-answers.component.css']
 })
 
-export class CheckYourAnswersComponent {
+export class CheckYourAnswersComponent implements OnInit {
   mode: string;
+  data: RepresentativeSuitabilityModel;
+  isPresenting: boolean;
   constructor(private journey: RepresentativeJourney, private logger: Logger) {
   }
 
-  get model(): RepresentativeSuitabilityModel {
-    return this.journey.model;
+  ngOnInit(): void {
+    this.data = this.journey.model;
+    this.isPresenting = this.journey.model.presentingTheCase === 0;
   }
 
   continue() {
