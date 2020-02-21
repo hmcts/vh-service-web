@@ -76,9 +76,9 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.10600" />
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1" />
     <PackageReference Include="Selenium.WebDriver.MicrosoftDriver" Version="17.17134.0" />
-    <PackageReference Include="SpecFlow" Version="3.1.82" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.1.82" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.82" />
-    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.0.75" />
+    <PackageReference Include="SpecFlow" Version="3.1.86" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.1.86" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.86" />
+    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.0.78" />
   </ItemGroup>
 </Project>
