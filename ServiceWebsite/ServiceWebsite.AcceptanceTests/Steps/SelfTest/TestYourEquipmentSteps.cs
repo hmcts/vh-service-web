@@ -15,6 +15,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     [Binding]
     public class TestYourEquipmentSteps : ISteps
     {
+        private const int ExtraTimeForVideoToLoad = 30;
         private const int VideoLength = 90;
         private readonly Dictionary<string, UserBrowser> _browsers;
         private readonly TestContext _c;
@@ -44,7 +45,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         [Then(@"the Test Your Equipment video begins to play")]
         public void TheVideoBeginsToPlay()
         {
-            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.IncomingStream);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Retries(ExtraTimeForVideoToLoad).Feed(TestYourEquipmentPage.IncomingStream);
             new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Feed(TestYourEquipmentPage.SelfView);
         }
     }
