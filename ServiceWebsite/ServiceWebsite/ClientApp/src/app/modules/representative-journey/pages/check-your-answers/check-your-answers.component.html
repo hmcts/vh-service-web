@@ -26,7 +26,7 @@
                             Name
                         </td>
                         <td id="fullName" class="govuk-table__cell text-align-right">
-                            {{ data.presentingCaseDetails.fullName === '' ? 'no details provided' : data.presentingCaseDetails.fullName }}
+                            {{ data.presentingCaseDetails.fullName === '' ? message : data.presentingCaseDetails.fullName }}
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                             <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
@@ -35,7 +35,7 @@
                     <tr class="govuk-table__row" *ngIf="!isPresenting && (data.presentingCaseDetails.email !=='' || data.presentingCaseDetails.fullName !=='')">
                         <td class="govuk-table__header vh-col-width" i18n="@@checkYourAnswers_td_email">Email</td>
                         <td id="email" class="govuk-table__cell text-align-right">
-                            {{ data.presentingCaseDetails.email === '' ? 'no details provided' : data.presentingCaseDetails.email }}
+                            {{ data.presentingCaseDetails.email === '' ? message : data.presentingCaseDetails.email }}
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                             <a routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
@@ -51,7 +51,7 @@
                     </tr>
                     <tr class="govuk-table__row" *ngIf="!isPresenting && data.presentingCaseDetails.email ==='' && data.presentingCaseDetails.fullName ==='' ">
                         <td class="govuk-table__cell govuk-table__header" id="presentingAnswer" colspan="2" i18n="@@checkYourAnswers_td_presentingTheCase">
-                            Someone else will be presenting the case (no details provided)
+                            Someone else will be presenting the case ({{message}})
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                             <a id="changePresenter" routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
