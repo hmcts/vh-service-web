@@ -14,7 +14,7 @@ export class CheckYourAnswersComponent implements OnInit {
   mode: string;
   data: RepresentativeSuitabilityModel;
   isPresenting: boolean;
-  message = 'details to be provided';
+  message = 'Details to be provided';
   constructor(private journey: RepresentativeJourney, private logger: Logger) {
   }
 

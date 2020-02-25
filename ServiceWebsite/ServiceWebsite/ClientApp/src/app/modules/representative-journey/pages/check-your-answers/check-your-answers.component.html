@@ -51,7 +51,7 @@
                     </tr>
                     <tr class="govuk-table__row" *ngIf="!isPresenting && data.presentingCaseDetails.email ==='' && data.presentingCaseDetails.fullName ==='' ">
                         <td class="govuk-table__cell govuk-table__header" id="presentingAnswer" colspan="2" i18n="@@checkYourAnswers_td_presentingTheCase">
-                            Someone else will be presenting the case ({{message}})
+                            Someone else will be presenting the case (details to be provided)
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                             <a id="changePresenter" routerLink="/presenting-the-case" [queryParams]="{mode: 'Edit'}" routerLinkActive="active" class="govuk-link">Change</a>
