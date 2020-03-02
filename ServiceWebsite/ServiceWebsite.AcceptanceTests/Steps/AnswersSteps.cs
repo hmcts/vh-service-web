@@ -98,6 +98,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void ThenTheSelfTestScoreIsSetInTheResults()
         {
             var answers = GetAnswersFromBookingsApi();
+            answers.Any(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion)).Should().BeTrue();
             var selfTest = answers.First(x => x.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion));
             selfTest.Answer.Should().NotBe("None");
         }
