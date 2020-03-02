@@ -31,7 +31,7 @@ trigger:
     include:
     - master
     - release/*
-    ' hotfix/*
+    - hotfix/*
 pr:
   - master
 

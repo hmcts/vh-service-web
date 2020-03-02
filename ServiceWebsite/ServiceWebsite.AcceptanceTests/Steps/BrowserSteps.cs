@@ -32,6 +32,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
             var browser = new UserBrowser(_c.CurrentUser)
                 .SetBaseUrl(_c.ServiceWebConfig.VhServices.ServiceWebUrl)
+                .SetTargetBrowser(_c.ServiceWebConfig.TestConfig.TargetBrowser)
                 .SetDriver(_c.Driver);
 
             _browsers.Add(_c.CurrentUser.Key, browser);
