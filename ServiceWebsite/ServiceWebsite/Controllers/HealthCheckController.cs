@@ -32,8 +32,8 @@ namespace ServiceWebsite.Controllers
         /// <returns>Error if fails, otherwise OK status</returns>
         [HttpGet("health")]
         [SwaggerOperation(OperationId = "CheckServiceHealth")]
-        [ProducesResponseType(typeof(Models.HealthCheckResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(Models.HealthCheckResponse), (int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(HealthCheckResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HealthCheckResponse), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Health()
         {
             var response = new Models.HealthCheckResponse
