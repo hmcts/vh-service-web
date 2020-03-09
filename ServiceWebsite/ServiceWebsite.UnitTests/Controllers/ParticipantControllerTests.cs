@@ -59,6 +59,17 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
+        public async Task Should_return_unauthorized_on_access_exception()
+        {
+            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
+            // given service returns
+            _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId))
+                .ThrowsAsync(new UnauthorizedAccessException("message"));
+            var result = (UnauthorizedObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
+            Assert.AreEqual(result.Value, $"User is not a participant of hearing with id '{_hearingId}'");
+        }
+
+        [Test]
         public async Task Should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
         {
             var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
@@ -138,6 +149,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task Should_return_not_found_if_no_test_score_is_not_found()
         {
+            var participantId = Guid.NewGuid();
             _pollyRetryService
                 .Setup(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
                 (
@@ -145,10 +157,31 @@ namespace ServiceWebsite.UnitTests.Controllers
                 )
                 .ThrowsAsync(new NotFoundException("any"));
 
-            var result = await _controller.GetTestCallResultForParticipant(Guid.NewGuid());
+            var result = await _controller.GetTestCallResultForParticipant(participantId);
 
             Assert.NotNull(result);
             Assert.IsAssignableFrom<NotFoundObjectResult>(result);
+            var objectResult = (ObjectResult)result;
+            objectResult.Value.Should().Be($"No test score result found for participant Id: {participantId}");
+        }
+
+        [Test]
+        public async Task Should_return_not_found_on_any_other_exception()
+        {
+            var participantId = Guid.NewGuid();
+            _pollyRetryService
+                .Setup(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
+                (
+                    It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), null, It.IsAny<Func<Task<TestCallResult>>>())
+                )
+                .ThrowsAsync(new Exception("any"));
+
+            var result = await _controller.GetTestCallResultForParticipant(participantId);
+
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<NotFoundObjectResult>(result);
+            var objectResult = (ObjectResult)result;
+            objectResult.Value.Should().Be($"No test score result found for participant Id: {participantId}");
         }
 
         [Test]
@@ -168,6 +201,10 @@ namespace ServiceWebsite.UnitTests.Controllers
             Assert.NotNull(result);
             Assert.IsAssignableFrom<OkObjectResult>(result);
             result.Should().BeAssignableTo<OkObjectResult>().Subject.Value.Should().Be(expectedResult);
+            _pollyRetryService
+                .Verify(x => x.WaitAndRetryAsync<NotFoundException, TestCallResult>
+                (
+                    It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), null, It.IsAny<Func<Task<TestCallResult>>>()), Times.Once);
         }
     }
 }

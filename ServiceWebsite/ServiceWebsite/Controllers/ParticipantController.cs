@@ -117,6 +117,8 @@ namespace ServiceWebsite.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetTestCallResultForParticipant(Guid participantId)
         {
+            const string key = "participantId";
+            var exceptionMessage = $"No test score result found for participant Id: {participantId}";
             try
             {
                 var score = await _pollyRetryService.WaitAndRetryAsync<NotFoundException, TestCallResult>
@@ -129,13 +131,13 @@ namespace ServiceWebsite.Controllers
             }
             catch (NotFoundException e)
             {
-                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, User, new Dictionary<string, string>{ { "participantId", participantId.ToString() } });
-                return NotFound($"No test score result found for participant Id: {participantId}");
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, User, new Dictionary<string, string> { { key, participantId.ToString() } });
+                return NotFound(exceptionMessage);
             }
             catch(Exception ex)
             {
-                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", ex, User, new Dictionary<string, string> { { "participantId", participantId.ToString() } });
-                return NotFound($"No test score result found for participant Id: {participantId}");
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", ex, User, new Dictionary<string, string> { { key, participantId.ToString() } });
+                return NotFound(exceptionMessage);
             }
         }
 
