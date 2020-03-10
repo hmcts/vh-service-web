@@ -116,7 +116,7 @@ namespace ServiceWebsite.Controllers
         [ProducesResponseType(typeof(TestCallScoreResponse), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetTestCallResultForParticipant(Guid participantId)
-        {
+        {            
             try
             {
                 var score = await _pollyRetryService.WaitAndRetryAsync<NotFoundException, TestCallResult>
@@ -127,14 +127,10 @@ namespace ServiceWebsite.Controllers
 
                 return Ok(score);
             }
-            catch (NotFoundException e)
-            {
-                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", e, User, new Dictionary<string, string>{ { "participantId", participantId.ToString() } });
-                return NotFound($"No test score result found for participant Id: {participantId}");
-            }
             catch(Exception ex)
             {
-                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", ex, User, new Dictionary<string, string> { { "participantId", participantId.ToString() } });
+                const string key = "participantId";
+                ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", ex, User, new Dictionary<string, string> { { key, participantId.ToString() } });
                 return NotFound($"No test score result found for participant Id: {participantId}");
             }
         }
