@@ -5,6 +5,8 @@ using ServiceWebsite.Controllers;
 using ServiceWebsite.Models;
 using System;
 using ServiceWebsite.Common.Security;
+using FluentAssertions;
+using System.Linq;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -30,6 +32,8 @@ namespace ServiceWebsite.UnitTests.Controllers
 
             var result = (OkObjectResult)_controller.GetToken(Guid.Parse(participantId));
             Assert.IsInstanceOf(typeof(TokenResponse), result.Value);
+            var tokenResponse = (TokenResponse)result.Value;
+            tokenResponse.ExpiresOn.Length.Should().BeOneOf(16,17);
         }
 
         [Test]
@@ -38,6 +42,9 @@ namespace ServiceWebsite.UnitTests.Controllers
             var participantId = Guid.Empty;
             var result = (BadRequestObjectResult)_controller.GetToken(participantId);
             Assert.IsNotNull(result.Value);
+            var error = (SerializableError)result.Value;
+            error.ContainsKey("participantId").Should().BeTrue();
+            ((string[])error["participantId"]).First().Should().Be("Please provide a valid participantId");
         }
     }
 }
