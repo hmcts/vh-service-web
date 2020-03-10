@@ -24,6 +24,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         private Mock<IParticipantService> _participantService;
         private Mock<IKinlyPlatformService> _kinlyPlatformService;
         private Mock<IPollyRetryService> _pollyRetryService;
+        private List<HearingSuitabilityAnswer> hearingSuitabilityAnswers;
 
         [SetUp]
         public void Setup()
@@ -32,6 +33,12 @@ namespace ServiceWebsite.UnitTests.Controllers
             _participantService = new Mock<IParticipantService>();
             _kinlyPlatformService = new Mock<IKinlyPlatformService>();
             _pollyRetryService = new Mock<IPollyRetryService>();
+            hearingSuitabilityAnswers = new List<HearingSuitabilityAnswer> { 
+                                                new HearingSuitabilityAnswer() { 
+                                                    QuestionKey = "TEST_KEY", 
+                                                    Answer = "Test Answer", 
+                                                    ExtendedAnswer = "Test Extended Answer" 
+                                                } };
 
             _controller = new ParticipantController(_hearingService.Object, _participantService.Object, 
                 _kinlyPlatformService.Object, _pollyRetryService.Object);
@@ -50,40 +57,42 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task Should_return_not_found_if_no_hearing_for_user_is_found()
         {
-            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
-            // given service returns
             _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId))
                 .ThrowsAsync(new NotFoundException("message"));
-            var result = (NotFoundObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
+
+            var result = (NotFoundObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, hearingSuitabilityAnswers);
+
             Assert.AreEqual(404, result.StatusCode);
         }
 
         [Test]
         public async Task Should_return_unauthorized_on_access_exception()
         {
-            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
-            // given service returns
             _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId))
                 .ThrowsAsync(new UnauthorizedAccessException("message"));
-            var result = (UnauthorizedObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
+
+            var result = (UnauthorizedObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, hearingSuitabilityAnswers);
+
             Assert.AreEqual(result.Value, $"User is not a participant of hearing with id '{_hearingId}'");
         }
 
         [Test]
         public async Task Should_return_unauthorized_for_hearing_the_user_is_not_participant_in()
         {
-            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
-            // given service throws
             _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).ReturnsAsync(new Guid?());
-            var result = (UnauthorizedObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
+
+            var result = (UnauthorizedObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, hearingSuitabilityAnswers);
+
             Assert.AreEqual(result.Value, $"User is not a participant of hearing with id '{_hearingId}'");
         }
 
         [Test]
         public async Task Should_return_badrequest_if_question_key_format_is_incorrect()
         {
-            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "incorrect_key", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
-            var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
+            hearingSuitabilityAnswers[0].QuestionKey = "incorrect_key";
+
+            var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, hearingSuitabilityAnswers);
+
             Assert.AreEqual(400, result.StatusCode);
             Assert.AreEqual(result.Value, $"Please provide a valid answer key");
         }
@@ -99,11 +108,10 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task Should_return_ok_if_suitability_answers_updated_successfully()
         {
-            var answers = new List<HearingSuitabilityAnswer> { new HearingSuitabilityAnswer() { QuestionKey = "TEST_KEY", Answer = "Test Answer", ExtendedAnswer = "Test Extended Answer" } };
-
             _hearingService.Setup(x => x.GetParticipantIdAsync(Username, _hearingId)).ReturnsAsync((Guid?)Guid.NewGuid());
 
-            var result = (NoContentResult)await _controller.UpdateSuitabilityAnswers(_hearingId, answers);
+            var result = (NoContentResult)await _controller.UpdateSuitabilityAnswers(_hearingId, hearingSuitabilityAnswers);
+
             Assert.AreEqual(204, result.StatusCode);
         }
 
