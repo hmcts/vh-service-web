@@ -121,6 +121,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             var participants = new List<Participant>
             {
                 new Participant {Id = Guid.NewGuid(), Username = "SomeUsername"},
+                new Participant {Id = Guid.NewGuid(), Username = "SomeUsername"},
             };
             _participantService
                 .Setup(x => x.GetParticipantsByUsernameAsync(It.IsAny<string>()))
