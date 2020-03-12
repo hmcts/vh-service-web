@@ -116,13 +116,49 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task Should_return_not_found_if_participant_is_found()
+        public async Task Should_return_ok_if_several_participant_with_the_same_username_return_from_database()
         {
-            const string username = "SomeUnknownUsername";
-
+            var participants = new List<Participant>
+            {
+                new Participant {Id = Guid.NewGuid(), Username = "SomeUsername"},
+            };
             _participantService
-                .Setup(x => x.GetParticipantsByUsernameAsync(username))
+                .Setup(x => x.GetParticipantsByUsernameAsync(It.IsAny<string>()))
+                .ReturnsAsync(participants);
+
+            var result = await _controller.GetCurrentParticipant();
+
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<OkObjectResult>(result);
+            var okResult = (OkObjectResult)result;
+            Assert.IsAssignableFrom<ParticipantResponse>(okResult.Value);
+            var response = (ParticipantResponse)okResult.Value;
+            Assert.AreEqual("SomeUsername", response.Username);
+            Assert.AreEqual(participants[0].Id, response.Id);
+
+        }
+
+        [Test]
+        public async Task Should_return_not_found_if_participant_is_not_found()
+        {
+            _participantService
+                .Setup(x => x.GetParticipantsByUsernameAsync(It.IsAny<string>()))
                 .ReturnsAsync(Enumerable.Empty<Participant>());
+
+            var result = await _controller.GetCurrentParticipant();
+
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<NotFoundResult>(result);
+        }
+
+
+        [Test]
+        public async Task Should_return_not_found_if_participant_is_null()
+        {
+            List<Participant> list = null;
+            _participantService
+                .Setup(x => x.GetParticipantsByUsernameAsync(It.IsAny<string>()))
+                .ReturnsAsync(list);
 
             var result = await _controller.GetCurrentParticipant();
 
@@ -152,6 +188,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             Assert.IsAssignableFrom<ParticipantResponse>(okResult.Value);
             var response = (ParticipantResponse)okResult.Value;
             Assert.AreEqual("one", response.Username);
+            Assert.AreEqual(participants[0].Id, response.Id);
         }
 
         [Test]

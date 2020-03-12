@@ -98,16 +98,28 @@ namespace ServiceWebsite.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetCurrentParticipant()
         {
-            var participants = (await _participantService.GetParticipantsByUsernameAsync(User.Identity.Name)).ToList();
+            var participants = await _participantService.GetParticipantsByUsernameAsync(User.Identity.Name);
 
-            if (participants.Count == 0)
+            Participant firstParticipant;
+            try
             {
+                firstParticipant = participants.First();
+            }
+            catch (Exception ex)
+            {
+                ApplicationLogger.TraceException
+                 (
+                     TraceCategories.MissingResource,
+                     $"Failed to find GetParticipantsByUsername()",
+                     ex,
+                     User
+                 );
+
                 return NotFound();
             }
 
-            var firstParticipant = participants.First();
-
             return Ok(new ParticipantResponse { Id = firstParticipant.Id, Username = firstParticipant.Username });
+
         }
 
         [HttpGet("participants/{participantId}/selftestresult")]
@@ -116,18 +128,18 @@ namespace ServiceWebsite.Controllers
         [ProducesResponseType(typeof(TestCallScoreResponse), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetTestCallResultForParticipant(Guid participantId)
-        {            
+        {
             try
             {
                 var score = await _pollyRetryService.WaitAndRetryAsync<NotFoundException, TestCallResult>
                 (
-                    2, x => TimeSpan.FromSeconds(1 * x), null, 
+                    2, x => TimeSpan.FromSeconds(Math.Pow(1, x)), null,
                     () => _kinlyPlatformService.GetTestCallScoreAsync(participantId)
                 );
 
                 return Ok(score);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 const string key = "participantId";
                 ApplicationLogger.TraceException(TraceCategories.MissingResource, "Missing test score for participant", ex, User, new Dictionary<string, string> { { key, participantId.ToString() } });
