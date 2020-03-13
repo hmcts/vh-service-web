@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Models;
 using ServiceWebsite.UserAPI.Client;
+using ServiceWebsite.VideoAPI.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net;
@@ -19,11 +20,13 @@ namespace ServiceWebsite.Controllers
     {
         private readonly IUserApiClient _userApiClient;
         private readonly IBookingsApiClient _bookingsApiClient;
+        private readonly IVideoApiClient _videoApiClient;
 
-        public HealthCheckController(IUserApiClient userApiClient, IBookingsApiClient bookingsApiClient)
+        public HealthCheckController(IUserApiClient userApiClient, IBookingsApiClient bookingsApiClient, IVideoApiClient videoApiClient)
         {
             _userApiClient = userApiClient;
             _bookingsApiClient = bookingsApiClient;
+            _videoApiClient = videoApiClient;
         }
 
         /// <summary>
@@ -32,14 +35,15 @@ namespace ServiceWebsite.Controllers
         /// <returns>Error if fails, otherwise OK status</returns>
         [HttpGet("health")]
         [SwaggerOperation(OperationId = "CheckServiceHealth")]
-        [ProducesResponseType(typeof(HealthCheckResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(HealthCheckResponse), (int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(Models.HealthCheckResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Models.HealthCheckResponse), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Health()
         {
             var response = new Models.HealthCheckResponse
             {
                 BookingsApiHealth = { Successful = true },
                 UserApiHealth = { Successful = true },
+                VideoApiHealth = { Successful = true },
                 AppVersion = GetApplicationVersion()
             };
             try
@@ -70,12 +74,37 @@ namespace ServiceWebsite.Controllers
                 }
             }
 
-            if (!response.UserApiHealth.Successful || !response.BookingsApiHealth.Successful)
+            try
+            {
+                await _videoApiClient.GetConferencesTodayAsync();
+            }
+            catch (Exception ex)
+            {
+                response.VideoApiHealth = HandleVideoApiCallException(ex);
+            }
+
+            if (!response.UserApiHealth.Successful || !response.BookingsApiHealth.Successful || !response.VideoApiHealth.Successful)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, response);
             }
 
             return Ok(response);
+        }
+
+        private Models.HealthCheck HandleVideoApiCallException(Exception ex)
+        {
+            var isApiException = ex is VideoApiServiceException;
+            var healthCheck = new Models.HealthCheck { Successful = true };
+            if (isApiException && (((VideoApiServiceException)ex).StatusCode != (int)HttpStatusCode.InternalServerError))
+            {
+                return healthCheck;
+            }
+
+            healthCheck.Successful = false;
+            healthCheck.ErrorMessage = ex.Message;
+            healthCheck.Data = ex.Data;
+
+            return healthCheck;
         }
 
         private ApplicationVersion GetApplicationVersion()

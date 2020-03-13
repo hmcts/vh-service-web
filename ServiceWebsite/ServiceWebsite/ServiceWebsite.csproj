@@ -69,6 +69,7 @@
     <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
     <ProjectReference Include="..\ServiceWebsite.Services\ServiceWebsite.Services.csproj" />
     <ProjectReference Include="..\ServiceWebsite.UserAPI.Client\ServiceWebsite.UserAPI.Client.csproj" />
+    <ProjectReference Include="..\ServiceWebsite.VideoAPI.Client\ServiceWebsite.VideoAPI.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
