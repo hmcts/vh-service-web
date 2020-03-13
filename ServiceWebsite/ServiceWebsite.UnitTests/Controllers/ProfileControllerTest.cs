@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using FluentAssertions;
 using ServiceWebsite.Models;
+using System.Linq;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -17,7 +18,7 @@ namespace ServiceWebsite.UnitTests.Controllers
     {
         private readonly Mock<IUserApiClient> _userApiClient;
 
-        private readonly ProfileController _controller;
+        private ProfileController _controller;
 
         public ProfileControllerTest()
         {
@@ -65,6 +66,64 @@ namespace ServiceWebsite.UnitTests.Controllers
             result.Should().NotBeNull().And.BeAssignableTo<NotFoundResult>();
         }
 
+        [Test]
+        public async Task Get_user_profile_returns_not_found_with_claim_oid()
+        {
+            _controller = new ProfileController(_userApiClient.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(new ClaimsIdentity(new[]
+                       {
+                            new Claim(ClaimTypes.Name, "username"),
+                             new Claim("oid", "oid")
+                        }))
+                    }
+                }
+            };
+            var userApiException = new UserApiException("message", (int)HttpStatusCode.NotFound, "response", null, null);
+
+            _userApiClient
+                .Setup(x => x.GetUserByAdUserNameAsync("username"))
+                .Throws(userApiException);
+
+            var result = await _controller.GetUserProfile();
+
+            result.Should().NotBeNull().And.BeAssignableTo<NotFoundResult>();
+        }
+
+        [Test]
+        public async Task Get_user_profile_returns_not_found_with_claim_unknown()
+        {
+            _controller = new ProfileController(_userApiClient.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(new ClaimsIdentity(new[]
+                       {
+                            new Claim(ClaimTypes.Name, "username"),
+                             new Claim("unknown", "unknown")
+                        }))
+                    }
+                }
+            };
+            Assert.IsNull(_controller.ControllerContext.HttpContext.User.Claims.FirstOrDefault(m => m.Type == "oid"));
+            var userApiException = new UserApiException("message", (int)HttpStatusCode.NotFound, "response", null, null);
+
+            _userApiClient
+                .Setup(x => x.GetUserByAdUserNameAsync("username"))
+                .Throws(userApiException);
+
+            var result = await _controller.GetUserProfile();
+
+            result.Should().NotBeNull().And.BeAssignableTo<NotFoundResult>();
+        }
+
+        
         [Test]
         public async Task Get_user_profile_returns_unauthorized()
         {
