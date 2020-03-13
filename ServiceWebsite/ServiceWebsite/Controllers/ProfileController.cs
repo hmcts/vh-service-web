@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
+using ServiceWebsite.Helpers;
 using ServiceWebsite.Models;
 using ServiceWebsite.UserAPI.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -36,11 +36,11 @@ namespace ServiceWebsite.Controllers
             }
             catch (UserApiException ex) when (ex.StatusCode == (int)HttpStatusCode.NotFound)
             {
-                var userAdObjectId = User.Claims.FirstOrDefault(m => m.Type == "oid");
+                var userAdObjectId = ClaimsHelper.FindAdId(User.Claims);
                 ApplicationLogger.TraceException
                 (
                     TraceCategories.MissingResource,
-                    $"Failed call to GetUserProfile(): [{(userAdObjectId != null ? userAdObjectId.Value : "unknown")}]",
+                    $"Failed call to GetUserProfile(): [{userAdObjectId}]",
                     ex,
                     User
                 );
