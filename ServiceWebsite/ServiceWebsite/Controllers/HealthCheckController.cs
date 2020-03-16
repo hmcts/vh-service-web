@@ -107,9 +107,9 @@ namespace ServiceWebsite.Controllers
             return healthCheck;
         }
 
-        private ApplicationVersion GetApplicationVersion()
+        private Models.ApplicationVersion GetApplicationVersion()
         {
-            var applicationVersion = new ApplicationVersion()
+            var applicationVersion = new Models.ApplicationVersion()
             {
                 FileVersion = GetExecutingAssemblyAttribute<AssemblyFileVersionAttribute>(a => a.Version),
                 InformationVersion = GetExecutingAssemblyAttribute<AssemblyInformationalVersionAttribute>(a => a.InformationalVersion)
