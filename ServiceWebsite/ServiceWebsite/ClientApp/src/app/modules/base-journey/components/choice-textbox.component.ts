@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnDestroy} from '@angular/core';
-import {ChoiceTextboxForm} from './choice-textbox-form';
-import {SuitabilityAnswer} from '../participant-suitability.model';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { ChoiceTextboxForm } from './choice-textbox-form';
+import { SuitabilityAnswer } from '../participant-suitability.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -33,7 +33,7 @@ export class ChoiceTextboxComponent implements OnInit, OnDestroy {
   readonly form = new ChoiceTextboxForm();
 
   $formSubscription: Subscription;
-  
+
   ngOnInit() {
     this.$formSubscription = this.form.submitted.subscribe(() => this.onSubmitted());
     this.form.choice.setValue(this.suitabilityAnswer.answer);

@@ -56,7 +56,7 @@ export class ChoiceTextboxForm extends ChoiceForm {
 
   closeSubcriptions() {
     if (this.$choiceSubscription) {
-      this.$choiceSubscription.unsubscribe;
+      this.$choiceSubscription.unsubscribe();
     }
   }
 }
