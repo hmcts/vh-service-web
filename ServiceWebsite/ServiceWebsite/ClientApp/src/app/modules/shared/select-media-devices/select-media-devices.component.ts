@@ -4,6 +4,7 @@ import { UserMediaService } from 'src/app/services/user-media.service';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { UserMediaDevice } from '../models/user-media-device';
 import {UserMediaStreamService} from '../../self-test-journey/services/user-media-stream.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select-media-devices',
@@ -26,6 +27,8 @@ export class SelectMediaDevicesComponent implements OnInit, OnDestroy {
   @ViewChild('preferredCameraVideo', { static: false })
   preferredCameraVideo: ElementRef;
 
+  $subsriptions: Subscription[] = [];
+
   constructor(
     private userMediaService: UserMediaService,
     private userMediaStreamService: UserMediaStreamService,
@@ -45,11 +48,11 @@ export class SelectMediaDevicesComponent implements OnInit, OnDestroy {
     this.availableCameraDevices = await this.userMediaService.getListOfVideoDevices();
     this.availableMicrophoneDevices = await this.userMediaService.getListOfMicrophoneDevices();
 
-    this.userMediaService.connectedDevices.subscribe(async () => {
+    this.$subsriptions.push(this.userMediaService.connectedDevices.subscribe(async () => {
       this.availableCameraDevices = await this.userMediaService.getListOfVideoDevices();
       this.availableMicrophoneDevices = await this.userMediaService.getListOfMicrophoneDevices();
       this.selectedMediaDevicesForm = await this.initNewDeviceSelectionForm();
-    });
+    }));
 
     const preferredCamera = await this.userMediaService.getPreferredCamera();
     const preferredMicrophone = await this.userMediaService.getPreferredMicrophone();
@@ -126,13 +129,13 @@ export class SelectMediaDevicesComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToDeviceSelectionChange() {
-    this.selectedCamera.valueChanges.subscribe(async newCamera => {
+    this.$subsriptions.push(this.selectedCamera.valueChanges.subscribe(async newCamera => {
       await this.updateCameraStream(newCamera);
-    });
+    }));
 
-    this.selectedMicrophone.valueChanges.subscribe(async newMicrophone => {
+    this.$subsriptions.push(this.selectedMicrophone.valueChanges.subscribe(async newMicrophone => {
       await this.updateMicrophoneStream(newMicrophone);
-    });
+    }));
   }
 
   private async updateCameraStream(newCam: UserMediaDevice) {
@@ -174,5 +177,7 @@ export class SelectMediaDevicesComponent implements OnInit, OnDestroy {
       this.userMediaStreamService.stopStream(this.preferredMicrophoneStream);
     }
     this.preferredMicrophoneStream = null;
+
+    this.$subsriptions.forEach(subsription => { if (subsription) { subsription.unsubscribe(); } });
   }
 }

@@ -100,6 +100,13 @@ describe('PresentingTheCaseComponent', () => {
     expect(component.presentingCaseName.invalid).toBeTruthy();
     expect(component.presentingCaseNameInvalid).toBeTruthy();
   });
+  it('should unsubcribe from event on destroy', () => {
+    spyOn(component.$routerSubcription, 'unsubscribe');
+    spyOn(component.$choiceSubcription, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(component.$routerSubcription.unsubscribe).toHaveBeenCalledTimes(1);
+    expect(component.$choiceSubcription.unsubscribe).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('PresentingTheCaseComponentEditMode', () => {

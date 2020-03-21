@@ -1,19 +1,21 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocaleResources } from '../../modules/shared/resources/locale-resources';
 import { CONFIG } from '../../modules/shared/config';
 import { PrintService } from '../../services/print.service';
 import { GuidanceModel, GuidanceService } from 'src/app/services/guidance.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-guidance',
   templateUrl: './guidance.component.html',
   styleUrls: ['./guidance.component.css']
 })
-export class GuidanceComponent implements OnInit, AfterViewChecked {
+export class GuidanceComponent implements OnInit, AfterViewChecked, OnDestroy {
   localeResources: any;
   contentIndex: Array<GuidanceModel> = [];
   toPrint = false;
+  $routerSubcription: Subscription;
 
   @ViewChild('contentPoint', { static: false }) public contentPoint: ElementRef;
 
@@ -22,7 +24,7 @@ export class GuidanceComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
   ) {
     this.localeResources = LocaleResources[CONFIG.Locale];
-    this.route.params.subscribe((param) => {
+    this.$routerSubcription = this.route.params.subscribe((param) => {
       this.toPrint = param['print'];
     });
   }
@@ -42,5 +44,11 @@ export class GuidanceComponent implements OnInit, AfterViewChecked {
       cindex.IsActive = cindex.Index === index;
     }
     this.contentPoint.nativeElement.scrollIntoView(false);
+  }
+
+  ngOnDestroy() {
+    if (this.$routerSubcription) {
+      this.$routerSubcription.unsubscribe();
+    }
   }
 }
