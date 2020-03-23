@@ -5,8 +5,8 @@ import { IndividualJourneyComponentTestBed } from '../individual-base-component/
 import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
-import {MockLogger} from '../../../../testing/mocks/mock-logger';
-import {Logger} from '../../../../services/logger';
+import { MockLogger } from '../../../../testing/mocks/mock-logger';
+import { Logger } from '../../../../services/logger';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
 
 describe('ConsentComponent', () => {
@@ -19,7 +19,7 @@ describe('ConsentComponent', () => {
     const componentFixture = IndividualJourneyComponentTestBed.createComponent({
       component: ConsentComponent,
       declarations: [BackNavigationStubComponent],
-      providers: [{provide: Logger, useClass: MockLogger}],
+      providers: [{ provide: Logger, useClass: MockLogger }],
       journey: journey
     });
     fixture = new SuitabilityChoiceComponentFixture(componentFixture);
@@ -99,7 +99,7 @@ describe('ConsentComponent', () => {
     expect(component.textInputNo.value).toBe('notes');
   });
 
-    it(`should submit questionnaire and go to ${IndividualJourneySteps.AnswersSaved} on submitting`, async () => {
+  it(`should submit questionnaire and go to ${IndividualJourneySteps.AnswersSaved} on submitting`, async () => {
     component.ngOnInit();
     component.choice.setValue(false);
     component.textInputNo.setValue('comments');
@@ -107,7 +107,12 @@ describe('ConsentComponent', () => {
     await component.submit();
 
     expect(journey.submitQuestionnaire).toHaveBeenCalled();
-        expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.AnswersSaved);
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.AnswersSaved);
+  });
+  it('should unsubcribe from event on destroy', () => {
+    spyOn(component.$choiceSubcription, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(component.$choiceSubcription.unsubscribe).toHaveBeenCalledTimes(1);
   });
 });
 

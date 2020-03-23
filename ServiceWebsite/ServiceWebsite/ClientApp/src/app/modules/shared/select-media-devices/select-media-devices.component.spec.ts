@@ -9,6 +9,7 @@ import {MockLogger} from '../../../testing/mocks/mock-logger';
 import {UserMediaService} from '../../../services/user-media.service';
 import {MockUserMediaService} from '../../../testing/mocks/MockUserMediaService';
 import {MicVisualiserStubComponent} from '../../../testing/stubs/mic-visualiser-stub';
+import { Subscription } from 'rxjs';
 
 
 describe('SelectMediaDevicesComponent', () => {
@@ -106,5 +107,14 @@ describe('SelectMediaDevicesComponent', () => {
     userMediaStreamServiceSpy.getStreamForCam.and.returnValue(Promise.resolve(mediaStream));
     await component.ngOnInit();
   });
+  it('should unsubscribe all subcriptions', () => {
+    component.$subsriptions.push(new Subscription(), new Subscription());
+    expect(component.$subsriptions[0].closed).toBeFalsy();
+    expect(component.$subsriptions[1].closed).toBeFalsy();
 
+    component.ngOnDestroy();
+
+    expect(component.$subsriptions[0].closed).toBeTruthy();
+    expect(component.$subsriptions[1].closed).toBeTruthy();
+  });
  });

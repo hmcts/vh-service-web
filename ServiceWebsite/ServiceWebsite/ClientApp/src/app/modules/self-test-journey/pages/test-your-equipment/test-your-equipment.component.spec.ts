@@ -7,7 +7,7 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { MockLogger } from '../../../../testing/mocks/mock-logger';
 import { Logger } from '../../../../services/logger';
 import { VideoWebService } from '../../services/video-web.service';
-import { of, throwError } from 'rxjs';
+import { of, throwError, Subscription } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { ConfigService } from '../../../../services/config.service';
 import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
@@ -183,63 +183,69 @@ describe('TestYourEquipmentComponent functionality', () => {
     expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
   });
 
-  it('should stop all stream on destroy event', async () => {
+  it('should stop all stream and unsubcribe on destroy event', async () => {
+    component.$subcriptions.push(new Subscription());
+    component.$subcriptions.push(new Subscription());
+    expect(component.$subcriptions[0].closed).toBeFalsy();
+
     component.ngOnDestroy();
+
     expect(component.incomingStream).toBeNull();
     expect(component.outgoingStream).toBeNull();
     expect(component.pexipAPI).toBeNull();
+    expect(component.$subcriptions[0].closed).toBeTruthy();
+    expect(component.$subcriptions[1].closed).toBeTruthy();
   });
 
-  it('should changeDevices', async () => {
-    component.displayDeviceChangeModal = false;
-    await component.changeDevices();
-    expect(component.displayDeviceChangeModal).toBeTruthy();
+    it('should changeDevices', async () => {
+      component.displayDeviceChangeModal = false;
+      await component.changeDevices();
+      expect(component.displayDeviceChangeModal).toBeTruthy();
+    });
+
+    it('should replayVideo', async () => {
+      component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+      component.didTestComplete = true;
+      await component.replayVideo();
+      expect(component.didTestComplete).toBeFalsy();
+    });
+
   });
 
-  it('should replayVideo', async () => {
-    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-    component.didTestComplete = true;
-    await component.replayVideo();
-    expect(component.didTestComplete).toBeFalsy();
+  describe('TestYourEquipmentComponent error functionality', () => {
+    let journeyObj: jasmine.SpyObj<JourneyBase>;
+    let model: MutableIndividualSuitabilityModel;
+    let component: TestYourEquipmentComponent;
+    videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
+    const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(
+      ['requestAccess', 'hasMultipleDevices', 'getPreferredCamera', 'getPreferredMicrophone']);
+    const mediaAccessResponse = new MediaAccessResponse();
+    mediaAccessResponse.exceptionType = 'NotAllowedError';
+    mediaAccessResponse.result = false;
+    userMediaServiceMock.requestAccess.and.returnValue(mediaAccessResponse);
+
+    beforeEach(() => {
+      journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+      model = new MutableIndividualSuitabilityModel();
+      model.hearing = new Hearing('1');
+      model.participantId = '2';
+      model.selfTest = new SelfTestAnswers();
+      component = new TestYourEquipmentComponent(journeyObj, model,
+        userMediaServiceMock, userMediaStreamServiceMock, videoWebServiceMock,
+        configServiceMock, new MockLogger());
+    });
+
+    it('should retrieve test score and get error', async () => {
+      component.participantId = '27467';
+      spyOn(component.logger, 'error');
+      await component.retrieveSelfTestScore();
+      expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
+      expect(component.logger.error).toHaveBeenCalled();
+    });
+    it('should replayVideo and throw an error and go to blocked access page', async () => {
+      component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+      await component.replayVideo();
+      expect(journeyObj.goto).toHaveBeenCalled();
+    });
   });
-
-});
-
-describe('TestYourEquipmentComponent error functionality', () => {
-  let journeyObj: jasmine.SpyObj<JourneyBase>;
-  let model: MutableIndividualSuitabilityModel;
-  let component: TestYourEquipmentComponent;
-  videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
-  const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(
-    ['requestAccess', 'hasMultipleDevices', 'getPreferredCamera', 'getPreferredMicrophone']);
-  const mediaAccessResponse = new MediaAccessResponse();
-  mediaAccessResponse.exceptionType = 'NotAllowedError';
-  mediaAccessResponse.result = false;
-  userMediaServiceMock.requestAccess.and.returnValue(mediaAccessResponse);
-
-  beforeEach(() => {
-    journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
-    model = new MutableIndividualSuitabilityModel();
-    model.hearing = new Hearing('1');
-    model.participantId = '2';
-    model.selfTest = new SelfTestAnswers();
-    component = new TestYourEquipmentComponent(journeyObj, model,
-      userMediaServiceMock, userMediaStreamServiceMock, videoWebServiceMock,
-      configServiceMock, new MockLogger());
-  });
-
-  it('should retrieve test score and get error', async () => {
-    component.participantId = '27467';
-    spyOn(component.logger, 'error');
-    await component.retrieveSelfTestScore();
-    expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
-    expect(component.logger.error).toHaveBeenCalled();
-  });
-  it('should replayVideo and throw an error and go to blocked access page', async () => {
-    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-    await component.replayVideo();
-    expect(journeyObj.goto).toHaveBeenCalled();
-  });
-});
-
 

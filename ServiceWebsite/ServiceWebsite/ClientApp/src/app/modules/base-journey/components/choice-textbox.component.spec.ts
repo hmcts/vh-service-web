@@ -108,4 +108,9 @@ describe('ChoiceTextboxComponent', () => {
     expect(answer.answer).toBe(false);
     expect(answer.notes).toBeNull();
   });
+  it('should unsubcribe from event on destroy', () => {
+    spyOn(component.$formSubscription, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(component.$formSubscription.unsubscribe).toHaveBeenCalledTimes(1);
+  });
 });
