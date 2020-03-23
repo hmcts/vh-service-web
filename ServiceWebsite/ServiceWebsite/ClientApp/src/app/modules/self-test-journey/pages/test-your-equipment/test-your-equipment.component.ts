@@ -226,7 +226,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   retrieveSelfTestScore() {
-    this.model.selfTest.selfTestResultScore = 'Bad';
+    this.model.selfTest.selfTestResultScore = 'None';
     this.$subcriptions.push(this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
 
       this.logger.event(`(retrieveSelfTestScore -> TEST SCORE KINLY RESULT: ${score.score})`,
