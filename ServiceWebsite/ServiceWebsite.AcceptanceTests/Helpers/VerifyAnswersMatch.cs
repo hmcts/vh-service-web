@@ -33,7 +33,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 }
                 else if (actual.Key.Equals(SelfTestQuestionKeys.SelfTestScoreQuestion))
                 {
-                    actual.Answer.Should().BeOneOf("Good","Bad","Okay");
+                    actual.Answer.Should().BeOneOf("Good","Bad","Okay","None");
                 }
                 else
                 {
