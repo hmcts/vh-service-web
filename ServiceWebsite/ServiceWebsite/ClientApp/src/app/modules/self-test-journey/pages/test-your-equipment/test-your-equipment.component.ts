@@ -39,8 +39,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   userMediaService: UserMediaService;
   logger: Logger;
 
-  subDevice: Subscription;
-  subScore: Subscription;
+  $subcriptions: Subscription[] = [];
 
   mediaSwitchedOn: MediaAccessResponse;
   NotAllowedError = 'NotAllowedError';
@@ -78,12 +77,12 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   setupSubscribers() {
-    this.subDevice = this.userMediaService.connectedDevices.subscribe(async () => {
+    this.$subcriptions.push(this.userMediaService.connectedDevices.subscribe(async () => {
       this.hasMultipleDevices = await this.userMediaService.hasMultipleDevices();
 
       this.logger.event(`(setupSubscribers) Has multiple devices: ${this.hasMultipleDevices}`,
         { hearingId: this.model.hearing.id, participantId: this.model.participantId });
-    });
+    }));
   }
 
   async setConfiguration() {
@@ -95,18 +94,17 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     this.logger.event('(getToken -> About to get token for pexip.)',
       { hearingId: this.model.hearing.id, participantId: this.model.participantId });
 
-    this.videoWebService.getCurrentParticipantId().subscribe((response: ParticipantResponse) => {
-      this.participantId = response.id;
-      this.videoWebService.getToken(this.participantId).subscribe(async (token: TokenResponse) => {
-        this.token = token;
-        this.call();
-      },
-        (error) => {
-          this.loadingData = false;
-          this.logger.error('(getToken -> Error to get token.)', new Error(error),
-            { hearingId: this.model.hearing.id, participantId: this.model.participantId });
-        });
-    });
+    const response = await this.videoWebService.getCurrentParticipantId().toPromise<ParticipantResponse>();
+    this.participantId = response.id;
+    try {
+      const token = await this.videoWebService.getToken(this.participantId).toPromise<TokenResponse>();
+      this.token = token;
+      this.call();
+    } catch (error) {
+      this.loadingData = false;
+      this.logger.error('(getToken -> Error to get token.)', new Error(error),
+        { hearingId: this.model.hearing.id, participantId: this.model.participantId });
+    }
   }
 
   call() {
@@ -118,7 +116,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event('(call -> About to make pexip call.)',
         { hearingId: this.model.hearing.id, participantId: this.model.participantId, conferenceAlias: conferenceAlias });
       this.pexipAPI.makeCall(this.pexipNode, `${conferenceAlias};${tokenOptions}`, this.participantId, null);
-      }
+    }
   }
 
   get streamsActive() {
@@ -228,7 +226,8 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   }
 
   retrieveSelfTestScore() {
-    this.subScore = this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
+    this.model.selfTest.selfTestResultScore = 'None';
+    this.$subcriptions.push(this.videoWebService.getTestCallScore(this.participantId).subscribe((score) => {
 
       this.logger.event(`(retrieveSelfTestScore -> TEST SCORE KINLY RESULT: ${score.score})`,
         { hearingId: this.model.hearing.id, participantId: this.model.participantId });
@@ -236,13 +235,13 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
       this.logger.event(`telemetry:serviceweb:any:selftest:score:${score.score}`);
 
       this.model.selfTest.selfTestResultScore = score.score;
-     }, (error) => {
+    }, (error) => {
       this.model.selfTest.selfTestResultScore = 'None';
 
       this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error),
         { hearingId: this.model.hearing.id, participantId: this.model.participantId });
-        this.logger.event('telemetry:serviceweb:any:selftest:score:none');
-    });
+      this.logger.event('telemetry:serviceweb:any:selftest:score:none');
+    }));
   }
 
   protected bindModel(): void {
@@ -324,5 +323,6 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
   ngOnDestroy() {
     this.disconnect();
     this.dispose();
+    this.$subcriptions.forEach(subcription => { if (subcription) { subcription.unsubscribe(); } });
   }
 }

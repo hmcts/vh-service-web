@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormControl, FormControlName, Validators} from '@angular/forms';
 import { SuitabilityChoicePageBaseComponent } from '../../components/suitability-choice-page-base.component';
 import { ValidateForWhiteSpace } from '../../../shared/validators/whitespace-validator';
@@ -6,6 +6,7 @@ import { IndividualJourney } from '../../individual-journey';
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
 import {Logger} from '../../../../services/logger';
 import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { Subscription } from 'rxjs';
 
 const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
 FormControlName.prototype.ngOnChanges = function () {
@@ -19,10 +20,11 @@ FormControlName.prototype.ngOnChanges = function () {
   templateUrl: './consent.component.html'
 })
 
-export class ConsentComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
+export class ConsentComponent extends SuitabilityChoicePageBaseComponent implements OnInit, OnDestroy {
 
   readonly textInputNo = new FormControl('');
   noSelected = false;
+  $choiceSubcription: Subscription;
 
   constructor(journey: IndividualJourney, private logger: Logger) {
     super(journey);
@@ -35,7 +37,7 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
       this.textInputNo.setValue(this.model.consent.notes);
     }
 
-    this.choice.valueChanges.subscribe(value => {
+    this.$choiceSubcription = this.choice.valueChanges.subscribe(value => {
       if (value) {
         this.optionYes();
       } else {
@@ -87,6 +89,12 @@ export class ConsentComponent extends SuitabilityChoicePageBaseComponent impleme
       await this.journey.submitQuestionnaire();
         this.logger.event('telemetry:serviceweb:any:questionnaire:complete');
         this.journey.goto(IndividualJourneySteps.AnswersSaved);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.$choiceSubcription) {
+      this.$choiceSubcription.unsubscribe();
     }
   }
 }
