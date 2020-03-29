@@ -21,7 +21,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         public ConfigHooks(TestContext context)
         {
-            _configRoot = new ConfigurationManager("CF5CDD5E-FD74-4EDE-8765-2F899C252122").BuildConfig(GetTargetEnvironment());
+            _configRoot = ConfigurationManager.BuildConfig("CF5CDD5E-FD74-4EDE-8765-2F899C252122", GetTargetEnvironment());
             context.ServiceWebConfig = new ServiceWebConfig();
             context.UserAccounts = new List<UserAccount>();
             context.Tokens = new ServiceWebTokens();
@@ -54,7 +54,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private void RegisterTestUserSecrets(TestContext context)
         {
             context.ServiceWebConfig.TestConfig = Options.Create(_configRoot.GetSection("TestUserSecrets").Get<ServiceWebTestConfig>()).Value;
-            context.ServiceWebConfig.TestConfig.CommonData = new LoadXmlFile().SerialiseCommonData();
+            context.ServiceWebConfig.TestConfig.CommonData = LoadXmlFile.SerialiseCommonData();
             context.ServiceWebConfig.TestConfig.TestData = new DefaultDataManager().SerialiseTestData();
             ConfigurationManager.VerifyConfigValuesSet(context.ServiceWebConfig.TestConfig);
         }

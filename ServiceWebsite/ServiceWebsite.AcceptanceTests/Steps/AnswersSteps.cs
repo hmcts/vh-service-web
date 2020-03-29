@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using AcceptanceTests.Common.Api.Requests;
+using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
