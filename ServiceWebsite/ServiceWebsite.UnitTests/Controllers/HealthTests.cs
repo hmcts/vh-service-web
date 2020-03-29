@@ -91,10 +91,10 @@ namespace ServiceWebsite.UnitTests.Controllers
         public async Task Should_return_internal_server_error_result_when_video_api_not_reachable()
         {
             var exception = new VideoApiServiceException<ProblemDetails>("Bad token", (int)HttpStatusCode.InternalServerError,
-                "Please provide a valid conference Id", null, default(ProblemDetails), null);
+                "Please provide a valid conference Id", null, default, null);
 
             _videoApiClientMock
-                .Setup(x => x.GetConferencesTodayAsync())
+                .Setup(x => x.GetConferencesTodayForAdminAsync())
                 .ThrowsAsync(exception);
 
             var result = await _controller.Health();
@@ -112,7 +112,7 @@ namespace ServiceWebsite.UnitTests.Controllers
                 "Invalid Client ID", null, default, null);
 
             _videoApiClientMock
-                .Setup(x => x.GetConferencesTodayAsync())
+                .Setup(x => x.GetConferencesTodayForAdminAsync())
                 .ThrowsAsync(exception);
 
             var result = await _controller.Health();
@@ -137,7 +137,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task should_return_the_application_version_from_assembly()
+        public async Task Should_return_the_application_version_from_assembly()
         {
             var result = await _controller.Health();
             var typedResult = (ObjectResult)result;

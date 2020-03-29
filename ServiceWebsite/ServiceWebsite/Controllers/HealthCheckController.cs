@@ -76,7 +76,7 @@ namespace ServiceWebsite.Controllers
 
             try
             {
-                await _videoApiClient.GetConferencesTodayAsync();
+                await _videoApiClient.GetConferencesTodayForAdminAsync();
             }
             catch (Exception ex)
             {

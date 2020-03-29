@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AcceptanceTests.Common.Api.Hearings;
+using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Configuration.Users;
 using FluentAssertions;
@@ -45,14 +46,12 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private void ClearClosedConferencesForClerk(BookingsApiManager bookingsApi, VideoApiManager videoApi)
         {
-            var response = videoApi.GetConferencesForToday();
-            var todaysConferences = RequestHelper.DeserialiseSnakeCaseJsonToResponse<List<ConferenceSummaryResponse>>(response.Content);
+            var response = videoApi.GetConferencesForTodayJudge(_clerkUsername);
+            var todaysConferences = RequestHelper.DeserialiseSnakeCaseJsonToResponse<List<ConferenceForJudgeResponse>>(response.Content);
             if (todaysConferences == null) return;
 
             foreach (var conference in todaysConferences)
             {
-                if (!ClerkUserIsAParticipantInTheConference(conference.Participants, _clerkUsername)) continue;
-
                 var hearingId = GetTheHearingIdFromTheConference(videoApi, conference.Id);
 
                 if (HearingHasNotBeenDeletedAlready(bookingsApi, hearingId) && !hearingId.Equals(Guid.Empty))
@@ -61,10 +60,6 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 if (ConferenceHasNotBeenDeletedAlready(videoApi, conference.Id))
                     DeleteTheConference(videoApi, conference.Id);
             }
-        }
-        private static bool ClerkUserIsAParticipantInTheConference(IEnumerable<ParticipantSummaryResponse> participants, string username)
-        {
-            return participants.Any(x => x.Username.ToLower().Equals(username.ToLower()));
         }
 
         private static Guid GetTheHearingIdFromTheConference(VideoApiManager videoApi, Guid conferenceId)
