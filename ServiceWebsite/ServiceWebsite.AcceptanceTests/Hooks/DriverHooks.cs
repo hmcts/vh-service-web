@@ -2,6 +2,7 @@
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Driver;
 using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Support;
 using BoDi;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
@@ -62,6 +63,20 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 DriverManager.TearDownBrowsers(_browsers);
 
             DriverManager.KillAnyLocalDriverProcesses();
+        }
+
+        [AfterScenario(Order = (int)HooksSequence.StopEdgeChromiumServer)]
+        public void StopEdgeChromiumServer(TestContext context)
+        {
+            var targetBrowser = GetTargetBrowser();
+            if (targetBrowser.ToLower().Equals(TargetBrowser.EdgeChromium.ToString().ToLower()) &&
+                !context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs())
+                _browsers?[context.CurrentUser.Key].StopEdgeChromiumServer();
+        }
+
+        private static string GetTargetBrowser()
+        {
+            return NUnit.Framework.TestContext.Parameters["TargetBrowser"] ?? "";
         }
     }
 }
