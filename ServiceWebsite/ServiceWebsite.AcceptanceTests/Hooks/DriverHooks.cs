@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Configuration.Users;
+using AcceptanceTests.Common.Data.Time;
 using AcceptanceTests.Common.Driver;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Support;
@@ -34,6 +35,12 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             context.ServiceWebConfig.TestConfig.TargetDevice = DriverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
             DriverManager.KillAnyLocalDriverProcesses();
             context.Driver = new DriverSetup(context.ServiceWebConfig.SauceLabsConfiguration, scenarioContext.ScenarioInfo, context.ServiceWebConfig.TestConfig.TargetDevice, context.ServiceWebConfig.TestConfig.TargetBrowser);
+        }
+
+        [BeforeScenario(Order = (int)HooksSequence.SetTimeZone)]
+        public void SetTimezone(TestContext context)
+        {
+            context.TimeZone = new TimeZone(context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs(), context.ServiceWebConfig.TestConfig.TargetBrowser);
         }
 
         [AfterScenario(Order = (int)HooksSequence.LogResultHooks)]
