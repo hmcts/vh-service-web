@@ -33,7 +33,7 @@
         "DisplayName": "Automation01_SW_Representative01",
         "AlternativeEmail": "e2@d.com",
         "CaseRoleName": "Claimant",
-        "HearingRoleName": "Solicitor",
+        "HearingRoleName": "Representative",
         "Representee": "Automation01_SW_Individual01"
       }
     ]
