@@ -70,16 +70,16 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the hearing date is displayed correctly")]
         public void ThenTheHearingDateIsDisplayedCorrectly()
         {
-            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.CommonDateFormat);
-            var scheduledTime = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.CommonTimeFormat).Replace("AM", "am").Replace("PM", "pm");
+            var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.CommonDateFormat);
+            var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.CommonTimeFormat).Replace("AM", "am").Replace("PM", "pm");
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDateTime).Text.Should().ContainAll(scheduledDate, scheduledTime);
         }
 
         [Then(@"the hearing details are displayed correctly")]
         public void ThenTheHearingDetailsAreDisplayedCorrectly()
         {
-            var scheduledDate = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",", "");
-            var scheduledTime = _c.Test.Hearing.Scheduled_date_time.ToLocalTime().ToString(DateFormats.HearingDetailsTime);
+            var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",", "");
+            var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsTime);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDate).Text.Should().Contain(scheduledDate);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledTime).Text.Should().Contain(scheduledTime);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.CaseName).Text.Should().Contain(_c.Test.Hearing.Cases.First().Name);
