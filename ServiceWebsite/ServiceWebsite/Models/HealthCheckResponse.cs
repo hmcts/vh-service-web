@@ -8,12 +8,10 @@ namespace ServiceWebsite.Models
         {
             BookingsApiHealth = new HealthCheck();
             UserApiHealth = new HealthCheck();
-            VideoApiHealth = new HealthCheck();
             AppVersion = new ApplicationVersion();
         }
         public HealthCheck BookingsApiHealth { get; set; }
         public HealthCheck UserApiHealth { get; set; }
-        public HealthCheck VideoApiHealth { get; set; }
         public ApplicationVersion AppVersion { get; set; }
     }
 
