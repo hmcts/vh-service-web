@@ -34,7 +34,12 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             context.ServiceWebConfig.TestConfig.TargetBrowser = DriverManager.GetTargetBrowser(NUnit.Framework.TestContext.Parameters["TargetBrowser"]);
             context.ServiceWebConfig.TestConfig.TargetDevice = DriverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
             DriverManager.KillAnyLocalDriverProcesses();
-            context.Driver = new DriverSetup(context.ServiceWebConfig.SauceLabsConfiguration, scenarioContext.ScenarioInfo, context.ServiceWebConfig.TestConfig.TargetDevice, context.ServiceWebConfig.TestConfig.TargetBrowser);
+            var driverOptions = new DriverOptions()
+            {
+                TargetBrowser = context.ServiceWebConfig.TestConfig.TargetBrowser,
+                TargetDevice = context.ServiceWebConfig.TestConfig.TargetDevice
+            };
+            context.Driver = new DriverSetup(context.ServiceWebConfig.SauceLabsConfiguration, scenarioContext.ScenarioInfo, driverOptions);
         }
 
         [BeforeScenario(Order = (int)HooksSequence.SetTimeZone)]

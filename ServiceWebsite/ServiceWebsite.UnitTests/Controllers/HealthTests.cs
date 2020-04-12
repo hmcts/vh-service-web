@@ -6,12 +6,10 @@ using NUnit.Framework;
 using ServiceWebsite.BookingsAPI.Client;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.UserAPI.Client;
-using ServiceWebsite.VideoAPI.Client;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using ProblemDetails = ServiceWebsite.VideoAPI.Client.ProblemDetails;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
