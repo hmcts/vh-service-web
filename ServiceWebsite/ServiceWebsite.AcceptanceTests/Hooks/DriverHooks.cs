@@ -36,6 +36,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             DriverManager.KillAnyLocalDriverProcesses();
             var driverOptions = new DriverOptions()
             {
+                EnableLogging = true,
                 TargetBrowser = context.ServiceWebConfig.TestConfig.TargetBrowser,
                 TargetDevice = context.ServiceWebConfig.TestConfig.TargetDevice
             };
