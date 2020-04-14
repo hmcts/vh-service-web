@@ -28,7 +28,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             var participantId = "B4E1C447-0E97-4BFD-B1D8-006DD28D8428";
             var expiresOn = DateTime.UtcNow.AddMinutes(20).ToUniversalTime().ToString("dd.MM.yyyy-H:mmZ");
 
-            _service.Setup(x => x.GenerateHash(expiresOn, participantId)).Returns("token string");
+            _service.Setup(x => x.GenerateSelfTestTokenHash(expiresOn, participantId)).Returns("token string");
 
             var result = (OkObjectResult)_controller.GetToken(Guid.Parse(participantId));
             Assert.IsInstanceOf(typeof(TokenResponse), result.Value);

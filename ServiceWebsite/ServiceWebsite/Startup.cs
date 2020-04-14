@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.SpaServices;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +13,7 @@ using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
 using System;
 using System.IO;
+using ServiceWebsite.Common.Configuration;
 
 namespace ServiceWebsite
 {
@@ -75,7 +74,7 @@ namespace ServiceWebsite
             services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
 
-            var customTokenSettings = Configuration.GetSection("CustomToken").Get<CustomTokenSettings>();
+            var customTokenSettings = Configuration.GetSection("KinlyConfiguration").Get<KinlyConfiguration>();
             services.AddSingleton(customTokenSettings);
         }
 
@@ -160,14 +159,13 @@ namespace ServiceWebsite
 
             app.UseSpa(spa =>
             {
-                // Make the source folder relative to content to allow integration test project to run as well
-                var sourcePath = Path.Combine(env.ContentRootPath, "ClientApp");
-                spa.Options.SourcePath = sourcePath;
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 if (env.IsDevelopment())
                 {
-                    // this magically uses the ng serve to host the web app under the same port as the api
-                    spa.UseAngularCliServer(npmScript: "start");
+                    const string ngBaseUri = "http://localhost:4300/";
+                    spa.UseProxyToSpaDevelopmentServer(ngBaseUri);
                 }
             });
         }

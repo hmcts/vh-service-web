@@ -32,7 +32,7 @@ namespace ServiceWebsite.Controllers
             }
 
             var expiresOn = DateTime.UtcNow.AddMinutes(20).ToUniversalTime().ToString("dd.MM.yyyy-H:mmZ");
-            var token = _hashGenerator.GenerateHash(expiresOn, participantId.ToString());
+            var token = _hashGenerator.GenerateSelfTestTokenHash(expiresOn, participantId.ToString());
             var tokenResponse = new TokenResponse { ExpiresOn = expiresOn, Token = token };
 
             return Ok(tokenResponse);
