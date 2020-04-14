@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     header: HeaderComponent;
 
     @ViewChild('mainContent', { static: true })
-    main: ElementRef;
+    main: ElementRef<HTMLElement>;
 
     constructor(
         private router: Router,
@@ -118,6 +118,6 @@ export class AppComponent implements OnInit {
     }
 
     skipToContent() {
-        this.renderer.invokeElementMethod(this.main.nativeElement, 'focus');
+        this.main.nativeElement.focus();
     }
 }
