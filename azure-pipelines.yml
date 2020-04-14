@@ -6,10 +6,7 @@ variables:
     value: $(SelfTestApiKey_test)
   - name: KinlyApiKey
     value: $(KinlyApiKey_test)
-  - name: KinlyApiAudience
-    value: $(KinlyApiAudience)
-  - name: KinlyApiIssuer
-    value: $(KinlyApiIssuer)
+  
   - name: cleanChekout
     value: false
   
