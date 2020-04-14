@@ -28,11 +28,11 @@ variables:
   
   - name: integrationTestsAppSettingsTransform
     value: '
-      "AzureAd/TenantId":"$(tenantid)",
-      "KinlyConfiguration/ApiSecret":"$(KinlyApiKey)",
-      "KinlyConfiguration/SelfTestApiSecret":"$(SelfTestApiKey)",
-      "KinlyConfiguration/Audience":"$(KinlyApiAudience)",
-      "KinlyConfiguration/Issuer":"$(KinlyApiIssuer)"
+      "AzureAd:TenantId":"$(tenantid)",
+      "KinlyConfiguration:ApiSecret":"$(KinlyApiKey)",
+      "KinlyConfiguration:SelfTestApiSecret":"$(SelfTestApiKey)",
+      "KinlyConfiguration:Audience":"$(KinlyApiAudience)",
+      "KinlyConfiguration:Issuer":"$(KinlyApiIssuer)"
       '
   - name: keyVaultName
     value: vhcoreinfrahtdev # Used to get secrets for integration tests
