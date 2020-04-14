@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-			      "extractCss": true,
+            "extractCss": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -21,7 +21,12 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "*",
+                "input": "node_modules/govuk-frontend/govuk/assets/fonts",
+                "output": "assets/fonts/"
+              }
             ],
             "styles": [
               "src/styles.css",
@@ -36,12 +41,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -90,12 +93,17 @@
             ],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "*",
+                "input": "node_modules/govuk-frontend/govuk/assets/fonts",
+                "output": "assets/fonts/"
+              }
             ],
             "sourceMap": true,
             "codeCoverageExclude": [
               "src/app/services/clients/*.ts"
-          ]
+            ]
           }
         },
         "lint": {

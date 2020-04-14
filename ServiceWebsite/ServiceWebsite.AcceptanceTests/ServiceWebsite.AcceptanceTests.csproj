@@ -80,4 +80,8 @@
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.95" />
     <PackageReference Include="VH.AcceptanceTests.Common" Version="1.0.127" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Features\**\*.feature" />
+  </ItemGroup>
 </Project>

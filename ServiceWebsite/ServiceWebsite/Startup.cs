@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.SpaServices;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +14,7 @@ using ServiceWebsite.Controllers;
 using ServiceWebsite.Helpers;
 using System;
 using System.IO;
+using ServiceWebsite.Common.Configuration;
 
 namespace ServiceWebsite
 {
@@ -75,7 +75,7 @@ namespace ServiceWebsite
             services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
 
-            var customTokenSettings = Configuration.GetSection("CustomToken").Get<CustomTokenSettings>();
+            var customTokenSettings = Configuration.GetSection("KinlyConfiguration").Get<KinlyConfiguration>();
             services.AddSingleton(customTokenSettings);
         }
 
