@@ -70,6 +70,6 @@
     "puppeteer": "^1.8.0",
     "ts-node": "^5.0.1",
     "tslint": "~5.9.1",
-    "typescript": "~3.4.5"
+    "typescript": "~3.8.3"
   }
 }
