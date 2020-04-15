@@ -3758,6 +3758,10 @@ namespace ServiceWebsite.BookingsAPI.Client
         [Newtonsoft.Json.JsonProperty("audio_recording_required", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool Audio_recording_required { get; set; }
     
+        /// <summary>Gets or sets the hearing cancel reason</summary>
+        [Newtonsoft.Json.JsonProperty("cancel_reason", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Cancel_reason { get; set; }
+    
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
         [Newtonsoft.Json.JsonExtensionData]
@@ -3897,6 +3901,10 @@ namespace ServiceWebsite.BookingsAPI.Client
         [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public UpdateBookingStatus Status { get; set; }
+    
+        /// <summary>The reason for cancelling the video hearing</summary>
+        [Newtonsoft.Json.JsonProperty("cancel_reason", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Cancel_reason { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -4065,6 +4073,9 @@ namespace ServiceWebsite.BookingsAPI.Client
         /// <summary>Gets or sets the audio recording required flag, value true  is indicated that recording is required, otherwise false</summary>
         [Newtonsoft.Json.JsonProperty("audio_recording_required", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool Audio_recording_required { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("cancel_reason", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Cancel_reason { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     

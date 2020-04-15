@@ -34,7 +34,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         public void ThenTheExploringTheCourtBuildingVideoBeginsToPlay()
         {
             if (_c.ServiceWebConfig.TestConfig.TargetBrowser == TargetBrowser.Chrome ||
-                _c.ServiceWebConfig.TestConfig.TargetBrowser == TargetBrowser.ChromeMac)
+                _c.ServiceWebConfig.TestConfig.TargetBrowser == TargetBrowser.MacChrome)
             {
                 _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ExploreCourtBuildingPage.Video).Click();
             }
