@@ -1,39 +1,39 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using ServiceWebsite.Common.Security;
-using ServiceWebsite.Configuration;
 using System;
+using ServiceWebsite.Common.Configuration;
 
 namespace ServiceWebsite.UnitTests
 {
     public class HashGeneratorTests
     {
-        private CustomTokenSettings _customTokenSettings;
+        private KinlyConfiguration _kinlyConfiguration;
 
         [SetUp]
         public void SetUp()
         {
-            _customTokenSettings = new CustomTokenSettings { Secret = "W2gEmBn2H7b2FCMIQl6l9rggbJU1qR7luIeAf1uuaY+ik6TP5rN0NEsPVg0TGkroiel0SoCQT7w3cbk7hFrBtA==" };
+            _kinlyConfiguration = new KinlyConfiguration { SelfTestApiSecret = "W2gEmBn2H7b2FCMIQl6l9rggbJU1qR7luIeAf1uuaY+ik6TP5rN0NEsPVg0TGkroiel0SoCQT7w3cbk7hFrBtA==" };
         }
 
         [Test]
         public void Should_encrypt()
         {
-            var hashGenerator = new HashGenerator(_customTokenSettings.Secret);
+            var hashGenerator = new HashGenerator(_kinlyConfiguration);
             var id = Guid.NewGuid().ToString();
-            var computedHash = hashGenerator.GenerateHash(GetExpiryOn(), id);
+            var computedHash = hashGenerator.GenerateSelfTestTokenHash(GetExpiryOn(), id);
             computedHash.Should().NotBeNullOrEmpty();
         }
 
         [Test]
         public void Should_fail_authentication()
         {
-            var hashGenerator = new HashGenerator(_customTokenSettings.Secret);
+            var hashGenerator = new HashGenerator(_kinlyConfiguration);
             var id = Guid.NewGuid().ToString();
-            var computedHash = hashGenerator.GenerateHash(GetExpiryOn(), id);
+            var computedHash = hashGenerator.GenerateSelfTestTokenHash(GetExpiryOn(), id);
 
             var id2 = Guid.NewGuid().ToString();
-            var reComputedHash = hashGenerator.GenerateHash(GetExpiryOn(), id2);
+            var reComputedHash = hashGenerator.GenerateSelfTestTokenHash(GetExpiryOn(), id2);
             reComputedHash.Should().NotBe(computedHash);
         }
 

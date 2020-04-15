@@ -2,27 +2,22 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using ServiceWebsite.Common.Configuration;
 
 namespace ServiceWebsite.Common.Security
 {
     public class CustomJwtTokenProvider : ICustomJwtTokenProvider
     {
-        private readonly string _secret;
-        private readonly string _audience;
-        private readonly string _issuer;
-        private readonly string _thirdPartySecret;
+        private readonly KinlyConfiguration _kinlyConfiguration;
 
-        public CustomJwtTokenProvider(string secret, string audience, string issuer, string thirdPartySecret)
+        public CustomJwtTokenProvider(KinlyConfiguration kinlyConfiguration)
         {
-            _secret = secret;
-            _audience = audience;
-            _issuer = issuer;
-            _thirdPartySecret = thirdPartySecret;
+            _kinlyConfiguration = kinlyConfiguration;
         }
 
-        public string GenerateToken(string claims, int expiresInMinutes)
+        public string GenerateSelfTestApiToken(string claims, int expiresInMinutes)
         {
-            var key = Convert.FromBase64String(_secret);
+            var key = Convert.FromBase64String(_kinlyConfiguration.SelfTestApiSecret);
             return BuildToken(claims, expiresInMinutes, key);
         }
 
@@ -34,9 +29,9 @@ namespace ServiceWebsite.Common.Security
             var descriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, claimTypeName) }),
-                Audience = _audience,
+                Audience = _kinlyConfiguration.Audience,
                 NotBefore = DateTime.UtcNow.AddMinutes(-1),
-                Issuer = _issuer,
+                Issuer = _kinlyConfiguration.Issuer,
                 Expires = DateTime.UtcNow.AddMinutes(expiresInMinutes + 1),
                 SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature)
             };

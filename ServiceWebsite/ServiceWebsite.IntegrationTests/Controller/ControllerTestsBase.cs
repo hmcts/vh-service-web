@@ -100,7 +100,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
 
             var customJwtTokenProvider = new Mock<ICustomJwtTokenProvider>();
             customJwtTokenProvider
-                .Setup(x => x.GenerateToken(It.IsAny<string>(), It.IsAny<int>()))
+                .Setup(x => x.GenerateSelfTestApiToken(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(string.Empty);
 
             serviceCollection.AddScoped<IKinlyPlatformService>(x => new KinlyPlatformService
@@ -112,7 +112,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
 
             // Other dependencies
 
-            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator("What_blah-blah-blah"));
+            // serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator("What_blah-blah-blah"));
         }
 
         private void CreateAccessToken()
