@@ -21,7 +21,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         public ConfigHooks(TestContext context)
         {
-            _configRoot = ConfigurationManager.BuildConfig("CF5CDD5E-FD74-4EDE-8765-2F899C252122", GetTargetEnvironment());
+            _configRoot = ConfigurationManager.BuildConfig("CF5CDD5E-FD74-4EDE-8765-2F899C252122", GetTargetEnvironment(), RunOnSauceLabsFromLocal());
             context.ServiceWebConfig = new ServiceWebConfig();
             context.UserAccounts = new List<UserAccount>();
             context.Tokens = new ServiceWebTokens();
@@ -30,6 +30,12 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private static string GetTargetEnvironment()
         {
             return NUnit.Framework.TestContext.Parameters["TargetEnvironment"] ?? "";
+        }
+
+        private static bool RunOnSauceLabsFromLocal()
+        {
+            return NUnit.Framework.TestContext.Parameters["RunOnSauceLabs"] != null &&
+                   NUnit.Framework.TestContext.Parameters["RunOnSauceLabs"].Equals("true");
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]
