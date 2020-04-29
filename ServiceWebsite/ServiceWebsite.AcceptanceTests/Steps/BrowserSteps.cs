@@ -30,7 +30,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             SwitchCurrentUser(user);
 
-            var browser = new UserBrowser(_c.CurrentUser)
+            var browser = new UserBrowser()
                 .SetBaseUrl(_c.ServiceWebConfig.VhServices.ServiceWebUrl)
                 .SetTargetBrowser(_c.ServiceWebConfig.TestConfig.TargetBrowser)
                 .SetDriver(_c.Driver);
