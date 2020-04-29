@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Data.Time;
 using AcceptanceTests.Common.Driver;
@@ -29,18 +30,46 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigureDriverHooks)]
-        public void ConfigureDriver(TestContext context, ScenarioContext scenarioContext)
+        public void ConfigureDriver(TestContext context, ScenarioContext scenario)
         {
-            context.ServiceWebConfig.TestConfig.TargetBrowser = DriverManager.GetTargetBrowser(NUnit.Framework.TestContext.Parameters["TargetBrowser"]);
-            context.ServiceWebConfig.TestConfig.TargetDevice = DriverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
             DriverManager.KillAnyLocalDriverProcesses();
+            var browserAndVersion = GetBrowserAndVersion();
+            context.ServiceWebConfig.TestConfig.TargetBrowser = GetTargetBrowser(browserAndVersion);
+            context.ServiceWebConfig.TestConfig.TargetDevice = DriverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
+
             var driverOptions = new DriverOptions()
             {
-                EnableLogging = true,
                 TargetBrowser = context.ServiceWebConfig.TestConfig.TargetBrowser,
                 TargetDevice = context.ServiceWebConfig.TestConfig.TargetDevice
             };
-            context.Driver = new DriverSetup(context.ServiceWebConfig.SauceLabsConfiguration, scenarioContext.ScenarioInfo, driverOptions);
+
+            var sauceLabsOptions = new SauceLabsOptions()
+            {
+                BrowserVersion = GetBrowserVersion(browserAndVersion),
+                EnableLogging = EnableLogging(scenario.ScenarioInfo),
+                Title = scenario.ScenarioInfo.Title
+            };
+            context.Driver = new DriverSetup(context.ServiceWebConfig.SauceLabsConfiguration, driverOptions, sauceLabsOptions);
+        }
+
+        private static string GetBrowserAndVersion()
+        {
+            return NUnit.Framework.TestContext.Parameters["TargetBrowser"] ?? "";
+        }
+
+        private static TargetBrowser GetTargetBrowser(string browserAndVersion)
+        {
+            return DriverManager.GetTargetBrowser(browserAndVersion.Contains(":") ? browserAndVersion.Split(":")[0] : browserAndVersion);
+        }
+
+        private static string GetBrowserVersion(string browserAndVersion)
+        {
+            return browserAndVersion.Contains(":") ? browserAndVersion.Split(":")[1] : "latest";
+        }
+
+        private static bool EnableLogging(ScenarioInfo scenario)
+        {
+            return !scenario.Tags.Contains("DisableLogging");
         }
 
         [BeforeScenario(Order = (int)HooksSequence.SetTimeZone)]
@@ -56,7 +85,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             if (_browsers.Count.Equals(0))
             {
                 context.CurrentUser = UserManager.GetDefaultParticipantUser(context.UserAccounts);
-                var browser = new UserBrowser(context.CurrentUser)
+                var browser = new UserBrowser()
                     .SetBaseUrl(context.ServiceWebConfig.VhServices.ServiceWebUrl)
                     .SetTargetBrowser(context.ServiceWebConfig.TestConfig.TargetBrowser)
                     .SetDriver(context.Driver);
@@ -81,15 +110,10 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         [AfterScenario(Order = (int)HooksSequence.StopEdgeChromiumServer)]
         public void StopEdgeChromiumServer(TestContext context)
         {
-            var targetBrowser = GetTargetBrowser();
-            if (targetBrowser.ToLower().Equals(TargetBrowser.EdgeChromium.ToString().ToLower()) &&
+            var targetBrowser = GetBrowserAndVersion();
+            if (targetBrowser.ToLower().Contains(TargetBrowser.EdgeChromium.ToString().ToLower()) &&
                 !context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs())
                 _browsers?[context.CurrentUser.Key].StopEdgeChromiumServer();
-        }
-
-        private static string GetTargetBrowser()
-        {
-            return NUnit.Framework.TestContext.Parameters["TargetBrowser"] ?? "";
         }
     }
 }
