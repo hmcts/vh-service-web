@@ -201,7 +201,7 @@ parameters:
 variables:
   - group: vh-domains-and-urls
   - group: vh-apps-settings-generic
-  - group: vh-video-web
+  - group: vh-service-web
   - group: vh-aat
   - group: vh test users
   - group: Saucelabs
