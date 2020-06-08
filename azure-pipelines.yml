@@ -1,70 +1,313 @@
-# Set variables once
-variables:
-  - group: KinlyConfiguration
+parameters:
+  - name: PackageApp
+    displayName: Package App
+    type: boolean
+    default: true
 
-  - name: SelfTestApiKey
-    value: $(SelfTestApiKey_test)
-  - name: KinlyApiKey
-    value: $(KinlyApiKey_test)
-  
-  - name: cleanChekout
-    value: false
-  
+  - name: PackageACTests
+    displayName: Package Acceptance Tests
+    type: boolean
+    default: true
 
-  - name: apiDirectory
-    value: ServiceWebsite/ServiceWebsite
-  - name: solutionType
-    value: angularDotNetCore # angularDotNetCore, dotNetCore
+  - name: RunUnitTests
+    displayName: Run Unit Tests
+    type: boolean
+    default: true
 
-  - name: sonarCloudPrepareExtraProperties
-    value: |  
-      sonar.exclusions=**/node_modules/**, **/*.spec.ts, *.spec.ts, **/ClientApp/*, **/ClientApp/src/*, **/ClientApp/coverage/**/*, **/*.js, **/ServiceWebsite/Security/*.cs,**/ServiceWebsite/Swagger/*.cs,**/ConfigureServicesExtensions.cs, **/Startup.cs, **/Program.cs
-      sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info, **/lcov.info
-      sonar.typescript.exclusions=**/node_modules/**, **/typings.d.ts, **/main.ts, **/environments/environment*.ts, **/*routing.module.ts, **/api-client.ts
-      sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
+  - name: RunIntegTests
+    displayName: Run Integration Tests
+    type: boolean
+    default: true
 
-  - name: coverletCoverageExclusions
-    value: '[ServiceWebsite.BookingApi.Client]*,[ServiceWebsite.UserAPI.Client]*,[ServiceWebsite.VideoAPI.Client]*,[*]ServiceWebsite.Swagger.*,[ServiceWebsite]ServiceWebsite.Program,[ServiceWebsite]ServiceWebsite.Startup,[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions,[*]ServiceWebsite.AcceptanceTests/*'
-  
-  - name: integrationTestsAppSettingsTransform
-    value: '
-      "AzureAd:TenantId":"$(tenantid)",
-      "KinlyConfiguration:ApiSecret":"$(KinlyApiKey)",
-      "KinlyConfiguration:SelfTestApiSecret":"$(SelfTestApiKey)",
-      "KinlyConfiguration:Audience":"$(KinlyApiAudience)",
-      "KinlyConfiguration:Issuer":"$(KinlyApiIssuer)"
-      '
-  - name: keyVaultName
-    value: vhcoreinfrahtdev # Used to get secrets for integration tests
-  - name: secretsFilter
-    value:  'TenantId' # filters out secrets returned from key vault
+  - name: RunSonarCloudTests
+    displayName: Run Sonar Cloud Analysis
+    type: boolean
+    default: true
 
-# GitHub Repo that contains build templates. Reference https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=vsts#using-other-repositories
-resources:
-  repositories:
-  - repository: azureDevOpsTemplates
-    type: github
-    name: hmcts/azure-devops-templates
-    endpoint: hmcts
+  - name: RunMutationTests
+    displayName: Run Mutation Tests
+    type: boolean
+    default: true
 
-trigger:
-  branches:
-    include:
-    - master
-    - release/*
-    - hotfix/*
-pr:
-  - master
+  - name: RunACTests
+    displayName: Run Acceptance Tests
+    type: boolean
+    default: true
 
-jobs:
-- template: jobs/angularDotNetCore.yml@azureDevOpsTemplates # Template reference
-  parameters:
-    cleanCheckout: $(cleanCheckout)
-    sonarCloudExtraProperties: $(sonarCloudPrepareExtraProperties)
-    KeyVaultName: $(KeyVaultName)
-    apiDirectory: $(apiDirectory)
-    SecretsFilter: $(SecretsFilter)
-    solutionType: $(solutionType)
-    integrationTestsAppSettingsTransform: $(integrationTestsAppSettingsTransform)
-    dotNetCoreVersion: '3.1.100'
-    nodeVersion: '10.x'
+  - name: RunNodeTests
+    displayName: Run Node Tests
+    type: boolean
+    default: true
+
+  - name: testSettings
+    type: object
+    default:
+      # AzureAd
+    - name: AzureAd:AppInsightsKey
+      value: vh-core-infra-AppInsightsKey
+      secret: true
+    - name: AzureAd:Authority
+      value: $(Authority)
+    - name: AzureAd:BaseVideoUrl
+      value: $(video_blob_url)
+    - name: AzureAd:ClientId
+      value: vh-service-web-appid
+      secret: true
+    - name: AzureAd:ClientSecret
+      value: vh-service-web-key
+      secret: true
+    - name: AzureAd:PostLogoutRedirectUri
+      value: $(service_web_url)logout
+    - name: AzureAd:RedirectUri
+      value: $(service_web_url)home
+    - name: AzureAd:TenantId
+      value: tenantid
+      secret: true
+    - name: AzureAd:UserApiClientId
+      value: vh-user-api-appid
+      secret: true
+    - name: AzureAd:UserApiClientSecret
+      value: vh-user-api-key
+      secret: true
+
+    # Kinly
+    - name: KinlyConfiguration:CallbackSecret
+      value: $(CallbackKey)
+    - name: KinlyConfiguration:ApiSecret
+      value: $(KinlyApiKey)
+    - name: KinlyConfiguration:SelfTestApiSecret
+      value: $(SelfTestApiKey)
+
+    # Testing
+    - name: TestUserSecrets:TestUsernameStem
+      value: $(TestUserSecrets:TestUsernameStem)
+    - name: TestUserSecrets:TestUserPassword
+      value: $(TestUserSecrets:TestUserPassword)
+
+    # VhServices
+    - name: VhServices:BookingsApiResourceId
+      value: vh-bookings-api-identifieruris
+      secret: true
+    - name: VhServices:BookingsApiUrl
+      value: $(bookings_api_url)
+    - name: VhServices:UserApiResourceId
+      value: vh-user-api-identifieruris
+      secret: true
+    - name: VhServices:UserApiUrl
+      value: $(user_api_url)
+    - name: VhServices:VideoApiResourceId
+      value: vh-video-api-identifieruris
+      secret: true
+    - name: VhServices:VideoApiUrl
+      value: $(video_api_url)
+    - name: VhServices:VideoWebUrl
+      value: $(video_web_url)
+    - name: VhServices:KinlySelfTestScoreEndpointUrl
+      value: $(KinlySelfTestApiUrl)/testcall
+    - name: VhServices:PexipSelfTestNodeUri
+      value: $(PexipSelfTestNode)
+
+    # SauceLabs
+    - name: Saucelabs:Username
+      value: $(Saucelabs:Username)
+    - name: Saucelabs:AccessKey
+      value: $(Saucelabs:AccessKey)
+
+  - name: appSettings
+    type: object
+    default:
+    - name: ApplicationInsights:InstrumentationKey
+      value: vh-core-infra-AppInsightsKey
+      secret: true
+    - name: IsLive
+      value: $(IsLive)
+
+    # AzureAd
+    - name: AzureAd:Authority
+      value: $(Authority)
+    - name: AzureAd:BaseVideoUrl
+      value: $(video_blob_url)
+    - name: AzureAd:ClientId
+      value: vh-service-web-appid
+      secret: true
+    - name: AzureAd:ClientSecret
+      value: vh-service-web-key
+      secret: true
+    - name: AzureAd:PostLogoutRedirectUri
+      slot:
+        deployment:
+          value: $(service_web_url_staging)logout
+        active:
+          value: $(service_web_url)logout
+    - name: AzureAd:RedirectUri
+      slot:
+        deployment:
+          value: $(service_web_url_staging)home
+        active:
+          value: $(service_web_url)home
+    - name: AzureAd:TenantId
+      value: tenantid
+      secret: true
+    - name: AzureAd:UserApiClientId
+      value: vh-user-api-appid
+      secret: true
+    - name: AzureAd:UserApiClientSecret
+      value: vh-user-api-key
+      secret: true
+
+    # Kinly
+    - name: KinlyConfiguration:CallbackSecret
+      value: $(CallbackKey)
+    - name: KinlyConfiguration:ApiSecret
+      value: $(KinlyApiKey)
+    - name: KinlyConfiguration:SelfTestApiSecret
+      value: $(SelfTestApiKey)
+
+    # Testing
+    - name: TestUserSecrets:TestUsernameStem
+      value: $(TestUserSecrets:TestUsernameStem)
+    - name: TestUserSecrets:TestUserPassword
+      value: $(TestUserSecrets:TestUserPassword)
+
+    # VhServices
+    - name: VhServices:BookingsApiResourceId
+      value: vh-bookings-api-identifieruris
+      secret: true
+    - name: VhServices:BookingsApiUrl
+      value: $(bookings_api_url)
+    - name: VhServices:UserApiResourceId
+      value: vh-user-api-identifieruris
+      secret: true
+    - name: VhServices:UserApiUrl
+      value: $(user_api_url)
+    - name: VhServices:VideoApiResourceId
+      value: vh-video-api-identifieruris
+      secret: true
+    - name: VhServices:VideoApiUrl
+      value: $(video_api_url)
+    - name: VhServices:VideoWebUrl
+      value: $(video_web_url)
+    - name: VhServices:KinlySelfTestScoreEndpointUrl
+      value: $(KinlySelfTestApiUrl)/testcall
+    - name: VhServices:PexipSelfTestNodeUri
+      value: $(PexipSelfTestNode)
+    - name: VhServices:ServiceWebUrl
+      slot:
+        deployment:
+          value: $(service_web_url_staging)
+        active:
+          value: $(service_web_url)
+
+  variables:
+    - group: vh-domains-and-urls
+    - group: vh-apps-settings-generic
+    - group: vh-video-web
+    - group: vh-aat
+    - group: vh test users
+    - group: Saucelabs
+    - group: vh-wowza-dev
+    - group: KinlyConfiguration_Test
+
+  trigger:
+    branches:
+      include:
+      - master
+      - release/*
+      - hotfix/*
+    paths:
+      include:
+      - ServiceWebsite/*
+      - azure-pipelines.yml
+  pr:
+    branches:
+      include:
+      - master
+    paths:
+      include:
+      - ServiceWebsite/*
+      - azure-pipelines.yml
+
+  resources:
+    repositories:
+      - repository: templates
+        type: github
+        name: hmcts/azure-devops-templates
+        ref: refs/heads/webtest
+        endpoint: hmcts (1)
+    containers:
+    - container: dotnetsdk
+      image: sspublicsbox.azurecr.io/vh/dotnet-angular:3.1.102
+      endpoint: sspublicsbox
+    - container: dotnetsdk-cipipeline
+      image: sspublicsbox.azurecr.io/vh/dotnet-angular-cipipeline:3.1.102
+      endpoint: sspublicsbox
+    - container: node
+      image: node:lts-alpine
+
+  extends:
+    template: stages\dotnet-package.yml@templates
+    parameters:
+      coreProjectPath: ServiceWebsite/ServiceWebsite
+      nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
+      PackageApp: ${{ parameters.PackageApp }}
+      PackageAcceptanceTests: ${{ parameters.PackageACTests }}
+      packageManagers:
+        - nuget
+        - npm
+      Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
+      testParameters:
+        coreProjectPath: ServiceWebsite/ServiceWebsite
+        unitTestProjectPath: ServiceWebsite/ServiceWebsite.UnitTests
+        integTestProjectPath: ServiceWebsite/ServiceWebsite.IntegrationTests
+        secrets_KeyVault: $(pr_Secret_KeyVault)
+        secrets_Subscription: $(pr_Secret_Subscription)
+        RunUnitTests: ${{ parameters.RunUnitTests }}
+        RunIntegrationTests: ${{ parameters.RunIntegTests }}
+        RunSonarCloud: ${{ parameters.RunSonarCloudTests }}
+        RunStryker: ${{ parameters.RunMutationTests }}
+        IntegrationTestSettings:
+          - ${{ each setting in parameters.testSettings }}:
+            - name: ${{ setting.name }}
+              value: ${{ setting.value }}
+              secret: ${{ setting.secret }}
+        coverletCoverageExclusions:
+          - "[ServiceWebsite.BookingApi.Client]*"
+          - "[ServiceWebsite.UserAPI.Client]*"
+          - "[ServiceWebsite.VideoAPI.Client]*"
+          - "[*]ServiceWebsite.Swagger.*"
+          - "[ServiceWebsite]ServiceWebsite.Program"
+          - "[ServiceWebsite]ServiceWebsite.Startup"
+          - "[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions"
+          - "[*]ServiceWebsite.AcceptanceTests/*"
+        sonarCloud_ExtraProperties: |
+          sonar.exclusions=**/node_modules/**, **/*.spec.ts, *.spec.ts, **/ClientApp/*, **/ClientApp/src/*, **/ClientApp/coverage/**/*, **/*.js, **/ServiceWebsite/Security/*.cs,**/ServiceWebsite/Swagger/*.cs,**/ConfigureServicesExtensions.cs, **/Startup.cs, **/Program.cs
+          sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info, **/lcov.info
+          sonar.typescript.exclusions=**/node_modules/**, **/typings.d.ts, **/main.ts, **/environments/environment*.ts, **/*routing.module.ts, **/api-client.ts
+          sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
+        StrykerBreak: 75
+      ACTest: ${{ parameters.RunACTests }}
+      NodeTest: ${{ parameters.RunNodeTests }}
+      nodeTestParameters:
+        coreProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
+
+      releaseParameters:
+        environment: Preview
+
+        subscription: $(pr_Subscription)
+        secrets_KeyVault: $(pr_Secret_KeyVault)
+        secrets_Subscription: $(pr_Secret_Subscription)
+        devOpsResource: vh_service_web
+        deploymentSlot: production
+        appName: vh-service-web-$(environment)
+        resourceGroup: vh-service-web-$(environment)
+        appSettings: ${{ parameters.appSettings }}
+        testCaseFilter: TestCategory=smoketest
+        acceptanceTestSettings:
+          - name: VhServices:ServiceWebApiUrl
+            value: $(service_web_url_staging)
+          - name: VhServices:ServiceWebUrl
+            value: $(service_web_url_staging)
+          - ${{ each setting in parameters.testSettings }}:
+            - name: ${{ setting.name }}
+              value: ${{ setting.value }}
+              secret: ${{ setting.secret }}
