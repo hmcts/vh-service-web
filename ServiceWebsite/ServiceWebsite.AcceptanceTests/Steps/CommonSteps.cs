@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using FluentAssertions;
@@ -56,8 +56,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
             _browsers[_c.CurrentUser.Key].ClickLink(CommonServiceWebPage.ContactLink);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone)).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoEmail)).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone)).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.CommonData.CommonOnScreenData.VhoEmail)).Displayed.Should().BeTrue();
         }
 
         [Then(@"a message appears stating '(.*)'")]
