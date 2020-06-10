@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
-using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
@@ -25,11 +24,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         [When(@"the user answers yes to the video working question")]
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.VideoWorking));
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.VideoWorking));
             _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
-                Answer = _c.ServiceWebConfig.TestConfig.TestData.VideoWorking,
+                Answer = _c.WebConfig.TestConfig.TestData.VideoWorking,
                 ExtendedAnswer = null,
                 QuestionKey = SelfTestQuestionKeys.SeeVideoQuestion
             });

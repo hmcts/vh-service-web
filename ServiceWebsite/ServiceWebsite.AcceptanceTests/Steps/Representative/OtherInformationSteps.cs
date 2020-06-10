@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
@@ -26,11 +26,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.OtherInformation.Answer));
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.OtherInformation.Answer));
             _browsers[_c.CurrentUser.Key].Click(OtherInformationPage.ContinueButton);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
-                Answer = _c.ServiceWebConfig.TestConfig.TestData.OtherInformation.Answer,
+                Answer = _c.WebConfig.TestConfig.TestData.OtherInformation.Answer,
                 ExtendedAnswer = null,
                 QuestionKey = RepresentativeQuestionKeys.OtherInformation
             });
@@ -40,12 +40,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         public void WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreInformationTextfield()
         {
             _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel("Yes"));
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(_c.WebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(Keys.Tab);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = "Yes",
-                ExtendedAnswer = _c.ServiceWebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer,
+                ExtendedAnswer = _c.WebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer,
                 QuestionKey = RepresentativeQuestionKeys.OtherInformation
             });
         }

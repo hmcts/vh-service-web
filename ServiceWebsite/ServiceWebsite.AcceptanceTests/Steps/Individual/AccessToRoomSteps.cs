@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
-using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
@@ -24,9 +23,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.AccessToRoom));
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.AccessToRoom));
             _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
-            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.ServiceWebConfig.TestConfig.TestData.AccessToRoom, ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.RoomQuestion });
+            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.WebConfig.TestConfig.TestData.AccessToRoom, ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.RoomQuestion });
         }
 
         [When(@"the user answers no to the access to a room question")]

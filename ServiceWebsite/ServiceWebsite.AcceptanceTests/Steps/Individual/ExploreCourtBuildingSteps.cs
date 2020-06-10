@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
-using AcceptanceTests.Common.Driver.Support;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Helpers;
 using AcceptanceTests.Common.Test.Steps;
@@ -33,8 +33,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         [Then(@"the exploring the court building video begins to play")]
         public void ThenTheExploringTheCourtBuildingVideoBeginsToPlay()
         {
-            if (_c.ServiceWebConfig.TestConfig.TargetBrowser == TargetBrowser.Chrome ||
-                _c.ServiceWebConfig.TestConfig.TargetBrowser == TargetBrowser.MacChrome)
+            if (_c.WebConfig.TestConfig.TargetBrowser == TargetBrowser.Chrome)
             {
                 _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ExploreCourtBuildingPage.Video).Click();
             }

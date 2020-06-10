@@ -62,6 +62,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page PrivacyPolicy = new Page("Privacy Policy", "privacy-policy");
         public static readonly Page OpenGovernmentLicence = new Page("Open Government Licence", "open-government-licence");
         public static readonly Page UnsupportedBrowser = new Page("Unsupported Browser", "unsupported-browser");
+        public static readonly Page UnsupportedDevice = new Page("UnsupportedDevice", "sign-in-on-computer");
         public static readonly Page VideoWeb = new Page("Video Web", "hearing-list");
 
         public string ToString(Page page)
