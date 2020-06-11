@@ -10,9 +10,9 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         [BeforeScenario(Order = (int)HooksSequence.HealthcheckHooks)]
         public void CheckApiHealth(TestContext context)
         {
-            CheckBookingsApiHealth(context.ServiceWebConfig.VhServices.BookingsApiUrl, context.Tokens.BookingsApiBearerToken);
-            CheckUserApiHealth(context.ServiceWebConfig.VhServices.UserApiUrl, context.Tokens.UserApiBearerToken);
-            CheckVideoApiHealth(context.ServiceWebConfig.VhServices.VideoApiUrl, context.Tokens.VideoApiBearerToken);
+            CheckBookingsApiHealth(context.WebConfig.VhServices.BookingsApiUrl, context.Tokens.BookingsApiBearerToken);
+            CheckUserApiHealth(context.WebConfig.VhServices.UserApiUrl, context.Tokens.UserApiBearerToken);
+            CheckVideoApiHealth(context.WebConfig.VhServices.VideoApiUrl, context.Tokens.VideoApiBearerToken);
         }
 
         private static void CheckBookingsApiHealth(string apiUrl, string bearerToken)

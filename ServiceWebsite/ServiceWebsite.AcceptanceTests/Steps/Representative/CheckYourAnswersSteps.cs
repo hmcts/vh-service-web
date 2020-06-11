@@ -2,7 +2,7 @@
 using System.Linq;
 using AcceptanceTests.Common.Data.Helpers;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
@@ -49,7 +49,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         public void ThenTheAnswerForWhoLlBePresentingIsDisplayedCorrectly()
         {
             var answer = _c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase));
-            if (answer.Answer.Equals(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer))
+            if (answer.Answer.Equals(_c.WebConfig.TestConfig.TestData.PresentingTheCase.Answer))
             {
                 _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.PresentingAnswerText)
                     .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Answer);
@@ -57,9 +57,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
             else
             {
                 _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.FullName)
-                    .Text.Trim().Should().Be(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
+                    .Text.Trim().Should().Be(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
                 _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.Email)
-                    .Text.Trim().Should().Be(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
+                    .Text.Trim().Should().Be(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
             }
         }
 
