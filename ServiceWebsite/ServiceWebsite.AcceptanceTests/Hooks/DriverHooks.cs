@@ -41,13 +41,13 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var driverOptions = new DriverOptions()
             {
                 TargetBrowser = context.WebConfig.TestConfig.TargetBrowser,
+                TargetBrowserVersion = context.WebConfig.TestConfig.TargetBrowserVersion,
                 TargetDevice = context.WebConfig.TestConfig.TargetDevice,
                 TargetOS = context.WebConfig.TestConfig.TargetOS
             };
 
             var sauceLabsOptions = new SauceLabsOptions()
             {
-                BrowserVersion = context.WebConfig.TestConfig.TargetBrowserVersion,
                 EnableLogging = EnableLogging(scenario.ScenarioInfo),
                 Name = scenario.ScenarioInfo.Title
             };
