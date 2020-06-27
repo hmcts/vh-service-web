@@ -413,30 +413,30 @@
       },
       "Microsoft.Azure.KeyVault": {
         "type": "Transitive",
-        "resolved": "3.0.3",
-        "contentHash": "83dOAA70xwVw4DVwyMob6PjgHNGuBqHr/Z+S1Blh/LFve/Y/WfXlGdqK5cgs4M7CkR2va4UWzz/G8IBg8m3xKA==",
+        "resolved": "2.3.2",
+        "contentHash": "A82ESUdfLz2wMhYuPxrwf/fA7JVt3IARgeMCG3TsaLtxUxa9RBKX3f0zdnKmvBvJ/u1/5g03OLR26GPekqY5HQ==",
         "dependencies": {
-          "Microsoft.Azure.KeyVault.WebKey": "3.0.3",
-          "Microsoft.Rest.ClientRuntime": "[2.3.18, 3.0.0)",
-          "Microsoft.Rest.ClientRuntime.Azure": "[3.3.18, 4.0.0)",
+          "Microsoft.Azure.KeyVault.WebKey": "2.0.7",
+          "Microsoft.Rest.ClientRuntime": "[2.3.8, 3.0.0)",
+          "Microsoft.Rest.ClientRuntime.Azure": "[3.3.7, 4.0.0)",
           "NETStandard.Library": "1.6.1",
-          "Newtonsoft.Json": "10.0.3",
+          "Newtonsoft.Json": "9.0.1",
           "System.Net.Http": "4.3.0"
         }
       },
       "Microsoft.Azure.KeyVault.WebKey": {
         "type": "Transitive",
-        "resolved": "3.0.3",
-        "contentHash": "fESWqsmzR32Oqj+POAn3mtnUDNknR58ARURoy6ehaOOXnHUQ+c7DZH1AgZtYWoNWEYEvT6zKY7a9PKdcMSJb0A==",
+        "resolved": "2.0.7",
+        "contentHash": "MVSYao62R9rwl9KF+IsJm+XBLupJj1ma2lfwNeFlSWziXGAopnYK+YkDWqABOqNIV9kpza/MvNBxITzhlJIyIw==",
         "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.0.2",
           "NETStandard.Library": "1.6.1",
-          "Newtonsoft.Json": "10.0.3",
-          "System.Collections": "4.3.0",
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Linq": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Security.Cryptography.Algorithms": "4.3.0",
-          "System.Security.Cryptography.Cng": "4.3.0"
+          "Newtonsoft.Json": "9.0.1",
+          "System.Collections": "4.0.11",
+          "System.Collections.Concurrent": "4.0.12",
+          "System.Linq": "4.1.0",
+          "System.Runtime": "4.1.0",
+          "System.Security.Cryptography.Algorithms": "4.2.0"
         }
       },
       "Microsoft.Azure.Services.AppAuthentication": {
@@ -811,21 +811,21 @@
       },
       "Microsoft.Rest.ClientRuntime": {
         "type": "Transitive",
-        "resolved": "2.3.18",
-        "contentHash": "daE2vz5eNmiUbx8Lm0DArlKfKVtH3IzSteR0N+AJJ7cDgj32LcFudGx9Vm0bFelmiEZ3nO4Y7XTk2nfjUK/uCg==",
+        "resolved": "2.3.8",
+        "contentHash": "Hj96LBoCwKY2VQKfSCVGGPV1sSumVjuYnrlpBwL4JSTnSK4b6ZxjLtXj8LgmKav8xJ2gps+UN7eI3hHVFKvBFw==",
         "dependencies": {
           "NETStandard.Library": "1.6.1",
-          "Newtonsoft.Json": "10.0.3"
+          "Newtonsoft.Json": "9.0.1"
         }
       },
       "Microsoft.Rest.ClientRuntime.Azure": {
         "type": "Transitive",
-        "resolved": "3.3.18",
-        "contentHash": "pCtem10PRQYvzRiwJVInsccsqB0NrTjW83NF3zWk1LpN3IS0AneZKq89RyogDT7mRMT1Li/mLY8N8kU6RAiK0g==",
+        "resolved": "3.3.7",
+        "contentHash": "6u8JIuvrztse4tPOcvNzAJuzGBP0uY+Ijggk8ZYhp0siGEZ1XfZylf1vpNGUicvwcrhhoIgDW73Z1L6QGssr2g==",
         "dependencies": {
-          "Microsoft.Rest.ClientRuntime": "[2.3.17, 3.0.0)",
+          "Microsoft.Rest.ClientRuntime": "[2.3.8, 3.0.0)",
           "NETStandard.Library": "1.6.1",
-          "Newtonsoft.Json": "10.0.3"
+          "Newtonsoft.Json": "9.0.1"
         }
       },
       "Microsoft.VisualStudio.Web.CodeGeneration": {
