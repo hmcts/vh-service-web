@@ -57,8 +57,10 @@ parameters:
       value: vh-service-web-key
       secret: true
     - name: AzureAd:PostLogoutRedirectUri
+      slot: true
       value: $(service_web_url)logout
     - name: AzureAd:RedirectUri
+      slot: true
       value: $(service_web_url)home
     - name: AzureAd:TenantId
       value: tenantid
@@ -202,7 +204,7 @@ variables:
   - group: vh-domains-and-urls
   - group: vh-apps-settings-generic
   - group: vh-service-web
-  - group: vh-aat
+  - group: vh-preview
   - group: vh test users
   - group: Saucelabs
   - group: vh-wowza-dev
@@ -232,7 +234,7 @@ resources:
     - repository: templates
       type: github
       name: hmcts/azure-devops-templates
-      ref: refs/heads/webtest
+      ref: refs/heads/master
       endpoint: hmcts (1)
   containers:
   - container: dotnetsdk
@@ -257,6 +259,8 @@ extends:
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       coreProjectPath: ServiceWebsite/ServiceWebsite
+      nodeProjectPath: AdminWebsite/AdminWebsite/ClientApp
+      RunNode: true
       unitTestProjectPath: ServiceWebsite/ServiceWebsite.UnitTests
       integTestProjectPath: ServiceWebsite/ServiceWebsite.IntegrationTests
       secrets_KeyVault: $(pr_Secret_KeyVault)
@@ -302,12 +306,14 @@ extends:
       resourceGroup: vh-service-web-$(environment)
       appSettings: ${{ parameters.appSettings }}
       testCaseFilter: TestCategory=smoketest
+      dependentApps:
+        - vh-user-api-$(environment)
+        - vh-bookings-api-$(environment)
+        - vh-video-api-$(environment)
       acceptanceTestSettings:
         - name: VhServices:ServiceWebApiUrl
           value: $(service_web_url_staging)
         - name: VhServices:ServiceWebUrl
           value: $(service_web_url_staging)
         - ${{ each setting in parameters.testSettings }}:
-          - name: ${{ setting.name }}
-            value: ${{ setting.value }}
-            secret: ${{ setting.secret }}
+          - ${{ insert }}: ${{ setting }}
