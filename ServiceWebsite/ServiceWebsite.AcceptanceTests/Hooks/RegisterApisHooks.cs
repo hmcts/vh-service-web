@@ -15,9 +15,9 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             context.Apis = new Apis
             {
-                BookingsApi = new BookingsApiManager(context.ServiceWebConfig.VhServices.BookingsApiUrl, context.Tokens.BookingsApiBearerToken),
-                VideoApi = new VideoApiManager(context.ServiceWebConfig.VhServices.VideoApiUrl, context.Tokens.VideoApiBearerToken),
-                UserApi = new UserApiManager(context.ServiceWebConfig.VhServices.UserApiUrl, context.Tokens.UserApiBearerToken)
+                BookingsApi = new BookingsApiManager(context.WebConfig.VhServices.BookingsApiUrl, context.Tokens.BookingsApiBearerToken),
+                VideoApi = new VideoApiManager(context.WebConfig.VhServices.VideoApiUrl, context.Tokens.VideoApiBearerToken),
+                UserApi = new UserApiManager(context.WebConfig.VhServices.UserApiUrl, context.Tokens.UserApiBearerToken)
             };
             ConfigurationManager.VerifyConfigValuesSet(context.Apis);
         }

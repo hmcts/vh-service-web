@@ -17,7 +17,7 @@ declare var PexRTC: any;
 @Component({
     selector: 'app-test-your-equipment',
     templateUrl: './test-your-equipment.component.html',
-    styles: []
+    styleUrls: ['./test-your-equipment.component.css']
 })
 export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit, OnDestroy {
     token: TokenResponse;
