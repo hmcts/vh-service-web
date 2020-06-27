@@ -259,7 +259,7 @@ extends:
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       coreProjectPath: ServiceWebsite/ServiceWebsite
-      nodeProjectPath: AdminWebsite/AdminWebsite/ClientApp
+      nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
       RunNode: true
       unitTestProjectPath: ServiceWebsite/ServiceWebsite.UnitTests
       integTestProjectPath: ServiceWebsite/ServiceWebsite.IntegrationTests
