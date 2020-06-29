@@ -34,61 +34,37 @@ parameters:
       BrowserVersion: Latest
       DeviceType: Desktop
       DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
+      TestCaseFilter: TestCategory=Smoketest-Extended
     - OS: Windows
       Browser: EdgeChromium
       BrowserVersion: Latest
       DeviceType: Desktop
       DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
+      TestCaseFilter: TestCategory=Smoketest-Extended
     - OS: MacOS
       Browser: Safari
       BrowserVersion: Latest
       DeviceType: Desktop
       DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
+      TestCaseFilter: TestCategory=Smoketest-Extended
     - OS: MacOS
       Browser: Chrome
       BrowserVersion: Latest
       DeviceType: Desktop
       DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
+      TestCaseFilter: TestCategory=Smoketest-Extended
     - OS: MacOS
       Browser: Firefox
       BrowserVersion: Latest
       DeviceType: Desktop
       DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
+      TestCaseFilter: TestCategory=Smoketest-Extended
     - OS: Windows
       Browser: Ie11
       BrowserVersion: Latest
       DeviceType: Desktop
       DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedBrowser
-    - OS: iOS
-      Browser: Safari
-      BrowserVersion:
-      DeviceType: Tablet
-      DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
-    - OS: Android
-      Browser: Chrome
-      BrowserVersion:
-      DeviceType: Tablet
-      DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
-    - OS: iOS
-      Browser: Safari
-      BrowserVersion:
-      DeviceType: Mobile
-      DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
-    - OS: Android
-      Browser: Chrome
-      BrowserVersion:
-      DeviceType: Mobile
-      DeviceName:
-      TestCaseFilter: TestCategory=UnsupportedDevice
+      TestCaseFilter: TestCategory=Smoketest-Extended
 - name: prodEnvs
   displayName: Environments Using Prod Subscription
   type: object
