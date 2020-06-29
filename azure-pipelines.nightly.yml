@@ -64,7 +64,7 @@ parameters:
       BrowserVersion: Latest
       DeviceType: Desktop
       DeviceName:
-      TestCaseFilter: TestCategory=Smoketest-Extended
+      TestCaseFilter: TestCategory=UnsupportedBrowser
       
 - name: prodEnvs
   displayName: Environments Using Prod Subscription
