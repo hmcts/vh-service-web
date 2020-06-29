@@ -305,7 +305,6 @@ extends:
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       devOpsResource: vh_service_web
-      deploymentSlot: production
       appName: vh-service-web-$(environment)
       resourceGroup: vh-service-web-$(environment)
       appSettings: ${{ parameters.appSettings }}
