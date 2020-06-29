@@ -1,0 +1,343 @@
+parameters:
+- name: deploymentBranch
+  displayName: Branch to Deploy
+  type: string
+  default: refs/heads/master
+
+- name: environment
+  displayName: Environment
+  type: string
+  default: AAT
+  values:
+  - Preview
+  - Dev
+  - AAT
+  - Sandbox
+  - Test1
+  - Test2
+  - Demo
+  - Preprod
+  - Prod
+
+- name: deviceConfiguration
+  displayName: Device Configurations
+  type: object
+  default:
+    - OS: Windows
+      Browser: Chrome
+      BrowserVersion: Latest
+      DeviceType: Desktop
+      DeviceName:
+      TestCaseFilter: TestCategory!=UnsupportedBrowser
+    - OS: Windows
+      Browser: Firefox
+      BrowserVersion: Latest
+      DeviceType: Desktop
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: Windows
+      Browser: EdgeChromium
+      BrowserVersion: Latest
+      DeviceType: Desktop
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: MacOS
+      Browser: Safari
+      BrowserVersion: Latest
+      DeviceType: Desktop
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: MacOS
+      Browser: Chrome
+      BrowserVersion: Latest
+      DeviceType: Desktop
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: MacOS
+      Browser: Firefox
+      BrowserVersion: Latest
+      DeviceType: Desktop
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: Windows
+      Browser: Ie11
+      BrowserVersion: Latest
+      DeviceType: Desktop
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedBrowser
+    - OS: iOS
+      Browser: Safari
+      BrowserVersion:
+      DeviceType: Tablet
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: Android
+      Browser: Chrome
+      BrowserVersion:
+      DeviceType: Tablet
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: iOS
+      Browser: Safari
+      BrowserVersion:
+      DeviceType: Mobile
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+    - OS: Android
+      Browser: Chrome
+      BrowserVersion:
+      DeviceType: Mobile
+      DeviceName:
+      TestCaseFilter: TestCategory=UnsupportedDevice
+- name: prodEnvs
+  displayName: Environments Using Prod Subscription
+  type: object
+  default:
+    - Prod
+    - Preprod
+
+# Set variables once
+variables:
+  - group: vh-domains-and-urls
+  - group: vh-apps-settings-generic
+  - group: vh-service-web
+  - group: vh test users
+  - group: Saucelabs
+  - ${{ if containsValue(parameters.prodEnvs, parameters.environment) }}:
+    - group: vh-prod
+  - ${{ if not(containsValue(parameters.prodEnvs, parameters.environment)) }}:
+    - group: vh-preview
+
+trigger: none
+pr: none
+schedules:
+- cron: "0 22 * * *"
+  displayName: Daily midnight build
+  always: true
+  branches:
+    include:
+    - master
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: hmcts/azure-devops-templates
+      ref: refs/heads/master
+      endpoint: hmcts (1)
+  pipelines:
+  - pipeline: CI
+    source: hmcts.vh-service-web
+
+stages:
+  - template: templates/vh-release.yml@templates
+    parameters:
+      environments:
+        - ${{ parameters.environment }}
+      deploymentBranch: ${{ parameters.deploymentBranch }}
+      releaseParameters:
+        subscription: $(env_Subscription)
+        secrets_KeyVault: $(env_Secret_KeyVault)
+        secrets_Subscription: $(env_Secret_Subscription)
+        devOpsResource: vh_service_web
+        appName: vh-service-web-$(environment)
+        resourceGroup: vh-service-web-$(environment)
+        testCaseFilter: TestCategory=smoketest
+        dependentApps:
+        - vh-user-api-$(environment)
+        - vh-bookings-api-$(environment)
+        - vh-video-api-$(environment)
+        variables:
+          - group: vh-wowza-dev
+            env:
+             - Preview
+             - Dev
+             - AAT
+             - Sandbox
+             - Test1
+             - Test2
+          - group: vh-wowza-demo
+            env:
+             - Demo
+          - group: vh-wowza-preprod
+            env:
+             - Preprod
+          - group: vh-wowza-prod
+            env:
+             - Prod
+          - group: KinlyConfiguration_Test
+            env:
+             - Preview
+             - Dev
+             - AAT
+             - Sandbox
+             - Test1
+             - Test2
+          - group: KinlyConfiguration_Test2
+            env:
+             - Demo
+          - group: KinlyConfiguration_Preprod
+            env:
+             - Preprod
+          - group: KinlyConfiguration_Prod
+            env:
+             - Prod
+        appSettings:
+          - name: ApplicationInsights:InstrumentationKey
+            value: vh-core-infra-AppInsightsKey
+            secret: true
+          - name: IsLive
+            value: $(IsLive)
+
+          # AzureAd
+          - name: AzureAd:Authority
+            value: $(Authority)
+          - name: AzureAd:BaseVideoUrl
+            value: $(video_blob_url)
+          - name: AzureAd:ClientId
+            value: vh-service-web-appid
+            secret: true
+          - name: AzureAd:ClientSecret
+            value: vh-service-web-key
+            secret: true
+          - name: AzureAd:PostLogoutRedirectUri
+            slot:
+              deployment:
+                value: $(service_web_url_staging)logout
+              active:
+                value: $(service_web_url)logout
+          - name: AzureAd:RedirectUri
+            slot:
+              deployment:
+                value: $(service_web_url_staging)home
+              active:
+                value: $(service_web_url)home
+          - name: AzureAd:TenantId
+            value: tenantid
+            secret: true
+          - name: AzureAd:UserApiClientId
+            value: vh-user-api-appid
+            secret: true
+          - name: AzureAd:UserApiClientSecret
+            value: vh-user-api-key
+            secret: true
+
+          # Kinly
+          - name: KinlyConfiguration:CallbackSecret
+            value: $(CallbackKey)
+          - name: KinlyConfiguration:ApiSecret
+            value: $(KinlyApiKey)
+          - name: KinlyConfiguration:SelfTestApiSecret
+            value: $(SelfTestApiKey)
+
+          # Testing
+          - name: TestUserSecrets:TestUsernameStem
+            value: $(TestUserSecrets:TestUsernameStem)
+          - name: TestUserSecrets:TestUserPassword
+            value: $(TestUserSecrets:TestUserPassword)
+
+          # VhServices
+          - name: VhServices:BookingsApiResourceId
+            value: vh-bookings-api-identifieruris
+            secret: true
+          - name: VhServices:BookingsApiUrl
+            value: $(bookings_api_url)
+          - name: VhServices:UserApiResourceId
+            value: vh-user-api-identifieruris
+            secret: true
+          - name: VhServices:UserApiUrl
+            value: $(user_api_url)
+          - name: VhServices:VideoApiResourceId
+            value: vh-video-api-identifieruris
+            secret: true
+          - name: VhServices:VideoApiUrl
+            value: $(video_api_url)
+          - name: VhServices:VideoWebUrl
+            value: $(video_web_url)
+          - name: VhServices:KinlySelfTestScoreEndpointUrl
+            value: $(KinlySelfTestApiUrl)/testcall
+          - name: VhServices:PexipSelfTestNodeUri
+            value: $(PexipSelfTestNode)
+          - name: VhServices:ServiceWebUrl
+            slot:
+              deployment:
+                value: $(service_web_url_staging)
+              active:
+                value: $(service_web_url)
+        acceptanceTestSettings:
+          # AzureAd
+          - name: AzureAd:AppInsightsKey
+            value: vh-core-infra-AppInsightsKey
+            secret: true
+          - name: AzureAd:Authority
+            value: $(Authority)
+          - name: AzureAd:BaseVideoUrl
+            value: $(video_blob_url)
+          - name: AzureAd:ClientId
+            value: vh-service-web-appid
+            secret: true
+          - name: AzureAd:ClientSecret
+            value: vh-service-web-key
+            secret: true
+          - name: AzureAd:PostLogoutRedirectUri
+            slot: true
+          - name: AzureAd:RedirectUri
+            slot: true
+          - name: AzureAd:TenantId
+            value: tenantid
+            secret: true
+          - name: AzureAd:UserApiClientId
+            value: vh-user-api-appid
+            secret: true
+          - name: AzureAd:UserApiClientSecret
+            value: vh-user-api-key
+            secret: true
+
+          # Kinly
+          - name: KinlyConfiguration:CallbackSecret
+            value: $(CallbackKey)
+          - name: KinlyConfiguration:ApiSecret
+            value: $(KinlyApiKey)
+          - name: KinlyConfiguration:SelfTestApiSecret
+            value: $(SelfTestApiKey)
+
+          # Testing
+          - name: TestUserSecrets:TestUsernameStem
+            value: $(TestUserSecrets:TestUsernameStem)
+          - name: TestUserSecrets:TestUserPassword
+            value: $(TestUserSecrets:TestUserPassword)
+
+          # VhServices
+          - name: VhServices:BookingsApiResourceId
+            value: vh-bookings-api-identifieruris
+            secret: true
+          - name: VhServices:BookingsApiUrl
+            value: $(bookings_api_url)
+          - name: VhServices:UserApiResourceId
+            value: vh-user-api-identifieruris
+            secret: true
+          - name: VhServices:UserApiUrl
+            value: $(user_api_url)
+          - name: VhServices:VideoApiResourceId
+            value: vh-video-api-identifieruris
+            secret: true
+          - name: VhServices:VideoApiUrl
+            value: $(video_api_url)
+          - name: VhServices:VideoWebUrl
+            value: $(video_web_url)
+          - name: VhServices:KinlySelfTestScoreEndpointUrl
+            value: $(KinlySelfTestApiUrl)/testcall
+          - name: VhServices:PexipSelfTestNodeUri
+            value: $(PexipSelfTestNode)
+          - name: VhServices:ServiceWebUrl
+            slot: true
+
+          # SauceLabs
+          - name: Saucelabs:Username
+            value: $(Saucelabs:Username)
+          - name: Saucelabs:AccessKey
+            value: $(Saucelabs:AccessKey)
+          - name: Saucelabs:RealDeviceApiKey
+            value: $(RealDeviceApiKey)
+        runMultiDeviceTests: true
+        deviceConfiguration: ${{ parameters.deviceConfiguration }}

@@ -116,6 +116,8 @@ parameters:
       value: $(Saucelabs:Username)
     - name: Saucelabs:AccessKey
       value: $(Saucelabs:AccessKey)
+    - name: Saucelabs:RealDeviceApiKey
+      value: $(RealDeviceApiKey)
 
   - name: appSettings
     type: object
