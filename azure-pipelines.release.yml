@@ -7,7 +7,7 @@ parameters:
 - name: environment
   displayName: Environment
   type: string
-  default: AAT
+  default: Sandbox
   values:
   - Preview
   - Dev
@@ -19,40 +19,10 @@ parameters:
   - Preprod
   - Prod
 
-- name: deviceConfiguration
-  displayName: Device Configurations
-  type: object
-  default:
-    - OS: Windows
-      Browser: Chrome
-      BrowserVersion: Beta
-      DeviceType: Desktop
-      DeviceName:
-      TestCaseFilter: TestCategory=Smoketest-Extended
-    - OS: Windows
-      Browser: Firefox
-      BrowserVersion: Beta
-      DeviceType: Desktop
-      DeviceName:
-      TestCaseFilter: TestCategory=Smoketest-Extended
-    - OS: Windows
-      Browser: EdgeChromium
-      BrowserVersion: Beta
-      DeviceType: Desktop
-      DeviceName:
-      TestCaseFilter: TestCategory=Smoketest-Extended
-    - OS: MacOS
-      Browser: Chrome
-      BrowserVersion: Beta
-      DeviceType: Desktop
-      DeviceName:
-      TestCaseFilter: TestCategory=Smoketest-Extended
-    - OS: MacOS
-      Browser: Firefox
-      BrowserVersion: Beta
-      DeviceType: Desktop
-      DeviceName:
-      TestCaseFilter: TestCategory=Smoketest-Extended
+- name: RunZap
+  displayName: Execute ZAP Tests
+  type: boolean
+  default: false
 
 - name: prodEnvs
   displayName: Environments Using Prod Subscription
@@ -73,16 +43,8 @@ variables:
   - ${{ if not(containsValue(parameters.prodEnvs, parameters.environment)) }}:
     - group: vh-preview
 
-
 trigger: none
 pr: none
-schedules:
-- cron: "0 17 7 * 0"
-  displayName: Weekly Beta build
-  always: true
-  branches:
-    include:
-    - master
 
 resources:
   repositories:
@@ -94,18 +56,28 @@ resources:
   pipelines:
   - pipeline: CI
     source: hmcts.vh-service-web
+    trigger: 
+      branches:
+      - master
+      - hotfix/*
+      - release/*
 
 stages:
   - template: templates/vh-release.yml@templates
     parameters:
-      environments:
-        - ${{ parameters.environment }}
-      deploymentBranch: ${{ parameters.deploymentBranch }}
+      ${{ if ne(variables['Build.Reason'], 'ResourceTrigger') }}:
+        environments:
+          - ${{ parameters.environment }}
+        deploymentBranch: ${{ parameters.deploymentBranch }}
+      ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
+        deploymentBranch: $(resources.pipeline.CI.sourceBranch)
       releaseParameters:
+        runZapTests: ${{ parameters.RunZap }}
         subscription: $(env_Subscription)
         secrets_KeyVault: $(env_Secret_KeyVault)
         secrets_Subscription: $(env_Secret_Subscription)
         devOpsResource: vh_service_web
+        deploymentSlot: production
         appName: vh-service-web-$(environment)
         resourceGroup: vh-service-web-$(environment)
         testCaseFilter: TestCategory=smoketest
@@ -308,5 +280,3 @@ stages:
             value: $(Saucelabs:AccessKey)
           - name: Saucelabs:RealDeviceApiKey
             value: $(RealDeviceApiKey)
-        runMultiDeviceTests: true
-        deviceConfiguration: ${{ parameters.deviceConfiguration }}

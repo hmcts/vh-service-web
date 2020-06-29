@@ -61,7 +61,7 @@ parameters:
       value: $(service_web_url)logout
     - name: AzureAd:RedirectUri
       slot: true
-      value: $(service_web_url)home
+      value: $(service_web_url)
     - name: AzureAd:TenantId
       value: tenantid
       secret: true
@@ -125,6 +125,9 @@ parameters:
     - name: ApplicationInsights:InstrumentationKey
       value: vh-core-infra-AppInsightsKey
       secret: true
+    - name: AppInsightsKey
+      value: vh-core-infra-AppInsightsKey
+      secret: true
     - name: IsLive
       value: $(IsLive)
 
@@ -148,9 +151,9 @@ parameters:
     - name: AzureAd:RedirectUri
       slot:
         deployment:
-          value: $(service_web_url_staging)home
+          value: $(service_web_url_staging)
         active:
-          value: $(service_web_url)home
+          value: $(service_web_url)
     - name: AzureAd:TenantId
       value: tenantid
       secret: true
