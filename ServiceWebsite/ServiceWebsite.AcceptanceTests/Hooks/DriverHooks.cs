@@ -76,6 +76,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 var browser = new UserBrowser()
                     .SetBaseUrl(context.WebConfig.VhServices.ServiceWebUrl)
                     .SetTargetBrowser(context.WebConfig.TestConfig.TargetBrowser)
+                    .SetTargetDevice(context.WebConfig.TestConfig.TargetDevice)
                     .SetDriver(context.Driver);
                 _browsers.Add(context.CurrentUser.Key, browser);
             }
