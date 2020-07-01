@@ -8,5 +8,6 @@ namespace ServiceWebsite.AcceptanceTests.Data
         public static string CommonTimeFormat = "hh:mmtt";
         public static string HearingDetailsDateInUkFormat = new CultureInfo("en-GB").DateTimeFormat.LongDatePattern;
         public static string HearingDetailsTime = CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern;
+        public static string HearingDetailsTimeForPreProd = "d MMMM yyyy";
     }
 }

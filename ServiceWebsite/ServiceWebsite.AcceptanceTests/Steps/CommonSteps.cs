@@ -80,7 +80,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",", "");
             var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsTime);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDate).Text.Should().Contain(scheduledDate);
+            var scheduledDateForPreProd = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsTimeForPreProd).Replace(",", "");
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDate).Text.Should().ContainAny(scheduledDate, scheduledDateForPreProd);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledTime).Text.Should().Contain(scheduledTime);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.CaseName).Text.Should().Contain(_c.Test.Hearing.Cases.First().Name);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonServiceWebPage.CaseTypeCaseNumber).Text.Should().ContainAll(_c.Test.Hearing.Cases.First().Number, _c.Test.Hearing.Case_type_name);
