@@ -109,7 +109,11 @@ parameters:
     - name: VhServices:PexipSelfTestNodeUri
       value: $(PexipSelfTestNode)
     - name: VhServices:ServiceWebUrl
-      slot: true
+      slot:
+        deployment:
+          value: $(service_web_url_staging)
+        active:
+          value: $(service_web_url)
 
     # SauceLabs
     - name: Saucelabs:Username
@@ -200,12 +204,6 @@ parameters:
       value: $(KinlySelfTestApiUrl)/testcall
     - name: VhServices:PexipSelfTestNodeUri
       value: $(PexipSelfTestNode)
-    - name: VhServices:ServiceWebUrl
-      slot:
-        deployment:
-          value: $(service_web_url_staging)
-        active:
-          value: $(service_web_url)
 
 variables:
   - group: vh-domains-and-urls

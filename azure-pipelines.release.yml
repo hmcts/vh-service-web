@@ -77,7 +77,6 @@ stages:
         secrets_KeyVault: $(env_Secret_KeyVault)
         secrets_Subscription: $(env_Secret_Subscription)
         devOpsResource: vh_service_web
-        deploymentSlot: production
         appName: vh-service-web-$(environment)
         resourceGroup: vh-service-web-$(environment)
         testCaseFilter: TestCategory=smoketest
@@ -199,12 +198,6 @@ stages:
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
             value: $(PexipSelfTestNode)
-          - name: VhServices:ServiceWebUrl
-            slot:
-              deployment:
-                value: $(service_web_url_staging)
-              active:
-                value: $(service_web_url)
         acceptanceTestSettings:
           # AzureAd
           - name: AzureAd:AppInsightsKey
@@ -271,7 +264,11 @@ stages:
           - name: VhServices:PexipSelfTestNodeUri
             value: $(PexipSelfTestNode)
           - name: VhServices:ServiceWebUrl
-            slot: true
+            slot:
+              deployment:
+                value: $(service_web_url_staging)
+              active:
+                value: $(service_web_url)
 
           # SauceLabs
           - name: Saucelabs:Username

@@ -65,7 +65,7 @@ parameters:
       DeviceType: Desktop
       DeviceName:
       TestCaseFilter: TestCategory=UnsupportedBrowser
-      
+
 - name: prodEnvs
   displayName: Environments Using Prod Subscription
   type: object
@@ -238,12 +238,7 @@ stages:
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
             value: $(PexipSelfTestNode)
-          - name: VhServices:ServiceWebUrl
-            slot:
-              deployment:
-                value: $(service_web_url_staging)
-              active:
-                value: $(service_web_url)
+
         acceptanceTestSettings:
           # AzureAd
           - name: AzureAd:AppInsightsKey
@@ -310,7 +305,11 @@ stages:
           - name: VhServices:PexipSelfTestNodeUri
             value: $(PexipSelfTestNode)
           - name: VhServices:ServiceWebUrl
-            slot: true
+            slot:
+              deployment:
+                value: $(service_web_url_staging)
+              active:
+                value: $(service_web_url)
 
           # SauceLabs
           - name: Saucelabs:Username
