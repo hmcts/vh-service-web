@@ -221,18 +221,11 @@ trigger:
     - master
     - release/*
     - hotfix/*
-  paths:
-    include:
-    - ServiceWebsite/*
-    - azure-pipelines.yml
+
 pr:
   branches:
     include:
     - master
-  paths:
-    include:
-    - ServiceWebsite/*
-    - azure-pipelines.yml
 
 resources:
   repositories:
