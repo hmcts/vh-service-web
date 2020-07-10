@@ -89,7 +89,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is on the (.*) page")]
         public void ThenTheUserIsOnThePage(string page)
         {
-            _browsers[_c.CurrentUser.Key].PageUrl(Page.FromString(page).Url);
+            if (!IsFirefoxPagesWithAutoVideo(page))
+                _browsers[_c.CurrentUser.Key].PageUrl(Page.FromString(page).Url);
         }
 
         [Then(@"the user is not on the (.*) page")]
@@ -102,6 +103,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserRefreshesThePage()
         {
             _browsers[_c.CurrentUser.Key].Driver.Navigate().Refresh();
+        }
+
+        private bool IsFirefoxPagesWithAutoVideo(string page)
+        {
+            return _c.WebConfig.TestConfig.TargetBrowser == TargetBrowser.Firefox &&
+                   Page.FromString(page).Equals(Page.TestYourEquipment);
         }
     }
 }
