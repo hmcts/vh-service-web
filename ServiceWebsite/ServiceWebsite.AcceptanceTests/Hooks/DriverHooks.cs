@@ -3,6 +3,7 @@ using System.Linq;
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Data.Time;
 using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Settings;
 using BoDi;
 using ServiceWebsite.AcceptanceTests.Helpers;
@@ -48,15 +49,19 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
             var sauceLabsOptions = new SauceLabsOptions()
             {
-                EnableLogging = EnableLogging(scenario.ScenarioInfo),
+                EnableLogging = EnableLogging(context.WebConfig.TestConfig.TargetOS, context.WebConfig.TestConfig.TargetBrowser, scenario.ScenarioInfo),
                 Name = scenario.ScenarioInfo.Title
             };
 
             context.Driver = new DriverSetup(context.WebConfig.SauceLabsConfiguration, driverOptions, sauceLabsOptions);
         }
 
-        private static bool EnableLogging(ScenarioInfo scenario)
+        private static bool EnableLogging(TargetOS os, TargetBrowser browser, ScenarioInfo scenario)
         {
+            if (os == TargetOS.Windows && browser == TargetBrowser.Firefox)
+            {
+                return false;
+            }
             return !scenario.Tags.Contains("DisableLogging");
         }
 
