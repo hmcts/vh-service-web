@@ -61,7 +61,7 @@
         "ng-mocks": "^8.0.0",
         "node-sass": "^4.13.1",
         "pa11y": "^5.1.0",
-        "protractor": "^5.4.0",
+        "protractor": "^6.0.0",
         "protractor-cucumber-framework": "^6.0.0",
         "protractor-multiple-cucumber-html-reporter-plugin": "^1.8.0",
         "puppeteer": "^1.8.0",
