@@ -33,26 +33,17 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<BookingsApiTokenHandler>();
             serviceCollection.AddScoped<ITokenProvider, TokenProvider>();
             serviceCollection.AddScoped<SecuritySettings>();
+            serviceCollection.AddScoped<ICustomJwtTokenProvider, CustomJwtTokenProvider>();
 
 
             // Build the hearings api client using a reusable HttpClient factory and predefined base url
             var container = serviceCollection.BuildServiceProvider();
             var serviceSettings = container.GetService<IOptions<ServiceSettings>>().Value;
-            var customTokenSettings = container.GetService<CustomTokenSettings>();
-
-            var customJwtTokenProvider = new CustomJwtTokenProvider
-            (
-                customTokenSettings.Secret,
-                customTokenSettings.Audience,
-                customTokenSettings.Issuer,
-                customTokenSettings.ThirdPartySecret
-            );
-
-            serviceCollection.AddSingleton<ICustomJwtTokenProvider>(customJwtTokenProvider);
-
+            var customJwtTokenProvider = container.GetService<ICustomJwtTokenProvider>();
+            
             serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>()
-            .AddHttpMessageHandler<UserApiTokenHandler>()
-            .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
+                .AddHttpMessageHandler<UserApiTokenHandler>()
+                .AddTypedClient(httpClient => BuildUserApiClient(httpClient, serviceSettings));
 
             serviceCollection.AddHttpClient<IBookingsApiClient, BookingsApiClient>()
             .AddHttpMessageHandler<BookingsApiTokenHandler>()
@@ -65,7 +56,7 @@ namespace ServiceWebsite
             serviceCollection.AddTransient<IParticipantService, ParticipantService>();
             serviceCollection.AddTransient<IHearingsService, HearingsService>();
             serviceCollection.AddTransient<IHearingSuitabilityService, HearingSuitabilityService>();
-            serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator(customTokenSettings.Secret));
+            serviceCollection.AddScoped<IHashGenerator, HashGenerator>();
             serviceCollection.AddSingleton<IPollyRetryService, PollyRetryService>();
 
             serviceCollection.AddSwaggerToApi();
@@ -112,9 +103,11 @@ namespace ServiceWebsite
             return client;
         }
 
-        private static IKinlyPlatformService BuildKinlyPlatformService(HttpClient httpClient, CustomJwtTokenProvider customJwtTokenProvider, ServiceSettings serviceSettings)
+        private static IKinlyPlatformService BuildKinlyPlatformService(HttpClient httpClient,
+            ICustomJwtTokenProvider customJwtTokenProvider, ServiceSettings serviceSettings)
         {
-            var service = new KinlyPlatformService(httpClient, customJwtTokenProvider, serviceSettings.KinlySelfTestScoreEndpointUrl);
+            var service = new KinlyPlatformService(httpClient, customJwtTokenProvider,
+                serviceSettings.KinlySelfTestScoreEndpointUrl);
             return service;
         }
 

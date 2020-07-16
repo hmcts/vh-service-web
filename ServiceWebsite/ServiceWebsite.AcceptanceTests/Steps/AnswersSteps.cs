@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using AcceptanceTests.Common.Api.Requests;
+using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
@@ -24,14 +24,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Given(@"(.*) has already submitted checklist and self test")]
         public void UserHasAlreadySubmittedChecklistAndSelfTest(string user)
         {
-            var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).AllAnswers(user);
+            var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.WebConfig.TestConfig.TestData).AllAnswers(user);
             SubmitAnswers(answers, _c.Test.Hearing);
         }
 
         [Given(@"(.*) has already submitted checklist")]
         public void GivenIndividualHasAlreadySubmittedChecklist(string user)
         {
-            var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).ChecklistAnswersOnly(user);
+            var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.WebConfig.TestConfig.TestData).ChecklistAnswersOnly(user);
             SubmitAnswers(answers, _c.Test.Hearing);
         }
 
@@ -39,7 +39,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void GivenRepresentativeHasAlreadySubmittedChecklistAndSelfTestOnAPreviousHearing()
         {
             var hearing = new HearingData(_c.Apis.BookingsApi).CreateHearing(_c.UserAccounts);
-            var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.ServiceWebConfig.TestConfig.TestData).AllAnswers("Representative");
+            var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.WebConfig.TestConfig.TestData).AllAnswers("Representative");
             SubmitAnswers(answers, hearing);
         }
 

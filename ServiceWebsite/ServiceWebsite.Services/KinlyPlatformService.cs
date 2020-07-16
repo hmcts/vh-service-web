@@ -15,7 +15,8 @@ namespace ServiceWebsite.Services
         private readonly ICustomJwtTokenProvider _customJwtTokenProvider;
         private readonly string _kinlySelfTestScoreEndpointUrl;
 
-        public KinlyPlatformService(HttpClient httpClient, ICustomJwtTokenProvider customJwtTokenProvider, string kinlySelfTestScoreEndpointUrl)
+        public KinlyPlatformService(HttpClient httpClient, ICustomJwtTokenProvider customJwtTokenProvider,
+            string kinlySelfTestScoreEndpointUrl)
         {
             _httpClient = httpClient;
             _customJwtTokenProvider = customJwtTokenProvider;
@@ -32,7 +33,8 @@ namespace ServiceWebsite.Services
                 Method = HttpMethod.Get
             };
 
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _customJwtTokenProvider.GenerateToken(participantId.ToString(), 2));
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer",
+                _customJwtTokenProvider.GenerateSelfTestApiToken(participantId.ToString(), 2));
 
             var responseMessage = await _httpClient.SendAsync(request);
 
@@ -44,16 +46,9 @@ namespace ServiceWebsite.Services
             responseMessage.EnsureSuccessStatusCode();
 
             var content = await responseMessage.Content.ReadAsStringAsync();
-            try
-            {
-                var testCall = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<KinlyVideoTestCall>(content);
+            var testCall = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<KinlyVideoTestCall>(content);
 
-                return new TestCallResult(testCall.Passed, testCall.Score);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return new TestCallResult(testCall.Passed, testCall.Score);
         }
     }
 }

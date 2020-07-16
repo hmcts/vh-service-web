@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <ProjectGuid>592fc332-a235-470f-8805-5142415f9f86</ProjectGuid>
   </PropertyGroup>
 
 </Project>

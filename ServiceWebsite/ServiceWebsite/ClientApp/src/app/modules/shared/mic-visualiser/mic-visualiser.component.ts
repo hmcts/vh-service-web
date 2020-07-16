@@ -16,6 +16,7 @@ export class MicVisualiserComponent implements OnInit, OnDestroy {
   constructor() { }
 
   @Input() stream: MediaStream;
+  @Input() incomingStream: MediaStream;
 
   ngOnInit() {
     const canvas = <HTMLCanvasElement>document.getElementById('meter');
@@ -30,6 +31,15 @@ export class MicVisualiserComponent implements OnInit, OnDestroy {
     this.audioContext = new AudioContext();
     this.analyser = this.audioContext.createAnalyser();
     this.microphone = this.audioContext.createMediaStreamSource(this.stream);
+
+    const merger = this.audioContext.createChannelMerger();
+    this.microphone.connect(merger, 0, 0);
+    if (this.incomingStream) {
+        const incomingSource = this.audioContext.createMediaStreamSource(this.incomingStream);
+        incomingSource.connect(merger, 0, 0);
+    }
+    merger.connect(this.analyser);
+
     this.javascriptNode = this.audioContext.createScriptProcessor(2048, 1, 1);
     this.analyser.smoothingTimeConstant = 0.8;
     this.analyser.fftSize = 1024;

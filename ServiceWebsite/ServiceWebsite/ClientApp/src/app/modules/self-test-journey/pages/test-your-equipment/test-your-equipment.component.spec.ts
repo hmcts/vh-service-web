@@ -19,14 +19,7 @@ import { UserMediaService } from '../../../../services/user-media.service';
 import { UserMediaDevice } from '../../../shared/models/user-media-device';
 import { MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
-
-@Component({
-  selector: 'app-mic-visualiser',
-  template: ''
-})
-class StubMicVisualiserComponent {
-  @Input() stream: MediaStream;
-}
+import { MicVisualiserStubComponent } from '../../../../testing/stubs/mic-visualiser-stub';
 
 @Component({
   selector: 'app-select-media-devices',
@@ -62,7 +55,7 @@ describe('TestYourEquipmentComponent', () => {
       journey: journey,
       declarations: [
         CrestBluePanelComponent,
-        StubMicVisualiserComponent,
+        MicVisualiserStubComponent,
         StubSelectedUserMediaDeviceComponent,
         BackNavigationStubComponent
       ],

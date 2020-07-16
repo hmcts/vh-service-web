@@ -3,7 +3,7 @@ import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 @Component({
   selector: 'app-user-camera-view',
   templateUrl: './user-camera-view.component.html',
-  styles: []
+  styleUrls: ['./user-camera-view.component.css']
 })
 export class UserCameraViewComponent implements OnDestroy {
 

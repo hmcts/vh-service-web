@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
@@ -26,9 +26,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.CheckYourComputer));
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.CheckYourComputer));
             _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
-            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.ServiceWebConfig.TestConfig.TestData.CheckYourComputer, ExtendedAnswer = null, QuestionKey = SelfTestQuestionKeys.CheckYourComputerQuestion });
+            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.WebConfig.TestConfig.TestData.CheckYourComputer, ExtendedAnswer = null, QuestionKey = SelfTestQuestionKeys.CheckYourComputerQuestion });
         }
 
         [When(@"the user answers no to the Check Your Computer question")]

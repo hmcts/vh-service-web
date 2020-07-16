@@ -23,20 +23,21 @@ Scenario: Individual with no upcoming hearings is redirected to Video Web
 	When the user logs in with valid credentials
 	Then the user is redirected to Video Web
 
-@VIH-4577 @Smoketest
+@VIH-4577 @Smoketest @Smoketest-Extended
 Scenario: Individual completed checklist and self test redirected to Video Web
 	Given a new browser is open for an Individual
 	And Individual has already submitted checklist and self test
 	When the user logs in with valid credentials
 	Then the user is redirected to Video Web
 
-@VIH-4577 
+@VIH-4577 @Smoketest-Extended
 Scenario: Representative completed checklist and self test redirected to Video Web
 	Given a new browser is open for an Representative
 	And Representative has already submitted checklist and self test
 	When the user logs in with valid credentials
 	Then the user is redirected to Video Web
 
+@Smoketest-Extended
 Scenario: Clerk redirected to Video Web
 	Given a new browser is open for a Clerk
 	When the user logs in with valid credentials

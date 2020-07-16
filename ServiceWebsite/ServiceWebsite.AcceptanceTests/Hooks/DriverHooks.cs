@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Driver;
-using AcceptanceTests.Common.Driver.Browser;
+using System.Linq;
+using AcceptanceTests.Common.Configuration.Users;
+using AcceptanceTests.Common.Data.Time;
+using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
+using AcceptanceTests.Common.Driver.Settings;
 using BoDi;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
@@ -10,14 +14,12 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
     [Binding]
     public class DriverHooks
     {
-        private readonly DriverManager _driverManager;
         private Dictionary<string, UserBrowser> _browsers;
         private readonly IObjectContainer _objectContainer;
 
         public DriverHooks(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
-            _driverManager = new DriverManager();
         }
 
         [BeforeScenario(Order = (int)HooksSequence.InitialiseBrowserHooks)]
@@ -28,23 +30,75 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigureDriverHooks)]
-        public void ConfigureDriver(TestContext context, ScenarioContext scenarioContext)
+        public void ConfigureDriver(TestContext context, ScenarioContext scenario)
         {
-            context.ServiceWebConfig.TestConfig.TargetBrowser = _driverManager.GetTargetBrowser(NUnit.Framework.TestContext.Parameters["TargetBrowser"]);
-            context.ServiceWebConfig.TestConfig.TargetDevice = _driverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
-            _driverManager.KillAnyLocalDriverProcesses(context.ServiceWebConfig.TestConfig.TargetBrowser, context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs());
-            context.Driver = new DriverSetup(context.ServiceWebConfig.SauceLabsConfiguration, scenarioContext.ScenarioInfo, context.ServiceWebConfig.TestConfig.TargetBrowser);
+            DriverManager.KillAnyLocalDriverProcesses();
+            context.WebConfig.TestConfig.TargetBrowser = DriverManager.GetTargetBrowser(NUnit.Framework.TestContext.Parameters["TargetBrowser"]);
+            context.WebConfig.TestConfig.TargetBrowserVersion = NUnit.Framework.TestContext.Parameters["TargetBrowserVersion"];
+            context.WebConfig.TestConfig.TargetDevice = DriverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
+            context.WebConfig.TestConfig.TargetDeviceName = NUnit.Framework.TestContext.Parameters["TargetDeviceName"];
+            context.WebConfig.TestConfig.TargetOS = DriverManager.GetTargetOS(NUnit.Framework.TestContext.Parameters["TargetOS"]);
+
+            var driverOptions = new DriverOptions()
+            {
+                TargetBrowser = context.WebConfig.TestConfig.TargetBrowser,
+                TargetBrowserVersion = context.WebConfig.TestConfig.TargetBrowserVersion,
+                TargetDevice = context.WebConfig.TestConfig.TargetDevice,
+                TargetOS = context.WebConfig.TestConfig.TargetOS
+            };
+
+            var sauceLabsOptions = new SauceLabsOptions()
+            {
+                EnableLogging = EnableLogging(context.WebConfig.TestConfig.TargetOS, context.WebConfig.TestConfig.TargetBrowser, scenario.ScenarioInfo),
+                Name = scenario.ScenarioInfo.Title
+            };
+
+            context.Driver = new DriverSetup(context.WebConfig.SauceLabsConfiguration, driverOptions, sauceLabsOptions);
         }
 
-        [AfterScenario]
-        public void AfterScenario(TestContext context, ScenarioContext scenarioContext)
+        private static bool EnableLogging(TargetOS os, TargetBrowser browser, ScenarioInfo scenario)
         {
-            _driverManager.RunningOnSauceLabs(context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs());
-            _driverManager.LogTestResult(
-                _browsers.Count > 0 ? _browsers[context.CurrentUser.Key].Driver : context.Driver.GetDriver(""),
+            if (os == TargetOS.Windows && browser == TargetBrowser.Firefox)
+            {
+                return false;
+            }
+            return !scenario.Tags.Contains("DisableLogging");
+        }
+
+        [BeforeScenario(Order = (int)HooksSequence.SetTimeZone)]
+        public void SetTimezone(TestContext context)
+        {
+            context.TimeZone = new TimeZone(context.WebConfig.SauceLabsConfiguration.RunningOnSauceLabs(), context.WebConfig.TestConfig.TargetOS);
+        }
+
+        [AfterScenario(Order = (int)HooksSequence.LogResultHooks)]
+        public void LogResult(TestContext context, ScenarioContext scenarioContext)
+        {
+            if (_browsers == null) return;
+            if (_browsers.Count.Equals(0))
+            {
+                context.CurrentUser = UserManager.GetDefaultParticipantUser(context.UserAccounts);
+                var browser = new UserBrowser()
+                    .SetBaseUrl(context.WebConfig.VhServices.ServiceWebUrl)
+                    .SetTargetBrowser(context.WebConfig.TestConfig.TargetBrowser)
+                    .SetTargetDevice(context.WebConfig.TestConfig.TargetDevice)
+                    .SetDriver(context.Driver);
+                _browsers.Add(context.CurrentUser.Key, browser);
+            }
+
+            DriverManager.LogTestResult(
+                context.WebConfig.SauceLabsConfiguration.RunningOnSauceLabs(),
+                _browsers[context.CurrentUser.Key].Driver,
                 scenarioContext.TestError == null);
-            _driverManager.TearDownBrowsers(_browsers);
-            _driverManager.KillAnyLocalDriverProcesses(context.ServiceWebConfig.TestConfig.TargetBrowser, context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs());
+        }
+
+        [AfterScenario(Order = (int)HooksSequence.TearDownBrowserHooks)]
+        public void TearDownBrowser()
+        {
+            if (_browsers != null)
+                DriverManager.TearDownBrowsers(_browsers);
+
+            DriverManager.KillAnyLocalDriverProcesses();
         }
     }
 }

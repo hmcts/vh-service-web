@@ -2,6 +2,6 @@
 {
     public interface ICustomJwtTokenProvider
     {
-        string GenerateToken(string claims, int expiresInMinutes);
+        string GenerateSelfTestApiToken(string claims, int expiresInMinutes);
     }
 }
