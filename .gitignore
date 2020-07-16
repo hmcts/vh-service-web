@@ -350,3 +350,5 @@ jasmine-tests
 # MacOS Desktop Services Store files
  *.DS_Store
  *.orig
+
+ AssemblyInfo.cs

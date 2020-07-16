@@ -9,8 +9,20 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
     <!-- Set this to true if you enable server-side prerendering -->
-    <BuildServerSideRenderer>false</BuildServerSideRenderer>	
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <ProjectGuid>6c5fe5cb-6261-4890-8a70-b6fce1d3b02b</ProjectGuid>
   </PropertyGroup>
+
+  <Target Name="AssemblyVersionAttributes" BeforeTargets="BeforeBuild" Condition=" '$(Configuration)' != 'Debug' ">
+    <PropertyGroup>
+      <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+      <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+      <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    </PropertyGroup>
+  </Target>
 
   <PropertyGroup>
     <UseAppHost>false</UseAppHost>
@@ -18,9 +30,6 @@
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <DocumentationFile>
     </DocumentationFile>

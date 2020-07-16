@@ -3,6 +3,7 @@ using System.Linq;
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Data.Time;
 using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Settings;
 using BoDi;
 using ServiceWebsite.AcceptanceTests.Helpers;
@@ -41,22 +42,26 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var driverOptions = new DriverOptions()
             {
                 TargetBrowser = context.WebConfig.TestConfig.TargetBrowser,
+                TargetBrowserVersion = context.WebConfig.TestConfig.TargetBrowserVersion,
                 TargetDevice = context.WebConfig.TestConfig.TargetDevice,
                 TargetOS = context.WebConfig.TestConfig.TargetOS
             };
 
             var sauceLabsOptions = new SauceLabsOptions()
             {
-                BrowserVersion = context.WebConfig.TestConfig.TargetBrowserVersion,
-                EnableLogging = EnableLogging(scenario.ScenarioInfo),
+                EnableLogging = EnableLogging(context.WebConfig.TestConfig.TargetOS, context.WebConfig.TestConfig.TargetBrowser, scenario.ScenarioInfo),
                 Name = scenario.ScenarioInfo.Title
             };
 
             context.Driver = new DriverSetup(context.WebConfig.SauceLabsConfiguration, driverOptions, sauceLabsOptions);
         }
 
-        private static bool EnableLogging(ScenarioInfo scenario)
+        private static bool EnableLogging(TargetOS os, TargetBrowser browser, ScenarioInfo scenario)
         {
+            if (os == TargetOS.Windows && browser == TargetBrowser.Firefox)
+            {
+                return false;
+            }
             return !scenario.Tags.Contains("DisableLogging");
         }
 
@@ -76,6 +81,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 var browser = new UserBrowser()
                     .SetBaseUrl(context.WebConfig.VhServices.ServiceWebUrl)
                     .SetTargetBrowser(context.WebConfig.TestConfig.TargetBrowser)
+                    .SetTargetDevice(context.WebConfig.TestConfig.TargetDevice)
                     .SetDriver(context.Driver);
                 _browsers.Add(context.CurrentUser.Key, browser);
             }

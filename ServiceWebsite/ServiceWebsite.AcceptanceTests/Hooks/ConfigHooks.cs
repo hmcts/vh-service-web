@@ -94,8 +94,11 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private void RegisterSauceLabsSettings(TestContext context)
         {
             context.WebConfig.SauceLabsConfiguration = Options.Create(_configRoot.GetSection("Saucelabs").Get<SauceLabsSettingsConfig>()).Value;
-            if (context.WebConfig.SauceLabsConfiguration.RunningOnSauceLabs())
-                context.WebConfig.SauceLabsConfiguration.SetRemoteServerUrlForDesktop(context.WebConfig.TestConfig.CommonData.CommonConfig.SauceLabsServerUrl);
+            if (!context.WebConfig.SauceLabsConfiguration.RunningOnSauceLabs()) return;
+            context.WebConfig.SauceLabsConfiguration.SetRemoteServerUrlForDesktop(context.WebConfig.TestConfig.CommonData.CommonConfig.SauceLabsServerUrl);
+            context.WebConfig.SauceLabsConfiguration.AccessKey.Should().NotBeNullOrWhiteSpace();
+            context.WebConfig.SauceLabsConfiguration.Username.Should().NotBeNullOrWhiteSpace();
+            context.WebConfig.SauceLabsConfiguration.RealDeviceApiKey.Should().NotBeNullOrWhiteSpace();
         }
 
         private static void RunningServiceWebLocally(TestContext context)

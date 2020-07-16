@@ -45,7 +45,7 @@ export class UserMediaService extends MediaService {
 
   async getListOfMicrophoneDevices(): Promise<UserMediaDevice[]> {
     await this.checkDeviceListIsReady();
-    return this.availableDeviceList.filter(x => x.kind === 'audioinput');
+    return this.availableDeviceList.filter(x => x.kind === 'audioinput' && x.deviceId !== 'communications');
   }
 
   async checkDeviceListIsReady() {
