@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Data.Time;
-using AcceptanceTests.Common.Driver;
-using AcceptanceTests.Common.Driver.Browser;
-using AcceptanceTests.Common.Driver.Support;
+using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
+using AcceptanceTests.Common.Driver.Settings;
 using BoDi;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
@@ -29,24 +30,45 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigureDriverHooks)]
-        public void ConfigureDriver(TestContext context, ScenarioContext scenarioContext)
+        public void ConfigureDriver(TestContext context, ScenarioContext scenario)
         {
-            context.ServiceWebConfig.TestConfig.TargetBrowser = DriverManager.GetTargetBrowser(NUnit.Framework.TestContext.Parameters["TargetBrowser"]);
-            context.ServiceWebConfig.TestConfig.TargetDevice = DriverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
             DriverManager.KillAnyLocalDriverProcesses();
+            context.WebConfig.TestConfig.TargetBrowser = DriverManager.GetTargetBrowser(NUnit.Framework.TestContext.Parameters["TargetBrowser"]);
+            context.WebConfig.TestConfig.TargetBrowserVersion = NUnit.Framework.TestContext.Parameters["TargetBrowserVersion"];
+            context.WebConfig.TestConfig.TargetDevice = DriverManager.GetTargetDevice(NUnit.Framework.TestContext.Parameters["TargetDevice"]);
+            context.WebConfig.TestConfig.TargetDeviceName = NUnit.Framework.TestContext.Parameters["TargetDeviceName"];
+            context.WebConfig.TestConfig.TargetOS = DriverManager.GetTargetOS(NUnit.Framework.TestContext.Parameters["TargetOS"]);
+
             var driverOptions = new DriverOptions()
             {
-                EnableLogging = true,
-                TargetBrowser = context.ServiceWebConfig.TestConfig.TargetBrowser,
-                TargetDevice = context.ServiceWebConfig.TestConfig.TargetDevice
+                TargetBrowser = context.WebConfig.TestConfig.TargetBrowser,
+                TargetBrowserVersion = context.WebConfig.TestConfig.TargetBrowserVersion,
+                TargetDevice = context.WebConfig.TestConfig.TargetDevice,
+                TargetOS = context.WebConfig.TestConfig.TargetOS
             };
-            context.Driver = new DriverSetup(context.ServiceWebConfig.SauceLabsConfiguration, scenarioContext.ScenarioInfo, driverOptions);
+
+            var sauceLabsOptions = new SauceLabsOptions()
+            {
+                EnableLogging = EnableLogging(context.WebConfig.TestConfig.TargetOS, context.WebConfig.TestConfig.TargetBrowser, scenario.ScenarioInfo),
+                Name = scenario.ScenarioInfo.Title
+            };
+
+            context.Driver = new DriverSetup(context.WebConfig.SauceLabsConfiguration, driverOptions, sauceLabsOptions);
+        }
+
+        private static bool EnableLogging(TargetOS os, TargetBrowser browser, ScenarioInfo scenario)
+        {
+            if (os == TargetOS.Windows && browser == TargetBrowser.Firefox)
+            {
+                return false;
+            }
+            return !scenario.Tags.Contains("DisableLogging");
         }
 
         [BeforeScenario(Order = (int)HooksSequence.SetTimeZone)]
         public void SetTimezone(TestContext context)
         {
-            context.TimeZone = new TimeZone(context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs(), context.ServiceWebConfig.TestConfig.TargetBrowser);
+            context.TimeZone = new TimeZone(context.WebConfig.SauceLabsConfiguration.RunningOnSauceLabs(), context.WebConfig.TestConfig.TargetOS);
         }
 
         [AfterScenario(Order = (int)HooksSequence.LogResultHooks)]
@@ -56,15 +78,16 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             if (_browsers.Count.Equals(0))
             {
                 context.CurrentUser = UserManager.GetDefaultParticipantUser(context.UserAccounts);
-                var browser = new UserBrowser(context.CurrentUser)
-                    .SetBaseUrl(context.ServiceWebConfig.VhServices.ServiceWebUrl)
-                    .SetTargetBrowser(context.ServiceWebConfig.TestConfig.TargetBrowser)
+                var browser = new UserBrowser()
+                    .SetBaseUrl(context.WebConfig.VhServices.ServiceWebUrl)
+                    .SetTargetBrowser(context.WebConfig.TestConfig.TargetBrowser)
+                    .SetTargetDevice(context.WebConfig.TestConfig.TargetDevice)
                     .SetDriver(context.Driver);
                 _browsers.Add(context.CurrentUser.Key, browser);
             }
 
             DriverManager.LogTestResult(
-                context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs(),
+                context.WebConfig.SauceLabsConfiguration.RunningOnSauceLabs(),
                 _browsers[context.CurrentUser.Key].Driver,
                 scenarioContext.TestError == null);
         }
@@ -76,20 +99,6 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 DriverManager.TearDownBrowsers(_browsers);
 
             DriverManager.KillAnyLocalDriverProcesses();
-        }
-
-        [AfterScenario(Order = (int)HooksSequence.StopEdgeChromiumServer)]
-        public void StopEdgeChromiumServer(TestContext context)
-        {
-            var targetBrowser = GetTargetBrowser();
-            if (targetBrowser.ToLower().Equals(TargetBrowser.EdgeChromium.ToString().ToLower()) &&
-                !context.ServiceWebConfig.SauceLabsConfiguration.RunningOnSauceLabs())
-                _browsers?[context.CurrentUser.Key].StopEdgeChromiumServer();
-        }
-
-        private static string GetTargetBrowser()
-        {
-            return NUnit.Framework.TestContext.Parameters["TargetBrowser"] ?? "";
         }
     }
 }

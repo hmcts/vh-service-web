@@ -109,10 +109,6 @@ namespace ServiceWebsite.IntegrationTests.Controller
                 customJwtTokenProvider.Object,
                 "https://fakekinly.com"
             ));
-
-            // Other dependencies
-
-            // serviceCollection.AddScoped<IHashGenerator>(x => new HashGenerator("What_blah-blah-blah"));
         }
 
         private void CreateAccessToken()
@@ -126,51 +122,39 @@ namespace ServiceWebsite.IntegrationTests.Controller
 
         protected async Task<HttpResponseMessage> SendGetRequestWithBearerTokenAsync(string uri)
         {
-            using (var client = _server.CreateClient())
-            {
-                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
-                return await client.GetAsync(uri);
-            }
+            using var client = _server.CreateClient();
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
+            return await client.GetAsync(uri);
         }
 
         protected async Task<HttpResponseMessage> SendGetRequestAsync(string uri)
         {
-            using (var client = _server.CreateClient())
-            {
-                return await client.GetAsync(uri);
-            }
+            using var client = _server.CreateClient();
+            return await client.GetAsync(uri);
         }
 
         protected async Task<HttpResponseMessage> SendPostRequestAsync(string uri, HttpContent httpContent)
         {
-            using (var client = _server.CreateClient())
-            {
-                return await client.PostAsync(uri, httpContent);
-            }
+            using var client = _server.CreateClient();
+            return await client.PostAsync(uri, httpContent);
         }
 
         protected async Task<HttpResponseMessage> SendPatchRequestAsync(string uri, StringContent httpContent)
         {
-            using (var client = _server.CreateClient())
-            {
-                return await client.PatchAsync(uri, httpContent);
-            }
+            using var client = _server.CreateClient();
+            return await client.PatchAsync(uri, httpContent);
         }
 
         protected async Task<HttpResponseMessage> SendPutRequestAsync(string uri, StringContent httpContent)
         {
-            using (var client = _server.CreateClient())
-            {
-                return await client.PutAsync(uri, httpContent);
-            }
+            using var client = _server.CreateClient();
+            return await client.PutAsync(uri, httpContent);
         }
 
         protected async Task<HttpResponseMessage> SendDeleteRequestAsync(string uri)
         {
-            using (var client = _server.CreateClient())
-            {
-                return await client.DeleteAsync(uri);
-            }
+            using var client = _server.CreateClient();
+            return await client.DeleteAsync(uri);
         }
     }
 }

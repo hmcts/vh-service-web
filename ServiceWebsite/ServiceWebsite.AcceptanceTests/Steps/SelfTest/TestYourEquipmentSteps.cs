@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.Test.Helpers;
 using AcceptanceTests.Common.Test.Steps;
@@ -29,6 +29,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         public void ProgressToNextPage()
         {
             TheVideoBeginsToPlay();
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.ContinueButton);
             _browsers[_c.CurrentUser.Key].ScrollTo(TestYourEquipmentPage.ContinueButton);
             WhenTheVideoHasEnded();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(TestYourEquipmentPage.ContinueButton).Displayed.Should().BeTrue();

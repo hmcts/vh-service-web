@@ -31,7 +31,7 @@
 
   <div class="govuk-grid-column-full">
     <app-mic-visualiser *ngIf="displayFeed && streamsActive && preferredMicrophoneStream"
-      [stream]="preferredMicrophoneStream"></app-mic-visualiser>
+      [stream]="preferredMicrophoneStream" [incomingStream]="incomingStream"></app-mic-visualiser>
     <div *ngIf="hasMultipleDevices" class="govuk-!-margin-bottom-6">
       <a id="change-device-link" href="javascript:void(0);" role="button" (click)="changeDevices()"
         class="govuk-link">Change

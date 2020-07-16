@@ -7,11 +7,13 @@
 }
 
 /* Ensures space below footer on small pages has same colour */
+
 .govuk-template {
   background-color: #dee0e2;
 }
 
 /* Margin classes */
+
 .mt-20 {
   margin-top: 20px;
 }
@@ -27,15 +29,6 @@
 
 .mb-20 {
   margin-bottom: 20px;
-}
-
-.panel-blue {
-  background-color: #1d70b8;
-  padding: 30px;
-}
-
-.text-white {
-  color: white;
 }
 
 .image {

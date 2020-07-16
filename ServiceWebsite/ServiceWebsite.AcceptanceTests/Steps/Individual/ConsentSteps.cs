@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
@@ -27,9 +27,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         public void ProgressToNextPage()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.ServiceWebConfig.TestConfig.TestData.Consent.Answer));
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.Consent.Answer));
             _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Save and continue"));
-            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.ServiceWebConfig.TestConfig.TestData.Consent.Answer, ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.ConsentQuestion });
+            _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.WebConfig.TestConfig.TestData.Consent.Answer, ExtendedAnswer = null, QuestionKey = IndividualQuestionKeys.ConsentQuestion });
         }
 
         [When(@"the user enters more details into the please provide more details of why you do not consent textfield")]
@@ -37,9 +37,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
             _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel("No"));
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ConsentPage.MoreDetails).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.Consent.ExtendedAnswer);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ConsentPage.MoreDetails).SendKeys(_c.WebConfig.TestConfig.TestData.Consent.ExtendedAnswer);
             _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Save and continue"));
-            _c.Test.Answers.Add(new SuitabilityAnswer { Answer = "No", ExtendedAnswer = _c.ServiceWebConfig.TestConfig.TestData.Consent.ExtendedAnswer, QuestionKey = IndividualQuestionKeys.ConsentQuestion });
+            _c.Test.Answers.Add(new SuitabilityAnswer { Answer = "No", ExtendedAnswer = _c.WebConfig.TestConfig.TestData.Consent.ExtendedAnswer, QuestionKey = IndividualQuestionKeys.ConsentQuestion });
         }
     }
 }

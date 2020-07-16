@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
@@ -29,7 +29,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [Then(@"contact details are available on the Your Video Hearing page")]
         public void ThenContactDetailsAreAvailableOnTheYourVideoHearingPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone))
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone))
                 .Displayed.Should().BeTrue();
         }
     }

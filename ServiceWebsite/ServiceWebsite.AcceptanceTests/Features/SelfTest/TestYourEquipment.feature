@@ -3,6 +3,7 @@
 	I want to be able to tell the court if there is any reason I don't think I am suitable
 	So that the court can make an informed decision based on my circumstances
 
+@Smoketest-Extended
 Scenario: Test Your Equipment Individual
 	Given the Individual has progressed to the Test Your Equipment page
 	Then contact details are available
@@ -16,6 +17,7 @@ Scenario: Test Your Equipment Individual
 	When the user signs out 
 	Then only the about you answers have been stored
 
+@Smoketest-Extended
 Scenario: Test Your Equipment Representative
 	Given the Representative has progressed to the Test Your Equipment page
 	Then contact details are available

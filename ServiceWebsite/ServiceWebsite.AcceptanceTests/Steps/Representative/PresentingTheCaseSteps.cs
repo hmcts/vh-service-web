@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Data.Questions;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
@@ -29,11 +29,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.WhoWillBePresentingText).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer));
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.TestData.PresentingTheCase.Answer));
             _browsers[_c.CurrentUser.Key].Click(PresentingTheCasePage.ContinueButton);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
-                Answer = _c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.Answer,
+                Answer = _c.WebConfig.TestConfig.TestData.PresentingTheCase.Answer,
                 ExtendedAnswer = null,
                 QuestionKey = RepresentativeQuestionKeys.PresentingTheCase
             });
@@ -42,15 +42,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         public void WhenTheUserSelectsSomeoneElseToPresent()
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer));
+            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer));
             WhenAddsDetailsOfWhoWillBePresentingTheCase();
         }
 
         [When(@"adds details of who will be presenting the case")]
         public void WhenAddsDetailsOfWhoWillBePresentingTheCase()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.FullNameTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(_c.ServiceWebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.FullNameTextField).SendKeys(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
+            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(Keys.Tab);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {

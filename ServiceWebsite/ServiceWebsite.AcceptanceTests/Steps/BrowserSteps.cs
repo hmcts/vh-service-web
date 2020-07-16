@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AcceptanceTests.Common.Configuration.Users;
-using AcceptanceTests.Common.Driver.Browser;
-using AcceptanceTests.Common.Driver.Support;
+using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
@@ -30,9 +30,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             SwitchCurrentUser(user);
 
-            var browser = new UserBrowser(_c.CurrentUser)
-                .SetBaseUrl(_c.ServiceWebConfig.VhServices.ServiceWebUrl)
-                .SetTargetBrowser(_c.ServiceWebConfig.TestConfig.TargetBrowser)
+            var browser = new UserBrowser()
+                .SetBaseUrl(_c.WebConfig.VhServices.ServiceWebUrl)
+                .SetTargetBrowser(_c.WebConfig.TestConfig.TargetBrowser)
+                .SetTargetDevice(_c.WebConfig.TestConfig.TargetDevice)
                 .SetDriver(_c.Driver);
 
             _browsers.Add(_c.CurrentUser.Key, browser);
@@ -40,8 +41,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             browser.LaunchBrowser();
             browser.NavigateToPage();
 
-            if (_c.ServiceWebConfig.TestConfig.TargetBrowser != TargetBrowser.Ie11)
-                browser.PageUrl(_c.ServiceWebConfig.TestConfig.CommonData.CommonUris.LoginUri);
+            if (_c.WebConfig.TestConfig.TargetBrowser != TargetBrowser.Ie11)
+                browser.PageUrl(_c.WebConfig.TestConfig.CommonData.CommonUris.LoginUri);
         }
 
         [Given(@"in (.*)'s browser")]

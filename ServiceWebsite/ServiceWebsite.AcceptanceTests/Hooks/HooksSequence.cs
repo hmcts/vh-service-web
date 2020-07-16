@@ -7,11 +7,11 @@
         HealthcheckHooks = 3,
         InitialiseBrowserHooks = 4,
         ConfigureDriverHooks = 5,
-        SetTimeZone = 6,
-        RemoveDataHooks = 7,
-        DataHooks = 8,
-        LogResultHooks = 9,
-        TearDownBrowserHooks = 10,
-        StopEdgeChromiumServer = 11
+        ScenarioHooks = 6,
+        SetTimeZone = 7,
+        RemoveDataHooks = 8,
+        DataHooks = 9,
+        LogResultHooks = 10,
+        TearDownBrowserHooks = 11
     }
 }
