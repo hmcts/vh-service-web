@@ -31,9 +31,8 @@ export class MicVisualiserComponent implements OnInit, OnDestroy {
     this.audioContext = new AudioContext();
     this.analyser = this.audioContext.createAnalyser();
     this.microphone = this.audioContext.createMediaStreamSource(this.stream);
-    
-    const merger = this.audioContext.createChannelMerger();
 
+    const merger = this.audioContext.createChannelMerger();
     this.microphone.connect(merger, 0, 0);
     if (this.incomingStream) {
         const incomingSource = this.audioContext.createMediaStreamSource(this.incomingStream);
