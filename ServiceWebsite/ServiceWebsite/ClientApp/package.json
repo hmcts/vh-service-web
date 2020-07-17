@@ -32,7 +32,7 @@
         "rxjs": "^6.5.2",
         "tslib": "^1.9.0",
         "zone.js": "~0.9.1",
-        "webrtc-adapter": "^7.2.8",
+        "webrtc-adapter": "^7.6.3",
         "ng-bullet": "latest"
     },
     "devDependencies": {
