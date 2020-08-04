@@ -16,7 +16,7 @@ import { Logger } from 'src/app/services/logger';
 })
 export class ParticipantViewComponent extends VideoViewBaseComponent implements AfterContentInit, OnDestroy {
 
-  @ViewChild(UserCameraViewComponent, { static: false })
+  @ViewChild(UserCameraViewComponent)
   userCameraViewComponent: UserCameraViewComponent;
 
   stream: MediaStream;

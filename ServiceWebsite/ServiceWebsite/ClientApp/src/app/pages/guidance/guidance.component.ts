@@ -17,7 +17,7 @@ export class GuidanceComponent implements OnInit, AfterViewChecked, OnDestroy {
   toPrint = false;
   $routerSubcription: Subscription;
 
-  @ViewChild('contentPoint', { static: false }) public contentPoint: ElementRef;
+  @ViewChild('contentPoint') public contentPoint: ElementRef;
 
   constructor(private guidanceService: GuidanceService,
     private printService: PrintService,

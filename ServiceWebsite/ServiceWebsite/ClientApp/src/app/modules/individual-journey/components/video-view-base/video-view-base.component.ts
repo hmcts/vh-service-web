@@ -1,8 +1,9 @@
-import { Injectable, ViewChild, OnInit } from '@angular/core';
+import { Injectable, ViewChild, OnInit, Directive } from '@angular/core';
 import { VideoViewComponent } from '../video-view/video-view.component';
 import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';
 
+@Directive()
 @Injectable()
 export class VideoViewBaseComponent implements OnInit {
 

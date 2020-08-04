@@ -21,7 +21,7 @@ export class VideoViewComponent implements OnDestroy {
   @Input()
   source: string;
 
-  @ViewChild('video', { static: false })
+  @ViewChild('video')
   videoElement: ElementRef;
 
   videoUnavailable: boolean;

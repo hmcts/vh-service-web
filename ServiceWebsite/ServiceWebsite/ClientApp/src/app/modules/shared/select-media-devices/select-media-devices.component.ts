@@ -24,7 +24,7 @@ export class SelectMediaDevicesComponent implements OnInit, OnDestroy {
 
   selectedMediaDevicesForm: FormGroup;
 
-  @ViewChild('preferredCameraVideo', { static: false })
+  @ViewChild('preferredCameraVideo')
   preferredCameraVideo: ElementRef;
 
   $subsriptions: Subscription[] = [];
