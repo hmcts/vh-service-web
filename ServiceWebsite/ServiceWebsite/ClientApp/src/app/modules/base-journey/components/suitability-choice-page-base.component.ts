@@ -1,6 +1,6 @@
 import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export abstract class SuitabilityChoicePageBaseComponent<TJourneyType extends JourneyBase> {

@@ -42,7 +42,7 @@ describe('SelectMediaDevicesComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(SelectMediaDevicesComponent);
         component = fixture.componentInstance;
-        userMediaService = TestBed.inject(UserMediaService);
+        userMediaService = TestBed.get(UserMediaService);
         fixture.detectChanges();
     });
 
