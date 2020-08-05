@@ -5,7 +5,7 @@ import { VideoFiles } from '../../services/video-files';
 
 @Directive()
 @Injectable()
-export class VideoViewBaseComponent implements OnInit {
+export class VideoViewBaseComponentDirective implements OnInit {
 
   constructor(private videoUrlService: VideoUrlService,
     private videoFile: VideoFiles) {
