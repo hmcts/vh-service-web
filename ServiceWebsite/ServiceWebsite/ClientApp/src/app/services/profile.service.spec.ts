@@ -13,7 +13,7 @@ describe('ProfileService', () => {
   response.email = 'email';
   response.role = 'role';
 
-  beforeAll(() => {
+  beforeEach(() => {
     apiClient = jasmine.createSpyObj<ApiClient>(['getUserProfile']);
     logger = jasmine.createSpyObj<Logger>(['error']);
     apiClient.getUserProfile.and.returnValue(of(response));
@@ -21,7 +21,7 @@ describe('ProfileService', () => {
     service = new ProfileService(apiClient, logger);
   });
 
-  it('user is not logged in until profile is loaded', async () => {
+    it('user is not logged in until profile is loaded', async () => {
     expect(service.isLoggedIn).toBe(false);
     await service.getUserProfile();
     expect(service.isLoggedIn).toBe(true);

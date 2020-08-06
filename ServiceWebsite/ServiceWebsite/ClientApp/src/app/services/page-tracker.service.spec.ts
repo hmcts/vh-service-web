@@ -35,8 +35,7 @@ describe('PageTrackerService', () => {
         pageTrackerService.trackNavigation(router);
     });
 
-    it(
-        'should log page on routing',
+    it('should log page on routing',
         fakeAsync(() => {
             router.initialNavigation();
             router.navigate(['component-path']);
@@ -45,8 +44,7 @@ describe('PageTrackerService', () => {
         })
     );
 
-    it(
-        'should log page with child on routing',
+    it('should log page with child on routing',
         fakeAsync(() => {
             router.initialNavigation();
             router.navigate(['component-path/sub-component']);

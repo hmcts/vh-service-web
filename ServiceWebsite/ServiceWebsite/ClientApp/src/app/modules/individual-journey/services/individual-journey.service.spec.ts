@@ -7,8 +7,9 @@ import { HasAccessToCamera } from '../individual-suitability.model';
 describe('representative.journey.service', () => {
   let individualJourneyService: IndividualJourneyService;
 
-  beforeEach(() => {
-    individualJourneyService = new IndividualJourneyService();
+    beforeEach(() => {
+      sessionStorage.clear();
+      individualJourneyService = new IndividualJourneyService();
   });
 
   it('returns null when item not exist', () => {

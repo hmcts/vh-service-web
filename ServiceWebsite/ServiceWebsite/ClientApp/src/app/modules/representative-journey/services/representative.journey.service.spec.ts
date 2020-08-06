@@ -7,7 +7,8 @@ describe('representative.journey.service', () => {
   let representativeJourneyService: RepresentativeJourneyService;
 
   beforeEach(() => {
-    representativeJourneyService = new RepresentativeJourneyService();
+      sessionStorage.clear();
+      representativeJourneyService = new RepresentativeJourneyService();
   });
 
   it('returns null when item not exist', () => {
