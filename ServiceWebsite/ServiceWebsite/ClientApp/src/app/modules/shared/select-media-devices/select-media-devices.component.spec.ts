@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 describe('SelectMediaDevicesComponent', () => {
     let component: SelectMediaDevicesComponent;
     let fixture: ComponentFixture<SelectMediaDevicesComponent>;
-    let userMediaService: MockUserMediaService;
     const testData = new MediaDeviceTestData();
 
     let userMediaStreamServiceSpy: jasmine.SpyObj<UserMediaStreamService>;
