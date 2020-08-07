@@ -4,7 +4,7 @@ import { IndividualJourney } from '../../individual-journey';
 import { VideoUrlService } from '../../services/video-url.service';
 import { VideoFiles } from '../../services/video-files';
 import { UserCameraViewComponent } from '../../components/user-camera-view/user-camera-view.component';
-import { VideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component';
+import { VideoViewBaseComponentDirective as VideoViewBaseComponent } from '../../components/video-view-base/video-view-base.component';
 import { DeviceType } from '../../../base-journey/services/device-type';
 import { MediaService } from 'src/app/services/media.service';
 import { Logger } from 'src/app/services/logger';
@@ -16,7 +16,7 @@ import { Logger } from 'src/app/services/logger';
 })
 export class ParticipantViewComponent extends VideoViewBaseComponent implements AfterContentInit, OnDestroy {
 
-  @ViewChild(UserCameraViewComponent, { static: false })
+  @ViewChild(UserCameraViewComponent)
   userCameraViewComponent: UserCameraViewComponent;
 
   stream: MediaStream;

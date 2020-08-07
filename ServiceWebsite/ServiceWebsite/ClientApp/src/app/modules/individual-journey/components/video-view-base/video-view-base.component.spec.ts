@@ -1,5 +1,5 @@
 import { VideoUrlService } from '../../services/video-url.service';
-import { VideoViewBaseComponent } from './video-view-base.component';
+import { VideoViewBaseComponentDirective as VideoViewBaseComponent } from './video-view-base.component';
 import { VideoFiles } from '../../services/video-files';
 
 describe('functionality', () => {

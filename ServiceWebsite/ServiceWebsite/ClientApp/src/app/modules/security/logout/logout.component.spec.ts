@@ -5,6 +5,11 @@ describe('LogoutComponent', () => {
   const adalSpy = jasmine.createSpyObj<AdalService>(['logOut', 'userInfo']);
   const component = new LogoutComponent(adalSpy);
 
+  beforeEach(() => {
+    // ensure there are no old or interferring value in session storage
+    sessionStorage.clear();
+  });
+
   it('should logout adal on loading component if logged in', () => {
     adalSpy.userInfo.authenticated = true;
     component.ngOnInit();

@@ -28,7 +28,7 @@ describe('JourneySelector', () => {
             ]
         });
 
-        selector = TestBed.get(JourneySelector);
+        selector = TestBed.inject(JourneySelector);
     });
 
     it('should raise error if no journeys are found for user type', async () => {
