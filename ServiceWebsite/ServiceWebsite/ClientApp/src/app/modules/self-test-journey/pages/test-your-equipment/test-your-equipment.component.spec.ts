@@ -30,7 +30,7 @@ class StubSelectedUserMediaDeviceComponent {
     @Input() selectedMicrophone: UserMediaDevice;
 }
 
-class pexipApiMock {
+class PexipApiMock {
     static video_source: any;
 }
 
@@ -123,7 +123,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
         component.userMediaService.updatePreferredCamera(defaultDevice);
         component.userMediaService.updatePreferredMicrophone(soundOutput);
-        component.pexipAPI = new pexipApiMock();
+        component.pexipAPI = new PexipApiMock();
         await component.updatePexipAudioVideoSource();
         expect(component.pexipAPI.video_source).toBeTruthy();
     });
