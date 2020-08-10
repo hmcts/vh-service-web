@@ -13,14 +13,13 @@
     [ngClass]="isFormInvalid ? 'govuk-form-group--error' : 'govuk-form-group'">
 
     <span id="error-message" class="govuk-error-message" *ngIf="isFormInvalid" i18n="@@yourComputer_span_1">
-      Select if you’ll have access to a laptop or desktop computer
+      Select if you’ll have access to a laptop or desktop computer, or an Apple iPad
     </span>
 
     <div>
       <p class="govuk-body" id="scheduledDateTime" i18n="@@yourComputer_p_1">Your hearing is due to take place on <strong>{{ hearingDate | appLongDatetime }}.</strong>
       </p>
-      <p class="govuk-body" i18n="@@yourComputer_p_2">At this time, will you have access to a laptop or desktop computer (not a mobile, not a
-        tablet)?</p>
+      <p class="govuk-body" i18n="@@yourComputer_p_2">At this time, will you have access to a laptop or desktop computer, or an Apple iPad? At the moment, you cannot use a mobile phone or other type of tablet for the hearing</p>
     </div>
 
     <div class="govuk-fieldset">
@@ -46,9 +45,9 @@
   </div>
 
   <app-show-details i18n-bind-detailsTitle="@@yourComputer_detailsTitle"
-    bind-detailsTitle="'If I have access to a computer, will the court definitely decide on a video hearing?'"
+    bind-detailsTitle="'If I have access to a computer, will I definitely have a video hearing?'"
     i18-bind-textArray="@@yourComputer_textArray"
-    bind-textArray="['<p>No. The court will take other things into account.</p><p> It will look at the information you’ve provided in this questionnaire and the information provided by the other people taking part in the hearing.</p> A video hearing has to be suitable for all participants.']">
+    bind-textArray="['<p>No. The court or tribunal will take other things into account.</p><p> It will look at the answers you’ve given, and the answers from the other people taking part in the hearing.</p> A video hearing must be suitable for all participants.']">
   </app-show-details>
 
   <app-show-details i18n-bind-detailsTitle="@@yourComputer_detailsTitle"
