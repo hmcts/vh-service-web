@@ -15,58 +15,50 @@ describe('ParticipantViewComponent', () => {
     const userMediaService = jasmine.createSpyObj<MediaService>(['getStream', 'stopStream']);
     const videoUrlService = jasmine.createSpyObj<VideoUrlService>(['getVideoFileUrl']);
     const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile', 'isTablet']);
-    const logger = jasmine.createSpyObj<Logger>(['error']);
+    const logger = jasmine.createSpyObj<Logger>('Logger', ['error']);
 
-    it('can be created', async(() => {
-        const fixture = VideoViewComponentTestBed.createComponent(ParticipantViewComponent);
-        fixture.detectChanges();
-        expect(fixture.componentInstance).toBeTruthy();
-    }));
+    let component: ParticipantViewComponent;
+    let journey: IndividualJourney;
+    const mediaStream = new MediaStream();
 
-    describe('functionality', () => {
-        let component: ParticipantViewComponent;
-        let journey: IndividualJourney;
-        const mediaStream = new MediaStream();
+    beforeEach(() => {
+        journey = IndividualJourneyStubs.default;
+        deviceType.isMobile.and.returnValue(false);
+        deviceType.isTablet.and.returnValue(false);
+        component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType, logger);
+        component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
+    });
 
-        beforeEach(() => {
-            journey = IndividualJourneyStubs.default;
-            deviceType.isMobile.and.returnValue(false);
-            deviceType.isTablet.and.returnValue(false);
-            component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType, logger);
-            component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
-        });
+    it(`should continue to ${IndividualJourneySteps.HelpTheCourtDecide} when pressing continue`, () => {
+        let redirectedTo: JourneyStep;
+        journey.redirect.subscribe((step: JourneyStep) => (redirectedTo = step));
+        component.continue();
+        expect(redirectedTo).toBe(IndividualJourneySteps.HelpTheCourtDecide);
+    });
 
-        it(`should continue to ${IndividualJourneySteps.HelpTheCourtDecide} when pressing continue`, () => {
-            let redirectedTo: JourneyStep;
-            journey.redirect.subscribe((step: JourneyStep) => redirectedTo = step);
-            component.continue();
-            expect(redirectedTo).toBe(IndividualJourneySteps.HelpTheCourtDecide);
-        });
+    it('should set the video source to a media stream when initialized', async () => {
+        userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
+        await component.ngAfterContentInit();
+        expect(userMediaService.getStream).toHaveBeenCalled();
+    });
 
-        it('should set the video source to a media stream when initialized', async () => {
-            userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
-            await component.ngAfterContentInit();
-            expect(userMediaService.getStream).toHaveBeenCalled();
-        });
+    it('should stop use camera on destroy', async () => {
+        userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
+        await component.ngAfterContentInit();
 
-        it('should stop use camera on destroy', async () => {
-            userMediaService.getStream.and.returnValue(Promise.resolve(mediaStream));
-            await component.ngAfterContentInit();
+        component.ngOnDestroy();
+        expect(userMediaService.stopStream).toHaveBeenCalled();
+    });
+    it('should detect that device is not a mobile phone', () => {
+        expect(component.isMobile).toBeFalsy();
+    });
+    it('should detect that device is a mobile phone and not use media', async () => {
+        deviceType.isMobile.and.returnValue(true);
+        component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType, logger);
+        component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
 
-            component.ngOnDestroy();
-            expect(userMediaService.stopStream).toHaveBeenCalled();
-        });
-        it('should detect that device is not a mobile phone', () => {
-            expect(component.isMobile).toBeFalsy();
-        });
-        it('should detect that device is a mobile phone and not use media', async () => {
-            deviceType.isMobile.and.returnValue(true);
-            component = new ParticipantViewComponent(journey, userMediaService, videoUrlService, deviceType, logger);
-            component.userCameraViewComponent = jasmine.createSpyObj<UserCameraViewComponent>(['setSource']);
-
-            await component.ngAfterContentInit();
-            expect(component.isMobile).toBeTruthy();
-            expect(component.stream).toBeFalsy();
-        });
+        await component.ngAfterContentInit();
+        expect(component.isMobile).toBeTruthy();
+        expect(component.stream).toBeFalsy();
     });
 });

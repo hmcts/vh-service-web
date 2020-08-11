@@ -1,30 +1,29 @@
 <div class="govuk-grid-row vh-back-bottom">
-  <div class="govuk-grid-column-full">
-    <app-back-navigation></app-back-navigation>
-  </div>
+    <div class="govuk-grid-column-full">
+        <app-back-navigation></app-back-navigation>
+    </div>
 </div>
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl" i18n="@@otherInformation_h1">
-      Other information
-    </h1>
-    <div>
-      <app-hearing-details-header></app-hearing-details-header>
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" i18n="@@otherInformation_h1">
+            Other information
+        </h1>
+        <div>
+            <app-hearing-details-header></app-hearing-details-header>
+        </div>
+
+        <app-choice-textbox
+            [detailsYesText]="'Enter any information you’d like the court or tribunal to know.'"
+            [suitabilityAnswer]="model.otherInformation"
+            [buttonText]="'Continue'"
+            [errorMessage1]="'Select if there’s anything you’d like the court or tribunal to know'"
+            [errorMessage2]="'Enter any information you’d like the court or tribunal to know'"
+            (submitted)="submit()"
+        >
+            <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@otherInformation_p_1">
+                Is there anything you'd like the court or tribunal to know that could affect this hearing taking place by video?
+            </p>
+        </app-choice-textbox>
+        <app-contact-us></app-contact-us>
     </div>
-
-
-
-    <app-choice-textbox [detailsYesText]="'Please provide any information here.'"
-                        [suitabilityAnswer]="model.otherInformation" [buttonText]="'Continue'"
-                        [errorMessage1]="'Select if there’s anything you’d like the court to know'"
-                        [errorMessage2]="'Enter any information you’d like the court to know'"
-                        (submitted)="submit()">
-
-      <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@otherInformation_p_1">
-        Is there anything you'd like the court to know that could affect this hearing taking place by video?
-      </p>
-
-    </app-choice-textbox>
-    <app-contact-us></app-contact-us>
-  </div>
 </div>
