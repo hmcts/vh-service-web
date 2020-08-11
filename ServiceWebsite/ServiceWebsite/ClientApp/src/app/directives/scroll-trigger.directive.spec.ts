@@ -51,7 +51,7 @@ describe('ScrollableDirective', () => {
     it('should raise event if start scroll up', () => {
         const pos = getElementBottom() + documentHeight;
         windowScroll.getPosition.and.returnValue(pos);
-        directive.lastScrollPosition = 1000;
+        directive.lastScrollPosition = 1;
         directive.onWindowScroll();
         expect(eventRaised).toBe(true);
     });

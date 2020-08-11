@@ -117,17 +117,6 @@ describe('TestYourEquipmentComponent functionality', () => {
         expect(component.didTestComplete).toBeFalsy();
     });
 
-    it('should update video and audio devices', async () => {
-        const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
-        const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
-
-        component.userMediaService.updatePreferredCamera(defaultDevice);
-        component.userMediaService.updatePreferredMicrophone(soundOutput);
-        component.pexipAPI = new PexipApiMock();
-        await component.updatePexipAudioVideoSource();
-        expect(component.pexipAPI.video_source).toBeTruthy();
-    });
-
     it('should pexip make a call', async () => {
         component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
         component.call();
@@ -250,5 +239,17 @@ describe('TestYourEquipmentComponent error functionality', () => {
         component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
         await component.replayVideo();
         expect(journeyObj.goto).toHaveBeenCalled();
+    });
+    it('should update video and audio devices', async () => {
+        userMediaServiceMock.hasMultipleDevices.and.returnValue(Promise.resolve(true));
+        userMediaServiceMock.getPreferredCamera.and.returnValue(
+            new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1')
+        );
+        userMediaServiceMock.getPreferredMicrophone.and.returnValue(
+            new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1')
+        );
+        component.pexipAPI = new PexipApiMock();
+        await component.updatePexipAudioVideoSource();
+        expect(userMediaServiceMock.hasMultipleDevices).toHaveBeenCalled();
     });
 });
