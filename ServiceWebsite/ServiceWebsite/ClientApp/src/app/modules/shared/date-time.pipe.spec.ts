@@ -2,10 +2,10 @@ import { LongDatetimePipe } from './date-time.pipe';
 
 describe('LongDatetimePipe', () => {
 
-  it('should return a Monday 08 April 2019, 3:45pm format', () => {
+  it('should return a Monday 08 April 2019 at 3:45pm format', () => {
     const pipe = new LongDatetimePipe();
     const result = pipe.transform((new Date(2019, 3, 8, 15, 45).toUTCString()));
-    expect(result).toBe('Monday 08 April 2019, 3:45pm');
+    expect(result).toBe('Monday 08 April 2019 at 3:45pm');
   });
 
   it('should throw an exception when an invalid input', () => {
