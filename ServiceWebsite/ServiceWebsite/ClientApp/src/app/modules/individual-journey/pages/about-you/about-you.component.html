@@ -12,13 +12,13 @@
     <app-choice-textbox
       [detailsYesText]="'Please provide more detail'"
       [suitabilityAnswer]="journey.model.aboutYou"
-      [hintText]="'Include any information you\'re happy to share to help the court decide which type of hearing may be best'"
-      [errorMessage1]="'Select if there’s anything you’d like the court to take into account'"
-      [errorMessage2]="'Enter any information to help the court decide'"
+      [hintText]="'Include any information you\'re happy to share to help the court or tribunal decide which type of hearing may be best.'"
+      [errorMessage1]="'Select if there’s anything you’d like the court or tribunal to take into account'"
+      [errorMessage2]="'Enter any information to help the court or tribunal decide'"
       (submitted)="submit()">
 
       <p class="govuk-body govuk-!-margin-bottom-6" i18n="@@aboutYou_p_1">
-        Is there anything you’d like the court to take into account when it decides which type of hearing will be
+        Is there anything you’d like the court or tribunal to consider when it decides which type of hearing will be
         suitable?
       </p>
 
