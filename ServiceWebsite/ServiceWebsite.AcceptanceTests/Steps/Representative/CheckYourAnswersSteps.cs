@@ -68,8 +68,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         {
             _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationAnswer)
                 .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).Answer);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationText)
-                .Text.Trim().Should().Be(CustomConverters.NullToString(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).ExtendedAnswer));
+
+            if (_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation))
+                .ExtendedAnswer != null)
+            {
+                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationText)
+                    .Text.Trim().Should().Be(CustomConverters.NullToString(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).ExtendedAnswer));
+            }
         }
 
         public void ProgressToNextPage()
