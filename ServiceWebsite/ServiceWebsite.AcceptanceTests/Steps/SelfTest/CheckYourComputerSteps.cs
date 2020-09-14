@@ -6,6 +6,7 @@ using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
@@ -13,10 +14,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     [Binding]
     public class CheckYourComputerSteps : ISteps
     {
-        private readonly Dictionary<string, UserBrowser> _browsers;
+        private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public CheckYourComputerSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
+        public CheckYourComputerSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
@@ -25,17 +26,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
         [When(@"the user answers yes to the Check Your Computer question")]
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.CheckYourComputer));
-            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
+            _browsers[_c.CurrentUser].Driver.WaitForPageToLoad();
+            _browsers[_c.CurrentUser].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.CheckYourComputer));
+            _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText("Continue"));
             _c.Test.Answers.Add(new SuitabilityAnswer{ Answer = _c.WebConfig.TestConfig.TestData.CheckYourComputer, ExtendedAnswer = null, QuestionKey = SelfTestQuestionKeys.CheckYourComputerQuestion });
         }
 
         [When(@"the user answers no to the Check Your Computer question")]
         public void WhenTheUserAnswersNoToTheCheckYourComputerQuestion()
         {
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel("No"));
-            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
+            _browsers[_c.CurrentUser].ClickRadioButton(CommonLocators.RadioButtonWithLabel("No"));
+            _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText("Continue"));
         }
     }
 }

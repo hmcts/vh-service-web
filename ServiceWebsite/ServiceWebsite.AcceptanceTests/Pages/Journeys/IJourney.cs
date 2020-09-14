@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ServiceWebsite.Services.TestApi;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
 {
@@ -6,7 +7,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
     {
         List<Page> Journey();
         void VerifyDestinationIsInThatJourney(Page destinationPage);
-        void VerifyUserIsApplicableToJourney(string currentUserRole);
-        Page GetNextPage(Page currentPage);
+        void VerifyUserIsApplicableToJourney(UserType userType);
     }
 }

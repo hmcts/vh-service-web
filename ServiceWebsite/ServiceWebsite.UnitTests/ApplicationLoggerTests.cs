@@ -19,6 +19,7 @@ namespace ServiceWebsite.UnitTests
         public void Should_trace_without_failure()
         {
             ApplicationLogger.Trace("Category", "Title", "Information");
+            Assert.True(true);
         }
         
         [Test]
@@ -26,8 +27,9 @@ namespace ServiceWebsite.UnitTests
         {
             ApplicationLogger.TraceWithProperties("Category", "Title", "User", null);
             ApplicationLogger.TraceWithProperties("Category", "Title", "User", new Dictionary<string, string>{ {"property", "value"} });
+            Assert.True(true);
         }
-        
+
         [Test]
         public void Should_trace_without_or_without_object()
         {
@@ -37,6 +39,7 @@ namespace ServiceWebsite.UnitTests
                 Property = "value"
             };
             ApplicationLogger.TraceWithObject("Category", "Title", "User", someObject);
+            Assert.True(true);
         }
 
         [Test]
@@ -56,6 +59,7 @@ namespace ServiceWebsite.UnitTests
             ApplicationLogger.TraceException("Category", "Title", exception, null, null);
             ApplicationLogger.TraceException("Category", "Title", exception, null, properties);
             ApplicationLogger.TraceException("Category", "Title", exception, null);
+            Assert.True(true);
         }
 
         [Test]
@@ -64,12 +68,14 @@ namespace ServiceWebsite.UnitTests
             var properties = new Dictionary<string, string> {{"property", "value"}};
             ApplicationLogger.TraceEvent("Title", properties);
             ApplicationLogger.TraceEvent("Title", null);
+            Assert.True(true);
         }
 
         [Test]
         public void Should_trace_result()
         {
             ApplicationLogger.TraceRequest("Operation", DateTimeOffset.Now, TimeSpan.FromSeconds(2), "200", true);
+            Assert.True(true);
         }
     }
 }
