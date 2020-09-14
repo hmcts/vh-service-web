@@ -3,43 +3,38 @@ using System.Linq;
 using System.Net;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Helpers;
-using AcceptanceTests.Common.Api.Requests;
-using AcceptanceTests.Common.Configuration.Users;
 using FluentAssertions;
-using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.Services.TestApi;
 using Guid = System.Guid;
 
 namespace ServiceWebsite.AcceptanceTests.Data
 {
-    public class HearingData
+    public static class HearingData
     {
-        private readonly BookingsApiManager _bookingsApi;
-
-        public HearingData(BookingsApiManager bookingsApi)
-        {
-            _bookingsApi = bookingsApi;
-        }
-
-        public HearingDetailsResponse CreateHearing(List<UserAccount> userAccounts)
+        public static HearingDetailsResponse CreateHearing(TestApiManager api, List<User> users)
         {
             var hearingRequest = new HearingRequestBuilder()
-                .WithUserAccounts(userAccounts)
+                .WithUsers(users)
                 .Build();
 
-            var hearingResponse = _bookingsApi.CreateHearing(hearingRequest);
+            var hearingResponse = api.CreateHearing(hearingRequest);
             hearingResponse.StatusCode.Should().Be(HttpStatusCode.Created);
-            var hearing = RequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(hearingResponse.Content);
+            var hearing = RequestHelper.Deserialise<HearingDetailsResponse>(hearingResponse.Content);
             hearing.Should().NotBeNull();
-            ParticipantExistsInTheDb(hearing.Id, userAccounts).Should().BeTrue();
+            ParticipantsShouldExistInTheDb(api, hearing.Id, users);
+            NUnit.Framework.TestContext.WriteLine($"Hearing created with Hearing Id {hearing.Id}");
             return hearing;
         }
 
-        private bool ParticipantExistsInTheDb(Guid hearingId, List<UserAccount> userAccounts)
+        private static void ParticipantsShouldExistInTheDb(TestApiManager api, Guid hearingId, List<User> users)
         {
-            var hearingResponse = _bookingsApi.GetHearing(hearingId);
-            var hearing = RequestHelper.DeserialiseSnakeCaseJsonToResponse<HearingDetailsResponse>(hearingResponse.Content);
+            var hearingResponse = api.GetHearing(hearingId);
+            var hearing = RequestHelper.Deserialise<HearingDetailsResponse>(hearingResponse.Content);
             hearing.Should().NotBeNull();
-            return hearing.Participants.Any(x => x.Username.ToLower().Equals(UserManager.GetDefaultParticipantUser(userAccounts).Username.ToLower()));
+            foreach (var user in users.Where(user => user.User_type != UserType.CaseAdmin && user.User_type != UserType.VideoHearingsOfficer))
+            {
+                hearing.Participants.Any(x => x.Last_name.Equals(user.Last_name)).Should().BeTrue();
+            }
         }
     }
 }

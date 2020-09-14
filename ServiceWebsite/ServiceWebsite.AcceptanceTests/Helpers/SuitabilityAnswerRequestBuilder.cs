@@ -2,7 +2,7 @@
 using System.Linq;
 using AcceptanceTests.Common.Data.Questions;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
-using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.Services.TestApi;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
 {

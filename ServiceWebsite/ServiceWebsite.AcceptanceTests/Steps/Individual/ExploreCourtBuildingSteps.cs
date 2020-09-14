@@ -7,6 +7,7 @@ using AcceptanceTests.Common.Test.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages.Individual;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Individual
@@ -15,10 +16,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
     public class ExploreCourtBuildingSteps : ISteps
     {
         private const int ExtraTimeForVideoToLoad = 30;
-        private readonly Dictionary<string, UserBrowser> _browsers;
+        private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public ExploreCourtBuildingSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
+        public ExploreCourtBuildingSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
@@ -26,8 +27,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Watch the video"));
-            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
+            _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText("Watch the video"));
+            _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText("Continue"));
         }
 
         [Then(@"the exploring the court building video begins to play")]
@@ -35,9 +36,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Individual
         {
             if (_c.WebConfig.TestConfig.TargetBrowser == TargetBrowser.Chrome)
             {
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(ExploreCourtBuildingPage.Video).Click();
+                _browsers[_c.CurrentUser].Driver.WaitUntilVisible(ExploreCourtBuildingPage.Video).Click();
             }
-            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser.Key]).Retries(ExtraTimeForVideoToLoad).Feed(ExploreCourtBuildingPage.Video);
+            new VerifyVideoIsPlayingBuilder(_browsers[_c.CurrentUser]).Retries(ExtraTimeForVideoToLoad).Feed(ExploreCourtBuildingPage.Video);
         }
     }
 }

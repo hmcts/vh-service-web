@@ -139,7 +139,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 {Journey.Individual, new IndividualJourney()},
                 {Journey.Representative, new RepresentativeJourney()}
             };
-            journeys[userJourney].VerifyUserIsApplicableToJourney(_c.CurrentUser.Role);
+            journeys[userJourney].VerifyUserIsApplicableToJourney(_c.CurrentUser.User_type);
             journeys[userJourney].VerifyDestinationIsInThatJourney(endPage);
             var journey = journeys[userJourney].Journey();
             var steps = Steps();
