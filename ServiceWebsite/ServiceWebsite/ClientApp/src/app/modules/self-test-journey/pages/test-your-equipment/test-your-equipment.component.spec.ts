@@ -22,12 +22,16 @@ import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navi
 import { MicVisualiserStubComponent } from '../../../../testing/stubs/mic-visualiser-stub';
 
 @Component({
-  selector: 'app-select-media-devices',
-  template: ''
+    selector: 'app-select-media-devices',
+    template: ''
 })
 class StubSelectedUserMediaDeviceComponent {
-  @Input() selectedCamera: UserMediaDevice;
-  @Input() selectedMicrophone: UserMediaDevice;
+    @Input() selectedCamera: UserMediaDevice;
+    @Input() selectedMicrophone: UserMediaDevice;
+}
+
+class PexipApiMock {
+    static video_source: any;
 }
 
 const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
@@ -42,203 +46,210 @@ const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
 
 describe('TestYourEquipmentComponent', () => {
-  let model: MutableIndividualSuitabilityModel;
+    let model: MutableIndividualSuitabilityModel;
 
-  model = new MutableIndividualSuitabilityModel();
-  model.hearing = new Hearing('1');
-  model.participantId = '2';
-  model.selfTest = new SelfTestAnswers();
-
-  it('can continue', () => {
-    const fixture = SelfTestJourneyComponentTestBed.createComponent({
-      component: TestYourEquipmentComponent,
-      journey: journey,
-      declarations: [
-        CrestBluePanelComponent,
-        MicVisualiserStubComponent,
-        StubSelectedUserMediaDeviceComponent,
-        BackNavigationStubComponent
-      ],
-      providers: [{ provide: Logger, useClass: MockLogger },
-      { provide: VideoWebService, useValue: videoWebServiceMock },
-      { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
-      { provide: ConfigService, useValue: configServiceMock },
-        UserMediaService
-      ],
-      model: model
-    });
-
-    fixture.componentInstance.didTestComplete  = true;
-    fixture.detectChanges();
-    new ContinuableComponentFixture(fixture).submitIsClicked();
-
-    expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CameraWorking);
-  });
-});
-
-describe('TestYourEquipmentComponent functionality', () => {
-  let journeyObj: jasmine.SpyObj<JourneyBase>;
-  let model: MutableIndividualSuitabilityModel;
-  let component: TestYourEquipmentComponent;
-  videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
-
-  beforeEach(() => {
-    journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
     model = new MutableIndividualSuitabilityModel();
     model.hearing = new Hearing('1');
     model.participantId = '2';
     model.selfTest = new SelfTestAnswers();
-    component = new TestYourEquipmentComponent(journeyObj, model,
-      new UserMediaService(new MockLogger()), userMediaStreamServiceMock, videoWebServiceMock,
-      configServiceMock, new MockLogger());
-  });
 
-  it('should setup pexip client', async () => {
-    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-    const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
-    const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
+    it('can continue', () => {
+        const fixture = SelfTestJourneyComponentTestBed.createComponent({
+            component: TestYourEquipmentComponent,
+            journey: journey,
+            declarations: [
+                CrestBluePanelComponent,
+                MicVisualiserStubComponent,
+                StubSelectedUserMediaDeviceComponent,
+                BackNavigationStubComponent
+            ],
+            providers: [
+                { provide: Logger, useClass: MockLogger },
+                { provide: VideoWebService, useValue: videoWebServiceMock },
+                { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
+                { provide: ConfigService, useValue: configServiceMock },
+                UserMediaService
+            ],
+            model: model
+        });
 
-    component.userMediaService.updatePreferredCamera(defaultDevice);
-    component.userMediaService.updatePreferredMicrophone(soundOutput);
-    await component.ngOnInit();
-    expect(component.didTestComplete).toBeFalsy();
-  });
+        fixture.componentInstance.didTestComplete = true;
+        fixture.detectChanges();
+        new ContinuableComponentFixture(fixture).submitIsClicked();
 
-  it('should update video and audio devices', async () => {
-    const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
-    const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
+        expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.CameraWorking);
+    });
+});
 
+describe('TestYourEquipmentComponent functionality', () => {
+    let journeyObj: jasmine.SpyObj<JourneyBase>;
+    let model: MutableIndividualSuitabilityModel;
+    let component: TestYourEquipmentComponent;
+    videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
+    const logger = new MockLogger();
+    const userMediaService = new UserMediaService(logger);
 
-    component.userMediaService.updatePreferredCamera(defaultDevice);
-    component.userMediaService.updatePreferredMicrophone(soundOutput);
-    await component.ngOnInit();
-    await component.updatePexipAudioVideoSource();
-    expect(component.pexipAPI.audio_source).toBeTruthy();
-  });
+    beforeEach(() => {
+        journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+        model = new MutableIndividualSuitabilityModel();
+        model.hearing = new Hearing('1');
+        model.participantId = '2';
+        model.selfTest = new SelfTestAnswers();
+        component = new TestYourEquipmentComponent(
+            journeyObj,
+            model,
+            userMediaService,
+            userMediaStreamServiceMock,
+            videoWebServiceMock,
+            configServiceMock,
+            logger
+        );
+    });
 
-  it('should pexip make a call', async () => {
-    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-    component.call();
-    expect(component.didTestComplete).toBeFalsy();
-  });
+    it('should setup pexip client', async () => {
+        component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+        const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
+        const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
 
-  it('should replay video', async () => {
-    component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-    component.didTestComplete = true;
-    await component.ngOnInit();
-    await component.replayVideo();
-    expect(component.didTestComplete).toBeFalsy();
-  });
+        component.userMediaService.updatePreferredCamera(defaultDevice);
+        component.userMediaService.updatePreferredMicrophone(soundOutput);
+        await component.ngOnInit();
+        expect(component.didTestComplete).toBeFalsy();
+    });
 
-  it('should disconnect pexip', async () => {
-    component.disconnect();
-    expect(component.didTestComplete).toBeTruthy();
-    expect(component.displayFeed).toBeFalsy();
-  });
+    it('should pexip make a call', async () => {
+        component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+        component.call();
+        expect(component.didTestComplete).toBeFalsy();
+    });
 
-  it('should connected handle set incoming stream', () => {
-    component.connectHandleEvent(new MediaStream());
-    expect(component.incomingStream).toBeTruthy();
-    expect(component.displayFeed).toBeTruthy();
-  });
+    it('should replay video', async () => {
+        component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+        component.didTestComplete = true;
+        await component.ngOnInit();
+        await component.replayVideo();
+        expect(component.didTestComplete).toBeFalsy();
+    });
 
-  it('should disconnected handle set test to completed and retrieve test score', () => {
-    component.disconnectHandleEvent('Conference terminated by another participant');
-    expect(component.didTestComplete).toBeTruthy();
-    expect(component.displayFeed).toBeFalsy();
-    expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
-  });
+    it('should disconnect pexip', async () => {
+        component.disconnect();
+        expect(component.didTestComplete).toBeTruthy();
+        expect(component.displayFeed).toBeFalsy();
+    });
 
-  it('should error handle set test to completed', () => {
-    component.errorHandleEvent('Error');
-    expect(component.didTestComplete).toBeTruthy();
-    expect(component.displayFeed).toBeFalsy();
-  });
+    it('should connected handle set incoming stream', () => {
+        component.connectHandleEvent(new MediaStream());
+        expect(component.incomingStream).toBeTruthy();
+        expect(component.displayFeed).toBeTruthy();
+    });
 
-  it('should error handle catch blocked access to media devices', () => {
-    component.errorHandleEvent('Could not get access to camera/microphone');
-    expect(journeyObj.goto).toHaveBeenCalledWith(SelfTestJourneySteps.EquipmentBlocked);
-  });
+    it('should disconnected handle set test to completed and retrieve test score', () => {
+        component.disconnectHandleEvent('Conference terminated by another participant');
+        expect(component.didTestComplete).toBeTruthy();
+        expect(component.displayFeed).toBeFalsy();
+        expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
+    });
 
-  it('should check for active streams', async () => {
-    expect(component.streamsActive).toBeFalsy();
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then(function (stream) {
-        component.outgoingStream = stream;
-        component.incomingStream = stream;
-        expect(component.streamsActive).toBeTruthy();
-      });
-  });
+    it('should error handle set test to completed', () => {
+        component.errorHandleEvent('Error');
+        expect(component.didTestComplete).toBeTruthy();
+        expect(component.displayFeed).toBeFalsy();
+    });
 
-  it('should retrieve test score', async () => {
-    component.participantId = '27467';
-    await component.retrieveSelfTestScore();
-    expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
-  });
+    it('should error handle catch blocked access to media devices', () => {
+        component.errorHandleEvent('Could not get access to camera/microphone');
+        expect(journeyObj.goto).toHaveBeenCalledWith(SelfTestJourneySteps.EquipmentBlocked);
+    });
 
-  it('should stop all stream and unsubcribe on destroy event', async () => {
-    component.$subcriptions.push(new Subscription());
-    component.$subcriptions.push(new Subscription());
-    expect(component.$subcriptions[0].closed).toBeFalsy();
+    it('should retrieve test score', async () => {
+        component.participantId = '27467';
+        await component.retrieveSelfTestScore();
+        expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
+    });
 
-    component.ngOnDestroy();
+    it('should stop all stream and unsubcribe on destroy event', async () => {
+        component.$subcriptions.push(new Subscription());
+        component.$subcriptions.push(new Subscription());
+        expect(component.$subcriptions[0].closed).toBeFalsy();
 
-    expect(component.incomingStream).toBeNull();
-    expect(component.outgoingStream).toBeNull();
-    expect(component.pexipAPI).toBeNull();
-    expect(component.$subcriptions[0].closed).toBeTruthy();
-    expect(component.$subcriptions[1].closed).toBeTruthy();
-  });
+        component.ngOnDestroy();
+
+        expect(component.incomingStream).toBeNull();
+        expect(component.outgoingStream).toBeNull();
+        expect(component.pexipAPI).toBeNull();
+        expect(component.$subcriptions[0].closed).toBeTruthy();
+        expect(component.$subcriptions[1].closed).toBeTruthy();
+    });
 
     it('should changeDevices', async () => {
-      component.displayDeviceChangeModal = false;
-      await component.changeDevices();
-      expect(component.displayDeviceChangeModal).toBeTruthy();
+        component.displayDeviceChangeModal = false;
+        await component.changeDevices();
+        expect(component.displayDeviceChangeModal).toBeTruthy();
     });
 
     it('should replayVideo', async () => {
-      component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-      component.didTestComplete = true;
-      await component.replayVideo();
-      expect(component.didTestComplete).toBeFalsy();
+        component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+        component.didTestComplete = true;
+        await component.replayVideo();
+        expect(component.didTestComplete).toBeFalsy();
     });
+});
 
-  });
-
-  describe('TestYourEquipmentComponent error functionality', () => {
+describe('TestYourEquipmentComponent error functionality', () => {
     let journeyObj: jasmine.SpyObj<JourneyBase>;
     let model: MutableIndividualSuitabilityModel;
     let component: TestYourEquipmentComponent;
     videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
-    const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>(
-      ['requestAccess', 'hasMultipleDevices', 'getPreferredCamera', 'getPreferredMicrophone']);
+    const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>([
+        'requestAccess',
+        'hasMultipleDevices',
+        'getPreferredCamera',
+        'getPreferredMicrophone'
+    ]);
     const mediaAccessResponse = new MediaAccessResponse();
     mediaAccessResponse.exceptionType = 'NotAllowedError';
     mediaAccessResponse.result = false;
     userMediaServiceMock.requestAccess.and.returnValue(mediaAccessResponse);
 
     beforeEach(() => {
-      journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
-      model = new MutableIndividualSuitabilityModel();
-      model.hearing = new Hearing('1');
-      model.participantId = '2';
-      model.selfTest = new SelfTestAnswers();
-      component = new TestYourEquipmentComponent(journeyObj, model,
-        userMediaServiceMock, userMediaStreamServiceMock, videoWebServiceMock,
-        configServiceMock, new MockLogger());
+        journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+        model = new MutableIndividualSuitabilityModel();
+        model.hearing = new Hearing('1');
+        model.participantId = '2';
+        model.selfTest = new SelfTestAnswers();
+        component = new TestYourEquipmentComponent(
+            journeyObj,
+            model,
+            userMediaServiceMock,
+            userMediaStreamServiceMock,
+            videoWebServiceMock,
+            configServiceMock,
+            new MockLogger()
+        );
     });
 
     it('should retrieve test score and get error', async () => {
-      component.participantId = '27467';
-      spyOn(component.logger, 'error');
-      await component.retrieveSelfTestScore();
-      expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
-      expect(component.logger.error).toHaveBeenCalled();
+        component.participantId = '27467';
+        spyOn(component.logger, 'error');
+        await component.retrieveSelfTestScore();
+        expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
+        expect(component.logger.error).toHaveBeenCalled();
     });
     it('should replayVideo and throw an error and go to blocked access page', async () => {
-      component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
-      await component.replayVideo();
-      expect(journeyObj.goto).toHaveBeenCalled();
+        component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
+        await component.replayVideo();
+        expect(journeyObj.goto).toHaveBeenCalled();
     });
-  });
-
+    it('should update video and audio devices', async () => {
+        userMediaServiceMock.hasMultipleDevices.and.returnValue(Promise.resolve(true));
+        userMediaServiceMock.getPreferredCamera.and.returnValue(
+            new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1')
+        );
+        userMediaServiceMock.getPreferredMicrophone.and.returnValue(
+            new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1')
+        );
+        component.pexipAPI = new PexipApiMock();
+        await component.updatePexipAudioVideoSource();
+        expect(userMediaServiceMock.hasMultipleDevices).toHaveBeenCalled();
+    });
+});

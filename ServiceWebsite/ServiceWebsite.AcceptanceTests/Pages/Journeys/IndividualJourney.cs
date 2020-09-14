@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
+using ServiceWebsite.Services.TestApi;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
 {
@@ -35,19 +36,14 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
             };
         }
 
-        public void VerifyUserIsApplicableToJourney(string currentUserRole)
+        public void VerifyUserIsApplicableToJourney(UserType userType)
         {
-            currentUserRole.ToLower().Should().BeOneOf("individual");
+            userType.ToString().ToLower().Should().BeOneOf("participant", "individual", "panel member", "observer");
         }
 
         public void VerifyDestinationIsInThatJourney(Page destinationPage)
         {
             Journey().Should().Contain(destinationPage);
-        }
-
-        public Page GetNextPage(Page currentPage)
-        {
-            return Journey()[Journey().IndexOf(currentPage) + 1];
         }
     }
 }

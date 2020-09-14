@@ -3,7 +3,7 @@ using System.Linq;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
-using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.Services.TestApi;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
 {

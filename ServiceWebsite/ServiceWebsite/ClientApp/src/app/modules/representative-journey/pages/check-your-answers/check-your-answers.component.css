@@ -1,3 +1,24 @@
 .vh-col-width {
     width: 19%;
 }
+
+.vh-col-text {
+    width: 70%;
+    display: inline-block;
+}
+
+.vh-col {
+    display: inline-block;
+}
+
+.vh-col-answer {
+    width: 91%;
+}
+
+.vh-line {
+    border-bottom: 1px solid #bfc0c0;
+}
+
+.vh-no-table-line {
+    border: none;
+}

@@ -4,6 +4,7 @@ using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -11,10 +12,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class HeaderFooterSteps
     {
-        private readonly Dictionary<string, UserBrowser> _browsers;
+        private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public HeaderFooterSteps(Dictionary<string, UserBrowser> browsers, TestContext c)
+        public HeaderFooterSteps(Dictionary<User, UserBrowser> browsers, TestContext c)
         {
             _browsers = browsers;
             _c = c;
@@ -23,7 +24,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the beta banner should be displayed")]
         public void ThenTheBetaBannerShouldBeDisplayed()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CommonPages.BetaBanner).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonPages.BetaBanner).Displayed.Should().BeTrue();
         }
     }
 }

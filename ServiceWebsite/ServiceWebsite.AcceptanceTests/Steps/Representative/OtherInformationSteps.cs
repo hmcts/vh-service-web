@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages.Representative;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Representative
@@ -15,10 +16,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
     [Binding]
     public class OtherInformationSteps : ISteps
     {
-        private readonly Dictionary<string, UserBrowser> _browsers;
+        private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public OtherInformationSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
+        public OtherInformationSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
@@ -26,8 +27,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.OtherInformation.Answer));
-            _browsers[_c.CurrentUser.Key].Click(OtherInformationPage.ContinueButton);
+            _browsers[_c.CurrentUser].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.OtherInformation.Answer));
+            _browsers[_c.CurrentUser].Click(OtherInformationPage.ContinueButton);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.WebConfig.TestConfig.TestData.OtherInformation.Answer,
@@ -39,9 +40,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [When(@"the user enters more details into the please provide more information textfield")]
         public void WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreInformationTextfield()
         {
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel("Yes"));
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(_c.WebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(Keys.Tab);
+            _browsers[_c.CurrentUser].ClickRadioButton(CommonLocators.RadioButtonWithLabel("Yes"));
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(_c.WebConfig.TestConfig.TestData.OtherInformation.ExtendedAnswer);
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(OtherInformationPage.OtherInformationTextField).SendKeys(Keys.Tab);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = "Yes",
