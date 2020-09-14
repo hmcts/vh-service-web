@@ -44,7 +44,7 @@
     "@types/applicationinsights-js": "^1.0.7",
     "@types/chai": "^4.2.11",
     "@types/cucumber": "^4.0.4",
-    "@types/jasmine": "~2.8.6",
+    "@types/jasmine": "~2.8.17",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "@types/webrtc": "0.0.26",
