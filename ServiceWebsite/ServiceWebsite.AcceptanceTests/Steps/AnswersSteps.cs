@@ -6,7 +6,7 @@ using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.BookingsAPI.Client;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -38,15 +38,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Given(@"Representative has already submitted checklist and self test on a previous hearing")]
         public void GivenRepresentativeHasAlreadySubmittedChecklistAndSelfTestOnAPreviousHearing()
         {
-            var hearing = new HearingData(_c.Apis.BookingsApi).CreateHearing(_c.UserAccounts);
+            var hearing = HearingData.CreateHearing(_c.Api, _c.Users);
             var answers = new SuitabilityAnswerRequestBuilder().WithDefaultData(_c.WebConfig.TestConfig.TestData).AllAnswers("Representative");
             SubmitAnswers(answers, hearing);
         }
 
         private void SubmitAnswers(IEnumerable<SuitabilityAnswersRequest> answers, HearingDetailsResponse hearing)
         {
-            var participantId = hearing.Participants.First(x => x.Last_name.ToLower().Equals(_c.CurrentUser.Lastname.ToLower())).Id;
-            var response = _c.Apis.BookingsApi.SetSuitabilityAnswers(hearing.Id, participantId, answers);
+            var participantId = hearing.Participants.First(x => x.Last_name.ToLower().Equals(_c.CurrentUser.Last_name.ToLower())).Id;
+            var response = _c.Api.SetSuitabilityAnswers(hearing.Id, participantId, answers);
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
@@ -89,8 +89,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
         {
-            var response = _c.Apis.BookingsApi.GetSuitabilityAnswers(_c.CurrentUser.Username);
-            var answers = RequestHelper.DeserialiseSnakeCaseJsonToResponse<List<PersonSuitabilityAnswerResponse>>(response.Content);
+            var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);
+            var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
             return answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)).Answers;
         }
 
