@@ -193,7 +193,7 @@ stages:
           - name: TestUserSecrets:TestUsernameStem
             value: $(TestUserSecrets:TestUsernameStem)
           - name: TestUserSecrets:TestUserPassword
-            value: $(TestUserSecrets:TestUserPassword)
+            value: $(TestUserSecrets:TestApiUserPassword)
 
           # VhServices
           - name: VhServices:BookingsApiResourceId
@@ -258,7 +258,7 @@ stages:
           - name: TestUserSecrets:TestUsernameStem
             value: $(TestUserSecrets:TestUsernameStem)
           - name: TestUserSecrets:TestUserPassword
-            value: $(TestUserSecrets:TestUserPassword)
+            value: $(TestUserSecrets:TestApiUserPassword)
 
           # VhServices
           - name: VhServices:BookingsApiResourceId
