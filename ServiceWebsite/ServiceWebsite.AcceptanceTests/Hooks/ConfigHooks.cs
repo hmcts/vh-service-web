@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 using TestContext = ServiceWebsite.AcceptanceTests.Helpers.TestContext;
 
@@ -23,8 +24,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             _configRoot = ConfigurationManager.BuildConfig("CF5CDD5E-FD74-4EDE-8765-2F899C252122", GetTargetEnvironment(), RunOnSauceLabsFromLocal());
             context.WebConfig = new ServiceWebConfig();
-            context.UserAccounts = new List<UserAccount>();
-            context.Tokens = new ServiceWebTokens();
+            context.Users = new List<User>();
         }
 
         private static string GetTargetEnvironment()
@@ -43,8 +43,8 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             RegisterAzureSecrets(context);
             RegisterTestUserSecrets(context);
-            RegisterTestUsers(context);
             RegisterDefaultData(context);
+            RegisterIsLive(context);
             RegisterHearingServices(context);
             RegisterSauceLabsSettings(context);
             RunningServiceWebLocally(context);
@@ -69,20 +69,15 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             context.WebConfig.TestConfig.TestUserPassword.Should().NotBeNull();
         }
 
-        private void RegisterTestUsers(TestContext context)
-        {
-            context.UserAccounts = Options.Create(_configRoot.GetSection("UserAccounts").Get<List<UserAccount>>()).Value;
-            context.UserAccounts.Should().NotBeNullOrEmpty();
-            foreach (var user in context.UserAccounts)
-            {
-                user.Key = user.Lastname;
-                user.Username = $"{user.DisplayName.Replace(" ", "").Replace("ClerkJudge", "Clerk")}{context.WebConfig.TestConfig.TestUsernameStem}";
-            }
-        }
-
         private static void RegisterDefaultData(TestContext context)
         {
             context.Test = new Test {Answers = new List<SuitabilityAnswer>()};
+        }
+
+        private void RegisterIsLive(TestContext context)
+        {
+            context.WebConfig.IsLive = _configRoot.GetValue<bool>("IsLive");
+            context.WebConfig.Should().NotBeNull();
         }
 
         private void RegisterHearingServices(TestContext context)
@@ -108,17 +103,9 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private static async Task GenerateBearerTokens(TestContext context)
         {
-            context.Tokens.BookingsApiBearerToken = await ConfigurationManager.GetBearerToken(
-                context.WebConfig.AzureAdConfiguration, context.WebConfig.VhServices.BookingsApiResourceId);
-            context.Tokens.BookingsApiBearerToken.Should().NotBeNullOrEmpty();
-
-            context.Tokens.VideoApiBearerToken = await ConfigurationManager.GetBearerToken(
-                context.WebConfig.AzureAdConfiguration, context.WebConfig.VhServices.VideoApiResourceId);
-            context.Tokens.VideoApiBearerToken.Should().NotBeNullOrEmpty();
-
-            context.Tokens.UserApiBearerToken = await ConfigurationManager.GetBearerToken(
-                context.WebConfig.AzureAdConfiguration, context.WebConfig.VhServices.UserApiResourceId);
-            context.Tokens.UserApiBearerToken.Should().NotBeNullOrEmpty();
+            context.TestApiBearerToken = await ConfigurationManager.GetBearerToken(
+                context.WebConfig.AzureAdConfiguration, context.WebConfig.VhServices.TestApiResourceId);
+            context.TestApiBearerToken.Should().NotBeNullOrEmpty();
         }
     }
 }

@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages.Representative;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Representative
@@ -16,10 +17,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
     [Binding]
     public class PresentingTheCaseSteps : ISteps
     {
-        private readonly Dictionary<string, UserBrowser> _browsers;
+        private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public PresentingTheCaseSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
+        public PresentingTheCaseSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
@@ -27,10 +28,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.WhoWillBePresentingText).Displayed.Should().BeTrue();
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.TestData.PresentingTheCase.Answer));
-            _browsers[_c.CurrentUser.Key].Click(PresentingTheCasePage.ContinueButton);
+            _browsers[_c.CurrentUser].Driver.WaitForPageToLoad();
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(PresentingTheCasePage.WhoWillBePresentingText).Displayed.Should().BeTrue();
+            _browsers[_c.CurrentUser].ClickRadioButton(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.TestData.PresentingTheCase.Answer));
+            _browsers[_c.CurrentUser].Click(PresentingTheCasePage.ContinueButton);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.WebConfig.TestConfig.TestData.PresentingTheCase.Answer,
@@ -41,17 +42,17 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 
         public void WhenTheUserSelectsSomeoneElseToPresent()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitForPageToLoad();
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer));
+            _browsers[_c.CurrentUser].Driver.WaitForPageToLoad();
+            _browsers[_c.CurrentUser].ClickRadioButton(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.TestData.PresentingTheCase.AlternativeAnswer));
             WhenAddsDetailsOfWhoWillBePresentingTheCase();
         }
 
         [When(@"adds details of who will be presenting the case")]
         public void WhenAddsDetailsOfWhoWillBePresentingTheCase()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.FullNameTextField).SendKeys(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(Keys.Tab);
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(PresentingTheCasePage.FullNameTextField).SendKeys(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(PresentingTheCasePage.EmailTextField).SendKeys(Keys.Tab);
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = "Someone else will be presenting the case",
