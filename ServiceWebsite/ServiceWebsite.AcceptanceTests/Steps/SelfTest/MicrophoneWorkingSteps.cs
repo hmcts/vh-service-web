@@ -5,6 +5,7 @@ using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
@@ -12,10 +13,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     [Binding]
     public class MicrophoneWorkingSteps : ISteps
     {
-        private readonly Dictionary<string, UserBrowser> _browsers;
+        private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public MicrophoneWorkingSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext)
+        public MicrophoneWorkingSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
@@ -23,8 +24,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.MicrophoneWorking));
-            _browsers[_c.CurrentUser.Key].Click(CommonLocators.ButtonWithInnerText("Continue"));
+            _browsers[_c.CurrentUser].ClickRadioButton(CommonLocators.RadioButtonWithLabel(_c.WebConfig.TestConfig.TestData.MicrophoneWorking));
+            _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText("Continue"));
             _c.Test.Answers.Add(new SuitabilityAnswer
             {
                 Answer = _c.WebConfig.TestConfig.TestData.MicrophoneWorking,

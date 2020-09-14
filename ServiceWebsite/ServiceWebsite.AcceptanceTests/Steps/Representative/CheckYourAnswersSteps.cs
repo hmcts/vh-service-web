@@ -8,6 +8,7 @@ using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages.Representative;
+using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.Representative
@@ -15,11 +16,11 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
     [Binding]
     public class CheckYourAnswersSteps : ISteps
     {
-        private readonly Dictionary<string, UserBrowser> _browsers;
+        private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
         private readonly PresentingTheCaseSteps _presentingTheCaseSteps;
         private readonly OtherInformationSteps _otherInformationSteps;
-        public CheckYourAnswersSteps(Dictionary<string, UserBrowser> browsers, TestContext testContext, PresentingTheCaseSteps presentingTheCaseSteps, OtherInformationSteps otherInformationSteps)
+        public CheckYourAnswersSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext, PresentingTheCaseSteps presentingTheCaseSteps, OtherInformationSteps otherInformationSteps)
         {
             _browsers = browsers;
             _c = testContext;
@@ -30,19 +31,19 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [When(@"the user changes who'll be presenting")]
         public void WhenTheUserChangesWhoLlBePresenting()
         {
-            _browsers[_c.CurrentUser.Key].ClickLink(CheckYourAnswersPage.ChangePresenterLink);
+            _browsers[_c.CurrentUser].ClickLink(CheckYourAnswersPage.ChangePresenterLink);
             RemovePreviousAnswer(RepresentativeQuestionKeys.PresentingTheCase);
             _presentingTheCaseSteps.WhenTheUserSelectsSomeoneElseToPresent();
-            _browsers[_c.CurrentUser.Key].Click(PresentingTheCasePage.ContinueButton);
+            _browsers[_c.CurrentUser].Click(PresentingTheCasePage.ContinueButton);
         }
 
         [When(@"the user changes the other information")]
         public void WhenTheUserChangesTheOtherInformation()
         {
-            _browsers[_c.CurrentUser.Key].ClickLink(CheckYourAnswersPage.ChangeOtherInformationLink);
+            _browsers[_c.CurrentUser].ClickLink(CheckYourAnswersPage.ChangeOtherInformationLink);
             RemovePreviousAnswer(RepresentativeQuestionKeys.OtherInformation);
             _otherInformationSteps.WhenTheUserEntersMoreDetailsIntoThePleaseProvideMoreInformationTextfield();
-            _browsers[_c.CurrentUser.Key].Click(OtherInformationPage.ContinueButton);
+            _browsers[_c.CurrentUser].Click(OtherInformationPage.ContinueButton);
         }
 
         [Then(@"the answer for who'll be presenting is displayed correctly")]
@@ -51,14 +52,14 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
             var answer = _c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase));
             if (answer.Answer.Equals(_c.WebConfig.TestConfig.TestData.PresentingTheCase.Answer))
             {
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.PresentingAnswerText)
+                _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CheckYourAnswersPage.PresentingAnswerText)
                     .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.PresentingTheCase)).Answer);
             }
             else
             {
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.FullName)
+                _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CheckYourAnswersPage.FullName)
                     .Text.Trim().Should().Be(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingName);
-                _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.Email)
+                _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CheckYourAnswersPage.Email)
                     .Text.Trim().Should().Be(_c.WebConfig.TestConfig.TestData.PresentingTheCase.WhoWillBePresentingEmail);
             }
         }
@@ -66,15 +67,20 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
         [Then(@"the answer for other information is displayed correctly")]
         public void ThenTheAnswerForOtherInformationIsDisplayedCorrectly()
         {
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationAnswer)
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationAnswer)
                 .Text.Trim().Should().Be(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).Answer);
-            _browsers[_c.CurrentUser.Key].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationText)
-                .Text.Trim().Should().Be(CustomConverters.NullToString(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).ExtendedAnswer));
+
+            if (_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation))
+                .ExtendedAnswer != null)
+            {
+                _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CheckYourAnswersPage.OtherInformationText)
+                    .Text.Trim().Should().Be(CustomConverters.NullToString(_c.Test.Answers.First(x => x.QuestionKey.Equals(RepresentativeQuestionKeys.OtherInformation)).ExtendedAnswer));
+            }
         }
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser.Key].Click(CheckYourAnswersPage.ContinueButton);
+            _browsers[_c.CurrentUser].Click(CheckYourAnswersPage.ContinueButton);
         }
 
         private void RemovePreviousAnswer(string questionKey)
