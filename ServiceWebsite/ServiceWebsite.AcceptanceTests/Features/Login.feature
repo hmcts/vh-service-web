@@ -38,7 +38,7 @@ Scenario: Representative completed checklist and self test redirected to Video W
 	Then the user is redirected to Video Web
 
 @Smoketest-Extended
-Scenario: Clerk redirected to Video Web
-	Given a new browser is open for a Clerk
+Scenario: Judge redirected to Video Web
+	Given a new browser is open for a Judge
 	When the user logs in with valid credentials
 	Then the user is redirected to Video Web
