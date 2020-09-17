@@ -22,11 +22,11 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             if (context?.Users == null) return;
             if (context.Users?.Count == 0) return;
             _username = Users.GetJudgeUser(context.Users).Username;
-            ClearHearingsForClerk(context.Api);
-            ClearClosedConferencesForClerk(context.Api);
+            ClearHearingsForJudge(context.Api);
+            ClearClosedConferencesForJudge(context.Api);
         }
 
-        private void ClearHearingsForClerk(TestApiManager api)
+        private void ClearHearingsForJudge(TestApiManager api)
         {
             var response = api.GetHearingsByUsername(_username);
             var hearings = RequestHelper.Deserialise<List<HearingDetailsResponse>>(response.Content);
@@ -42,7 +42,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             response.IsSuccessful.Should().BeTrue($"HearingDetails {hearingId} has been deleted. Status {response.StatusCode}. {response.Content}");
         }
 
-        private void ClearClosedConferencesForClerk(TestApiManager api)
+        private void ClearClosedConferencesForJudge(TestApiManager api)
         {
             var response = api.GetConferencesForTodayJudge(_username);
             var todaysConferences = RequestHelper.Deserialise<List<ConferenceForJudgeResponse>>(response.Content);
