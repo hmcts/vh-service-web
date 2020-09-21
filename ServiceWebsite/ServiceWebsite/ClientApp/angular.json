@@ -32,7 +32,6 @@
             "styles": [
               "src/styles.css",
               "src/styles.scss"
-
             ],
             "scripts": [
               "src/scripts/pexrtc.js",
@@ -48,10 +47,12 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -128,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "website-app"
+  "defaultProject": "website-app",
+  "cli": {
+    "analytics": "af41a5c8-948f-4228-9918-4e317bdcf1de"
+  }
 }
