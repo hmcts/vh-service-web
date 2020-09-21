@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.PageObject.Pages;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
@@ -13,7 +14,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public sealed class LoginSteps : ISteps
     {
-        private const int ReachedThePageRetries = 2;
+        private const int ReachedThePageRetries = 4;
         private LoginSharedSteps _loginSharedSteps;
         private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
