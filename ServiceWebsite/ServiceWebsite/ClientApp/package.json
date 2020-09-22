@@ -28,7 +28,7 @@
     "applicationinsights-js": "^1.0.20",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
-    "govuk-frontend": "^3.7.0",
+    "govuk-frontend": "^3.8.1",
     "ng-bullet": "latest",
     "ngx-device-detector": "^1.5.2",
     "rxjs": "^6.6.2",
