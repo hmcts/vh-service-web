@@ -15,11 +15,19 @@ export class DeviceType {
   }
 
   isTablet() {
-    return this.deviceDetectorService.isTablet() || this.detectiPadService.detectiPad();
+    return this.deviceDetectorService.isTablet();
   }
 
   isDesktop() {
     return this.deviceDetectorService.isDesktop();
+  }
+
+  isIpad(): boolean {
+    return (
+      this.deviceDetectorService.isTablet() &&
+      this.deviceDetectorService.os.toLowerCase() === 'mac' &&
+      this.deviceDetectorService.browser.toLowerCase() === 'safari'
+    );
   }
 
   isSupportedBrowser(): boolean {
@@ -30,5 +38,9 @@ export class DeviceType {
 
   getBrowserName(): string {
     return this.deviceDetectorService.browser;
+  }
+
+  getBrowserVersion(): string {
+    return this.deviceDetectorService.browser_version;
   }
 }
