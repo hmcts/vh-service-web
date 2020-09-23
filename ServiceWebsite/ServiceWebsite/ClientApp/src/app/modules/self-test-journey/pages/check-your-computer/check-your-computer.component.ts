@@ -45,6 +45,11 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
       return;
     }
 
+    if (this.deviceType.isTablet() && !this.deviceType.isIpad()) {
+      this.router.navigate([`/${Paths.SignInOnComputer}`]);
+      return;
+    }
+
     this.journey.goto(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
   }
 }
