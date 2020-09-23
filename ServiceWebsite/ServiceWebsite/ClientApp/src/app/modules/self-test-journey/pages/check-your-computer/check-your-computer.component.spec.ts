@@ -30,7 +30,7 @@ describe('CheckYourComputerComponent', () => {
 
   it(`should submit and go to ${SelfTestJourneySteps.SignInOnComputer} if answering yes and device type is mobile`, async () => {
     deviceType.isMobile.and.returnValue(true);
-    deviceType.isTablet.and.returnValue(true);
+    deviceType.isTablet.and.returnValue(false);
     const component = new CheckYourComputerComponent(journey, model, deviceType, routerSpy);
     component.choice.setValue(true);
     await component.submit();
@@ -40,7 +40,7 @@ describe('CheckYourComputerComponent', () => {
   it(`should submit and go to ${SelfTestJourneySteps.SwitchOnCameraAndMicrophone}
    if answering yes and device type is not mobile`, async () => {
      deviceType.isMobile.and.returnValue(false);
-     deviceType.isTablet.and.returnValue(false);
+     deviceType.isTablet.and.returnValue(true);
     const component = new CheckYourComputerComponent(journey, model, deviceType, routerSpy);
     component.choice.setValue(true);
     await component.submit();

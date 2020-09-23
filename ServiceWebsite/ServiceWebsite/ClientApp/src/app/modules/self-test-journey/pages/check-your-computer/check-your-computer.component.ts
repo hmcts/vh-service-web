@@ -40,7 +40,7 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
       return;
     }
 
-    if (this.deviceType.isMobile() || this.deviceType.isTablet()) {
+    if (this.deviceType.isMobile()) {
       this.router.navigate([`/${Paths.SignInOnComputer}`]);
       return;
     }
