@@ -46,7 +46,7 @@
     "@types/cucumber": "^4.0.4",
     "@types/jasmine": "~2.8.17",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.12.58",
+    "@types/node": "^12.12.59",
     "@types/webrtc": "0.0.26",
     "chai": "^4.1.2",
     "codelyzer": "^6.0.0",
