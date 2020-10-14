@@ -3,7 +3,7 @@
 	I want to be able to tell the court if there is any reason I don't think I am suitable
 	So that the court can make an informed decision based on my circumstances
 
-@VIH-4332
+@VIH-4332 @Individual
 Scenario: About You
 	Given the Individual has progressed to the About You page
 	Then contact details are available

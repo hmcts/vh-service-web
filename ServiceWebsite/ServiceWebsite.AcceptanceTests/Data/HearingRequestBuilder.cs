@@ -7,6 +7,7 @@ namespace ServiceWebsite.AcceptanceTests.Data
     internal class HearingRequestBuilder
     {
         private readonly CreateHearingRequest _request;
+        private const string CASE_TYPE = "Civil Money Claims";
         private const string DEFAULT_VENUE = "Birmingham Civil and Family Justice Centre";
 
         public HearingRequestBuilder()
@@ -15,6 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Data
             {
                 Application = Application.ServiceWeb,
                 Audio_recording_required = false,
+                Case_type = CASE_TYPE,
                 Questionnaire_not_required = false,
                 Scheduled_date_time = DateTime.UtcNow.AddHours(1),
                 Test_type = TestType.Automated,

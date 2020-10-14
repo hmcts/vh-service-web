@@ -3,7 +3,7 @@
 	I want to view more information about video hearings
 	So that I can see what a video hearing is like from a Participant's point of view
 
-@VIH-4401 
+@VIH-4401 @Individual
 Scenario: Participant View
 	Given the Individual has progressed to the Participant View page
 	Then contact details are available

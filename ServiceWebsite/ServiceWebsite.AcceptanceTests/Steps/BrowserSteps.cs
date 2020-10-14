@@ -81,7 +81,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         private User GetDefaultParticipant()
         {
-            return Users.GetDefaultParticipantUser(_c.Users);
+            return Users.GetIndividualUser(_c.Users);
         }
 
         private User GetMatchingDisplayName(string user)

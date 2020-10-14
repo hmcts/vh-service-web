@@ -3,7 +3,7 @@
 	I want to let the court know whether I have a computer or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4334
+@VIH-4334 @Individual
 Scenario: Your Computer
 	Given the Individual has progressed to the Your Computer page
 	Then contact details are available
@@ -16,7 +16,7 @@ Scenario: Your Computer
 	When the user signs out 
 	Then the answers have not been stored
 
-@VIH-4334
+@VIH-4334 @Individual
 Scenario: Your Computer - Individual drops out with No Answer
 	Given the Individual has progressed to the Your Computer page
 	When the user answers no to the your computer question

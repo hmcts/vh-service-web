@@ -13,7 +13,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
     [Binding]
     public sealed class DataHooks
     {
-        private const int ALLOCATE_USERS_FOR_MINUTES = 3;
+        private const int ALLOCATE_USERS_FOR_MINUTES = 5;
         private readonly TestContext _c;
         private readonly ScenarioContext _scenario;
 
@@ -23,24 +23,39 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             _scenario = scenario;
         }
 
-        [BeforeScenario(Order = (int)HooksSequence.DataHooks)]
+        [BeforeScenario(Order = (int)HooksSequence.AllocateUsers)]
+        public void AllocateUsers()
+        {
+            Allocate();
+        }
+
+        [BeforeScenario(Order = (int)HooksSequence.CreateHearing)]
         public void AddHearing()
         {
-            AllocateUsers();
-
             if (!_scenario.ScenarioInfo.Tags.Contains("NoHearing"))
                 CreateHearing();
         }
 
-        private void AllocateUsers()
+        private void Allocate()
         {
             var userTypes = new List<UserType>
             {
                 UserType.Judge, 
-                UserType.VideoHearingsOfficer,
-                UserType.Individual,
-                UserType.Representative
+                UserType.VideoHearingsOfficer
             };
+
+            if (_scenario.ScenarioInfo.Tags.Contains(UserType.Individual.ToString()))
+            {
+                userTypes.Add(UserType.Individual);
+            }
+            else if (_scenario.ScenarioInfo.Tags.Contains(UserType.Representative.ToString()))
+            {
+                userTypes.Add(UserType.Representative);
+            }
+            else
+            {
+                userTypes.Add(UserType.Individual);
+            }
 
             var request = new AllocateUsersRequest()
             {

@@ -3,6 +3,7 @@
 	I want to let the court know if my camera was working during self-test
 	So that the court can decide whether a video hearing is not suitable for me
 
+@Individual
 Scenario: Camera Working Individual
 	Given the Individual has progressed to the Camera Working page
 	Then contact details are available
@@ -13,11 +14,13 @@ Scenario: Camera Working Individual
 	When the user signs out 
 	Then only the about you answers have been stored
 
+@Individual
 Scenario: Camera Working - Individual Check Again
 	Given the Individual has progressed to the Camera Working page
 	When the user clicks the Check my equipment again button
 	Then the user is on the Test Your Equipment page
 
+@Representative
 Scenario: Camera Working Representative
 	Given the Representative has progressed to the Camera Working page
 	Then contact details are available
@@ -28,6 +31,7 @@ Scenario: Camera Working Representative
 	When the user signs out 
 	Then only the your hearing answers have been stored
 
+@Representative
 Scenario: Camera Working - Representative Check Again
 	Given the Representative has progressed to the Camera Working page
 	When the user clicks the Check my equipment again button

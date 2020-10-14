@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
+using System.Data;
+using System.Linq;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
@@ -21,67 +22,40 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             if (context?.Users == null) return;
             if (context.Users?.Count == 0) return;
-            _username = Users.GetJudgeUser(context.Users).Username;
-            ClearHearingsForJudge(context.Api);
-            ClearClosedConferencesForJudge(context.Api);
+
+            _username = context.Users.Any(X => X.User_type == UserType.Representative) ? Users.GetRepresentativeUser(context.Users).Username : Users.GetIndividualUser(context.Users).Username;
+
+            ClearHearingsForUser(context.Api);
+            UserShouldNotHaveAnswers(context.Api);
         }
 
-        private void ClearHearingsForJudge(TestApiManager api)
+        private void ClearHearingsForUser(TestApiManager api)
         {
             var response = api.GetHearingsByUsername(_username);
             var hearings = RequestHelper.Deserialise<List<HearingDetailsResponse>>(response.Content);
             if (hearings == null) return;
+
             foreach (var hearing in hearings)
             {
                 DeleteTheHearing(api, hearing.Id);
             }
         }
+
         private static void DeleteTheHearing(TestApiManager api, Guid hearingId)
         {
             var response = api.DeleteHearing(hearingId);
-            response.IsSuccessful.Should().BeTrue($"HearingDetails {hearingId} has been deleted. Status {response.StatusCode}. {response.Content}");
+            response.IsSuccessful.Should().BeTrue($"Hearing {hearingId} has been deleted. Status {response.StatusCode}. {response.Content}");
         }
 
-        private void ClearClosedConferencesForJudge(TestApiManager api)
+        private void UserShouldNotHaveAnswers(TestApiManager api)
         {
-            var response = api.GetConferencesForTodayJudge(_username);
-            var todaysConferences = RequestHelper.Deserialise<List<ConferenceForJudgeResponse>>(response.Content);
-            if (todaysConferences == null) return;
+            var response = api.GetSuitabilityAnswers(_username);
+            var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
 
-            foreach (var conference in todaysConferences)
+            if (answers.Count > 0)
             {
-                var hearingId = GetTheHearingIdFromTheConference(api, conference.Id);
-
-                if (HearingHasNotBeenDeletedAlready(api, hearingId) && !hearingId.Equals(Guid.Empty))
-                    DeleteTheHearing(api, hearingId);
-
-                if (ConferenceHasNotBeenDeletedAlready(api, conference.Id))
-                    DeleteTheConference(api, hearingId, conference.Id);
+                throw new DataException($"User with username '{_username}' has {answers.Count} previous answer(s) saved");
             }
-        }
-
-        private static Guid GetTheHearingIdFromTheConference(TestApiManager videoApi, Guid conferenceId)
-        {
-            var response = videoApi.GetConferenceByConferenceId(conferenceId);
-            var conference = RequestHelper.Deserialise<ConferenceDetailsResponse>(response.Content);
-            return conference.Hearing_id;
-        }
-
-        private static bool HearingHasNotBeenDeletedAlready(TestApiManager api, Guid hearingId)
-        {
-            var response = api.GetHearing(hearingId);
-            return !response.StatusCode.Equals(HttpStatusCode.NotFound);
-        }
-
-        private static bool ConferenceHasNotBeenDeletedAlready(TestApiManager api, Guid conferenceId)
-        {
-            var response = api.GetConferenceByConferenceId(conferenceId);
-            return !response.StatusCode.Equals(HttpStatusCode.NotFound);
-        }
-
-        private static void DeleteTheConference(TestApiManager api, Guid hearingId, Guid conferenceId)
-        {
-            api.DeleteConference(hearingId, conferenceId);
         }
     }
 }

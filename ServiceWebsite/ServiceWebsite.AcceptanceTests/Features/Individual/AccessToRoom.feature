@@ -3,7 +3,7 @@
 	I want to let the court know whether I have access to a suitable room or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4337 
+@VIH-4337 @Individual
 Scenario: Access To a Room
 	Given the Individual has progressed to the Access To a Room page
 	Then contact details are available

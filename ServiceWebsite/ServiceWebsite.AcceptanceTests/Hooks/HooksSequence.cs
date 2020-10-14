@@ -9,9 +9,10 @@
         ConfigureDriverHooks = 5,
         ScenarioHooks = 6,
         SetTimeZone = 7,
-        RemoveDataHooks = 8,
-        DataHooks = 9,
-        LogResultHooks = 10,
-        TearDownBrowserHooks = 11
+        AllocateUsers = 8,
+        RemoveDataHooks = 9,
+        CreateHearing = 10,
+        LogResultHooks = 11,
+        TearDownBrowserHooks = 12
     }
 }
