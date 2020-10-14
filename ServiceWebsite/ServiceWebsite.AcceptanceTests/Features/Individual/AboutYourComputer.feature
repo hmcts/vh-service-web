@@ -3,7 +3,7 @@
 	I want to let the court know whether my computer has a camera and microphone or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4335
+@VIH-4335 @Individual
 Scenario: About Your Computer
 	Given the Individual has progressed to the About Your Computer page
 	Then contact details are available
@@ -15,7 +15,7 @@ Scenario: About Your Computer
 	When the user signs out 
 	Then the answers have not been stored
 
-@VIH-4335
+@VIH-4335 @Individual
 Scenario: About Your Computer Not Sure
 	Given the Individual has progressed to the About Your Computer page
 	When the user selects the 'not sure' radiobutton
@@ -24,7 +24,7 @@ Scenario: About Your Computer Not Sure
 	When the user signs out 
 	Then the answers have not been stored
 
-@VIH-4335
+@VIH-4335 @Individual
 Scenario: About Your Computer - Individual drops out with No Answer
 	Given the Individual has progressed to the About Your Computer page
 	When the user answers no to the about your computer question

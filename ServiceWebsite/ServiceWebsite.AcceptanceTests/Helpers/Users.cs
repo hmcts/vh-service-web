@@ -7,14 +7,14 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 {
     public static class Users
     {
-        public static User GetDefaultParticipantUser(List<User> users)
+        public static User GetIndividualUser(List<User> users)
         {
             return users.First(x => x.User_type == UserType.Individual);
         }
 
-        public static User GetJudgeUser(List<User> users)
+        public static User GetRepresentativeUser(List<User> users)
         {
-            return users.First(x => x.User_type == UserType.Judge);
+            return users.First(x => x.User_type == UserType.Representative);
         }
 
         public static User GetUserFromDisplayName(List<User> users, string displayName)

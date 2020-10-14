@@ -3,7 +3,7 @@
 	I want to let the court know if my camera was working during self-test
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-3940
+@VIH-3940 @Individual
 Scenario: Microphone Working Individual
 	Given the Individual has progressed to the Microphone Working page
 	Then contact details are available
@@ -15,13 +15,13 @@ Scenario: Microphone Working Individual
 	When the user signs out 
 	Then only the about you answers have been stored
 
-@VIH-3940
+@VIH-3940 @Individual
 Scenario: Microphone Working - Individual Check Again
 	Given the Individual has progressed to the Microphone Working page
 	When the user clicks the Check my equipment again button
 	Then the user is on the Test Your Equipment page
 
-@VIH-3940
+@VIH-3940 @Representative
 Scenario: Microphone Working Representative
 	Given the Representative has progressed to the Microphone Working page
 	Then contact details are available
@@ -31,7 +31,7 @@ Scenario: Microphone Working Representative
 	And the user clicks the Continue button
 	Then the user is on the Video Working page
 
-@VIH-3940
+@VIH-3940 @Representative
 Scenario: Microphone Working - Representative Check Again
 	Given the Representative has progressed to the Microphone Working page
 	When the user clicks the Check my equipment again button

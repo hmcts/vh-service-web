@@ -3,7 +3,7 @@
 	I want to let the court know whether I have access to the internet or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4336
+@VIH-4336 @Individual
 Scenario: Your Internet Connection
 	Given the Individual has progressed to the Your Internet Connection page
 	Then contact details are available
@@ -15,7 +15,7 @@ Scenario: Your Internet Connection
 	When the user signs out 
 	Then the answers have not been stored
 
-@VIH-4336
+@VIH-4336 @Individual
 Scenario: Your Internet Connection - Individual drops out with No Answer
 	Given the Individual has progressed to the Your Internet Connection page
 	When the user answers no to the your internet connection question

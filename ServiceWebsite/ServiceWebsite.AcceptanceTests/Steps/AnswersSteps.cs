@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Data.Questions;
 using FluentAssertions;
@@ -14,6 +17,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class AnswersSteps
     {
+        private const int RETRIES = 5;
+        private const int WAIT = 2;
         private readonly TestContext _c;
 
         public AnswersSteps(TestContext testContext)
@@ -62,8 +67,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the answers have not been stored")]
         public void ThenTheAnswersHaveNotBeenStored()
         {
-            var answers = GetAnswersFromBookingsApi();
-            answers.Count.Should().Be(0);
+            AnswersHaveBeenSaved().Should().BeFalse();
         }
 
         [Then(@"only the about you answers have been stored")]
@@ -89,9 +93,34 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
         {
+            for (var i = 0; i < RETRIES; i++)
+            {
+                if (AnswersHaveBeenSaved())
+                {
+                    var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);
+                    var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
+                    var answersResponse = answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id));
+                    return answersResponse.Answers;
+                }
+
+                Thread.Sleep(TimeSpan.FromSeconds(WAIT));
+            }
+
+            throw new DataException($"No answers found after {WAIT * RETRIES} seconds.");
+        }
+
+        private bool AnswersHaveBeenSaved()
+        {
             var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);
             var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
-            return answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)).Answers;
+
+            if (!answers.Any(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)))
+            {
+                return false;
+            }
+
+            var answersResponse = answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id));
+            return answersResponse.Answers.Count != 0 ;
         }
 
         [Then(@"the self test score is set in the results")]
