@@ -54,7 +54,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
             if (answers.Count > 0)
             {
-                throw new DataException($"User with username '{_username}' has {answers.Count} previous answer(s) saved");
+                throw new DataException($"user with username '{_username}' has {answers.Count} previous answer(s) saved");
             }
         }
     }
