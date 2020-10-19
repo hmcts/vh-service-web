@@ -3,6 +3,7 @@
 	I want to be able to tell the court if there is any reason I don't think I am suitable
 	So that the court can make an informed decision based on my circumstances
 
+@Individual
 Scenario: Explore Court Building
 	Given the Individual has progressed to the Explore Court Building page
 	Then contact details are available

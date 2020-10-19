@@ -3,7 +3,7 @@
 	I want to be able to tell the court if there is any reason I don't think I am suitable
 	So that the court can make an informed decision based on my circumstances
 
-@VIH-4577 @Smoketest-Extended
+@VIH-4577 @Smoketest-Extended @Individual
 Scenario: Sign Back In On Computer Individual
 	Given the Individual has progressed to the Check Your Computer page
 	When the user answers no to the Check Your Computer question
@@ -13,7 +13,7 @@ Scenario: Sign Back In On Computer Individual
 	When the user signs back in with valid credentials
 	Then the user is on the Check Your Computer page
 
-@VIH-4577 @Smoketest-Extended
+@VIH-4577 @Smoketest-Extended @Representative
 Scenario: Sign Back In On Computer Representative
 	Given the Representative has progressed to the Check Your Computer page
 	When the user answers no to the Check Your Computer question

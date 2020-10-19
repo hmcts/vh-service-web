@@ -3,6 +3,7 @@
 	I want to be able to tell the court if there is any reason I don't think I am suitable
 	So that the court can make an informed decision based on my circumstances
 
+@Individual
 Scenario: Use Camera and Microphone
 	Given the Individual has progressed to the Use Camera and Microphone page
 	Then contact details are available

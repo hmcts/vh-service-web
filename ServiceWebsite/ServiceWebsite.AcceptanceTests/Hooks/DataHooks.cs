@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
+using System.Threading;
+using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
@@ -13,34 +17,54 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
     [Binding]
     public sealed class DataHooks
     {
-        private const int ALLOCATE_USERS_FOR_MINUTES = 3;
+        private const int ALLOCATE_USERS_FOR_MINUTES = 5;
         private readonly TestContext _c;
         private readonly ScenarioContext _scenario;
+        private string _username;
+        private readonly Random _random;
 
         public DataHooks(TestContext context, ScenarioContext scenario)
         {
             _c = context;
             _scenario = scenario;
+            _random = new Random();
         }
 
-        [BeforeScenario(Order = (int)HooksSequence.DataHooks)]
+        [BeforeScenario(Order = (int)HooksSequence.AllocateUsers)]
+        public void AllocateUsers()
+        {
+            Allocate();
+        }
+
+        [BeforeScenario(Order = (int)HooksSequence.CreateHearing)]
         public void AddHearing()
         {
-            AllocateUsers();
-
-            if (!_scenario.ScenarioInfo.Tags.Contains("NoHearing"))
-                CreateHearing();
+            if (_scenario.ScenarioInfo.Tags.Contains("NoHearing")) return;
+            CreateHearing();
+            _username = _c.Users.Any(X => X.User_type == UserType.Representative) ? Users.GetRepresentativeUser(_c.Users).Username : Users.GetIndividualUser(_c.Users).Username;
+            UserShouldNotHaveAnswers(_c.Api);
         }
 
-        private void AllocateUsers()
+        private void Allocate()
         {
             var userTypes = new List<UserType>
             {
                 UserType.Judge, 
-                UserType.VideoHearingsOfficer,
-                UserType.Individual,
-                UserType.Representative
+                UserType.VideoHearingsOfficer
             };
+
+            if (_scenario.ScenarioInfo.Tags.Contains(UserType.Individual.ToString()))
+            {
+                userTypes.Add(UserType.Individual);
+            }
+            else if (_scenario.ScenarioInfo.Tags.Contains(UserType.Representative.ToString()))
+            {
+                userTypes.Add(UserType.Representative);
+            }
+            else
+            {
+                userTypes.Add(UserType.Individual);
+            }
 
             var request = new AllocateUsersRequest()
             {
@@ -51,6 +75,8 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 User_types = userTypes
             };
 
+            Thread.Sleep(TimeSpan.FromSeconds(GetRandomNumberForParallelExecution(8)));
+
             var response = _c.Api.AllocateUsers(request);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Should().NotBeNull();
@@ -60,9 +86,25 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             _c.Users.Should().NotBeNullOrEmpty();
         }
 
+        public double GetRandomNumberForParallelExecution(int maximum)
+        {
+            return _random.Next(maximum);
+        }
+
         private void CreateHearing()
         {
             _c.Test.Hearing = HearingData.CreateHearing(_c.Api, _c.Users);
+        }
+
+        private void UserShouldNotHaveAnswers(TestApiManager api)
+        {
+            var response = api.GetSuitabilityAnswers(_username);
+            var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
+            answers.Count.Should().Be(1, $"user with username '{_username}' has {answers.Count} previous answer(s) from other hearings saved");
+            if (answers.First().Answers.Count > 0)
+            {
+                throw new DataException($"user with username '{_username}' has {answers.First().Answers.Count} previous answer(s) saved");
+            }
         }
     }
 }

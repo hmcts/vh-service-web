@@ -3,7 +3,7 @@
 	I want to let the court know whether I consent to a video hearing or not
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4338
+@VIH-4338 @Individual
 Scenario: Consent
 	Given the Individual has progressed to the Consent page
 	Then contact details are available
@@ -17,7 +17,7 @@ Scenario: Consent
 	When the user signs out 
 	Then the answers have been stored
 
-@VIH-4338
+@VIH-4338 @Individual
 Scenario: Consent - Individual gives reason for no consent
 	Given the Individual has progressed to the Consent page
 	When the user enters more details into the please provide more details of why you do not consent textfield

@@ -4,7 +4,7 @@
 	And also answer all the self test questions
 	So that I can join a video hearing
 
-@Smoketest @Smoketest-Extended
+@Smoketest @Smoketest-Extended @Individual
 Scenario: Thank You Individual
 	Given the Individual has progressed to the Thank You page
 	Then contact details are available
