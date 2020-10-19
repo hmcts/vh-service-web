@@ -1,11 +1,12 @@
 import { ApiClient, HearingSuitabilityAnswer } from './../../../services/clients/api-client';
 import { RepresentativeSuitabilityModel } from '../representative-suitability.model';
 import { RepresentativeModelMapper } from './representative-model-mapper';
+
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class RepresentativeSuitabilityService {
-    private readonly mapper = new RepresentativeModelMapper();
+    private mapper = new RepresentativeModelMapper();
 
     constructor(private client: ApiClient) {}
 

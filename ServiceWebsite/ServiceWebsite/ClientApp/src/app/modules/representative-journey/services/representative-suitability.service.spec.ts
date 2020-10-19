@@ -9,15 +9,17 @@ describe('RepresentativeSuitabilityService', () => {
 
     it('maps responses from api', async () => {
         // given some response from server
-        client.getUserSuitabilityAnswers.and.returnValue(of([
-            new HearingSuitabilityResponse({
-                hearing_id: '123',
-                participant_id: '456',
-                hearing_scheduled_at: new Date(),
-                questionnaire_not_required: false,
-                answers: []
-            })
-        ]));
+        client.getUserSuitabilityAnswers.and.returnValue(
+            of([
+                new HearingSuitabilityResponse({
+                    hearing_id: '123',
+                    participant_id: '456',
+                    hearing_scheduled_at: new Date(),
+                    questionnaire_not_required: false,
+                    answers: []
+                })
+            ])
+        );
 
         const result = await service.getAllSuitabilityAnswers();
         expect(result.length).toBe(1);
@@ -25,8 +27,9 @@ describe('RepresentativeSuitabilityService', () => {
         expect(result[0].participantId).toBe('456');
     });
 
-    it('submits answers to api', () => {
-        const result = service.updateSuitabilityAnswers('123', []);
+    it('submits answers to api', async () => {
+        client.updateSuitabilityAnswers.and.returnValue(of());
+        await service.updateSuitabilityAnswers('123', []);
         expect(client.updateSuitabilityAnswers).toHaveBeenCalled();
     });
 });
