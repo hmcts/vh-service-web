@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SuitabilityService {
-  private readonly mapper = new IndividualModelMapper();
+  private mapper = new IndividualModelMapper();
 
   constructor(private client: ApiClient) { }
 
