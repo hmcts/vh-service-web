@@ -87,12 +87,5 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.CaseName).Text.Should().Contain(_c.Test.Hearing.Cases.First().Name);
             _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.CaseTypeCaseNumber).Text.Should().ContainAll(_c.Test.Hearing.Cases.First().Number, _c.Test.Hearing.Case_type_name);
         }
-
-        [Then(@"the page should be accessible")]
-        public void ThenThePageShouldBeAccessible()
-        {
-            var axeResult = new AxeBuilder(_browsers[_c.CurrentUser].Driver).Analyze();
-            axeResult.Violations.Should().BeEmpty();
-        }
     }
 }
