@@ -7,7 +7,7 @@ import { IndividualJourneySteps } from '../../individual-journey-steps';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 
 describe('DifferentHearingTypesComponent', () => {
-  it(`continues to ${IndividualJourneySteps.ExploreCourtBuilding} on pressing continue`, () => {
+  it(`continues to ${IndividualJourneySteps.AboutYou} on pressing continue`, () => {
     const journey = jasmine.createSpyObj<IndividualJourney>(['goto']);
     const fixture = IndividualJourneyComponentTestBed.createComponent({
       component: DifferentHearingTypesComponent,
@@ -17,6 +17,6 @@ describe('DifferentHearingTypesComponent', () => {
 
     fixture.detectChanges();
     new ContinuableComponentFixture(fixture).submitIsClicked();
-    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.ExploreCourtBuilding);
+    expect(journey.goto).toHaveBeenCalledWith(IndividualJourneySteps.AboutYou);
   });
 });

@@ -44,16 +44,6 @@ describe('SubmitService', () => {
     expect(saveModel.consent.notes).toBe(undefined);
 
   });
-  it('should clear the answers after the drop off point - access to camera', () => {
-    model.computer = true;
-    model.camera = HasAccessToCamera.No;
-    const saveModel = submitService.updateSubmitModel(IndividualJourneySteps.AccessToCameraAndMicrophone, model);
-
-    expect(saveModel.internet).toBe(undefined);
-    expect(saveModel.room).toBe(undefined);
-    expect(saveModel.consent.answer).toBe(undefined);
-    expect(saveModel.consent.notes).toBe(undefined);
-  });
   it('should clear the answers after the drop off point - access to internet', () => {
     model.computer = true;
     model.camera = HasAccessToCamera.No;
