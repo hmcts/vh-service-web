@@ -27,10 +27,6 @@ export class SubmitService {
       modelToSave.internet = undefined;
       modelToSave.room = undefined;
       modelToSave.consent = new SuitabilityAnswer();
-    } else if (step === IndividualJourneySteps.AccessToCameraAndMicrophone) {
-      modelToSave.internet = undefined;
-      modelToSave.room = undefined;
-      modelToSave.consent = new SuitabilityAnswer();
     } else if (step === IndividualJourneySteps.YourInternetConnection) {
       modelToSave.room = undefined;
       modelToSave.consent = new SuitabilityAnswer();
