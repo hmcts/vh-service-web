@@ -3,7 +3,7 @@
 	I want to let the court know if I need an interpreter for a video hearing
 	So that the court can decide whether a video hearing is not suitable for me
 
-@VIH-4333
+@VIH-4333 @Individual
 Scenario: Interpreter
 	Given the Individual has progressed to the Interpreter page
 	Then contact details are available

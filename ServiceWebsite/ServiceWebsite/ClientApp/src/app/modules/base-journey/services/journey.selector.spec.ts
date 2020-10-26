@@ -2,7 +2,6 @@ import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.factory';
 import { JourneySelector, JOURNEY_FACTORY } from './journey.selector';
 import { TestBed } from '@angular/core/testing';
-import { ExploreCourtBuildingComponent } from '../../individual-journey/pages/explore-court-building/explore-court-building.component';
 import { ParticipantSuitabilityModel } from '../participant-suitability.model';
 
 describe('JourneySelector', () => {

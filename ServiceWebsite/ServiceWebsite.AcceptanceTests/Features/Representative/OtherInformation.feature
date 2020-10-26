@@ -3,6 +3,7 @@
 	I want to let the court know whether I have any other information to provide
 	So that the court can decide whether a video hearing is not suitable for me
 
+@Representative
 Scenario: Other Information
 	Given the Representative has progressed to the Other Information page
 	Then contact details are available

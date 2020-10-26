@@ -16,14 +16,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages
 
         // Individual
         public static readonly Page AboutHearings = new Page("About Hearings", "about-hearings");
-        public static readonly Page CourtBuildingVideo = new Page("Court Building Video", "court-building-video");
         public static readonly Page DifferentHearingTypes = new Page("Different Hearing Types", "different-hearing-types");
-        public static readonly Page ExploreCourtBuilding = new Page("Explore Court Building", "explore-court-building");
-        public static readonly Page HelpTheCourtDecide = new Page("Help the Court Decide", "help-the-court-decide");
-        public static readonly Page ParticipantView = new Page("Participant View", "participant-view");
-        public static readonly Page UseCameraMicrophone = new Page("Use Camera and Microphone", "use-camera-microphone");
         public static readonly Page AboutYou = new Page("About You", "about-you");
-        public static readonly Page ExploreVideoHearing = new Page("Explore Video Hearing", "explore-video-hearing");
         public static readonly Page Interpreter = new Page("Interpreter", "interpreter");
         public static readonly Page YourComputer = new Page("Your Computer", "your-computer");
         public static readonly Page AboutYourComputer = new Page("About Your Computer", "about-your-computer");
@@ -88,15 +82,9 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             {
                 yield return Login;
                 yield return AboutHearings;
-                yield return CourtBuildingVideo;
                 yield return DifferentHearingTypes;
-                yield return ExploreCourtBuilding;
-                yield return HelpTheCourtDecide;
                 yield return MediaError;
-                yield return ParticipantView;
-                yield return UseCameraMicrophone;
                 yield return AboutYou;
-                yield return ExploreVideoHearing;
                 yield return Interpreter;
                 yield return YourComputer;
                 yield return AboutYourComputer;

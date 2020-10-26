@@ -3,7 +3,7 @@
 	I want to be able to tell the court if there is any reason I don't think I am suitable
 	So that the court can make an informed decision based on my circumstances
 
-@VIH-5428 @Smoketest-Extended
+@VIH-5428 @Smoketest-Extended @Individual
 Scenario: Answers Saved Individual
 	Given the Individual has progressed to the Answers Saved Individual page
 	Then contact details are available

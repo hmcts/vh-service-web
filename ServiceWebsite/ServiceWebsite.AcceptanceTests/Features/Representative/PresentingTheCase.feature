@@ -3,6 +3,7 @@
 	I want to let the court know whether I have a person presenting the case
 	So that the court can decide whether a video hearing is not suitable for me
 
+@Representative
 Scenario: Presenting the Case
 	Given the Representative has progressed to the Presenting the Case page
 	Then contact details are available

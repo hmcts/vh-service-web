@@ -10,6 +10,6 @@ export class DifferentHearingTypesComponent {
   constructor(private journey: IndividualJourney) {}
 
   continue() {
-    this.journey.goto(IndividualJourneySteps.ExploreCourtBuilding);
+    this.journey.goto(IndividualJourneySteps.AboutYou);
   }
 }
