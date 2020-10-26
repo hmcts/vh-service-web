@@ -44,38 +44,13 @@ Scenario: Different Hearing Types page accessibility
 	Then the page should be accessible
 
 @Accessibility @Individual
-Scenario: Explore Court Building page accessibility
-	Given the Individual has progressed to the Explore Court Building page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Explore Video Hearing page accessibility
-	Given the Individual has progressed to the Explore Video Hearing page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Help the Court Decide page accessibility
-	Given the Individual has progressed to the Help the Court Decide page
-	Then the page should be accessible
-
-@Accessibility @Individual
 Scenario: Interpreter page accessibility
 	Given the Individual has progressed to the Interpreter page
 	Then the page should be accessible
 
 @Accessibility @Individual
-Scenario: Participant View page accessibility
-	Given the Individual has progressed to the Participant View page
-	Then the page should be accessible
-
-@Accessibility @Individual
 Scenario: Thank You page accessibility
 	Given the Individual has progressed to the Thank You page
-	Then the page should be accessible
-	
-@Accessibility @Individual
-Scenario: Use Your Camera and Microphone page accessibility
-	Given the Individual has progressed to the Use Camera and Microphone page
 	Then the page should be accessible
 	 
 @Accessibility @Individual
