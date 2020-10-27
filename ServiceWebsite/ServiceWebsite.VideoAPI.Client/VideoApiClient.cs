@@ -7660,6 +7660,12 @@ namespace ServiceWebsite.VideoAPI.Client
         [Newtonsoft.Json.JsonProperty("browser_version", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Browser_version { get; set; }
     
+        [Newtonsoft.Json.JsonProperty("operating_system", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Operating_system { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("operating_system_version", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Operating_system_version { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("timestamp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTime Timestamp { get; set; }
     
@@ -7698,6 +7704,12 @@ namespace ServiceWebsite.VideoAPI.Client
     
         [Newtonsoft.Json.JsonProperty("browser_version", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Browser_version { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("operating_system", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Operating_system { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("operating_system_version", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Operating_system_version { get; set; }
     
     
     }
