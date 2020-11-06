@@ -89,9 +89,7 @@ export class IndividualJourney extends JourneyBase {
     }
 
     async submitQuestionnaire(): Promise<void> {
-        let saveModel: IndividualSuitabilityModel;
-        saveModel = this.submitService.updateSubmitModel(this.currentStep, this.model);
-        await this.submitService.submit(saveModel);
+        await this.submitService.submit(this.model);
     }
 
     /**
