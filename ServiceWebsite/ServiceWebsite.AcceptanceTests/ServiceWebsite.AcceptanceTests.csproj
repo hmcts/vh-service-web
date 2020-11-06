@@ -89,4 +89,8 @@
   <ItemGroup>
     <Content Include="Features\**\*.feature" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Individual\ExploreCourtBuildingPage.cs" />
+  </ItemGroup>
 </Project>

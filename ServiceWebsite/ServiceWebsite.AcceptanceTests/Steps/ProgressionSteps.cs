@@ -17,19 +17,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly BrowserSteps _browsersSteps;
         private readonly LoginSteps _loginSteps;
         private readonly AboutHearingsSteps _aboutHearingSteps;
-        private readonly DifferentHearingTypesSteps _differentHearingTypesSteps;
-        private readonly ExploreCourtBuildingSteps _exploreCourtBuildingSteps;
-        private readonly ExploreVideoHearingSteps _exploreVideoHearingSteps;
-        private readonly UseCamAndMicSteps _useCamAndMicSteps;
-        private readonly ParticipantViewSteps _participantViewSteps;
-        private readonly HelpTheCourtDecideSteps _helpTheCourtDecideSteps;
-        private readonly AboutYouSteps _aboutYouSteps;
-        private readonly InterpreterSteps _interpreterSteps;
-        private readonly YourComputerSteps _yourComputerSteps;
-        private readonly AboutYourComputerSteps _aboutYourComputerSteps;
-        private readonly YourInternetConnectionSteps _yourInternetConnectionSteps;
-        private readonly AccessToRoomSteps _accessToRoomSteps;
-        private readonly ConsentSteps _consentSteps;
         private readonly CheckYourComputerSteps _checkYourComputerSteps;
         private readonly SwitchOnCameraMicrophoneSteps _switchOnCameraMicrophoneSteps;
         private readonly TestYourEquipmentSteps _testYourEquipmentSteps;
@@ -42,7 +29,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly OtherInformationSteps _otherInformationSteps;
         private readonly CheckYourAnswersSteps _checkYourAnswersSteps;
         private readonly AnswersSavedSteps _answersSavedSteps;
-        private readonly AnswersSavedIndividualSteps _answersSavedIndividualSteps;
         private readonly ThankYouRepSteps _thankYouRepSteps;
 
         public ProgressionSteps(
@@ -50,19 +36,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             BrowserSteps browserSteps,
             LoginSteps loginSteps, 
             AboutHearingsSteps aboutHearingSteps, 
-            DifferentHearingTypesSteps differentHearingTypesSteps, 
-            ExploreCourtBuildingSteps exploreCourtBuildingSteps, 
-            ExploreVideoHearingSteps exploreVideoHearingSteps, 
-            UseCamAndMicSteps useCamAndMicSteps, 
-            ParticipantViewSteps participantViewSteps, 
-            HelpTheCourtDecideSteps helpTheCourtDecideSteps, 
-            AboutYouSteps aboutYouSteps,
-            InterpreterSteps interpreterSteps, 
-            YourComputerSteps yourComputerSteps, 
-            AboutYourComputerSteps aboutYourComputerSteps, 
-            YourInternetConnectionSteps yourInternetConnectionSteps,
-            AccessToRoomSteps accessToRoomSteps, 
-            ConsentSteps consentSteps, 
             CheckYourComputerSteps checkYourComputerSteps, 
             SwitchOnCameraMicrophoneSteps switchOnCameraMicrophoneSteps, 
             TestYourEquipmentSteps testYourEquipmentSteps, 
@@ -75,26 +48,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             OtherInformationSteps otherInformationSteps, 
             CheckYourAnswersSteps checkYourAnswersSteps,
             AnswersSavedSteps answersSavedSteps, 
-            AnswersSavedIndividualSteps answersSavedIndividualSteps,
             ThankYouRepSteps thankYouRepSteps)
         {
             _c = testContext;
             _browsersSteps = browserSteps;
             _loginSteps = loginSteps;
             _aboutHearingSteps = aboutHearingSteps;
-            _differentHearingTypesSteps = differentHearingTypesSteps;
-            _exploreCourtBuildingSteps = exploreCourtBuildingSteps;
-            _exploreVideoHearingSteps = exploreVideoHearingSteps;
-            _useCamAndMicSteps = useCamAndMicSteps;
-            _participantViewSteps = participantViewSteps;
-            _helpTheCourtDecideSteps = helpTheCourtDecideSteps;
-            _aboutYouSteps = aboutYouSteps;
-            _interpreterSteps = interpreterSteps;
-            _yourComputerSteps = yourComputerSteps;
-            _aboutYourComputerSteps = aboutYourComputerSteps;
-            _yourInternetConnectionSteps = yourInternetConnectionSteps;
-            _accessToRoomSteps = accessToRoomSteps;
-            _consentSteps = consentSteps;
             _checkYourComputerSteps = checkYourComputerSteps;
             _switchOnCameraMicrophoneSteps = switchOnCameraMicrophoneSteps;
             _testYourEquipmentSteps = testYourEquipmentSteps;
@@ -107,7 +66,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _otherInformationSteps = otherInformationSteps;
             _checkYourAnswersSteps = checkYourAnswersSteps;
             _answersSavedSteps = answersSavedSteps;
-            _answersSavedIndividualSteps = answersSavedIndividualSteps;
             _thankYouRepSteps = thankYouRepSteps;
         }
 
@@ -168,15 +126,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             {
                 { Page.Login, _loginSteps },
                 { Page.AboutHearings, _aboutHearingSteps },
-                { Page.DifferentHearingTypes, _differentHearingTypesSteps },
-                { Page.AboutYou, _aboutYouSteps },
-                { Page.Interpreter, _interpreterSteps },
-                { Page.YourComputer, _yourComputerSteps },
-                { Page.AboutYourComputer, _aboutYourComputerSteps },
-                { Page.YourInternetConnection, _yourInternetConnectionSteps },
-                { Page.AccessToARoom, _accessToRoomSteps },
-                { Page.Consent, _consentSteps },
-                { Page.AnswersSavedIndividual, _answersSavedIndividualSteps },
                 { Page.CheckYourComputer, _checkYourComputerSteps },
                 { Page.SwitchOnCameraAndMicrophone, _switchOnCameraMicrophoneSteps },
                 { Page.TestYourEquipment, _testYourEquipmentSteps },

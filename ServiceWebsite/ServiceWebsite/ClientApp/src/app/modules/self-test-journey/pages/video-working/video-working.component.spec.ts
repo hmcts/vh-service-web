@@ -2,17 +2,17 @@ import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { VideoWorkingComponent } from './video-working.component';
 import { ParticipantJourneySteps } from 'src/app/modules/base-journey/participant-journey-steps';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
+import { IndividualSuitabilityModel } from '../../../individual-journey/individual-suitability.model';
 import {Hearing, SelfTestAnswers} from '../../../base-journey/participant-suitability.model';
 import {MockLogger} from '../../../../testing/mocks/mock-logger';
 
 describe('VideoWorkingComponent', () => {
   let journey: jasmine.SpyObj<JourneyBase>;
-  let model: MutableIndividualSuitabilityModel;
+  let model: IndividualSuitabilityModel;
 
   beforeEach(() => {
     journey = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
-    model = new MutableIndividualSuitabilityModel();
+    model = new IndividualSuitabilityModel();
     model.hearing = new Hearing('1');
     model.participantId = '2';
     model.selfTest = new SelfTestAnswers();

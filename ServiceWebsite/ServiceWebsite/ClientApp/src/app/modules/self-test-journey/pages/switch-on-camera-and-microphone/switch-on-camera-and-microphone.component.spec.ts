@@ -6,7 +6,7 @@ import {
 import { ContinuableComponentFixture } from '../../../base-journey/components/suitability-choice-component-fixture.spec';
 import { SwitchOnCameraAndMicrophoneComponent } from './switch-on-camera-and-microphone.component';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { MutableIndividualSuitabilityModel } from 'src/app/modules/individual-journey/mutable-individual-suitability.model';
+import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
 import { MediaService } from 'src/app/services/media.service';
 import {Hearing, SelfTestAnswers, MediaAccessResponse } from 'src/app/modules/base-journey/participant-suitability.model';
 import { By } from '@angular/platform-browser';
@@ -18,11 +18,11 @@ import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navi
 describe('SwitchOnCameraAndMicrophoneComponent', () => {
 
   let journey: jasmine.SpyObj<JourneyBase>;
-  let model: MutableIndividualSuitabilityModel;
+  let model: IndividualSuitabilityModel;
   let mediaService: jasmine.SpyObj<MediaService>;
 
   beforeEach(() => {
-    model = new MutableIndividualSuitabilityModel();
+    model = new IndividualSuitabilityModel();
     model.hearing = new Hearing('1');
     model.participantId = '2';
     model.selfTest = new SelfTestAnswers();

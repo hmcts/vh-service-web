@@ -70,19 +70,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             AnswersHaveBeenSaved().Should().BeFalse();
         }
 
-        [Then(@"only the about you answers have been stored")]
-        public void ThenOnlyTheAboutYouAnswersHaveBeenStored()
-        {
-            var answers = GetAnswersFromBookingsApi();
-            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.AboutYouQuestion)).Should().BeTrue();
-            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.CameraMicrophoneQuestion)).Should().BeTrue();
-            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.ComputerQuestion)).Should().BeTrue();
-            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.ConsentQuestion)).Should().BeTrue();
-            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.InternetQuestion)).Should().BeTrue();
-            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.InterpreterQuestion)).Should().BeTrue();
-            answers.Any(x => x.Key.Equals(IndividualQuestionKeys.RoomQuestion)).Should().BeTrue();
-        }
-
         [Then(@"only the your hearing answers have been stored")]
         public void ThenOnlyTheYourHearingAnswersHaveBeenStored()
         {

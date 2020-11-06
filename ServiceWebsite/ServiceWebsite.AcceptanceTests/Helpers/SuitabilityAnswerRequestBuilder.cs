@@ -19,51 +19,13 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
         public List<SuitabilityAnswersRequest> AllAnswers(string user)
         {
             return user.ToLower().Equals("individual")
-                ? IndividualChecklistAnswers().Union(SelfTestAnswers()).ToList()
+                ? SelfTestAnswers().ToList()
                 : RepChecklistAnswers().Union(SelfTestAnswers()).ToList();
         }
 
         public IEnumerable<SuitabilityAnswersRequest> ChecklistAnswersOnly(string user)
         {
-            return user.ToLower().Equals("individual") ? IndividualChecklistAnswers() : RepChecklistAnswers();
-        }
-
-        private IEnumerable<SuitabilityAnswersRequest> IndividualChecklistAnswers()
-        {
-            var answers = new List<SuitabilityAnswersRequest>
-            {
-                new SuitabilityAnswersRequest
-                {
-                    Key = IndividualQuestionKeys.AboutYouQuestion, Extended_answer = null,
-                    Answer = _data.AboutYou.Answer
-                },
-                new SuitabilityAnswersRequest
-                {
-                    Key = IndividualQuestionKeys.CameraMicrophoneQuestion, Extended_answer = null,
-                    Answer = _data.AboutYourComputer
-                },
-                new SuitabilityAnswersRequest
-                {
-                    Key = IndividualQuestionKeys.ComputerQuestion, Extended_answer = null, Answer = _data.YourComputer
-                },
-                new SuitabilityAnswersRequest
-                {
-                    Key = IndividualQuestionKeys.ConsentQuestion, Extended_answer = null, Answer = _data.Consent.Answer
-                },
-                new SuitabilityAnswersRequest
-                {
-                    Key = IndividualQuestionKeys.InternetQuestion, Extended_answer = null,
-                    Answer = _data.InternetConnection
-                },
-                new SuitabilityAnswersRequest
-                {
-                    Key = IndividualQuestionKeys.InterpreterQuestion, Extended_answer = null, Answer = _data.Interpreter
-                },
-                new SuitabilityAnswersRequest
-                    {Key = IndividualQuestionKeys.RoomQuestion, Extended_answer = null, Answer = _data.AccessToRoom}
-            };
-
-            return UpdateYesNoToTrueFalse(answers);
+            return user.ToLower().Equals("individual") ? new List<SuitabilityAnswersRequest>() : RepChecklistAnswers();
         }
 
         private IEnumerable<SuitabilityAnswersRequest> RepChecklistAnswers()
