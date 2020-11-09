@@ -1,5 +1,5 @@
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
-import { MutableIndividualSuitabilityModel } from './mutable-individual-suitability.model';
+import { IndividualSuitabilityModel } from './individual-suitability.model';
 import { IndividualJourney } from './individual-journey';
 import { Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
 import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
@@ -7,7 +7,6 @@ import { DeviceType } from '../base-journey/services/device-type';
 import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { TestLogger } from 'src/app/services/logger.spec';
-import { HasAccessToCamera } from 'src/app/modules/individual-journey/individual-suitability.model';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -16,143 +15,124 @@ const dayAfterTomorrow = new Date();
 dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
 
 describe('IndividualJourney', () => {
-  let journey: IndividualJourney;
-  let redirected: JourneyStep;
-  let submitService: jasmine.SpyObj<SubmitService>;
-  submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
+    let journey: IndividualJourney;
+    let redirected: JourneyStep;
+    let submitService: jasmine.SpyObj<SubmitService>;
+    submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
 
-  const getModelForHearing = (id: string, scheduledDateTime: Date) => {
-    const model = new MutableIndividualSuitabilityModel();
-    model.hearing = new Hearing(id, scheduledDateTime);
-    model.selfTest = new SelfTestAnswers();
-    return model;
-  };
+    const getModelForHearing = (id: string, scheduledDateTime: Date) => {
+        const model = new IndividualSuitabilityModel();
+        model.hearing = new Hearing(id, scheduledDateTime);
+        model.selfTest = new SelfTestAnswers();
+        return model;
+    };
 
-  const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
-    const model = getModelForHearing(id, scheduledDateTime);
-    model.aboutYou.answer = false;
-    model.consent.answer = true;
-    model.camera = HasAccessToCamera.Yes;
-    model.computer = true;
-    model.internet = true;
-    model.interpreter = false;
-    model.room = true;
-    model.selfTest = new SelfTestAnswers({
-      seeAndHearClearly: true,
-      checkYourComputer: true,
-      cameraWorking: true,
-      microphoneWorking: true,
-      selfTestResultScore: 'Okay'
+    const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
+        const model = getModelForHearing(id, scheduledDateTime);
+        model.selfTest = new SelfTestAnswers({
+            seeAndHearClearly: true,
+            checkYourComputer: true,
+            cameraWorking: true,
+            microphoneWorking: true,
+            selfTestResultScore: 'Okay'
+        });
+        return model;
+    };
+
+    const getOnlyCompletedQuestionnaire = (id: string, scheduledDateTime: Date) => {
+        const model = getCompletedModel(id, scheduledDateTime);
+        model.selfTest = new SelfTestAnswers();
+        return model;
+    };
+
+    // helper test data
+    const suitabilityAnswers = {
+        oneUpcomingHearing: () => [getModelForHearing('upcoming hearing id', tomorrow)],
+        twoUpcomingHearings: () => [
+            getModelForHearing('later upcoming hearing id', dayAfterTomorrow),
+            getModelForHearing('earlier upcoming hearing id', tomorrow)
+        ],
+        alreadyCompleted: () => [getCompletedModel('completed hearing id')],
+        completedAndUpcoming: () => [
+            getModelForHearing('upcoming hearing id', dayAfterTomorrow),
+            getCompletedModel('completed hearing id'),
+            getModelForHearing('another upcoming hearing id', tomorrow)
+        ],
+        withoutSelfTest: () => [getOnlyCompletedQuestionnaire('completed questionnaire', tomorrow)],
+        noUpcomingHearings: () => []
+    };
+    const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
+    deviceType.isMobile.and.returnValue(false);
+
+    beforeEach(() => {
+        redirected = null;
+        journey = new IndividualJourney(submitService, TestLogger);
+        journey.redirect.subscribe((s: JourneyStep) => (redirected = s));
     });
-    return model;
-  };
 
-  const getOnlyCompletedQuestionnaire = (id: string, scheduledDateTime: Date) => {
-    const model = getCompletedModel(id, scheduledDateTime);
-    model.selfTest = new SelfTestAnswers();
-    return model;
-  };
+    it('should goto video app if there are no upcoming hearings', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
+        expect(redirected).toBe(Steps.GotoVideoApp);
+    });
 
-  // helper test data
-  const suitabilityAnswers = {
-    oneUpcomingHearing: () => [
-      getModelForHearing('upcoming hearing id', tomorrow)
-    ],
-    twoUpcomingHearings: () => [
-      getModelForHearing('later upcoming hearing id', dayAfterTomorrow),
-      getModelForHearing('earlier upcoming hearing id', tomorrow)
-    ],
-    alreadyCompleted: () => [
-      getCompletedModel('completed hearing id')
-    ],
-    completedAndUpcoming: () => [
-      getModelForHearing('upcoming hearing id', dayAfterTomorrow),
-      getCompletedModel('completed hearing id'),
-      getModelForHearing('another upcoming hearing id', tomorrow)
-    ],
-    withoutSelfTest: () => [
-      getOnlyCompletedQuestionnaire('completed questionnaire', tomorrow)
-    ],
-    noUpcomingHearings: () => []
-  };
-  const deviceType = jasmine.createSpyObj<DeviceType>(['isMobile']);
-  deviceType.isMobile.and.returnValue(false);
+    it('should stay where it is if trying to enter at the current step', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
+        journey.startAt(IndividualJourneySteps.AboutHearings);
 
-  beforeEach(() => {
-    redirected = null;
-    journey = new IndividualJourney(submitService, TestLogger);
-    journey.redirect.subscribe((s: JourneyStep) => redirected = s);
-  });
+        const currentStep = redirected;
+        redirected = null;
 
-  it('should goto video app if there are no upcoming hearings', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
-    expect(redirected).toBe(Steps.GotoVideoApp);
-  });
+        // when trying to go to the same step
+        journey.jumpTo(currentStep);
 
-  it('should stay where it is if trying to enter at the current step', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-    journey.startAt(IndividualJourneySteps.AboutHearings);
+        // we shouldn't have moved
+        expect(redirected).toBeNull();
+    });
 
-    const currentStep = redirected;
-    redirected = null;
+    it('should stay where it is if model is undefined', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
+        journey.startAt(Steps.AboutHearings);
 
-    // when trying to go to the same step
-    journey.jumpTo(currentStep);
+        const currentStep = redirected;
+        redirected = null;
 
-    // we shouldn't have moved
-    expect(redirected).toBeNull();
-  });
+        journey.startAt(currentStep);
+        journey.jumpTo(currentStep);
 
-  it('should stay where it is if model is undefined', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
-    journey.startAt(Steps.AboutHearings);
+        expect(redirected).toBeNull();
+    });
 
-    const currentStep = redirected;
-    redirected = null;
+    it('should redirect to video app if all upcoming hearings are done', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
+        expect(redirected).toBe(Steps.GotoVideoApp);
+    });
 
-    journey.startAt(currentStep);
-    journey.jumpTo(currentStep);
+    it('should run the journey for the first upcoming hearing', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings());
+        expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');
+    });
 
-    expect(redirected).toBeNull();
-  });
+    it('should run the journey from start for the first upcoming hearing that is not completed', () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
+        expect(journey.model.hearing.id).toBe('another upcoming hearing id');
+        journey.startAt(Steps.AboutHearings);
+        expect(redirected).toBe(Steps.AboutHearings);
+    });
 
-  it('should redirect to video app if all upcoming hearings are done', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
-    expect(redirected).toBe(Steps.GotoVideoApp);
-  });
+    it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
+        journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
+        journey.startAt(SelfTestJourneySteps.CheckYourComputer);
 
-  it('should run the journey for the first upcoming hearing', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.twoUpcomingHearings());
-    expect(journey.model.hearing.id).toBe('earlier upcoming hearing id');
-  });
+        // when completing self test journey
+        journey.model.selfTest.cameraWorking = true;
+        journey.model.selfTest.microphoneWorking = true;
+        journey.model.selfTest.checkYourComputer = true;
+        journey.model.selfTest.seeAndHearClearly = true;
+        journey.model.selfTest.selfTestResultScore = 'Okay';
 
-  it('should run the journey from start for the first upcoming hearing that is not completed', () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
-    expect(journey.model.hearing.id).toBe('another upcoming hearing id');
-    journey.startAt(Steps.AboutHearings);
-    expect(redirected).toBe(Steps.AboutHearings);
-  });
+        // and going to
+        journey.jumpTo(Steps.ThankYou);
 
-  it(`should enter journey at ${SelfTestJourneySteps.CheckYourComputer} if completed questionnaire but not self-test`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.jumpTo(Steps.AboutHearings);
-    expect(redirected).toBe(SelfTestJourneySteps.CheckYourComputer);
-  });
-
-  it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.startAt(SelfTestJourneySteps.CheckYourComputer);
-
-    // when completing self test journey
-    journey.model.selfTest.cameraWorking = true;
-    journey.model.selfTest.microphoneWorking = true;
-    journey.model.selfTest.checkYourComputer = true;
-    journey.model.selfTest.seeAndHearClearly = true;
-    journey.model.selfTest.selfTestResultScore = 'Okay';
-
-    // and going to
-    journey.jumpTo(Steps.ThankYou);
-
-    expect(journey.step).toBe(Steps.ThankYou);
-  });
+        expect(journey.step).toEqual(Steps.ThankYou);
+    });
 });

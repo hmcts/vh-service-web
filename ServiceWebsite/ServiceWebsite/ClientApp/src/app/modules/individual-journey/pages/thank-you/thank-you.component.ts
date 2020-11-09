@@ -3,20 +3,20 @@ import { SuitabilityChoicePageBaseComponent } from '../../components/suitability
 import { IndividualJourney } from '../../individual-journey';
 
 @Component({
-  selector: 'app-thank-you',
-  templateUrl: './thank-you.component.html',
-  styles: []
+    selector: 'app-thank-you',
+    templateUrl: './thank-you.component.html',
+    styles: []
 })
 export class ThankYouComponent extends SuitabilityChoicePageBaseComponent implements OnInit {
-  hearingDate: Date;
+    hearingDate: Date;
 
-  constructor(journey: IndividualJourney) {
-    super(journey);
-  }
+    constructor(journey: IndividualJourney) {
+        super(journey);
+    }
 
-  ngOnInit() {
-    this.hearingDate = this.model.hearing.scheduleDateTime;
-  }
+    ngOnInit() {
+        this.hearingDate = this.model.hearing.scheduleDateTime;
+    }
 
-  protected bindModel(): void { }
+    protected bindModel(): void {}
 }

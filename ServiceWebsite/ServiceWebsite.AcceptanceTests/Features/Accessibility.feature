@@ -9,60 +9,10 @@ Scenario: About Hearings page accessibility
 	Then the page should be accessible
 
 @Accessibility @Individual
-Scenario: About You page accessibility
-	Given the Individual has progressed to the About You page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: About Your Computer page accessibility
-	Given the Individual has progressed to the About Your Computer page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Access to a Room page accessibility
-	Given the Individual has progressed to the Access to a Room page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Answers Saved Individual page accessibility
-	Given the Individual has progressed to the Answers Saved Individual page
-	Then the page should be accessible
-
-@Accessibility @Representative
-Scenario: Check Your Answers page accessibility
-	Given the Representative has progressed to the Check Your Answers page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Consent page accessibility
-	Given the Individual has progressed to the Consent page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Different Hearing Types page accessibility
-	Given the Individual has progressed to the Different Hearing Types page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Interpreter page accessibility
-	Given the Individual has progressed to the Interpreter page
-	Then the page should be accessible
-
-@Accessibility @Individual
 Scenario: Thank You page accessibility
 	Given the Individual has progressed to the Thank You page
 	Then the page should be accessible
 	 
-@Accessibility @Individual
-Scenario: Your Computer page accessibility
-	Given the Individual has progressed to the Your Computer page
-	Then the page should be accessible
-
-@Accessibility @Individual
-Scenario: Your Internet Connection page accessibility
-	Given the Individual has progressed to the Your Internet Connection page
-	Then the page should be accessible
-
 @Accessibility @Representative
 Scenario: Answers Saved page accessibility
 	Given the Representative has progressed to the Answers Saved page

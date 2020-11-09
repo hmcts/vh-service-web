@@ -8,7 +8,7 @@ Scenario: About Hearings
 	Given the Individual has progressed to the About Hearings page
 	Then contact details are available
 	When the user clicks the Next button
-	Then the user is on the Different Hearing Types page
+	Then the user is on the Check Your Computer page
 	When the user signs out 
 	Then the answers have not been stored
 	

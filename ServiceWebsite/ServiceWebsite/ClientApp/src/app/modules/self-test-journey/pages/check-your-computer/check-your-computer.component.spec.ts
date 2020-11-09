@@ -2,7 +2,6 @@ import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
 import { CheckYourComputerComponent } from './check-your-computer.component';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
-import { MutableIndividualSuitabilityModel } from '../../../individual-journey/mutable-individual-suitability.model';
 import { IndividualSuitabilityModel } from 'src/app/modules/individual-journey/individual-suitability.model';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 import { Router } from '@angular/router';
@@ -15,7 +14,7 @@ describe('CheckYourComputerComponent', () => {
 
   beforeEach(() => {
     journey = jasmine.createSpyObj<JourneyBase>(['goto']);
-    model = new MutableIndividualSuitabilityModel();
+    model = new IndividualSuitabilityModel();
     model.selfTest = new SelfTestAnswers();
     deviceType = jasmine.createSpyObj<DeviceType>(['isMobile', 'isTablet', 'isIpad']);
     routerSpy = jasmine.createSpyObj<Router>(['navigate']);

@@ -2,11 +2,11 @@ import { IndividualJourneyComponentTestBed } from '../individual-base-component/
 import { ThankYouComponent } from './thank-you.component';
 
 describe('ThankYouComponent', () => {
-  it('should contain the scheduled date on init', () => {
-    const fixture = IndividualJourneyComponentTestBed.createComponent({
-      component: ThankYouComponent
-    });
+    it('should contain the scheduled date on init', () => {
+        const fixture = IndividualJourneyComponentTestBed.createComponent({
+            component: ThankYouComponent
+        });
 
-    expect(fixture.componentInstance.hearingDate).not.toBe(null);
-  });
+        expect(fixture.componentInstance.hearingDate).not.toBe(null);
+    });
 });
