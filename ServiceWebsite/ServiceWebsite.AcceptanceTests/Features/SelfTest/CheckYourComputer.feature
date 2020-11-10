@@ -12,7 +12,7 @@ Scenario: Check Your Computer Individual
 	When the user answers yes to the Check Your Computer question
 	Then the user is on the Switch On Camera and Microphone page
 	When the user signs out 
-	Then only the about you answers have been stored
+	Then the answers have not been stored
 	
 @VIH-4577 @Representative
 Scenario: Check Your Computer Representative
@@ -26,17 +26,9 @@ Scenario: Check Your Computer Representative
 	When the user signs out 
 	Then only the your hearing answers have been stored
 
-@VIH-4577 @Individual
-Scenario: Individual completed checklist logs in on Check Your Computer page
-	Given the Individual has progressed to the Check Your Computer page
-	When the user signs out 
-	And the user signs back in with valid credentials
-	Then the user is on the Check Your Computer page
-
 @VIH-4577 @Representative
 Scenario: Representative completed checklist logs in on Check Your Computer page
 	Given the Representative has progressed to the Check Your Computer page
 	When the user signs out 
 	And the user signs back in with valid credentials
 	Then the user is on the Check Your Computer page
-
