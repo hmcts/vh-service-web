@@ -9,9 +9,9 @@ Scenario: Sign Back In On Computer Individual
 	When the user answers no to the Check Your Computer question
 	Then the user is on the Sign Back In page
 	When the user signs out 
-	Then the answers have been stored
+	Then the answers have not been stored
 	When the user signs back in with valid credentials
-	Then the user is on the Check Your Computer page
+	Then the user is on the About Hearings page
 
 @VIH-4577 @Smoketest-Extended @Representative
 Scenario: Sign Back In On Computer Representative
