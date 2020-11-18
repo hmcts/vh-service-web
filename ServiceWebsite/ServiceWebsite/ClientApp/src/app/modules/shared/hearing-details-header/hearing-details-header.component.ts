@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { RepresentativeJourney } from '../../representative-journey/representative-journey';
 import { HearingService } from '../services/hearing.service';
 import { ParticipantJourney } from 'src/app/modules/base-journey/participant-journey';
 
