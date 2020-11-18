@@ -66,7 +66,6 @@ export function initConfiguration(configService: ConfigService): Function {
         AccessibilityComponent,
         ScrollTriggerDirective,
         SignInOnComputerComponent,
-        //CheckingVideoHearingComponent
     ],
     imports: [
         // angular
