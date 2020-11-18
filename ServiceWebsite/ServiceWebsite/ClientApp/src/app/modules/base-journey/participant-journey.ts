@@ -1,6 +1,5 @@
 import { HearingSelector } from '../base-journey/hearing-selector';
 import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
-
 import { EventEmitter, Injectable } from '@angular/core';
 import { JourneyBase } from '../base-journey/journey-base';
 import { ParticipantJourneySteps } from './participant-journey-steps';
@@ -8,7 +7,6 @@ import { JourneyStep } from '../base-journey/journey-step';
 import { SubmitService } from './services/submit.service';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 import { Logger } from 'src/app/services/logger';
-//import { SessionStorage } from '../shared/services/session-storage';
 
 @Injectable()
 export class ParticipantJourney extends JourneyBase {
@@ -16,14 +14,10 @@ export class ParticipantJourney extends JourneyBase {
     private currentStep: JourneyStep = ParticipantJourneySteps.NotStarted;
     private currentModel: ParticipantSuitabilityModel;
 
-   // private readonly cache: SessionStorage<string>;
-
     journeyName: string;
 
     constructor(protected submitService: SubmitService, protected logger: Logger) {
         super();
-        //this.cache = new SessionStorage<string>('JOURNEY_TYPE');
-       // this.journeyName = this.cache.get();
         this.redirect.subscribe((step: JourneyStep) => {
             this.logger.event(`telemetry:serviceweb:${this.journeyName}:step:${step}`);
             this.currentStep = step;
