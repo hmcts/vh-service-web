@@ -11,7 +11,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
             return new List<Page>()
             {
                 Page.Login,
-                Page.AboutHearings,
+                Page.CheckingVideoHearing,
                 Page.CheckYourComputer,
                 Page.SwitchOnCameraAndMicrophone,
                 Page.TestYourEquipment,

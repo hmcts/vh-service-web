@@ -1,12 +1,11 @@
-import { MutableRepresentativeSuitabilityModel } from './mutable-representative-suitability.model';
 import { RepresentativeJourney } from './representative-journey';
 import { Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
-import { RepresentativeJourneySteps as Steps } from './representative-journey-steps';
+import { ParticipantJourneySteps as Steps } from '../base-journey/participant-journey-steps';
 import { JourneyStep } from '../base-journey/journey-step';
-import { SubmitService } from './services/submit.service';
+import { SubmitService } from '../base-journey/services/submit.service';
 import { SelfTestJourneySteps } from '../self-test-journey/self-test-journey-steps';
 import { TestLogger } from 'src/app/services/logger.spec';
-import { PresentingTheCase } from './representative-suitability.model';
+import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -21,7 +20,7 @@ describe('RepresentativeJourney', () => {
   submitService = jasmine.createSpyObj<SubmitService>(['submit', 'updateSubmitModel']);
 
   const getModelForHearing = (id: string, scheduledDateTime: Date) => {
-    const model = new MutableRepresentativeSuitabilityModel();
+    const model = new ParticipantSuitabilityModel();
     model.hearing = new Hearing(id, scheduledDateTime);
     model.selfTest = new SelfTestAnswers();
     return model;
@@ -29,7 +28,6 @@ describe('RepresentativeJourney', () => {
 
   const getCompletedModel = (id: string, scheduledDateTime: Date = tomorrow) => {
     const model = getModelForHearing(id, scheduledDateTime);
-    model.presentingTheCase = PresentingTheCase.SomeoneWillBePresenting;
 
     model.selfTest = new SelfTestAnswers({
       cameraWorking: true,
@@ -89,7 +87,7 @@ describe('RepresentativeJourney', () => {
 
   it('should goto video app if there are no upcoming hearings', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings);
-    journey.jumpTo(Steps.AnswersSaved);
+    journey.jumpTo(Steps.ThankYou);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
@@ -98,13 +96,13 @@ describe('RepresentativeJourney', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.alreadyCompleted());
 
     // when trying to enter later in the journey
-    journey.jumpTo(Steps.AnswersSaved);
+    journey.jumpTo(Steps.ThankYou);
     expect(redirected).toBe(Steps.GotoVideoApp);
   });
 
   it('should stay where it is if trying to enter at the current step', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-    journey.startAt(Steps.AboutHearings);
+    journey.startAt(Steps.CheckingVideoHearing);
 
     const currentStep = redirected;
     redirected = null;
@@ -118,7 +116,7 @@ describe('RepresentativeJourney', () => {
 
   it('should stay where it is if model is undefined', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-    journey.startAt(Steps.AboutHearings);
+    journey.startAt(Steps.CheckingVideoHearing);
 
     const currentStep = redirected;
     redirected = null;
@@ -138,25 +136,11 @@ describe('RepresentativeJourney', () => {
   it('should run the journey from start for the first upcoming hearing that is not completed', () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
     expect(journey.model.hearing.id).toBe('another upcoming hearing id');
-    journey.startAt(Steps.AboutHearings);
-    expect(redirected).toBe(Steps.AboutHearings);
+    journey.startAt(Steps.CheckingVideoHearing);
+    expect(redirected).toBe(Steps.CheckingVideoHearing);
   });
 
-  it(`should enter journey at ${SelfTestJourneySteps.CheckYourComputer} if completed questionnaire but not self-test`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
-    journey.jumpTo(Steps.AnswersSaved);
-  });
-
-  it(`can navigate to ${Steps.AnswersSaved} after dropping out on ${Steps.AccessToComputer}`, () => {
-    journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-    journey.startAt(Steps.AccessToComputer);
-
-    journey.jumpTo(Steps.AnswersSaved);
-
-    expect(journey.step).toBe(Steps.AnswersSaved);
-  });
-
-  it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
+   it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {
     journey.forSuitabilityAnswers(suitabilityAnswers.withoutSelfTest());
     journey.startAt(SelfTestJourneySteps.CheckYourComputer);
 

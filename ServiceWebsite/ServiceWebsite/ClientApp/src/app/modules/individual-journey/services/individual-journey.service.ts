@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { SessionStorage } from '../../shared/services/session-storage';
 import { Hearing, SelfTestAnswers } from '../../base-journey/participant-suitability.model';
-import { IndividualSuitabilityModel } from '../individual-suitability.model';
+import { ParticipantSuitabilityModel } from '../../base-journey/participant-suitability.model';
 
 @Injectable()
 export class IndividualJourneyService {
-    private readonly cache: SessionStorage<IndividualSuitabilityModel>;
+    private readonly cache: SessionStorage<ParticipantSuitabilityModel>;
 
     constructor() {
-        this.cache = new SessionStorage<IndividualSuitabilityModel>('INDIVIDUALJOURNEY_MODEL');
+        this.cache = new SessionStorage<ParticipantSuitabilityModel>('INDIVIDUALJOURNEY_MODEL');
     }
 
-    get(): IndividualSuitabilityModel {
+    get(): ParticipantSuitabilityModel {
         const response = this.cache.get();
 
         if (response === null) {
@@ -23,7 +23,7 @@ export class IndividualJourneyService {
       the problem is that this returned object from that cache looses any methods available on the class.
       In this case the "isUpcoming()" was not available
     */
-        const model = new IndividualSuitabilityModel();
+        const model = new ParticipantSuitabilityModel();
         model.participantId = response.participantId;
         model.hearing = new Hearing(
             response.hearing.id,
@@ -37,7 +37,7 @@ export class IndividualJourneyService {
         return model;
     }
 
-    set(model: IndividualSuitabilityModel): void {
+    set(model: ParticipantSuitabilityModel): void {
         this.cache.set(model);
     }
 }

@@ -13,13 +13,13 @@ import { ConfigService } from '../../../../services/config.service';
 import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
 import { Config } from '../../../shared/models/config';
 import { UserMediaStreamService } from '../../services/user-media-stream.service';
-import { IndividualSuitabilityModel } from '../../../individual-journey/individual-suitability.model';
 import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import { UserMediaService } from '../../../../services/user-media.service';
 import { UserMediaDevice } from '../../../shared/models/user-media-device';
 import { MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
 import { BackNavigationStubComponent } from '../../../../testing/stubs/back-navigation-stub';
 import { MicVisualiserStubComponent } from '../../../../testing/stubs/mic-visualiser-stub';
+import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 
 @Component({
     selector: 'app-select-media-devices',
@@ -46,9 +46,9 @@ const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
 
 describe('TestYourEquipmentComponent', () => {
-    let model: IndividualSuitabilityModel;
+    let model: ParticipantSuitabilityModel;
 
-    model = new IndividualSuitabilityModel();
+    model = new ParticipantSuitabilityModel();
     model.hearing = new Hearing('1');
     model.participantId = '2';
     model.selfTest = new SelfTestAnswers();
@@ -83,7 +83,7 @@ describe('TestYourEquipmentComponent', () => {
 
 describe('TestYourEquipmentComponent functionality', () => {
     let journeyObj: jasmine.SpyObj<JourneyBase>;
-    let model: IndividualSuitabilityModel;
+    let model: ParticipantSuitabilityModel;
     let component: TestYourEquipmentComponent;
     videoWebServiceMock.getTestCallScore.and.returnValue(of('Okay'));
     const logger = new MockLogger();
@@ -91,7 +91,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
     beforeEach(() => {
         journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
-        model = new IndividualSuitabilityModel();
+        model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('1');
         model.participantId = '2';
         model.selfTest = new SelfTestAnswers();
@@ -197,7 +197,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
 describe('TestYourEquipmentComponent error functionality', () => {
     let journeyObj: jasmine.SpyObj<JourneyBase>;
-    let model: IndividualSuitabilityModel;
+    let model: ParticipantSuitabilityModel;
     let component: TestYourEquipmentComponent;
     videoWebServiceMock.getTestCallScore.and.returnValue(throwError('error'));
     const userMediaServiceMock = jasmine.createSpyObj<UserMediaService>([
@@ -213,7 +213,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
 
     beforeEach(() => {
         journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
-        model = new IndividualSuitabilityModel();
+        model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('1');
         model.participantId = '2';
         model.selfTest = new SelfTestAnswers();

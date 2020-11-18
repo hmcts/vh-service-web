@@ -22,7 +22,7 @@ import { QuestionnaireAlreadyCompletedComponent } from './pages/questionnaire-al
 import { AccessibilityComponent } from './pages/accessibility/accessibility.component';
 import { ScrollTriggerDirective } from './directives/scroll-trigger.directive';
 import { SignInOnComputerComponent } from './pages/sign-in-on-computer/sign-in-on-computer.component';
-
+//import { CheckingVideoHearingComponent } from './pages/checking-video-hearing/checking-video-hearing.component';
 // services
 import { ErrorService } from './services/error.service';
 import { ConfigService, ENVIRONMENT_CONFIG } from './services/config.service';
@@ -49,63 +49,63 @@ import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsuppo
 import { DeviceDetectorModule } from 'ngx-device-detector';
 
 export function initConfiguration(configService: ConfigService): Function {
-  return () => configService.load();
+    return () => configService.load();
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorComponent,
-    PrivacyPolicyComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-    GuidanceComponent,
-    MediaErrorComponent,
-    UnsupportedBrowserComponent,
-    QuestionnaireAlreadyCompletedComponent,
-    AccessibilityComponent,
-    ScrollTriggerDirective,
-    SignInOnComputerComponent
-  ],
-  imports: [
-    // angular
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
+    declarations: [
+        AppComponent,
+        ErrorComponent,
+        PrivacyPolicyComponent,
+        HomeComponent,
+        PageNotFoundComponent,
+        GuidanceComponent,
+        MediaErrorComponent,
+        UnsupportedBrowserComponent,
+        QuestionnaireAlreadyCompletedComponent,
+        AccessibilityComponent,
+        ScrollTriggerDirective,
+        SignInOnComputerComponent,
+        //CheckingVideoHearingComponent
+    ],
+    imports: [
+        // angular
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
 
-    // app
-    SecurityModule,
-    BaseJourneyModule,
-    IndividualJourneyModule,
-    RepresentativeJourneyModule,
-    SelfTestJourneyModule,
-    AppRoutingModule,
-    SharedModule,
-    DeviceDetectorModule.forRoot(),
-  ],
-  providers: [
-    { provide: APP_INITIALIZER, useFactory: initConfiguration, deps: [ConfigService], multi: true },
-    { provide: Config, useFactory: () => ENVIRONMENT_CONFIG },
-    { provide: HTTP_INTERCEPTORS, useClass: CustomAdalInterceptor, multi: true },
-    { provide: LOG_ADAPTER, useClass: ConsoleLogger, multi: true },
-    { provide: LOG_ADAPTER, useClass: AppInsightsLogger, multi: true },
-    { provide: SERVICE_WEB_API_BASE_URL, useFactory: () => '.' },
-    { provide: Logger, useClass: LoggerService },
-    AppInsightsLogger,
-    AppRoutingModule,
-    ConfigService,
-    AdalService,
-    AdalGuard,
-    AdalInterceptor,
-    ErrorService,
-    GuidanceService,
-    PrintService,
-    DocumentRedirectService,
-    { provide: ErrorHandler, useClass: ErrorService },
-    WindowScrolling
-  ],
-  bootstrap: [AppComponent]
+        // app
+        SecurityModule,
+        BaseJourneyModule,
+        IndividualJourneyModule,
+        RepresentativeJourneyModule,
+        SelfTestJourneyModule,
+        AppRoutingModule,
+        SharedModule,
+        DeviceDetectorModule.forRoot()
+    ],
+    providers: [
+        { provide: APP_INITIALIZER, useFactory: initConfiguration, deps: [ConfigService], multi: true },
+        { provide: Config, useFactory: () => ENVIRONMENT_CONFIG },
+        { provide: HTTP_INTERCEPTORS, useClass: CustomAdalInterceptor, multi: true },
+        { provide: LOG_ADAPTER, useClass: ConsoleLogger, multi: true },
+        { provide: LOG_ADAPTER, useClass: AppInsightsLogger, multi: true },
+        { provide: SERVICE_WEB_API_BASE_URL, useFactory: () => '.' },
+        { provide: Logger, useClass: LoggerService },
+        AppInsightsLogger,
+        AppRoutingModule,
+        ConfigService,
+        AdalService,
+        AdalGuard,
+        AdalInterceptor,
+        ErrorService,
+        GuidanceService,
+        PrintService,
+        DocumentRedirectService,
+        { provide: ErrorHandler, useClass: ErrorService },
+        WindowScrolling
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

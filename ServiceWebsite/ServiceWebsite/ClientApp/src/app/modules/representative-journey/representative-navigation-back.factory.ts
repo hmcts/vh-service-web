@@ -3,13 +3,11 @@ import { NavigationBackBaseFactory } from '../base-journey/services/navigation-b
 import { Router } from '@angular/router';
 
 const RepresentativeUserType = 'Representative';
-const QuestionnaireCompletedUrl = '/answers-saved';
 const ThankYouRepUrl = '/thank-you-rep';
 
 @Injectable()
 export class RepresentativeNavigationBackFactory extends NavigationBackBaseFactory {
-
-  constructor(protected router: Router) {
-    super(router, RepresentativeUserType, [QuestionnaireCompletedUrl, ThankYouRepUrl]);
-  }
+    constructor(protected router: Router) {
+        super(router, RepresentativeUserType, [ThankYouRepUrl]);
+    }
 }

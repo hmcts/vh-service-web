@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { SessionStorage } from '../../shared/services/session-storage';
-import { RepresentativeSuitabilityModel, PresentingCaseDetails } from '../representative-suitability.model';
 import { Hearing, SelfTestAnswers } from '../../base-journey/participant-suitability.model';
-import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
+import { ParticipantSuitabilityModel } from '../../base-journey/participant-suitability.model';
 
 @Injectable()
 export class RepresentativeJourneyService {
-    private readonly cache: SessionStorage<RepresentativeSuitabilityModel>;
+    private readonly cache: SessionStorage<ParticipantSuitabilityModel>;
 
     constructor() {
-        this.cache = new SessionStorage<RepresentativeSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
+        this.cache = new SessionStorage<ParticipantSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
     }
 
-    get(): RepresentativeSuitabilityModel {
+    get(): ParticipantSuitabilityModel {
         const response = this.cache.get();
 
         if (response === null) {
@@ -24,25 +23,21 @@ export class RepresentativeJourneyService {
           the problem is that this returned object from that cache looses any methods available on the class.
           In this case the "isUpcoming()" was not available
         */
-        const model = new MutableRepresentativeSuitabilityModel();
+        const model = new ParticipantSuitabilityModel();
         model.participantId = response.participantId;
-        model.hearing = new Hearing
-            (
-                response.hearing.id,
-                new Date(response.hearing.scheduleDateTime),
-                null,
-                null,
-                response.hearing.questionnaireNotRequired
-            );
-        model.presentingTheCase = response.presentingTheCase;
-        model.presentingCaseDetails = new PresentingCaseDetails(response.presentingCaseDetails);
-        model.otherInformation = response.otherInformation;
+        model.hearing = new Hearing(
+            response.hearing.id,
+            new Date(response.hearing.scheduleDateTime),
+            null,
+            null,
+            response.hearing.questionnaireNotRequired
+        );
         model.selfTest = new SelfTestAnswers(response.selfTest);
 
         return model;
     }
 
-    set(model: RepresentativeSuitabilityModel): void {
+    set(model: ParticipantSuitabilityModel): void {
         this.cache.set(model);
     }
 }

@@ -1,19 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DefaultData>
-  <AboutYourComputer>Yes</AboutYourComputer>
+  <CheckingVideoHearing>Yes</CheckingVideoHearing>
   <CameraWorking>Yes</CameraWorking>
   <CheckYourComputer>Yes</CheckYourComputer>
   <MicrophoneWorking>Yes</MicrophoneWorking>
-  <OtherInformation>
-    <Answer>No</Answer>
-    <ExtendedAnswer>Adding more details I would like the court to know</ExtendedAnswer>
-  </OtherInformation>
-  <PresentingTheCase>
-    <Answer>I'll be presenting the case</Answer>
-    <AlternativeAnswer>Someone else will be presenting the case</AlternativeAnswer>
-    <WhoWillBePresentingName>Joe Test</WhoWillBePresentingName>
-    <WhoWillBePresentingEmail>joetest@test.com</WhoWillBePresentingEmail>
-  </PresentingTheCase>
   <SelfTestScore>None</SelfTestScore>
   <VideoWorking>Yes</VideoWorking>
   <YourComputer>Yes</YourComputer>
