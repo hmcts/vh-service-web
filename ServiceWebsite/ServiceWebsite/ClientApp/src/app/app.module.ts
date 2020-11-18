@@ -22,7 +22,6 @@ import { QuestionnaireAlreadyCompletedComponent } from './pages/questionnaire-al
 import { AccessibilityComponent } from './pages/accessibility/accessibility.component';
 import { ScrollTriggerDirective } from './directives/scroll-trigger.directive';
 import { SignInOnComputerComponent } from './pages/sign-in-on-computer/sign-in-on-computer.component';
-//import { CheckingVideoHearingComponent } from './pages/checking-video-hearing/checking-video-hearing.component';
 // services
 import { ErrorService } from './services/error.service';
 import { ConfigService, ENVIRONMENT_CONFIG } from './services/config.service';
