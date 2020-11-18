@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ParticipantJourney } from 'src/app/modules/base-journey/participant-journey';
 import { Router } from '@angular/router';
 
 @Component({
