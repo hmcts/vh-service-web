@@ -19,6 +19,7 @@ export class ParticipantJourneyService {
           the problem is that this returned object from that cache looses any methods available on the class.
           In this case the "isUpcoming()" was not available
         */
+
         const model = new ParticipantSuitabilityModel();
         model.participantId = response.participantId;
         model.hearing = new Hearing(
