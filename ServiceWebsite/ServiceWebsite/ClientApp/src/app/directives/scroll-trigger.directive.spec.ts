@@ -68,11 +68,9 @@ describe('ScrollableDirective', () => {
     it('should raise event if reached bottom of element, scrolling up then down again', () => {
         scrollPastElementBottom();
         expect(eventRaised).toBe(true);
-
         eventRaised = false;
         scrollToAboveBottom();
         expect(eventRaised).toBe(false);
-
         scrollPastElementBottom();
         expect(eventRaised).toBe(true);
     });
