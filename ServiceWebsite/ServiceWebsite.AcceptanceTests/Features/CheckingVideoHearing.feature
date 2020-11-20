@@ -4,7 +4,7 @@
 	So that the court can make an informed decision based on my circumstances
 
 @Individual
-Scenario: Checking video  for individual
+Scenario: Checking video hearing for individual
 	Given the Individual has progressed to the Checking Video Hearing page
 	Then contact details are available
 	When the user clicks the Next button
@@ -13,7 +13,7 @@ Scenario: Checking video  for individual
 	Then the answers have not been stored
 	
 	@Representative
-Scenario: Checking video Hearing for representative
+Scenario: Checking video hearing for representative
 	Given the Representative has progressed to the Checking Video Hearing page
 	Then contact details are available
 	When the user clicks the Next button
