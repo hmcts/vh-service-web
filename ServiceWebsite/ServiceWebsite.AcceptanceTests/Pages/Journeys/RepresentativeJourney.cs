@@ -29,7 +29,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
 
         public void VerifyDestinationIsInThatJourney(Page destinationPage)
         {
-            var jj = Journey().Contains(destinationPage);
 
             Journey().Should().Contain(destinationPage);
         }
