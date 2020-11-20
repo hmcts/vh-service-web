@@ -1,48 +1,12 @@
 import { Injectable } from '@angular/core';
 import { SessionStorage } from '../../shared/services/session-storage';
-import { RepresentativeSuitabilityModel, PresentingCaseDetails } from '../representative-suitability.model';
-import { Hearing, SelfTestAnswers } from '../../base-journey/participant-suitability.model';
-import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
+import { ParticipantSuitabilityModel } from '../../base-journey/participant-suitability.model';
+import { ParticipantJourneyService } from '../../base-journey/services/participnt-journey.service';
 
 @Injectable()
-export class RepresentativeJourneyService {
-    private readonly cache: SessionStorage<RepresentativeSuitabilityModel>;
-
+export class RepresentativeJourneyService extends ParticipantJourneyService {
     constructor() {
-        this.cache = new SessionStorage<RepresentativeSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
-    }
-
-    get(): RepresentativeSuitabilityModel {
-        const response = this.cache.get();
-
-        if (response === null) {
-            return null;
-        }
-
-        /*
-          Need to create a new object here even though the cache will return a deserialised object,
-          the problem is that this returned object from that cache looses any methods available on the class.
-          In this case the "isUpcoming()" was not available
-        */
-        const model = new MutableRepresentativeSuitabilityModel();
-        model.participantId = response.participantId;
-        model.hearing = new Hearing
-            (
-                response.hearing.id,
-                new Date(response.hearing.scheduleDateTime),
-                null,
-                null,
-                response.hearing.questionnaireNotRequired
-            );
-        model.presentingTheCase = response.presentingTheCase;
-        model.presentingCaseDetails = new PresentingCaseDetails(response.presentingCaseDetails);
-        model.otherInformation = response.otherInformation;
-        model.selfTest = new SelfTestAnswers(response.selfTest);
-
-        return model;
-    }
-
-    set(model: RepresentativeSuitabilityModel): void {
-        this.cache.set(model);
+        super();
+        this.cache = new SessionStorage<ParticipantSuitabilityModel>('REPRESENTATIVEJOURNEY_MODEL');
     }
 }

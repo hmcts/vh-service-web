@@ -1,13 +1,13 @@
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
+
 import { HearingDetailsHeaderComponent } from './hearing-details-header.component';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { LongDatetimePipe } from '../date-time.pipe';
 import { Hearing } from '../../base-journey/participant-suitability.model';
 import { HearingDetails } from '../../representative-journey/services/hearing-details';
 import { HearingService } from '../services/hearing.service';
-import { MutableRepresentativeSuitabilityModel } from '../../representative-journey/mutable-representative-suitability.model';
-import { RepresentativeJourney } from '../../representative-journey/representative-journey';
 import { LongDatePipe } from '../date.pipe';
+import { ParticipantSuitabilityModel } from '../../base-journey/participant-suitability.model';
+import { ParticipantJourney } from 'src/app/modules/base-journey/participant-journey';
 
 describe('HearingDetailsHeaderComponent', () => {
   const hearing = new HearingDetails('id', 'case name', 'case number', 'case type', new Date(2029, 4, 3, 12, 30));
@@ -18,10 +18,10 @@ describe('HearingDetailsHeaderComponent', () => {
     hearingService = jasmine.createSpyObj<HearingService>(['getHearing']);
     hearingService.getHearing.and.returnValue(Promise.resolve(hearing));
 
-    const model = new MutableRepresentativeSuitabilityModel();
+    const model = new ParticipantSuitabilityModel();
     model.hearing = new Hearing('id');
     const journey = {
-      ...jasmine.createSpyObj<RepresentativeJourney>(['startAt']),
+      ...jasmine.createSpyObj<ParticipantJourney>(['startAt']),
       model: model
     };
 
@@ -33,7 +33,7 @@ describe('HearingDetailsHeaderComponent', () => {
       ],
       providers: [
         { provide: HearingService, useValue: hearingService },
-        { provide: RepresentativeJourney, useValue: journey }
+        { provide: ParticipantJourney, useValue: journey }
       ]
     }).compileComponents();
 

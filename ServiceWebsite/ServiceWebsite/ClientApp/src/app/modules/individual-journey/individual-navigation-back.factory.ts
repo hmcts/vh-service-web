@@ -8,8 +8,7 @@ const QuestionnaireCompletedUrl = '/answers-saved';
 
 @Injectable()
 export class IndividualNavigationBackFactory extends NavigationBackBaseFactory {
-
-  constructor(protected router: Router) {
-      super(router, IndividualUserType, [QuestionnaireCompletedUrl, ThankYouUrl]);
-  }
+    constructor(protected router: Router) {
+        super(router, IndividualUserType, [QuestionnaireCompletedUrl, ThankYouUrl]);
+    }
 }

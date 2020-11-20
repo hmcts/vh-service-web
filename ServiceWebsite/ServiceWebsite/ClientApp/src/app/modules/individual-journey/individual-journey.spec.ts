@@ -1,11 +1,12 @@
 import { SelfTestJourneySteps } from 'src/app/modules/self-test-journey/self-test-journey-steps';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
+import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
+
 import { IndividualJourney } from './individual-journey';
 import { Hearing, SelfTestAnswers } from '../base-journey/participant-suitability.model';
-import { IndividualJourneySteps as Steps, IndividualJourneySteps } from './individual-journey-steps';
+import { ParticipantJourneySteps as Steps, ParticipantJourneySteps } from '../base-journey/participant-journey-steps';
 import { DeviceType } from '../base-journey/services/device-type';
 import { JourneyStep } from '../base-journey/journey-step';
-import { SubmitService } from './services/submit.service';
+import { SubmitService } from '../base-journey/services/submit.service';
 import { TestLogger } from 'src/app/services/logger.spec';
 
 const tomorrow = new Date();
@@ -21,7 +22,7 @@ describe('IndividualJourney', () => {
     submitService = jasmine.createSpyObj<SubmitService>(['submit', 'isDropOffPoint', 'updateSubmitModel']);
 
     const getModelForHearing = (id: string, scheduledDateTime: Date) => {
-        const model = new IndividualSuitabilityModel();
+        const model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing(id, scheduledDateTime);
         model.selfTest = new SelfTestAnswers();
         return model;
@@ -77,7 +78,7 @@ describe('IndividualJourney', () => {
 
     it('should stay where it is if trying to enter at the current step', () => {
         journey.forSuitabilityAnswers(suitabilityAnswers.oneUpcomingHearing());
-        journey.startAt(IndividualJourneySteps.AboutHearings);
+        journey.startAt(ParticipantJourneySteps.CheckingVideoHearing);
 
         const currentStep = redirected;
         redirected = null;
@@ -91,7 +92,7 @@ describe('IndividualJourney', () => {
 
     it('should stay where it is if model is undefined', () => {
         journey.forSuitabilityAnswers(suitabilityAnswers.noUpcomingHearings());
-        journey.startAt(Steps.AboutHearings);
+        journey.startAt(Steps.CheckingVideoHearing);
 
         const currentStep = redirected;
         redirected = null;
@@ -115,8 +116,8 @@ describe('IndividualJourney', () => {
     it('should run the journey from start for the first upcoming hearing that is not completed', () => {
         journey.forSuitabilityAnswers(suitabilityAnswers.completedAndUpcoming());
         expect(journey.model.hearing.id).toBe('another upcoming hearing id');
-        journey.startAt(Steps.AboutHearings);
-        expect(redirected).toBe(Steps.AboutHearings);
+        journey.startAt(Steps.CheckingVideoHearing);
+        expect(redirected).toBe(Steps.CheckingVideoHearing);
     });
 
     it(`should redirect go to ${Steps.ThankYou} when having completed self test`, () => {

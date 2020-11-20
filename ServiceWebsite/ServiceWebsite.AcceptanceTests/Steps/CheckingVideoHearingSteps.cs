@@ -8,15 +8,15 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
-namespace ServiceWebsite.AcceptanceTests.Steps.Representative
+namespace ServiceWebsite.AcceptanceTests.Steps
 {
     [Binding]
-    public class YourVideoHearingSteps : ISteps
+    public class CheckingVideoHearingSteps : ISteps
     {
         private readonly Dictionary<User, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public YourVideoHearingSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
+        public CheckingVideoHearingSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
@@ -24,11 +24,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps.Representative
 
         public void ProgressToNextPage()
         {
-            _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText("Continue"));
+            _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText("Next"));
         }
 
-        [Then(@"contact details are available on the Your Video Hearing page")]
-        public void ThenContactDetailsAreAvailableOnTheYourVideoHearingPage()
+
+        [Then(@"contact details are available on the Checking Video Hearing page")]
+        public void ThenContactDetailsAreAvailableOnTheCheckingVideoHearingPage()
         {
             _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonLocators.ElementContainingText(_c.WebConfig.TestConfig.CommonData.CommonOnScreenData.VhoPhone))
                 .Displayed.Should().BeTrue();

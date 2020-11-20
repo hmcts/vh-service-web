@@ -1,15 +1,15 @@
 import { ApiClient, HearingSuitabilityAnswer } from './../../../services/clients/api-client';
-import { IndividualSuitabilityModel } from '../individual-suitability.model';
-import { IndividualModelMapper } from './individual-model-mapper';
 import { Injectable } from '@angular/core';
+import { ParticipantSuitabilityModel } from '../../base-journey/participant-suitability.model';
+import { ParticipantModelMapper } from '../services/participant-model-mapper';
 
 @Injectable()
 export class SuitabilityService {
-    private mapper = new IndividualModelMapper();
+    private mapper = new ParticipantModelMapper();
 
     constructor(private client: ApiClient) {}
 
-    async getAllSuitabilityAnswers(): Promise<IndividualSuitabilityModel[]> {
+    async getAllSuitabilityAnswers(): Promise<ParticipantSuitabilityModel[]> {
         const responses = await this.client.getUserSuitabilityAnswers().toPromise();
         return responses.map(suitability => this.mapper.map(suitability));
     }

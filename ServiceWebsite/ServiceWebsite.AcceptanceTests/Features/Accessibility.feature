@@ -4,38 +4,18 @@
 	I want to check each page for potential accessibility issues
 	
 @Accessibility @Individual
-Scenario: About Hearings page accessibility
-	Given the Individual has progressed to the About Hearings page
+Scenario: Checking Video Hearing page accessibility
+	Given the Individual has progressed to the Checking Video Hearing page
 	Then the page should be accessible
 
 @Accessibility @Individual
 Scenario: Thank You page accessibility
 	Given the Individual has progressed to the Thank You page
 	Then the page should be accessible
-	 
-@Accessibility @Representative
-Scenario: Answers Saved page accessibility
-	Given the Representative has progressed to the Answers Saved page
-	Then the page should be accessible
-
-@Accessibility @Representative
-Scenario: Other Information page accessibility
-	Given the Representative has progressed to the Other Information page
-	Then the page should be accessible
-
-@Accessibility @Representative
-Scenario: Presenting the Case page accessibility
-	Given the Representative has progressed to the Presenting the Case page
-	Then the page should be accessible
 
 @Accessibility @Representative
 Scenario: Thank You Rep page accessibility
 	Given the Representative has progressed to the Thank You Rep page
-	Then the page should be accessible
-
-@Accessibility @Representative
-Scenario: Your Video Hearing page accessibility
-	Given the Representative has progressed to the Your Video Hearing page
 	Then the page should be accessible
 
 @Accessibility @Individual

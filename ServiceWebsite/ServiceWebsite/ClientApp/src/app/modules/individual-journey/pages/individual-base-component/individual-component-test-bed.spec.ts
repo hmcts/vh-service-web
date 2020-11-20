@@ -1,18 +1,19 @@
 import { JourneyStep } from '../../../base-journey/journey-step';
-import { IndividualJourneySteps } from '../../individual-journey-steps';
+import { ParticipantJourneySteps } from '../../../base-journey/participant-journey-steps';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { IndividualJourney } from '../../individual-journey';
 import { Hearing } from '../../../base-journey/participant-suitability.model';
 import { DeviceType } from '../../../base-journey/services/device-type';
-import { IndividualSuitabilityModel } from '../../individual-suitability.model';
+import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
+
 import {
     JourneyComponentTestBed,
     ComponentTestBedConfiguration
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 import { LongDatetimePipe } from 'src/app/modules/shared/date-time.pipe';
 import { ContinuableComponentFixture } from 'src/app/modules/base-journey/components/suitability-choice-component-fixture.spec';
-import { SubmitService } from '../../services/submit.service';
+import { SubmitService } from '../../../base-journey/services/submit.service';
 import { TestLogger } from 'src/app/services/logger.spec';
 import { LongDatePipe } from 'src/app/modules/shared/date.pipe';
 
@@ -45,12 +46,12 @@ export class IndividualJourneyStubs {
         submitService = jasmine.createSpyObj<SubmitService>(['submit']);
         const journey = new IndividualJourney(submitService, TestLogger);
         journey.forSuitabilityAnswers([IndividualJourneyStubs.model]);
-        journey.startAt(IndividualJourneySteps.AboutHearings);
+        journey.startAt(ParticipantJourneySteps.CheckingVideoHearing);
         return journey;
     }
 
-    public static get model(): IndividualSuitabilityModel {
-        const journeyModel = new IndividualSuitabilityModel();
+    public static get model(): ParticipantSuitabilityModel {
+        const journeyModel = new ParticipantSuitabilityModel();
         journeyModel.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
         return journeyModel;
     }
