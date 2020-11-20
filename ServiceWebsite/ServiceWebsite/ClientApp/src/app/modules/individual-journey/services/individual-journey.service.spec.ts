@@ -1,7 +1,7 @@
 import { SelfTestAnswers } from './../../base-journey/participant-suitability.model';
 import { IndividualJourneyService } from './individual-journey.service';
-import { IndividualSuitabilityModel } from '../individual-suitability.model';
 import { Hearing } from '../../base-journey/participant-suitability.model';
+import { ParticipantSuitabilityModel } from '../../base-journey/participant-suitability.model';
 
 describe('representative.journey.service', () => {
     let individualJourneyService: IndividualJourneyService;
@@ -16,7 +16,7 @@ describe('representative.journey.service', () => {
     });
 
     it('returns the model from storage', () => {
-        const model = new IndividualSuitabilityModel();
+        const model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('hearing1', new Date(2012, 12, 12, 12, 15, 11, 23), null, null, true);
 
         model.selfTest = new SelfTestAnswers({

@@ -1,11 +1,12 @@
 import { EventEmitter } from '@angular/core';
-import { SuitabilityService } from './services/suitability.service';
+import { SuitabilityService } from '../base-journey/services/suitability.service';
 import { IndividualJourneyFactory } from './individual-journey.factory';
 import { IndividualJourney } from './individual-journey';
 import { JourneyRoutingListenerService } from '../base-journey/services/journey-routing-listener.service';
 import { JourneyStepComponentBindings } from './services/journey-component-bindings';
 import { IndividualJourneyService } from './services/individual-journey.service';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
+import { ParticipantSuitabilityModel } from '../base-journey/participant-suitability.model';
+
 import { SelfTestJourneyStepComponentBindings } from '../self-test-journey/self-test-journey-component-bindings';
 
 describe('IndividualJourneyFactory', () => {
@@ -30,7 +31,7 @@ describe('IndividualJourneyFactory', () => {
     });
 
     it('initialises routing and journey', async () => {
-        const model = new IndividualSuitabilityModel();
+        const model = new ParticipantSuitabilityModel();
         individualJourneyService.get.and.returnValue(model);
         await factory.begin();
         expect(routingListener.startRouting).toHaveBeenCalled();

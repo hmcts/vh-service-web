@@ -1,11 +1,11 @@
 import { HearingSuitabilityResponse } from 'src/app/services/clients/api-client';
-import { RepresentativeSuitabilityService } from './representative-suitability.service';
+import { SuitabilityService } from './suitability.service';
 import { ApiClient } from './../../../services/clients/api-client';
 import { of } from 'rxjs';
 
-describe('RepresentativeSuitabilityService', () => {
+describe('SuitabilityService', () => {
     const client = jasmine.createSpyObj<ApiClient>(['getUserSuitabilityAnswers', 'updateSuitabilityAnswers']);
-    const service = new RepresentativeSuitabilityService(client);
+    const service = new SuitabilityService(client);
 
     it('maps responses from api', async () => {
         // given some response from server

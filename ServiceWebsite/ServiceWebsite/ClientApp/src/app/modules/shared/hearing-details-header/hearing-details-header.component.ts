@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RepresentativeJourney } from '../../representative-journey/representative-journey';
 import { HearingService } from '../services/hearing.service';
+import { ParticipantJourney } from 'src/app/modules/base-journey/participant-journey';
 
 @Component({
   selector: 'app-hearing-details-header',
@@ -14,7 +14,7 @@ export class HearingDetailsHeaderComponent implements OnInit {
   scheduledDateTime: Date;
   loaded = false;
 
-  constructor(private journey: RepresentativeJourney, private service: HearingService) {
+  constructor(private journey: ParticipantJourney, private service: HearingService) {
   }
 
   async ngOnInit() {

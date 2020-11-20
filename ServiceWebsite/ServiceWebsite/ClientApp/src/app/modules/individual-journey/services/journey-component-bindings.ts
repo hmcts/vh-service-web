@@ -1,4 +1,4 @@
-import { IndividualJourneySteps as Steps } from '../individual-journey-steps';
+import { ParticipantJourneySteps as Steps } from '../../base-journey/participant-journey-steps';
 import { Paths } from '../paths';
 import { JourneyStep } from '../../base-journey/journey-step';
 import { ParticipantJourneyStepComponentBindings } from '../../base-journey/services/participant-journey-component-bindings';
@@ -11,11 +11,11 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class JourneyStepComponentBindings extends ParticipantJourneyStepComponentBindings {
     readonly bindings = new Map<JourneyStep, string>();
-    readonly initialStep = Steps.AboutHearings;
+    readonly initialStep = Steps.CheckingVideoHearing;
     readonly finalStep = Steps.ThankYou;
     constructor(selfTest: SelfTestJourneyStepComponentBindings) {
         super();
-        this.bindings.set(Steps.AboutHearings, Paths.AboutHearings);
+        this.bindings.set(Steps.CheckingVideoHearing, Paths.ChekingVideoHearing);
         this.bindings.set(Steps.ThankYou, Paths.ThankYou);
         selfTest.bindings.forEach((path, step) => this.bindings.set(step, path));
     }

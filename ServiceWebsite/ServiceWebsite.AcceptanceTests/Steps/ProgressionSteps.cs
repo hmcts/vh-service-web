@@ -16,7 +16,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly TestContext _c;
         private readonly BrowserSteps _browsersSteps;
         private readonly LoginSteps _loginSteps;
-        private readonly AboutHearingsSteps _aboutHearingSteps;
+        private readonly CheckingVideoHearingSteps _checkingVideoHearingSteps;
         private readonly CheckYourComputerSteps _checkYourComputerSteps;
         private readonly SwitchOnCameraMicrophoneSteps _switchOnCameraMicrophoneSteps;
         private readonly TestYourEquipmentSteps _testYourEquipmentSteps;
@@ -24,36 +24,26 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         private readonly MicrophoneWorkingSteps _microphoneWorkingSteps;
         private readonly VideoWorkingSteps _videoWorkingSteps;
         private readonly ThankYouSteps _thankYouSteps;
-        private readonly YourVideoHearingSteps _yourVideoHearingSteps;
-        private readonly PresentingTheCaseSteps _presentingTheCaseSteps;
-        private readonly OtherInformationSteps _otherInformationSteps;
-        private readonly CheckYourAnswersSteps _checkYourAnswersSteps;
-        private readonly AnswersSavedSteps _answersSavedSteps;
         private readonly ThankYouRepSteps _thankYouRepSteps;
 
         public ProgressionSteps(
             TestContext testContext,
             BrowserSteps browserSteps,
-            LoginSteps loginSteps, 
-            AboutHearingsSteps aboutHearingSteps, 
+            LoginSteps loginSteps,
+            CheckingVideoHearingSteps checkingVideoHearingSteps, 
             CheckYourComputerSteps checkYourComputerSteps, 
             SwitchOnCameraMicrophoneSteps switchOnCameraMicrophoneSteps, 
             TestYourEquipmentSteps testYourEquipmentSteps, 
             CameraWorkingSteps cameraWorkingSteps, 
             MicrophoneWorkingSteps microphoneWorkingSteps, 
             VideoWorkingSteps videoWorkingSteps, 
-            ThankYouSteps thankYouSteps, 
-            YourVideoHearingSteps yourVideoHearingSteps, 
-            PresentingTheCaseSteps presentingTheCaseSteps, 
-            OtherInformationSteps otherInformationSteps, 
-            CheckYourAnswersSteps checkYourAnswersSteps,
-            AnswersSavedSteps answersSavedSteps, 
+            ThankYouSteps thankYouSteps,
             ThankYouRepSteps thankYouRepSteps)
         {
             _c = testContext;
             _browsersSteps = browserSteps;
             _loginSteps = loginSteps;
-            _aboutHearingSteps = aboutHearingSteps;
+            _checkingVideoHearingSteps = checkingVideoHearingSteps;
             _checkYourComputerSteps = checkYourComputerSteps;
             _switchOnCameraMicrophoneSteps = switchOnCameraMicrophoneSteps;
             _testYourEquipmentSteps = testYourEquipmentSteps;
@@ -61,11 +51,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             _microphoneWorkingSteps = microphoneWorkingSteps;
             _videoWorkingSteps = videoWorkingSteps;
             _thankYouSteps = thankYouSteps;
-            _yourVideoHearingSteps = yourVideoHearingSteps;
-            _presentingTheCaseSteps = presentingTheCaseSteps;
-            _otherInformationSteps = otherInformationSteps;
-            _checkYourAnswersSteps = checkYourAnswersSteps;
-            _answersSavedSteps = answersSavedSteps;
             _thankYouRepSteps = thankYouRepSteps;
         }
 
@@ -125,7 +110,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return new Dictionary<Page, ISteps>
             {
                 { Page.Login, _loginSteps },
-                { Page.AboutHearings, _aboutHearingSteps },
+                { Page.CheckingVideoHearing, _checkingVideoHearingSteps },
                 { Page.CheckYourComputer, _checkYourComputerSteps },
                 { Page.SwitchOnCameraAndMicrophone, _switchOnCameraMicrophoneSteps },
                 { Page.TestYourEquipment, _testYourEquipmentSteps },
@@ -133,11 +118,6 @@ namespace ServiceWebsite.AcceptanceTests.Steps
                 { Page.MicrophoneWorking, _microphoneWorkingSteps },
                 { Page.VideoWorking, _videoWorkingSteps },
                 { Page.ThankYou, _thankYouSteps },
-                { Page.YourVideoHearing, _yourVideoHearingSteps },
-                { Page.PresentingTheCase, _presentingTheCaseSteps },
-                { Page.OtherInformation, _otherInformationSteps },
-                { Page.CheckYourAnswers, _checkYourAnswersSteps },
-                { Page.AnswersSaved, _answersSavedSteps },
                 { Page.ThankYouRep, _thankYouRepSteps }
             };
         }

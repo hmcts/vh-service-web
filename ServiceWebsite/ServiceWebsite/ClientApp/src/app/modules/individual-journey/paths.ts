@@ -1,5 +1,4 @@
-
 export const Paths = {
-  AboutHearings: 'about-hearings',
-  ThankYou: 'thank-you'
+    ChekingVideoHearing: 'checking-video-hearing',
+    ThankYou: 'thank-you'
 };

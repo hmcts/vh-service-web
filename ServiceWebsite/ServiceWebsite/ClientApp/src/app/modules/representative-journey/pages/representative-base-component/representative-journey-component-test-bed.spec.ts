@@ -1,17 +1,17 @@
 import { TestLogger } from '../../../../services/logger.spec';
-import { MutableRepresentativeSuitabilityModel } from '../../mutable-representative-suitability.model';
 import { ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
 import { RepresentativeJourney } from '../../representative-journey';
-import { RepresentativeSuitabilityModel } from '../../representative-suitability.model';
+import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
+
 import { Hearing, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
 import {
   ComponentTestBedConfiguration,
   JourneyComponentTestBed
 } from 'src/app/modules/base-journey/components/journey-component-test-bed.spec';
 import { RepresentativeJourneySteps } from '../../representative-journey-steps';
-import { SubmitService } from '../../services/submit.service';
+import { SubmitService } from '../../../base-journey/services/submit.service';
 
 @Component({ selector: 'app-hearing-details-header', template: '' })
 export class StubHearingDetailsHeaderComponent { }
@@ -27,12 +27,12 @@ export class RepresentativeJourneyStubs {
     submitService = jasmine.createSpyObj<SubmitService>(['submit']);
     const journey = new RepresentativeJourney(submitService, TestLogger);
     journey.forSuitabilityAnswers([RepresentativeJourneyStubs.model]);
-    journey.startAt(RepresentativeJourneySteps.AnswersSaved);
+    journey.startAt(RepresentativeJourneySteps.CheckingVideoHearing);
     return journey;
   }
 
-  public static get model(): RepresentativeSuitabilityModel {
-    const model = new MutableRepresentativeSuitabilityModel();
+  public static get model(): ParticipantSuitabilityModel {
+    const model = new ParticipantSuitabilityModel();
     model.hearing = new Hearing('hearingId', new Date(2099, 1, 1, 12, 0));
     model.selfTest = new SelfTestAnswers();
     return model;
@@ -56,7 +56,6 @@ export class RepresentativeJourneyComponentTestBed {
           ...(config.declarations || [])
         ],
         providers: [
-          { provide: RepresentativeSuitabilityModel, useClass: MutableRepresentativeSuitabilityModel },
           { provide: RepresentativeJourney, useValue: config.journey || RepresentativeJourneyStubs.default },
           ...(config.providers || [])
         ],

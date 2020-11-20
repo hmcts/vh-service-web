@@ -18,33 +18,14 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 
         public List<SuitabilityAnswersRequest> AllAnswers(string user)
         {
-            return user.ToLower().Equals("individual")
-                ? SelfTestAnswers().ToList()
-                : RepChecklistAnswers().Union(SelfTestAnswers()).ToList();
+            return SelfTestAnswers().ToList();
         }
 
         public IEnumerable<SuitabilityAnswersRequest> ChecklistAnswersOnly(string user)
         {
-            return user.ToLower().Equals("individual") ? new List<SuitabilityAnswersRequest>() : RepChecklistAnswers();
+            return new List<SuitabilityAnswersRequest>();
         }
 
-        private IEnumerable<SuitabilityAnswersRequest> RepChecklistAnswers()
-        {
-            var answers = new List<SuitabilityAnswersRequest>
-            {
-                new SuitabilityAnswersRequest
-                {
-                    Key = RepresentativeQuestionKeys.PresentingTheCase, Extended_answer = null,
-                    Answer = _data.PresentingTheCase.Answer
-                },
-                new SuitabilityAnswersRequest
-                {
-                    Key = RepresentativeQuestionKeys.OtherInformation, Extended_answer = null,
-                    Answer = _data.OtherInformation.Answer
-                }
-            };
-            return UpdateYesNoToTrueFalse(answers);
-        }
 
         private IEnumerable<SuitabilityAnswersRequest> SelfTestAnswers()
         {

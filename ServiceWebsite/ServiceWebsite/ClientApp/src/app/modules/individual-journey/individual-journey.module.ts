@@ -14,16 +14,13 @@ import { JourneyStepComponentBindings } from './services/journey-component-bindi
 // business logic
 import { IndividualJourney } from './individual-journey';
 import { IndividualJourneyFactory } from './individual-journey.factory';
-import { IndividualSuitabilityModel } from './individual-suitability.model';
-import { IndividualSuitabilityModelFactory } from './individual-suitability-model-factory';
+
 import { JOURNEY_FACTORY } from '../base-journey/services/journey.selector';
 import { IndividualNavigationBackFactory } from './individual-navigation-back.factory';
 import { NAVIGATION_BACK_FACTORY } from '../base-journey/services/navigation-back.selector';
 
 // directives/pipes
-import { SuitabilityService } from './services/suitability.service';
 import { IndividualJourneyService } from './services/individual-journey.service';
-import { SubmitService } from './services/submit.service';
 import { MediaService } from 'src/app/services/media.service';
 import { UserMediaService } from 'src/app/services/user-media.service';
 
@@ -41,14 +38,11 @@ import { UserMediaService } from 'src/app/services/user-media.service';
     ],
     declarations: [...Components],
     providers: [
-        { provide: IndividualSuitabilityModel, useFactory: IndividualSuitabilityModelFactory },
         { provide: MediaService, useClass: UserMediaService },
         { provide: JOURNEY_FACTORY, useClass: IndividualJourneyFactory, multi: true },
         IndividualJourney,
-        SuitabilityService,
         JourneyStepComponentBindings,
         JourneyRoutingListenerService,
-        SubmitService,
         IndividualJourneyService,
         { provide: NAVIGATION_BACK_FACTORY, useClass: IndividualNavigationBackFactory, multi: true }
     ]

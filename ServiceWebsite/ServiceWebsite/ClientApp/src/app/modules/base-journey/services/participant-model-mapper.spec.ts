@@ -1,13 +1,15 @@
+import { SelfTestAnswers } from '../../base-journey/participant-suitability.model';
 import { HearingSuitabilityResponse, HearingSuitabilityAnswer } from '../../../services/clients/api-client';
-import { RepresentativeModelMapper, RepresentativeQuestionKeys, PresentingCaseConstants } from './representative-model-mapper';
-import { RepresentativeSuitabilityModel, PresentingTheCase, PresentingCaseDetails } from '../representative-suitability.model';
+import { ParticipantModelMapper } from './participant-model-mapper';
 import { SelfTestQuestionKeys } from '../../base-journey/services/participant-model-mapper';
-import { MutableRepresentativeSuitabilityModel } from '../mutable-representative-suitability.model';
-import { SelfTestAnswers, SuitabilityAnswer } from '../../base-journey/participant-suitability.model';
+import { ParticipantSuitabilityModel } from '../../base-journey/participant-suitability.model';
 
-describe('RepresentativeModelMapper', () => {
+describe('IndividualModelMapper', () => {
     let serviceResponse: HearingSuitabilityResponse;
-    let model: RepresentativeSuitabilityModel;
+    let model: ParticipantSuitabilityModel;
+
+    let requestAnswersList: HearingSuitabilityAnswer[];
+    let answerModel: ParticipantSuitabilityModel;
 
     beforeEach(() => {
         serviceResponse = new HearingSuitabilityResponse({
@@ -17,43 +19,20 @@ describe('RepresentativeModelMapper', () => {
             questionnaire_not_required: true,
             answers: [
                 new HearingSuitabilityAnswer({
-                    question_key: RepresentativeQuestionKeys.PresentingTheCase,
-                    answer: PresentingCaseConstants.AnswerIAmPresenting,
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: RepresentativeQuestionKeys.PresentingTheCaseName,
-                    answer: 'David',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: RepresentativeQuestionKeys.PresentingTheCaseEmail,
-                    answer: 'email@barrister.com',
-                    extended_answer: ''
-                }),
-                new HearingSuitabilityAnswer({
-                    question_key: RepresentativeQuestionKeys.OtherInformation,
-                    answer: 'false',
-                    extended_answer: 'other information'
-                }),
-                new HearingSuitabilityAnswer({
                     question_key: SelfTestQuestionKeys.CheckYourComputer,
                     answer: 'true',
                     extended_answer: ''
-                })
-                ,
+                }),
                 new HearingSuitabilityAnswer({
                     question_key: SelfTestQuestionKeys.SeeYourself,
                     answer: 'true',
                     extended_answer: ''
-                })
-                ,
+                }),
                 new HearingSuitabilityAnswer({
                     question_key: SelfTestQuestionKeys.Microphone,
                     answer: 'true',
                     extended_answer: ''
-                })
-                ,
+                }),
                 new HearingSuitabilityAnswer({
                     question_key: SelfTestQuestionKeys.SeeHearClearly,
                     answer: 'true',
@@ -66,30 +45,22 @@ describe('RepresentativeModelMapper', () => {
                 })
             ]
         });
+
+        answerModel = new ParticipantSuitabilityModel();
+        answerModel.selfTest = new SelfTestAnswers();
     });
 
     const whenMappingModel = () => {
-        model = new RepresentativeModelMapper().map(serviceResponse);
+        model = new ParticipantModelMapper().map(serviceResponse);
     };
 
     const givenAnswerIs = (answerKey: string, answer: string) => {
         serviceResponse.answers.find(a => a.question_key === answerKey).answer = answer;
     };
 
-    it('should map appointed barrister answers', () => {
-        const values = [PresentingCaseConstants.AnswerIAmPresenting,
-            PresentingCaseConstants.AnswerSomeonePresenting,
-            ];
-        const expected = [PresentingTheCase.IWillBePresentingTheCase,
-            PresentingTheCase.SomeoneWillBePresenting,
-            ];
-
-        for (let i = 0; i < expected.length; ++i) {
-            givenAnswerIs(RepresentativeQuestionKeys.PresentingTheCase, values[i]);
-            whenMappingModel();
-            expect(model.presentingTheCase).toBe(expected[i]);
-        }
-    });
+    const givenExtendedAnswerIs = (answerKey: string, extendedAnswer: string) => {
+        serviceResponse.answers.find(a => a.question_key === answerKey).extended_answer = extendedAnswer;
+    };
 
     it('should map boolean values', () => {
         givenAnswerIs(SelfTestQuestionKeys.CheckYourComputer, 'false');
@@ -104,13 +75,6 @@ describe('RepresentativeModelMapper', () => {
         expect(model.selfTest.microphoneWorking).toBeFalsy();
         expect(model.selfTest.seeAndHearClearly).toBeFalsy();
         expect(model.selfTest.selfTestResultScore).toEqual('Okay');
-
-    });
-
-    it('should map false answers', () => {
-        givenAnswerIs(RepresentativeQuestionKeys.OtherInformation, 'false');
-        whenMappingModel();
-        expect(model.otherInformation.answer).toBeFalsy();
     });
 
     it('should map all answers', () => {
@@ -127,30 +91,42 @@ describe('RepresentativeModelMapper', () => {
         expect(model.selfTest.microphoneWorking).toBeTruthy();
         expect(model.selfTest.seeAndHearClearly).toBeTruthy();
         expect(model.selfTest.selfTestResultScore).toEqual('Okay');
-
     });
 
     it('should map hearing', () => {
         serviceResponse.hearing_id = '123';
+        serviceResponse.participant_id = '456';
         serviceResponse.hearing_scheduled_at = new Date();
         serviceResponse.questionnaire_not_required = true;
         whenMappingModel();
         expect(model.hearing.id).toBe('123');
+        expect(model.participantId).toBe('456');
         expect(model.hearing.scheduleDateTime).toEqual(serviceResponse.hearing_scheduled_at);
         expect(model.hearing.questionnaireNotRequired).toEqual(serviceResponse.questionnaire_not_required);
     });
-    it('should map to request all presenting the case and self test answers', () => {
-        const modelMutable = new MutableRepresentativeSuitabilityModel();
-        modelMutable.presentingTheCase = PresentingTheCase.SomeoneWillBePresenting;
-        modelMutable.presentingCaseDetails = new PresentingCaseDetails(
-            { fullName: 'John', email: 'email@email.com' });
-        modelMutable.otherInformation = new SuitabilityAnswer();
-        modelMutable.selfTest = new SelfTestAnswers({
-            seeAndHearClearly: true, checkYourComputer: true, cameraWorking: true, microphoneWorking: true, selfTestResultScore: 'Good'
-        });
-        const request = new RepresentativeModelMapper().mapToRequest(modelMutable);
 
-        expect(request.length).toBe(8);
+    it('should map all the answers to request object', () => {
+        requestAnswersList = new ParticipantModelMapper().mapToRequest(answerModel);
+        expect(requestAnswersList.length).toBe(0);
 
+        const listOfKeys = [
+            SelfTestQuestionKeys.CheckYourComputer,
+            SelfTestQuestionKeys.SeeYourself,
+            SelfTestQuestionKeys.Microphone,
+            SelfTestQuestionKeys.SeeHearClearly,
+            SelfTestQuestionKeys.TestResultScore
+        ];
+
+        for (let i = 0; i < listOfKeys.length; ++i) {
+            const answer = requestAnswersList.find(a => a.question_key === listOfKeys[i]);
+            expect(answer).not.toBeNull();
+        }
+    });
+
+    it('should map all undefined answers to request object', () => {
+        answerModel = new ParticipantSuitabilityModel();
+        answerModel.selfTest = new SelfTestAnswers();
+        requestAnswersList = new ParticipantModelMapper().mapToRequest(answerModel);
+        expect(requestAnswersList.length).toBe(0);
     });
 });

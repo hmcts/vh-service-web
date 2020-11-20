@@ -68,18 +68,11 @@ describe('ScrollableDirective', () => {
     it('should raise event if reached bottom of element, scrolling up then down again', () => {
         scrollPastElementBottom();
         expect(eventRaised).toBe(true);
-
         eventRaised = false;
         scrollToAboveBottom();
         expect(eventRaised).toBe(false);
-
         scrollPastElementBottom();
         expect(eventRaised).toBe(true);
     });
 
-    it('check offset from footer raised event with true parameter', () => {
-        directive.margin = 5;
-
-        expect(directive.checkOffset(400)).toBe(false);
-    });
 });

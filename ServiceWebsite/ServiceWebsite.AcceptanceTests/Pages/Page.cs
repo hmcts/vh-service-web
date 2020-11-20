@@ -15,24 +15,9 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         }
 
         // Individual
-        public static readonly Page AboutHearings = new Page("About Hearings", "about-hearings");
-        public static readonly Page DifferentHearingTypes = new Page("Different Hearing Types", "different-hearing-types");
-        public static readonly Page AboutYou = new Page("About You", "about-you");
-        public static readonly Page Interpreter = new Page("Interpreter", "interpreter");
-        public static readonly Page YourComputer = new Page("Your Computer", "your-computer");
-        public static readonly Page AboutYourComputer = new Page("About Your Computer", "about-your-computer");
         public static readonly Page ThankYou = new Page("Thank You", "thank-you");
-        public static readonly Page YourInternetConnection = new Page("Your Internet Connection", "your-internet-connection");
-        public static readonly Page AccessToARoom = new Page("Access to a Room", "access-to-a-room");
-        public static readonly Page Consent = new Page("Consent", "consent");
         
         // Representative
-        public static readonly Page YourVideoHearing = new Page("Your Video Hearing", "your-video-hearing");
-        public static readonly Page PresentingTheCase = new Page("Presenting the Case", "presenting-the-case");
-        public static readonly Page OtherInformation = new Page("Other Information", "other-information");
-        public static readonly Page CheckYourAnswers = new Page("Check Your Answers", "check-your-answers");
-        public static readonly Page AnswersSaved = new Page("Answers Saved", "answers-saved");
-        public static readonly Page AnswersSavedIndividual = new Page("Answers Saved Individual", "answers-saved-citizen");
         public static readonly Page ThankYouRep = new Page("Thank You Rep", "thank-you-rep");
 
         // After submission of answers
@@ -47,6 +32,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page EquipmentBlocked = new Page("Equipment Blocked", "equipment-blocked");
 
         // Shared
+        public static readonly Page CheckingVideoHearing = new Page("Checking Video Hearing", "checking-video-hearing");
+
         public static readonly Page Login = new Page("Login", "login.microsoftonline.com");
         public static readonly Page NotFound = new Page("Not Found", "not-found");
         public static readonly Page Unauthorised = new Page("Unauthorised", "unauthorised");
@@ -81,22 +68,10 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             get
             {
                 yield return Login;
-                yield return AboutHearings;
-                yield return DifferentHearingTypes;
+                yield return CheckingVideoHearing;
                 yield return MediaError;
-                yield return AboutYou;
-                yield return Interpreter;
-                yield return YourComputer;
-                yield return AboutYourComputer;
                 yield return ThankYou;
-                yield return YourVideoHearing;
-                yield return PresentingTheCase;
-                yield return OtherInformation;
-                yield return AnswersSaved;
                 yield return ThankYouRep;
-                yield return YourInternetConnection;
-                yield return AccessToARoom;
-                yield return Consent;
                 yield return CheckYourComputer;
                 yield return SwitchOnCameraAndMicrophone;
                 yield return TestYourEquipment;
@@ -114,8 +89,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
                 yield return OpenGovernmentLicence;
                 yield return UnsupportedBrowser;
                 yield return VideoWeb;
-                yield return AnswersSavedIndividual;
-                yield return CheckYourAnswers;
             }
         }
     }

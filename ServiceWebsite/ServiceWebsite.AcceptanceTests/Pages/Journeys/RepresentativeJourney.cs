@@ -11,11 +11,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
             return new List<Page>()
             {
                 Page.Login,
-                Page.YourVideoHearing,
-                Page.PresentingTheCase,
-                Page.OtherInformation,
-                Page.CheckYourAnswers,
-                Page.AnswersSaved,
+                Page.CheckingVideoHearing,
                 Page.CheckYourComputer,
                 Page.SwitchOnCameraAndMicrophone,
                 Page.TestYourEquipment,
@@ -33,6 +29,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
 
         public void VerifyDestinationIsInThatJourney(Page destinationPage)
         {
+
             Journey().Should().Contain(destinationPage);
         }
 
