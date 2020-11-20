@@ -12,7 +12,7 @@ Scenario: Checking video hearing for individual
 	When the user signs out 
 	Then the answers have not been stored
 	
-	@Representative
+@Representative
 Scenario: Checking video hearing for representative
 	Given the Representative has progressed to the Checking Video Hearing page
 	Then contact details are available
