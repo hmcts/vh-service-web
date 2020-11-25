@@ -13,7 +13,7 @@ Scenario: Microphone Working Individual
 	And the user clicks the Continue button
 	Then the user is on the Video Working page
 	When the user signs out 
-	Then only the about you answers have been stored
+	Then the answers have not been stored
 
 @VIH-3940 @Individual
 Scenario: Microphone Working - Individual Check Again
@@ -30,6 +30,8 @@ Scenario: Microphone Working Representative
 	When the user selects the 'Yes' radiobutton
 	And the user clicks the Continue button
 	Then the user is on the Video Working page
+	When the user signs out 
+	Then the answers have not been stored
 
 @VIH-3940 @Representative
 Scenario: Microphone Working - Representative Check Again

@@ -12,7 +12,7 @@ Scenario: Switch On Camera and Microphone Individual
 	When the user clicks the Watch the video button
 	Then the user is on the Test Your Equipment page
 	When the user signs out 
-	Then only the about you answers have been stored
+	Then the answers have not been stored
 
 @VIH-4447 @Representative
 Scenario: Switch On Camera and Microphone Representative
@@ -23,4 +23,4 @@ Scenario: Switch On Camera and Microphone Representative
 	When the user clicks the Test equipment button
 	Then the user is on the Test Your Equipment page
 	When the user signs out 
-	Then only the your hearing answers have been stored
+	Then the answers have not been stored
