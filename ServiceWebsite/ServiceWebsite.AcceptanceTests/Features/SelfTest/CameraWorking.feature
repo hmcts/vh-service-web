@@ -12,7 +12,7 @@ Scenario: Camera Working Individual
 	When the user answers yes to the camera working question
 	Then the user is on the Microphone Working page
 	When the user signs out 
-	Then only the about you answers have been stored
+	Then the answers have not been stored
 
 @Individual
 Scenario: Camera Working - Individual Check Again
@@ -29,7 +29,7 @@ Scenario: Camera Working Representative
 	When the user answers yes to the camera working question
 	Then the user is on the Microphone Working page
 	When the user signs out 
-	Then only the your hearing answers have been stored
+	Then the answers have not been stored
 
 @Representative
 Scenario: Camera Working - Representative Check Again

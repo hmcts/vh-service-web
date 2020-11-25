@@ -15,7 +15,7 @@ Scenario: Test Your Equipment Individual
 	And the user clicks the Continue button
 	Then the user is on the Camera Working page
 	When the user signs out 
-	Then only the about you answers have been stored
+	Then the answers have not been stored
 
 @Smoketest-Extended  @Representative
 Scenario: Test Your Equipment Representative
@@ -29,4 +29,4 @@ Scenario: Test Your Equipment Representative
 	And the user clicks the Continue button
 	Then the user is on the Camera Working page
 	When the user signs out 
-	Then only the your hearing answers have been stored
+	Then the answers have not been stored
