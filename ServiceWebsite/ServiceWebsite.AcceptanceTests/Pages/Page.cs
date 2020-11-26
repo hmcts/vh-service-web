@@ -20,7 +20,8 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         // Representative
         public static readonly Page ThankYouRep = new Page("Thank You Rep", "thank-you-rep");
 
-        // After submission of answers
+        // Shared
+        public static readonly Page CheckingVideoHearing = new Page("Checking Video Hearing", "checking-video-hearing");
         public static readonly Page CheckYourComputer = new Page("Check Your Computer", "check-your-computer");
         public static readonly Page SwitchOnCameraAndMicrophone = new Page("Switch On Camera and Microphone", "switch-on-camera-and-microphone");
         public static readonly Page TestYourEquipment = new Page("Test Your Equipment", "test-your-equipment");
@@ -30,10 +31,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page SignInOnComputer = new Page("Sign In On Computer", "sign-in-on-computer");
         public static readonly Page SignBackIn = new Page("Sign Back In", "sign-back-in");
         public static readonly Page EquipmentBlocked = new Page("Equipment Blocked", "equipment-blocked");
-
-        // Shared
-        public static readonly Page CheckingVideoHearing = new Page("Checking Video Hearing", "checking-video-hearing");
-
         public static readonly Page Login = new Page("Login", "login.microsoftonline.com");
         public static readonly Page NotFound = new Page("Not Found", "not-found");
         public static readonly Page Unauthorised = new Page("Unauthorised", "unauthorised");
