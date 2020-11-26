@@ -13,7 +13,7 @@ Scenario: Unsupported browser error page
 Scenario: Page not found error
 	Given a new browser is open for an Individual
 	When the user logs in with valid credentials
-	Then the user is on the About Hearings page
+	Then the user is on the Checking Video Hearing page
 	When the user attempts to navigate to a nonexistent page
 	Then the user is on the Not Found page
 	And the Not Found error page displays text of how to rectify the problem
