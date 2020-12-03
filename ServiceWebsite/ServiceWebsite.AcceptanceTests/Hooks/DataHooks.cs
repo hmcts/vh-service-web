@@ -101,9 +101,9 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var response = api.GetSuitabilityAnswers(_username);
             var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
 
-            if ( answers != null && answers.First().Answers.Count > 0)
+            if ( answers != null && answers.Count > 0)
             {
-                throw new DataException($"user with username '{_username}' has {answers.First().Answers.Count} previous answer(s) saved");
+                throw new DataException($"user with username '{_username}' has {answers.Count} previous answer(s) saved");
             }
         }
     }
