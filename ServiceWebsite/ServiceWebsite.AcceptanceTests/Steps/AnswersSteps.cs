@@ -101,7 +101,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);
             var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
 
-            if (!answers.Any(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)))
+            if (answers == null || !answers.Any(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)))
             {
                 return false;
             }
