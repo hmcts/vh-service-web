@@ -101,13 +101,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);
             var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
 
-            if ( answers == null || !answers.Any(x => x.Hearing_id.Equals(_c.Test.Hearing.Id)))
-            {
-                return false;
-            }
-
-            var answersResponse = answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id));
-            return answersResponse.Answers.Count != 0 ;
+            var answersResponse = answers?.FirstOrDefault(x => x.Hearing_id.Equals(_c.Test.Hearing.Id));
+            return answersResponse?.Answers.Any() ?? false;
         }
 
         [Then(@"the self test score is set in the results")]
