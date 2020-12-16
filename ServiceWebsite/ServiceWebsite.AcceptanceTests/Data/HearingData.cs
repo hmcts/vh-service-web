@@ -13,7 +13,9 @@ namespace ServiceWebsite.AcceptanceTests.Data
     {
         public static HearingDetailsResponse CreateHearing(TestApiManager api, List<User> users)
         {
-            var hearingRequest = new HearingRequestBuilder()
+            var isWinger = users.Any(X => X.User_type == UserType.Winger);
+
+            var hearingRequest = isWinger ? CreateHearingForWinger(users) : new HearingRequestBuilder()
                 .WithUsers(users)
                 .Build();
 
@@ -26,6 +28,13 @@ namespace ServiceWebsite.AcceptanceTests.Data
             return hearing;
         }
 
+        private static CreateHearingRequest CreateHearingForWinger(List<User> users)
+        {
+            return new HearingRequestBuilder()
+               .WithUsers(users)
+               .WithCACDCaseType()
+               .Build();
+        }
         private static void ParticipantsShouldExistInTheDb(TestApiManager api, Guid hearingId, List<User> users)
         {
             var hearingResponse = api.GetHearing(hearingId);

@@ -44,3 +44,15 @@ Scenario: Judge redirected to Video Web
 	Given a new browser is open for a Judge
 	When the user logs in with valid credentials
 	Then the user is redirected to Video Web
+
+@VIH-4577 @PanelMember
+Scenario: Panel member redirected to Video Web
+	Given a new browser is open for a Panel Member
+	When the user logs in with valid credentials
+	Then the user is redirected to Video Web
+
+@VIH-4577 @Winger
+Scenario:  Winger redirected to Video Web
+	Given a new browser is open for a Winger
+	When the user logs in with valid credentials
+	Then the user is redirected to Video Web
