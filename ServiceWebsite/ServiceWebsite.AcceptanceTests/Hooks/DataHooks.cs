@@ -41,9 +41,11 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             if (_scenario.ScenarioInfo.Tags.Contains("NoHearing")) return;
             CreateHearing();
-            _username = _c.Users.Any(X => X.User_type == UserType.Representative) ? Users.GetRepresentativeUser(_c.Users).Username : Users.GetIndividualUser(_c.Users).Username;
+            var isJOH = _scenario.ScenarioInfo.Tags.Contains(UserType.PanelMember.ToString()) || _scenario.ScenarioInfo.Tags.Contains(UserType.Winger.ToString());
+            _username = isJOH ? Users.GetUserNameForJOH(_c.Users) : Users.GetUserName(_c.Users);
             UserShouldNotHaveAnswers(_c.Api);
         }
+
 
         private void Allocate()
         {
@@ -60,6 +62,17 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             else if (_scenario.ScenarioInfo.Tags.Contains(UserType.Representative.ToString()))
             {
                 userTypes.Add(UserType.Representative);
+            }
+            else if (_scenario.ScenarioInfo.Tags.Contains(UserType.PanelMember.ToString()))
+            {
+                userTypes.Add(UserType.PanelMember);
+                userTypes.Add(UserType.Individual);
+
+            }
+            else if (_scenario.ScenarioInfo.Tags.Contains(UserType.Winger.ToString()))
+            {
+                userTypes.Add(UserType.Winger);
+                userTypes.Add(UserType.Individual);
             }
             else
             {

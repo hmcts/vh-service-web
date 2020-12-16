@@ -9,12 +9,22 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
     {
         public static User GetIndividualUser(List<User> users)
         {
-            return users.First(x => x.User_type == UserType.Individual);
+            return users.FirstOrDefault(x => x.User_type == UserType.Individual);
         }
 
         public static User GetRepresentativeUser(List<User> users)
         {
-            return users.First(x => x.User_type == UserType.Representative);
+            return users.FirstOrDefault(x => x.User_type == UserType.Representative);
+        }
+
+        public static User GetPanelMemberUser(List<User> users)
+        {
+            return users.FirstOrDefault(x => x.User_type == UserType.PanelMember);
+        }
+
+        public static User GetWingerUser(List<User> users)
+        {
+            return users.FirstOrDefault(x => x.User_type == UserType.Winger);
         }
 
         public static User GetUserFromDisplayName(List<User> users, string displayName)
@@ -47,6 +57,12 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                 return GetAllUsersOfType(users, UserType.PanelMember)[number];
             }
 
+
+            if (user.ToLowerInvariant().Contains("winger"))
+            {
+                return GetAllUsersOfType(users, UserType.Winger)[number];
+            }
+
             if (user.ToLowerInvariant().Contains("observer"))
             {
                 return GetAllUsersOfType(users, UserType.Observer)[number];
@@ -77,6 +93,17 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
         private static List<User> GetAllUsersOfType(List<User> users, UserType userType)
         {
             return users.FindAll(x => x.User_type == userType);
+        }
+
+        public static string GetUserName(List<User> users)
+        {
+            return users.Any(X => X.User_type == UserType.Representative) ? Users.GetRepresentativeUser(users).Username : Users.GetIndividualUser(users).Username;
+        }
+      
+
+        public static string GetUserNameForJOH(List<User> users)
+        {
+            return users.Any(X => X.User_type == UserType.PanelMember) ? Users.GetPanelMemberUser(users).Username : Users.GetWingerUser(users)?.Username;
         }
     }
 }

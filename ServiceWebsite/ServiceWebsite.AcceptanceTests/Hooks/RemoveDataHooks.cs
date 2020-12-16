@@ -22,9 +22,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             if (context?.Users == null) return;
             if (context.Users?.Count == 0) return;
-
-            _username = context.Users.Any(X => X.User_type == UserType.Representative) ? Users.GetRepresentativeUser(context.Users).Username : Users.GetIndividualUser(context.Users).Username;
-
+            _username = Users.GetUserNameForJOH(context.Users) ?? Users.GetUserName(context.Users);
             ClearHearingsForUser(context.Api);
             UserShouldNotHaveAnswers(context.Api);
         }
