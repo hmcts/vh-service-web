@@ -52,7 +52,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var userTypes = new List<UserType>
             {
                 UserType.Judge, 
-                UserType.VideoHearingsOfficer,
+                UserType.VideoHearingsOfficer
             };
 
             if (_scenario.ScenarioInfo.Tags.Contains(UserType.Individual.ToString()))
