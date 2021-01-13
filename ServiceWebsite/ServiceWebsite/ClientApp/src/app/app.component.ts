@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
         try {
             const profile = await this.profileService.getUserProfile();
 
-            if (profile === undefined || profile.email === undefined || profile.role === undefined) {
+            if (profile === undefined || profile.email === undefined || profile.role === undefined || profile.role === 'None') {
                 await this.router.navigate(['/unauthorized']);
                 return;
             }
