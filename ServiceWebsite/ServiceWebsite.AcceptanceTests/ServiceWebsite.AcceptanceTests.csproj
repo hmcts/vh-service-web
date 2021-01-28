@@ -31,10 +31,6 @@
     <None Update="parameters.runsettings">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <ContentWithTargetPath Include="Configuration\Environments\saucelabs.json" Condition="Exists('Configuration\Environments\saucelabs.json')">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>saucelabs.json</TargetPath>
-    </ContentWithTargetPath>
   </ItemGroup>
 
   <ItemGroup>
