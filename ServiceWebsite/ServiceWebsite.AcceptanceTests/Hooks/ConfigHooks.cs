@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AcceptanceTests.Common.Configuration;
-using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Data.TestData;
+using AcceptanceTests.Common.Exceptions;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -22,20 +22,9 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         public ConfigHooks(TestContext context)
         {
-            _configRoot = ConfigurationManager.BuildConfig("CF5CDD5E-FD74-4EDE-8765-2F899C252122", GetTargetEnvironment(), RunOnSauceLabsFromLocal());
+            _configRoot = ConfigurationManager.BuildConfig("CF5CDD5E-FD74-4EDE-8765-2F899C252122", "c0ed2a82-9b1f-4dd2-925a-abb1740093dc");
             context.WebConfig = new ServiceWebConfig();
             context.Users = new List<User>();
-        }
-
-        private static string GetTargetEnvironment()
-        {
-            return NUnit.Framework.TestContext.Parameters["TargetEnvironment"] ?? "";
-        }
-
-        private static bool RunOnSauceLabsFromLocal()
-        {
-            return NUnit.Framework.TestContext.Parameters["RunOnSauceLabs"] != null &&
-                   NUnit.Framework.TestContext.Parameters["RunOnSauceLabs"].Equals("true");
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]
@@ -82,18 +71,32 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private void RegisterHearingServices(TestContext context)
         {
-            context.WebConfig.VhServices = Options.Create(_configRoot.GetSection("VhServices").Get<ServiceWebVhServicesConfig>()).Value;
+            context.WebConfig.VhServices = GetTargetTestEnvironment() == string.Empty ? Options.Create(_configRoot.GetSection("VhServices").Get<ServiceWebVhServicesConfig>()).Value
+                : Options.Create(_configRoot.GetSection($"Testing.{GetTargetTestEnvironment()}.VhServices").Get<ServiceWebVhServicesConfig>()).Value;
+            if (context.WebConfig.VhServices == null && GetTargetTestEnvironment() != string.Empty) throw new TestSecretsFileMissingException(GetTargetTestEnvironment());
             ConfigurationManager.VerifyConfigValuesSet(context.WebConfig.VhServices);
         }
 
         private void RegisterSauceLabsSettings(TestContext context)
         {
-            context.WebConfig.SauceLabsConfiguration = Options.Create(_configRoot.GetSection("Saucelabs").Get<SauceLabsSettingsConfig>()).Value;
+            context.WebConfig.SauceLabsConfiguration = RunOnSauceLabsFromLocal() ?  Options.Create(_configRoot.GetSection("LocalSaucelabs").Get<SauceLabsSettingsConfig>()).Value
+                : Options.Create(_configRoot.GetSection("Saucelabs").Get<SauceLabsSettingsConfig>()).Value;
             if (!context.WebConfig.SauceLabsConfiguration.RunningOnSauceLabs()) return;
             context.WebConfig.SauceLabsConfiguration.SetRemoteServerUrlForDesktop(context.WebConfig.TestConfig.CommonData.CommonConfig.SauceLabsServerUrl);
             context.WebConfig.SauceLabsConfiguration.AccessKey.Should().NotBeNullOrWhiteSpace();
             context.WebConfig.SauceLabsConfiguration.Username.Should().NotBeNullOrWhiteSpace();
             context.WebConfig.SauceLabsConfiguration.RealDeviceApiKey.Should().NotBeNullOrWhiteSpace();
+        }
+
+        private static string GetTargetTestEnvironment()
+        {
+            return NUnit.Framework.TestContext.Parameters["TargetTestEnvironment"] ?? string.Empty;
+        }
+
+        private static bool RunOnSauceLabsFromLocal()
+        {
+            return NUnit.Framework.TestContext.Parameters["RunOnSauceLabs"] != null &&
+                   NUnit.Framework.TestContext.Parameters["RunOnSauceLabs"].Equals("true");
         }
 
         private static void RunningServiceWebLocally(TestContext context)
