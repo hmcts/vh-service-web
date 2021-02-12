@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
@@ -21,13 +19,11 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private readonly TestContext _c;
         private readonly ScenarioContext _scenario;
         private string _username;
-        private readonly Random _random;
 
         public DataHooks(TestContext context, ScenarioContext scenario)
         {
             _c = context;
             _scenario = scenario;
-            _random = new Random();
         }
 
         [BeforeScenario(Order = (int)HooksSequence.AllocateUsers)]
@@ -41,8 +37,8 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             if (_scenario.ScenarioInfo.Tags.Contains("NoHearing")) return;
             CreateHearing();
-            var isJOH = _scenario.ScenarioInfo.Tags.Contains(UserType.PanelMember.ToString()) || _scenario.ScenarioInfo.Tags.Contains(UserType.Winger.ToString());
-            _username = isJOH ? Users.GetUserNameForJOH(_c.Users) : Users.GetUserName(_c.Users);
+            var isJoh = _scenario.ScenarioInfo.Tags.Contains(UserType.PanelMember.ToString()) || _scenario.ScenarioInfo.Tags.Contains(UserType.Winger.ToString());
+            _username = isJoh ? Users.GetUserNameForJOH(_c.Users) : Users.GetUserName(_c.Users);
             UserShouldNotHaveAnswers(_c.Api);
         }
 
@@ -88,8 +84,6 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
                 User_types = userTypes
             };
 
-            Thread.Sleep(TimeSpan.FromSeconds(GetRandomNumberForParallelExecution(8)));
-
             var response = _c.Api.AllocateUsers(request);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Should().NotBeNull();
@@ -97,11 +91,6 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             users.Should().NotBeNullOrEmpty();
             _c.Users = UserDetailsResponseToUsersMapper.Map(users);
             _c.Users.Should().NotBeNullOrEmpty();
-        }
-
-        public double GetRandomNumberForParallelExecution(int maximum)
-        {
-            return _random.Next(maximum);
         }
 
         private void CreateHearing()
