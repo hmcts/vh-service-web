@@ -7,7 +7,7 @@ namespace ServiceWebsite.AcceptanceTests.Data
     internal class HearingRequestBuilder
     {
         private readonly CreateHearingRequest _request;
-        private const string CASE_TYPE = "Civil Money Claims";
+        private const string CASE_TYPE = "Generic";
         private const string DEFAULT_VENUE = "Birmingham Civil and Family Justice Centre";
         private const string CACD_CASE_TYPE_NAME = "Court of Appeal Criminal Division";
 

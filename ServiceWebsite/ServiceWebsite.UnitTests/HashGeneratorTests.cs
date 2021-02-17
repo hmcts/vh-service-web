@@ -13,7 +13,7 @@ namespace ServiceWebsite.UnitTests
         [SetUp]
         public void SetUp()
         {
-            _kinlyConfiguration = new KinlyConfiguration { SelfTestApiSecret = "W2gEmBn2H7b2FCMIQl6l9rggbJU1qR7luIeAf1uuaY+ik6TP5rN0NEsPVg0TGkroiel0SoCQT7w3cbk7hFrBtA==" };
+            _kinlyConfiguration = new KinlyConfiguration { SelfTestApiSecret = "SECRET" };
         }
 
         [Test]

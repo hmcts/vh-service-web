@@ -23,7 +23,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         {
             _service = new Mock<IHearingSuitabilityService>();
             _controller = new HearingSuitabilityController(_service.Object);
-            _controller.MockUserIdentity("some.user@hearings.reform.hmcts.net");
+            _controller.MockUserIdentity("some.user@hmcts.net");
         }
 
         [Test]

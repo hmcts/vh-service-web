@@ -17,7 +17,6 @@ namespace ServiceWebsite.IntegrationTests.Controller
             var responseBody = await response.Content.ReadAsStringAsync();
             var settings = ApiRequestHelper.DeserialiseSnakeCaseJsonToResponse<ClientConfiguration>(responseBody);
             settings.Should().NotBeNull();
-           
         }
     }
 }

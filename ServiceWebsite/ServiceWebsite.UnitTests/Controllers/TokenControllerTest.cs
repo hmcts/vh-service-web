@@ -25,7 +25,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public void Should_return_a_token_response()
         {
-            var participantId = "B4E1C447-0E97-4BFD-B1D8-006DD28D8428";
+            var participantId = Guid.NewGuid().ToString();
             var expiresOn = DateTime.UtcNow.AddMinutes(20).ToUniversalTime().ToString("dd.MM.yyyy-H:mmZ");
 
             _service.Setup(x => x.GenerateSelfTestTokenHash(expiresOn, participantId)).Returns("token string");

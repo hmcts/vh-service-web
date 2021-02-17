@@ -12,7 +12,7 @@ namespace ServiceWebsite.UnitTests.Services
 {
     public class HearingSuitabilityServiceTests
     {
-        private const string Username = "some.username@hearings.reform.hmcts.net";
+        private const string Username = "some.username@hmcts.net";
         private HearingSuitabilityService _service;
         private Mock<IBookingsApiClient> _bookingsApiClient;
         private readonly List<PersonSuitabilityAnswerResponse> _hearingsList;

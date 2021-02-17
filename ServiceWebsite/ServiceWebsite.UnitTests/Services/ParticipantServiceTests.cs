@@ -48,7 +48,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public void Should_throw_notfound_exception_when_hearing_not_found()
+        public void Should_throw_not_found_exception_when_hearing_not_found()
         {
 
             var serverErrorException = new BookingsApiException("msg", 500, "resp", null, null);
@@ -80,7 +80,7 @@ namespace ServiceWebsite.UnitTests.Services
         }
 
         [Test]
-        public async Task Should_throw_notfound_exception_when_participant_not_found()
+        public async Task Should_throw_not_found_exception_when_participant_not_found()
         {
 
             var serverErrorException = new BookingsApiException("msg", 404, "resp", null, null);
