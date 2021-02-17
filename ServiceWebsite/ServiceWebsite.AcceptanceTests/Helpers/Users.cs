@@ -97,13 +97,13 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
 
         public static string GetUserName(List<User> users)
         {
-            return users.Any(X => X.User_type == UserType.Representative) ? Users.GetRepresentativeUser(users).Username : Users.GetIndividualUser(users).Username;
+            return users.Any(X => X.User_type == UserType.Representative) ? GetRepresentativeUser(users).Username : GetIndividualUser(users).Username;
         }
       
 
         public static string GetUserNameForJOH(List<User> users)
         {
-            return users.Any(X => X.User_type == UserType.PanelMember) ? Users.GetPanelMemberUser(users).Username : Users.GetWingerUser(users)?.Username;
+            return users.Any(X => X.User_type == UserType.PanelMember) ? GetPanelMemberUser(users).Username : GetWingerUser(users)?.Username;
         }
     }
 }

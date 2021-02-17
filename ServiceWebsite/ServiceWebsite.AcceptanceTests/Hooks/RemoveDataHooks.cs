@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;

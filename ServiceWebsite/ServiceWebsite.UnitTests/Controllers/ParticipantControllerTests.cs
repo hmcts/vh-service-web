@@ -17,7 +17,7 @@ namespace ServiceWebsite.UnitTests.Controllers
 {
     public class ParticipantControllerTests
     {
-        private const string Username = "some.user@hearings.reform.hmcts.net";
+        private const string Username = "some.user@hmcts.net";
         private readonly Guid _hearingId = Guid.NewGuid();
         private ParticipantController _controller;
         private Mock<IHearingsService> _hearingService;
@@ -87,7 +87,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task Should_return_badrequest_if_question_key_format_is_incorrect()
+        public async Task Should_return_bad_request_if_question_key_format_is_incorrect()
         {
             hearingSuitabilityAnswers[0].QuestionKey = "incorrect_key";
 
@@ -98,7 +98,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         }
 
         [Test]
-        public async Task Should_return_badrequest_if_answers_length_is_zero()
+        public async Task Should_return_bad_request_if_answers_length_is_zero()
         {
             var result = (BadRequestObjectResult)await _controller.UpdateSuitabilityAnswers(_hearingId, new System.Collections.Generic.List<HearingSuitabilityAnswer>());
             Assert.AreEqual(400, result.StatusCode);

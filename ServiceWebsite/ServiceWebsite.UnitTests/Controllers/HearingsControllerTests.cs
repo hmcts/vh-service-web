@@ -13,7 +13,7 @@ namespace ServiceWebsite.UnitTests.Controllers
 {
     public class HearingsControllerTests
     {
-        private const string Username = "some.user@hearings.reform.hmcts.net";
+        private const string Username = "some.user@hmcts.net";
         private readonly Guid _hearingId = Guid.NewGuid();
         private readonly DateTime _scheduledDateTime = new DateTime(2019, 2, 4, 12, 30, 0);
         private Mock<IHearingsService> _service;

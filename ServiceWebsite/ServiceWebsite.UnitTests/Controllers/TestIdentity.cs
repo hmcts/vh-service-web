@@ -11,7 +11,7 @@ namespace ServiceWebsite.UnitTests.Controllers
     {
         public TestIdentity(string username, params Claim[] claims) : base(WithNameClaim(username, claims)) {}
 
-        private static IEnumerable<Claim> WithNameClaim(string username, Claim[] claims)
+        private static IEnumerable<Claim> WithNameClaim(string username, IEnumerable<Claim> claims)
         {
             var nameClaim = new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", username);
             return new[] { nameClaim }.Concat(claims);

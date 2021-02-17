@@ -114,7 +114,7 @@ namespace ServiceWebsite.IntegrationTests.Controller
         private void CreateAccessToken()
         {
             _accessToken = new BearerTokenBuilder()
-                .WithClaim(ClaimTypes.Name, "doctor@who.com")
+                .WithClaim(ClaimTypes.Name, "doctor@hmcts.net")
                 // We are using a self signed certificate to create the SigningCredentials used when signing a token
                 .WithSigningCertificate(EmbeddedResourceReader.GetCertificate())
                 .BuildToken();
@@ -131,30 +131,6 @@ namespace ServiceWebsite.IntegrationTests.Controller
         {
             using var client = _server.CreateClient();
             return await client.GetAsync(uri);
-        }
-
-        protected async Task<HttpResponseMessage> SendPostRequestAsync(string uri, HttpContent httpContent)
-        {
-            using var client = _server.CreateClient();
-            return await client.PostAsync(uri, httpContent);
-        }
-
-        protected async Task<HttpResponseMessage> SendPatchRequestAsync(string uri, StringContent httpContent)
-        {
-            using var client = _server.CreateClient();
-            return await client.PatchAsync(uri, httpContent);
-        }
-
-        protected async Task<HttpResponseMessage> SendPutRequestAsync(string uri, StringContent httpContent)
-        {
-            using var client = _server.CreateClient();
-            return await client.PutAsync(uri, httpContent);
-        }
-
-        protected async Task<HttpResponseMessage> SendDeleteRequestAsync(string uri)
-        {
-            using var client = _server.CreateClient();
-            return await client.DeleteAsync(uri);
         }
     }
 }
