@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 namespace ServiceWebsite.Controllers
 {
     [Produces("application/json")]
-    [Route("HealthCheck")]
     [AllowAnonymous]
     [ApiController]
     public class HealthCheckController : Controller
@@ -30,7 +29,8 @@ namespace ServiceWebsite.Controllers
         /// Check Service Health
         /// </summary>
         /// <returns>Error if fails, otherwise OK status</returns>
-        [HttpGet("health")]
+        [HttpGet("HealthCheck/health")]
+        [HttpGet("health/liveness")]
         [SwaggerOperation(OperationId = "CheckServiceHealth")]
         [ProducesResponseType(typeof(Models.HealthCheckResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(Models.HealthCheckResponse), (int)HttpStatusCode.InternalServerError)]

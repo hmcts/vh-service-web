@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}serviceweb:latest
     build:
       context: .
-      dockerfile: ServiceWebsite/Dockerfile
+      dockerfile: ServiceWebsite/ServiceWebsite/Dockerfile

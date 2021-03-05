@@ -31,6 +31,7 @@ namespace ServiceWebsite
         }
 
         public IConfiguration Configuration { get; }
+        public Settings Settings { get; set; }
 
         /// <summary>
         ///     This method gets called by the runtime. Use this method to add services to the container.
@@ -70,6 +71,9 @@ namespace ServiceWebsite
 
         private void RegisterSettings(IServiceCollection services)
         {
+            Settings = Configuration.Get<Settings>();
+            services.AddSingleton(Settings);
+
             services.Configure<SecuritySettings>(options => Configuration.Bind("AzureAd", options));
             services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
             services.Configure<AppConfigSettings>(options => Configuration.Bind(options));
@@ -128,8 +132,11 @@ namespace ServiceWebsite
             {
                 // this will route any unhandled exceptions to the angular error page
                 app.UseExceptionHandler(Urls.Error);
-                app.UseHsts();
-                app.UseHttpsRedirection();
+                if (!Settings.DisableHttpsRedirection)
+                {
+                    app.UseHsts();
+                    app.UseHttpsRedirection();
+                }
             }
 
             app.UseStaticFiles();
