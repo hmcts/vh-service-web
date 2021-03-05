@@ -72,7 +72,6 @@ namespace ServiceWebsite
         private void RegisterSettings(IServiceCollection services)
         {
             Settings = Configuration.Get<Settings>();
-            services.AddSingleton(Settings);
 
             services.Configure<SecuritySettings>(options => Configuration.Bind("AzureAd", options));
             services.Configure<ServiceSettings>(options => Configuration.Bind("VhServices", options));
