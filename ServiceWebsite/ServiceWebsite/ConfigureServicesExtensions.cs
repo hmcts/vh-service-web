@@ -1,13 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
 using ServiceWebsite.Common.Security;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
-using ServiceWebsite.UserAPI.Client;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -18,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
 using ServiceWebsite.Models;
+using UserApi.Client;
 
 namespace ServiceWebsite
 {
@@ -99,8 +99,7 @@ namespace ServiceWebsite
 
         private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
-            var client = new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
-            return client;
+            return UserApiClient.GetClient(serviceSettings.UserApiUrl, httpClient);
         }
 
         private static IKinlyPlatformService BuildKinlyPlatformService(HttpClient httpClient,

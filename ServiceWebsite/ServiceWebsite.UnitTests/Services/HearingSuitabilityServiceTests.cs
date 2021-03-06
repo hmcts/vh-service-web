@@ -1,12 +1,13 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
 using ServiceWebsite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingsApi.Contract.Responses;
 
 namespace ServiceWebsite.UnitTests.Services
 {
@@ -29,19 +30,19 @@ namespace ServiceWebsite.UnitTests.Services
             _questionnaireNotRequired = true;
             _upcomingHearing = new PersonSuitabilityAnswerResponse
             {
-                Hearing_id = Guid.NewGuid(),
-                Participant_id = Guid.NewGuid(),
-                Scheduled_at = _upcomingHearingScheduledAt,
-                Questionnaire_not_required = _questionnaireNotRequired,
+                HearingId = Guid.NewGuid(),
+                ParticipantId = Guid.NewGuid(),
+                ScheduledAt = _upcomingHearingScheduledAt,
+                QuestionnaireNotRequired = _questionnaireNotRequired,
                 Answers = new List<SuitabilityAnswerResponse>()
             };
 
             _pastHearingId = Guid.NewGuid();
             var pastHearing = new PersonSuitabilityAnswerResponse
             {
-                Hearing_id = _pastHearingId,
-                Participant_id = Guid.NewGuid(),
-                Scheduled_at = DateTime.UtcNow.AddDays(-2),
+                HearingId = _pastHearingId,
+                ParticipantId = Guid.NewGuid(),
+                ScheduledAt = DateTime.UtcNow.AddDays(-2),
                 Answers = new List<SuitabilityAnswerResponse>()
             };
 
@@ -49,14 +50,14 @@ namespace ServiceWebsite.UnitTests.Services
             {
                 Key = "QUESTION",
                 Answer = "Answer",
-                Extended_answer = "Extended answer"
+                ExtendedAnswer = "Extended answer"
             };
 
             var submittedHearing = new PersonSuitabilityAnswerResponse
             {
-                Hearing_id = _submittedHearingId,
-                Participant_id = Guid.NewGuid(),
-                Scheduled_at = DateTime.UtcNow.AddDays(3),
+                HearingId = _submittedHearingId,
+                ParticipantId = Guid.NewGuid(),
+                ScheduledAt = DateTime.UtcNow.AddDays(3),
                 Answers = new List<SuitabilityAnswerResponse> { _answeredQuestion }
             };
 
@@ -83,10 +84,10 @@ namespace ServiceWebsite.UnitTests.Services
             var upcomingHearings = await _service.GetHearingsSuitability(Username);
 
             // then list includes upcoming hearing
-            var upcomingHearing = upcomingHearings.Single(h => h.HearingId == _upcomingHearing.Hearing_id);
+            var upcomingHearing = upcomingHearings.Single(h => h.HearingId == _upcomingHearing.HearingId);
             upcomingHearing.HearingScheduledAt.Should().Be(_upcomingHearingScheduledAt);
             upcomingHearing.QuestionnaireNotRequired.Should().Be(_questionnaireNotRequired);
-            upcomingHearing.ParticipantId.Should().Be(_upcomingHearing.Participant_id);
+            upcomingHearing.ParticipantId.Should().Be(_upcomingHearing.ParticipantId);
         }
 
         [Test]
@@ -101,7 +102,7 @@ namespace ServiceWebsite.UnitTests.Services
             var submittedAnswer = submittedHearing.Answers.First();
             submittedAnswer.Answer.Should().Be(_answeredQuestion.Answer);
             submittedAnswer.QuestionKey.Should().Be(_answeredQuestion.Key);
-            submittedAnswer.ExtendedAnswer.Should().Be(_answeredQuestion.Extended_answer);
+            submittedAnswer.ExtendedAnswer.Should().Be(_answeredQuestion.ExtendedAnswer);
         }
 
         [Test]

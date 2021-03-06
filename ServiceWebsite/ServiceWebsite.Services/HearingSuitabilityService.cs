@@ -1,8 +1,9 @@
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
 using ServiceWebsite.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingsApi.Contract.Responses;
 
 namespace ServiceWebsite.Services
 {
@@ -28,10 +29,10 @@ namespace ServiceWebsite.Services
 
             return new HearingSuitability
             (
-                response.Hearing_id,
-                response.Participant_id,
-                response.Scheduled_at,
-                response.Questionnaire_not_required,
+                response.HearingId,
+                response.ParticipantId,
+                response.ScheduledAt,
+                response.QuestionnaireNotRequired,
                 answers
             );
         }
@@ -41,7 +42,7 @@ namespace ServiceWebsite.Services
             return new SuitabilityAnswer
             {
                 Answer = response.Answer,
-                ExtendedAnswer = response.Extended_answer,
+                ExtendedAnswer = response.ExtendedAnswer,
                 QuestionKey = response.Key
             };
         }

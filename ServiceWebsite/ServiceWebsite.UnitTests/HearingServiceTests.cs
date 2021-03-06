@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
+using BookingsApi.Contract.Responses;
 using ServiceWebsite.Common;
 using ServiceWebsite.Services;
 
@@ -23,7 +24,7 @@ namespace ServiceWebsite.UnitTests
 
         private readonly CaseResponse _case = new CaseResponse
         {
-            Is_lead_case = true,
+            IsLeadCase = true,
             Name = "case name",
             Number = "case number"
         };
@@ -55,7 +56,7 @@ namespace ServiceWebsite.UnitTests
         {
             var notLeadCase = new CaseResponse
             {
-                Is_lead_case = false,
+                IsLeadCase = false,
                 Name = "not lead case name",
                 Number = "not lead case number"
             };
@@ -110,7 +111,7 @@ namespace ServiceWebsite.UnitTests
             GivenApiHasResponse(new HearingDetailsResponse
             {
                 Id = _hearingId,
-                Scheduled_date_time = _scheduledDateTime,
+                ScheduledDateTime = _scheduledDateTime,
                 Participants = new List<ParticipantResponse>(),
                 Cases = new List<CaseResponse> { _case }
             });
@@ -132,9 +133,9 @@ namespace ServiceWebsite.UnitTests
             GivenApiHasResponse(new HearingDetailsResponse
             {
                 Id = _hearingId,
-                Scheduled_date_time = _scheduledDateTime,
-                Case_type_name = CaseType,
-                Hearing_type_name = HearingType,
+                ScheduledDateTime = _scheduledDateTime,
+                CaseTypeName = CaseType,
+                HearingTypeName = HearingType,
                 Participants = new List<ParticipantResponse>
                 {
                     new ParticipantResponse { Username = Username, Id = participantId }
