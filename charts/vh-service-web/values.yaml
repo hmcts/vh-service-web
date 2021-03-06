@@ -62,10 +62,3 @@ java:
     VHSERVICES__VIDEOWEBURL: https://vh-video-web.{{ .Values.global.environment }}.platform.hmcts.net
     KINLYCONFIGURATION__Audience: "kinly.api.endpoints"
     KINLYCONFIGURATION__Issuer: "hmcts.video.hearings.service"
-
-
-
-  "AzureAd:UserApiClientSecret": "uB{CKY*$oc+lR5cx}G?>WReqHl:3Mh%{",
-
-
-  "VhServices:ServiceWebUrl": "https://localhost:5600/",
