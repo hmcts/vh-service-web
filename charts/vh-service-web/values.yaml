@@ -1,6 +1,6 @@
 ---
 java:
-  image: 'sdshmctspublic.azurecr.io/vh/service-web:20210210.13'
+  image: 'sdshmctspublic.azurecr.io/vh/service-web:20210306.8'
   applicationPort: 8080
   replicas: 2
   ingressHost: vh-service-web.{{ .Values.global.environment }}.platform.hmcts.net
@@ -39,8 +39,8 @@ java:
     Logging__LogLevel__System: debug
     Logging__LogLevel__Microsoft: debug
     AZUREAD__AUTHORITY:	https://login.microsoftonline.com/fb6e0e22-0da3-4c35-972a-9d61eb256508
-    AZUREAD__BASEVIDEOURL: "https://vhcoreinfra{{ .Values.global.environment }}.blob.core.windows.net/video",
-    AZUREAD__REDIRECTURI: "https://localhost:5600",
+    AZUREAD__BASEVIDEOURL: https://vhcoreinfra{{ .Values.global.environment }}.blob.core.windows.net/video
+    AZUREAD__REDIRECTURI: https://localhost:5600
     TESTING__TESTUSERNAMESTEM: "@hearings.reform.hmcts.net"
     VHSERVICES__ADMINWEBRESOURCEID:	https://vh-service-web.{{ .Values.global.environment }}.platform.hmcts.net
     VHSERVICES__ADMINWEBURL:	https://localhost:5400/"
@@ -56,7 +56,7 @@ java:
     VHSERVICES__NOTIFICATIONAPIURL:	https://vh-notification-api.{{ .Values.global.environment }}.platform.hmcts.net
     VHSERVICES__KINLYSELFTESTSCOREENDPOINTURL: https://test.self-test.hearings.hmcts.net/api/v1/testcall
     VHSERVICES__PEXIPSELFTESTNODEURI: "sip.test.self-test.hearings.hmcts.net"
-    VHSERVICES__SERVICEWEBURL: "https://localhost:5600/"
+    VHSERVICES__SERVICEWEBURL: https://localhost:5600/
     VHSERVICES__VIDEOWEBURL: https://vh-video-web.{{ .Values.global.environment }}.platform.hmcts.net
     KINLYCONFIGURATION__Audience:	"kinly.api.endpoints"
     KINLYCONFIGURATION__Issuer:	"hmcts.video.hearings.service"
