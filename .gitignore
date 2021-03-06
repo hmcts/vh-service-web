@@ -348,7 +348,8 @@ jasmine-tests
 /ServiceWebsite/ServiceWebsite.AcceptanceTests/Configuration/Environments/
 
 # MacOS Desktop Services Store files
- *.DS_Store
- *.orig
+.DS_Store
+*.orig
 
- AssemblyInfo.cs
+AssemblyInfo.cs
+

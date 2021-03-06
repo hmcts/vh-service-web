@@ -4,11 +4,14 @@ using System.Linq;
 using System.Net;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Helpers;
+using BookingsApi.Contract.Responses;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
+using TestApi.Contract.Enums;
+using TestApi.Contract.Requests;
+using TestApi.Contract.Responses;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
 {
@@ -78,10 +81,10 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             var request = new AllocateUsersRequest()
             {
                 Application = Application.ServiceWeb,
-                Expiry_in_minutes = ALLOCATE_USERS_FOR_MINUTES,
-                Is_prod_user = _c.WebConfig.IsLive,
-                Test_type = TestType.Automated,
-                User_types = userTypes
+                ExpiryInMinutes = ALLOCATE_USERS_FOR_MINUTES,
+                IsProdUser = _c.WebConfig.IsLive,
+                TestType = TestType.Automated,
+                UserTypes = userTypes
             };
 
             var response = _c.Api.AllocateUsers(request);

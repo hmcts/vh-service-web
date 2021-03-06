@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServiceWebsite.BookingApi.Client\ServiceWebsite.BookingApi.Client.csproj" />
     <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
     <ProjectReference Include="..\ServiceWebsite.Domain\ServiceWebsite.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BookingsApi.Client" Version="1.24.17" />
     <PackageReference Include="Polly" Version="7.2.1" />
   </ItemGroup>
 

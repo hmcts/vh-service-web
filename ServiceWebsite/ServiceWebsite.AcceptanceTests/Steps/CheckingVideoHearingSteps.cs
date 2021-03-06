@@ -5,18 +5,18 @@ using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
+using TestApi.Contract.Dtos;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
     [Binding]
     public class CheckingVideoHearingSteps : ISteps
     {
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public CheckingVideoHearingSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
+        public CheckingVideoHearingSteps(Dictionary<UserDto, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;

@@ -5,7 +5,7 @@ using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -14,8 +14,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     public class ErrorSteps
     {
         private readonly TestContext _c;
-        private readonly Dictionary<User, UserBrowser> _browsers;
-        public ErrorSteps(TestContext testContext, Dictionary<User, UserBrowser> browsers)
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
+        public ErrorSteps(TestContext testContext, Dictionary<UserDto, UserBrowser> browsers)
         {
             _c = testContext;
             _browsers = browsers;

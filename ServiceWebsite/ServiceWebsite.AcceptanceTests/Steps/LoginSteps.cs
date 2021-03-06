@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Drivers;
-using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.PageObject.Pages;
 using AcceptanceTests.Common.Test.Steps;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -16,10 +15,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     {
         private const int ReachedThePageRetries = 4;
         private LoginSharedSteps _loginSharedSteps;
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public LoginSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
+        public LoginSteps(Dictionary<UserDto, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;

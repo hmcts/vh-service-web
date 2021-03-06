@@ -6,15 +6,16 @@ using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Settings;
 using BoDi;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
+using TestApi.Contract.Dtos;
+using TestApi.Contract.Enums;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
 {
     [Binding]
     public class DriverHooks
     {
-        private Dictionary<User, UserBrowser> _browsers;
+        private Dictionary<UserDto, UserBrowser> _browsers;
         private readonly IObjectContainer _objectContainer;
 
         public DriverHooks(IObjectContainer objectContainer)
@@ -32,7 +33,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         [BeforeScenario(Order = (int)HooksSequence.InitialiseBrowserHooks)]
         public void InitialiseBrowserContainer()
         {
-            _browsers = new Dictionary<User, UserBrowser>();
+            _browsers = new Dictionary<UserDto, UserBrowser>();
             _objectContainer.RegisterInstanceAs(_browsers);
         }
 
@@ -83,7 +84,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             if (_browsers == null) return;
             if (_browsers.Count.Equals(0))
             {
-                context.CurrentUser = context.Users.First(x => x.User_type == UserType.Individual);
+                context.CurrentUser = context.Users.First(x => x.UserType == UserType.Individual);
                 var browser = new UserBrowser()
                     .SetBaseUrl(context.WebConfig.VhServices.ServiceWebUrl)
                     .SetTargetBrowser(context.WebConfig.TestConfig.TargetBrowser)

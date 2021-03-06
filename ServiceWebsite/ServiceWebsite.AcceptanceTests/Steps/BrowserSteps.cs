@@ -5,8 +5,8 @@ using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
+using TestApi.Contract.Dtos;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -14,9 +14,9 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     public class BrowserSteps
     {
         private readonly TestContext _c;
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
 
-        public BrowserSteps(TestContext testContext, Dictionary<User, UserBrowser> browsers)
+        public BrowserSteps(TestContext testContext, Dictionary<UserDto, UserBrowser> browsers)
         {
             _c = testContext;
             _browsers = browsers;
@@ -77,12 +77,12 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             return user.ToLower().Equals("participant");
         }
 
-        private User GetDefaultParticipant()
+        private UserDto GetDefaultParticipant()
         {
             return Users.GetIndividualUser(_c.Users);
         }
 
-        private User GetMatchingDisplayName(string user)
+        private UserDto GetMatchingDisplayName(string user)
         {
             return Users.GetUserFromDisplayName(_c.Users, user);
         }

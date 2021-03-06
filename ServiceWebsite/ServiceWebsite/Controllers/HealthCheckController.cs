@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ServiceWebsite.BookingsAPI.Client;
-using ServiceWebsite.Models;
-using ServiceWebsite.UserAPI.Client;
+using BookingsApi.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using UserApi.Client;
 
 namespace ServiceWebsite.Controllers
 {

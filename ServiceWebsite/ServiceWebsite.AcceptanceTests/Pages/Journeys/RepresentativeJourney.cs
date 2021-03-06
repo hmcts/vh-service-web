@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Enums;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
 {

@@ -9,8 +9,8 @@ using Microsoft.Extensions.Options;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
+using TestApi.Contract.Dtos;
 using TestContext = ServiceWebsite.AcceptanceTests.Helpers.TestContext;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
@@ -24,7 +24,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             _configRoot = ConfigurationManager.BuildConfig("CF5CDD5E-FD74-4EDE-8765-2F899C252122", "c0ed2a82-9b1f-4dd2-925a-abb1740093dc");
             context.WebConfig = new ServiceWebConfig();
-            context.Users = new List<User>();
+            context.Users = new List<UserDto>();
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using AcceptanceTests.Common.Api.Hearings;
 using AcceptanceTests.Common.Api.Helpers;
+using BookingsApi.Contract.Responses;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks

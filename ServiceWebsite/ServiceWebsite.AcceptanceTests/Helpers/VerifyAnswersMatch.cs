@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AcceptanceTests.Common.Data.Questions;
+using BookingsApi.Contract.Responses;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
-using ServiceWebsite.Services.TestApi;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
 {
@@ -40,7 +40,7 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
                     expected.Answer.Should().Be(actual.Answer);
                 }
 
-                expected.ExtendedAnswer.Should().Be(actual.Extended_answer);
+                expected.ExtendedAnswer.Should().Be(actual.ExtendedAnswer);
             }
         }
     }
