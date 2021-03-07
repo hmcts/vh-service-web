@@ -3,6 +3,6 @@ apiVersion: v2
 name: vh-service-web
 home: https://github.com/hmcts/vh-service-web
 version: 0.0.1
-description: Helm Chart for test Hearing test-api
+description: Helm Chart for service Hearing service-web
 maintainers:
   - name: VH Devops

@@ -31,7 +31,7 @@ java:
       secrets:
         - azuread--clientsecret
         - azuread--clientid
-        - clientid
+        - clientId
         - clientsecret
   environment:
     ASPNETCORE_URLS: http://+:8080
