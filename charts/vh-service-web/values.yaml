@@ -21,7 +21,6 @@ java:
         - kinlyconfiguration--callbacksecret
         - kinlyconfiguration--selftestapisecret
         - testing--testuserpassword
-        - testusersecrets--testuserpassword
         - azuread--appinsightskey
         - azuread--userapiclientid
         - azuread--userapiclientsecret
@@ -44,7 +43,7 @@ java:
     AZUREAD__AUTHORITY: https://login.microsoftonline.com/fb6e0e22-0da3-4c35-972a-9d61eb256508
     AZUREAD__BASEVIDEOURL: https://vhcoreinfra{{ .Values.global.environment }}.blob.core.windows.net/video
     AZUREAD__REDIRECTURI: https://vh-service-web.{{ .Values.global.environment }}.platform.hmcts.net
-    TESTUSERSECRETS__TESTUSERNAMESTEM: "@hearings.reform.hmcts.net"
+    TESTING__TESTUSERNAMESTEM: "@hearings.reform.hmcts.net"
     VHSERVICES__ADMINWEBRESOURCEID: https://vh-admin-web.{{ .Values.global.environment }}.platform.hmcts.net
     VHSERVICES__ADMINWEBURL: https://vh-admin-web.{{ .Values.global.environment }}.platform.hmcts.net/"
     VHSERVICES__BOOKINGSAPIRESOURCEID: https://vh-bookings-api.{{ .Values.global.environment }}.platform.hmcts.net
@@ -63,22 +62,3 @@ java:
     VHSERVICES__VIDEOWEBURL: https://vh-video-web.{{ .Values.global.environment }}.platform.hmcts.net
     KINLYCONFIGURATION__AUDIENCE: "kinly.api.endpoints"
     KINLYCONFIGURATION__ISSUER: "hmcts.video.hearings.service"
-
-
-
-  "TestUserSecrets:TestUsernameStem": "@hearings.reform.hmcts.net",
-  "TestUserSecrets:TestUserPassword": "_6qc2;b=s4m:NRK[",
-  "VhServices:BookingsApiResourceId": "https://vh-bookings-api-dev.azurewebsites.net",
-  "VhServices:BookingsApiUrl": "https://vh-bookings-api-dev.azurewebsites.net/",
-  "VhServices:KinlySelfTestScoreEndpointUrl": "https://test.self-test.hearings.hmcts.net/api/v1/testcall",
-  "VhServices:PexipSelfTestNodeUri": "sip.test.self-test.hearings.hmcts.net",
-  "VhServices:ServiceWebUrl": "https://localhost:5600/",
-  "VhServices:TestApiResourceId": "https://vh-test-api-dev.azurewebsites.net",
-  "VhServices:TestApiUrl": "https://vh-test-api-dev.azurewebsites.net/",
-  "VhServices:VideoApiResourceId": "https://vh-video-api-dev.azurewebsites.net",
-  "VhServices:VideoApiUrl": "https://vh-video-api-dev.azurewebsites.net/",
-  "VhServices:VideoWebUrl": "https://vh-video-web-dev.azurewebsites.net/",
-  "KinlyConfiguration:ApiSecret": "YXHuAgCCld583X5tLv+Qq5pDlun4E+/pd9dXgFFDWuh1+PdGzKZaSC1iGeA8pM3muk0Ee262NbdqMzS/fS/Zgw==",
-  "KinlyConfiguration:SelfTestApiSecret": "i98gvJLvhRS7pfSyM/fYPS2iyoe3lTP4AblwTLy1VoaN2BDVJXor0be0bezl3+pgMJWTnD/V7iOjdSOLXW56RA==",
-  "KinlyConfiguration:Audience": "kinly.api.endpoints",
-  "KinlyConfiguration:Issuer": "hmcts.video.hearings.service"
