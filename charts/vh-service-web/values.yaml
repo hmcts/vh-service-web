@@ -64,3 +64,4 @@ java:
     VHSERVICES__VIDEOWEBURL: https://vh-video-web.{{ .Values.global.environment }}.platform.hmcts.net
     KINLYCONFIGURATION__AUDIENCE: "kinly.api.endpoints"
     KINLYCONFIGURATION__ISSUER: "hmcts.video.hearings.service"
+
