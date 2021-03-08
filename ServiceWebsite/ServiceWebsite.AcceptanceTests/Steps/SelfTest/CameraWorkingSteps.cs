@@ -5,8 +5,8 @@ using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
+using TestApi.Contract.Dtos;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
 {

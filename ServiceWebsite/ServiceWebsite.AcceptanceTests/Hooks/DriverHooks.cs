@@ -7,6 +7,7 @@ using AcceptanceTests.Common.Driver.Settings;
 using BoDi;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using TechTalk.SpecFlow;
+using TestApi.Client;
 using TestApi.Contract.Dtos;
 using TestApi.Contract.Enums;
 
