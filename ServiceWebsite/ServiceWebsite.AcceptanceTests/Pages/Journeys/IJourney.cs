@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Enums;
 
 namespace ServiceWebsite.AcceptanceTests.Pages.Journeys
 {

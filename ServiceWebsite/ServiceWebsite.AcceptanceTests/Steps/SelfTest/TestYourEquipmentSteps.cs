@@ -8,7 +8,7 @@ using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages.SelfTest;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
@@ -18,10 +18,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     {
         private const int ExtraTimeForVideoToLoad = 30;
         private const int VideoLength = 90;
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public TestYourEquipmentSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
+        public TestYourEquipmentSteps(Dictionary<UserDto, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;

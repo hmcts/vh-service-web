@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
+using BookingsApi.Contract.Requests;
 using ServiceWebsite.Common;
 using ServiceWebsite.Domain;
 
@@ -41,7 +42,7 @@ namespace ServiceWebsite.Services
         {
             var request = answers.Select(answer => new SuitabilityAnswersRequest
             {
-                Key = answer.QuestionKey, Answer = answer.Answer, Extended_answer = answer.ExtendedAnswer
+                Key = answer.QuestionKey, Answer = answer.Answer, ExtendedAnswer = answer.ExtendedAnswer
             });
 
             try

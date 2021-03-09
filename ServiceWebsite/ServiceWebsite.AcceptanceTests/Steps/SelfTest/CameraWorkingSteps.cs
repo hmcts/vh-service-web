@@ -5,18 +5,18 @@ using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
+using TestApi.Contract.Dtos;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
 {
     [Binding]
     public class CameraWorkingSteps : ISteps
     {
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public CameraWorkingSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
+        public CameraWorkingSteps(Dictionary<UserDto, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;

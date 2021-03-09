@@ -4,7 +4,7 @@ using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -12,10 +12,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class HeaderFooterSteps
     {
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public HeaderFooterSteps(Dictionary<User, UserBrowser> browsers, TestContext c)
+        public HeaderFooterSteps(Dictionary<UserDto, UserBrowser> browsers, TestContext c)
         {
             _browsers = browsers;
             _c = c;

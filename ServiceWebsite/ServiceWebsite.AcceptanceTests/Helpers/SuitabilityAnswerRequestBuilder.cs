@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AcceptanceTests.Common.Data.Questions;
+using BookingsApi.Contract.Requests;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
-using ServiceWebsite.Services.TestApi;
 
 namespace ServiceWebsite.AcceptanceTests.Helpers
 {
@@ -33,23 +33,23 @@ namespace ServiceWebsite.AcceptanceTests.Helpers
             {
                 new SuitabilityAnswersRequest
                 {
-                    Key = SelfTestQuestionKeys.CheckYourComputerQuestion, Extended_answer = null,
+                    Key = SelfTestQuestionKeys.CheckYourComputerQuestion, ExtendedAnswer = null,
                     Answer = _data.CheckYourComputer
                 },
                 new SuitabilityAnswersRequest
                 {
-                    Key = SelfTestQuestionKeys.MicrophoneQuestion, Extended_answer = null,
+                    Key = SelfTestQuestionKeys.MicrophoneQuestion, ExtendedAnswer = null,
                     Answer = _data.MicrophoneWorking
                 },
                 new SuitabilityAnswersRequest
-                    {Key = SelfTestQuestionKeys.SeeVideoQuestion, Extended_answer = null, Answer = _data.VideoWorking},
+                    {Key = SelfTestQuestionKeys.SeeVideoQuestion, ExtendedAnswer = null, Answer = _data.VideoWorking},
                 new SuitabilityAnswersRequest
                 {
-                    Key = SelfTestQuestionKeys.SeeYourselfQuestion, Extended_answer = null, Answer = _data.CameraWorking
+                    Key = SelfTestQuestionKeys.SeeYourselfQuestion, ExtendedAnswer = null, Answer = _data.CameraWorking
                 },
                 new SuitabilityAnswersRequest
                 {
-                    Key = SelfTestQuestionKeys.SelfTestScoreQuestion, Extended_answer = null,
+                    Key = SelfTestQuestionKeys.SelfTestScoreQuestion, ExtendedAnswer = null,
                     Answer = _data.SelfTestScore
                 },
             };

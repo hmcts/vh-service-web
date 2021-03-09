@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceWebsite.Common;
 using ServiceWebsite.Helpers;
 using ServiceWebsite.Models;
-using ServiceWebsite.UserAPI.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using UserApi.Client;
 
 namespace ServiceWebsite.Controllers
 {
@@ -32,7 +32,7 @@ namespace ServiceWebsite.Controllers
             {
                 var participant = await _userApiClient.GetUserByAdUserNameAsync(User.Identity.Name);
 
-                return Ok(new UserProfileResponse { Email = participant.Email, Role = participant.User_role });
+                return Ok(new UserProfileResponse { Email = participant.Email, Role = participant.UserRole });
             }
             catch (UserApiException ex) when (ex.StatusCode == (int)HttpStatusCode.NotFound)
             {

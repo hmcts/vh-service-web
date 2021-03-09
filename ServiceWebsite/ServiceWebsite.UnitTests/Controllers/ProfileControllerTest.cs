@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using ServiceWebsite.Controllers;
-using ServiceWebsite.UserAPI.Client;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FluentAssertions;
 using ServiceWebsite.Models;
 using System.Linq;
+using UserApi.Client;
+using UserApi.Contract.Responses;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {
@@ -41,7 +42,7 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task Get_user_profile_returns_ok()
         {
-            var userProfile = new UserProfile{Email = "email", User_role = "userrole"};
+            var userProfile = new UserProfile{Email = "email", UserRole = "userrole"};
             _userApiClient.Setup(x => x.GetUserByAdUserNameAsync("username")).ReturnsAsync(userProfile);
 
             var result = await _controller.GetUserProfile();
@@ -49,7 +50,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             result.Should().NotBeNull().And.BeAssignableTo<OkObjectResult>();
             var userProfileResponse = result.As<OkObjectResult>().Value.As<UserProfileResponse>();
             userProfileResponse.Email.Should().Be(userProfile.Email);
-            userProfileResponse.Role.Should().Be(userProfile.User_role);
+            userProfileResponse.Role.Should().Be(userProfile.UserRole);
         }
 
         [Test]

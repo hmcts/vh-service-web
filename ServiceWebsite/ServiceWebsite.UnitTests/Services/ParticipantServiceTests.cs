@@ -1,12 +1,14 @@
 using Moq;
 using NUnit.Framework;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
+using BookingsApi.Contract.Requests;
 using ServiceWebsite.Domain;
 using ServiceWebsite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingsApi.Contract.Responses;
 
 namespace ServiceWebsite.UnitTests.Services
 {
@@ -35,7 +37,7 @@ namespace ServiceWebsite.UnitTests.Services
             {
                 Key = "TEST_QUESTION",
                 Answer = "Answer",
-                Extended_answer = "Extended answer"
+                ExtendedAnswer = "Extended answer"
             }};
 
         }

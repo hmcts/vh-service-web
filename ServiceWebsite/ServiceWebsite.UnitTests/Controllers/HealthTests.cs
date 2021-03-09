@@ -3,13 +3,14 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
 using ServiceWebsite.Controllers;
-using ServiceWebsite.UserAPI.Client;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using UserApi.Client;
+using UserApi.Contract.Responses;
 
 namespace ServiceWebsite.UnitTests.Controllers
 {

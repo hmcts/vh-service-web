@@ -8,7 +8,7 @@ using Selenium.Axe;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -16,10 +16,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps
     [Binding]
     public class CommonSteps
     {
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public CommonSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
+        public CommonSteps(Dictionary<UserDto, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;
@@ -71,21 +71,21 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the hearing date is displayed correctly")]
         public void ThenTheHearingDateIsDisplayedCorrectly()
         {
-            var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.CommonDateFormat);
-            var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.CommonTimeFormat).Replace("AM", "am").Replace("PM", "pm");
+            var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.ScheduledDateTime).ToString(DateFormats.CommonDateFormat);
+            var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.ScheduledDateTime).ToString(DateFormats.CommonTimeFormat).Replace("AM", "am").Replace("PM", "pm");
             _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDateTime).Text.Should().ContainAll(scheduledDate, scheduledTime);
         }
 
         [Then(@"the hearing details are displayed correctly")]
         public void ThenTheHearingDetailsAreDisplayedCorrectly()
         {
-            var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",", "");
-            var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsTime);
-            var scheduledDateForPreProd = _c.TimeZone.Adjust(_c.Test.Hearing.Scheduled_date_time).ToString(DateFormats.HearingDetailsTimeSingleDayFormat).Replace(",", "");
+            var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.ScheduledDateTime).ToString(DateFormats.HearingDetailsDateInUkFormat).Replace(",", "");
+            var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.ScheduledDateTime).ToString(DateFormats.HearingDetailsTime);
+            var scheduledDateForPreProd = _c.TimeZone.Adjust(_c.Test.Hearing.ScheduledDateTime).ToString(DateFormats.HearingDetailsTimeSingleDayFormat).Replace(",", "");
             _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDate).Text.Should().ContainAny(scheduledDate, scheduledDateForPreProd);
             _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledTime).Text.Should().Contain(scheduledTime);
             _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.CaseName).Text.Should().Contain(_c.Test.Hearing.Cases.First().Name);
-            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.CaseTypeCaseNumber).Text.Should().ContainAll(_c.Test.Hearing.Cases.First().Number, _c.Test.Hearing.Case_type_name);
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.CaseTypeCaseNumber).Text.Should().ContainAll(_c.Test.Hearing.Cases.First().Number, _c.Test.Hearing.CaseTypeName);
         }
 
         [Then(@"the page should be accessible")]

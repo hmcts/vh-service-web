@@ -6,10 +6,11 @@ using System.Net;
 using System.Threading;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Data.Questions;
+using BookingsApi.Contract.Requests;
+using BookingsApi.Contract.Responses;
 using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
@@ -50,7 +51,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         private void SubmitAnswers(IEnumerable<SuitabilityAnswersRequest> answers, HearingDetailsResponse hearing)
         {
-            var participantId = hearing.Participants.First(x => x.Last_name.ToLower().Equals(_c.CurrentUser.Last_name.ToLower())).Id;
+            var participantId = hearing.Participants.First(x => x.LastName.ToLower().Equals(_c.CurrentUser.LastName.ToLower())).Id;
             var response = _c.Api.SetSuitabilityAnswers(hearing.Id, participantId, answers);
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
@@ -80,14 +81,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
         {
-            for (var i = 0; i < RETRIES; i++)
-            {
+            for (var i = 0; i < RETRIES; i++) {
                 if (AnswersHaveBeenSaved())
                 {
                     var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);
                     var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
-                    var answersResponse = answers.First(x => x.Hearing_id.Equals(_c.Test.Hearing.Id));
-                    return answersResponse.Answers;
+                    var answersResponse = answers.First(x => x.HearingId.Equals(_c.Test.Hearing.Id));
+                    return answersResponse.Answers.ToList();
                 }
 
                 Thread.Sleep(TimeSpan.FromSeconds(WAIT));
@@ -101,7 +101,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);
             var answers = RequestHelper.Deserialise<List<PersonSuitabilityAnswerResponse>>(response.Content);
 
-            var answersResponse = answers?.FirstOrDefault(x => x.Hearing_id.Equals(_c.Test.Hearing.Id));
+            var answersResponse = answers?.FirstOrDefault(x => x.HearingId.Equals(_c.Test.Hearing.Id));
             return answersResponse?.Answers.Any() ?? false;
         }
 

@@ -5,7 +5,7 @@ using AcceptanceTests.Common.PageObject.Helpers;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Helpers;
-using ServiceWebsite.Services.TestApi;
+using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
 
 namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
@@ -13,10 +13,10 @@ namespace ServiceWebsite.AcceptanceTests.Steps.SelfTest
     [Binding]
     public class VideoWorkingSteps : ISteps
     {
-        private readonly Dictionary<User, UserBrowser> _browsers;
+        private readonly Dictionary<UserDto, UserBrowser> _browsers;
         private readonly TestContext _c;
 
-        public VideoWorkingSteps(Dictionary<User, UserBrowser> browsers, TestContext testContext)
+        public VideoWorkingSteps(Dictionary<UserDto, UserBrowser> browsers, TestContext testContext)
         {
             _browsers = browsers;
             _c = testContext;

@@ -1,13 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
 using ServiceWebsite.Common.Security;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Security;
 using ServiceWebsite.Services;
 using ServiceWebsite.Swagger;
-using ServiceWebsite.UserAPI.Client;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -18,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
 using ServiceWebsite.Models;
+using UserApi.Client;
 
 namespace ServiceWebsite
 {
@@ -63,44 +63,9 @@ namespace ServiceWebsite
             return serviceCollection;
         }
 
-        /// <summary>
-        /// Temporary work-around until typed-client bug is restored
-        /// https://github.com/dotnet/aspnetcore/issues/13346#issuecomment-535544207
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="factory"></param>
-        /// <typeparam name="TClient"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        private static IHttpClientBuilder AddTypedClient<TClient>(this IHttpClientBuilder builder,
-            Func<HttpClient, TClient> factory)
-            where TClient : class
-        {
-            if (builder == null)
-            {
-                throw new ArgumentNullException(nameof(builder));
-            }
-
-            if (factory == null)
-            {
-                throw new ArgumentNullException(nameof(factory));
-            }
-
-            builder.Services.AddTransient(s =>
-            {
-                var httpClientFactory = s.GetRequiredService<IHttpClientFactory>();
-                var httpClient = httpClientFactory.CreateClient(builder.Name);
-
-                return factory(httpClient);
-            });
-
-            return builder;
-        }
-
         private static IUserApiClient BuildUserApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
-            var client = new UserApiClient(httpClient) { BaseUrl = serviceSettings.UserApiUrl };
-            return client;
+            return UserApiClient.GetClient(serviceSettings.UserApiUrl, httpClient);
         }
 
         private static IKinlyPlatformService BuildKinlyPlatformService(HttpClient httpClient,

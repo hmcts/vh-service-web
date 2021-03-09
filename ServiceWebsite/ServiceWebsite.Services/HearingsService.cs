@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using ServiceWebsite.BookingsAPI.Client;
+using BookingsApi.Client;
+using BookingsApi.Contract.Responses;
 using ServiceWebsite.Common;
 using ServiceWebsite.Domain;
 
@@ -73,14 +74,14 @@ namespace ServiceWebsite.Services
 
         private static Hearing Map(HearingDetailsResponse response)
         {
-            var hearingCase = response.Cases.FirstOrDefault(c => c.Is_lead_case) ?? response.Cases.First();
+            var hearingCase = response.Cases.FirstOrDefault(c => c.IsLeadCase) ?? response.Cases.First();
             return new Hearing(
                 response.Id,
                 hearingCase.Name,
                 hearingCase.Number,
-                response.Scheduled_date_time,
-                response.Case_type_name,
-                response.Hearing_type_name
+                response.ScheduledDateTime,
+                response.CaseTypeName,
+                response.HearingTypeName
             );
         }
 

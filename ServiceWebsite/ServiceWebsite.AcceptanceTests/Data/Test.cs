@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ServiceWebsite.Services.TestApi;
+using BookingsApi.Contract.Responses;
 
 namespace ServiceWebsite.AcceptanceTests.Data
 {
