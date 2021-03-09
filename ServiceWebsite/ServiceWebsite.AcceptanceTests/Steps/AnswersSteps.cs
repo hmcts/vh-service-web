@@ -81,8 +81,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
 
         private List<SuitabilityAnswerResponse> GetAnswersFromBookingsApi()
         {
-            for (var i = 0; i < RETRIES; i++)
-            {
+            for (var i = 0; i < RETRIES; i++) {
                 if (AnswersHaveBeenSaved())
                 {
                     var response = _c.Api.GetSuitabilityAnswers(_c.CurrentUser.Username);

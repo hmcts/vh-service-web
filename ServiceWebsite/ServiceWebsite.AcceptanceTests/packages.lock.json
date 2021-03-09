@@ -2,16 +2,6 @@
   "version": 1,
   "dependencies": {
     ".NETCoreApp,Version=v3.1": {
-      "BookingsApi.Client": {
-        "type": "Direct",
-        "requested": "[1.24.17, )",
-        "resolved": "1.24.17",
-        "contentHash": "oFYSJJL+qsGv7ZZkc5PVfR/0FrumeI98aTIPhw9ohr4Skj6OdTHivYSkYUaW4lelwb145fyPTaCVqaUBTVKBpw==",
-        "dependencies": {
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Newtonsoft.Json": "12.0.3"
-        }
-      },
       "Faker.NETCore": {
         "type": "Direct",
         "requested": "[1.0.2, )",
@@ -96,12 +86,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[16.8.0, )",
-        "resolved": "16.8.0",
-        "contentHash": "fc8VoTlD9+en13XWT9SW86M9jn4Y0Vns/uHRUJ2B6fevnuYmkilBLL+bIXC9yMELGYrerXIZm+B6Caux8lopfQ==",
+        "requested": "[16.9.1, )",
+        "resolved": "16.9.1",
+        "contentHash": "9acz3fExifstaoKTAvHVwRGMFrtb1QLlT6KfxOFTYM4dksuzwpkApjt0xP+yJcuRsPcf14F1b0Du3GgfKZWHJw==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "16.8.0",
-          "Microsoft.TestPlatform.TestHost": "16.8.0"
+          "Microsoft.CodeCoverage": "16.9.1",
+          "Microsoft.TestPlatform.TestHost": "16.9.1"
         }
       },
       "NBuilder": {
@@ -144,11 +134,11 @@
       },
       "Selenium.Axe": {
         "type": "Direct",
-        "requested": "[2.0.0, )",
-        "resolved": "2.0.0",
-        "contentHash": "N9VU2XRCtWT0DHuysNJJZi0t8U7SwkHz7uSph0s5eTedG7qR3lXSdw15HhaiJV/W7akkfkvPCoZGqWX4mUk+ig==",
+        "requested": "[2.0.3, )",
+        "resolved": "2.0.3",
+        "contentHash": "jEDJgRpnG2qAwefj7QVGeMiGA0HI1BctNUwMLUkjXBFRdb7ozATSWeRYGvIEFH4q5UXYNxmD5NF5+MnIRrx+gQ==",
         "dependencies": {
-          "HtmlAgilityPack": "1.11.25",
+          "HtmlAgilityPack": "1.11.30",
           "Newtonsoft.Json": "12.0.3",
           "Selenium.WebDriver": "3.141.0"
         }
@@ -179,9 +169,9 @@
       },
       "Selenium.WebDriver.ChromeDriver": {
         "type": "Direct",
-        "requested": "[87.0.4280.2000, )",
-        "resolved": "87.0.4280.2000",
-        "contentHash": "jq1wC5pUz5Ov2CydyeIBEwdQ6tQ5IRy08mTjBM2OOca72fXLSLuGtEc4qVTjmNJ/LpTzWRrh7klSpBn1Lt4Raw=="
+        "requested": "[89.0.4389.2300, )",
+        "resolved": "89.0.4389.2300",
+        "contentHash": "/lnt6U3hogvJtFBP9l9Vm3F7zVBTClCANeVzcyWwyUf/uW686KEgGU+9x6sebstjd02qrmvcP42MKHTID1tq/A=="
       },
       "Selenium.WebDriver.IEDriver": {
         "type": "Direct",
@@ -197,37 +187,39 @@
       },
       "SpecFlow": {
         "type": "Direct",
-        "requested": "[3.5.5, )",
-        "resolved": "3.5.5",
-        "contentHash": "VEraHQI+EcVnzo+O2ffBclrwBAfb2ED48zysgQ+hPLAC4SneHwGoBxFhjwKExS+iW3ZQzdqfEaTLfhjLoXQCSA==",
+        "requested": "[3.7.13, )",
+        "resolved": "3.7.13",
+        "contentHash": "X/uO+xTwC8mXWpLcuviKl/WVMa7TRE/THE7hS5CoKVJQ7SvJMSs3TBU01Jm6DQZfey2Ra6f7bcs6o7xBmtBiCw==",
         "dependencies": {
-          "BoDi": "1.4.1",
+          "BoDi": "1.5.0",
           "Cucumber.Messages": "[6.0.1, 7.0.0)",
           "Gherkin": "6.0.0",
+          "Microsoft.Extensions.DependencyModel": "1.0.3",
           "System.Configuration.ConfigurationManager": "4.5.0",
           "System.Net.Http": "4.3.4",
+          "System.Runtime.Loader": "4.3.0",
           "System.ValueTuple": "4.4.0",
           "Utf8Json": "1.3.7"
         }
       },
       "SpecFlow.NUnit": {
         "type": "Direct",
-        "requested": "[3.5.5, )",
-        "resolved": "3.5.5",
-        "contentHash": "GmgRa9cW4vs3hLMzPHo/XCcK9w7QWndQquXdZqgTYQ2Chf+LF51wH8/jTxMItKlxTMy7OMd5DraaX9o13BJXaA==",
+        "requested": "[3.7.13, )",
+        "resolved": "3.7.13",
+        "contentHash": "R2aMvh16fGTG66mvo4bqH5T5aW4paQKboE576G7YdFKK5tQfXAEvHW4oAusAbtcOMljSWTKGD4yV/JcQSUR6dg==",
         "dependencies": {
           "NUnit": "3.11.0",
-          "SpecFlow": "[3.5.5]",
-          "SpecFlow.Tools.MsBuild.Generation": "[3.5.5]"
+          "SpecFlow": "[3.7.13]",
+          "SpecFlow.Tools.MsBuild.Generation": "[3.7.13]"
         }
       },
       "SpecFlow.Tools.MsBuild.Generation": {
         "type": "Direct",
-        "requested": "[3.5.5, )",
-        "resolved": "3.5.5",
-        "contentHash": "MhRt5F2/QRuCbEa5uIBistl1QE8cXlUOpCzkv0pHLFJpbmCxwZaknvAmPpXtAj/CJmAhixOfBhL4cRBKSeBcLA==",
+        "requested": "[3.7.13, )",
+        "resolved": "3.7.13",
+        "contentHash": "zGaji+OTkQODfVSIyP7dnyXXfXfUJuLz0sCmQ2b342YgNsFoYgc8BwxV8+Wwo1aq8PGcg+nf3Y53eVhOELoU8g==",
         "dependencies": {
-          "SpecFlow": "[3.5.5]"
+          "SpecFlow": "[3.7.13]"
         }
       },
       "TestApi.Client": {
@@ -245,23 +237,23 @@
       },
       "VH.AcceptanceTests.Common": {
         "type": "Direct",
-        "requested": "[1.21.9, )",
-        "resolved": "1.21.9",
-        "contentHash": "9d/qDYJKDQ1T1ZxW+BpjG9O3re0wMYheHWxA4sIJhyEW++0fgzBhKuk7pcxxQenEcrk42EPV+xJrK5fv+gRLjw==",
+        "requested": "[1.21.21, )",
+        "resolved": "1.21.21",
+        "contentHash": "bGTAj9PVMYMxSdcDQKfFAaaF+t3oeus9+lcSAiW+JcCV2HkhZXpMIpOT47pleNGZ6WjRrJEy5ejMQDw8LjiLPA==",
         "dependencies": {
           "Appium.WebDriver": "4.2.1",
           "Azure.Storage.Blobs": "12.7.0",
           "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
           "FluentAssertions": "5.10.3",
           "Microsoft.Azure.Storage.Blob": "11.2.2",
-          "Microsoft.Extensions.Configuration": "5.0.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
-          "Microsoft.Extensions.Configuration.Binder": "5.0.0",
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": "5.0.0",
-          "Microsoft.Extensions.Configuration.FileExtensions": "5.0.0",
-          "Microsoft.Extensions.Configuration.Json": "5.0.0",
-          "Microsoft.Extensions.Configuration.UserSecrets": "5.0.0",
-          "Microsoft.Extensions.Options": "5.0.0",
+          "Microsoft.Extensions.Configuration": "3.1.12",
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.12",
+          "Microsoft.Extensions.Configuration.Binder": "3.1.12",
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": "3.1.12",
+          "Microsoft.Extensions.Configuration.FileExtensions": "3.1.12",
+          "Microsoft.Extensions.Configuration.Json": "3.1.12",
+          "Microsoft.Extensions.Configuration.UserSecrets": "3.1.12",
+          "Microsoft.Extensions.Options": "3.1.12",
           "Microsoft.IdentityModel.Clients.ActiveDirectory": "5.2.8",
           "NUnit": "3.12.0",
           "Newtonsoft.Json": "12.0.3",
@@ -270,7 +262,7 @@
           "RestSharp": "106.11.7",
           "Selenium.Support": "3.141.0",
           "Selenium.WebDriver": "3.141.0",
-          "Selenium.WebDriver.ChromeDriver": "87.0.4280.2000",
+          "Selenium.WebDriver.ChromeDriver": "89.0.4389.2300",
           "SpecFlow": "3.5.5",
           "System.Collections": "4.3.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
@@ -323,8 +315,17 @@
       },
       "BoDi": {
         "type": "Transitive",
-        "resolved": "1.4.1",
-        "contentHash": "x1D7r5VDm7zog+3DlyOo1fXas1RhYmw9e/wIemdjcTeHV4fp4OoGb0Jz4i2E9RShPoOItUfFklm3nxTLcLLwSg=="
+        "resolved": "1.5.0",
+        "contentHash": "CzIPzdIAFSd2zuLxI+0K9s48Qv3HQDbWiApn9h96j284rHs2bSPrn/PMca3mi4q3xLSEqOp+GUJ6+mXDD9prKg=="
+      },
+      "BookingsApi.Client": {
+        "type": "Transitive",
+        "resolved": "1.24.17",
+        "contentHash": "oFYSJJL+qsGv7ZZkc5PVfR/0FrumeI98aTIPhw9ohr4Skj6OdTHivYSkYUaW4lelwb145fyPTaCVqaUBTVKBpw==",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
+          "Newtonsoft.Json": "12.0.3"
+        }
       },
       "Castle.Core": {
         "type": "Transitive",
@@ -393,8 +394,8 @@
       },
       "HtmlAgilityPack": {
         "type": "Transitive",
-        "resolved": "1.11.25",
-        "contentHash": "UO02+QzWpKDhz2XApSZ74S+9fylNrK9npqvO4NgtW9LiFLHVRqXQmdI+1tn7JRzGnATkCCbtyIeqbJZl3pSRJQ=="
+        "resolved": "1.11.30",
+        "contentHash": "IuOSVuuHCJKrnAjNe5rZnZCyR/NpXL6ExEL7UiM8h4fnhbt8tLqIKol9q5Lv0uoxWO8fl9Uq+1kpGfMDUdr5zA=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "Transitive",
@@ -703,8 +704,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "16.8.0",
-        "contentHash": "fR7HsWO+jTRhfBPWVl6QJbJSEU98siIKcQIDIo2tOH6nlogcOdScquWzVABR0UUpQlfWwt13vyryOltvLfsHnw=="
+        "resolved": "16.9.1",
+        "contentHash": "OEIMvld3rabmyc1L4VvHWOMTEOYrGLbgoVxwAaD8RwX8GT3a1Aal7QpJXLV22f47LpMhSz0uOBerKAd8eI9wNA=="
       },
       "Microsoft.CSharp": {
         "type": "Transitive",
@@ -956,18 +957,19 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "16.8.0",
-        "contentHash": "Y60IDgwinOqwECwmvXyFqk2lnQAvcS6EKevc3DyKUJoJaNJ9bUGsUS8H2nlgBHloSQ/Zqj27CjRuLhBsCUO58w==",
+        "resolved": "16.9.1",
+        "contentHash": "UuS6HBi6pVJDGS5pmf6Mi38oSQVQ4vE5AOmNJzA5WgOUlFmvg9fTq9KCSd5o+UPSVH420t9wthj2Q0M9Yfb+HA==",
         "dependencies": {
-          "NuGet.Frameworks": "5.0.0"
+          "NuGet.Frameworks": "5.0.0",
+          "System.Reflection.Metadata": "1.6.0"
         }
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "16.8.0",
-        "contentHash": "CVXKGIWakPq7UboAlJ7ukcngBFF2UaHwS9pAN3nLyOpOR3yUYbinpd+eVvz6Fm/qRBP4uiwx0lWEZlHOHG1c0w==",
+        "resolved": "16.9.1",
+        "contentHash": "j/lZDlkuoUJ+lRJXOXLJpwUGXmko5/woAPo/hN6QhFRo0J5wscQPoPJ1isvXpB4Iw7x7A3jYllxR5QjV3cMlRw==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "16.8.0",
+          "Microsoft.TestPlatform.ObjectModel": "16.9.1",
           "Newtonsoft.Json": "9.0.1"
         }
       },
@@ -1784,6 +1786,16 @@
           "System.Runtime.InteropServices": "4.3.0",
           "System.Threading": "4.3.0",
           "runtime.native.System": "4.3.0"
+        }
+      },
+      "System.Runtime.Loader": {
+        "type": "Transitive",
+        "resolved": "4.3.0",
+        "contentHash": "DHMaRn8D8YCK2GG2pw+UzNxn/OHVfaWx7OTLBD/hPegHZZgcZh3H6seWegrC4BYwsfuGrywIuT+MQs+rPqRLTQ==",
+        "dependencies": {
+          "System.IO": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime": "4.3.0"
         }
       },
       "System.Runtime.Numerics": {
