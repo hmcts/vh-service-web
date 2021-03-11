@@ -44,11 +44,11 @@
       },
       "VH.AcceptanceTests.Common": {
         "type": "Direct",
-        "requested": "[1.21.24, )",
-        "resolved": "1.21.24",
-        "contentHash": "Q4rmOpC3+4yV7n94mMHGKQexBij3fmiXPTfaWyinvpjoGTkiV63H/M4EBWOfE9VUbZaRzHiRnoMGSv+aIYxFdg==",
+        "requested": "[1.21.25, )",
+        "resolved": "1.21.25",
+        "contentHash": "jSFuzpHosc8HUOfFBS+vo09WlYtRl0WTDcLBpF5pApJA2ICYmF9009NV+Ww8fM8WOO+WtRE5MHeop+22Fflbqg==",
         "dependencies": {
-          "Appium.WebDriver": "4.2.1",
+          "Appium.WebDriver": "4.3.1",
           "Azure.Storage.Blobs": "12.8.0",
           "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
           "FluentAssertions": "5.10.3",
@@ -62,7 +62,7 @@
           "Microsoft.Extensions.Options": "5.0.0",
           "Microsoft.IdentityModel.Clients.ActiveDirectory": "5.2.8",
           "Microsoft.NET.Test.Sdk": "16.9.1",
-          "NUnit": "3.12.0",
+          "NUnit": "3.13.1",
           "Newtonsoft.Json": "12.0.3",
           "Polly": "7.2.1",
           "Protractor": "0.13.0",
@@ -82,8 +82,8 @@
       },
       "Appium.WebDriver": {
         "type": "Transitive",
-        "resolved": "4.2.1",
-        "contentHash": "eiKCSSLo+5o9iHYtVcZAaYQKm1pBc3gBDqevmvCrlnqy/vxFLO1dRdpy7FM+xGCYGl3x7r1kj/pYuXhKR9Vi9Q==",
+        "resolved": "4.3.1",
+        "contentHash": "g8ZDjcdcmbC0vJqwnhYlFWSYMg57aGSY/XvoIj2bOixWliT7sHP/2sIB5Gi35bT9SoM/FGjUnr0e7NlSRSq06g==",
         "dependencies": {
           "Castle.Core": "4.3.1",
           "DotNetSeleniumExtras.PageObjects": "3.11.0",
@@ -1266,8 +1266,8 @@
       },
       "NUnit": {
         "type": "Transitive",
-        "resolved": "3.12.0",
-        "contentHash": "3oJTrcUcT9wmweBUwgUf0f1XIYy6RZq2ziV+RM95HMKAJGsHPN2i3MKK1dAPvDPMRLz799Llj4eyu/STB9Q7OA==",
+        "resolved": "3.13.1",
+        "contentHash": "vWBvrSelmTYwqHWvO3dA63z7cOpaFR/3nJ9MMVLBkWeaWa7oiglPPm5g1h96B4i2XXqjFexxhR5MyMjmIJYPfg==",
         "dependencies": {
           "NETStandard.Library": "2.0.0"
         }
