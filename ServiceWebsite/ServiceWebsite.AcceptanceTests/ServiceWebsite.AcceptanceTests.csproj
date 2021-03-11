@@ -39,7 +39,7 @@
     <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="Selenium.Axe" Version="2.0.3" />
     <PackageReference Include="TestApi.Client" Version="1.24.9" />
-    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.21.26-pullrequest0039-0002" />
+    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.21.26-pullrequest0039-0003" />
   </ItemGroup>
 
   <ItemGroup>
