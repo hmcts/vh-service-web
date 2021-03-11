@@ -44,9 +44,9 @@
       },
       "VH.AcceptanceTests.Common": {
         "type": "Direct",
-        "requested": "[1.21.26-pullrequest0039-0003, )",
-        "resolved": "1.21.26-pullrequest0039-0003",
-        "contentHash": "WV7ARC674F5QZCScl6Q1f/8tZexB/N5mvdxsfNyD9b4xXPqEIO+Ww9TVPwbg1sIE36UhdrHdEqjeO7KhScBh5w==",
+        "requested": "[1.21.26-pullrequest0039-0004, )",
+        "resolved": "1.21.26-pullrequest0039-0004",
+        "contentHash": "DdxPqicNIraYWA/h6yfADtpBaGFydmED+OWSKanjorqRTB3ie+6O5EZ/H9h3iSh0iEreXFMVFB5FfMdz/o8jTA==",
         "dependencies": {
           "Appium.WebDriver": "4.3.1",
           "Azure.Storage.Blobs": "12.8.0",
@@ -62,7 +62,7 @@
           "Microsoft.Extensions.Options": "5.0.0",
           "Microsoft.IdentityModel.Clients.ActiveDirectory": "5.2.8",
           "Microsoft.NET.Test.Sdk": "16.9.1",
-          "NUnit": "3.13.1",
+          "NUnit": "3.12.0",
           "Newtonsoft.Json": "12.0.3",
           "Polly": "7.2.1",
           "Protractor": "0.13.0",
@@ -1266,8 +1266,8 @@
       },
       "NUnit": {
         "type": "Transitive",
-        "resolved": "3.13.1",
-        "contentHash": "vWBvrSelmTYwqHWvO3dA63z7cOpaFR/3nJ9MMVLBkWeaWa7oiglPPm5g1h96B4i2XXqjFexxhR5MyMjmIJYPfg==",
+        "resolved": "3.12.0",
+        "contentHash": "3oJTrcUcT9wmweBUwgUf0f1XIYy6RZq2ziV+RM95HMKAJGsHPN2i3MKK1dAPvDPMRLz799Llj4eyu/STB9Q7OA==",
         "dependencies": {
           "NETStandard.Library": "2.0.0"
         }
