@@ -44,9 +44,9 @@
       },
       "VH.AcceptanceTests.Common": {
         "type": "Direct",
-        "requested": "[1.21.26-pullrequest0039-0005, )",
-        "resolved": "1.21.26-pullrequest0039-0005",
-        "contentHash": "QNADyacMcXny0GBZAv4GK8raKPELPxtaOdLQmgIjCYFoXxfFEFCFnmTy7PoZM2u2D+/3HZzfVEno0g1bc74TDA==",
+        "requested": "[1.21.26-pullrequest0039-0006, )",
+        "resolved": "1.21.26-pullrequest0039-0006",
+        "contentHash": "s2cOdl2t8DYL2wM7053l6jhDMDr46NOp/SHaj5qarDNnQB14r6fYkf3uRO1voEqXaL78GyShJ+stoMA/NlmMdA==",
         "dependencies": {
           "Appium.WebDriver": "4.3.1",
           "Azure.Storage.Blobs": "12.8.0",
@@ -62,7 +62,7 @@
           "Microsoft.Extensions.Options": "5.0.0",
           "Microsoft.IdentityModel.Clients.ActiveDirectory": "5.2.8",
           "Microsoft.NET.Test.Sdk": "16.8.3",
-          "NUnit": "3.13.0",
+          "NUnit": "3.13.1",
           "Newtonsoft.Json": "12.0.3",
           "Polly": "7.2.1",
           "Protractor": "0.13.0",
@@ -75,6 +75,7 @@
           "Selenium.WebDriver.MicrosoftDriver": "17.17134.0",
           "SpecFlow": "3.6.23",
           "SpecFlow.NUnit": "3.6.23",
+          "SpecFlow.Tools.MsBuild.Generation": "3.6.23",
           "System.Collections": "4.3.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "TimeZoneConverter": "3.4.0"
@@ -1267,8 +1268,8 @@
       },
       "NUnit": {
         "type": "Transitive",
-        "resolved": "3.13.0",
-        "contentHash": "G+BOONgJKtNtprjGQ54l0m+Vq2VFCMh/H6ljuHfqrRlX6YkNy0GjMd5Nn0NpJidGpRd4gAOJsBqNuxr7Kgc/5g==",
+        "resolved": "3.13.1",
+        "contentHash": "vWBvrSelmTYwqHWvO3dA63z7cOpaFR/3nJ9MMVLBkWeaWa7oiglPPm5g1h96B4i2XXqjFexxhR5MyMjmIJYPfg==",
         "dependencies": {
           "NETStandard.Library": "2.0.0"
         }
