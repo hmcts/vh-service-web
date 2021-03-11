@@ -22,7 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.21.26-pullrequest0039-0004" />
+    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.21.26-pullrequest0039-0005" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite\ServiceWebsite.csproj" />
