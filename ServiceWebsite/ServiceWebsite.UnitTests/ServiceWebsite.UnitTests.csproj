@@ -15,14 +15,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Moq" Version="4.14.6" />
     <PackageReference Include="NBuilder" Version="6.1.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.1.21947">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.21.26-pullrequest0039-0006" />
+    <PackageReference Include="VH.AcceptanceTests.Common" Version="1.21.27" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite\ServiceWebsite.csproj" />
