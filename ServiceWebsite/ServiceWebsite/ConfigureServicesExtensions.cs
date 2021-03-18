@@ -78,7 +78,7 @@ namespace ServiceWebsite
 
         private static IBookingsApiClient BuildBookingsApiClient(HttpClient httpClient, ServiceSettings serviceSettings)
         {
-            return new BookingsApiClient(httpClient) { BaseUrl = serviceSettings.BookingsApiUrl };
+            return BookingsApiClient.GetClient(serviceSettings.BookingsApiUrl, httpClient);
         }
 
         private static void AddSwaggerToApi(this IServiceCollection serviceCollection)
