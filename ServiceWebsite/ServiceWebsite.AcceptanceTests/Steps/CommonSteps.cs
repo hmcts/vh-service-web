@@ -73,7 +73,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         {
             var scheduledDate = _c.TimeZone.Adjust(_c.Test.Hearing.ScheduledDateTime).ToString(DateFormats.CommonDateFormat);
             var scheduledTime = _c.TimeZone.Adjust(_c.Test.Hearing.ScheduledDateTime).ToString(DateFormats.CommonTimeFormat).Replace("AM", "am").Replace("PM", "pm");
-            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.ScheduledDateTime).Text.Should().ContainAll(scheduledDate, scheduledTime);
+            _browsers[_c.CurrentUser].TextOf(CommonServiceWebPage.ScheduledDateTime).Should().ContainAll(scheduledDate, scheduledTime);
         }
 
         [Then(@"the hearing details are displayed correctly")]
