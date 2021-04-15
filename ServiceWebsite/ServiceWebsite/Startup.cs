@@ -91,7 +91,7 @@ namespace ServiceWebsite
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = securitySettings.Authority;
+                options.Authority = $"{securitySettings.Authority}{securitySettings.TenantId}/v2.0";
                 options.TokenValidationParameters.ValidateLifetime = true;
                 options.Audience = securitySettings.ClientId;
                 options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;

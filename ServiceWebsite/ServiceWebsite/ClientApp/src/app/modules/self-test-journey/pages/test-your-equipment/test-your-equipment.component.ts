@@ -89,7 +89,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     }
 
     async setConfiguration() {
-        const config = await this.configService.load();
+        const config = await this.configService.getConfig();
         this.pexipNode = config.pexipSelfTestNodeUri;
     }
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AdalService} from 'adal-angular4';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import {Paths} from '../paths';
 
 @Component({
@@ -8,19 +8,18 @@ import {Paths} from '../paths';
 })
 export class LogoutComponent implements OnInit {
   readonly loginPath = '../' + Paths.Login;
-
-  constructor(private adalSvc: AdalService) {
+  loggedIn : boolean;
+  constructor(private oidcSecurityService: OidcSecurityService) {
   }
 
   ngOnInit() {
     sessionStorage.clear();
-
-    if (this.loggedIn) {
-      this.adalSvc.logOut();
-    }
-  }
-
-  get loggedIn(): boolean {
-    return this.adalSvc.userInfo.authenticated;
+    
+    this.oidcSecurityService.isAuthenticated$.subscribe(logIn => {
+      this.loggedIn = logIn; 
+      if (logIn) {
+          this.oidcSecurityService.logoffAndRevokeTokens();
+      }
+    });
   }
 }

@@ -1,48 +1,56 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdalService } from 'adal-angular4';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { ReturnUrlService } from '../return-url.service';
 import { Logger } from 'src/app/services/logger';
 import {WindowRef} from '../../shared/window-ref';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-
+  private readonly loggerPrefix = '[Login] -';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private logger: Logger,
     private returnUrlService: ReturnUrlService,
-    private adalSvc: AdalService,
+    private oidcSecurityService: OidcSecurityService,
+    private configService: ConfigService,
     private window: WindowRef) { }
 
   ngOnInit() {
-    this.handleLogin();
-  }
+    this.configService.getClientSettings().subscribe(clientSettings => {
+      this.oidcSecurityService.isAuthenticated$.subscribe(loggedIn => {
+          if (loggedIn) {
+            const returnUrl = this.returnUrlService.popUrl() || '/';
+            try {
+              this.router.navigateByUrl(returnUrl);
+            } catch (e) {
+              this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
+              this.router.navigate(['/']);
+            }
+          } 
+          else {
+            try {
+              const currentPathname = this.window.getLocation().pathname;
+              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-  private async handleLogin(): Promise<void> {
-    if (this.adalSvc.userInfo.authenticated) {
-      const returnUrl = this.returnUrlService.popUrl() || '/';
-      try {
-        await this.router.navigateByUrl(returnUrl);
-      } catch (e) {
-        this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
-        await this.router.navigate(['/']);
-      }
-    } else {
-      const currentPathname = this.window.getLocation().pathname;
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+              if (!returnUrl.startsWith(currentPathname)) {
+                this.returnUrlService.setUrl(returnUrl);
+              }
 
-      if (!returnUrl.startsWith(currentPathname)) {
-        this.returnUrlService.setUrl(returnUrl);
-      }
-
-      this.assertEdgeRedirectIssue(returnUrl);
-      this.adalSvc.login();
-    }
+              this.assertEdgeRedirectIssue(returnUrl);
+              this.oidcSecurityService.authorize();
+            } 
+            catch (err) { 
+              this.logger.error(`${this.loggerPrefix} Authorize Failed`, err); 
+            }
+          }
+      });
+    });
   }
 
   private assertEdgeRedirectIssue(redirectUrl: string): void {

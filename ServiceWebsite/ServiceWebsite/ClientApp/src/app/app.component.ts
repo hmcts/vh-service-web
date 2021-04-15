@@ -2,7 +2,6 @@ import { JourneySelector } from './modules/base-journey/services/journey.selecto
 import { ProfileService } from 'src/app/services/profile.service';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdalService } from 'adal-angular4';
 import { Config } from './modules/shared/models/config';
 import { HeaderComponent } from './modules/shared/header/header.component';
 import { WindowRef } from './modules/shared/window-ref';
@@ -12,6 +11,8 @@ import { Paths } from './paths';
 import { NavigationBackSelector } from './modules/base-journey/services/navigation-back.selector';
 import { DocumentRedirectService } from './services/document-redirect.service';
 import { Logger } from './services/logger';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { ConfigService } from './services/config.service';
 
 @Component({
     selector: 'app-root',
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private adalService: AdalService,
+        private oidcSecurityService: OidcSecurityService,
         private config: Config,
         private window: WindowRef,
         private profileService: ProfileService,
@@ -40,29 +41,21 @@ export class AppComponent implements OnInit {
         private navigationBackSelector: NavigationBackSelector,
         private renderer: Renderer2,
         private redirect: DocumentRedirectService,
-        private logger: Logger
+        private logger: Logger,
+        private configService: ConfigService
     ) {
         this.loggedIn = false;
-        this.initAuthentication();
         pageTracker.trackNavigation(router);
-    }
-
-    private initAuthentication() {
-        const config: adal.Config = {
-            tenant: this.config.tenantId,
-            clientId: this.config.clientId,
-            postLogoutRedirectUri: this.config.postLogoutRedirectUri,
-            redirectUri: this.config.redirectUri
-        };
-
-        this.adalService.init(config);
     }
 
     ngOnInit() {
         this.checkBrowser();
-        this.adalService.handleWindowCallback();
-        this.loggedIn = this.adalService.userInfo.authenticated;
-
+        this.configService.getClientSettings().subscribe(clientSettings => {
+            this.oidcSecurityService.isAuthenticated$.subscribe(loggedIn => {
+                this.loggedIn = loggedIn;
+            });
+        });
+      
         this.initialiseProfile().then(() => (this.initialized = true));
     }
 
