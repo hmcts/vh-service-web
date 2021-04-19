@@ -1,19 +1,22 @@
+import { MockOidcSecurityService } from 'src/app/testing/mocks/MockOidcSecurityService';
 import {LogoutComponent} from './logout.component';
-import {AdalService} from 'adal-angular4';
 
 describe('LogoutComponent', () => {
-  const adalSpy = jasmine.createSpyObj<AdalService>(['logOut', 'userInfo']);
-  const component = new LogoutComponent(adalSpy);
+
+  const mockOidcSecurityService = new MockOidcSecurityService();
+  let oidcSecurityService;
+  const component = new LogoutComponent(oidcSecurityService);
 
   beforeEach(() => {
     // ensure there are no old or interferring value in session storage
     sessionStorage.clear();
+    oidcSecurityService = mockOidcSecurityService;
   });
 
-  it('should logout adal on loading component if logged in', () => {
-    adalSpy.userInfo.authenticated = true;
+  it('should logout from oidc on loading component if logged in', () => {
+    mockOidcSecurityService.setAuthenticated(true);
     component.ngOnInit();
-    expect(adalSpy.logOut).toHaveBeenCalled();
+    expect(oidcSecurityService.logoffAndRevokeTokens).toHaveBeenCalled();
   });
 
   it('should clear session storage', () => {

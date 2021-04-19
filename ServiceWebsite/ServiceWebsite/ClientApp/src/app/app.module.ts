@@ -43,8 +43,9 @@ import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { AuthConfigModule } from './modules/security/auth-config.module';
+import { AuthGuard } from './modules/security/auth.guard';
 
-export function loadConfig(configService: ConfigService): Function {
+export function loadConfig(configService: ConfigService) {
     return () => configService.loadConfig();
 }
 
@@ -64,13 +65,7 @@ export function loadConfig(configService: ConfigService): Function {
         SignInOnComputerComponent        
     ],
     imports: [
-        // angular
         BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-
-        // app
         SecurityModule,
         BaseJourneyModule,
         IndividualJourneyModule,
@@ -82,6 +77,10 @@ export function loadConfig(configService: ConfigService): Function {
         AuthConfigModule
     ],
     providers: [
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
         { provide: APP_INITIALIZER, useFactory: loadConfig, deps: [ConfigService], multi: true },
         { provide: Config, useFactory: () => ENVIRONMENT_CONFIG },
         { provide: LOG_ADAPTER, useClass: ConsoleLogger, multi: true },
@@ -89,8 +88,8 @@ export function loadConfig(configService: ConfigService): Function {
         { provide: SERVICE_WEB_API_BASE_URL, useFactory: () => '.' },
         { provide: Logger, useClass: LoggerService },
         AppInsightsLogger,
-        AppRoutingModule,
         ConfigService,
+        AuthGuard,
         ErrorService,
         GuidanceService,
         PrintService,

@@ -9,7 +9,6 @@ export let ENVIRONMENT_CONFIG: Config = new Config();
 
 @Injectable()
 export class ConfigService {
-
   clientSettingsLoaded$ = new BehaviorSubject(false);
   private SETTINGS_KEY = 'vh.client.settings';
   private readonly clientSettingCache: SessionStorage<Config>;
