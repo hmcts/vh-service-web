@@ -5,6 +5,8 @@ import { ReturnUrlService } from '../return-url.service';
 import { Logger } from 'src/app/services/logger';
 import { WindowRef } from '../../shared/window-ref';
 import { ConfigService } from 'src/app/services/config.service';
+import { catchError } from 'rxjs/operators';
+import { NEVER } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,43 +15,45 @@ import { ConfigService } from 'src/app/services/config.service';
 export class LoginComponent implements OnInit {
   private readonly loggerPrefix = '[Login] -';
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private logger: Logger,
     private returnUrlService: ReturnUrlService,
     private oidcSecurityService: OidcSecurityService,
     private configService: ConfigService,
-    private window: WindowRef) { }
+  ) { }
 
   ngOnInit() {
-    this.configService.getClientSettings().subscribe(clientSettings => {
-      this.oidcSecurityService.isAuthenticated$.subscribe(loggedIn => {
+    this.configService.getClientSettings().subscribe(() => {
+      this.oidcSecurityService.isAuthenticated$.pipe(
+        catchError(err => {
+          debugger;
+          this.logger.error(`${this.loggerPrefix} Check Auth Error`, err);
+          this.router.navigate(['/']);
+          return NEVER;
+        })
+      )
+        .subscribe(loggedIn => {
+          const returnUrl = this.returnUrlService.popUrl() || '/';
           if (loggedIn) {
-            const returnUrl = this.returnUrlService.popUrl() || '/';
             try {
+              debugger;
               this.router.navigateByUrl(returnUrl);
             } catch (e) {
               this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
               this.router.navigate(['/']);
             }
-          } 
-          else {
+          } else {
             try {
-              const currentPathname = this.window.getLocation().pathname;
-              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
-              if (!returnUrl.startsWith(currentPathname)) {
-                this.returnUrlService.setUrl(returnUrl);
-              }
-
+              debugger;
+              this.returnUrlService.setUrl(returnUrl);
               this.assertEdgeRedirectIssue(returnUrl);
               this.oidcSecurityService.authorize();
-            } 
-            catch (err) { 
-              this.logger.error(`${this.loggerPrefix} Authorize Failed`, err); 
+            }
+            catch (err) {
+              this.logger.error(`${this.loggerPrefix} Authorize Failed`, err);
             }
           }
-      });
+        });
     });
   }
 
