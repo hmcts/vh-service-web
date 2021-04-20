@@ -1,23 +1,25 @@
-import { TestBed, ComponentFixture, fakeAsync, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
 import { Router, NavigationEnd } from '@angular/router';
+import { of, throwError as _observableThrow } from 'rxjs';
+import { TestBed, ComponentFixture, fakeAsync, waitForAsync } from '@angular/core/testing';
+
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Config } from './modules/shared/models/config';
-import { Observable, of, throwError, throwError as _observableThrow } from 'rxjs';
-import { WindowRef, WindowLocation } from './modules/shared/window-ref';
+import { ProfileService } from './services/profile.service';
+import { ConfigService } from './services/config.service';
+import { MockOidcSecurityService } from './testing/mocks/MockOidcSecurityService';
 import { PageTrackerService } from './services/page-tracker.service';
+import { DocumentRedirectService } from './services/document-redirect.service';
+
+import { AppComponent } from './app.component';
 import { HeaderComponent } from './modules/shared/header/header.component';
 import { Component } from '@angular/core';
 import { JourneySelector } from './modules/base-journey/services/journey.selector';
-import { ProfileService } from './services/profile.service';
 import { DeviceType } from './modules/base-journey/services/device-type';
 import { Paths } from './paths';
 import { NavigationBackSelector } from './modules/base-journey/services/navigation-back.selector';
-import { DocumentRedirectService } from './services/document-redirect.service';
 import { Logger } from './services/logger';
 import { MockLogger } from './testing/mocks/mock-logger';
-import { ConfigService } from './services/config.service';
-import { MockOidcSecurityService } from './testing/mocks/MockOidcSecurityService';
+import { Config } from './modules/shared/models/config';
+import { WindowRef, WindowLocation } from './modules/shared/window-ref';
 
 @Component({ selector: 'app-footer', template: '' })
 export class FooterStubComponent {
@@ -49,52 +51,60 @@ describe('AppComponent', () => {
     let oidcSecurityService;
     let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
 
-    const clientSettings = new Config('sdsf', 'fsfs');
+    const clientSettings = new Config();
+    clientSettings.tenantId = 'tenantid',
+    clientSettings.clientId = 'clientid',
+    clientSettings.postLogoutRedirectUri = '/',
+    clientSettings.redirectUri = '/'
 
-    beforeEach(async(() => {
-        router = {
-            navigate: jasmine.createSpy('navigate'),
-            navigateByUrl: jasmine.createSpy('navigateByUrl'),
-            events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
-        };
+    beforeEach(
+        waitForAsync(() => {
+            router = {
+                navigate: jasmine.createSpy('navigate'),
+                navigateByUrl: jasmine.createSpy('navigateByUrl'),
+                events: of(new NavigationEnd(1, '/someurl', '/urlafter'))
+            };
 
-        configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
-        configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
-        oidcSecurityService = mockOidcSecurityService;
-        journeySelector = jasmine.createSpyObj<JourneySelector>(['beginFor']);
-        navigationBackSelector = jasmine.createSpyObj<NavigationBackSelector>(['beginFor']);
-        redirect = jasmine.createSpyObj<DocumentRedirectService>(['to']);
-        profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
-        pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
-        deviceTypeServiceSpy = jasmine.createSpyObj<DeviceType>(['isSupportedBrowser']);
-        window = jasmine.createSpyObj('WindowRef', ['getLocation']);
-        window.getLocation.and.returnValue(new WindowLocation('/url'));
+            configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
+            configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
+            oidcSecurityService = mockOidcSecurityService;
 
-        TestBed.configureTestingModule({
-            declarations: [
-                AppComponent,
-                FooterStubComponent,
-                RouterOutletStubComponent,
-                HeaderComponent,
-                BetaBannerStubComponent
-            ],
-            providers:
-                [
-                    { provide: Router, useValue: router },
-                    { provide: OidcSecurityService, useValue: mockOidcSecurityService },
-                    { provide: Config, useValue: config },
-                    { provide: WindowRef, useValue: window },
-                    { provide: PageTrackerService, useValue: pageTracker },
-                    { provide: ProfileService, useValue: profileService },
-                    { provide: JourneySelector, useValue: journeySelector },
-                    { provide: DeviceType, useValue: deviceTypeServiceSpy },
-                    { provide: NavigationBackSelector, useValue: navigationBackSelector },
-                    { provide: DocumentRedirectService, useValue: redirect },
-                    { provide: Logger, useValue: new MockLogger() }
-                ]
-        }).compileComponents();
+            journeySelector = jasmine.createSpyObj<JourneySelector>(['beginFor']);
+            navigationBackSelector = jasmine.createSpyObj<NavigationBackSelector>(['beginFor']);
+            redirect = jasmine.createSpyObj<DocumentRedirectService>(['to']);
+            profileService = jasmine.createSpyObj<ProfileService>(['getUserProfile']);
+            pageTracker = jasmine.createSpyObj('PageTrackerService', ['trackNavigation', 'trackPreviousPage']);
+            deviceTypeServiceSpy = jasmine.createSpyObj<DeviceType>(['isSupportedBrowser']);
+            window = jasmine.createSpyObj('WindowRef', ['getLocation']);
+            window.getLocation.and.returnValue(new WindowLocation('/url'));
 
-    }));
+            TestBed.configureTestingModule({
+                declarations: [
+                    AppComponent,
+                    FooterStubComponent,
+                    RouterOutletStubComponent,
+                    HeaderComponent,
+                    BetaBannerStubComponent
+                ],
+                providers:
+                    [
+                        { provide: OidcSecurityService, useValue: mockOidcSecurityService },
+                        { provide: ConfigService, useValue: configServiceSpy },
+                        { provide: Router, useValue: router },
+                        { provide: Config, useValue: config },
+                        { provide: WindowRef, useValue: window },
+                        { provide: PageTrackerService, useValue: pageTracker },
+                        { provide: ProfileService, useValue: profileService },
+                        { provide: JourneySelector, useValue: journeySelector },
+                        { provide: DeviceType, useValue: deviceTypeServiceSpy },
+                        { provide: NavigationBackSelector, useValue: navigationBackSelector },
+                        { provide: DocumentRedirectService, useValue: redirect },
+                        { provide: Logger, useValue: new MockLogger() }
+                    ]
+            }).compileComponents();
+        })
+    );
+    
     beforeEach(() => {
         fixture = TestBed.createComponent(AppComponent);
         component = fixture.componentInstance;

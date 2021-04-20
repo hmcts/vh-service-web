@@ -40,7 +40,7 @@ videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
 
 const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
-configServiceMock.load.and.returnValue(of(new Config()));
+configServiceMock.loadConfig.and.returnValue(of(new Config()));
 
 const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic', 'stopStream']);
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));

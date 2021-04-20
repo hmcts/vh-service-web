@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {UnauthorisedComponent} from './unauthorised.component';
 import {ContactUsComponent} from '../../shared/contact-us/contact-us.component';
 
@@ -6,7 +6,8 @@ describe('UnauthorisedComponent', () => {
   let component: UnauthorisedComponent;
   let fixture: ComponentFixture<UnauthorisedComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(
+    waitForAsync (() => {
     TestBed.configureTestingModule({
       declarations: [
         UnauthorisedComponent,

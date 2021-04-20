@@ -1,14 +1,14 @@
-import { async } from '@angular/core/testing';
-
-import { LoginComponent } from './login.component';
 import { Router } from '@angular/router';
+import { waitForAsync } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { WindowRef } from '../../shared/window-ref';
+
 import { ReturnUrlService } from 'src/app/modules/security/return-url.service';
-import { Logger } from 'src/app/services/logger';
-import {WindowRef} from '../../shared/window-ref';
 import { ConfigService } from 'src/app/services/config.service';
 import { MockOidcSecurityService } from 'src/app/testing/mocks/MockOidcSecurityService';
+import { LoginComponent } from './login.component';
+import { Logger } from 'src/app/services/logger';
 import { Config } from '../../shared/models/config';
-import { of } from 'rxjs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -22,23 +22,25 @@ describe('LoginComponent', () => {
   let oidcSecurityService;
   const clientSettings = new Config('sdsf', 'fsfs');
 
-  beforeEach(async(() => {
-    route = {
-      snapshot: {
-        queryParams: {}
-      }
-    };
+  beforeEach(
+    waitForAsync(() => {
+      route = {
+        snapshot: {
+          queryParams: {}
+        }
+      };
 
-    logger = jasmine.createSpyObj<Logger>(['error']);
-    router = jasmine.createSpyObj<Router>(['navigate', 'navigateByUrl']);
-    returnUrl = jasmine.createSpyObj<ReturnUrlService>(['popUrl', 'setUrl']);
-    window = jasmine.createSpyObj<WindowRef>(['getLocation']);
-    configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
-    configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
-    oidcSecurityService = mockOidcSecurityService;
+      logger = jasmine.createSpyObj<Logger>(['error']);
+      router = jasmine.createSpyObj<Router>(['navigate', 'navigateByUrl']);
+      returnUrl = jasmine.createSpyObj<ReturnUrlService>(['popUrl', 'setUrl']);
+      window = jasmine.createSpyObj<WindowRef>(['getLocation']);
+      configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
+      configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
+      oidcSecurityService = mockOidcSecurityService;
 
-    component = new LoginComponent(route, router, logger, returnUrl,oidcSecurityService, configServiceSpy, window);
-  }));
+      component = new LoginComponent(route, router, logger, returnUrl,oidcSecurityService, configServiceSpy, window);
+    })
+  );
 
   const givenAuthenticated = (authenticated: boolean) => {
     oidcSecurityService.setAuthenticated(authenticated);

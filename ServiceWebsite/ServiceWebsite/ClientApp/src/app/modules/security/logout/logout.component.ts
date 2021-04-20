@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { ConfigService } from 'src/app/services/config.service';
 import {Paths} from '../paths';
 
 @Component({
@@ -9,17 +10,20 @@ import {Paths} from '../paths';
 export class LogoutComponent implements OnInit {
   readonly loginPath = '../' + Paths.Login;
   loggedIn : boolean;
-  constructor(private oidcSecurityService: OidcSecurityService) {
+  constructor(private oidcSecurityService: OidcSecurityService,
+    private configService: ConfigService) {
   }
 
   ngOnInit() {
     sessionStorage.clear();
     
-    this.oidcSecurityService.isAuthenticated$.subscribe(logIn => {
-      this.loggedIn = logIn; 
-      if (logIn) {
-          this.oidcSecurityService.logoffAndRevokeTokens();
-      }
+    this.configService.getClientSettings().subscribe(clientSettings => {
+      this.oidcSecurityService.isAuthenticated$.subscribe(loggedIn => {
+        this.loggedIn = loggedIn; 
+        if (loggedIn) {
+            this.oidcSecurityService.logoffAndRevokeTokens();
+        }
+      })
     });
   }
 }
