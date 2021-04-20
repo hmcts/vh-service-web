@@ -43,7 +43,7 @@ describe('JourneyRoutingListenerService', () => {
     let currentJourneyStep: Steps;
 
     const bindings = new JourneyStepComponentBindingsStub();
-    const config = new Config('videourl', 'appinsightskey');
+    const config = new Config();
 
     beforeEach(() => {
         redirectService = jasmine.createSpyObj<DocumentRedirectService>(['to']);

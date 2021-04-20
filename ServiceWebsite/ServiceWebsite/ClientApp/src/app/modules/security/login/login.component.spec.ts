@@ -20,7 +20,7 @@ describe('LoginComponent', () => {
   let configServiceSpy: jasmine.SpyObj<ConfigService>;
   const mockOidcSecurityService = new MockOidcSecurityService();
   let oidcSecurityService;
-  const clientSettings = new Config('sdsf', 'fsfs');
+  const clientSettings = new Config();
 
   beforeEach(
     waitForAsync(() => {

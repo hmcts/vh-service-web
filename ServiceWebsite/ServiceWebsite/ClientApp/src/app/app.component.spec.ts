@@ -52,10 +52,10 @@ describe('AppComponent', () => {
     let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
 
     const clientSettings = new Config();
-    clientSettings.tenantId = 'tenantid',
-    clientSettings.clientId = 'clientid',
-    clientSettings.postLogoutRedirectUri = '/',
-    clientSettings.redirectUri = '/'
+    clientSettings.tenant_id = 'tenantid',
+    clientSettings.client_id = 'clientid',
+    clientSettings.post_logout_redirect_uri = '/',
+    clientSettings.redirect_uri = '/'
 
     beforeEach(
         waitForAsync(() => {
