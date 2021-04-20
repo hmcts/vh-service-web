@@ -30,7 +30,7 @@ export class JourneyRoutingListenerService {
 
   private gotoStep(step: JourneyStep) {
     if (step === Steps.GotoVideoApp) {
-      this.redirect.to(this.config.videoAppUrl);
+      this.redirect.to(this.config.video_app_url);
       return;
     }
 

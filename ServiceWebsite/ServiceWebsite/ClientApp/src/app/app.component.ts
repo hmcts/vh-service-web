@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
                 }
             }
 
-            this.redirect.to(this.config.videoAppUrl);
+            this.redirect.to(this.config.video_app_url);
 
             return;
         }

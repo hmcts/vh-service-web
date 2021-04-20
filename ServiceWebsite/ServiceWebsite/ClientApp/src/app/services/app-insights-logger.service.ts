@@ -17,7 +17,7 @@ export class AppInsightsLogger implements LogAdapter {
 
   constructor(config: Config) {
     const appInsightsConfig: Microsoft.ApplicationInsights.IConfig = {
-      instrumentationKey: config.appInsightsInstrumentationKey,
+      instrumentationKey: config.app_insights_instrumentation_key,
     };
 
     // Unfortunately, there is no way to know if the setup is successful or not

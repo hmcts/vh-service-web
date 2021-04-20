@@ -9,10 +9,10 @@ export function loadConfig(configService: ConfigService, oidcConfigService: Oidc
         configService.getClientSettings().subscribe(clientSettings => {
             // https://github.com/damienbod/angular-auth-oidc-client/blob/8b66484755ad815948d5bc0711e8d9c69ac6661f/docs/configuration.md
             oidcConfigService.withConfig({
-                stsServer: `https://login.microsoftonline.com/${clientSettings.tenantId}/v2.0`,
-                redirectUrl: clientSettings.redirectUri,
-                clientId: clientSettings.clientId,
-                scope: `openid profile api://${clientSettings.clientId}/feapi`,
+                stsServer: `https://login.microsoftonline.com/${clientSettings.tenant_id}/v2.0`,
+                redirectUrl: clientSettings.redirect_uri,
+                clientId: clientSettings.client_id,
+                scope: `openid profile api://${clientSettings.client_id}/feapi`,
                 responseType: 'code',
                 maxIdTokenIatOffsetAllowedInSeconds: 600,
                 autoUserinfo: false,
