@@ -46,15 +46,13 @@ parameters:
     - name: AzureAd:AppInsightsKey
       value: vh-core-infra-AppInsightsKey
       secret: true
-    - name: AzureAd:Authority
-      value: $(Authority)
     - name: AzureAd:BaseVideoUrl
       value: $(video_blob_url)
     - name: AzureAd:ClientId
-      value: vh-service-web-appid
+      value: vh-service-web-appid-v2
       secret: true
     - name: AzureAd:ClientSecret
-      value: vh-service-web-key
+      value: vh-service-web-key-v2
       secret: true
     - name: AzureAd:PostLogoutRedirectUri
       slot: true
@@ -141,15 +139,13 @@ parameters:
       value: $(IsLive)
 
     # AzureAd
-    - name: AzureAd:Authority
-      value: $(Authority)
     - name: AzureAd:BaseVideoUrl
       value: $(video_blob_url)
     - name: AzureAd:ClientId
-      value: vh-service-web-appid
+      value: vh-service-web-appid-v2
       secret: true
     - name: AzureAd:ClientSecret
-      value: vh-service-web-key
+      value: vh-service-web-key-v2
       secret: true
     - name: AzureAd:PostLogoutRedirectUri
       slot:
