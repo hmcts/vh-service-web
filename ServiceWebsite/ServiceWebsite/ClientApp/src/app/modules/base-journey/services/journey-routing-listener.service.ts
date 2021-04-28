@@ -10,6 +10,7 @@ import {filter} from 'rxjs/operators';
 import {Location} from '@angular/common';
 import {Logger} from '../../../services/logger';
 import {Title} from '@angular/platform-browser';
+import { ConfigService } from 'src/app/services/config.service';
 
 /**
  * Connects the routing to the journey
@@ -22,7 +23,7 @@ export class JourneyRoutingListenerService {
   constructor(
     private location: Location,
     private router: Router,
-    private config: Config,
+    private configService: ConfigService,
     private redirect: DocumentRedirectService,
     private logger: Logger,
     private titleService: Title) {
@@ -30,7 +31,7 @@ export class JourneyRoutingListenerService {
 
   private gotoStep(step: JourneyStep) {
     if (step === Steps.GotoVideoApp) {
-      this.redirect.to(this.config.video_app_url);
+      this.redirect.to(this.configService.getConfig().video_app_url);
       return;
     }
 

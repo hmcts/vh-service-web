@@ -32,14 +32,12 @@ export class AppComponent implements OnInit {
     constructor(
         private router: Router,
         private oidcSecurityService: OidcSecurityService,
-        private config: Config,
         private window: WindowRef,
         private profileService: ProfileService,
         private journeySelector: JourneySelector,
         pageTracker: PageTrackerService,
         private deviceTypeService: DeviceType,
         private navigationBackSelector: NavigationBackSelector,
-        private renderer: Renderer2,
         private redirect: DocumentRedirectService,
         private logger: Logger,
         private configService: ConfigService
@@ -53,13 +51,13 @@ export class AppComponent implements OnInit {
         this.configService.getClientSettings().subscribe(clientSettings => {
             this.oidcSecurityService.checkAuth().subscribe(loggedIn => {
                 this.loggedIn = loggedIn;
-                this.initialiseProfile().then(() => (this.initialized = true));
+                this.initialiseProfile(clientSettings).then(() => (this.initialized = true));
             });
         });
       
     }
 
-    private async initialiseProfile(): Promise<void> {
+    private async initialiseProfile(clientSettings: Config): Promise<void> {
         // the window callback modifies the url so store this accordingly first
         const currentUrl = this.window.getLocation().href;
         if (!this.loggedIn) {
@@ -95,8 +93,7 @@ export class AppComponent implements OnInit {
                     return;
                 }
             }
-
-            this.redirect.to(this.config.video_app_url);
+            this.redirect.to(clientSettings.video_app_url);
 
             return;
         }
