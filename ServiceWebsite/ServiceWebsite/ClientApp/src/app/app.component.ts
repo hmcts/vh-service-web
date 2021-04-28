@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
         this.checkBrowser();
         this.configService.getClientSettings().subscribe(clientSettings => {
             this.oidcSecurityService.checkAuth().subscribe(loggedIn => {
-                debugger;
                 this.loggedIn = loggedIn;
                 this.initialiseProfile().then(() => (this.initialized = true));
             });
@@ -63,7 +62,6 @@ export class AppComponent implements OnInit {
     private async initialiseProfile(): Promise<void> {
         // the window callback modifies the url so store this accordingly first
         const currentUrl = this.window.getLocation().href;
-        debugger;
         if (!this.loggedIn) {
             this.logger.event('telemetry:serviceweb:any:login:notauthenticated');
             this.logger.flushBuffer();
@@ -74,9 +72,7 @@ export class AppComponent implements OnInit {
         this.logger.event('telemetry:serviceweb:any:login:authenticated');
 
         try {
-            debugger;
             const profile = await this.profileService.getUserProfile();
-            debugger;
             if (profile === undefined || profile.email === undefined || profile.role === undefined || profile.role === 'None') {
                 await this.router.navigate(['/unauthorized']);
                 return;

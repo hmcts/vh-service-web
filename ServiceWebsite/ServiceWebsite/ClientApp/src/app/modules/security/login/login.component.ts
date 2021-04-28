@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
     this.configService.getClientSettings().subscribe(() => {
       this.oidcSecurityService.isAuthenticated$.pipe(
         catchError(err => {
-          debugger;
           this.logger.error(`${this.loggerPrefix} Check Auth Error`, err);
           this.router.navigate(['/']);
           return NEVER;
@@ -36,7 +35,6 @@ export class LoginComponent implements OnInit {
           const returnUrl = this.returnUrlService.popUrl() || '/';
           if (loggedIn) {
             try {
-              debugger;
               this.router.navigateByUrl(returnUrl);
             } catch (e) {
               this.logger.error('Failed to navigate to redirect url, possibly stored url is invalid', e, returnUrl);
@@ -44,7 +42,6 @@ export class LoginComponent implements OnInit {
             }
           } else {
             try {
-              debugger;
               this.returnUrlService.setUrl(returnUrl);
               this.assertEdgeRedirectIssue(returnUrl);
               this.oidcSecurityService.authorize();
