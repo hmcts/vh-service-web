@@ -95,6 +95,7 @@ namespace ServiceWebsite
                 options.TokenValidationParameters.ValidateLifetime = true;
                 options.Audience = securitySettings.ClientId;
                 options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+                options.TokenValidationParameters.NameClaimType = "preferred_username";
             });
 
             services.AddAuthorization();
