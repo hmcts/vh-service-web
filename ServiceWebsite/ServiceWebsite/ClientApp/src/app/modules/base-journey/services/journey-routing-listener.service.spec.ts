@@ -76,7 +76,7 @@ describe('JourneyRoutingListenerService', () => {
 
         service = new JourneyRoutingListenerService(
             location,
-            router, 
+            router,
             configServiceSpy,
             redirectService,
             jasmine.createSpyObj<Logger>(['event']),

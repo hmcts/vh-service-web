@@ -44,8 +44,7 @@ export class LoginComponent implements OnInit {
               this.returnUrlService.setUrl(returnUrl);
               this.assertEdgeRedirectIssue(returnUrl);
               this.oidcSecurityService.authorize();
-            }
-            catch (err) {
+            } catch (err) {
               this.logger.error(`${this.loggerPrefix} Authorize Failed`, err);
             }
           }

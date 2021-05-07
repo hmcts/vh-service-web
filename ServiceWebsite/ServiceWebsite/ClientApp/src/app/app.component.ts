@@ -54,7 +54,6 @@ export class AppComponent implements OnInit {
                 this.initialiseProfile(clientSettings).then(() => (this.initialized = true));
             });
         });
-      
     }
 
     private async initialiseProfile(clientSettings: Config): Promise<void> {

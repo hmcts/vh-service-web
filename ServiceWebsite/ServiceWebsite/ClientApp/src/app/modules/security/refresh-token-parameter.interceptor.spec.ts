@@ -25,7 +25,6 @@ describe('RefreshTokenParameterInterceptor', () => {
         await sut.intercept(request, next).toPromise();
 
         // Assert
-        // expect(result.body).toBe(`${request.body}&scope=openid%20profile%20offline_access`);  // TODO - FIX this 
         expect(next.handle).toHaveBeenCalledTimes(1);
     });
 

@@ -40,10 +40,10 @@ videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
 
 const clientSettings = new Config();
-clientSettings.tenant_id = 'tenantid',
-clientSettings.client_id = 'clientid',
-clientSettings.post_logout_redirect_uri = '/',
-clientSettings.redirect_uri = '/'
+clientSettings.tenant_id = 'tenantid';
+clientSettings.client_id = 'clientid';
+clientSettings.post_logout_redirect_uri = '/';
+clientSettings.redirect_uri = '/';
 
 const configServiceMock = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
 configServiceMock.loadConfig.and.returnValue(of(clientSettings));

@@ -12,8 +12,8 @@ export class ConfigService {
   clientSettingsLoaded$ = new BehaviorSubject(false);
   private SETTINGS_KEY = 'vh.client.settings';
   private readonly clientSettingCache: SessionStorage<Config>;
-  private httpClient: HttpClient; 
-    
+  private httpClient: HttpClient;
+
   constructor(handler: HttpBackend) {
     this.httpClient = new HttpClient(handler);
     this.clientSettingCache = new SessionStorage<Config>(this.SETTINGS_KEY);
@@ -42,7 +42,7 @@ export class ConfigService {
         map(() => this.getConfig())
     );
   }
-  
+
   getConfig(): Config {
     return this.clientSettingCache.get();
   }
