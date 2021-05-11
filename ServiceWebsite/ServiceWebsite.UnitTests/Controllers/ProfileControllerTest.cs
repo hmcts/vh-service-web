@@ -32,7 +32,7 @@ namespace ServiceWebsite.UnitTests.Controllers
                     {
                         User = new ClaimsPrincipal(new ClaimsIdentity(new[]
                         {
-                            new Claim(ClaimTypes.Name, "username")
+                            new Claim("preferred_username", "username")
                         }))
                     }
                 }
@@ -42,14 +42,14 @@ namespace ServiceWebsite.UnitTests.Controllers
         [Test]
         public async Task Get_user_profile_returns_ok()
         {
-            var userProfile = new UserProfile{Email = "email", UserRole = "userrole"};
+            var userProfile = new UserProfile{DisplayName = "Name", UserRole = "userrole"};
             _userApiClient.Setup(x => x.GetUserByAdUserNameAsync("username")).ReturnsAsync(userProfile);
 
             var result = await _controller.GetUserProfile();
 
             result.Should().NotBeNull().And.BeAssignableTo<OkObjectResult>();
             var userProfileResponse = result.As<OkObjectResult>().Value.As<UserProfileResponse>();
-            userProfileResponse.Email.Should().Be(userProfile.Email);
+            userProfileResponse.Email.Should().Be(userProfile.DisplayName);
             userProfileResponse.Role.Should().Be(userProfile.UserRole);
         }
 
@@ -78,7 +78,7 @@ namespace ServiceWebsite.UnitTests.Controllers
                     {
                         User = new ClaimsPrincipal(new ClaimsIdentity(new[]
                        {
-                            new Claim(ClaimTypes.Name, "username"),
+                            new Claim("preferred_username", "username"),
                              new Claim("oid", "oid")
                         }))
                     }
@@ -106,7 +106,7 @@ namespace ServiceWebsite.UnitTests.Controllers
                     {
                         User = new ClaimsPrincipal(new ClaimsIdentity(new[]
                        {
-                            new Claim(ClaimTypes.Name, "username"),
+                            new Claim("preferred_username", "username"),
                              new Claim("unknown", "unknown")
                         }))
                     }

@@ -31,6 +31,7 @@
     "govuk-frontend": "^3.9.1",
     "ng-bullet": "latest",
     "ngx-device-detector": "^1.5.2",
+    "prettify": "^0.1.7",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.2",
     "webrtc-adapter": "^7.7.0",

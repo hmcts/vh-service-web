@@ -9,21 +9,21 @@ import {Paths} from '../paths';
 })
 export class LogoutComponent implements OnInit {
   readonly loginPath = '../' + Paths.Login;
-  loggedIn : boolean;
+  loggedIn: boolean;
   constructor(private oidcSecurityService: OidcSecurityService,
     private configService: ConfigService) {
   }
 
   ngOnInit() {
     sessionStorage.clear();
-    
+
     this.configService.getClientSettings().subscribe(clientSettings => {
       this.oidcSecurityService.isAuthenticated$.subscribe(loggedIn => {
-        this.loggedIn = loggedIn; 
+        this.loggedIn = loggedIn;
         if (loggedIn) {
             this.oidcSecurityService.logoffAndRevokeTokens();
         }
-      })
+      });
     });
   }
 }

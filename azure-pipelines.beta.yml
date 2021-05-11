@@ -240,8 +240,6 @@ stages:
           - name: AzureAd:AppInsightsKey
             value: vh-core-infra-AppInsightsKey
             secret: true
-          - name: AzureAd:Authority
-            value: $(Authority)
           - name: AzureAd:BaseVideoUrl
             value: $(video_blob_url)
           - name: AzureAd:ClientId

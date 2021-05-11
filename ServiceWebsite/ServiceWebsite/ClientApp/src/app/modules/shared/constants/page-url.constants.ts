@@ -1,6 +1,6 @@
 export let PageUrls = {
     PageNotFound: '/page-not-found',
     Unauthorised: '/unauthorised',
-    ServiceProblem: '/error',   
+    ServiceProblem: '/error',
     Login: '/login'
 };

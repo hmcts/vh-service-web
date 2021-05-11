@@ -52,10 +52,10 @@ describe('AppComponent', () => {
     let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
 
     const clientSettings = new Config();
-    clientSettings.tenant_id = 'tenantid',
-    clientSettings.client_id = 'clientid',
-    clientSettings.post_logout_redirect_uri = '/',
-    clientSettings.redirect_uri = '/'
+    clientSettings.tenant_id = 'tenantid';
+    clientSettings.client_id = 'clientid';
+    clientSettings.post_logout_redirect_uri = '/';
+    clientSettings.redirect_uri = '/';
 
     beforeEach(
         waitForAsync(() => {
@@ -104,7 +104,7 @@ describe('AppComponent', () => {
             }).compileComponents();
         })
     );
-    
+
     beforeEach(() => {
         fixture = TestBed.createComponent(AppComponent);
         component = fixture.componentInstance;

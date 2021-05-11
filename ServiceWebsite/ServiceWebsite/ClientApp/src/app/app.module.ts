@@ -62,7 +62,7 @@ export function loadConfig(configService: ConfigService) {
         QuestionnaireAlreadyCompletedComponent,
         AccessibilityComponent,
         ScrollTriggerDirective,
-        SignInOnComputerComponent        
+        SignInOnComputerComponent
     ],
     imports: [
         BrowserModule,

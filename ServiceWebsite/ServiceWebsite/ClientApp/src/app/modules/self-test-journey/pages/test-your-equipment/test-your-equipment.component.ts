@@ -88,9 +88,10 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
         );
     }
 
-    async setConfiguration() {
-        const config = await this.configService.getConfig();
-        this.pexipNode = config.pexip_self_test_node_uri;
+    setConfiguration() {
+        this.configService.getClientSettings().subscribe(clientSettings => {
+            this.pexipNode = clientSettings.pexip_self_test_node_uri;
+        });
     }
 
     async getToken() {

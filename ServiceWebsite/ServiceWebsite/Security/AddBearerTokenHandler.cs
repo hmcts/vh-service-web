@@ -30,7 +30,7 @@ namespace ServiceWebsite.Security
             var token = _memoryCache.Get<string>(TokenKey);
             if (string.IsNullOrEmpty(token))
             {
-                var authenticationResult = _tokenProvider.GetAuthorisationResult(_securitySettings.ClientId,
+                var authenticationResult = await _tokenProvider.GetAuthorisationResult(_securitySettings.ClientId,
                     _securitySettings.ClientSecret, _serviceSettings.BookingsApiResourceId);
 
                 token = authenticationResult.AccessToken;

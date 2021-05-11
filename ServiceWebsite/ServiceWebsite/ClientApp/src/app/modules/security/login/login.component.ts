@@ -1,9 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { ReturnUrlService } from '../return-url.service';
 import { Logger } from 'src/app/services/logger';
-import { WindowRef } from '../../shared/window-ref';
 import { ConfigService } from 'src/app/services/config.service';
 import { catchError } from 'rxjs/operators';
 import { NEVER } from 'rxjs';
@@ -45,8 +44,7 @@ export class LoginComponent implements OnInit {
               this.returnUrlService.setUrl(returnUrl);
               this.assertEdgeRedirectIssue(returnUrl);
               this.oidcSecurityService.authorize();
-            }
-            catch (err) {
+            } catch (err) {
               this.logger.error(`${this.loggerPrefix} Authorize Failed`, err);
             }
           }

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UnsupportedBrowserComponent } from './unsupported-browser.component';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
@@ -9,7 +9,7 @@ describe('UnsupportedBrowserComponent', () => {
   let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
   const browserName = 'Opera';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     deviceTypeServiceSpy = jasmine.createSpyObj<DeviceType>(['getBrowserName']);
     deviceTypeServiceSpy.getBrowserName.and.returnValue(browserName);
     TestBed.configureTestingModule({

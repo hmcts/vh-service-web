@@ -17,19 +17,20 @@ namespace ServiceWebsite
             const string vhServiceWeb = "/mnt/secrets/vh-service-web";
 
             return Host.CreateDefaultBuilder(args)
+                 .ConfigureWebHostDefaults(webBuilder =>
+                 {
+                     webBuilder.ConfigureKestrel(serverOptions =>
+                     {
+                         serverOptions.AddServerHeader = false;
+                     })
+                     .UseStartup<Startup>();
+                 })
                 .ConfigureAppConfiguration((configBuilder) =>
                 {
                     configBuilder.AddAksKeyVaultSecretProvider(vhInfraCore);
                     configBuilder.AddAksKeyVaultSecretProvider(vhServiceWeb);
                 })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureKestrel(serverOptions =>
-                    {
-                        serverOptions.AddServerHeader = false;
-                    })
-                    .UseStartup<Startup>();
-                });
+               ;
         }
     }
 }

@@ -38,7 +38,7 @@ describe('LoginComponent', () => {
       configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
       oidcSecurityService = mockOidcSecurityService;
 
-      component = new LoginComponent(route, router, logger, returnUrl,oidcSecurityService, configServiceSpy, window);
+      component = new LoginComponent(router, logger, returnUrl, oidcSecurityService, configServiceSpy);
     })
   );
 
@@ -63,22 +63,11 @@ describe('LoginComponent', () => {
     givenAuthenticated(false);
 
     // and we have a return url set in the query param
-    route.snapshot.queryParams['returnUrl'] = 'returnto';
+    returnUrl.popUrl.and.returnValue('returnto');
 
     await whenInitializingComponent();
 
     expect(returnUrl.setUrl).toHaveBeenCalledWith('returnto');
-  });
-
-  it('should not set url when current pathname is same as return url when not authenticated', async () => {
-    givenAuthenticated(false);
-
-    // and we have a return url set in the query param
-    route.snapshot.queryParams['returnUrl'] = '/login?returnUrl=%2Flogin';
-
-    await whenInitializingComponent();
-
-    expect(returnUrl.setUrl).not.toHaveBeenCalled();
   });
 
   it('should redirect to remembered return url if authenticated', async () => {
