@@ -38,15 +38,14 @@ const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
 const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId', 'getTestCallScore']);
 videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
-
+let configServiceSpy: jasmine.SpyObj<ConfigService>;
 const clientSettings = new Config();
 clientSettings.tenant_id = 'tenantid';
 clientSettings.client_id = 'clientid';
 clientSettings.post_logout_redirect_uri = '/';
 clientSettings.redirect_uri = '/';
-
-const configServiceMock = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
-configServiceMock.loadConfig.and.returnValue(of(clientSettings));
+configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
+configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
 
 const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic', 'stopStream']);
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
@@ -73,7 +72,7 @@ describe('TestYourEquipmentComponent', () => {
                 { provide: Logger, useClass: MockLogger },
                 { provide: VideoWebService, useValue: videoWebServiceMock },
                 { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
-                { provide: ConfigService, useValue: configServiceMock },
+                { provide: ConfigService, useValue: configServiceSpy },
                 UserMediaService
             ],
             model: model
@@ -97,6 +96,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
     beforeEach(() => {
         journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+       
         model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('1');
         model.participantId = '2';
@@ -107,12 +107,12 @@ describe('TestYourEquipmentComponent functionality', () => {
             userMediaService,
             userMediaStreamServiceMock,
             videoWebServiceMock,
-            configServiceMock,
+            configServiceSpy,
             logger
         );
     });
 
-    xit('should setup pexip client', async () => {
+    it('should setup pexip client', async () => {
         component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
         const defaultDevice = new UserMediaDevice('fake_device_0', 'default', 'videoinput', 'group1');
         const soundOutput = new UserMediaDevice('Fake Audio Input 1', 'audiooutput1', 'audiooutput', 'group1');
@@ -123,13 +123,13 @@ describe('TestYourEquipmentComponent functionality', () => {
         expect(component.didTestComplete).toBeFalsy();
     });
 
-    xit('should pexip make a call', async () => {
+    it('should pexip make a call', async () => {
         component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
         component.call();
         expect(component.didTestComplete).toBeFalsy();
     });
 
-    xit('should replay video', async () => {
+    it('should replay video', async () => {
         component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
         component.didTestComplete = true;
         await component.ngOnInit();
@@ -137,7 +137,7 @@ describe('TestYourEquipmentComponent functionality', () => {
         expect(component.didTestComplete).toBeFalsy();
     });
 
-    xit('should disconnect pexip', async () => {
+    it('should disconnect pexip', async () => {
         component.disconnect();
         expect(component.didTestComplete).toBeTruthy();
         expect(component.displayFeed).toBeFalsy();
@@ -149,7 +149,7 @@ describe('TestYourEquipmentComponent functionality', () => {
         expect(component.displayFeed).toBeTruthy();
     });
 
-    xit('should disconnected handle set test to completed and retrieve test score', () => {
+    it('should disconnected handle set test to completed and retrieve test score', () => {
         component.disconnectHandleEvent('Conference terminated by another participant');
         expect(component.didTestComplete).toBeTruthy();
         expect(component.displayFeed).toBeFalsy();
@@ -173,7 +173,7 @@ describe('TestYourEquipmentComponent functionality', () => {
         expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
     });
 
-    xit('should stop all stream and unsubcribe on destroy event', async () => {
+    it('should stop all stream and unsubcribe on destroy event', async () => {
         component.$subcriptions.push(new Subscription());
         component.$subcriptions.push(new Subscription());
         expect(component.$subcriptions[0].closed).toBeFalsy();
@@ -187,13 +187,13 @@ describe('TestYourEquipmentComponent functionality', () => {
         expect(component.$subcriptions[1].closed).toBeTruthy();
     });
 
-    xit('should changeDevices', async () => {
+    it('should changeDevices', async () => {
         component.displayDeviceChangeModal = false;
         await component.changeDevices();
         expect(component.displayDeviceChangeModal).toBeTruthy();
     });
 
-    xit('should replayVideo', async () => {
+    it('should replayVideo', async () => {
         component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
         component.didTestComplete = true;
         await component.replayVideo();
@@ -219,6 +219,8 @@ describe('TestYourEquipmentComponent error functionality', () => {
 
     beforeEach(() => {
         journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+        configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
+        configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
         model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('1');
         model.participantId = '2';
@@ -229,7 +231,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
             userMediaServiceMock,
             userMediaStreamServiceMock,
             videoWebServiceMock,
-            configServiceMock,
+            configServiceSpy,
             new MockLogger()
         );
     });
