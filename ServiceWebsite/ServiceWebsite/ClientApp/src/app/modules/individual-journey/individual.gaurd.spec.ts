@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, async, inject, waitForAsync } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from '../shared/shared.module';
@@ -31,7 +31,7 @@ describe('IndividualGuard', () => {
         guard = TestBed.inject(IndividualGuard);
     });
 
-    it('should not be able to activate component if role is Representative', async(async () => {
+    it('should not be able to activate component if role is Representative', waitForAsync(async () => {
         const profile = new UserProfile();
         profile.role = 'Representative';
         profile.email = 'Test.Representative@hearings.reform.hmcts.net';
@@ -41,7 +41,7 @@ describe('IndividualGuard', () => {
         expect(router.navigate).toHaveBeenCalledWith(['/unauthorized']);
     }));
 
-    it('should be able to activate component if role is Individual', async(async () => {
+    it('should be able to activate component if role is Individual', waitForAsync(async () => {
         const profile = new UserProfile();
         profile.role = 'Individual';
         profile.email = 'Test.Individual@hearings.reform.hmcts.net';
@@ -50,7 +50,7 @@ describe('IndividualGuard', () => {
         expect(result).toBeTruthy();
     }));
 
-    it('should logout when user profile cannot be retrieved', async(async () => {
+    it('should logout when user profile cannot be retrieved', waitForAsync(async () => {
         profileServiceSpy.getUserProfile.and.returnValue(Promise.reject({ status: 404, isApiException: true }));
         const result = await guard.canActivate(null, null);
         expect(result).toBeFalsy();

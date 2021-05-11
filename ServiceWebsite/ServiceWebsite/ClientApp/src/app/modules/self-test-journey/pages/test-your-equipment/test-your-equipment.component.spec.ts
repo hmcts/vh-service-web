@@ -96,7 +96,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
     beforeEach(() => {
         journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
-       
+
         model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('1');
         model.participantId = '2';

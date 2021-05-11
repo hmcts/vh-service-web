@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FooterComponent } from './footer.component';
@@ -21,7 +21,7 @@ describe('FooterComponent', () => {
     @Component({ selector: 'app-unsupported-browser', template: '' })
     class UnsupportedBrowserStubComponent {}
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [FooterComponent, DashboardStubComponent, ContactUsStubComponent, UnsupportedBrowserStubComponent],
             imports: [

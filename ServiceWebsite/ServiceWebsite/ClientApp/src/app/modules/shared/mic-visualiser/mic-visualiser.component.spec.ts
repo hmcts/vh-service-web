@@ -1,12 +1,12 @@
 import { MicVisualiserComponent } from './mic-visualiser.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import 'webrtc-adapter';
 
 describe('MicVisualiserComponent', () => {
     let component: MicVisualiserComponent;
     let fixture: ComponentFixture<MicVisualiserComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [MicVisualiserComponent]
         }).compileComponents();
