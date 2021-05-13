@@ -41,7 +41,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserSignsOut()
         {
             WhenTheUserAttemptsToLogout();
-            ThenTheUserShouldBeNavigatedToSignInScreen();
+            // A quick hack to remove check for login screen after a log out, it's now a logout sucessful page.  This needs to be added to acceptance test project first.
+            //ThenTheUserShouldBeNavigatedToSignInScreen();
         }
 
         [When(@"the user signs back in with valid credentials")]
