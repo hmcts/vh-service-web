@@ -62,7 +62,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
         this.displayFeed = false;
         this.displayDeviceChangeModal = false;
         this.setupSubscribers();
-        await this.setConfiguration();
+        this.setConfiguration();
         try {
             await this.setupPexipClient();
             this.logger.event('telemetry:serviceweb:any:selftest:start');
