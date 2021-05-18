@@ -11,6 +11,7 @@ export function loadConfig(configService: ConfigService, oidcConfigService: Oidc
             oidcConfigService.withConfig({
                 stsServer: `https://login.microsoftonline.com/${clientSettings.tenant_id}/v2.0`,
                 redirectUrl: clientSettings.redirect_uri,
+                postLogoutRedirectUri: clientSettings.post_logout_redirect_uri,
                 clientId: clientSettings.client_id,
                 scope: `openid profile api://${clientSettings.client_id}/feapi`,
                 responseType: 'code',

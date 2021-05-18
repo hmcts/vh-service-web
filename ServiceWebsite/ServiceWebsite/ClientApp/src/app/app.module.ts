@@ -43,7 +43,6 @@ import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { AuthConfigModule } from './modules/security/auth-config.module';
-import { AuthGuard } from './modules/security/auth.guard';
 
 export function loadConfig(configService: ConfigService) {
     return () => configService.loadConfig();
@@ -89,7 +88,6 @@ export function loadConfig(configService: ConfigService) {
         { provide: Logger, useClass: LoggerService },
         AppInsightsLogger,
         ConfigService,
-        AuthGuard,
         ErrorService,
         GuidanceService,
         PrintService,
