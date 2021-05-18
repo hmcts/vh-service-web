@@ -27,6 +27,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"the user logs in with valid credentials")]
         public void ProgressToNextPage()
         {
+            NUnit.Framework.TestContext.WriteLine($"The login data is Username: {_c.CurrentUser.Username}, UserType: {_c.CurrentUser.UserType}, Testtype: {_c.CurrentUser.TestType}");
             _loginSharedSteps = new LoginSharedSteps(_browsers[_c.CurrentUser], _c.CurrentUser.Username, _c.WebConfig.TestConfig.TestUserPassword);
             _loginSharedSteps.ProgressToNextPage();
         }
