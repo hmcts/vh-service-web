@@ -88,4 +88,12 @@ describe('LoginComponent', () => {
 
         expect(router.navigateByUrl).toHaveBeenCalledWith('/');
     });
+
+    it('should redirect to root if authenticated observable throws an error', async () => {
+        oidcSecurityService.setThrowErrorOnIsAuth(true);
+
+        await whenInitializingComponent();
+
+        expect(router.navigate).toHaveBeenCalledWith(['/']);
+    });
 });
