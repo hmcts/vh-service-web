@@ -1,11 +1,11 @@
 import { MediaErrorComponent } from './media-error.component';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, waitForAsync } from '@angular/core/testing';
 import { ContactUsComponent } from 'src/app/modules/shared/contact-us/contact-us.component';
 
 describe('MediaErrorComponent', () => {
   let component: MediaErrorComponent;
   let fixture: ComponentFixture<MediaErrorComponent>;
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MediaErrorComponent, ContactUsComponent]
     })

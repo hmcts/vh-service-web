@@ -1,26 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {AdalService} from 'adal-angular4';
-import {Paths} from '../paths';
+import { Component, OnInit } from '@angular/core';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Paths } from '../paths';
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html'
+    selector: 'app-logout',
+    templateUrl: './logout.component.html'
 })
 export class LogoutComponent implements OnInit {
-  readonly loginPath = '../' + Paths.Login;
+    readonly loginPath = '../' + Paths.Login;
+    loggedIn: boolean;
+    constructor(private oidcSecurityService: OidcSecurityService) {}
 
-  constructor(private adalSvc: AdalService) {
-  }
-
-  ngOnInit() {
-    sessionStorage.clear();
-
-    if (this.loggedIn) {
-      this.adalSvc.logOut();
+    ngOnInit() {
+        this.oidcSecurityService.checkAuth().subscribe(loggedIn => {
+            this.loggedIn = loggedIn;
+            if (loggedIn) {
+                this.oidcSecurityService.logoffAndRevokeTokens();
+            }
+        });
+        sessionStorage.clear();
     }
-  }
-
-  get loggedIn(): boolean {
-    return this.adalSvc.userInfo.authenticated;
-  }
 }

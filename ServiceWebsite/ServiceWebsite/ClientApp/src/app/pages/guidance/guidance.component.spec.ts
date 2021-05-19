@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { GuidanceComponent } from './guidance.component';
 import { PrintService } from '../../services/print.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -9,7 +9,7 @@ describe('GuidanceComponent', () => {
   let fixture: ComponentFixture<GuidanceComponent>;
   let printServiceSpy: jasmine.SpyObj<PrintService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         GuidanceComponent,

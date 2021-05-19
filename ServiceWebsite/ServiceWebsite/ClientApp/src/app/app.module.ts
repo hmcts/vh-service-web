@@ -2,10 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-// third party
-import { AdalService, AdalGuard, AdalInterceptor } from 'adal-angular4';
+import { HttpClientModule } from '@angular/common/http';
 
 // core
 import { AppComponent } from './app.component';
@@ -26,7 +23,6 @@ import { SignInOnComputerComponent } from './pages/sign-in-on-computer/sign-in-o
 import { ErrorService } from './services/error.service';
 import { ConfigService, ENVIRONMENT_CONFIG } from './services/config.service';
 import { LoggerService, LOG_ADAPTER } from './services/logger.service';
-import { CustomAdalInterceptor } from './services/custom-adal-interceptor';
 import { GuidanceService } from './services/guidance.service';
 import { PrintService } from './services/print.service';
 import { DocumentRedirectService } from './services/document-redirect.service';
@@ -46,9 +42,10 @@ import { SelfTestJourneyModule } from './modules/self-test-journey/self-test-jou
 import { MediaErrorComponent } from './pages/media-error/media-error.component';
 import { UnsupportedBrowserComponent } from './pages/unsupported-browser/unsupported-browser.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { AuthConfigModule } from './modules/security/auth-config.module';
 
-export function initConfiguration(configService: ConfigService): Function {
-    return () => configService.load();
+export function loadConfig(configService: ConfigService) {
+    return () => configService.loadConfig();
 }
 
 @NgModule({
@@ -64,16 +61,10 @@ export function initConfiguration(configService: ConfigService): Function {
         QuestionnaireAlreadyCompletedComponent,
         AccessibilityComponent,
         ScrollTriggerDirective,
-        SignInOnComputerComponent,
+        SignInOnComputerComponent
     ],
     imports: [
-        // angular
         BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-
-        // app
         SecurityModule,
         BaseJourneyModule,
         IndividualJourneyModule,
@@ -81,22 +72,22 @@ export function initConfiguration(configService: ConfigService): Function {
         SelfTestJourneyModule,
         AppRoutingModule,
         SharedModule,
-        DeviceDetectorModule.forRoot()
+        DeviceDetectorModule.forRoot(),
+        AuthConfigModule
     ],
     providers: [
-        { provide: APP_INITIALIZER, useFactory: initConfiguration, deps: [ConfigService], multi: true },
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        { provide: APP_INITIALIZER, useFactory: loadConfig, deps: [ConfigService], multi: true },
         { provide: Config, useFactory: () => ENVIRONMENT_CONFIG },
-        { provide: HTTP_INTERCEPTORS, useClass: CustomAdalInterceptor, multi: true },
         { provide: LOG_ADAPTER, useClass: ConsoleLogger, multi: true },
         { provide: LOG_ADAPTER, useClass: AppInsightsLogger, multi: true },
         { provide: SERVICE_WEB_API_BASE_URL, useFactory: () => '.' },
         { provide: Logger, useClass: LoggerService },
         AppInsightsLogger,
-        AppRoutingModule,
         ConfigService,
-        AdalService,
-        AdalGuard,
-        AdalInterceptor,
         ErrorService,
         GuidanceService,
         PrintService,

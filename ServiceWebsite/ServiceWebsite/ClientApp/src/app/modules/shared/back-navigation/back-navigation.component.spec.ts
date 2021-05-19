@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BackNavigationComponent } from './back-navigation.component';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ describe('BackNavigationComponent', () => {
   const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('Router', ['navigate']);
   const locationSpy: jasmine.SpyObj<Location> = jasmine.createSpyObj<Location>('Location', ['back']);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [BackNavigationComponent],
       providers: [

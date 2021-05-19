@@ -1,36 +1,34 @@
-import {Injectable, InjectionToken, Inject} from '@angular/core';
-import {LogAdapter} from './log-adapter';
-import {Logger} from './logger';
+import { Injectable, InjectionToken, Inject } from '@angular/core';
+import { LogAdapter } from './log-adapter';
+import { Logger } from './logger';
 
 export const LOG_ADAPTER = new InjectionToken<LogAdapter>('LogAdapter');
 
 @Injectable()
 export class LoggerService implements Logger {
+    constructor(@Inject(LOG_ADAPTER) private adapters: LogAdapter[]) {}
 
-  constructor(@Inject(LOG_ADAPTER) private adapters: LogAdapter[]) {
-  }
+    debug(message: string, properties?: any): void {
+        this.adapters.forEach(logger => logger.debug(message, properties));
+    }
 
-  debug(message: string): void {
-    this.adapters.forEach(logger => logger.debug(message));
-  }
+    info(message: string, properties?: any): void {
+        this.adapters.forEach(logger => logger.info(message, properties));
+    }
 
-  info(message: string): void {
-    this.adapters.forEach(logger => logger.info(message));
-  }
+    warn(message: string, properties?: any): void {
+        this.adapters.forEach(logger => logger.warn(message, properties));
+    }
 
-  warn(message: string): void {
-    this.adapters.forEach(logger => logger.warn(message));
-  }
+    event(event: string, properties?: any) {
+        this.adapters.forEach(logger => logger.trackEvent(event, properties));
+    }
 
-  event(event: string, properties?: any) {
-    this.adapters.forEach(logger => logger.trackEvent(event, properties));
-  }
+    error(message: string, err: Error, properties?: any) {
+        this.adapters.forEach(logger => logger.trackException(message, err, properties));
+    }
 
-  error(message: string, err: Error, properties?: any) {
-    this.adapters.forEach(logger => logger.trackException(message, err, properties));
-  }
-
-  flushBuffer() {
-    this.adapters.forEach(logger => logger.flushBuffer());
-  }
+    flushBuffer() {
+        this.adapters.forEach(logger => logger.flushBuffer());
+    }
 }

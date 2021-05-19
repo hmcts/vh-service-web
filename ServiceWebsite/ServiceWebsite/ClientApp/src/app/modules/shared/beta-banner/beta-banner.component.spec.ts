@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { BetaBannerComponent } from './beta-banner.component';
@@ -18,7 +18,7 @@ describe('BetaBannerComponent', () => {
     let fixture: ComponentFixture<BetaBannerComponent>;
     let router: Router;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [BetaBannerComponent, Mock1Component, Mock2Component],
             imports: [RouterTestingModule.withRoutes(routes)],

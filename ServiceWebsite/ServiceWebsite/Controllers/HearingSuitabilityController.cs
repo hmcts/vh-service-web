@@ -4,6 +4,7 @@ using ServiceWebsite.Models;
 using ServiceWebsite.Models.Mappings;
 using ServiceWebsite.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace ServiceWebsite.Controllers
         [ProducesResponseType(typeof(List<HearingSuitabilityResponse>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetUserSuitabilityAnswers()
         {
-            var hearings = await _suitabilityService.GetHearingsSuitability(User.Identity.Name);
+            var hearings = await _suitabilityService.GetHearingsSuitability(User.Claims.FirstOrDefault(c => c.Type == "preferred_username")?.Value);
 
             return Ok(SuitabilityAnswersMapping.Map(hearings));
         }

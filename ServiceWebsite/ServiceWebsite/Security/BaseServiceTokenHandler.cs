@@ -7,6 +7,8 @@ using ServiceWebsite.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using ServiceWebsite.Common;
+using ServiceWebsite.Common.Configuration;
+using ServiceWebsite.Common.Security;
 
 namespace ServiceWebsite.Security
 {
@@ -37,7 +39,7 @@ namespace ServiceWebsite.Security
             var token = _memoryCache.Get<string>(TokenCacheKey);
             if (string.IsNullOrEmpty(token))
             {
-                var authenticationResult = _tokenProvider.GetAuthorisationResult(_securitySettings.UserApiClientId,
+                var authenticationResult = await _tokenProvider.GetAuthorisationResult(_securitySettings.UserApiClientId,
                     _securitySettings.UserApiClientSecret, ClientResource);
                 token = authenticationResult.AccessToken;
                 var tokenExpireDateTime = authenticationResult.ExpiresOn.DateTime.AddMinutes(-1);

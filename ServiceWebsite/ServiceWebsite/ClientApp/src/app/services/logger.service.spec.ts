@@ -12,7 +12,10 @@ describe('LoggerService', () => {
 
         // Set up the entire testing module as to test the injection token works properly
         TestBed.configureTestingModule({
-            providers: [{ provide: Logger, useClass: LoggerService }, { provide: LOG_ADAPTER, useValue: logAdapter, multi: true }]
+            providers: [
+                { provide: Logger, useClass: LoggerService },
+                { provide: LOG_ADAPTER, useValue: logAdapter, multi: true }
+            ]
         });
 
         logger = TestBed.inject(Logger);
@@ -21,19 +24,19 @@ describe('LoggerService', () => {
     it('logs debug to all adapters', () => {
         logger.debug('debug');
 
-        expect(logAdapter.debug).toHaveBeenCalledWith('debug');
+        expect(logAdapter.debug).toHaveBeenCalledWith('debug', undefined);
     });
 
     it('logs info to all adapters', () => {
         logger.info('info');
 
-        expect(logAdapter.info).toHaveBeenCalledWith('info');
+        expect(logAdapter.info).toHaveBeenCalledWith('info', undefined);
     });
 
     it('logs warns to all adapters', () => {
         logger.warn('warn');
 
-        expect(logAdapter.warn).toHaveBeenCalledWith('warn');
+        expect(logAdapter.warn).toHaveBeenCalledWith('warn', undefined);
     });
 
     it('logs events to all adapters', () => {
