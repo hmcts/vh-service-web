@@ -62,6 +62,7 @@ export class AppComponent implements OnInit {
         if (!this.loggedIn) {
             this.logger.event('telemetry:serviceweb:any:login:notauthenticated');
             this.logger.flushBuffer();
+            this.logger.debug('[AppComponent] - User not logged in, going to login page');
             await this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
             return;
         }
@@ -69,12 +70,15 @@ export class AppComponent implements OnInit {
         this.logger.event('telemetry:serviceweb:any:login:authenticated');
 
         try {
+            this.logger.debug('[AppComponent] - Attempting to get the user profile');
             const profile = await this.profileService.getUserProfile();
             if (profile === undefined || profile.email === undefined || profile.role === undefined || profile.role === 'None') {
+                this.logger.warn(`[AppComponent] - No profile information found for user. Going to unauthorised`);
                 await this.router.navigate(['/unauthorized']);
                 return;
             }
 
+            this.logger.info(`Found profile for user. Beginning journing for ${profile.role}`);
             await this.journeySelector.beginFor(profile.role);
             await this.navigationBackSelector.beginFor(profile.role);
         } catch (err) {
@@ -83,7 +87,7 @@ export class AppComponent implements OnInit {
         ${err.response ? err.response : 'No Response'}
         `;
 
-            this.logger.error(errorMessage, err);
+            this.logger.error(`[AppComponent] - Failed to get the user profile. ${errorMessage}`, err);
 
             if (err.status) {
                 if (err.status === 401) {
@@ -92,6 +96,7 @@ export class AppComponent implements OnInit {
                     return;
                 }
             }
+            this.logger.info('[AppComponent] - Redirecting to video web');
             this.redirect.to(clientSettings.video_app_url);
 
             return;
@@ -100,6 +105,7 @@ export class AppComponent implements OnInit {
 
     checkBrowser(): void {
         if (!this.deviceTypeService.isSupportedBrowser()) {
+            this.logger.warn('[AppComponent] - Browser not supported, going to unsupported page');
             this.router.navigateByUrl(Paths.UnsupportedBrowser);
         }
     }
