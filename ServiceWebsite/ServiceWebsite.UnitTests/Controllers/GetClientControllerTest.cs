@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
+using ServiceWebsite.Common.Configuration;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Controllers;
 using ServiceWebsite.Models;

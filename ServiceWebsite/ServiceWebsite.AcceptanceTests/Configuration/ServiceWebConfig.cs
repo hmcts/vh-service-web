@@ -1,5 +1,5 @@
 ﻿using AcceptanceTests.Common.Configuration;
-using ServiceWebsite.Configuration;
+using ServiceWebsite.Common.Configuration;
 
 namespace ServiceWebsite.AcceptanceTests.Configuration
 {

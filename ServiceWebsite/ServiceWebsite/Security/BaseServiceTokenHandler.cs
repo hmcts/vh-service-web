@@ -7,6 +7,8 @@ using ServiceWebsite.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using ServiceWebsite.Common;
+using ServiceWebsite.Common.Configuration;
+using ServiceWebsite.Common.Security;
 
 namespace ServiceWebsite.Security
 {

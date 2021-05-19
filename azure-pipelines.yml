@@ -287,6 +287,11 @@ extends:
         sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info, **/lcov.info
         sonar.typescript.exclusions=**/node_modules/**, **/typings.d.ts, **/main.ts, **/environments/environment*.ts, **/*routing.module.ts, **/api-client.ts
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
+        sonar.issue.ignore.multicriteria=e1,e2
+        sonar.issue.ignore.multicriteria.e1.ruleKey=typescript:S107
+        sonar.issue.ignore.multicriteria.e1.resourceKey=**/*.ts
+        sonar.issue.ignore.multicriteria.e2.ruleKey=typescript:S1186
+        sonar.issue.ignore.multicriteria.e2.resourceKey=**/testing/**/*.ts
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
     NodeTest: ${{ parameters.RunNodeTests }}

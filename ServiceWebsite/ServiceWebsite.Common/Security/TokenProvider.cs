@@ -2,9 +2,9 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using ServiceWebsite.Configuration;
+using ServiceWebsite.Common.Configuration;
 
-namespace ServiceWebsite.Security
+namespace ServiceWebsite.Common.Security
 {
     public interface ITokenProvider
     {

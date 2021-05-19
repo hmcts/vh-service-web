@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using ServiceWebsite.Common.Configuration;
 using ServiceWebsite.Configuration;
 using ServiceWebsite.Models;
 
