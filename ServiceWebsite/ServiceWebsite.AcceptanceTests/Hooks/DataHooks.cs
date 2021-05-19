@@ -12,8 +12,6 @@ using TechTalk.SpecFlow;
 using TestApi.Contract.Enums;
 using TestApi.Contract.Requests;
 using TestApi.Contract.Responses;
-using BookingsApi.Contract.Requests;
-using BookingsApi.Contract.Requests.Enums;
 
 namespace ServiceWebsite.AcceptanceTests.Hooks
 {
@@ -101,17 +99,6 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         private void CreateHearing()
         {
             _c.Test.Hearing = HearingData.CreateHearing(_c.Api, _c.Users);
-            //confirmhearing
-            var request = new UpdateBookingStatusRequest()
-            {
-                UpdatedBy = _c.Test.Hearing.CreatedBy,
-                CancelReason = null,
-                Status = UpdateBookingStatus.Created
-            };
-            NUnit.Framework.TestContext.WriteLine($"Calling _c.Apis.TestApi.ConfirmHearingToCreateConference with hearing id {_c.Test.Hearing.Id}, request {request.UpdatedBy} {request.Status}");
-            var response = _c.Api.ConfirmHearingToCreateConference(_c.Test.Hearing.Id, request);
-            NUnit.Framework.TestContext.WriteLine($"response is {response}");
-            response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         private void UserShouldNotHaveAnswers(TestApiManager api)
