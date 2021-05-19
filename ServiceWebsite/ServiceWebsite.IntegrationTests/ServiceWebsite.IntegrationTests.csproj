@@ -44,17 +44,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Helper\AzureAdMockData\microsoft-openid-config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Helper\AzureAdMockData\microsoft-wellknown-keys.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Helper\localhost.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\ServiceWebsite.Common\ServiceWebsite.Common.csproj" />
@@ -64,5 +53,8 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helper" />
   </ItemGroup>
 </Project>

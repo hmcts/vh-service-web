@@ -1,21 +1,19 @@
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Moq;
 using NUnit.Framework;
 using ServiceWebsite.Common;
 using ServiceWebsite.Common.Security;
-using ServiceWebsite.IntegrationTests.Helper;
 using ServiceWebsite.Services;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using ServiceWebsite.Common.Configuration;
 
 namespace ServiceWebsite.IntegrationTests.Controller
 {
@@ -23,36 +21,22 @@ namespace ServiceWebsite.IntegrationTests.Controller
     public abstract class ControllerTestsBase
     {
         private TestServer _server;
-        private string _accessToken;
+        private string _accessToken = string.Empty;
 
         protected string SuccessSelfTestScoreParticipantId = "anybe3fa-f4fe-4a45-9de6-123baee253d7";
 
         [OneTimeSetUp]
-        public void OneTimeSetup()
+        public async Task OneTimeSetup()
         {
             var webHostBuilder =
                 WebHost.CreateDefaultBuilder()
                     .UseKestrel(c => c.AddServerHeader = false)
                     .UseEnvironment("Development")
                     .UseStartup<Startup>()
-                    .ConfigureTestServices(OverrideDependenciesInServiceCollection)
-                    .ConfigureServices(services =>
-                    {
-                        services.PostConfigure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
-                        {
-                            options.Audience = "https://test";
-                            options.BackchannelHttpHandler = new MockBackchannel();
-                            options.MetadataAddress = "https://inmemory.microsoft.com/common/.well-known/openid-configuration";
-                            options.TokenValidationParameters = new TokenValidationParameters
-                            {
-                                SignatureValidator = (token, parameters) => new JwtSecurityToken(token)
-                            };
-                        });
-                    });
-
-            CreateAccessToken();
+                    .ConfigureTestServices(OverrideDependenciesInServiceCollection);
 
             _server = new TestServer(webHostBuilder);
+            await CreateAccessToken();
         }
 
         [OneTimeTearDown]
@@ -90,13 +74,19 @@ namespace ServiceWebsite.IntegrationTests.Controller
             ));
         }
 
-        private void CreateAccessToken()
+        private async Task CreateAccessToken()
         {
-            _accessToken = new BearerTokenBuilder()
-                .WithClaim(ClaimTypes.Name, "doctor@hmcts.net")
-                // We are using a self signed certificate to create the SigningCredentials used when signing a token
-                .WithSigningCertificate(EmbeddedResourceReader.GetCertificate())
-                .BuildToken();
+            var configRootBuilder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .AddUserSecrets<Startup>();
+
+            var configRoot = configRootBuilder.Build();
+            var azureAdConfigurationOptions = Options.Create(configRoot.GetSection("AzureAd").Get<SecuritySettings>());
+            var azureAdConfiguration = azureAdConfigurationOptions.Value;
+
+            var tokenProvider = new TokenProvider(azureAdConfigurationOptions);
+            _accessToken = await tokenProvider.GetClientAccessToken(azureAdConfiguration.ClientId, azureAdConfiguration.ClientSecret, azureAdConfiguration.ClientId);
         }
 
         protected async Task<HttpResponseMessage> SendGetRequestWithBearerTokenAsync(string uri)
