@@ -38,9 +38,14 @@ const journey = jasmine.createSpyObj<JourneyBase>(['goto']);
 const videoWebServiceMock = jasmine.createSpyObj<VideoWebService>(['getToken', 'getCurrentParticipantId', 'getTestCallScore']);
 videoWebServiceMock.getToken.and.returnValue(of(new TokenResponse()));
 videoWebServiceMock.getCurrentParticipantId.and.returnValue(of(new ParticipantResponse()));
-
-const configServiceMock = jasmine.createSpyObj<ConfigService>(['load']);
-configServiceMock.load.and.returnValue(of(new Config()));
+let configServiceSpy: jasmine.SpyObj<ConfigService>;
+const clientSettings = new Config();
+clientSettings.tenant_id = 'tenantid';
+clientSettings.client_id = 'clientid';
+clientSettings.post_logout_redirect_uri = '/';
+clientSettings.redirect_uri = '/';
+configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
+configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
 
 const userMediaStreamServiceMock = jasmine.createSpyObj<UserMediaStreamService>(['getStreamForMic', 'stopStream']);
 userMediaStreamServiceMock.getStreamForMic.and.returnValue(Promise.resolve(new MediaStream()));
@@ -67,7 +72,7 @@ describe('TestYourEquipmentComponent', () => {
                 { provide: Logger, useClass: MockLogger },
                 { provide: VideoWebService, useValue: videoWebServiceMock },
                 { provide: UserMediaStreamService, useValue: userMediaStreamServiceMock },
-                { provide: ConfigService, useValue: configServiceMock },
+                { provide: ConfigService, useValue: configServiceSpy },
                 UserMediaService
             ],
             model: model
@@ -91,6 +96,7 @@ describe('TestYourEquipmentComponent functionality', () => {
 
     beforeEach(() => {
         journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+
         model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('1');
         model.participantId = '2';
@@ -101,7 +107,7 @@ describe('TestYourEquipmentComponent functionality', () => {
             userMediaService,
             userMediaStreamServiceMock,
             videoWebServiceMock,
-            configServiceMock,
+            configServiceSpy,
             logger
         );
     });
@@ -213,6 +219,8 @@ describe('TestYourEquipmentComponent error functionality', () => {
 
     beforeEach(() => {
         journeyObj = jasmine.createSpyObj<JourneyBase>(['goto', 'submitQuestionnaire']);
+        configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
+        configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
         model = new ParticipantSuitabilityModel();
         model.hearing = new Hearing('1');
         model.participantId = '2';
@@ -223,7 +231,7 @@ describe('TestYourEquipmentComponent error functionality', () => {
             userMediaServiceMock,
             userMediaStreamServiceMock,
             videoWebServiceMock,
-            configServiceMock,
+            configServiceSpy,
             new MockLogger()
         );
     });
@@ -235,11 +243,13 @@ describe('TestYourEquipmentComponent error functionality', () => {
         expect(videoWebServiceMock.getTestCallScore).toHaveBeenCalled();
         expect(component.logger.error).toHaveBeenCalled();
     });
+
     it('should replayVideo and throw an error and go to blocked access page', async () => {
         component.token = new TokenResponse({ expires_on: '06/07/22', token: '4556' });
         await component.replayVideo();
         expect(journeyObj.goto).toHaveBeenCalled();
     });
+
     it('should update video and audio devices', async () => {
         userMediaServiceMock.hasMultipleDevices.and.returnValue(Promise.resolve(true));
         userMediaServiceMock.getPreferredCamera.and.returnValue(

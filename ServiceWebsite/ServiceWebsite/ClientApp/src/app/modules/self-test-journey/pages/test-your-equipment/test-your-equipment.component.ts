@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
-import { JourneyBase } from '../../../base-journey/journey-base';
-import { ParticipantSuitabilityModel, MediaAccessResponse } from '../../../base-journey/participant-suitability.model';
-import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { TokenResponse, ParticipantResponse } from '../../../../services/clients/api-client';
-import { UserMediaStreamService } from '../../services/user-media-stream.service';
-import { VideoWebService } from '../../services/video-web.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ParticipantResponse, TokenResponse } from '../../../../services/clients/api-client';
 import { ConfigService } from '../../../../services/config.service';
 import { Logger } from '../../../../services/logger';
-import { Subscription } from 'rxjs';
 import { UserMediaService } from '../../../../services/user-media.service';
+import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
+import { JourneyBase } from '../../../base-journey/journey-base';
+import { MediaAccessResponse, ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelectedUserMediaDevice } from '../../../shared/models/selected-user-media-device';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { UserMediaStreamService } from '../../services/user-media-stream.service';
+import { VideoWebService } from '../../services/video-web.service';
 
 declare var PexRTC: any;
 
@@ -62,7 +62,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
         this.displayFeed = false;
         this.displayDeviceChangeModal = false;
         this.setupSubscribers();
-        await this.setConfiguration();
+        this.setConfiguration();
         try {
             await this.setupPexipClient();
             this.logger.event('telemetry:serviceweb:any:selftest:start');
@@ -88,9 +88,10 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
         );
     }
 
-    async setConfiguration() {
-        const config = await this.configService.load();
-        this.pexipNode = config.pexipSelfTestNodeUri;
+    setConfiguration() {
+        this.configService.getClientSettings().subscribe(clientSettings => {
+            this.pexipNode = clientSettings.pexip_self_test_node_uri;
+        });
     }
 
     async getToken() {
@@ -170,15 +171,15 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
                 this.connect('0000', null);
             };
 
-            this.pexipAPI.onConnect = (stream) => {
+            this.pexipAPI.onConnect = stream => {
                 self.connectHandleEvent(stream);
             };
 
-            this.pexipAPI.onError = (reason) => {
+            this.pexipAPI.onError = reason => {
                 self.errorHandleEvent(reason);
             };
 
-            this.pexipAPI.onDisconnect = (reason) => {
+            this.pexipAPI.onDisconnect = reason => {
                 this.logger.event('(setupPexipClient -> pexipAPI.onDisconnect)', {
                     hearingId: this.model.hearing.id,
                     participantId: this.model.participantId
@@ -254,7 +255,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
         this.model.selfTest.selfTestResultScore = 'None';
         this.$subcriptions.push(
             this.videoWebService.getTestCallScore(this.participantId).subscribe(
-                (score) => {
+                score => {
                     this.logger.event(`(retrieveSelfTestScore -> TEST SCORE KINLY RESULT: ${score.score})`, {
                         hearingId: this.model.hearing.id,
                         participantId: this.model.participantId
@@ -264,7 +265,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
 
                     this.model.selfTest.selfTestResultScore = score.score;
                 },
-                (error) => {
+                error => {
                     this.model.selfTest.selfTestResultScore = 'None';
 
                     this.logger.error('(retrieveSelfTestScore -> Error to get self test score)', new Error(error), {
@@ -355,7 +356,7 @@ export class TestYourEquipmentComponent extends SuitabilityChoicePageBaseCompone
     ngOnDestroy() {
         this.disconnect();
         this.dispose();
-        this.$subcriptions.forEach((subcription) => {
+        this.$subcriptions.forEach(subcription => {
             if (subcription) {
                 subcription.unsubscribe();
             }

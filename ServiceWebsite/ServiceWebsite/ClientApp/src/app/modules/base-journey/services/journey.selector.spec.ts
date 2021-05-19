@@ -3,6 +3,8 @@ import { JourneyFactory } from 'src/app/modules/base-journey/services/journey.fa
 import { JourneySelector, JOURNEY_FACTORY } from './journey.selector';
 import { TestBed } from '@angular/core/testing';
 import { ParticipantSuitabilityModel } from '../participant-suitability.model';
+import { MockLogger } from '../../shared/testing/mock-logger';
+import { Logger } from 'src/app/services/logger';
 
 describe('JourneySelector', () => {
     let selector: JourneySelector;
@@ -23,6 +25,7 @@ describe('JourneySelector', () => {
                 // Inject duplicate handlers for one user type
                 { provide: JOURNEY_FACTORY, useValue: duplicateJourneyFactory, multi: true },
                 { provide: JOURNEY_FACTORY, useValue: duplicateJourneyFactory, multi: true },
+                { provide: Logger, useClass: MockLogger },
                 JourneySelector
             ]
         });

@@ -5,6 +5,7 @@ using ServiceWebsite.Helpers;
 using ServiceWebsite.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using UserApi.Client;
@@ -30,9 +31,9 @@ namespace ServiceWebsite.Controllers
         {
             try
             {
-                var participant = await _userApiClient.GetUserByAdUserNameAsync(User.Identity.Name);
+                var participant = await _userApiClient.GetUserByAdUserNameAsync(User.Claims.FirstOrDefault(c => c.Type == "preferred_username")?.Value);
 
-                return Ok(new UserProfileResponse { Email = participant.Email, Role = participant.UserRole });
+                return Ok(new UserProfileResponse { Email = participant.DisplayName, Role = participant.UserRole });
             }
             catch (UserApiException ex) when (ex.StatusCode == (int)HttpStatusCode.NotFound)
             {

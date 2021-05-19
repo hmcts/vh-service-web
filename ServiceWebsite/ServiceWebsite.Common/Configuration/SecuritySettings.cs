@@ -1,4 +1,4 @@
-﻿namespace ServiceWebsite.Configuration
+﻿namespace ServiceWebsite.Common.Configuration
 {
     /// <summary>
     ///     Security Settings

@@ -853,8 +853,8 @@
       },
       "Microsoft.IdentityModel.Logging": {
         "type": "Transitive",
-        "resolved": "6.7.1",
-        "contentHash": "WGtTiTy2ZikOz/I5GxCGbNPLOpyI9fPyuyG4Q5rfkhACK+Q0Ad6U8XajYZ2cJ2cFKse0IvHwm15HVrfwrX/89g=="
+        "resolved": "6.11.0",
+        "contentHash": "81votFg2SzidAB8frGlDV+jCCzfBWWtnKASZTddAziHuB8fT/82s1x7Kty+u01XKtKcrPdfpvbWrIUHdc/C9pw=="
       },
       "Microsoft.IdentityModel.Protocols": {
         "type": "Transitive",
@@ -877,11 +877,11 @@
       },
       "Microsoft.IdentityModel.Tokens": {
         "type": "Transitive",
-        "resolved": "6.7.1",
-        "contentHash": "Td9Vn9d/0eM1zlUUvaVQzjqdBkBLJ2oGtGL/LYPuiCUAALMeAHVDtpXGk8eYI8Gbduz5n+o7ifldsCIca4MWew==",
+        "resolved": "6.11.0",
+        "contentHash": "zm0aBLKCDybRQwOinG0cDXobjfcJgXIcJfB5n7gA8KHjswELcET8BiNx54j6n4VF8w6+UxUIdEtO3RMIXQZkfg==",
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
-          "Microsoft.IdentityModel.Logging": "6.7.1",
+          "Microsoft.IdentityModel.Logging": "6.11.0",
           "System.Security.Cryptography.Cng": "4.5.0"
         }
       },
@@ -2307,7 +2307,8 @@
         "type": "Project",
         "dependencies": {
           "Microsoft.ApplicationInsights.AspNetCore": "2.17.0",
-          "Microsoft.IdentityModel.Tokens": "6.7.1",
+          "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.14.2",
+          "Microsoft.IdentityModel.Tokens": "6.11.0",
           "Newtonsoft.Json": "12.0.3",
           "System.IdentityModel.Tokens.Jwt": "6.7.1"
         }
