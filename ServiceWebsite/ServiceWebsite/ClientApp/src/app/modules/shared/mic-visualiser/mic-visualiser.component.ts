@@ -1,80 +1,83 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, HostListener } from '@angular/core';
 import 'webrtc-adapter';
 
 @Component({
-  selector: 'app-mic-visualiser',
-  templateUrl: './mic-visualiser.component.html'
+    selector: 'app-mic-visualiser',
+    templateUrl: './mic-visualiser.component.html'
 })
 export class MicVisualiserComponent implements OnInit, OnDestroy {
+    canvasContext: CanvasRenderingContext2D;
+    audioContext: AudioContext;
+    source: MediaStreamAudioSourceNode;
+    analyser: AnalyserNode;
 
-  canvasContext: CanvasRenderingContext2D;
-  audioContext: AudioContext;
-  microphone: MediaStreamAudioSourceNode;
-  analyser: AnalyserNode;
-  javascriptNode: ScriptProcessorNode;
+    dataArray: Uint8Array;
+    rafId: number;
 
-  constructor() { }
+    constructor() {}
 
-  @Input() stream: MediaStream;
-  @Input() incomingStream: MediaStream;
+    @Input() stream: MediaStream;
+    @Input() incomingStream: MediaStream;
 
-  ngOnInit() {
-    const canvas = <HTMLCanvasElement>document.getElementById('meter');
-    this.canvasContext = canvas.getContext('2d');
-    this.processStream();
-  }
-
-  processStream() {
-    if (!this.stream) {
-      throw new Error('No stream provided');
+    ngOnInit() {
+        const canvas = <HTMLCanvasElement>document.getElementById('meter');
+        this.canvasContext = canvas.getContext('2d');
+        this.setupStream();
     }
-    this.audioContext = new AudioContext();
-    this.analyser = this.audioContext.createAnalyser();
-    this.microphone = this.audioContext.createMediaStreamSource(this.stream);
 
-    const merger = this.audioContext.createChannelMerger();
-    this.microphone.connect(merger, 0, 0);
-    if (this.incomingStream) {
-        const incomingSource = this.audioContext.createMediaStreamSource(this.incomingStream);
-        incomingSource.connect(merger, 0, 0);
+    @HostListener('window:beforeunload')
+    ngOnDestroy() {
+        cancelAnimationFrame(this.rafId);
     }
-    merger.connect(this.analyser);
 
-    this.javascriptNode = this.audioContext.createScriptProcessor(2048, 1, 1);
-    this.analyser.smoothingTimeConstant = 0.8;
-    this.analyser.fftSize = 1024;
+    setupStream() {
+        if (!this.stream) {
+            throw new Error('No stream provided');
+        }
+        this.audioContext = new AudioContext();
+        this.analyser = this.audioContext.createAnalyser();
+        this.source = this.audioContext.createMediaStreamSource(this.stream);
+        // create mixer
+        const merger = this.audioContext.createChannelMerger();
 
-    this.microphone.connect(this.analyser);
-    this.analyser.connect(this.javascriptNode);
-    this.javascriptNode.connect(this.audioContext.destination);
+        this.source.connect(merger, 0, 0);
+        if (this.incomingStream) {
+            const incomingSource = this.audioContext.createMediaStreamSource(this.incomingStream);
+            incomingSource.connect(merger, 0, 0);
+        }
 
-    const self = this;
-    this.javascriptNode.onaudioprocess = function () {
-      if (self.analyser) {
-        const array = new Uint8Array(self.analyser.frequencyBinCount);
-        self.analyser.getByteFrequencyData(array);
+        merger.connect(this.analyser);
+
+        this.analyser.smoothingTimeConstant = 0.8;
+        this.analyser.fftSize = 1024;
+
+        this.rafId = requestAnimationFrame(this.tick.bind(this));
+    }
+
+    processStream() {
+        this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+        this.analyser.getByteFrequencyData(this.dataArray);
 
         let values = 0;
-        const length = array.length;
+        const length = this.dataArray.length;
         for (let i = 0; i < length; i++) {
-          values += (array[i]);
+            values += this.dataArray[i];
         }
         const average = values / length;
-        self.fillMeter(Math.round(average));
-      }
-    };
-  }
+        this.fillMeter(Math.round(average));
+    }
 
-  fillMeter(feedback: number) {
-    const width = 270;
-    const height = 50;
+    fillMeter(feedback: number) {
+        const width = 270;
+        const height = 50;
 
-    this.canvasContext.clearRect(0, 0, width, height);
-    this.canvasContext.fillStyle = 'green';
-    this.canvasContext.fillRect(0, 0, feedback * 2, height);
-  }
+        this.canvasContext.clearRect(0, 0, width, height);
+        this.canvasContext.fillStyle = 'green';
+        this.canvasContext.fillRect(0, 0, feedback * 1.75, height);
+    }
 
-  ngOnDestroy() {
-    this.audioContext.close();
-  }
+    tick() {
+        this.processStream();
+        this.rafId = requestAnimationFrame(this.tick.bind(this));
+    }
 }
