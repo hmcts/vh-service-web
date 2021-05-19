@@ -287,7 +287,7 @@ extends:
         sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
         sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts,**/app-insights-logger.service.ts
         sonar.coverage.exclusions=**/app-insights-logger.service.ts,**/console-logger.ts,**/testing/**/*,**/mic-visualiser.component.ts
-        sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)\Coverage\coverage.opencover.xml
+        sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
         sonar.issue.ignore.multicriteria=e1,e2
         sonar.issue.ignore.multicriteria.e1.ruleKey=typescript:S107
         sonar.issue.ignore.multicriteria.e1.resourceKey=**/*.ts
