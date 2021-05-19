@@ -1,18 +1,18 @@
-import { JourneySelector } from './modules/base-journey/services/journey.selector';
-import { ProfileService } from 'src/app/services/profile.service';
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Config } from './modules/shared/models/config';
-import { HeaderComponent } from './modules/shared/header/header.component';
-import { WindowRef } from './modules/shared/window-ref';
-import { PageTrackerService } from './services/page-tracker.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { ProfileService } from 'src/app/services/profile.service';
 import { DeviceType } from './modules/base-journey/services/device-type';
-import { Paths } from './paths';
+import { JourneySelector } from './modules/base-journey/services/journey.selector';
 import { NavigationBackSelector } from './modules/base-journey/services/navigation-back.selector';
+import { HeaderComponent } from './modules/shared/header/header.component';
+import { Config } from './modules/shared/models/config';
+import { WindowRef } from './modules/shared/window-ref';
+import { Paths } from './paths';
+import { ConfigService } from './services/config.service';
 import { DocumentRedirectService } from './services/document-redirect.service';
 import { Logger } from './services/logger';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { ConfigService } from './services/config.service';
+import { PageTrackerService } from './services/page-tracker.service';
 
 @Component({
     selector: 'app-root',

@@ -30,5 +30,7 @@ export class ConsoleLogger implements LogAdapter {
         }
     }
 
-    flushBuffer() {}
+    flushBuffer() {
+        /* tslint:disable:no-empty */
+    }
 }

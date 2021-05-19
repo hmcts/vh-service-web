@@ -14,8 +14,6 @@ export class MicVisualiserComponent implements OnInit, OnDestroy {
     dataArray: Uint8Array;
     rafId: number;
 
-    constructor() {}
-
     @Input() stream: MediaStream;
     @Input() incomingStream: MediaStream;
 

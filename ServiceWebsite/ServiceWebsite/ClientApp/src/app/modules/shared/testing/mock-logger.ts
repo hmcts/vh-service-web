@@ -1,3 +1,6 @@
+/* tslint:disable */
+/* eslint-disable */
+
 import { Logger } from 'src/app/services/logger';
 
 export class MockLogger implements Logger {
