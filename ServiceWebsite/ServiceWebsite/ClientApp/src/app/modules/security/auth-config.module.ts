@@ -2,6 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AuthInterceptor, AuthModule, LogLevel, OidcConfigService, OidcSecurityService } from 'angular-auth-oidc-client';
 import { ConfigService } from 'src/app/services/config.service';
+import { environment } from 'src/environments/environment';
 import { RefreshTokenParameterInterceptor } from './refresh-token-parameter.interceptor';
 
 export function loadConfig(configService: ConfigService, oidcConfigService: OidcConfigService): Function {
@@ -16,7 +17,7 @@ export function loadConfig(configService: ConfigService, oidcConfigService: Oidc
                 responseType: 'code',
                 maxIdTokenIatOffsetAllowedInSeconds: 600,
                 autoUserinfo: false,
-                logLevel: LogLevel.Debug,
+                logLevel: environment.production ? LogLevel.Warn : LogLevel.Debug,
                 secureRoutes: ['.'],
                 ignoreNonceAfterRefresh: true,
                 tokenRefreshInSeconds: 5,
