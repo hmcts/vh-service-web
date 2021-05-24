@@ -138,6 +138,7 @@ export class UserMediaService extends MediaService {
       this.stream = await this._navigator.mediaDevices.getUserMedia(this.constraints);
       return this.stream;
     } catch (exception) {
+        this.logger.error('Failed to get media stream', exception, this.constraints)
       throw (exception);
     }
   }

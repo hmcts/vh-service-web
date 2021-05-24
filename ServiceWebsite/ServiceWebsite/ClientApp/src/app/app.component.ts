@@ -8,7 +8,7 @@ import {
     PublicEventsService
 } from 'angular-auth-oidc-client';
 import { NEVER } from 'rxjs';
-import { catchError, filter, tap } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 import { DeviceType } from './modules/base-journey/services/device-type';
 import { PageUrls } from './modules/shared/constants/page-url.constants';
 import { HeaderComponent } from './modules/shared/header/header.component';
