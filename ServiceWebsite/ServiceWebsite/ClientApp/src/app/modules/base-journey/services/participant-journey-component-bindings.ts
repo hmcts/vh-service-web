@@ -15,13 +15,13 @@ export abstract class ParticipantJourneyStepComponentBindings {
      */
     getJourneyStep(route: string): JourneyStep {
         // find any binding, if there isn't one, ignore
-        for (const [ step, boundPath ] of Array.from(this.bindings.entries())) {
+        for (const [step, boundPath] of Array.from(this.bindings.entries())) {
             if (route.toLowerCase() === boundPath.toLowerCase()) {
                 return step;
             }
         }
 
-        if (route === AppPaths.Root) {
+        if (route === AppPaths.JourneySelector) {
             return this.initialStep;
         }
 

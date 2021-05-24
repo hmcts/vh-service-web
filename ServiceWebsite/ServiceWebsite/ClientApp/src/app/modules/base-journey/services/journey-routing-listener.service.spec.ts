@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import { Logger } from '../../../services/logger';
 import { Title } from '@angular/platform-browser';
 import { ConfigService } from 'src/app/services/config.service';
+import { MockLogger } from 'src/app/testing/mocks/mock-logger';
 
 class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBindings {
     readonly initialStep = Steps.CheckingVideoHearing;
@@ -74,14 +75,7 @@ describe('JourneyRoutingListenerService', () => {
         } as jasmine.SpyObj<Location>;
         location.path.and.returnValue('/checking-video-hearing');
 
-        service = new JourneyRoutingListenerService(
-            location,
-            router,
-            configServiceSpy,
-            redirectService,
-            jasmine.createSpyObj<Logger>(['event']),
-            titleService
-        );
+        service = new JourneyRoutingListenerService(location, router, configServiceSpy, redirectService, new MockLogger(), titleService);
     };
 
     const givenInitialisedAtStartStep = () => {
@@ -100,7 +94,7 @@ describe('JourneyRoutingListenerService', () => {
         givenCurrentUrlIs('/login');
         service.startRouting(bindings, journey);
 
-        const rootUrl = `/${AppPaths.Root}`;
+        const rootUrl = `/${AppPaths.JourneySelector}`;
         routerEvents.next(new ResolveEnd(0, rootUrl, rootUrl, null));
 
         // then we should be redirected to the initial step url

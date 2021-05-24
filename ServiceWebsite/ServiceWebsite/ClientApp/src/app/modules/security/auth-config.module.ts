@@ -17,7 +17,7 @@ export function loadConfig(configService: ConfigService, oidcConfigService: Oidc
                 responseType: 'code',
                 maxIdTokenIatOffsetAllowedInSeconds: 600,
                 autoUserinfo: false,
-                logLevel: environment.production ? LogLevel.Warn : LogLevel.Debug,
+                logLevel: environment.production ? LogLevel.Warn : LogLevel.Warn,
                 secureRoutes: ['.'],
                 ignoreNonceAfterRefresh: true,
                 tokenRefreshInSeconds: 5,

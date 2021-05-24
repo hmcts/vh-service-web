@@ -101,7 +101,11 @@ export class JourneyRoutingListenerService {
         const journeyStep = this.componentBindings.getJourneyStep(currentRoute);
 
         if (journeyStep !== null) {
+            this.logger.info(`Starting journey at ${journeyStep}`);
             this.journey.startAt(journeyStep);
+        } else {
+            const error = new Error('Unable to start journey from current route');
+            this.logger.error(`Unable to determine start of journey from route ${currentRoute}`, error);
         }
     }
 }
