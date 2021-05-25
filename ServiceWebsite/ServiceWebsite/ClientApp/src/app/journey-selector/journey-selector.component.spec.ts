@@ -57,7 +57,7 @@ describe('JourneySelectorComponentComponent', () => {
         );
     });
 
-    it('should redirect to unauthorized if user does not have profile', fakeAsync(() => {
+    it('should redirect to unauthorised if user does not have profile', fakeAsync(() => {
         profileService.getUserProfile.and.returnValue(Promise.resolve(undefined));
 
         component.ngOnInit();
@@ -69,7 +69,7 @@ describe('JourneySelectorComponentComponent', () => {
         expect(lastRoutingArgs.url).toEqual(PageUrls.Unauthorised);
     }));
 
-    it('should redirect to unauthorized if user does not have profile email', fakeAsync(() => {
+    it('should redirect to unauthorised if user does not have profile email', fakeAsync(() => {
         profileService.getUserProfile.and.returnValue(Promise.resolve({ email: undefined }));
 
         component.ngOnInit();
@@ -81,7 +81,7 @@ describe('JourneySelectorComponentComponent', () => {
         expect(lastRoutingArgs.url).toEqual(PageUrls.Unauthorised);
     }));
 
-    it('should redirect to unauthorized if user does not have profile role', fakeAsync(() => {
+    it('should redirect to unauthorised if user does not have profile role', fakeAsync(() => {
         profileService.getUserProfile.and.returnValue(Promise.resolve({ role: undefined }));
 
         component.ngOnInit();
@@ -93,7 +93,7 @@ describe('JourneySelectorComponentComponent', () => {
         expect(lastRoutingArgs.url).toEqual(PageUrls.Unauthorised);
     }));
 
-    it('should redirect to unauthorized if user has profile role of None', fakeAsync(() => {
+    it('should redirect to unauthorised if user has profile role of None', fakeAsync(() => {
         profileService.getUserProfile.and.returnValue(Promise.resolve({ role: 'None' }));
 
         component.ngOnInit();
@@ -105,7 +105,7 @@ describe('JourneySelectorComponentComponent', () => {
         expect(lastRoutingArgs.url).toEqual(PageUrls.Unauthorised);
     }));
 
-    it('should redirect to unauthorized when getUserProfile throws error 401', fakeAsync(() => {
+    it('should redirect to unauthorised when getUserProfile throws error 401', fakeAsync(() => {
         profileService.getUserProfile.and.returnValue(Promise.reject({ status: 401 }));
 
         component.ngOnInit();
@@ -114,7 +114,7 @@ describe('JourneySelectorComponentComponent', () => {
         const lastRouterCall = router.navigate.calls.mostRecent();
         const lastRoutingArgs = { url: lastRouterCall.args[0][0] };
 
-        expect(lastRoutingArgs.url).toEqual('/unauthorized');
+        expect(lastRoutingArgs.url).toEqual('/unauthorised');
     }));
 
     it('should redirect to Video when getUserProfile throws error 500', fakeAsync(() => {

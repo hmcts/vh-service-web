@@ -60,7 +60,7 @@ export class JourneySelectorComponent implements OnInit {
         this.logger.error(`[JourneyComponent] - Failed to get the user profile. ${errorMessage}`, err);
 
         if (err.status && err.status === 401) {
-            this.logger.event('telemetry:serviceweb:any:login:unauthorized');
+            this.logger.event('telemetry:serviceweb:any:login:unauthorised');
             this.router.navigate([PageUrls.Unauthorised]);
         } else {
             this.logger.info('[JourneyComponent] - Redirecting to video web');

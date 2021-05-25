@@ -1,13 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { SecurityRoutingModule } from './security-routing.module';
-
+import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { SecurityRoutingModule } from './security-routing.module';
 import { UnauthorisedComponent } from './unauthorized/unauthorised.component';
-import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
     declarations: [LoginComponent, LogoutComponent, UnauthorisedComponent],
