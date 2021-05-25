@@ -8,34 +8,30 @@ import { SignBackInComponent } from './pages/sign-back-in/sign-back-in.component
 import { CameraWorkingComponent } from './pages/camera-working/camera-working.component';
 import { MicrophoneWorkingComponent } from './pages/microphone-working/microphone-working.component';
 import { VideoWorkingComponent } from './pages/video-working/video-working.component';
+import { AuthGuard } from '../security/guards/auth.guard';
 
 const routes: Routes = [
-  { path: Paths.CheckYourComputer, component: CheckYourComputerComponent },
-  { path: Paths.SignBackIn, component: SignBackInComponent },
-  { path: Paths.SwitchOnCameraAndMicrophone, component: SwitchOnCameraAndMicrophoneComponent },
-  { path: Paths.TestYourEquipment, component: TestYourEquipmentComponent },
-  { path: Paths.CameraWorking, component: CameraWorkingComponent },
-  { path: Paths.MicrophoneWorking, component: MicrophoneWorkingComponent },
-  { path: Paths.VideoWorking, component: VideoWorkingComponent }
+    { path: Paths.CheckYourComputer, component: CheckYourComputerComponent, canActivate: [AuthGuard] },
+    { path: Paths.SignBackIn, component: SignBackInComponent, canActivate: [AuthGuard] },
+    { path: Paths.SwitchOnCameraAndMicrophone, component: SwitchOnCameraAndMicrophoneComponent, canActivate: [AuthGuard] },
+    { path: Paths.TestYourEquipment, component: TestYourEquipmentComponent, canActivate: [AuthGuard] },
+    { path: Paths.CameraWorking, component: CameraWorkingComponent, canActivate: [AuthGuard] },
+    { path: Paths.MicrophoneWorking, component: MicrophoneWorkingComponent, canActivate: [AuthGuard] },
+    { path: Paths.VideoWorking, component: VideoWorkingComponent, canActivate: [AuthGuard] }
 ];
 
 export const Components = [
-  CheckYourComputerComponent,
-  SignBackInComponent,
-  SwitchOnCameraAndMicrophoneComponent,
-  TestYourEquipmentComponent,
-  CameraWorkingComponent,
-  MicrophoneWorkingComponent,
-  VideoWorkingComponent
+    CheckYourComputerComponent,
+    SignBackInComponent,
+    SwitchOnCameraAndMicrophoneComponent,
+    TestYourEquipmentComponent,
+    CameraWorkingComponent,
+    MicrophoneWorkingComponent,
+    VideoWorkingComponent
 ];
 
 @NgModule({
-  exports: [
-    RouterModule
-  ],
-  imports: [
-    RouterModule.forChild(routes)
-  ],
+    exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)]
 })
-export class SelfTestJourneyRoutingModule {
-}
+export class SelfTestJourneyRoutingModule {}

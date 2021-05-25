@@ -40,7 +40,7 @@ module.exports = function (config) {
         reporters: ['progress', 'kjhtml', 'junit'],
         port: 9876,
         colors: true,
-        logLevel: config.LOG_INFO,
+        logLevel: config.LOG_DEBUG,
         autoWatch: true,
         browsers: ['ChromeWithFakeStream'],
         customLaunchers: {
@@ -53,6 +53,7 @@ module.exports = function (config) {
                 flags: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream']
             }
         },
-        singleRun: false
+        singleRun: false,
+        restartOnFileChange: true
     });
 };
