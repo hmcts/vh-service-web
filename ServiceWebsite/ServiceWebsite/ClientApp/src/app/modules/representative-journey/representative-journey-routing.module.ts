@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { Paths } from './paths';
-
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { Paths } from './paths';
 import { RepresentativeGuard } from './representative.gaurd';
 
 const routes: Routes = [{ path: Paths.ThankYou, component: ThankYouComponent, canActivate: [RepresentativeGuard] }];

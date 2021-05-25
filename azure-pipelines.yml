@@ -59,7 +59,7 @@ parameters:
       value: $(service_web_url)logout
     - name: AzureAd:RedirectUri
       slot: true
-      value: $(service_web_url)
+      value: $(service_web_url)home
     - name: AzureAd:TenantId
       value: tenantid
       secret: true
@@ -156,9 +156,9 @@ parameters:
     - name: AzureAd:RedirectUri
       slot:
         deployment:
-          value: $(service_web_url_staging)
+          value: $(service_web_url_staging)home
         active:
-          value: $(service_web_url)
+          value: $(service_web_url)home
     - name: AzureAd:TenantId
       value: tenantid
       secret: true

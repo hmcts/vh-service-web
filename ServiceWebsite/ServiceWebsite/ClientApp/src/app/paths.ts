@@ -1,5 +1,7 @@
 export const Paths = {
     Root: '',
+    Home: 'home',
+    JourneySelector: 'journey',
     PrivacyPolicy: 'privacy-policy',
     Accessibility: 'accessibility',
     Error: 'error',
