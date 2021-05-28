@@ -9,6 +9,8 @@ using Microsoft.Extensions.Options;
 using ServiceWebsite.AcceptanceTests.Configuration;
 using ServiceWebsite.AcceptanceTests.Data;
 using ServiceWebsite.AcceptanceTests.Data.TestData;
+using ServiceWebsite.Common.Configuration;
+using ServiceWebsite.Common.Security;
 using TechTalk.SpecFlow;
 using TestApi.Contract.Dtos;
 using TestContext = ServiceWebsite.AcceptanceTests.Helpers.TestContext;
@@ -42,7 +44,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private void RegisterAzureSecrets(TestContext context)
         {
-            context.WebConfig.AzureAdConfiguration = Options.Create(_configRoot.GetSection("AzureAd").Get<ServiceWebSecurityConfiguration>()).Value;
+            context.WebConfig.AzureAdConfiguration = Options.Create(_configRoot.GetSection("AzureAd").Get<SecuritySettings>()).Value;
             ConfigurationManager.VerifyConfigValuesSet(context.WebConfig.AzureAdConfiguration);
         }
 
@@ -106,8 +108,8 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
 
         private static async Task GenerateBearerTokens(TestContext context)
         {
-            context.TestApiBearerToken = await ConfigurationManager.GetBearerToken(
-                context.WebConfig.AzureAdConfiguration, context.WebConfig.VhServices.TestApiResourceId);
+            var tokenProvider = new TokenProvider(Options.Create(context.WebConfig.AzureAdConfiguration));
+            context.TestApiBearerToken = await tokenProvider.GetClientAccessToken(context.WebConfig.AzureAdConfiguration.ClientId, context.WebConfig.AzureAdConfiguration.ClientSecret, context.WebConfig.VhServices.TestApiResourceId);
             context.TestApiBearerToken.Should().NotBeNullOrEmpty();
         }
     }

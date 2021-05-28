@@ -1,6 +1,6 @@
 import { ParticipantJourneySteps as Steps } from '../participant-journey-steps';
 import { Config } from '../../shared/models/config';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { JourneyRoutingListenerService } from './journey-routing-listener.service';
 import { Event, ResolveEnd, Router } from '@angular/router';
 import { Paths as AppPaths } from '../../../paths';
@@ -12,6 +12,8 @@ import { EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 import { Logger } from '../../../services/logger';
 import { Title } from '@angular/platform-browser';
+import { ConfigService } from 'src/app/services/config.service';
+import { MockLogger } from 'src/app/testing/mocks/mock-logger';
 
 class JourneyStepComponentBindingsStub extends ParticipantJourneyStepComponentBindings {
     readonly initialStep = Steps.CheckingVideoHearing;
@@ -33,6 +35,7 @@ tomorrow.setDate(tomorrow.getDate() + 1);
 
 describe('JourneyRoutingListenerService', () => {
     let service: JourneyRoutingListenerService;
+    let configServiceSpy: jasmine.SpyObj<ConfigService>;
     let journey: jasmine.SpyObj<JourneyBase>;
     let router: jasmine.SpyObj<Router>;
     let location: jasmine.SpyObj<Location>;
@@ -41,12 +44,15 @@ describe('JourneyRoutingListenerService', () => {
     let redirectService: jasmine.SpyObj<DocumentRedirectService>;
     let titleService: jasmine.SpyObj<Title>;
     let currentJourneyStep: Steps;
+    const clientSettings = new Config();
 
     const bindings = new JourneyStepComponentBindingsStub();
-    const config = new Config('videourl', 'appinsightskey');
+    const config = new Config();
 
     beforeEach(() => {
         redirectService = jasmine.createSpyObj<DocumentRedirectService>(['to']);
+        configServiceSpy = jasmine.createSpyObj<ConfigService>('ConfigService', ['getClientSettings', 'loadConfig']);
+        configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
         titleService = jasmine.createSpyObj<Title>(['setTitle']);
         routerEvents = new Subject();
         stepEvents = new EventEmitter<JourneyStep>();
@@ -69,14 +75,7 @@ describe('JourneyRoutingListenerService', () => {
         } as jasmine.SpyObj<Location>;
         location.path.and.returnValue('/checking-video-hearing');
 
-        service = new JourneyRoutingListenerService(
-            location,
-            router,
-            config,
-            redirectService,
-            jasmine.createSpyObj<Logger>(['event']),
-            titleService
-        );
+        service = new JourneyRoutingListenerService(location, router, configServiceSpy, redirectService, new MockLogger(), titleService);
     };
 
     const givenInitialisedAtStartStep = () => {
@@ -95,7 +94,7 @@ describe('JourneyRoutingListenerService', () => {
         givenCurrentUrlIs('/login');
         service.startRouting(bindings, journey);
 
-        const rootUrl = `/${AppPaths.Root}`;
+        const rootUrl = `/${AppPaths.JourneySelector}`;
         routerEvents.next(new ResolveEnd(0, rootUrl, rootUrl, null));
 
         // then we should be redirected to the initial step url

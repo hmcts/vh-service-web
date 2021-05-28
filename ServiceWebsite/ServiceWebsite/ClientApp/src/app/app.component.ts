@@ -1,17 +1,21 @@
-import { JourneySelector } from './modules/base-journey/services/journey.selector';
-import { ProfileService } from 'src/app/services/profile.service';
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdalService } from 'adal-angular4';
-import { Config } from './modules/shared/models/config';
-import { HeaderComponent } from './modules/shared/header/header.component';
-import { WindowRef } from './modules/shared/window-ref';
-import { PageTrackerService } from './services/page-tracker.service';
+import {
+    AuthorizationResult,
+    EventTypes,
+    OidcClientNotification,
+    OidcSecurityService,
+    PublicEventsService
+} from 'angular-auth-oidc-client';
+import { NEVER } from 'rxjs';
+import { catchError, filter } from 'rxjs/operators';
 import { DeviceType } from './modules/base-journey/services/device-type';
+import { PageUrls } from './modules/shared/constants/page-url.constants';
+import { HeaderComponent } from './modules/shared/header/header.component';
 import { Paths } from './paths';
-import { NavigationBackSelector } from './modules/base-journey/services/navigation-back.selector';
-import { DocumentRedirectService } from './services/document-redirect.service';
+import { ConfigService } from './services/config.service';
 import { Logger } from './services/logger';
+import { PageTrackerService } from './services/page-tracker.service';
 
 @Component({
     selector: 'app-root',
@@ -29,90 +33,56 @@ export class AppComponent implements OnInit {
     main: ElementRef<HTMLElement>;
 
     constructor(
+        private configService: ConfigService,
         private router: Router,
-        private adalService: AdalService,
-        private config: Config,
-        private window: WindowRef,
-        private profileService: ProfileService,
-        private journeySelector: JourneySelector,
-        pageTracker: PageTrackerService,
+        private oidcSecurityService: OidcSecurityService,
+        private pageTracker: PageTrackerService,
         private deviceTypeService: DeviceType,
-        private navigationBackSelector: NavigationBackSelector,
-        private renderer: Renderer2,
-        private redirect: DocumentRedirectService,
+        private eventService: PublicEventsService,
         private logger: Logger
     ) {
         this.loggedIn = false;
-        this.initAuthentication();
-        pageTracker.trackNavigation(router);
-    }
-
-    private initAuthentication() {
-        const config: adal.Config = {
-            tenant: this.config.tenantId,
-            clientId: this.config.clientId,
-            postLogoutRedirectUri: this.config.postLogoutRedirectUri,
-            redirectUri: this.config.redirectUri
-        };
-
-        this.adalService.init(config);
     }
 
     ngOnInit() {
         this.checkBrowser();
-        this.adalService.handleWindowCallback();
-        this.loggedIn = this.adalService.userInfo.authenticated;
-
-        this.initialiseProfile().then(() => (this.initialized = true));
+        this.configService.getClientSettings().subscribe(() => {
+            this.postConfigSetup();
+            this.pageTracker.trackNavigation(this.router);
+        });
     }
 
-    private async initialiseProfile(): Promise<void> {
-        // the window callback modifies the url so store this accordingly first
-        const currentUrl = this.window.getLocation().href;
+    private postConfigSetup() {
+        this.checkAuth().subscribe(loggedIn => {
+            this.postAuthSetup(loggedIn);
+        });
 
-        if (!this.loggedIn) {
-            this.logger.event('telemetry:serviceweb:any:login:notauthenticated');
-            this.logger.flushBuffer();
-            await this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
-            return;
-        }
+        this.eventService
+            .registerForEvents()
+            .pipe(filter(notification => notification.type === EventTypes.NewAuthorizationResult))
+            .subscribe(async (value: OidcClientNotification<AuthorizationResult>) => {
+                this.logger.info('[AppComponent] - OidcClientNotification event received with value ', value);
+                this.postAuthSetup(true);
+            });
+    }
 
-        this.logger.event('telemetry:serviceweb:any:login:authenticated');
+    private postAuthSetup(loggedIn: boolean) {
+        this.loggedIn = loggedIn;
+    }
 
-        try {
-            const profile = await this.profileService.getUserProfile();
-
-            if (profile === undefined || profile.email === undefined || profile.role === undefined || profile.role === 'None') {
-                await this.router.navigate(['/unauthorized']);
-                return;
-            }
-
-            await this.journeySelector.beginFor(profile.role);
-            await this.navigationBackSelector.beginFor(profile.role);
-        } catch (err) {
-            const errorMessage = `Error ${err.status ? err.status : ''}:
-        ${err.message ? err.message : 'No Error Message'}:
-        ${err.response ? err.response : 'No Response'}
-        `;
-
-            this.logger.error(errorMessage, err);
-
-            if (err.status) {
-                if (err.status === 401) {
-                    this.logger.event('telemetry:serviceweb:any:login:unauthorized');
-                    await this.router.navigate(['/unauthorized']);
-                    return;
-                }
-            }
-
-            this.redirect.to(this.config.videoAppUrl);
-
-            return;
-        }
+    checkAuth() {
+        return this.oidcSecurityService.checkAuth().pipe(
+            catchError(err => {
+                this.logger.error('[AppComponent] - Check Auth Error', err);
+                this.router.navigate([PageUrls.Login]);
+                return NEVER;
+            })
+        );
     }
 
     checkBrowser(): void {
         if (!this.deviceTypeService.isSupportedBrowser()) {
+            this.logger.warn('[AppComponent] - Browser not supported, going to unsupported page');
             this.router.navigateByUrl(Paths.UnsupportedBrowser);
         }
     }

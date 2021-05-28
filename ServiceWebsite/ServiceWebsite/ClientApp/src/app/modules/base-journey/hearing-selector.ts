@@ -16,7 +16,6 @@ export class HearingSelector<TModel extends ParticipantSuitabilityModel> {
 
     private selectHearing(): TModel {
         const upcoming = this.hearingModels.filter(hearing => hearing.isUpcoming() && !hearing.hearing.questionnaireNotRequired);
-
         if (upcoming.length === 0) {
           const pastHearings = this.hearingModels.map(h => h.hearing.id);
           this.logger.event('Journey done: No upcoming hearings', { pastHearings });

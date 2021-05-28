@@ -1,69 +1,81 @@
-import {AppInsights} from 'applicationinsights-js';
-import {LogAdapter} from './log-adapter';
-import {Config} from '../modules/shared/models/config';
-import {Injectable} from '@angular/core';
-
-enum SeverityLevel {
-  Verbose = 0,
-  Information = 1,
-  Warning = 2,
-  Error = 3,
-  Critical = 4
-}
+import { Injectable } from '@angular/core';
+import { ApplicationInsights, ITelemetryItem, SeverityLevel } from '@microsoft/applicationinsights-web';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ConfigService } from './config.service';
+import { LogAdapter } from './log-adapter';
 
 @Injectable()
 export class AppInsightsLogger implements LogAdapter {
-  errorInfo: any;
+    errorInfo: any;
+    appInsights: ApplicationInsights;
 
-  constructor(config: Config) {
-    const appInsightsConfig: Microsoft.ApplicationInsights.IConfig = {
-      instrumentationKey: config.appInsightsInstrumentationKey,
-    };
+    constructor(configService: ConfigService, oidcSecurityService: OidcSecurityService) {
+        this.setupAppInsights(configService, oidcSecurityService).subscribe();
+    }
 
-    // Unfortunately, there is no way to know if the setup is successful or not
-    AppInsights.downloadAndSetup(appInsightsConfig);
+    private setupAppInsights(configService: ConfigService, oidcSecurityService: OidcSecurityService): Observable<void> {
+        configService.loadConfig();
+        return configService.getClientSettings().pipe(
+            map(configSettings => {
+                this.appInsights = new ApplicationInsights({
+                    config: {
+                        instrumentationKey: configSettings.app_insights_instrumentation_key,
+                        isCookieUseDisabled: true
+                    }
+                });
+                this.appInsights.loadAppInsights();
+                oidcSecurityService.userData$.subscribe(ud => {
+                    this.appInsights.addTelemetryInitializer((envelope: ITelemetryItem) => {
+                        envelope.tags['ai.cloud.role'] = 'vh-video-web';
+                        envelope.tags['ai.user.id'] = ud.preferred_username.toLowerCase();
+                    });
+                });
+            })
+        );
+    }
 
-    // When it's been initialised, set the role so we know which application is logging
-    AppInsights.queue.push(() => {
-      AppInsights.context.addTelemetryInitializer((envelope) => {
-        envelope.tags['ai.cloud.role'] = 'vh-service-web';
-      });
-    });
-  }
+    debug(message: string, properties: any = null): void {
+        if (this.appInsights) {
+            this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Verbose }, properties);
+        }
+    }
 
-  debug(message: string): void {
-    AppInsights.trackTrace(message, null, SeverityLevel.Verbose);
-  }
+    info(message: string, properties: any = null): void {
+        this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Information }, properties);
+    }
 
-  info(message: string): void {
-    AppInsights.trackTrace(message, null, SeverityLevel.Information);
-  }
+    warn(message: string, properties: any = null): void {
+        this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Warning }, properties);
+    }
 
-  warn(message: string): void {
-    AppInsights.trackTrace(message, null, SeverityLevel.Warning);
-  }
+    trackPage(pageName: string, url: string) {
+        this.appInsights.trackPageView({ name: pageName, uri: url });
+    }
 
-  trackPage(pageName: string, url: string) {
-    AppInsights.trackPageView(pageName, url);
-  }
+    trackEvent(eventName: string, properties: any) {
+        this.appInsights.trackEvent({ name: eventName }, properties);
+    }
 
-  trackEvent(eventName: string, properties: any) {
-    AppInsights.trackEvent(eventName, properties);
-  }
+    trackException(message: string, err: Error, properties: any) {
+        properties = properties || {};
+        properties.message = message;
 
-  trackException(message: string, err: Error, properties: any) {
-    properties = properties || {};
-    properties.message = message;
+        this.errorInfo = err;
+        properties.errorInformation = this.errorInfo
+            ? `${this.errorInfo.error} : ${this.errorInfo.status}
+       : ${this.errorInfo.statusText} : ${this.errorInfo.url} : ${this.errorInfo.message}`
+            : ``;
 
-    this.errorInfo = err;
-    properties.errorInformation =
-      this.errorInfo ? `${this.errorInfo.error} : ${this.errorInfo.status}
-       : ${this.errorInfo.statusText} : ${this.errorInfo.url} : ${this.errorInfo.message}` : ``;
+        this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Error }, properties);
+        this.appInsights.trackException({
+            error: err,
+            properties: properties
+        });
+    }
 
-    AppInsights.trackException(err, null, properties);
-  }
-
-  flushBuffer() {
-    AppInsights.flush();
-  }
+    flushBuffer() {
+        this.appInsights.flush();
+    }
 }

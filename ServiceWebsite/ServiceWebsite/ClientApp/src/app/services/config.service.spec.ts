@@ -1,43 +1,47 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { Config } from '../modules/shared/models/config';
-import { ConfigService, ENVIRONMENT_CONFIG } from './config.service';
-import { HttpClient } from '@angular/common/http';
-import { ErrorService } from './error.service';
+import { HttpBackend, HttpResponse } from '@angular/common/http';
+import { fakeAsync, tick } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { Config } from '../modules/shared/models/config';
+import { SessionStorage } from '../modules/shared/services/session-storage';
+import { ConfigService } from './config.service';
 
 describe('ConfigService', () => {
+    let httpBackendSpy: jasmine.SpyObj<HttpBackend>;
+    let clientSettings: Config;
+    let configService: ConfigService;
+    let clientSettingCache: SessionStorage<Config>;
 
-  const httpClient: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
-  const errorService: jasmine.SpyObj<ErrorService> = jasmine.createSpyObj('ErrorService', ['handleError']);
-  const serviceResponse = {
-    videoAppUrl: '',
-    rappInsightsInstrumentationKey: '',
-    tenantId: '',
-    clientId: '',
-    postLogoutRedirectUri: '',
-    redirectUri: '',
-    baseVideoUrl: '',
-    pexip_self_test_node_uri: 'uri'
-  };
-  httpClient.get.and.returnValue(of(serviceResponse));
+    beforeEach(() => {
+        httpBackendSpy = jasmine.createSpyObj<HttpBackend>('HttpBackend', ['handle']);
+        clientSettingCache = new SessionStorage<Config>('vh.client.settings');
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        { provide: HttpClient, useValue: httpClient },
-        { provide: ErrorService, useValue: errorService },
-        ConfigService
-      ]
+        clientSettings = new Config();
+        clientSettings.tenant_id = 'tenantId';
+        clientSettings.client_id = 'clientId';
+        clientSettings.post_logout_redirect_uri = '/dashboard';
+        clientSettings.redirect_uri = '/dashboard';
+        httpBackendSpy.handle.and.returnValue(of(new HttpResponse({ body: clientSettings })));
+        configService = new ConfigService(httpBackendSpy);
     });
-  });
 
-  it('should be created', inject([ConfigService], (service: ConfigService) => {
-    expect(service).toBeTruthy();
-  }));
-  it('should read configuration', inject([ConfigService], async (service: ConfigService) => {
-    const conf = await service.load();
+    afterEach(() => {
+        clientSettingCache.clear();
+    });
 
-    expect(conf).toBeTruthy();
-    expect(conf.pexipSelfTestNodeUri).toBe('uri');
-  }));
+    it('should have called method on httpClient', fakeAsync(() => {
+        configService.loadConfig();
+        tick();
+        configService.getClientSettings().toPromise();
+        tick();
+        expect(httpBackendSpy.handle).toHaveBeenCalled();
+    }));
+
+    it('should not have called method on httpClient', fakeAsync(() => {
+        clientSettingCache.set(clientSettings);
+        configService.loadConfig();
+        tick();
+        configService.getClientSettings().toPromise();
+        tick();
+        expect(httpBackendSpy.handle).not.toHaveBeenCalled();
+    }));
 });

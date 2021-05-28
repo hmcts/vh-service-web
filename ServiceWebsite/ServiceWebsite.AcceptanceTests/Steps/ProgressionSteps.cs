@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using AcceptanceTests.Common.Test.Steps;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
@@ -85,9 +86,13 @@ namespace ServiceWebsite.AcceptanceTests.Steps
             journeys[userJourney].VerifyUserIsApplicableToJourney(_c.CurrentUser.UserType);
             journeys[userJourney].VerifyDestinationIsInThatJourney(endPage);
             var journey = journeys[userJourney].Journey();
+            StringBuilder strb = new StringBuilder().Append("The journey is ");
+            foreach (var page in journey) { strb.Append(page.Name).Append("; "); }
+            NUnit.Framework.TestContext.WriteLine($"The journey is {strb} ");
             var steps = Steps();
             foreach (var page in journey)
             {
+                NUnit.Framework.TestContext.WriteLine($"Journey page is {page.Name}");
                 if (!startPageReached)
                 {
                     if (page.Equals(startPage))

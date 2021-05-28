@@ -29,15 +29,8 @@
                 "output": "assets/fonts/"
               }
             ],
-            "styles": [
-              "src/styles.css",
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "src/scripts/pexrtc.js",
-              "src/scripts/EdgePF.js",
-              "src/scripts/IEPF.js"
-            ]
+            "styles": ["src/styles.css", "src/styles.scss"],
+            "scripts": ["src/scripts/pexrtc.js", "src/scripts/EdgePF.js", "src/scripts/IEPF.js"]
           },
           "configurations": {
             "production": {
@@ -89,15 +82,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css",
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "src/scripts/pexrtc.js",
-              "src/scripts/EdgePF.js",
-              "src/scripts/IEPF.js"
-            ],
+            "styles": ["src/styles.css", "src/styles.scss"],
+            "scripts": ["src/scripts/pexrtc.js", "src/scripts/EdgePF.js", "src/scripts/IEPF.js"],
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -107,22 +93,14 @@
                 "output": "assets/fonts/"
               }
             ],
-            "sourceMap": true,
-            "codeCoverageExclude": [
-              "src/app/services/clients/*.ts"
-            ]
+            "codeCoverageExclude": ["src/app/services/clients/*.ts"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

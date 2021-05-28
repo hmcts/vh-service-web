@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Microsoft.OpenApi.Models;
 using System.IO;
+using ServiceWebsite.Common.Configuration;
 using Swashbuckle.AspNetCore.Swagger;
 using ServiceWebsite.Models;
 using UserApi.Client;

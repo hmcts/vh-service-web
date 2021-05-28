@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { configureTestSuite } from 'ng-bullet';
 import { SelectMediaDevicesComponent } from './select-media-devices.component';
@@ -44,7 +44,7 @@ describe('SelectMediaDevicesComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should initialise the device form', async(() => {
+    it('should initialise the device form', waitForAsync(() => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
             expect(component.selectedMediaDevicesForm).toBeDefined();
@@ -72,7 +72,7 @@ describe('SelectMediaDevicesComponent', () => {
         expect(component.hasSingleMicrophoneConncted).toBeFalsy();
     });
 
-    it('should emit cancelled event', async(() => {
+    it('should emit cancelled event', waitForAsync(() => {
         spyOn(component.cancelMediaDeviceChange, 'emit');
 
         fixture.whenStable().then(() => {
@@ -81,7 +81,7 @@ describe('SelectMediaDevicesComponent', () => {
         component.onCancel();
     }));
 
-    it('should not emit device updated event when form is invalid', async(() => {
+    it('should not emit device updated event when form is invalid', waitForAsync(() => {
         spyOn(component.acceptMediaDeviceChange, 'emit');
         fixture
             .whenStable()
@@ -94,7 +94,7 @@ describe('SelectMediaDevicesComponent', () => {
             });
     }));
 
-    it('should emit device updated event when form is valid', async(() => {
+    it('should emit device updated event when form is valid', waitForAsync(() => {
         spyOn(component.acceptMediaDeviceChange, 'emit');
         fixture
             .whenStable()

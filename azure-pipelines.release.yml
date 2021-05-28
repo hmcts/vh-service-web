@@ -149,15 +149,13 @@ stages:
             value: $(IsLive)
 
           # AzureAd
-          - name: AzureAd:Authority
-            value: $(Authority)
           - name: AzureAd:BaseVideoUrl
             value: $(video_blob_url)
           - name: AzureAd:ClientId
-            value: vh-service-web-appid
+            value: vh-service-web-appid-v2
             secret: true
           - name: AzureAd:ClientSecret
-            value: vh-service-web-key
+            value: vh-service-web-key-v2
             secret: true
           - name: AzureAd:PostLogoutRedirectUri
             slot:
@@ -168,9 +166,9 @@ stages:
           - name: AzureAd:RedirectUri
             slot:
               deployment:
-                value: $(service_web_url_staging)
+                value: $(service_web_url_staging)home
               active:
-                value: $(service_web_url)
+                value: $(service_web_url)home
           - name: AzureAd:TenantId
             value: tenantid
             secret: true
@@ -222,20 +220,14 @@ stages:
           - name: AzureAd:AppInsightsKey
             value: vh-core-infra-AppInsightsKey
             secret: true
-          - name: AzureAd:Authority
-            value: $(Authority)
           - name: AzureAd:BaseVideoUrl
             value: $(video_blob_url)
           - name: AzureAd:ClientId
-            value: vh-service-web-appid
+            value: vh-service-web-appid-v2
             secret: true
           - name: AzureAd:ClientSecret
-            value: vh-service-web-key
+            value: vh-service-web-key-v2
             secret: true
-          - name: AzureAd:PostLogoutRedirectUri
-            slot: true
-          - name: AzureAd:RedirectUri
-            slot: true
           - name: AzureAd:TenantId
             value: tenantid
             secret: true
