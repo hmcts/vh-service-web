@@ -1,6 +1,10 @@
 ---
 java:
+<<<<<<< HEAD
   image: 'sdshmctspublic.azurecr.io/vh/service-web:20210608.1'
+=======
+  image: 'sdshmctspublic.azurecr.io/vh/service-web:20210603.1'
+>>>>>>> Update values.yaml
   applicationPort: 8080
   replicas: 2
   ingressHost: vh-service-web.{{ .Values.global.environment }}.platform.hmcts.net
