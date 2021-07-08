@@ -22,6 +22,8 @@ export class UnsupportedBrowserComponent implements OnInit {
     this.supportedBrowsers.push(new SupportedBrowserModel('Edge Chromium', 'Edge for Windows'));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // This is intentional
+  }
 
 }
