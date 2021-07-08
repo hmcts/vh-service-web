@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/te
 import { UnsupportedBrowserComponent } from './unsupported-browser.component';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 
-describe('UnsupportedBrowserComponent', () => {
+fdescribe('UnsupportedBrowserComponent', () => {
   let component: UnsupportedBrowserComponent;
   let fixture: ComponentFixture<UnsupportedBrowserComponent>;
   let deviceTypeServiceSpy: jasmine.SpyObj<DeviceType>;
