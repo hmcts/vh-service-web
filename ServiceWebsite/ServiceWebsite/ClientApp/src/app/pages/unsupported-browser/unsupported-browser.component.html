@@ -1,13 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h2 class="govuk-heading-l" id="unsupported">You've signed in using an unsupported browser</h2>
+    <h2 class="govuk-heading-l" id="unsupported">Unsupported browser</h2>
     <p class="govuk-body">
-      It looks like you've signed in using {{ browserName }}. Unfortunately this browser is not currently supported by
-      our
-      system.
+      You're using a browser that is not supported by the Video Hearings service.
     </p>
     <div>
-      <p class="govuk-body">Please sign out and sign in again using any of the following.</p>
+      <p class="govuk-body">Please try again using one of the browsers listed below. If you are still having problems, please contact the video hearings team.</p>
 
       <ul class="govuk-list">
         <li *ngFor="let browser of supportedBrowsers">
