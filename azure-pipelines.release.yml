@@ -278,10 +278,6 @@ stages:
             secret: true
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
-          - name: VhServices:VideoApiUrl
-            value: "http://pre-video.hearings.reform.hmcts.net"
-            env:
-            - sandbox
           - name: VhServices:VideoWebUrl
             value: $(video_web_url)
           - name: VhServices:KinlySelfTestScoreEndpointUrl
