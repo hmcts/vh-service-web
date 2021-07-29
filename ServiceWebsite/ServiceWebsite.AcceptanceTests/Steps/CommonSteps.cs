@@ -28,6 +28,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [When(@"the user clicks the (.*) button")]
         public void WhenTheUserClicksTheButton(string innerText)
         {
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(innerText)).Displayed.Should().BeTrue();
             _browsers[_c.CurrentUser].Click(CommonLocators.ButtonWithInnerText(innerText));
         }
 
