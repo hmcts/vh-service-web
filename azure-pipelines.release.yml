@@ -143,6 +143,12 @@ stages:
             env:
               - Prod
               - Preprod
+          - name: VideoWebUrlProd
+            value: $(video_web_domain_prod)
+            env:
+              - Prod
+              - Preprod
+              - Sandbox
         appSettings:
           - name: ApplicationInsights:InstrumentationKey
             value: vh-core-infra-AppInsightsKey
