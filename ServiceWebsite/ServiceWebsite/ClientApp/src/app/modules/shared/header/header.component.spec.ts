@@ -56,9 +56,9 @@ describe('HeaderComponent',
       component.loggedIn = true;
       fixture.detectChanges();
 
-      const link = fixture.debugElement.query(By.css('#header-logout-link'));
-      link.triggerEventHandler('click', null);
-
-      expect(router.navigate).toHaveBeenCalledWith(['/logout']);
+      const signOutElement = fixture.debugElement.queryAll(By.css('#header-logout-link'));
+      expect(signOutElement.length).toBeGreaterThan(0);
+      const el = signOutElement[0].nativeElement as HTMLElement;
+      expect(el.innerHTML).toContain('Sign out');
     });
   });
