@@ -42,19 +42,22 @@ export class AppComponent implements OnInit {
         private logger: Logger
     ) {
         this.loggedIn = false;
+        this.pageTracker.trackNavigation(this.router);
     }
 
     ngOnInit() {
-        this.checkBrowser();
-        this.configService.getClientSettings().subscribe(() => {
-            this.postConfigSetup();
-            this.pageTracker.trackNavigation(this.router);
+        this.configService.getClientSettings().subscribe({
+            next: async () => {
+                this.postConfigSetup();
+            }
         });
     }
 
     private postConfigSetup() {
-        this.checkAuth().subscribe(loggedIn => {
-            this.postAuthSetup(loggedIn);
+        this.checkAuth().subscribe({
+            next: async (loggedIn: boolean) => {
+                await this.postAuthSetup(loggedIn);
+            }
         });
 
         this.eventService
@@ -62,12 +65,13 @@ export class AppComponent implements OnInit {
             .pipe(filter(notification => notification.type === EventTypes.NewAuthorizationResult))
             .subscribe(async (value: OidcClientNotification<AuthorizationResult>) => {
                 this.logger.info('[AppComponent] - OidcClientNotification event received with value ', value);
-                this.postAuthSetup(true);
+                await this.postAuthSetup(true);
             });
     }
 
-    private postAuthSetup(loggedIn: boolean) {
+    private async postAuthSetup(loggedIn: boolean) {
         this.loggedIn = loggedIn;
+        this.checkBrowser();
     }
 
     checkAuth() {
