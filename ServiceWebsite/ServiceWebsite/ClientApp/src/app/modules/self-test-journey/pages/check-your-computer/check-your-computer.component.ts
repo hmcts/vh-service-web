@@ -6,6 +6,9 @@ import { SelfTestJourneySteps } from '../../self-test-journey-steps';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 import { Router } from '@angular/router';
 import { Paths } from '../../../../paths';
+import { ConfigService } from 'src/app/services/config.service';
+import { Observable } from 'rxjs';
+import { Config } from 'src/app/modules/shared/models/config';
 
 @Component({
   selector: 'app-check-your-computer',
@@ -14,10 +17,15 @@ import { Paths } from '../../../../paths';
 })
 export class CheckYourComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
   isRepresentative: boolean;
-  isIndividual: boolean;
+  isIndividual: boolean;emi
+  mobileSupportEnabled = false;
+
   constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel,
-    private deviceType: DeviceType, private router: Router) {
+    private deviceType: DeviceType, private router: Router, private configService: ConfigService) {
     super(journey);
+    this.configService.getClientSettings().subscribe(clientSettings => {
+      this.mobileSupportEnabled = clientSettings.enable_mobile_support
+    })
   }
 
   ngOnInit(): void {
@@ -40,12 +48,12 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
       return;
     }
 
-    if (this.deviceType.isMobile()) {
+    if (this.deviceType.isMobile() && !this.mobileSupportEnabled) {
       this.router.navigate([`/${Paths.SignInOnComputer}`]);
       return;
     }
 
-    if (this.deviceType.isTablet() && !this.deviceType.isIpad()) {
+    if (this.deviceType.isTablet() && !this.deviceType.isIpad() && !this.mobileSupportEnabled) {
       this.router.navigate([`/${Paths.SignInOnComputer}`]);
       return;
     }
