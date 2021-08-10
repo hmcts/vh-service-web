@@ -298,7 +298,3 @@ stages:
             value: $(Saucelabs:AccessKey)
           - name: Saucelabs:RealDeviceApiKey
             value: $(RealDeviceApiKey)
-
-          # Ejud - test setting only
-          - name: UsingEjud
-            value: $(UsingEjud)
