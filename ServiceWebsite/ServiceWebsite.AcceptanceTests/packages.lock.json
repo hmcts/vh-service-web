@@ -235,9 +235,9 @@
       },
       "VH.AcceptanceTests.Common": {
         "type": "Direct",
-        "requested": "[1.21.32, )",
-        "resolved": "1.21.32",
-        "contentHash": "EmAT1YBsP8jqc8+eLE0erywTLBtjY2gU1HkntN0yq9m/QQYusUsBUIcbYndZ4tdeGL1WKfcG36QfV5CXbjK25A==",
+        "requested": "[1.21.44, )",
+        "resolved": "1.21.44",
+        "contentHash": "Ioi+z7sDiJWgXIoo+sgsBjAc1V/+u1lmJTfiE6wp/7KyTRK0qPBLQRqaIZdik/MbRuOc+Db7T0Wrsf3gf3pNCA==",
         "dependencies": {
           "Appium.WebDriver": "4.3.1",
           "Azure.Storage.Blobs": "12.8.0",
@@ -266,7 +266,7 @@
           "Selenium.Firefox.WebDriver": "0.27.0",
           "Selenium.Support": "3.141.0",
           "Selenium.WebDriver": "3.141.0",
-          "Selenium.WebDriver.ChromeDriver": "89.0.4389.2300",
+          "Selenium.WebDriver.ChromeDriver": "91.0.4472.1900",
           "Selenium.WebDriver.IEDriver": "3.150.1.2",
           "Selenium.WebDriver.MicrosoftDriver": "17.17134.0",
           "SpecFlow": "3.6.23",
