@@ -299,3 +299,9 @@ stages:
           - name: Saucelabs:RealDeviceApiKey
             value: $(RealDeviceApiKey)
 
+<<<<<<< HEAD
+=======
+          # Ejud - test setting only
+          - name: UsingEjud
+            value: $(UsingEjud)
+>>>>>>> master
