@@ -330,5 +330,6 @@ stages:
             value: $(Saucelabs:AccessKey)
           - name: Saucelabs:RealDeviceApiKey
             value: $(RealDeviceApiKey)
+
         runMultiDeviceTests: true
         deviceConfiguration: ${{ parameters.deviceConfiguration }}
