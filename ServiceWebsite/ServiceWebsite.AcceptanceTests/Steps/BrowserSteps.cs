@@ -29,7 +29,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void GivenANewBrowserIsOpenFor(string user)
         {
             SwitchCurrentUser(user);
-
+            NUnit.Framework.TestContext.WriteLine($"current user should be {_c.CurrentUser.DisplayName} from {user}");
             _browsers.Add(_c.CurrentUser, new UserBrowser()
                 .SetBaseUrl(_c.WebConfig.VhServices.ServiceWebUrl)
                 .SetTargetBrowser(_c.WebConfig.TestConfig.TargetBrowser)
