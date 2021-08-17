@@ -64,6 +64,6 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
 
         const href = fixture.debugElement.query(By.css('#header-logout-link')).nativeElement.getAttribute('href');
-        expect(expect(href)).toEqual('/login');
+        expect(expect(href)).toEqual(component.logoutRoute);
     });
 });

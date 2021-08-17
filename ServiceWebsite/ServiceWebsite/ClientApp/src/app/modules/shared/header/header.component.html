@@ -17,7 +17,7 @@
       <nav class="hmcts-header__navigation" aria-label="Account navigation">
         <ul class="hmcts-header__navigation-list">
           <li *ngIf="loggedIn" class="hmcts-header__navigation-item">
-            <a [routerLink]="'/logout'" id="header-logout-link" class="govuk-header__link  right-align"
+            <a [routerLink]="logoutRoute" id="header-logout-link" class="govuk-header__link  right-align"
                i18n="@@header_btn_signout">
               Sign out
             </a>
