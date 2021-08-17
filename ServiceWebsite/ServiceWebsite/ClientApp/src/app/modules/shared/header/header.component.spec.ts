@@ -1,11 +1,9 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { HeaderComponent } from './header.component';
-import { Router } from '@angular/router';
-import { ProfileService } from 'src/app/services/profile.service';
-import { UserProfile } from 'src/app/modules/shared/models/user-profile.model';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { UserProfile } from 'src/app/modules/shared/models/user-profile.model';
+import { ProfileService } from 'src/app/services/profile.service';
+import { HeaderComponent } from './header.component';
 
 export class MockProfileService {
     getUserProfile(): Promise<UserProfile> {
@@ -24,10 +22,6 @@ describe('HeaderComponent', () => {
     let component: HeaderComponent;
     let fixture: ComponentFixture<HeaderComponent>;
 
-    const router = {
-        navigate: jasmine.createSpy('navigate')
-    };
-
     const profileService = new MockProfileService();
 
     beforeEach(
@@ -35,10 +29,7 @@ describe('HeaderComponent', () => {
             TestBed.configureTestingModule({
                 imports: [RouterTestingModule],
                 declarations: [HeaderComponent],
-                providers: [
-                    { provide: Router, useValue: router },
-                    { provide: ProfileService, useValue: profileService }
-                ]
+                providers: [{ provide: ProfileService, useValue: profileService }]
             }).compileComponents();
         })
     );
@@ -64,6 +55,6 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
 
         const href = fixture.debugElement.query(By.css('#header-logout-link')).nativeElement.getAttribute('href');
-        expect(expect(href)).toEqual(component.logoutRoute);
+        expect(href).toEqual(`/${component.logoutRoute}`);
     });
 });
