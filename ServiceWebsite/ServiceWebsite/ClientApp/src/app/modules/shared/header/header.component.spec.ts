@@ -59,7 +59,7 @@ describe('HeaderComponent', () => {
     //   expect(el.innerHTML).toContain('Sign out');
     // });
 
-    fit('should navigate to logout page on pressing logout', () => {
+    it('should navigate to logout page on pressing logout', () => {
         component.loggedIn = true;
         fixture.detectChanges();
 
