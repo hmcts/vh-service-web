@@ -67,6 +67,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is redirected to Video Web")]
         public void ThenIndividualUserShouldBeRedirectedToVideoWeb()
         {
+            _browsers[_c.CurrentUser].WaitForPageToLoad(60);
             _browsers[_c.CurrentUser].Retry(() => _browsers[_c.CurrentUser].Driver.Url.Trim().Should().Contain(Page.VideoWeb.Url), ReachedThePageRetries);
         }
     }
