@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 import { ConfigService } from 'src/app/services/config.service';
 import { Paths } from '../../../../paths';
@@ -47,9 +48,12 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
 
     setupSubscribers() {
         this.$subcriptions.push(
-            this.configService.getClientSettings().subscribe(clientSettings => {
-                this.mobileSupportEnabled = clientSettings.enable_mobile_support;
-            })
+            this.configService
+                .getClientSettings()
+                .pipe(first())
+                .subscribe(clientSettings => {
+                    this.mobileSupportEnabled = clientSettings.enable_mobile_support;
+                })
         );
     }
 
