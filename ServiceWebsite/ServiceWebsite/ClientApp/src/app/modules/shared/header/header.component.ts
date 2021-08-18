@@ -11,5 +11,5 @@ export class HeaderComponent {
 
     logoutRoute = 'logout';
 
-    constructor(private router: Router) {}
+    constructor() {}
 }

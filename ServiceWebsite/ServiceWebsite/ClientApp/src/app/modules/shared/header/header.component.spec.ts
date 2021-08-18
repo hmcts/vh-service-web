@@ -40,16 +40,6 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
     });
 
-    // it('should navigate to logout page on pressing logout', () => {
-    //   component.loggedIn = true;
-    //   fixture.detectChanges();
-
-    //   const signOutElement = fixture.debugElement.queryAll(By.css('#header-logout-link'));
-    //   expect(signOutElement.length).toBeGreaterThan(0);
-    //   const el = signOutElement[0].nativeElement as HTMLElement;
-    //   expect(el.innerHTML).toContain('Sign out');
-    // });
-
     it('should navigate to logout page on pressing logout', () => {
         component.loggedIn = true;
         fixture.detectChanges();
