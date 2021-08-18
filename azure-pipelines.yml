@@ -283,7 +283,7 @@ extends:
         - "[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions"
         - "[*]ServiceWebsite.AcceptanceTests/*"
       sonarCloud_ExtraProperties: |
-        sonar.exclusions=**/node_modules/**,**/*.spec.ts,*.spec.ts,**/ClientApp/*,**/ClientApp/src/*,**/ClientApp/coverage/**/*,**/*.js,**/ServiceWebsite/Security/*.cs,**/ServiceWebsite/Swagger/*.cs,**/ConfigureServicesExtensions.cs,**/Startup.cs,**/Program.cs
+        sonar.exclusions=**/node_modules/**,**/*.spec.ts,*.spec.ts,**/ClientApp/src/*, **/ClientApp/coverage/**/**,**/ServiceWebsite/Security/*.cs,**/ServiceWebsite/Swagger/*.cs,**/ConfigureServicesExtensions.cs,**/Startup.cs,**/Program.cs, **/ClientApp/src/scripts/*.js
         sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
         sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts,**/app-insights-logger.service.ts
         sonar.coverage.exclusions=**/app-insights-logger.service.ts,**/console-logger.ts,**/testing/**/*,**/mic-visualiser.component.ts
