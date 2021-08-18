@@ -61,6 +61,7 @@ describe('CheckYourComputerComponent', () => {
         component.ngOnInit();
         component.choice.setValue(true);
         await component.submit();
+        expect(routerSpy.navigate).not.toHaveBeenCalledWith(['/sign-in-on-computer']);
         expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
     });
 
@@ -74,6 +75,7 @@ describe('CheckYourComputerComponent', () => {
         component.ngOnInit();
         component.choice.setValue(true);
         await component.submit();
+        expect(routerSpy.navigate).not.toHaveBeenCalledWith(['/sign-in-on-computer']);
         expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
     });
 
@@ -111,5 +113,7 @@ describe('CheckYourComputerComponent', () => {
 
         expect(component.$subcriptions[0].closed).toBeTruthy();
         expect(component.$subcriptions[1].closed).toBeTruthy();
+        // expect(component.$subcriptions[0].unsubscribe).toHaveBeenCalled();
+        // expect(component.$subcriptions[1].unsubscribe).toHaveBeenCalled();
     });
 });
