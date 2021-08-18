@@ -1,13 +1,12 @@
-import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
-import { CheckYourComputerComponent } from './check-your-computer.component';
-import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
-import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
 import { Router } from '@angular/router';
-import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
-import { ConfigService } from 'src/app/services/config.service';
-import { Config } from 'src/app/modules/shared/models/config';
 import { of, Subscription } from 'rxjs';
+import { JourneyBase } from 'src/app/modules/base-journey/journey-base';
+import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
+import { Config } from 'src/app/modules/shared/models/config';
+import { ConfigService } from 'src/app/services/config.service';
+import { ParticipantSuitabilityModel, SelfTestAnswers } from '../../../base-journey/participant-suitability.model';
+import { SelfTestJourneySteps } from '../../self-test-journey-steps';
+import { CheckYourComputerComponent } from './check-your-computer.component';
 
 describe('CheckYourComputerComponent', () => {
     let journey: jasmine.SpyObj<JourneyBase>;

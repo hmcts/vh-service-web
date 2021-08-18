@@ -1,14 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
+import { ConfigService } from 'src/app/services/config.service';
+import { Paths } from '../../../../paths';
 import { SuitabilityChoicePageBaseComponent } from '../../../base-journey/components/suitability-choice-page-base.component';
 import { JourneyBase } from '../../../base-journey/journey-base';
 import { ParticipantSuitabilityModel } from '../../../base-journey/participant-suitability.model';
 import { SelfTestJourneySteps } from '../../self-test-journey-steps';
-import { DeviceType } from 'src/app/modules/base-journey/services/device-type';
-import { Router } from '@angular/router';
-import { Paths } from '../../../../paths';
-import { ConfigService } from 'src/app/services/config.service';
-import { Subscription } from 'rxjs';
-import { Config } from 'src/app/modules/shared/models/config';
 
 @Component({
     selector: 'app-check-your-computer',
