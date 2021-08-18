@@ -28,9 +28,6 @@ export class CheckYourComputerComponent extends SuitabilityChoicePageBaseCompone
         private configService: ConfigService
     ) {
         super(journey);
-        this.configService.getClientSettings().subscribe(clientSettings => {
-            this.mobileSupportEnabled = clientSettings.enable_mobile_support;
-        });
     }
 
     ngOnInit(): void {

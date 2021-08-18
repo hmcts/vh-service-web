@@ -58,6 +58,7 @@ describe('CheckYourComputerComponent', () => {
         deviceType.isMobile.and.returnValue(true);
         deviceType.isTablet.and.returnValue(false);
         const component = new CheckYourComputerComponent(journey, model, deviceType, routerSpy, configServiceSpy);
+        component.ngOnInit();
         component.choice.setValue(true);
         await component.submit();
         expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
@@ -70,6 +71,7 @@ describe('CheckYourComputerComponent', () => {
         deviceType.isIpad.and.returnValue(false);
         configServiceSpy.getClientSettings.and.returnValue(of(clientSettings));
         const component = new CheckYourComputerComponent(journey, model, deviceType, routerSpy, configServiceSpy);
+        component.ngOnInit();
         component.choice.setValue(true);
         await component.submit();
         expect(journey.goto).toHaveBeenCalledWith(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
