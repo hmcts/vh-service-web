@@ -10,6 +10,4 @@ export class HeaderComponent {
     @Input() loggedIn: boolean;
 
     logoutRoute = 'logout';
-
-    constructor() {}
 }

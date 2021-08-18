@@ -9,7 +9,7 @@ export class MockProfileService {
     getUserProfile(): Promise<UserProfile> {
         const profile = new UserProfile();
         profile.role = 'professional';
-        profile.email = 'professional@hearings.hmcts.net';
+        profile.email = 'professional@hmcts.net';
         return Promise.resolve(profile);
     }
 
@@ -46,5 +46,13 @@ describe('HeaderComponent', () => {
 
         const href = fixture.debugElement.query(By.css('#header-logout-link')).nativeElement.getAttribute('href');
         expect(href).toEqual(`/${component.logoutRoute}`);
+    });
+
+    it('logout button is not rendered when user is not logged in', () => {
+        component.loggedIn = false;
+        fixture.detectChanges();
+
+        const logoutButton = fixture.debugElement.query(By.css('#header-logout-link'));
+        expect(logoutButton).toBeNull();
     });
 });
