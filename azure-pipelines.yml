@@ -283,8 +283,8 @@ extends:
         - "[ServiceWebsite]ServiceWebsite.ConfigureServicesExtensions"
         - "[*]ServiceWebsite.AcceptanceTests/*"
       sonarCloud_ExtraProperties: |
-        sonar.sources=src
-        sonar.tests=src
+        sonar.sources=**/ClientApp/src
+        sonar.tests=**/ClientApp/src
         sonar.test.inclusions=**/*.spec.ts,**/*test.ts
         sonar.exclusions=**/node_modules/**,**/*.spec.ts,*.spec.ts,**/ClientApp/*,**/ClientApp/src/*,**/ClientApp/coverage/**/*,**/ServiceWebsite/Security/*.cs,**/ServiceWebsite/Swagger/*.cs,**/ConfigureServicesExtensions.cs,**/Startup.cs,**/Program.cs
         sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
