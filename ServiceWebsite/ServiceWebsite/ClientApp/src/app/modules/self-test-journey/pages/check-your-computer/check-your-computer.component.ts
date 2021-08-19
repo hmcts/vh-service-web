@@ -8,48 +8,47 @@ import { Router } from '@angular/router';
 import { Paths } from '../../../../paths';
 
 @Component({
-  selector: 'app-check-your-computer',
-  templateUrl: './check-your-computer.component.html',
-  styles: []
+    selector: 'app-check-your-computer',
+    templateUrl: './check-your-computer.component.html',
+    styles: []
 })
 export class CheckYourComputerComponent extends SuitabilityChoicePageBaseComponent<JourneyBase> implements OnInit {
-  isRepresentative: boolean;
-  isIndividual: boolean;
-  constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel,
-    private deviceType: DeviceType, private router: Router) {
-    super(journey);
-  }
-
-  ngOnInit(): void {
-    this.choice.setValue(this.model.selfTest.checkYourComputer);
-    this.isRepresentative = this.journey.journeyName === 'Representative';
-    this.isIndividual = this.journey.journeyName === 'Individual';
-  }
-
-  protected bindModel(): void {
-    this.model.selfTest.checkYourComputer = this.choice.value;
-  }
-
-  async submit(): Promise<void> {
-    if (!this.trySubmit()) {
-      return;
+    isRepresentative: boolean;
+    isIndividual: boolean;
+    constructor(journey: JourneyBase, private model: ParticipantSuitabilityModel, private deviceType: DeviceType, private router: Router) {
+        super(journey);
     }
 
-    if (!this.model.selfTest.checkYourComputer) {
-      this.journey.goto(SelfTestJourneySteps.SignBackIn);
-      return;
+    ngOnInit(): void {
+        this.choice.setValue(this.model.selfTest.checkYourComputer);
+        this.isRepresentative = this.journey.journeyName === 'Representative';
+        this.isIndividual = this.journey.journeyName === 'Individual';
     }
 
-    if (this.deviceType.isMobile()) {
-      this.router.navigate([`/${Paths.SignInOnComputer}`]);
-      return;
+    protected bindModel(): void {
+        this.model.selfTest.checkYourComputer = this.choice.value;
     }
 
-    if (this.deviceType.isTablet() && !this.deviceType.isIpad()) {
-      this.router.navigate([`/${Paths.SignInOnComputer}`]);
-      return;
-    }
+    async submit(): Promise<void> {
+        if (!this.trySubmit()) {
+            return;
+        }
 
-    this.journey.goto(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
-  }
+        if (!this.model.selfTest.checkYourComputer) {
+            this.journey.goto(SelfTestJourneySteps.SignBackIn);
+            return;
+        }
+
+        if (this.deviceType.isMobile()) {
+            this.router.navigate([`/${Paths.SignInOnComputer}`]);
+            return;
+        }
+
+        if (this.deviceType.isTablet() && !this.deviceType.isIpad() && true) {
+            this.router.navigate([`/${Paths.SignInOnComputer}`]);
+            return;
+        }
+
+        this.journey.goto(SelfTestJourneySteps.SwitchOnCameraAndMicrophone);
+    }
 }
