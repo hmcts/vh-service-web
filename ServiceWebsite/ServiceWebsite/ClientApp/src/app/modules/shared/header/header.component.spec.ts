@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserProfile } from 'src/app/modules/shared/models/user-profile.model';
 import { By } from '@angular/platform-browser';
-import { createComponent } from '@angular/compiler/src/core';
 
 export class MockProfileService {
     getUserProfile(): Promise<UserProfile> {
@@ -56,11 +55,5 @@ describe('HeaderComponent', () => {
         link.triggerEventHandler('click', null);
 
         expect(router.navigate).toHaveBeenCalledWith(['/logout']);
-    });
-
-    it('temporary test to be removed', () => {
-        component.logout();
-
-        expect(component.someflag).toBeTruthy();
     });
 });

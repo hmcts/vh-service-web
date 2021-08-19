@@ -8,15 +8,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
     @Input() loggedIn: boolean;
-    someflag = false;
 
     constructor(private router: Router) {}
 
     logout() {
-        if (true) {
-            console.log('this is to test sonarcloud please remove');
-            this.someflag = true;
-        }
         this.router.navigate(['/logout']);
     }
 }
