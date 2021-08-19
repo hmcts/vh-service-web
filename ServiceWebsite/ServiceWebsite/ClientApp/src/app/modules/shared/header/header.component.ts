@@ -15,4 +15,4 @@ export class HeaderComponent {
   logout() {
     this.router.navigate(['/logout']);
   }
-}
+} 

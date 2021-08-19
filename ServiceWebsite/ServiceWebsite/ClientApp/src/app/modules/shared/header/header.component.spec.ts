@@ -61,4 +61,4 @@ describe('HeaderComponent',
 
       expect(router.navigate).toHaveBeenCalledWith(['/logout']);
     });
-  });
+  }); 
