@@ -6,59 +6,62 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { UserProfile } from 'src/app/modules/shared/models/user-profile.model';
 import { By } from '@angular/platform-browser';
 
-
 export class MockProfileService {
+    getUserProfile(): Promise<UserProfile> {
+        const profile = new UserProfile();
+        profile.role = 'professional';
+        profile.email = 'professional@hearings.hmcts.net';
+        return Promise.resolve(profile);
+    }
 
-  getUserProfile(): Promise<UserProfile> {
-      const profile = new UserProfile();
-      profile.role = 'professional';
-      profile.email = 'professional@hearings.hmcts.net';
-      return Promise.resolve(profile);
-  }
-
-  public get isLoggedIn(): boolean {
-      return true;
-  }
+    public get isLoggedIn(): boolean {
+        return true;
+    }
 }
 
-
-
-describe('HeaderComponent',
-  () => {
+describe('HeaderComponent', () => {
     let component: HeaderComponent;
     let fixture: ComponentFixture<HeaderComponent>;
 
     const router = {
-      navigate: jasmine.createSpy('navigate')
+        navigate: jasmine.createSpy('navigate')
     };
 
     const profileService = new MockProfileService();
 
-    beforeEach(waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [HeaderComponent],
-        providers: [
-          { provide: Router, useValue: router },
-          { provide: ProfileService, useValue: profileService },
-        ]
-      },
-      )
-        .compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                declarations: [HeaderComponent],
+                providers: [
+                    { provide: Router, useValue: router },
+                    { provide: ProfileService, useValue: profileService }
+                ]
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(HeaderComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
+        fixture = TestBed.createComponent(HeaderComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
     it('should navigate to logout page on pressing logout', () => {
-      component.loggedIn = true;
-      fixture.detectChanges();
+        component.loggedIn = true;
+        fixture.detectChanges();
 
-      const link = fixture.debugElement.query(By.css('#header-logout-link'));
-      link.triggerEventHandler('click', null);
+        const link = fixture.debugElement.query(By.css('#header-logout-link'));
+        link.triggerEventHandler('click', null);
 
-      expect(router.navigate).toHaveBeenCalledWith(['/logout']);
+        expect(router.navigate).toHaveBeenCalledWith(['/logout']);
     });
-  });
+
+    it('sets newFlag to true when logout is called', () => {
+        component.newFlag = false;
+
+        component.logout();
+
+        expect(component.newFlag).toBeTruthy();
+    });
+});
