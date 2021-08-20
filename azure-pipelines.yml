@@ -284,7 +284,7 @@ extends:
         - "[*]ServiceWebsite.AcceptanceTests/*"
       sonarCloud_ExtraProperties: |
         sonar.exclusions=**/node_modules/**,**/*.spec.ts,*.spec.ts,**/ClientApp/*,**/ClientApp/src/*,**/ClientApp/coverage/**/*,**/*.js,**/ServiceWebsite/Security/*.cs,**/ServiceWebsite/Swagger/*.cs,**/ConfigureServicesExtensions.cs,**/Startup.cs,**/Program.cs
-        sonar.typescript.lcov.reportPaths=**/lcov.info
+        sonar.javascript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
         sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts,**/app-insights-logger.service.ts
         sonar.coverage.exclusions=**/app-insights-logger.service.ts,**/console-logger.ts,**/testing/**/*,**/mic-visualiser.component.ts
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
