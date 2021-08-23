@@ -1,18 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Paths } from 'src/app/paths';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  @Input() loggedIn: boolean;
+    @Input() loggedIn: boolean;
 
-  constructor(private router: Router) {
-  }
-
-  logout() {
-    this.router.navigate(['/logout']);
-  }
+    logoutRoute = Paths.Logout;
 }
