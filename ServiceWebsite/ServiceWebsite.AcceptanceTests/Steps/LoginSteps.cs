@@ -36,6 +36,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserAttemptsToLogout()
         { 
            _browsers[_c.CurrentUser].Click(CommonServiceWebPage.SignOutButton);
+           _browsers[_c.CurrentUser].WaitForPageToLoad();
+           _browsers[_c.CurrentUser].Click(LogOutPage.LogoutLink(_c.CurrentUser.DisplayName));
         }
 
         [When(@"the user signs out")]
