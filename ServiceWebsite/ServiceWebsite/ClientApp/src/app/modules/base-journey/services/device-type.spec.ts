@@ -65,9 +65,9 @@ describe('DeviceType', () => {
     ];
 
     isIpadTestCases.forEach(test => {
-        it(`should return is iPad: ${test.expected} 
-        when tablet is ${test.isTablet}, 
-        os is ${test.os} 
+        it(`should return is iPad: ${test.expected}
+        when tablet is ${test.isTablet},
+        os is ${test.os}
         and browser is ${test.browser}`, () => {
             deviceDetectorService.isTablet.and.returnValue(test.isTablet);
             deviceDetectorService.os = test.os;
