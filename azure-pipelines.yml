@@ -117,6 +117,8 @@ parameters:
           value: $(service_web_url_staging)
         active:
           value: $(service_web_url)
+    - name: VhServices:EnableMobileSupport
+      value: true
 
     # SauceLabs
     - name: Saucelabs:Username
@@ -205,6 +207,8 @@ parameters:
       value: $(KinlySelfTestApiUrl)/testcall
     - name: VhServices:PexipSelfTestNodeUri
       value: $(PexipSelfTestNode)
+    - name: VhServices:EnableMobileSupport
+      value: true
 
 variables:
   - group: vh-domains-and-urls
