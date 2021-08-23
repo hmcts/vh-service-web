@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Paths } from 'src/app/paths';
 
 @Component({
     selector: 'app-header',
@@ -8,5 +9,5 @@ import { Component, Input } from '@angular/core';
 export class HeaderComponent {
     @Input() loggedIn: boolean;
 
-    logoutRoute = 'logout';
+    logoutRoute = Paths.Logout;
 }
