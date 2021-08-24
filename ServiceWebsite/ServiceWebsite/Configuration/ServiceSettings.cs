@@ -39,5 +39,11 @@
         ///     The video web url.
         /// </summary>
         public string VideoWebUrl { get; set; }
+
+
+        /// <summary>
+        ///     Flag to toggle mobile/tablet support.
+        /// </summary>
+        public bool EnableMobileSupport { get; set; }
     }
 }
