@@ -300,7 +300,7 @@ extends:
       coreProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
 
     releaseParameters:
-      environment: Preview
+      environment: AAT
 
       subscription: $(pr_Subscription)
       secrets_KeyVault: $(pr_Secret_KeyVault)
