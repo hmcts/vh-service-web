@@ -42,7 +42,8 @@ namespace ServiceWebsite.Controllers
                 PostLogoutRedirectUri = _securitySettings.PostLogoutRedirectUri,
                 BaseVideoUrl = _securitySettings.BaseVideoUrl,
                 PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri,
-                KinlySelfTestScoreEndpointUrl = _serviceSettings.KinlySelfTestScoreEndpointUrl
+                KinlySelfTestScoreEndpointUrl = _serviceSettings.KinlySelfTestScoreEndpointUrl,
+                EnableMobileSupport = _serviceSettings.EnableMobileSupport
             };
 
             return Json(config);
