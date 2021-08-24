@@ -117,6 +117,8 @@ parameters:
           value: $(service_web_url_staging)
         active:
           value: $(service_web_url)
+    - name: VhServices:EnableMobileSupport
+      value: $(EnableMobileSupport)
 
     # SauceLabs
     - name: Saucelabs:Username
@@ -205,6 +207,8 @@ parameters:
       value: $(KinlySelfTestApiUrl)/testcall
     - name: VhServices:PexipSelfTestNodeUri
       value: $(PexipSelfTestNode)
+    - name: VhServices:EnableMobileSupport
+      value: $(EnableMobileSupport)
 
 variables:
   - group: vh-domains-and-urls
@@ -257,6 +261,21 @@ extends:
       - npm
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
+      variables:
+      - name: EnableMobileSupport
+        value: false
+        env: 
+          - Prod
+          - Preprod
+      - name: EnableMobileSupport
+        value: true
+        env: 
+         - Preview
+         - Dev
+         - AAT
+         - Sandbox
+         - Test1
+         - Test2
       coreProjectPath: ServiceWebsite/ServiceWebsite
       nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
       RunNode: true
@@ -300,8 +319,22 @@ extends:
       coreProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
 
     releaseParameters:
+      variables:
+      - name: EnableMobileSupport
+        value: false
+        env: 
+          - Prod
+          - Preprod
+      - name: EnableMobileSupport
+        value: true
+        env: 
+         - Preview
+         - Dev
+         - AAT
+         - Sandbox
+         - Test1
+         - Test2
       environment: AAT
-
       subscription: $(pr_Subscription)
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
