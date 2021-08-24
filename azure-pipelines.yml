@@ -118,7 +118,7 @@ parameters:
         active:
           value: $(service_web_url)
     - name: VhServices:EnableMobileSupport
-      value: true
+      value: $(EnableMobileSupport)
 
     # SauceLabs
     - name: Saucelabs:Username
@@ -208,7 +208,7 @@ parameters:
     - name: VhServices:PexipSelfTestNodeUri
       value: $(PexipSelfTestNode)
     - name: VhServices:EnableMobileSupport
-      value: true
+      value: $(EnableMobileSupport)
 
 variables:
   - group: vh-domains-and-urls
@@ -219,6 +219,20 @@ variables:
   - group: Saucelabs
   - group: vh-wowza-dev
   - group: KinlyConfiguration_Test
+  - name: EnableMobileSupport
+    value: false
+    env: 
+      - Prod
+      - Preprod
+  - name: EnableMobileSupport
+    value: true
+    env: 
+     - Preview
+     - Dev
+     - AAT
+     - Sandbox
+     - Test1
+     - Test2
 
 trigger:
   branches:
