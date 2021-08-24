@@ -261,6 +261,21 @@ extends:
       - npm
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
+      variables:
+      - name: EnableMobileSupport
+        value: false
+        env: 
+          - Prod
+          - Preprod
+      - name: EnableMobileSupport
+        value: true
+        env: 
+         - Preview
+         - Dev
+         - AAT
+         - Sandbox
+         - Test1
+         - Test2
       coreProjectPath: ServiceWebsite/ServiceWebsite
       nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
       RunNode: true
