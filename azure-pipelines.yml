@@ -219,20 +219,6 @@ variables:
   - group: Saucelabs
   - group: vh-wowza-dev
   - group: KinlyConfiguration_Test
-  - name: EnableMobileSupport
-    value: false
-    env: 
-      - Prod
-      - Preprod
-  - name: EnableMobileSupport
-    value: true
-    env: 
-     - Preview
-     - Dev
-     - AAT
-     - Sandbox
-     - Test1
-     - Test2
 
 trigger:
   branches:
@@ -318,6 +304,21 @@ extends:
       coreProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
 
     releaseParameters:
+      variables:
+      - name: EnableMobileSupport
+        value: false
+        env: 
+          - Prod
+          - Preprod
+      - name: EnableMobileSupport
+        value: true
+        env: 
+         - Preview
+         - Dev
+         - AAT
+         - Sandbox
+         - Test1
+         - Test2
       environment: Preview
 
       subscription: $(pr_Subscription)
