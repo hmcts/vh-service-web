@@ -25,6 +25,7 @@
     "@angular/router": "^10.1.5",
     "@hmcts/frontend": "^0.0.41-alpha",
     "@microsoft/applicationinsights-web": "^2.5.10",
+    "@ministryofjustice/frontend": "^0.2.5",
     "angular-auth-oidc-client": "^11.6.4",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
