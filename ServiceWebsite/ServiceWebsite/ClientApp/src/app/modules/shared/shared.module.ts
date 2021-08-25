@@ -23,6 +23,7 @@ import { MicVisualiserComponent } from './mic-visualiser/mic-visualiser.componen
 import { LongDatePipe } from './date.pipe';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
 import { RouterModule } from '@angular/router';
+import { HeaderLogoSvgComponent } from './header-logo-svg/header-logo-svg.component';
 
 @NgModule({
     imports: [CommonModule, ReactiveFormsModule, FormsModule, DeviceDetectorModule.forRoot(), RouterModule],
@@ -39,7 +40,8 @@ import { RouterModule } from '@angular/router';
         BetaBannerComponent,
         SelectMediaDevicesComponent,
         MicVisualiserComponent,
-        HearingDetailsHeaderComponent
+        HearingDetailsHeaderComponent,
+        HeaderLogoSvgComponent
     ],
     providers: [ProfileService, PageTrackerService, WindowRef],
     exports: [
