@@ -37,7 +37,7 @@ describe('HomeComponent', () => {
         component.ngOnInit();
         expect(routerSpy.navigate).toHaveBeenCalledWith([`/${Paths.JourneySelector}`]);
     });
-    it('unsubcribe from event on destroy', () => {
+    it('unsubcribes from event on destroy', () => {
         component.ngOnInit();
         spyOn(component.eventServiceSubscription$, 'unsubscribe');
         component.ngOnDestroy();

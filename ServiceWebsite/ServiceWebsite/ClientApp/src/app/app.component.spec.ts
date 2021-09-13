@@ -105,7 +105,7 @@ describe('AppComponent', () => {
         expect(router.navigateByUrl).toHaveBeenCalledWith(Paths.UnsupportedBrowser);
     });
 
-    it('unsubcribe from event service on destroy', () => {
+    it('unsubcribes from event service on destroy', () => {
         component.ngOnInit();
         spyOn(component.eventServiceSubscription$, 'unsubscribe');
         component.ngOnDestroy();
