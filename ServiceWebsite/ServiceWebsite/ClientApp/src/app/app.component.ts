@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {
     AuthorizationResult,
@@ -7,7 +7,7 @@ import {
     OidcSecurityService,
     PublicEventsService
 } from 'angular-auth-oidc-client';
-import { NEVER } from 'rxjs';
+import { NEVER, Subscription } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { DeviceType } from './modules/base-journey/services/device-type';
 import { PageUrls } from './modules/shared/constants/page-url.constants';
@@ -22,7 +22,7 @@ import { PageTrackerService } from './services/page-tracker.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     loggedIn: boolean;
     initialized: boolean;
 
@@ -31,6 +31,8 @@ export class AppComponent implements OnInit {
 
     @ViewChild('mainContent', { static: true })
     main: ElementRef<HTMLElement>;
+
+    eventServiceSubscription$: Subscription;
 
     constructor(
         private configService: ConfigService,
@@ -45,12 +47,16 @@ export class AppComponent implements OnInit {
         this.pageTracker.trackNavigation(this.router);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.configService.getClientSettings().subscribe({
             next: async () => {
                 this.postConfigSetup();
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.eventServiceSubscription$.unsubscribe();
     }
 
     private postConfigSetup() {
@@ -60,7 +66,7 @@ export class AppComponent implements OnInit {
             }
         });
 
-        this.eventService
+        this.eventServiceSubscription$ = this.eventService
             .registerForEvents()
             .pipe(filter(notification => notification.type === EventTypes.NewAuthorizationResult))
             .subscribe(async (value: OidcClientNotification<AuthorizationResult>) => {
