@@ -51,7 +51,7 @@ export class AppInsightsLogger implements LogAdapter {
     }
 
     trackPage(pageName: string, url: string) {
-        this.appInsights.trackPageView({ name: pageName, uri: url });
+        this.appInsights && this.appInsights.trackPageView({ name: pageName, uri: url });
     }
 
     trackEvent(eventName: string, properties: any) {
