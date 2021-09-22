@@ -104,4 +104,11 @@ describe('AppComponent', () => {
         component.checkBrowser();
         expect(router.navigateByUrl).toHaveBeenCalledWith(Paths.UnsupportedBrowser);
     });
+
+    it('unsubcribes from event service on destroy', () => {
+        component.ngOnInit();
+        spyOn(component.eventServiceSubscription$, 'unsubscribe');
+        component.ngOnDestroy();
+        expect(component.eventServiceSubscription$.unsubscribe).toHaveBeenCalled();
+    });
 });
