@@ -229,7 +229,12 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            value: $(video_web_url)
+            ${{ if containsValue('preview', parameters.environment) }}:
+              value: $(video_web_url_preprod)
+            ${{ if containsValue('prod', parameters.environment) }}:
+              value: $(video_web_url_prod)                      
+            ${{ if not(or(containsValue('preprod', parameters.environment), containsValue('preprod', parameters.environment))) }}: 
+              value: $(video_web_url)     
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
