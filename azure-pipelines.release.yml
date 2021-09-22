@@ -215,11 +215,11 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            ${{ if containsValue('preprod', parameters.environment) }}:
+            ${{ if containsValue('Preprod', parameters.environment) }}:
               value: $(video_web_url_preprod)
-            ${{ if containsValue('prod', parameters.environment) }}:
+            ${{ if containsValue('Prod', parameters.environment) }}:
               value: $(video_web_url_prod)
-            ${{ if not(or(containsValue('prod', parameters.environment), containsValue('preprod', parameters.environment))) }}:
+            ${{ if not(or(containsValue('Prod', parameters.environment), containsValue('Preprod', parameters.environment))) }}:
               value: $(video_web_url)
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
@@ -284,7 +284,12 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            value: $(video_web_url)
+            ${{ if containsValue('Preprod', parameters.environment) }}:
+              value: $(video_web_url_preprod)
+            ${{ if containsValue('Prod', parameters.environment) }}:
+              value: $(video_web_url_prod)
+            ${{ if not(or(containsValue('Prod', parameters.environment), containsValue('Preprod', parameters.environment))) }}:
+              value: $(video_web_url)
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
