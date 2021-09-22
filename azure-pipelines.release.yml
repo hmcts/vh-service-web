@@ -296,9 +296,9 @@ stages:
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
             - ${{ if containsValue('sbox', parameters.environment) }}:
-              value: $(video_web_url_preprod)           
+              - value: $(video_web_url_preprod)           
             - ${{ if not(containsValue('sbox', parameters.environment)) }}: 
-              value: $(video_web_url)      
+              - value: $(video_web_url)      
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
