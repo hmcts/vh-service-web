@@ -295,7 +295,7 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            ${{ if containsValue('preprod', parameters.environment) }}:
+            ${{ if containsValue('preview', parameters.environment) }}:
               value: $(video_web_url_preprod)
             ${{ if containsValue('prod', parameters.environment) }}:
               value: $(video_web_url_prod)                      
