@@ -229,7 +229,7 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            ${{ if containsValue('Preview', parameters.environment) }}:
+            ${{ if containsValue('Preprod', parameters.environment) }}:
               value: $(video_web_url_preprod)
             ${{ if containsValue('Prod', parameters.environment) }}:
               value: $(video_web_url_prod)                      
@@ -300,7 +300,7 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            ${{ if containsValue('Preview', parameters.environment) }}:
+            ${{ if containsValue('Preprod', parameters.environment) }}:
               value: $(video_web_url_preprod)
             ${{ if containsValue('Prod', parameters.environment) }}:
               value: $(video_web_url_prod)                      
