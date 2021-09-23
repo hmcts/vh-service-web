@@ -228,12 +228,14 @@ stages:
             secret: true
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
-          - name: VhServices:VideoWebUrl
-            - ${{ if eq('parameters.environment', 'Preprod') }}:
+          - ${{ if eq('parameters.environment', 'Preprod') }}:
+            - name: VhServices:VideoWebUrl
               value: $(video_web_url_preprod)
-            - ${{ if eq('parameters.environment', 'Prod') }}:
+          - ${{ if eq('parameters.environment', 'Prod') }}:
+            - name: VhServices:VideoWebUrl
               value: $(video_web_url_prod)                      
-            - ${{ if not(or(eq('parameters.environment', 'Preprod'), eq('parameters.environment', 'Prod'))) }}: 
+          - ${{ if not(or(eq('parameters.environment', 'Preprod'), eq('parameters.environment', 'Prod'))) }}: 
+            - name: VhServices:VideoWebUrl
               value: $(video_web_url)        
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
