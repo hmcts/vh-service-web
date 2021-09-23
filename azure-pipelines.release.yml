@@ -229,12 +229,12 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            if eq('${{ parameters.environment }}', 'Preprod'):
-              value: $(video_web_url_preprod)
-            if eq('${{ parameters.environment }}', 'Prod'):
-              value: $(video_web_url_prod)                      
-            if not(or(eq('${{ parameters.environment }}', 'Preprod'), eq('${{ parameters.environment }}', 'Prod'))) }}: 
-              value: $(video_web_url)        
+              if eq('${{ parameters.environment }}', 'Preprod'):
+                value: $(video_web_url_preprod)
+              if eq('${{ parameters.environment }}', 'Prod'):
+                value: $(video_web_url_prod)                      
+              if not(or(eq('${{ parameters.environment }}', 'Preprod'), eq('${{ parameters.environment }}', 'Prod'))) }}: 
+                value: $(video_web_url)        
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
@@ -300,12 +300,12 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            if eq('${{ parameters.environment }}', 'Preprod'):
-              value: $(video_web_url_preprod)
-            if eq('${{ parameters.environment }}', 'Prod'):
-              value: $(video_web_url_prod)                      
-            if not(or(eq('${{ parameters.environment }}', 'Preprod'), eq('${{ parameters.environment }}', 'Prod'))) }}: 
-              value: $(video_web_url)      
+              if eq('${{ parameters.environment }}', 'Preprod'):
+                value: $(video_web_url_preprod)
+              if eq('${{ parameters.environment }}', 'Prod'):
+                value: $(video_web_url_prod)                      
+              if not(or(eq('${{ parameters.environment }}', 'Preprod'), eq('${{ parameters.environment }}', 'Prod'))) }}: 
+                value: $(video_web_url)      
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
