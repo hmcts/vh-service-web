@@ -8,4 +8,5 @@ export class Config {
   redirect_uri: string;
   base_video_url: string;
   pexip_self_test_node_uri: string;
+  enable_mobile_support: boolean;
 }

@@ -117,6 +117,8 @@ parameters:
           value: $(service_web_url_staging)
         active:
           value: $(service_web_url)
+    - name: VhServices:EnableMobileSupport
+      value: $(EnableMobileSupport)
 
     # SauceLabs
     - name: Saucelabs:Username
@@ -205,6 +207,8 @@ parameters:
       value: $(KinlySelfTestApiUrl)/testcall
     - name: VhServices:PexipSelfTestNodeUri
       value: $(PexipSelfTestNode)
+    - name: VhServices:EnableMobileSupport
+      value: $(EnableMobileSupport)
 
 variables:
   - group: vh-domains-and-urls
@@ -224,6 +228,14 @@ trigger:
     - hotfix/*
 
 pr:
+  branches:
+    include:
+    - master
+
+schedules:
+- cron: "0 0 14,28 * *"
+  displayName: Fortnightly ci build
+  always: true
   branches:
     include:
     - master
@@ -257,6 +269,21 @@ extends:
       - npm
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
+      variables:
+      - name: EnableMobileSupport
+        value: false
+        env: 
+          - Prod
+          - Preprod
+      - name: EnableMobileSupport
+        value: true
+        env: 
+         - Preview
+         - Dev
+         - AAT
+         - Sandbox
+         - Test1
+         - Test2
       coreProjectPath: ServiceWebsite/ServiceWebsite
       nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
       RunNode: true
@@ -284,7 +311,7 @@ extends:
         - "[*]ServiceWebsite.AcceptanceTests/*"
       sonarCloud_ExtraProperties: |
         sonar.exclusions=**/node_modules/**,**/*.spec.ts,*.spec.ts,**/ClientApp/*,**/ClientApp/src/*,**/ClientApp/coverage/**/*,**/*.js,**/ServiceWebsite/Security/*.cs,**/ServiceWebsite/Swagger/*.cs,**/ConfigureServicesExtensions.cs,**/Startup.cs,**/Program.cs
-        sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
+        sonar.javascript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/ServiceWebsite/ServiceWebsite/ClientApp/coverage/lcov.info,**/lcov.info
         sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts,**/*routing.module.ts,**/api-client.ts,**/app-insights-logger.service.ts
         sonar.coverage.exclusions=**/app-insights-logger.service.ts,**/console-logger.ts,**/testing/**/*,**/mic-visualiser.component.ts
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
@@ -300,6 +327,21 @@ extends:
       coreProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
 
     releaseParameters:
+      variables:
+      - name: EnableMobileSupport
+        value: false
+        env: 
+          - Prod
+          - Preprod
+      - name: EnableMobileSupport
+        value: true
+        env: 
+         - Preview
+         - Dev
+         - AAT
+         - Sandbox
+         - Test1
+         - Test2
       environment: Preview
 
       subscription: $(pr_Subscription)

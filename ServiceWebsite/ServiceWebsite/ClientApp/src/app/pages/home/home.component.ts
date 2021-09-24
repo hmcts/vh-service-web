@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventTypes, PublicEventsService } from 'angular-auth-oidc-client';
+import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Paths } from 'src/app/paths';
 import { Logger } from 'src/app/services/logger';
@@ -9,11 +10,12 @@ import { Logger } from 'src/app/services/logger';
     selector: 'app-home',
     template: '<p class="govuk-body govuk-!-padding-top-2">Please wait whilst we retrive your hearing details...</p>'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+    eventServiceSubscription$: Subscription;
     constructor(private router: Router, private eventService: PublicEventsService, private logger: Logger) {}
 
     ngOnInit(): void {
-        this.eventService
+        this.eventServiceSubscription$ = this.eventService
             .registerForEvents()
             .pipe(
                 filter(
@@ -27,5 +29,9 @@ export class HomeComponent implements OnInit {
                     this.router.navigate([`/${Paths.JourneySelector}`]);
                 }
             });
+    }
+
+    ngOnDestroy(): void {
+        this.eventServiceSubscription$.unsubscribe();
     }
 }

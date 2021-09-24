@@ -36,7 +36,8 @@ namespace ServiceWebsite.UnitTests.Controllers
                 PexipSelfTestNodeUri = "PexipSelfTestNodeUri",
                 UserApiResourceId = "UserApiResourceId",
                 UserApiUrl = "UserApiUrl",
-                VideoWebUrl = "VideoWebUrl"
+                VideoWebUrl = "VideoWebUrl",
+                EnableMobileSupport = true
             };
 
             var configSettingsController = new ConfigController(Options.Create(serviceSettings), Options.Create(securitySettings));
@@ -55,6 +56,7 @@ namespace ServiceWebsite.UnitTests.Controllers
             clientConfig.RedirectUri.Should().Be("RedirectUri");
             clientConfig.VideoAppUrl.Should().Be("VideoWebUrl");
             clientConfig.KinlySelfTestScoreEndpointUrl.Should().Be("KinlySelfTestScoreEndpointUrl");
+            clientConfig.EnableMobileSupport.Should().Be(serviceSettings.EnableMobileSupport);
         }
     }
 }

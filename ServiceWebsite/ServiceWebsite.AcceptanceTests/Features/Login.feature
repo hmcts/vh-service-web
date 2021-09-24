@@ -8,7 +8,9 @@ Scenario: Individual login
 	Given a new browser is open for an Individual
 	When the user logs in with valid credentials
 	Then the user is on the Checking Video Hearing page
-	When the user attempts to logout
+	#When the user attempts to logout
+	When the user signs out
+	Then the sign out link is displayed
 	Then the user should be navigated to sign in screen
 
 @Representative

@@ -36,6 +36,8 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserAttemptsToLogout()
         { 
            _browsers[_c.CurrentUser].Click(CommonServiceWebPage.SignOutButton);
+           _browsers[_c.CurrentUser].WaitForPageToLoad();
+           _browsers[_c.CurrentUser].Click(LogOutPage.LogoutLink(_c.CurrentUser.DisplayName));
         }
 
         [When(@"the user signs out")]
@@ -65,6 +67,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is redirected to Video Web")]
         public void ThenIndividualUserShouldBeRedirectedToVideoWeb()
         {
+            _browsers[_c.CurrentUser].WaitForPageToLoad(60);
             _browsers[_c.CurrentUser].Retry(() => _browsers[_c.CurrentUser].Driver.Url.Trim().Should().Contain(Page.VideoWeb.Url), ReachedThePageRetries);
         }
     }

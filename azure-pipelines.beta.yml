@@ -157,6 +157,20 @@ stages:
           - group: KinlyConfiguration_Prod
             env:
              - Prod
+          - name: EnableMobileSupport
+            value: false
+            env: 
+              - Prod
+              - Preprod
+          - name: EnableMobileSupport
+            value: true
+            env: 
+             - Preview
+             - Dev
+             - AAT
+             - Sandbox
+             - Test1
+             - Test2
         appSettings:
           - name: ApplicationInsights:InstrumentationKey
             value: vh-core-infra-AppInsightsKey
@@ -234,6 +248,8 @@ stages:
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
             value: $(PexipSelfTestNode)
+          - name: VhServices:EnableMobileSupport
+            value: $(EnableMobileSupport)
 
         acceptanceTestSettings:
           # AzureAd
@@ -305,6 +321,8 @@ stages:
                 value: $(service_web_url_staging)
               active:
                 value: $(service_web_url)
+          - name: VhServices:EnableMobileSupport
+            value: $(EnableMobileSupport)
 
           # SauceLabs
           - name: Saucelabs:Username
@@ -313,5 +331,9 @@ stages:
             value: $(Saucelabs:AccessKey)
           - name: Saucelabs:RealDeviceApiKey
             value: $(RealDeviceApiKey)
+            
+          # Ejud - test setting only
+          - name: UsingEjud
+            value: $(UsingEjud)
         runMultiDeviceTests: true
         deviceConfiguration: ${{ parameters.deviceConfiguration }}

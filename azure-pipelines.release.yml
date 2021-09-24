@@ -149,6 +149,20 @@ stages:
             env:
               - Prod
               - Preprod
+          - name: EnableMobileSupport
+            value: false
+            env: 
+              - Prod
+              - Preprod
+          - name: EnableMobileSupport
+            value: true
+            env: 
+             - Preview
+             - Dev
+             - AAT
+             - Sandbox
+             - Test1
+             - Test2
         appSettings:
           - name: ApplicationInsights:InstrumentationKey
             value: vh-core-infra-AppInsightsKey
@@ -221,11 +235,18 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            value: $(video_web_url)
+            ${{ if eq( parameters['environment'], 'Preprod') }}:
+              value: $(video_web_url_preprod)
+            ${{ if eq( parameters['environment'], 'Prod') }}:
+              value: $(video_web_url_prod)                      
+            ${{ if not(or(eq( parameters['environment'], 'Preprod'), eq( parameters['environment'], 'Prod'))) }}: 
+              value: $(video_web_url)        
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
             value: $(PexipSelfTestNode)
+          - name: VhServices:EnableMobileSupport
+            value: $(EnableMobileSupport)
         acceptanceTestSettings:
           # AzureAd
           - name: AzureAd:AppInsightsKey
@@ -285,7 +306,12 @@ stages:
           - name: VhServices:VideoApiUrl
             value: $(video_api_url)
           - name: VhServices:VideoWebUrl
-            value: $(video_web_url)
+            ${{ if eq( parameters['environment'], 'Preprod') }}:
+              value: $(video_web_url_preprod)
+            ${{ if eq( parameters['environment'], 'Prod') }}:
+              value: $(video_web_url_prod)                      
+            ${{ if not(or(eq( parameters['environment'], 'Preprod'), eq( parameters['environment'], 'Prod'))) }}: 
+              value: $(video_web_url)       
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
           - name: VhServices:PexipSelfTestNodeUri
@@ -296,6 +322,8 @@ stages:
                 value: $(service_web_url_staging)
               active:
                 value: $(service_web_url)
+          - name: VhServices:EnableMobileSupport
+            value: $(EnableMobileSupport)
 
           # SauceLabs
           - name: Saucelabs:Username

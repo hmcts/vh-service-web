@@ -33,5 +33,10 @@
         /// Gets or sets the Kinly endpoint where we get the participant self test score.
         /// </summary>
         public string KinlySelfTestScoreEndpointUrl { get; set; }
+
+        /// <summary>
+        /// Flag to toggle mobile/tablet support for service web.
+        /// </summary>
+        public bool EnableMobileSupport { get; set; }
     }
 }

@@ -22,48 +22,42 @@ import { AppYesNoPipe } from './boolean.pipe';
 import { MicVisualiserComponent } from './mic-visualiser/mic-visualiser.component';
 import { LongDatePipe } from './date.pipe';
 import { HearingDetailsHeaderComponent } from './hearing-details-header/hearing-details-header.component';
+import { RouterModule } from '@angular/router';
+import { HeaderLogoSvgComponent } from './header-logo-svg/header-logo-svg.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    DeviceDetectorModule.forRoot(),
-  ],
-  declarations: [
-    FooterComponent,
-    HeaderComponent,
-    BackNavigationComponent,
-    ShowDetailsComponent,
-    ContactUsComponent,
-    CrestBluePanelComponent,
-    LongDatetimePipe,
-    LongDatePipe,
-    AppYesNoPipe,
-    BetaBannerComponent,
-    SelectMediaDevicesComponent,
-    MicVisualiserComponent,
-    HearingDetailsHeaderComponent
-  ],
-  providers: [
-    ProfileService,
-    PageTrackerService,
-    WindowRef,
-  ],
-  exports: [
-    FooterComponent,
-    HeaderComponent,
-    BackNavigationComponent,
-    ShowDetailsComponent,
-    ContactUsComponent,
-    CrestBluePanelComponent,
-    LongDatetimePipe,
-    LongDatePipe,
-    AppYesNoPipe,
-    BetaBannerComponent,
-    SelectMediaDevicesComponent,
-    MicVisualiserComponent,
-    HearingDetailsHeaderComponent
-  ]
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, DeviceDetectorModule.forRoot(), RouterModule],
+    declarations: [
+        FooterComponent,
+        HeaderComponent,
+        BackNavigationComponent,
+        ShowDetailsComponent,
+        ContactUsComponent,
+        CrestBluePanelComponent,
+        LongDatetimePipe,
+        LongDatePipe,
+        AppYesNoPipe,
+        BetaBannerComponent,
+        SelectMediaDevicesComponent,
+        MicVisualiserComponent,
+        HearingDetailsHeaderComponent,
+        HeaderLogoSvgComponent
+    ],
+    providers: [ProfileService, PageTrackerService, WindowRef],
+    exports: [
+        FooterComponent,
+        HeaderComponent,
+        BackNavigationComponent,
+        ShowDetailsComponent,
+        ContactUsComponent,
+        CrestBluePanelComponent,
+        LongDatetimePipe,
+        LongDatePipe,
+        AppYesNoPipe,
+        BetaBannerComponent,
+        SelectMediaDevicesComponent,
+        MicVisualiserComponent,
+        HearingDetailsHeaderComponent
+    ]
 })
-export class SharedModule { }
+export class SharedModule {}
