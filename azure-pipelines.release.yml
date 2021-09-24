@@ -233,7 +233,7 @@ stages:
               value: $(video_web_url_preprod)
             ${{ if eq( parameters['environment'], 'Prod') }}:
               value: $(video_web_url_prod)                      
-            ${{ if and(ne( parameters['environment'], 'Preprod'), ne( parameters['environment'], 'Prod')) }}: 
+            ${{ if not(containsValue(parameters.prodEnvs, parameters.environment)) }}:
               value: $(video_web_url)        
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
@@ -304,7 +304,8 @@ stages:
               value: $(video_web_url_preprod)
             ${{ if eq( parameters['environment'], 'Prod') }}:
               value: $(video_web_url_prod)                      
-            ${{ if and(ne( parameters['environment'], 'Preprod'), ne( parameters['environment'], 'Prod')) }}: 
+            #${{ if and(ne( parameters['environment'], 'Preprod'), ne( parameters['environment'], 'Prod')) }}: 
+            ${{ if not(containsValue(parameters.prodEnvs, parameters.environment)) }}:
               value: $(video_web_url)       
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
