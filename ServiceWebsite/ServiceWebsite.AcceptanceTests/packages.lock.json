@@ -169,9 +169,9 @@
       },
       "Selenium.WebDriver.ChromeDriver": {
         "type": "Direct",
-        "requested": "[92.0.4515.10700, )",
-        "resolved": "92.0.4515.10700",
-        "contentHash": "1izYN4xibfIy9MgQvMpSzoNPU5TugR18aOcXptSVpVrbrgEl6pah3kgNm7WPwSknG0UX4E2u//oq0oEbqzsoqg=="
+        "requested": "[94.0.4606.6100, )",
+        "resolved": "94.0.4606.6100",
+        "contentHash": "3mk0sCbTR0bCvis1VbIR6SF8PxRXQgwHjIg1bVve0DmQqC8muxoxIYdVrb3oL42cmGqVUoAxRFN/MWDHGKWYIw=="
       },
       "Selenium.WebDriver.IEDriver": {
         "type": "Direct",
