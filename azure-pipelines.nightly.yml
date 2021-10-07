@@ -174,20 +174,22 @@ stages:
           - group: KinlyConfiguration_Prod
             env:
              - Prod
-          - name: EnableMobileSupport
-            value: false
-            env: 
+          - group: FeatureFlags_NonProd
+            env:
+              - Preview
+              - Dev
+              - AAT
+              - Sandbox
+          - group: FeatureFlags_Test
+            env:
+              - Test1
+              - Test2
+          - group: FeatureFlags_PreProd
+            env:
+              - PreProd
+          - group: FeatureFlags_Prod
+            env:
               - Prod
-              - Preprod
-          - name: EnableMobileSupport
-            value: true
-            env: 
-             - Preview
-             - Dev
-             - AAT
-             - Sandbox
-             - Test1
-             - Test2
         appSettings:
           - name: ApplicationInsights:InstrumentationKey
             value: vh-core-infra-AppInsightsKey
