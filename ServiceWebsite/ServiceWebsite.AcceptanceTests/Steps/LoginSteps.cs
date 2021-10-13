@@ -7,6 +7,7 @@ using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
+using System.Threading;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -44,6 +45,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserSignsOut()
         {
             WhenTheUserAttemptsToLogout();
+            Thread.Sleep(5000);
         }
 
         [When(@"the user signs back in with valid credentials")]
