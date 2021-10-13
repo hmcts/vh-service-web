@@ -8,6 +8,7 @@ using ServiceWebsite.AcceptanceTests.Pages;
 using TestApi.Contract.Dtos;
 using TechTalk.SpecFlow;
 using System.Threading;
+using AcceptanceTests.Common.Driver.Helpers;
 
 namespace ServiceWebsite.AcceptanceTests.Steps
 {
@@ -45,7 +46,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         public void WhenTheUserSignsOut()
         {
             WhenTheUserAttemptsToLogout();
-            Thread.Sleep(5000);
+            _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonPages.SignOutMessage, _c.WebConfig.SeleniumElementTimeout).Displayed.Should().BeTrue();
         }
 
         [When(@"the user signs back in with valid credentials")]

@@ -10,5 +10,6 @@ namespace ServiceWebsite.AcceptanceTests.Configuration
         public ServiceWebTestConfig TestConfig { get; set; }
         public ServiceWebVhServicesConfig VhServices { get; set; }
         public SauceLabsSettingsConfig SauceLabsConfiguration { get; set; }
+        public int SeleniumElementTimeout { get; internal set; }
     }
 }

@@ -36,6 +36,7 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
             RegisterTestUserSecrets(context);
             RegisterDefaultData(context);
             RegisterIsLive(context);
+            RegisterSeleniumElementTimeout(context);
             RegisterHearingServices(context);
             RegisterSauceLabsSettings(context);
             RunningServiceWebLocally(context);
@@ -69,6 +70,11 @@ namespace ServiceWebsite.AcceptanceTests.Hooks
         {
             context.WebConfig.IsLive = _configRoot.GetValue<bool>("IsLive");
             context.WebConfig.Should().NotBeNull();
+        }
+
+        private void RegisterSeleniumElementTimeout(TestContext context)
+        {
+            context.WebConfig.SeleniumElementTimeout = _configRoot.GetValue<int>("SeleniumElementTimeout");
         }
 
         private void RegisterHearingServices(TestContext context)
