@@ -35,6 +35,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
         [When(@"the user attempts to logout")]
+        [Then(@"the user attempts to logout")]
         public void WhenTheUserAttemptsToLogout()
         { 
            _browsers[_c.CurrentUser].Click(CommonServiceWebPage.SignOutButton);
@@ -43,6 +44,7 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         }
 
         [When(@"the user signs out")]
+        [Then(@"the user signs out")]
         public void WhenTheUserSignsOut()
         {
             WhenTheUserAttemptsToLogout();

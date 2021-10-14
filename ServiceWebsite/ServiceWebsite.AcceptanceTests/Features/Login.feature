@@ -9,16 +9,16 @@ Scenario: Individual login
 	When the user logs in with valid credentials
 	Then the user is on the Checking Video Hearing page
 	#When the user attempts to logout
-	When the user signs out
-	Then the user is on the logout page
+	And the user signs out
+	And the user is on the logout page
 
 @Representative
 Scenario: Representative login
 	Given a new browser is open for a Representative
 	When the user logs in with valid credentials
 	Then the user is on the Checking Video Hearing page
-	When the user attempts to logout
-	Then the user is on the logout page
+	And the user attempts to logout
+	And the user is on the logout page
 
 @NoHearing @Individual
 Scenario: Individual with no upcoming hearings is redirected to Video Web
