@@ -10,8 +10,7 @@ Scenario: Individual login
 	Then the user is on the Checking Video Hearing page
 	#When the user attempts to logout
 	When the user signs out
-	Then the sign out link is displayed
-	Then the user should be navigated to sign in screen
+	Then the user is on the logout page
 
 @Representative
 Scenario: Representative login
@@ -19,7 +18,7 @@ Scenario: Representative login
 	When the user logs in with valid credentials
 	Then the user is on the Checking Video Hearing page
 	When the user attempts to logout
-	Then the user should be navigated to sign in screen
+	Then the user is on the logout page
 
 @NoHearing @Individual
 Scenario: Individual with no upcoming hearings is redirected to Video Web

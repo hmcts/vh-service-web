@@ -32,6 +32,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static readonly Page SignBackIn = new Page("Sign Back In", "sign-back-in");
         public static readonly Page EquipmentBlocked = new Page("Equipment Blocked", "equipment-blocked");
         public static readonly Page Login = new Page("Login", "login.microsoftonline.com");
+        public static readonly Page Logout = new Page("Logout", "logout");
         public static readonly Page NotFound = new Page("Not Found", "not-found");
         public static readonly Page Unauthorised = new Page("Unauthorised", "unauthorised");
         public static readonly Page MediaError = new Page("Media Error", "media-error");
@@ -65,6 +66,7 @@ namespace ServiceWebsite.AcceptanceTests.Pages
             get
             {
                 yield return Login;
+                yield return Logout;
                 yield return CheckingVideoHearing;
                 yield return MediaError;
                 yield return ThankYou;
