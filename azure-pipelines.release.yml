@@ -139,7 +139,7 @@ stages:
             env:
              - Prod
           - name: VanityUrl
-            value: $(admin_web_domain_prod)
+            value: $(service_web_domain_prod)
             env:
               - Prod
               - Preprod
@@ -235,7 +235,7 @@ stages:
               value: $(video_web_url_preprod)
             ${{ if eq( parameters['environment'], 'Prod') }}:
               value: $(video_web_url_prod)                      
-            ${{ if not(or(eq( parameters['environment'], 'Preprod'), eq( parameters['environment'], 'Prod'))) }}: 
+            ${{ if not(containsValue(parameters.prodEnvs, parameters.environment)) }}:
               value: $(video_web_url)        
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
@@ -306,7 +306,7 @@ stages:
               value: $(video_web_url_preprod)
             ${{ if eq( parameters['environment'], 'Prod') }}:
               value: $(video_web_url_prod)                      
-            ${{ if not(or(eq( parameters['environment'], 'Preprod'), eq( parameters['environment'], 'Prod'))) }}: 
+            ${{ if not(containsValue(parameters.prodEnvs, parameters.environment)) }}:
               value: $(video_web_url)       
           - name: VhServices:KinlySelfTestScoreEndpointUrl
             value: $(KinlySelfTestApiUrl)/testcall
