@@ -31,8 +31,8 @@ export class DeviceType {
 
     isIOS(): boolean {
         return (
-            this.deviceDetectorService.os.toLowerCase() === OS.MAC.toLowerCase() ||
-            this.deviceDetectorService.os.toLowerCase() === OS.IOS.toLowerCase()
+            this.deviceDetectorService.os.toLowerCase() === OS.IOS.toLowerCase() ||
+            (this.deviceDetectorService.os.toLowerCase() === OS.MAC.toLowerCase() && !this.isDesktop())
         );
     }
 
@@ -48,7 +48,7 @@ export class DeviceType {
         const browser = this.deviceDetectorService.browser;
         const supportedIOSBrowsers = [browsers.Safari];
 
-        if (this.isIOS() && !this.isDesktop()) {
+        if (this.isIOS()) {
             return supportedIOSBrowsers.findIndex(x => x.toUpperCase() === browser.toUpperCase()) > -1;
         }
         return supportedBrowsers.findIndex(x => x.toUpperCase() === browser.toUpperCase()) > -1;

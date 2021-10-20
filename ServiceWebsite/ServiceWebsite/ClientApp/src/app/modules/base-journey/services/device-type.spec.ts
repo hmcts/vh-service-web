@@ -1,5 +1,5 @@
 import { DeviceType } from './device-type';
-import { DeviceDetectorService } from 'ngx-device-detector';
+import { DeviceDetectorService, OS } from 'ngx-device-detector';
 import { DetectIPadService } from './detect-i-pad.service';
 import { browsers } from 'src/app/browser.constants';
 
@@ -110,14 +110,62 @@ describe('DeviceType', () => {
         });
     });
 
-    it('should return whether the OS is iOS', () => {
-        deviceDetectorService.os = 'ios';
-        expect(service.isIOS()).toBe(true);
+    describe('IOS', () => {
+        describe('isIOS', () => {
+            const iosList = [OS.IOS, OS.MAC];
+            const nonIosList = Object.keys(OS).filter(os => !iosList.includes(os));
+            nonIosList.forEach(os => {
+                it(`should return false when browser is ${os}`, () => {
+                    deviceDetectorService.os = os;
+                    deviceDetectorService.isDesktop.and.returnValue(false);
+                    expect(service.isIOS()).toBe(false);
+                });
+            });
+            it('should return false when not IOS', () => {
+                deviceDetectorService.os = OS.ANDROID;
+                deviceDetectorService.isDesktop.and.returnValue(true);
+                expect(service.isIOS()).toBe(true);
+            });
 
-        deviceDetectorService.os = 'mac';
-        expect(service.isIOS()).toBe(true);
+            it('should return true when IOS is true', () => {
+                deviceDetectorService.os = OS.IOS;
+                expect(service.isIOS()).toBe(true);
+            });
 
-        deviceDetectorService.os = 'android';
-        expect(service.isIOS()).toBe(false);
+            it('should return true when mac is true and is not desktop', () => {
+                deviceDetectorService.os = OS.MAC;
+                deviceDetectorService.isDesktop.and.returnValue(false);
+                expect(service.isIOS()).toBe(true);
+            });
+
+            it('should return false when mac is true and is desktop', () => {
+                deviceDetectorService.os = OS.MAC;
+                deviceDetectorService.isDesktop.and.returnValue(true);
+                expect(service.isIOS).toBe(true);
+            });
+        });
+
+
+        const isSupportedIOSBrowserTestCases = [
+            { browser: browsers.Firefox, expected: false },
+            { browser: browsers.Safari, expected: true },
+            { browser: browsers.Chrome, expected: false },
+            { browser: browsers.MSEdge, expected: false },
+            { browser: browsers.Samsung, expected: false },
+            { browser: browsers.MSEdgeChromium, expected: false },
+            { browser: browsers.Opera, expected: false },
+            { browser: browsers.Brave, expected: false },
+            { browser: browsers.MSInternetExplorer, expected: false }
+        ];
+
+        isSupportedIOSBrowserTestCases.forEach(test => {
+            it(`should return ${test.expected} when browser is ${test.browser}`, () => {
+                spyOn(service, 'isIOS').and.returnValue(true);
+                deviceDetectorService.isDesktop.and.returnValue(false);
+                deviceDetectorService.browser = test.browser;
+                expect(service.isSupportedBrowser()).toBe(test.expected);
+            });
+        });
+
     });
 });
