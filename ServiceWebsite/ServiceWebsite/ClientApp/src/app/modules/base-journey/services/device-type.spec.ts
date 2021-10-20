@@ -115,7 +115,7 @@ describe('DeviceType', () => {
             const iosList = [OS.IOS, OS.MAC];
             const nonIosList = Object.keys(OS).filter(os => !iosList.includes(os));
             nonIosList.forEach(os => {
-                it(`should return false when browser is ${os}`, () => {
+                it(`should return false when os is ${os}`, () => {
                     deviceDetectorService.os = os;
                     deviceDetectorService.isDesktop.and.returnValue(false);
                     expect(service.isIOS()).toBe(false);
@@ -124,7 +124,7 @@ describe('DeviceType', () => {
             it('should return false when not IOS', () => {
                 deviceDetectorService.os = OS.ANDROID;
                 deviceDetectorService.isDesktop.and.returnValue(true);
-                expect(service.isIOS()).toBe(true);
+                expect(service.isIOS()).toBe(false);
             });
 
             it('should return true when IOS is true', () => {
@@ -141,7 +141,7 @@ describe('DeviceType', () => {
             it('should return false when mac is true and is desktop', () => {
                 deviceDetectorService.os = OS.MAC;
                 deviceDetectorService.isDesktop.and.returnValue(true);
-                expect(service.isIOS).toBe(true);
+                expect(service.isIOS).toBe(false);
             });
         });
 
