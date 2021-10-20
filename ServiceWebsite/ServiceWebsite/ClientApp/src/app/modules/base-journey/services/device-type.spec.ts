@@ -121,11 +121,6 @@ describe('DeviceType', () => {
                     expect(service.isIOS()).toBe(false);
                 });
             });
-            it('should return false when not IOS', () => {
-                deviceDetectorService.os = OS.ANDROID;
-                deviceDetectorService.isDesktop.and.returnValue(true);
-                expect(service.isIOS()).toBe(false);
-            });
 
             it('should return true when IOS is true', () => {
                 deviceDetectorService.os = OS.IOS;
