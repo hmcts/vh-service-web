@@ -59,6 +59,8 @@ describe('DeviceType', () => {
         { isTablet: true, os: 'Mac', browser: 'Firefox', expected: false },
         { isTablet: false, os: 'Mac', browser: 'Chrome', expected: false },
         { isTablet: false, os: 'Mac', browser: 'Firefox', expected: false },
+        { isTablet: true, os: 'ios', browser: 'Safari', expected: true },
+        { isTablet: true, os: 'ios', browser: 'Chrome', expected: false },
         { isTablet: false, os: 'Windows', browser: 'Firefox', expected: false },
         { isTablet: false, os: 'Windows', browser: 'Chrome', expected: false },
         { isTablet: false, os: 'Windows', browser: 'MS-Edge-Chromium', expected: false }
@@ -106,5 +108,16 @@ describe('DeviceType', () => {
             deviceDetectorService.browser = test.browser;
             expect(service.isSupportedBrowser()).toBe(test.expected);
         });
+    });
+
+    it('should return whether the OS is iOS', () => {
+        deviceDetectorService.os = 'ios';
+        expect(service.isIOS()).toBe(true);
+
+        deviceDetectorService.os = 'mac';
+        expect(service.isIOS()).toBe(true);
+
+        deviceDetectorService.os = 'android';
+        expect(service.isIOS()).toBe(false);
     });
 });
