@@ -49,11 +49,11 @@ export class DeviceType {
             browsers.Samsung
         ];
         const browser = this.deviceDetectorService.browser;
-        this.logger.debug(`${this.loggerPrefix} browser: ${browser}, os: ${this.deviceDetectorService.os}`);
+        this.logger.info(`${this.loggerPrefix} browser: ${browser}, os: ${this.deviceDetectorService.os}`);
         const supportedIOSBrowsers = [browsers.Safari];
 
         if (this.isIOS()) {
-            this.logger.debug(`${this.loggerPrefix} is iOS device`);
+            this.logger.info(`${this.loggerPrefix} is iOS device`);
             return supportedIOSBrowsers.findIndex(x => x.toUpperCase() === browser.toUpperCase()) > -1;
         }
         return supportedBrowsers.findIndex(x => x.toUpperCase() === browser.toUpperCase()) > -1;
