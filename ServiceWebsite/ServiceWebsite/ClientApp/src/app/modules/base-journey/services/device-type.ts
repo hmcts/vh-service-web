@@ -49,7 +49,7 @@ export class DeviceType {
             browsers.Samsung
         ];
         const browser = this.deviceDetectorService.browser;
-        this.logger.debug(`${this.loggerPrefix} browser used: ${browser}`);
+        this.logger.debug(`${this.loggerPrefix} browser: ${browser}, os: ${this.deviceDetectorService.os}`);
         const supportedIOSBrowsers = [browsers.Safari];
 
         if (this.isIOS()) {
