@@ -43,11 +43,15 @@ export class AppInsightsLogger implements LogAdapter {
     }
 
     info(message: string, properties: any = null): void {
-        this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Information }, properties);
+        if (this.appInsights) {
+            this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Information }, properties);
+        }
     }
 
     warn(message: string, properties: any = null): void {
-        this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Warning }, properties);
+        if (this.appInsights) {
+            this.appInsights.trackTrace({ message, severityLevel: SeverityLevel.Warning }, properties);
+        }
     }
 
     trackPage(pageName: string, url: string) {
@@ -57,10 +61,15 @@ export class AppInsightsLogger implements LogAdapter {
     }
 
     trackEvent(eventName: string, properties: any) {
-        this.appInsights.trackEvent({ name: eventName }, properties);
+        if (this.appInsights) {
+            this.appInsights.trackEvent({ name: eventName }, properties);
+        }
     }
 
     trackException(message: string, err: Error, properties: any) {
+        if (!this.appInsights) {
+            return;
+        }
         properties = properties || {};
         properties.message = message;
 
