@@ -1,6 +1,5 @@
 import { DeviceType } from './device-type';
 import { DeviceDetectorService, OS } from 'ngx-device-detector';
-import { DetectIPadService } from './detect-i-pad.service';
 import { browsers } from 'src/app/browser.constants';
 import { Logger } from 'src/app/services/logger';
 

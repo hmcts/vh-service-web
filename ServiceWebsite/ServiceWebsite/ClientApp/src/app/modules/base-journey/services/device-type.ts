@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DeviceDetectorService, OS } from 'ngx-device-detector';
 import { browsers } from 'src/app/browser.constants';
 import { Logger } from 'src/app/services/logger';
-import { DetectIPadService } from './detect-i-pad.service';
 
 @Injectable({
     providedIn: 'root'
