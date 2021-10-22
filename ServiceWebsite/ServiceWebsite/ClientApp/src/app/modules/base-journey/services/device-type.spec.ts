@@ -2,19 +2,20 @@ import { DeviceType } from './device-type';
 import { DeviceDetectorService, OS } from 'ngx-device-detector';
 import { DetectIPadService } from './detect-i-pad.service';
 import { browsers } from 'src/app/browser.constants';
+import { Logger } from 'src/app/services/logger';
 
 describe('DeviceType', () => {
     let service: DeviceType;
     let deviceDetectorService: jasmine.SpyObj<DeviceDetectorService>;
-    let deviceIpadService: jasmine.SpyObj<DetectIPadService>;
+    let loggerSpy: jasmine.SpyObj<Logger>;
 
     beforeAll(() => {
         deviceDetectorService = jasmine.createSpyObj<DeviceDetectorService>('DeviceDetectorService', ['isMobile', 'isTablet', 'isDesktop']);
-        deviceIpadService = jasmine.createSpyObj<DetectIPadService>('DetectIPadService', ['detectiPad']);
+        loggerSpy = jasmine.createSpyObj<Logger>('Logger', ['debug']);
     });
 
     beforeEach(() => {
-        service = new DeviceType(deviceDetectorService, deviceIpadService);
+        service = new DeviceType(deviceDetectorService, loggerSpy);
     });
 
     const isMobileTestCases = [
