@@ -11,7 +11,7 @@ describe('DeviceType', () => {
 
     beforeAll(() => {
         deviceDetectorService = jasmine.createSpyObj<DeviceDetectorService>('DeviceDetectorService', ['isMobile', 'isTablet', 'isDesktop']);
-        loggerSpy = jasmine.createSpyObj<Logger>('Logger', ['debug']);
+        loggerSpy = jasmine.createSpyObj<Logger>('Logger', ['debug', 'info']);
     });
 
     beforeEach(() => {
