@@ -28,7 +28,7 @@ export class AppInsightsLogger implements LogAdapter {
                 this.appInsights.loadAppInsights();
                 oidcSecurityService.userData$.subscribe(ud => {
                     this.appInsights.addTelemetryInitializer((envelope: ITelemetryItem) => {
-                        envelope.tags['ai.cloud.role'] = 'vh-video-web';
+                        envelope.tags['ai.cloud.role'] = 'vh-service-web';
                         envelope.tags['ai.user.id'] = ud.preferred_username.toLowerCase();
                     });
                 });
