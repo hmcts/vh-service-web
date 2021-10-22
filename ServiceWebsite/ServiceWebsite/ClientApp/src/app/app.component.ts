@@ -48,6 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.checkBrowser();
         this.configService.getClientSettings().subscribe({
             next: async () => {
                 this.postConfigSetup();
@@ -77,7 +78,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     private async postAuthSetup(loggedIn: boolean) {
         this.loggedIn = loggedIn;
-        this.checkBrowser();
     }
 
     checkAuth() {
