@@ -94,8 +94,10 @@ export class AppComponent implements OnInit, OnDestroy {
         if (!this.deviceTypeService.isSupportedBrowser()) {
             this.logger.warn('[AppComponent] - Browser not supported, going to unsupported page');
             this.router.navigateByUrl(Paths.UnsupportedBrowser);
+        } else {
+            this.logger.info('[AppComponent] - Browser supported');
         }
-        this.logger.info('[AppComponent] - Browser supported');
+
     }
 
     skipToContent() {
