@@ -40,7 +40,7 @@ export class DeviceType {
     isSupportedBrowser(): boolean {
         this.logger.debug(`${this.loggerPrefix} checking if is supported browser`);
         const supportedBrowsers = [
-            // browsers.Firefox,
+            browsers.Firefox,
             browsers.Safari,
             browsers.Chrome,
             browsers.MSEdge,
