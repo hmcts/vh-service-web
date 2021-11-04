@@ -92,7 +92,7 @@ describe('DeviceType', () => {
     });
 
     const isSupportedBrowserTestCases = [
-        { browser: browsers.Firefox, expected: true },
+        // { browser: browsers.Firefox, expected: true },
         { browser: browsers.Safari, expected: true },
         { browser: browsers.Chrome, expected: true },
         { browser: browsers.MSEdge, expected: true },
