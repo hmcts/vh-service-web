@@ -31,7 +31,7 @@
     "core-js": "^2.5.4",
     "govuk-frontend": "^3.9.1",
     "ng-bullet": "latest",
-    "ngx-device-detector": "^1.5.2",
+    "ngx-device-detector": "^2.0.5",
     "prettify": "^0.1.7",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.2",
