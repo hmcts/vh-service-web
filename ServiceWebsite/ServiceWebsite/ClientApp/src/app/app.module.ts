@@ -4,7 +4,6 @@ import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { DeviceDetectorModule } from 'ngx-device-detector';
 import { AppRoutingModule } from './app-routing.module';
 // core
 import { AppComponent } from './app.component';
@@ -72,7 +71,6 @@ export function loadConfig(configService: ConfigService) {
         SelfTestJourneyModule,
         AppRoutingModule,
         SharedModule,
-        DeviceDetectorModule.forRoot(),
         AuthConfigModule
     ],
     providers: [
