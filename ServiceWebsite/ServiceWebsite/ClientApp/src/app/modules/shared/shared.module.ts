@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DeviceDetectorModule } from 'ngx-device-detector';
 
 // components
 import { FooterComponent } from './footer/footer.component';
@@ -26,7 +25,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderLogoSvgComponent } from './header-logo-svg/header-logo-svg.component';
 
 @NgModule({
-    imports: [CommonModule, ReactiveFormsModule, FormsModule, DeviceDetectorModule.forRoot(), RouterModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
     declarations: [
         FooterComponent,
         HeaderComponent,

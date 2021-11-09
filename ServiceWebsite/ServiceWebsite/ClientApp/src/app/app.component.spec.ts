@@ -99,10 +99,27 @@ describe('AppComponent', () => {
         fixture.detectChanges();
     });
 
+    it('should be created', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('should call checkBrowser on init', () => {
+        spyOn(component, 'checkBrowser');
+        component.ngOnInit();
+        expect(component.checkBrowser).toHaveBeenCalledTimes(1);
+    });
+
     it('should navigate to unsupported browser page if browser is not compatible', () => {
         deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(false);
         component.checkBrowser();
         expect(router.navigateByUrl).toHaveBeenCalledWith(Paths.UnsupportedBrowser);
+    });
+
+    it('should not navigate to unsupported browser page if browser is compatible', () => {
+        router.navigateByUrl.calls.reset();
+        deviceTypeServiceSpy.isSupportedBrowser.and.returnValue(true);
+        component.checkBrowser();
+        expect(router.navigateByUrl).not.toHaveBeenCalledWith(Paths.UnsupportedBrowser);
     });
 
     it('unsubcribes from event service on destroy', () => {
