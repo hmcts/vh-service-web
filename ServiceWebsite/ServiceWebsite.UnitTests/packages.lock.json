@@ -48,9 +48,9 @@
       },
       "NUnit": {
         "type": "Direct",
-        "requested": "[3.12.0, )",
-        "resolved": "3.12.0",
-        "contentHash": "3oJTrcUcT9wmweBUwgUf0f1XIYy6RZq2ziV+RM95HMKAJGsHPN2i3MKK1dAPvDPMRLz799Llj4eyu/STB9Q7OA==",
+        "requested": "[3.13.2, )",
+        "resolved": "3.13.2",
+        "contentHash": "u+fz/lXyR4vlamySNAEMrXvh+GhAQiB6/aVZtU5WjivR5zF26Ui0tfteDtWqT90k9D8y6g8rFKYQC97Z7d195w==",
         "dependencies": {
           "NETStandard.Library": "2.0.0"
         }
@@ -80,8 +80,8 @@
       },
       "BookingsApi.Client": {
         "type": "Transitive",
-        "resolved": "1.24.27",
-        "contentHash": "7NZEu2uo7fiMlACYpUc+HQv6qYLWb8dGh2k4Gtns81a+GB8uuILr9FsAPY905GlRECyCM67Hkx+I0OLRomYVtw==",
+        "resolved": "1.28.5",
+        "contentHash": "Wi+qqFFmMfjtm5DdH4x3Ej10ALiH0saYYPzD7y+zyVIEjKgl9tVXDwGyHVBZAzWb+3WOIxq6OP3ToDkcrCBZlQ==",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Newtonsoft.Json": "12.0.3"
@@ -2411,8 +2411,8 @@
       },
       "UserApi.Client": {
         "type": "Transitive",
-        "resolved": "1.27.0",
-        "contentHash": "yweSY3MRExJF/WaBMdn4AgpxHtVQzmvku/AkURww8kAJug8bMPqPgXuPcIu5BOs9aSgSX+BmQKusofwtRsGLJA==",
+        "resolved": "1.27.1",
+        "contentHash": "wLtw+Jo5s8IHLryGhCttblNtm4vAXH4EuEDyTnAncrXBO5Tz1os948Ba5vdjJbXxZiXjntu7p0MJQ9ITVBpadw==",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Newtonsoft.Json": "12.0.3"
@@ -2450,7 +2450,7 @@
           "Swashbuckle.AspNetCore.Annotations": "5.6.3",
           "Swashbuckle.AspNetCore.Newtonsoft": "5.6.3",
           "Swashbuckle.AspNetCore.Swagger": "5.6.3",
-          "UserApi.Client": "1.27.0",
+          "UserApi.Client": "1.27.1",
           "VH.Core.Configuration": "0.1.13"
         }
       },
@@ -2473,7 +2473,7 @@
       "servicewebsite.services": {
         "type": "Project",
         "dependencies": {
-          "BookingsApi.Client": "1.24.27",
+          "BookingsApi.Client": "1.28.5",
           "Polly": "7.2.1",
           "ServiceWebsite.Common": "1.0.0",
           "ServiceWebsite.Domain": "1.0.0"

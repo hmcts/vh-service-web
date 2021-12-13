@@ -58,7 +58,7 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
-    <PackageReference Include="UserApi.Client" Version="1.27.0" />
+    <PackageReference Include="UserApi.Client" Version="1.27.1" />
     <PackageReference Include="VH.Core.Configuration" Version="0.1.13" />
   </ItemGroup>
 
