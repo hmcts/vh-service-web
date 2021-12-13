@@ -109,6 +109,8 @@
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish" Condition=" '$(PublishRunWebpack)' == 'true' ">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="node -v" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm -v" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm cache clean --force" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
