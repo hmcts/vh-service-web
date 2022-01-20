@@ -202,7 +202,7 @@ stages:
 
           # AzureAd
           - name: AzureAd:Authority
-            value: this-is-a-test-value
+            value: Authority
             secret: true
           - name: AzureAd:BaseVideoUrl
             value: $(video_blob_url)
