@@ -275,6 +275,9 @@ stages:
 
         acceptanceTestSettings:
           # AzureAd
+          - name: AzureAd:Authority
+            value: Authority
+            secret: true
           - name: AzureAd:AppInsightsKey
             value: vh-core-infra-AppInsightsKey
             secret: true
