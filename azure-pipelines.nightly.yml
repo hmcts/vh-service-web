@@ -289,6 +289,18 @@ stages:
           - name: AzureAd:ClientSecret
             value: vh-service-web-key-v2
             secret: true
+          - name: AzureAd:PostLogoutRedirectUri
+            slot:
+              deployment:
+                value: $(service_web_url_staging)logout
+              active:
+                value: $(service_web_url)logout
+          - name: AzureAd:RedirectUri
+            slot:
+              deployment:
+                value: $(service_web_url_staging)home
+              active:
+                value: $(service_web_url)home
           - name: AzureAd:TenantId
             value: tenantid
             secret: true
