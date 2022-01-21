@@ -201,9 +201,6 @@ stages:
             value: $(IsLive)
 
           # AzureAd
-          - name: AzureAd:Authority
-            value: Authority
-            secret: true
           - name: AzureAd:BaseVideoUrl
             value: $(video_blob_url)
           - name: AzureAd:ClientId
