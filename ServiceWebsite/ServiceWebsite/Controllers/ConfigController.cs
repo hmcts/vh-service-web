@@ -43,7 +43,8 @@ namespace ServiceWebsite.Controllers
                 BaseVideoUrl = _securitySettings.BaseVideoUrl,
                 PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri,
                 KinlySelfTestScoreEndpointUrl = _serviceSettings.KinlySelfTestScoreEndpointUrl,
-                EnableMobileSupport = _serviceSettings.EnableMobileSupport
+                EnableMobileSupport = _serviceSettings.EnableMobileSupport,
+                Authority = _securitySettings.Authority
             };
 
             return Json(config);
