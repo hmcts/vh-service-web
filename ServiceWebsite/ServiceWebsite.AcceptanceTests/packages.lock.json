@@ -169,9 +169,9 @@
       },
       "Selenium.WebDriver.ChromeDriver": {
         "type": "Direct",
-        "requested": "[96.0.4664.4500, )",
-        "resolved": "96.0.4664.4500",
-        "contentHash": "7bH+2/bX4IqPXxnMsbD820pCb1DFLeESIbjpUL/Zgq5wfKJHTxtknrQ1wnlMJmWtbpoNcj6Zck7OfoIVstl3zQ=="
+        "requested": "[97.0.4692.7100, )",
+        "resolved": "97.0.4692.7100",
+        "contentHash": "/5wf4Rv9vTmab2qWo3enuYLoumOyVb6+rO0f2hbym+MQzDGYb7GpadhWk/jgNtUf6eFvsqL90TyzXrcCfOhCyQ=="
       },
       "Selenium.WebDriver.IEDriver": {
         "type": "Direct",
@@ -245,9 +245,9 @@
       },
       "VH.AcceptanceTests.Common": {
         "type": "Direct",
-        "requested": "[1.21.63, )",
-        "resolved": "1.21.63",
-        "contentHash": "Y8LjGHaytemUX8i6q7IcJnhCngI0G5tC6MC74ybxrG6tplLY4NjKwkWGrkA0q4g4wTCKX+7xyITN4BrMjj5WsQ==",
+        "requested": "[1.21.64, )",
+        "resolved": "1.21.64",
+        "contentHash": "Nr4an9YakJsaYyHTeqpRS05XHvMqmTN+KkMKbWxtuCpUtH1Q5H8Esq41huD2nQBnyJec/hBakWFb8+5thUtOFA==",
         "dependencies": {
           "Appium.WebDriver": "4.3.1",
           "Azure.Storage.Blobs": "12.8.0",
@@ -276,12 +276,12 @@
           "Selenium.Firefox.WebDriver": "0.27.0",
           "Selenium.Support": "3.141.0",
           "Selenium.WebDriver": "3.141.0",
-          "Selenium.WebDriver.ChromeDriver": "96.0.4664.4500",
+          "Selenium.WebDriver.ChromeDriver": "97.0.4692.7100",
           "Selenium.WebDriver.IEDriver": "3.150.1.2",
           "Selenium.WebDriver.MicrosoftDriver": "17.17134.0",
-          "SpecFlow": "3.6.23",
-          "SpecFlow.NUnit": "3.6.23",
-          "SpecFlow.Tools.MsBuild.Generation": "3.6.23",
+          "SpecFlow": "3.9.40",
+          "SpecFlow.NUnit": "3.9.40",
+          "SpecFlow.Tools.MsBuild.Generation": "3.9.40",
           "System.Collections": "4.3.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "TimeZoneConverter": "3.4.0"
