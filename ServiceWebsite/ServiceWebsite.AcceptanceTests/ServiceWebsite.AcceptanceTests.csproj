@@ -59,7 +59,7 @@
     <PackageReference Include="SpecFlow" Version="3.9.40" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.40" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.40" />
-    <PackageReference Include="TestApi.Client" Version="1.27.1" />
+    <PackageReference Include="TestApi.Client" Version="1.29.2" />
     <PackageReference Include="UserApi.Client" Version="1.27.1" />
     <PackageReference Include="VH.AcceptanceTests.Common" Version="1.21.64" />
   </ItemGroup>
