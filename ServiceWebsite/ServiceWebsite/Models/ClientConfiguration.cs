@@ -28,6 +28,7 @@
         /// Gets or sets the Pexip node uri for self testing.
         /// </summary>
         public string PexipSelfTestNodeUri { get; set; }
+        public string Authority { get; set; }
 
         /// <summary>
         /// Gets or sets the Kinly endpoint where we get the participant self test score.

@@ -12,8 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BookingsApi.Client" Version="1.24.27" />
+    <PackageReference Include="BookingsApi.Client" Version="1.29.1" />
     <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="97.0.4692.7100" />
+    <PackageReference Include="TestApi.Client" Version="1.29.2" />
+    <PackageReference Include="UserApi.Client" Version="1.27.1" />
   </ItemGroup>
 
 </Project>
