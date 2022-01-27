@@ -44,7 +44,7 @@ namespace ServiceWebsite.Controllers
                 PexipSelfTestNodeUri = _serviceSettings.PexipSelfTestNodeUri,
                 KinlySelfTestScoreEndpointUrl = _serviceSettings.KinlySelfTestScoreEndpointUrl,
                 EnableMobileSupport = _serviceSettings.EnableMobileSupport,
-                Authority = _securitySettings.Authority
+                Authority = _securitySettings.Authority + _securitySettings.TenantId
             };
 
             return Json(config);
