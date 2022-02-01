@@ -202,8 +202,7 @@ stages:
 
           # AzureAd
           - name: AzureAd:Authority
-            value: Authority
-            secret: true
+            value: $(Authority)
           - name: AzureAd:BaseVideoUrl
             value: $(video_blob_url)
           - name: AzureAd:ClientId
@@ -276,8 +275,7 @@ stages:
         acceptanceTestSettings:
           # AzureAd
           - name: AzureAd:Authority
-            value: Authority
-            secret: true
+            value: $(Authority)
           - name: AzureAd:AppInsightsKey
             value: vh-core-infra-AppInsightsKey
             secret: true
