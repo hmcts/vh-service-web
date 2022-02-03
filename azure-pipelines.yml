@@ -220,6 +220,8 @@ variables:
   - group: Saucelabs
   - group: vh-wowza-dev
   - group: KinlyConfiguration_Test
+  - name: nodeVersion
+    value: '14.x' 
 
 trigger:
   branches:
@@ -263,7 +265,7 @@ extends:
   parameters:
     coreProjectPath: ServiceWebsite/ServiceWebsite
     nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
-    nodeVersion: '14.x'
+    nodeVersion: $(nodeVersion)
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     packageManagers:
