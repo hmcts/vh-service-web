@@ -261,6 +261,7 @@ resources:
 extends:
   template: stages\dotnet-package.yml@templates
   parameters:
+    buildConfiguration: Debug
     coreProjectPath: ServiceWebsite/ServiceWebsite
     nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
     PackageApp: ${{ parameters.PackageApp }}
