@@ -261,7 +261,6 @@ resources:
 extends:
   template: stages\dotnet-package.yml@templates
   parameters:
-    buildConfiguration: Debug
     coreProjectPath: ServiceWebsite/ServiceWebsite
     nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
     nodeVersion: '14.x'
