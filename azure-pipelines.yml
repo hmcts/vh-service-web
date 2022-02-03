@@ -263,6 +263,7 @@ extends:
   parameters:
     coreProjectPath: ServiceWebsite/ServiceWebsite
     nodeProjectPath: ServiceWebsite/ServiceWebsite/ClientApp
+    nodeVersion: '14.x'
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     packageManagers:
