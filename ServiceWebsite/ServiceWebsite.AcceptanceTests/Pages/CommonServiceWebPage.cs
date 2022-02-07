@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AcceptanceTests.Common.PageObject.Helpers;
+using OpenQA.Selenium;
 
 namespace ServiceWebsite.AcceptanceTests.Pages
 {
@@ -11,5 +12,6 @@ namespace ServiceWebsite.AcceptanceTests.Pages
         public static By ScheduledDate = By.Id("scheduledDate");
         public static By ScheduledTime = By.Id("scheduledTime");
         public static By ScheduledDateTime = By.Id("scheduledDateTime");
+        public static By NoHearingsWarningMessage = CommonLocators.ElementContainingText("You do not have a video hearing today");
     }
 }

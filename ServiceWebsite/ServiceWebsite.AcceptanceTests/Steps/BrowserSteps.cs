@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
+using AcceptanceTests.Common.Driver.Helpers;
+using FluentAssertions;
 using ServiceWebsite.AcceptanceTests.Helpers;
 using ServiceWebsite.AcceptanceTests.Pages;
 using TechTalk.SpecFlow;
@@ -96,7 +98,15 @@ namespace ServiceWebsite.AcceptanceTests.Steps
         [Then(@"the user is on the (.*) page")]
         public void ThenTheUserIsOnThePage(string page)
         {
-            _browsers[_c.CurrentUser].PageUrl(Page.FromString(page).Url);
+            try
+            {
+                _browsers[_c.CurrentUser].Driver.WaitUntilVisible(CommonServiceWebPage.NoHearingsWarningMessage).Displayed.Should().BeFalse();
+                _browsers[_c.CurrentUser].PageUrl(Page.FromString(page).Url);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No video hearings booked for today");
+            }
         }
 
         [Then(@"the user is not on the (.*) page")]
