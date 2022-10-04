@@ -24,6 +24,11 @@ parameters:
   type: boolean
   default: false
 
+- name: runACTests
+  displayName: Run Smoke Checks
+  type: boolean
+  default: true
+
 - name: prodEnvs
   displayName: Environments Using Prod Subscription
   type: object
@@ -86,6 +91,7 @@ stages:
         appName: vh-service-web-$(environment)
         resourceGroup: vh-service-web-$(environment)
         testCaseFilter: TestCategory=smoketest
+        runACTests: ${{ parameters.runACTests }}
         dependentApps:
         - name: vh-user-api-$(environment)
           resourceGroup: vh-user-api-$(environment)
