@@ -17,7 +17,7 @@
     <ProjectGuid>6c5fe5cb-6261-4890-8a70-b6fce1d3b02b</ProjectGuid>
   </PropertyGroup>
 
-  <Target Name="AssemblyVersionAttributes" BeforeTargets="BeforeBuild" Condition=" '$(Configuration)' != 'Debug' ">
+  <Target Name="AssemblyVersionAttributes" BeforeTargets="BeforeBuild" Condition=" '$(Configuration)' != 'Stuffed' ">
     <PropertyGroup>
       <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
       <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
